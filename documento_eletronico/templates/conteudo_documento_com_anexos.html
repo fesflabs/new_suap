@@ -1,0 +1,12 @@
+{% include 'documento_eletronico/templates/conteudo_documento.html' with documento=documento %}
+
+{% if documento.possui_anexos %}
+    {% for documento_anexo in anexos_do_documento %}
+        <h4>Anexo #{{ forloop.counter }} do(a) {{ documento }}</h4>
+        {% if documento_anexo.eh_documento_texto %}
+            {% include 'documento_eletronico/templates/conteudo_documento.html' with documento=documento_anexo  %}
+        {% else %}
+            <iframe width="100%" height="800px" src="/documento_eletronico/visualizar_documento_digitalizado/{{ documento_anexo.pk }}/#view=FitH&toolbar=0"></iframe>
+        {% endif %}
+    {% endfor %}
+{% endif %}

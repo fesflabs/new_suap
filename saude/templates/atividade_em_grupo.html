@@ -1,0 +1,45 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <table class="info">
+        <tbody>
+            <tr>
+                <td>Tipo</td><td>{{ atividade.tipo }}</td>
+                <td>Tema:</td><td>{{ atividade.tema }}</td>
+            </tr>
+            <tr>
+                <td>Solicitante</td>
+                <td>{{ atividade.solicitante|format }}</td>
+                <td>Período</td>
+                <td>{{ atividade.data_inicio|format }} à {{ atividade.data_termino|format }}</td>
+            </tr>
+            <tr>
+                <td>Turno</td><td>{{ atividade.get_turno_display }}</td>
+                <td>Nº de Participantes</td><td>{{ atividade.num_participantes }}</td>
+            </tr>
+            <tr>
+                <td>Motivo</td><td colspan="3">{{ atividade.motivo }}</td>
+            </tr>
+            <tr>
+                <td>Detalhamento</td><td colspan="3">{{ atividade.detalhamento }}</td>
+            </tr>
+            {% if atividade.anexo %}
+                <tr>
+                    <td>Público-Alvo</td><td colspan="3">{{ atividade.publico_alvo }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>Responsáveis</td>
+                <td colspan="3">{{ atividade.vinculos_responsaveis.all|format|safe }}</td>
+            </tr>
+            {% if atividade.anexo %}
+                <tr>
+                    <td>Anexo</td>
+                    <td colspan="3"><a href="{{ atividade.anexo.url }}">Ver anexo</a></td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

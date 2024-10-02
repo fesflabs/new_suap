@@ -1,0 +1,20 @@
+<div class="clearable_file_input">
+    <p>{% if widget.is_initial %}{{ widget.initial_text }}: <a href="{{ widget.value.url }}">{{ widget.value }}</a> {% if not widget.required %}
+        <input type="checkbox" autocomplete="off" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+        <b>{{ widget.clear_checkbox_label }}</b>{% endif %}
+    </p>
+    <p>
+        {{ widget.input_text }}:{% endif %}
+        <input type="{{ widget.type }}" name="{{ widget.name }}" autocomplete="off"
+            {% include "django/forms/widgets/attrs.html" %}
+            {% if widget.type == 'file' %}accept="{{ widget.extensions|join:',' }}" onchange="Filevalidation('id_{{ widget.name }}', {{ widget.max_file_size }}, {{ widget.mimetypes|default_if_none:'null' }}, {{ widget.extensions|default_if_none:'null' }})"{% endif %}>
+    </p>
+</div>
+
+{% if widget.attrs.multiple == 'multiple' %}
+    <p id="id_{{ widget.name }}_is_multiple" class="help">É possível selecionar mais de um arquivo utilizando o Ctrl+Clique</p>
+{% endif %}
+<p id="id_{{ widget.name }}_max_file_size" class="help">Tamanho máximo permitido: <strong>{{ widget.friendly_max_file_size }}</strong><span id="id_{{ widget.name }}_size"></span></p>
+{% if widget.extensions %}
+    <p id="id_{{ widget.name }}_filetypes" class="help">Os tipos de arquivos permitidos são: {{ widget.extensions_display }}</p>
+{% endif %}

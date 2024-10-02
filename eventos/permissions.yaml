@@ -1,0 +1,115 @@
+Aluno:
+  app_manager: edu
+  eventos:
+    evento:
+    - change_evento
+    - view_evento
+Comunicador Social:
+  eventos:
+    atendimentopublico:
+    - add_atendimentopublico
+    - view_atendimentopublico
+    - change_atendimentopublico
+Coordenador de Comunicação:
+  eventos:
+    evento:
+    - add_evento
+    - view_evento
+    - change_evento
+Coordenador de Comunicação Sistêmico:
+  eventos:
+    assuntoatendimento:
+    - add_assuntoatendimento
+    - view_assuntoatendimento
+    - change_assuntoatendimento
+    atendimentopublico:
+    - add_atendimentopublico
+    - view_atendimentopublico
+    - change_atendimentopublico
+    banner:
+    - add_banner
+    - change_banner
+    - view_banner
+    - delete_banner
+    classificacaoevento:
+    - add_classificacaoevento
+    - change_classificacaoevento
+    - view_classificacaoevento
+    tipoparticipacao:
+    - add_tipoparticipacao
+    - change_tipoparticipacao
+    - view_tipoparticipacao
+    dimensao:
+    - add_dimensao
+    - change_dimensao
+    - view_dimensao
+    tipoatividade:
+    - add_tipoatividade
+    - change_tipoatividade
+    - view_tipoatividade
+    evento:
+    - add_evento
+    - view_evento
+    - change_evento
+    motivoatendimento:
+    - add_motivoatendimento
+    - view_motivoatendimento
+    - change_motivoatendimento
+    natureza:
+    - add_natureza
+    - change_natureza
+    - view_natureza
+    espacialidade:
+    - add_espacialidade
+    - change_espacialidade
+    - view_espacialidade
+    publicoalvoevento:
+    - add_publicoalvoevento
+    - change_publicoalvoevento
+    - view_publicoalvoevento
+    publicoatendimento:
+    - add_publicoatendimento
+    - view_publicoatendimento
+    - change_publicoatendimento
+    situacaoatendimento:
+    - add_situacaoatendimento
+    - view_situacaoatendimento
+    - change_situacaoatendimento
+    tipoatendimento:
+    - add_tipoatendimento
+    - view_tipoatendimento
+    - change_tipoatendimento
+    tipoevento:
+    - add_tipoevento
+    - change_tipoevento
+    - view_tipoevento
+    subtipoevento:
+    - add_subtipoevento
+    - change_subtipoevento
+    - view_subtipoevento
+    atividadeevento:
+    - delete_atividadeevento
+Prestador de Serviço:
+  app_manager: comum
+  eventos:
+    evento:
+    - change_evento
+    - view_evento
+Servidor:
+  app_manager: rh
+  eventos:
+    evento:
+    - add_evento
+    - change_evento
+    - view_evento
+    participante:
+    - add_participante
+    - delete_participante
+    tipoparticipante:
+    - add_tipoparticipante
+    - change_tipoparticipante
+    - view_tipoparticipante
+    atividadeevento:
+    - add_atividadeevento
+    - change_atividadeevento
+    - view_atividadeevento

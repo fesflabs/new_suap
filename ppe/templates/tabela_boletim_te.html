@@ -1,0 +1,147 @@
+{% load tags %}
+
+<table class="borda" summary="Boletim do Aluno">
+    <thead>
+    <tr>
+
+            <th id="th_diario" rowspan="2">Curso</th>
+            <th id="th_disciplina" rowspan="2">Disciplina</th>
+            <th id="th_ch" rowspan="2" class="text-center">
+                <span class="sr-only">Carga Horária</span>
+                <span aria-hidden="true">C. H.</span>
+            </th>
+        <th id="th_situacao" rowspan="2">Situação</th>
+        {% if matricula_periodo or diario %}
+            {% if max_qtd_avaliacoes > 0 %}
+                <th id="th_n1" colspan="{% if tem_nota_atitudinal %}4{%else%}2{%endif%}" class="text-center">
+                    <span class="sr-only" abbr="N1">Nota da Etapa 1</span>
+                    <span aria-hidden="true">N1</span>
+                </th>
+            {% endif %}
+            {% if max_qtd_avaliacoes > 1 %}
+                <th id="th_n2" colspan="{% if tem_nota_atitudinal %}4{%else%}2{%endif%}" class="text-center">
+                    <span class="sr-only" abbr="N2">Nota da Etapa 2</span>
+                    <span aria-hidden="true">N2</span>
+                </th>
+            {% endif %}
+        {% endif %}
+        <th id="th_md" rowspan="2" class="text-center">
+            <span class="sr-only" abbr="MD">Média da Disciplina</span>
+            <span aria-hidden="true">MD</span>
+        </th>
+        <th id="th_naf" colspan="2" class="text-center">
+            <span class="sr-only" abbr="NAF">Nota da Avaliação Final</span>
+            <span aria-hidden="true">NAF</span>
+        </th>
+        <th id="th_mfd" rowspan="2" class="text-center">
+            <span class="sr-only" abbr="MFD/Conceito">Média Final da Disciplina/Conceito</span>
+            <span aria-hidden="true">MFD/Conceito</span>
+        </th>
+        <th id="th_opcoes" rowspan="2" class="no-print">Opções</th>
+    </tr>
+    <tr>
+        {% if matricula_periodo or diario %}
+            {% if max_qtd_avaliacoes > 0 %}
+                {% if tem_nota_atitudinal %}
+                    <th id="th_n1p" class="text-center">
+                        <span class="sr-only">Prova</span>
+                        <span aria-hidden="true">P</span>
+                    </th>
+                    <th id="th_n1a" class="text-center">
+                        <span class="sr-only">Atitudinal</span>
+                        <span aria-hidden="true">A</span>
+                    </th>
+                {% endif %}
+                <th id="th_n1n" class="text-center">
+                    <span class="sr-only">Nota</span>
+                    <span aria-hidden="true">N</span>
+                </th>
+                <th id="th_n1f" class="text-center">
+                    <span class="sr-only">Falta</span>
+                    <span aria-hidden="true">F</span>
+                </th>
+
+                <th id="th_n3n" class="text-center">
+                    <span class="sr-only">Nota</span>
+                    <span aria-hidden="true">N</span>
+                </th>
+                <th id="th_n3f" class="text-center">
+                    <span class="sr-only">Falta</span>
+                    <span aria-hidden="true">F</span>
+                </th>
+                {% if tem_nota_atitudinal %}
+                    <th id="th_n4p" class="text-center">
+                        <span class="sr-only">Prova</span>
+                        <span aria-hidden="true">P</span>
+                    </th>
+                    <th id="th_n4a" class="text-center">
+                        <span class="sr-only">Atitudinal</span>
+                        <span aria-hidden="true">A</span>
+                    </th>
+                {% endif %}
+                <th id="th_n4n" class="text-center">
+                    <span class="sr-only">Nota</span>
+                    <span aria-hidden="true">N</span>
+                </th>
+                <th id="th_n4f" class="text-center">
+                    <span class="sr-only">Falta</span>
+                    <span aria-hidden="true">F</span>
+                </th>
+            {% endif %}
+        {% endif %}
+        <th id="th_nafn" class="text-center">
+            <span class="sr-only">Nota</span>
+            <span aria-hidden="true">N</span>
+        </th>
+        <th id="th_naff" class="text-center">
+            <span class="sr-only">Falta</span>
+            <span aria-hidden="true">F</span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for matricula_diario in matriculas_curso_turma %}
+        <tr class="{% if not matricula_diario.habilitada %}disabled{% endif %}">
+
+                <td headers="th_diario" class="text-center">
+                    {% if  request.GET.tab == "boletim" and perms.ppe.view_cursoturma%}
+                        <a href='/ppe/curso_turma/{{ matricula_diario.curso_turma.id }}/'>{{ matricula_diario.curso_turma.id }}</a>
+                    {% else %}
+                        {{ matricula_diario.curso_turma.id }}
+                    {% endif %}
+                </td>
+                <td headers="th_disciplina" title="{{ matricula_diario.curso_turma.get_professores_display|format }}">
+                    {{ matricula_diario.curso_turma.curso_formacao.curso.codigo }}
+                    - {{ matricula_diario.curso_turma.curso_formacao.curso.descricao_historico }}</td>
+                <td headers="th_ch" class="text-center">{{ matricula_diario.curso_turma.get_carga_horaria_cumprida }}</td>
+                <td headers="th_situacao"><span class="status status-{{ matricula_diario.get_situacao_diario_boletim.status }}">{{ matricula_diario.get_situacao_diario_boletim.rotulo }}</span></td>
+                <td headers="th_md" class="text-center">{{ matricula_diario.get_media_disciplina_boletim|format }}</td>
+                <td headers="th_n1n" class="text-center">{{ matricula_diario.get_nota_final_boletim|format }}</td>
+                <td headers="th_n1f" class="text-center">{{ matricula_diario.get_numero_faltas_primeira_etapa }}</td>
+                {% if matricula_diario.curso_turma.curso_formacao.qtd_avaliacoes %}
+
+                    <td headers="th_nafn" class="text-center">{{ matricula_diario.get_nota_final_boletim|format }}</td>
+                    <td headers="th_opcoes" class="no-print text-center"><a
+                            href="/ppe/detalhar_matricula_curso_turma_boletim/{{ trabalhadoreducando.pk }}/{{ matricula_diario.pk }}/"
+                            class="btn popup" data-reload-on-close="False">Detalhar</a></td>
+                {% else %}
+                    <td colspan="{% if tem_nota_atitudinal %}20{%else%}13{%endif%}" class="text-center"></td>
+                {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+
+
+        <tfoot>
+        <tr>
+            <td colspan="2">Total:</td>
+            <td headers="th_ch" class="text-center">{{ matricula_periodo.get_carga_horaria }} aulas</td>
+            <td headers="th_total_aulas" class="text-center">{{ matricula_periodo.get_carga_horaria_cumprida }} <span class="sr-only">aulas</span></td>
+            <td headers="th_total_faltas" class="text-center">{{ matricula_periodo.get_total_faltas }} <span class="sr-only">faltas</span></td>
+            <td headers="th_frequencia" class="text-center">{{ matricula_periodo.get_percentual_carga_horaria_frequentada|format }}% <span class="sr-only">de frequência</span></td>
+            <td class="text-center" colspan="{% if tem_nota_atitudinal %}28{%else%}20{%endif%}"></td>
+        </tr>
+        </tfoot>
+
+
+</table>

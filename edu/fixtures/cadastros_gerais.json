@@ -1,0 +1,1525 @@
+[
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Processo Seletivo"
+    },
+    "model": "edu.formaingresso",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Matr\u00edcula Direta"
+    },
+    "model": "edu.formaingresso",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Transfer\u00eancia Externa"
+    },
+    "model": "edu.formaingresso",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Interc\u00e2mbio"
+    },
+    "model": "edu.formaingresso",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "CONVERS\u00c3O"
+    },
+    "model": "edu.formaingresso",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral T\u00e9cnico Subsequente"
+    },
+    "model": "edu.formaingresso",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral Gradua\u00e7\u00e3o Vestibular/ENEM"
+    },
+    "model": "edu.formaingresso",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Interna Medio >T\u00e9cnico"
+    },
+    "model": "edu.formaingresso",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Conv\u00eanio"
+    },
+    "model": "edu.formaingresso",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada Gradua\u00e7\u00e3o Vestibular/ENEM"
+    },
+    "model": "edu.formaingresso",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Transfer\u00eancia de Curso (Interno - mesmo campus)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada P\u00f3s-Gradua\u00e7\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Dif. T\u00e9c. Integrado / PROITEC/ Pr\u00f3-T\u00e9cnico"
+    },
+    "model": "edu.formaingresso",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral T\u00e9cnico Integrado EJA"
+    },
+    "model": "edu.formaingresso",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada T\u00e9cnico Subsequente"
+    },
+    "model": "edu.formaingresso",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral P\u00f3s-Gradua\u00e7\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral T\u00e9cnico Integrado"
+    },
+    "model": "edu.formaingresso",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Ades\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada Gradua\u00e7\u00e3o Plataforma Freire"
+    },
+    "model": "edu.formaingresso",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Sele\u00e7\u00e3o Geral Gradua\u00e7\u00e3o (SiSU)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral Curso FIC"
+    },
+    "model": "edu.formaingresso",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Renda <= 1,5 Qualquer Etnia - (L1)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Renda <= 1,5  Autodeclarados PPI - (L2)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Qualquer Renda / Qualquer Etnia - (L3)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Qualquer Renda / Autodeclarados PPI - (L4)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Reingresso"
+    },
+    "model": "edu.formaingresso",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada Gradua\u00e7\u00e3o SiSU"
+    },
+    "model": "edu.formaingresso",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Convenio"
+    },
+    "model": "edu.formaingresso",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Transfer\u00eancia Facultativa"
+    },
+    "model": "edu.formaingresso",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Transfer\u00eancia Intercampi"
+    },
+    "model": "edu.formaingresso",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Reop\u00e7\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada T\u00e9cnico Integrado EJA"
+    },
+    "model": "edu.formaingresso",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Renova\u00e7\u00e3o por Reprova\u00e7\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Transfer\u00eancia Compuls\u00f3ria"
+    },
+    "model": "edu.formaingresso",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Certifica\u00e7\u00e3o ENEM"
+    },
+    "model": "edu.formaingresso",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Transfer\u00eancia de Turno"
+    },
+    "model": "edu.formaingresso",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Mandado de Seguran\u00e7a"
+    },
+    "model": "edu.formaingresso",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Aluno Especial"
+    },
+    "model": "edu.formaingresso",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Ensino M\u00e9dio"
+    },
+    "model": "edu.formaingresso",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Empresa P\u00f3s-Gradua\u00e7\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Processo Administrativo"
+    },
+    "model": "edu.formaingresso",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Certifica\u00e7\u00e3o de Compet\u00eancia"
+    },
+    "model": "edu.formaingresso",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Reabertura de Matr\u00edcula"
+    },
+    "model": "edu.formaingresso",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o por An\u00e1lise de Curr\u00edculo"
+    },
+    "model": "edu.formaingresso",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Exame de Sele\u00e7\u00e3o"
+    },
+    "model": "edu.formaingresso",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Qualquer Renda / Autodeclarados PPI - L4 (SISU)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Renda <= 1,5  Autodeclarados PPI - L2 (SISU)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Renda <= 1,5 Qualquer Etnia - L1 (SISU)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Qualquer Renda / Qualquer Etnia - L3 (SISU)"
+    },
+    "model": "edu.formaingresso",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Processo Seletivo Simplificado"
+    },
+    "model": "edu.formaingresso",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Sele\u00e7\u00e3o cursos FIC"
+    },
+    "model": "edu.formaingresso",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Interna T\u00e9cnico > Superior"
+    },
+    "model": "edu.formaingresso",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Diferenciada P\u00f3s-Gradua\u00e7\u00e3o Empresa"
+    },
+    "model": "edu.formaingresso",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "descricao": "Ampla Concorr\u00eancia"
+    },
+    "model": "edu.formaingresso",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Renda <= 1,5 Qualquer Etnia - L1"
+    },
+    "model": "edu.formaingresso",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Renda <= 1,5  Autodeclarados PPI - L2"
+    },
+    "model": "edu.formaingresso",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Qualquer Renda / Qualquer Etnia - L3"
+    },
+    "model": "edu.formaingresso",
+    "pk": 57
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Qualquer Renda / Autodeclarados PPI - L4"
+    },
+    "model": "edu.formaingresso",
+    "pk": 58
+  },
+  {
+    "fields": {
+      "ativo": false,
+      "descricao": "Sele\u00e7\u00e3o Geral Gradua\u00e7\u00e3o SiSU"
+    },
+    "model": "edu.formaingresso",
+    "pk": 59
+  },
+  {
+    "fields": {
+      "descricao": "Educa\u00e7\u00e3o"
+    },
+    "model": "edu.areacurso",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Humanidade e Artes"
+    },
+    "model": "edu.areacurso",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Ci\u00eancias Sociais, Neg\u00f3cios e Direito"
+    },
+    "model": "edu.areacurso",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Ci\u00eancias, Matem\u00e1tica e Computa\u00e7\u00e3o"
+    },
+    "model": "edu.areacurso",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "Engenharia, Produ\u00e7\u00e3o e Constru\u00e7\u00e3o"
+    },
+    "model": "edu.areacurso",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Agricultura e Veterin\u00e1ria"
+    },
+    "model": "edu.areacurso",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "descricao": "Sa\u00fade e Bem-estar Social"
+    },
+    "model": "edu.areacurso",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "descricao": "Servi\u00e7os"
+    },
+    "model": "edu.areacurso",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "descricao": "Outros"
+    },
+    "model": "edu.areacurso",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "descricao": "Ci\u00eancias da Natureza"
+    },
+    "model": "edu.areacurso",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "descricao": "Recursos Naturais"
+    },
+    "model": "edu.areacurso",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "descricao": "Gest\u00e3o e Neg\u00f3cios"
+    },
+    "model": "edu.areacurso",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o Industrial"
+    },
+    "model": "edu.areacurso",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "descricao": "Matem\u00e1tica"
+    },
+    "model": "edu.areacurso",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "descricao": "Ci\u00eancias Humanas"
+    },
+    "model": "edu.areacurso",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o Aliment\u00edcia"
+    },
+    "model": "edu.areacurso",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "descricao": "Infraestrutura"
+    },
+    "model": "edu.areacurso",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "descricao": "Controle e Processos Industriais"
+    },
+    "model": "edu.areacurso",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "descricao": "Ambiente, Sa\u00fade e Seguran\u00e7a"
+    },
+    "model": "edu.areacurso",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "descricao": "Hospitalidade e Lazer"
+    },
+    "model": "edu.areacurso",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "descricao": "Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o"
+    },
+    "model": "edu.areacurso",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "descricao": "Apoio Educacional"
+    },
+    "model": "edu.areacurso",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o Cultural e Design"
+    },
+    "model": "edu.areacurso",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "descricao": "Ambiente e Sa\u00fade"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Controle e Processos Industriais"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Desenvolvimento Educacional e Social"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Gest\u00e3o e Neg\u00f3cios"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Infraestrutura"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "descricao": "Militar"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o Aliment\u00edcia"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o Cultural e Design"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o Industrial"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "descricao": "Recursos Naturais"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "descricao": "Seguran\u00e7a"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "descricao": "Turismo, Hospitalidade e Lazer"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "descricao": "Biol\u00f3gia e Qu\u00edmica"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "descricao": "Meio ambiente"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "descricao": "Educa\u00e7\u00e3o"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "descricao": "Linguistica, Letras e Artes"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "descricao": "Apoio Educacional"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "descricao": "Outros"
+    },
+    "model": "edu.eixotecnologico",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "descricao": "Ci\u00eancias Ambientais"
+    },
+    "model": "edu.areacapes",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Educa\u00e7\u00e3o"
+    },
+    "model": "edu.areacapes",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Administra\u00e7\u00e3o Educacional"
+    },
+    "model": "edu.areacapes",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Ci\u00eancias da Natureza"
+    },
+    "model": "edu.areacapes",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "Presencial"
+    },
+    "model": "edu.naturezaparticipacao",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Semipresencial"
+    },
+    "model": "edu.naturezaparticipacao",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "EaD"
+    },
+    "model": "edu.naturezaparticipacao",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Tempo Integral"
+    },
+    "model": "edu.naturezaparticipacao",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "Noturno"
+    },
+    "model": "edu.turno",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Vespertino"
+    },
+    "model": "edu.turno",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Matutino"
+    },
+    "model": "edu.turno",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "EAD"
+    },
+    "model": "edu.turno",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Diurno"
+    },
+    "model": "edu.turno",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "descricao": "PRONATEC"
+    },
+    "model": "edu.convenio",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Mulheres Mil"
+    },
+    "model": "edu.convenio",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Mulheres Mil / PRONATEC"
+    },
+    "model": "edu.convenio",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "UAB"
+    },
+    "model": "edu.convenio",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "ETEC"
+    },
+    "model": "edu.convenio",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Comum"
+    },
+    "model": "edu.nucleo",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Articulador"
+    },
+    "model": "edu.nucleo",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Tecnol\u00f3gico"
+    },
+    "model": "edu.nucleo",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Fundamental"
+    },
+    "model": "edu.nucleo",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "Did\u00e1tico-Pedag\u00f3gico"
+    },
+    "model": "edu.nucleo",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Epistemol\u00f3gico"
+    },
+    "model": "edu.nucleo",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "descricao": "Espec\u00edfico"
+    },
+    "model": "edu.nucleo",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "descricao": "Estruturante"
+    },
+    "model": "edu.nucleo",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "descricao": "Integrador"
+    },
+    "model": "edu.nucleo",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "descricao": "Contextual"
+    },
+    "model": "edu.nucleo",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "descricao": "Estrutural"
+    },
+    "model": "edu.nucleo",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "descricao": "Cient\u00edfico e Tecnol\u00f3gico (Unidade Tecnol\u00f3gica)"
+    },
+    "model": "edu.nucleo",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "descricao": "Cient\u00edfico e Tecnol\u00f3gico (Unidade B\u00e1sica)"
+    },
+    "model": "edu.nucleo",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "descricao": "Forma\u00e7\u00e3o Espec\u00edfica"
+    },
+    "model": "edu.nucleo",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "descricao": "Forma\u00e7\u00e3o T\u00e9cnica Geral"
+    },
+    "model": "edu.nucleo",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "descricao": "Forma\u00e7\u00e3o Pedag\u00f3gica"
+    },
+    "model": "edu.nucleo",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "descricao": "M\u00f3dulo I"
+    },
+    "model": "edu.nucleo",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "descricao": "M\u00f3dulo II"
+    },
+    "model": "edu.nucleo",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "descricao": "M\u00f3dulo III"
+    },
+    "model": "edu.nucleo",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "descricao": "M\u00f3dulo VI"
+    },
+    "model": "edu.nucleo",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "descricao": "Atividade Complementar FIC"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Atividade de Integra\u00e7\u00e3o"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Semin\u00e1rio de Integra\u00e7\u00e3o Acad\u00eamica"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Publica\u00e7\u00e3o de livro de car\u00e1ter acad\u00eamico, com ISBN."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Organiza\u00e7\u00e3o de livro, publica\u00e7\u00e3o ou tradu\u00e7\u00e3o de cap\u00edtulo de livro com ISBN, ou de artigo em revista indexada."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "descricao": "Tradu\u00e7\u00e3o de livro, com ISBN."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "descricao": "PPGEP - Participa\u00e7\u00e3o em eventos cient\u00edficos, nacionais ou internacionais, com apresenta\u00e7\u00e3o e publica\u00e7\u00e3o de resumo e trabalho completo em anais."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "descricao": "PPGEP - Participa\u00e7\u00e3o em eventos cient\u00edficos, nacionais ou internacionais, com apresenta\u00e7\u00e3o e publica\u00e7\u00e3o de resumo e trabalho completo em anais."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "descricao": "PPGEP - Minicurso ministrado em eventos nacionais ou internacionais (m\u00ednimo de 15 horas/aula), com apresenta\u00e7\u00e3o de relat\u00f3rio."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "descricao": "PPGEP - Publica\u00e7\u00e3o de trabalho completo em revista n\u00e3o indexada."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "descricao": "Atua\u00e7\u00e3o em empresa p\u00fablica ou privada da \u00e1rea do curso ou afim (Sala de aula ou laborat\u00f3rio)"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "descricao": "Atua\u00e7\u00e3o em empresa p\u00fablica ou privada da \u00e1rea do curso ou afim (Sala de aula ou laborat\u00f3rio)"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "descricao": "Co-autoria de cap\u00edtulos de livros na \u00e1rea do curso ou afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "descricao": "Desenvolvimento de monitoria (como bolsista ou volunt\u00e1rio) na \u00e1rea do curso ou afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "descricao": "Exposi\u00e7\u00e3o de trabalhos em eventos ou publica\u00e7\u00e3o de trabalhos em anais na \u00e1rea do curso ou afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "descricao": "Membro de diretoria discente ou colegiado acad\u00eamico no IFRN"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "descricao": "N\u00facleos de estudos ou grupos de discuss\u00e3o na \u00e1rea do curso ou diretamente afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em confer\u00eancias, palestras, congressos ou semin\u00e1rios, na \u00e1rea do curso ou afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em curso na \u00e1rea de forma\u00e7\u00e3o ou afim, cada 10 horas"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em curso na \u00e1rea espec\u00edfica de forma\u00e7\u00e3o, cada 20 horas"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em ou desenvolvimento de outras atividades espec\u00edficas do curso sob a supervis\u00e3o de um professor do IFRN"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em projeto de extens\u00e3o (como bolsista ou volunt\u00e1rio) na \u00e1rea do curso"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em projeto de inicia\u00e7\u00e3o cient\u00edfica ou de inicia\u00e7\u00e3o a doc\u00eancia (como bolsista ou volunt\u00e1rio) na \u00e1rea do curso ou afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o na organiza\u00e7\u00e3o de eventos acad\u00eamico- cient\u00edficos na \u00e1rea do curso"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "descricao": "Produ\u00e7\u00e3o t\u00e9cnica (material did\u00e1tico, oficinas, mini cursos e patentes)"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "descricao": "Publica\u00e7\u00f5es de trabalhos em revistas ou peri\u00f3dicos na \u00e1rea do curso ou afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "descricao": "Realiza\u00e7\u00e3o de est\u00e1gio extra-curricular ou volunt\u00e1rio na \u00e1rea do curso ou afim (carga hor\u00e1ria total m\u00ednima de 50 horas)"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "descricao": "Viagem / visita t\u00e9cnica na \u00e1rea do curso ou diretamente afim"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00e3o em c\u00e9lulas acad\u00eamicas institucionais"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "descricao": "Participa\u00e7\u00f5es em simp\u00f3sios, semin\u00e1rios, congressos, cursos, minicursos e outros eventos cient\u00edficos cong\u00eaneres ou projetos de extens\u00e3o, desenvolvidos no CEFET-RN, assim como em outras institui\u00e7\u00f5es (m\u00e1ximo de 20h)."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Confer\u00eancias ou Palestras isoladas"
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Cursos ou minicursos de extens\u00e3o (presencial ou \u00e0 dist\u00e2ncia) na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Encontro Estudantil na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Inicia\u00e7\u00e3o Cient\u00edfica na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Monitoria na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Est\u00e1gio Extra-Curricular ou Volunt\u00e1rio na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Publica\u00e7\u00f5es de trabalhos em Revistas T\u00e9cnicas/Cient\u00edficas, Anais e Revistas Eletr\u00f4nicas especializadas em Educa\u00e7\u00e3o, Geografia ou em \u00e1reas afins."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Viagem / Visita T\u00e9cnica na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Atividades de extens\u00e3o na \u00e1rea do curso de assist\u00eancia a comunidade."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Congressos ou semin\u00e1rios na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Exposi\u00e7\u00e3o de trabalhos em eventos na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-N\u00facleos de estudos ou grupos de discuss\u00e3o na \u00e1rea do Curso ou diretamente afim."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Membro de diretoria discente ou colegiado acad\u00eamico do curso no CEFET-RN."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Ouvintes em defesa de trabalhos acad\u00eamicos (tese, disserta\u00e7\u00e3o e monografia)."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "descricao": "LIC-ANT-Organiza\u00e7\u00e3o de eventos cient\u00edficotecnol\u00f3gicos na \u00e1rea do curso."
+    },
+    "model": "edu.tipoatividadecomplementar",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "descricao": "Arte"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "L\u00edngua Portuguesa"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "L\u00edngua Inglesa"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "descricao": "Espanhol"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "descricao": "Educa\u00e7\u00e3o F\u00edsica"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "descricao": "Filosofia"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "descricao": "Sociologia"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "descricao": "Hist\u00f3ria"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "descricao": "Geografia"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "descricao": "F\u00edsica"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "descricao": "Qu\u00edmica"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "descricao": "Biologia"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "descricao": "Matem\u00e1tica"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "descricao": "Educa\u00e7\u00e3o"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "descricao": "Inform\u00e1tica"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "descricao": "M\u00d3DULO II"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "descricao": "M\u00d3DULO III"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "descricao": "M\u00d3DULO IV"
+    },
+    "model": "edu.nucleocentralestruturante",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "descricao": "Principal"
+    },
+    "model": "edu.tipoprofessordiario",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "descricao": "Tutor"
+    },
+    "model": "edu.tipoprofessordiario",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "descricao": "Formador"
+    },
+    "model": "edu.tipoprofessordiario",
+    "pk": 3
+  },
+  {
+	"model": "encceja.areaconhecimento",
+	"pk": 1,
+	"fields": {
+		"nome": "Ciências Humanas e suas Tecnologias",
+		"descricao": "Ciências Humanas e suas Tecnologias (componentes curriculares/disciplinas: História, Geografia, Filosofia, Sociologia)"
+	}
+  }, {
+	"model": "encceja.areaconhecimento",
+	"pk": 2,
+	"fields": {
+		"nome": "Ciências da Natureza e suas Tecnologias",
+		"descricao": "Ciências da Natureza e suas Tecnologias (componentes curriculares/disciplinas: Física, Química, Biologia)"
+	}
+  }, {
+	"model": "encceja.areaconhecimento",
+	"pk": 3,
+	"fields": {
+		"nome": "Matemática e suas Tecnologias",
+		"descricao": "Matemática e suas Tecnologias"
+	}
+  }, {
+	"model": "encceja.areaconhecimento",
+	"pk": 4,
+	"fields": {
+		"nome": "Linguagens, Códigos e suas Tecnologias",
+		"descricao": "Linguagens, Códigos e suas Tecnologias (componentes curriculares/disciplinas: Língua Portuguesa, Língua Estrangeira Moderna, Artes e Educação Física)"
+	}
+  }
+]

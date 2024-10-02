@@ -1,0 +1,81 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <div data-title="Pendentes de Avaliação" data-counter="{{ pendentes_avaliacao|length }}" class="tab-container">
+        {% if pendentes_avaliacao %}
+            {% autopaginate pendentes_avaliacao 15 %}
+            {% paginate %}
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tipo Avaliação</th>
+                    <th>Trabalhador</th>
+                    <th>Formação</th>
+                    <th>Setor/Unidade</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for avaliacao in pendentes_avaliacao %}
+                    <tr>
+                        <td>
+                            <a>{% icon "view" "/ppe/avaliacao_trabalhador_educando_confirmacao/{{ avaliacao.id }}/" %}</a>
+                        </td>
+                        <td>{{ avaliacao.tipo_avaliacao }}</td>
+                        <td>{{ avaliacao.trabalhador_educando }}</td>
+                        <td>{{ avaliacao.trabalhador_educando.formacao_tecnica|format }} </td>
+                        <td>{{ avaliacao.trabalhador_educando.get_setor_atual|format }}/ {{ avaliacao.trabalhador_educando.get_unidade_atual.nome }} </td>
+                        {% if avaliacao.pode_ser_avaliada_chefia  %}
+                            <td><a href="/ppe/avaliacao_trabalhador_educando/{{ avaliacao.trabalhador_educando.id }}/{{ avaliacao.tipo_avaliacao.id }}/"
+                                   class="btn primary">Avaliar</a></td>
+                        {% else %}
+                            <td> -</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% paginate %}
+        {% else %}
+            <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+        {% endif %}
+    </div>
+     <div data-title="Avaliadas" data-counter="{{ avaliadas|length }}" class="tab-container">
+        {% if avaliadas %}
+            {% autopaginate avaliadas 15 %}
+            {% paginate %}
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tipo Avaliação</th>
+                    <th>Trabalhador</th>
+                    <th>Formação</th>
+                    <th>Setor/Unidade</th>
+                    <th>Data Avaliação</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for avaliacao in avaliadas %}
+                    <tr>
+                        <td>
+                            <a>{% icon "view" "/ppe/avaliacao_trabalhador_educando_confirmacao/{{ avaliacao.id }}/" %}</a>
+                        </td>
+                        <td>{{ avaliacao.tipo_avaliacao }}</td>
+                        <td>{{ avaliacao.trabalhador_educando }}</td>
+                        <td>{{ avaliacao.trabalhador_educando.formacao_tecnica|format }} </td>
+                        <td>{{ avaliacao.trabalhador_educando.get_setor_atual|format }}/ {{ avaliacao.trabalhador_educando.get_unidade_atual.nome }} </td>
+                        <td>{{ avaliacao.data_atualizacao}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% paginate %}
+        {% else %}
+            <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

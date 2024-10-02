@@ -1,0 +1,65 @@
+{% extends "relatorio_pdf.html" %}
+{% block page_orientation %}landscape{% endblock %}
+{% block content %}
+    <main>
+    <div class="corpo">
+        <h1>BOLETIM DE NOTAS DO DIÁRIO</h1>
+        <div style="font-size: 12px">
+            <div>
+                <span class="negrito">Curso:</span>
+                <span>{{ diario.turma.curso_campus|format }}</span>
+            </div>
+            <div>
+                <span class="negrito">Diário:</span>
+                <span>{{ diario }}</span>
+            </div>
+            <div>
+                <span class="negrito">Ano/Período Letivo:</span>
+                <span>{{ diario.ano_letivo }}/{{ diario.get_periodo_letivo }}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="negrito">Aulas Ministradas:</span>
+                <span>{{ diario.get_carga_horaria_cumprida }} de {{ diario.get_carga_horaria }} Aulas</span>
+            </div>
+        </div>
+        <br/>
+        {% include "tabela_boletim_diario_pdf.html" %}
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <p>
+                    <br>
+                    <strong>N1, N2, N3 e N4</strong>:Notas das etapas 1, 2, 3 e 4
+                    <br>
+                    <strong>F1, F2, F3 e F4</strong>:Faltas nas etapas 1, 2, 3 e 4
+                    <br>
+                    <strong>MD</strong>:Média da Disciplina
+                    <br>
+                    <strong>NAF</strong>:Nota da Avaliação Final
+                    <br>
+                    <strong>MFD</strong>:Média Final da Disciplina
+                    <br>
+                </p></td>
+            <td>
+                <br>
+                <span>{{ uo.municipio.nome|normalizar }} ({{ uo.municipio.uf }}), {{ hoje|format }}</span>
+                <br>
+                <br>
+                {% if diario %}
+                    {% for professor_diario in diario.professordiario_set.all %}
+                        <p class="assinatura">
+                            <strong>{{ professor_diario.professor.vinculo.pessoa.nome }}</strong>
+                            <br>
+                            (Professor {{ professor_diario.tipo }})
+                        </p> {% endfor %}
+                {% else %}
+                    <p class="assinatura">
+                        Assinatura do Diretor Acadêmico
+                    </p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    </main>
+{% endblock %}

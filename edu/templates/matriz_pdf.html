@@ -1,0 +1,82 @@
+{% extends "relatorio_pdf.html" %}
+{% block page_orientation %}landscape{% endblock %}
+
+{% block style %}
+	ul{
+		list-style: none;
+    	padding: 0;
+    }
+    
+    header{
+		top: -2.2cm; /* -HeaderHeight */
+		height: 2cm; /* HeaderHeight */
+		position: fixed;
+		width:98%;
+	}
+{% endblock %}
+
+{% block content %}
+<main>
+    <h1>MATRIZES CURRICULARES</h1>
+    <div>
+        <table class="descritorfiltros">
+            <tbody>
+            <tr>
+                <td class="negrito">Descrição:</td>
+                <td colspan="11">{{ obj|normalizar }}</td>
+            </tr>
+            <tr>
+                <td class="negrito" valign="top">Cursos:</td>
+                <td colspan="11">
+                    <ul>
+                        {% for matriz_curso in obj.matrizcurso_set.all %}
+                            <li>{{ matriz_curso.curso_campus.descricao_historico|normalizar }}
+                                - {{ matriz_curso.curso_campus.diretoria }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="negrito">Nível:</td>
+                <td>{{ obj.nivel_ensino }}</td>
+                <td class="negrito">Periodicidade:</td>
+                <td>{{ obj.cursocampus_set.all.0.get_periodicidade_display|format }}</td>
+                <td class="negrito">Regime:</td>
+                <td>{{ obj.estrutura.get_tipo_avaliacao_display|format }}</td>
+                <td class="negrito">Ativa:</td>
+                <td>{% if obj.ativo %}Sim{% else %}Não{% endif %}</td>
+                <td class="negrito">Per. Inicial:</td>
+                <td>{{ obj.ano_criacao }}/{{ obj.periodo_criacao }}</td>
+                <td class="negrito">Qtd. Períodos:</td>
+                <td>{{ obj.qtd_periodos_letivos }}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div style="padding-top: 10px;">
+        <h2>Carga Horária</h2>
+        <table class="descritorfiltros">
+			<tbody>
+            	<tr>
+	                <td class="negrito">Comp. Obrig.:</td>
+	                <td>{{ obj.ch_componentes_obrigatorios }}h</td>
+	                <td class="negrito">Comp. Opt.:</td>
+	                <td>{{ obj.ch_componentes_optativos }}h</td>
+	                <td class="negrito">Comp. Elet.:</td>
+	                <td>{{ obj.ch_componentes_eletivos }}h</td>
+	                <td class="negrito">Semin.:</td>
+	                <td>{{ obj.ch_seminarios }}h</td>
+	                <td class="negrito">Prát. Prof.:</td>
+	                <td>{{ obj.ch_pratica_profissional }}h</td>
+	                <td class="negrito">Ativ. Comp.:</td>
+	                <td>{{ obj.ch_atividades_complementares }}h</td>
+	            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div style="padding-top: 20px;">
+        	{% include "tabela_componentes_curriculares.html" %}
+        </div>
+</main>
+
+{% endblock %}

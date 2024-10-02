@@ -1,0 +1,69 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% help_button %}
+    </ul>
+
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'aluno'|normalizar }}</td>
+                <td colspan="3">{{ obj.aluno|normalizar|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'data_inicio' }}</td>
+                <td>{{ obj.data_inicio|format }}</td>
+                <td>{{ obj|verbose:'data_fim' }}</td>
+                <td>{{ obj.data_fim|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'responsavel_abono' }}</td>
+                <td>{{ obj.responsavel_abono|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'justificativa'|format|normalizar }}</td>
+                <td colspan="3">{{ obj.justificativa|format }}</td>
+            </tr>
+            {% if obj.anexo %}
+                <tr>
+                    <td>{{ obj|verbose:'anexo' }}</td>
+                    <td colspan="3"><a href="{{ obj.anexo.url }}" title="Anexo do abonar faltas"
+                                       target="_blank">{{ obj.get_nome_arquivo }}</a></td>
+                </tr>
+            {% endif %}
+        </table>
+    {% endbox %}
+
+
+    {% box "Faltas Justificadas" %}
+        {% if obj.falta_set.all %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Diário</th>
+                    <th>Aula</th>
+                    <th>Total de Aulas</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for falta in obj.falta_set.all %}
+                    <tr>
+                        <td>{{ falta.aula.data }}</td>
+                        <td>
+                            <a href="{{ falta.matricula_diario.diario.get_absolute_url }}">{{ falta.matricula_diario.diario }}</a>
+                        </td>
+                        <td>{{ falta.aula }}</td>
+                        <td>{{ falta.quantidade }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class='msg alert'>Nehuma falta abonada por essa justificativa.</p>
+        {% endif %}
+    {% endbox %}
+{% endblock %}
+

@@ -1,0 +1,83 @@
+{% box 'Documento Mensal de Frequência' %}
+	{% csrf_token %}
+	{% if is_proprio_residente %}		
+		<ul class="action-bar">
+			<li>
+				<a href="/residencia/upload_documento_frequencia_residente/{{ residente.pk }}/" class="btn popup success">Fazer Upload do Documento Mensal</a>
+			</li>
+		</ul>
+	{% endif %}
+	{% if residente.documento_frequencia_residente_set.exists %}
+		<table>
+			<thead>
+				<tr>
+					<th class="text-center">Mes Referencia</th>
+					<th class="text-center">Ano Referencia</th>
+					<th class="text-center">Documento Fisico</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for documento in residente.documento_frequencia_residente_set.all %}
+				<tr>				
+					<td class="text-center">{{documento.mes_referencia}}</td>
+					<td class="text-center">{{documento.ano_referencia}}</td>
+					<td class="text-center">{{documento.filename}}</td>				
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+{% endbox %}
+
+{% box 'Frequências Diárias' %}
+	{% if is_proprio_residente %}
+		<ul class="action-bar">
+			<li>
+				<a href="/residencia/adicionar_frequencia_residente/{{ residente.pk }}/" class="btn popup success">Adicionar Frequência</a>
+			</li>
+		</ul>
+	{% endif %}
+	{% if residente.frequencia_residente_set.exists %}
+		<table>
+			<thead>
+				<tr>
+					{% if is_proprio_residente %}
+					<th class="text-center no-print">Ações</th>
+					{% endif %}
+					<th class="text-center">Hora Entrada</th>
+					<th class="text-center">Hora Saida</th>
+					<th class="text-center">Total de Horas </th>
+					<th class="text-center">Confirmada</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for frequencia in residente.frequencia_residente_set.all %}
+				<tr>
+					{% if is_proprio_residente %}
+					<td class="text-center no-print">
+						{% if request.user == frequencia.residente %}
+							{% icon "edit" "/residencia/editar_residencia/{{ frequencia.pk }}/" "Editar" "popup" %}
+						{% endif %}
+						{% if perms.residencia.adm_delete_observacao or request.user == frequencia.residente %}
+							{% icon "delete" "/comum/excluir/residencia/frequencia_residente/{{ frequencia.pk }}/" "Remover" "no-confirm popup" %}
+						{% endif %}
+					</td>
+					{% endif %}
+					<td class="text-center">{{frequencia.data_hora_entrada}}</td>
+					<td class="text-center">{{frequencia.data_hora_saida}}</td>
+					<td class="text-center">{{frequencia.get_horas}}</td>
+					<td class="text-center">
+						{% if frequencia.confirmacao %}
+								{% icon "check" %}
+							{% else %}
+								{% icon "ban" %}
+							{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p class="msg alert">Nenhuma frequência cadastrada.</p>
+	{% endif %}
+{% endbox %}

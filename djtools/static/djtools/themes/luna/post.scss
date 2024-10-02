@@ -1,0 +1,908 @@
+
+::selection {
+    color: $black;
+}
+li,
+p {
+    color: $grey-50;
+}
+.timeline {
+    &::before {
+        background-color: $grey-800;
+    }
+    .timeline-content {
+        &:after {
+            border-right-color: $grey-700;
+        }
+    }
+    .timeline-date {
+        color: $grey-500;
+    }
+    .timeline-icon {
+        background-color: $grey-600;
+        box-shadow: 0 0 0 5px $black;
+    }
+}
+
+body.theme-luna {
+    aside,
+    aside.nav,
+    aside.right,
+    form fieldset div.form-row,
+    main,
+    .alertas,
+    .ancoras li:hover > a,
+    .ancoras li:hover > span,
+    .modulo-info h3,
+    .selector-available,
+    .selector-chosen,
+    .tabs li,
+    .tabs li:hover,
+    .tabs li.active,
+    .tabs li.active:hover,
+    &.index h3,
+    &.index main,
+    &.index .wrapper {
+        background-color: transparent;
+    }
+    aside input[type="search"] {
+        border-bottom: 1px solid $grey-500;
+    }
+    aside.right {
+        padding-left: 0;
+    }
+    aside.right #collapseAsideRight:before,
+    input.ac_filled_hidden,
+    .calendario .hoje,
+    .calendario-mensal td > span,
+    .jstree-anchor,
+    .jstree-anchor:link,
+    .jstree-anchor:visited,
+    .jstree-anchor:hover,
+    .jstree-anchor:active,
+    .legenda .default,
+    .legenda .hoje,
+    .msg.help,
+    .select2-container .select2-search--inline .select2-search__field,
+    .tabs li.active span {
+        color: $black;
+    }
+    caption,
+    dl,
+    form fieldset > h2,
+    form fieldset > h3,
+    .title-container > h2,
+    h4,
+    label,
+    form label.labelForm,
+    form fieldset div.form-row label + span,
+    form.featured-form div.form-row label,
+    table.dashboard h4 a,
+    table.info td:nth-child(odd),
+    tfoot td,
+    thead th,
+    .action-bar ul a,
+    .action-links a,
+    .action-links button,
+    .actions .action-counter,
+    .boxes .indicator a,
+    .boxes.services h4,
+    .boxes.services h4 a,
+    .boxes.services h4 small,
+    .boxes.services .title small,
+    .boxes.services p:not(.msg):not(.obs),
+    .boxes.services p.indicator,
+    .boxes.services p.msg,
+    .boxes.services p.note,
+    .boxes.services .title,
+    .boxes.services .title a,
+    .calendario caption,
+    .calendario-dias th,
+    .calendario-mensal small,
+    .calendario-mensal .alert > a,
+    .calendario-mensal .error > a,
+    .calendario-mensal .evento > a,
+    .calendario-mensal .success > a,
+    .calendario-referencia li,
+    .card dd,
+    .card h4,
+    .card h5,
+    .detail,
+    .detail:hover,
+    .detail h5,
+    .format-html h1,
+    .format-html h2,
+    .format-html h2 + p,
+    .general-box .extra-info,
+    .icon:before,
+    .legenda li,
+    .legenda p,
+    .modulo-indicador h4,
+    .modulo-indicador h5,
+    .msg,
+    .process,
+    .search-and-filters::before,
+    .select2-container.select2-container--default .select2-selection--multiple .select2-selection__rendered .select2-search__field,
+    .select2-container.select2-container--default .select2-selection--single .select2-selection__clear,
+    .select2-container--default .select2-selection--multiple .select2-selection__clear,
+    div.status h5,
+    div.status h6,
+    span.status,
+    .tabs li.active > a,
+    .total-container .total-item,
+    .xfull::before,
+    &.index > h3 {
+        color: $grey-50;
+    }
+    caption,
+    fieldset,
+    pre,
+    .actions,
+    .box.collapsed > h3,
+    .boxes.services h4 small,
+    .boxes.services .title small,
+    .comments li,
+    .tabs li,
+    .tabs li.active,
+    .timeline-horizontal,
+    .timeline-horizontal th:first-child {
+        border: 0 none;
+    }
+    caption,
+    details .boxes > a,
+    details .boxes > div,
+    details .boxes > li,
+    details .person,
+    fieldset,
+    table.info tr:nth-child(even) td,
+    .actions,
+    .checkbox,
+    .comments li,
+    .counter-container .counter-item > a,
+    .format-html,
+    .format-html:before,
+    .inline-related h3,
+    .list-articles,
+    .list-articles article,
+    .lista-comentarios .comentario,
+    .markall-container,
+    .search-and-filters,
+    .tab-container,
+    .tabela-congelada tr > th:first-of-type,
+    .tabela-congelada tr > td:first-of-type,
+    .tags > li,
+    .total-container .total-item,
+    .total-container .total-item.flex-basis-100,
+    .xfull,
+    *:not(.calendario-mensal) > table:not(.calendario-dias):not(.timeline-horizontal) tbody tr:hover > td,
+    *:not(.calendario-mensal) > table:not(.calendario-dias):not(.timeline-horizontal) tbody tr:hover > th {
+        background-color: $grey-900;
+    }
+    details,
+    .general-box,
+    .modulo,
+    .tab-container {
+        caption,
+        details .boxes > a,
+        details .boxes > div,
+        details .boxes > li,
+        details .person,
+        fieldset,
+        tbody td,
+        tbody th,
+        tfoot td,
+        thead th,
+        table.info tr:nth-child(even) td,
+        .actions,
+        .ancoras,
+        .checkbox,
+        .comments li,
+        .counter-container .counter-item > a,
+        .format-html,
+        .format-html:before,
+        .general-box,
+        .general-box:hover,
+        .list-articles,
+        .lista-comentarios .comentario,
+        .markall-container,
+        .search-and-filters,
+        .tabela-congelada tr > th:first-of-type,
+        .tabela-congelada tr > td:first-of-type,
+        .tags > li,
+        .total-container .total-item,
+        .xfull,
+        *:not(.calendario-mensal) > table:not(.calendario-dias):not(.timeline-horizontal) tbody tr:hover > td,
+        *:not(.calendario-mensal) > table:not(.calendario-dias):not(.timeline-horizontal) tbody tr:hover > th {
+            background-color: $grey-800;
+        }
+    }
+    code {
+        border: 0 none;
+        padding: 1px 5px;
+    }
+    code,
+    form fieldset > h2,
+    form fieldset > h3,
+    pre,
+    .boxes.services h4 small,
+    .boxes.services .title small,
+    .fancybox-content main,
+    .list-articles article .format-html,
+    &.debug {
+        background-color: $black;
+    }
+    details h3 {
+        color: $grey-400;
+        font-size: 1.3rem;
+    }
+    form fieldset div.form-row .help,
+    h5,
+    h6,
+    ol.ancoras li,
+    #breadcrumbs a,
+    .boxes.indicators h4 small,
+    .boxes.services dl dt,
+    .boxes.services footer,
+    .boxes.services p,
+    .boxes.services p:not(.msg),
+    .boxes.services .flex-container.indicators > .flex-item dd small,
+    .card footer,
+    .cinza,
+    .definition-list dt,
+    .disabled,
+    .help,
+    .obs,
+    .readonly,
+    .textarea-counter,
+    .total-container .total-item span.fas {
+        color: $grey-400;
+    }
+    td input[type="text"],
+    td .tags > li,
+    thead th.sorted,
+    .calendario-dias td,
+    .calendario-dias th,
+    .card footer,
+    .counter-container .counter-item > a:hover,
+    .lista-comentarios .comentario:hover,
+    .notifications a:hover,
+    .popup_multiple_choice_container .popup_multiple_choice_field,
+    .tabs li span,
+    .total-container .total-item:hover,
+    .total-container .total-item.flex-basis-100:hover {
+        background-color: $grey-700;
+    }
+    .general-box,
+    .tab-container {
+        thead th,
+        .timeline .timeline-content textarea {
+            background-color: $grey-600;
+        }
+    }
+    .general-box,
+    .modulo,
+    .tab-container {
+        fieldset select,
+        fieldset textarea,
+        .calendario-dias td,
+        .calendario-dias th,
+        .card footer,
+        .counter-container .counter-item > a:hover,
+        .lista-comentarios .comentario:hover,
+        .popup_multiple_choice_container .popup_multiple_choice_field,
+        .search-and-filters input[type="text"],
+        .search-and-filters select,
+        .tab-container .lista-comentarios .comentario {
+            background-color: $grey-700;
+        }
+    }
+    details summary {
+        + .details-container {
+            color: $white;
+            margin-left: 0;
+        }
+        span {
+            background-color: $grey-900;
+            color: $grey-50;
+        }
+    }
+    details .boxes .indicator a,
+    thead th > span,
+    .checklist small,
+    .list-articles .article-anchor .date,
+    .modulo-noticias li a span {
+        color: $grey-300;
+    }
+    form fieldset {
+        > h2,
+        > h3,
+        > h5 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        div.form-row {
+            border-color: $black;
+            label {
+                + input {
+                    &[type="email"],
+                    &[type="text"],
+                    &[type="url"] {
+                        + span.status {
+                            border-top-width: 1px;
+                            border-left-width: 1px;
+                            border-radius: 6px;
+                        }
+                    }
+                }
+            }
+            &:last-child {
+                border: 0 none;
+            }
+        }
+    }
+    table {
+        border: 0 none;
+        border-collapse: separate;
+        border-spacing: 3px;
+        td,
+        th {
+            border: 0 none;
+        }
+        td dt {
+            color: $grey-400;
+        }
+    }
+    td .icon,
+    th .icon {
+        background-color: $brand-color;
+        &::before,
+        &:hover::before {
+            color: $black;
+        }
+    }
+    caption {
+        font-size: 1.5rem;
+    }
+    table {
+        border-spacing: 2px;
+    }
+    tbody td,
+    tbody th,
+    .calendario-dias td {
+        box-shadow: 0 0 0 transparent;
+        color: $white;
+    }
+    #breadcrumbs a {
+        &::after {
+            color: $grey-700;
+        }
+        &:hover {
+            color: $brand-color;
+        }
+    }
+    #changelist-search input[type="submit"] {
+        background-color: $black;
+        border: 0 none;
+        color: $white;
+        &:hover {
+            background-color: $grey-600;
+            color: $white;
+        }
+    }
+    #footer h3 {
+        font-size: 1.4rem;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+    #mainmenu {
+        > ul > li {
+            li,
+            li li {
+                border-color: rgba(0, 0, 0, 0.2);
+            }
+            > a:hover span.fas {
+                opacity: 1;
+            }
+        }
+        li:hover > a {
+            color: $secondary-color;
+        }
+    }
+    #mainmenu li.active > a,
+    .icon:hover::before {
+        color: $brand-color;
+    }
+    .action-bar {
+        > li > ul {
+            background-color: $grey-700;
+            box-shadow: 10px 10px 35px 10px rgba(0, 0, 0, .25);
+        }
+        ul li {
+            border-bottom: 1px solid $grey-900;
+        }
+    }
+    .action-links a:hover,
+    .action-links button:hover {
+        color: $link-color;
+    }
+    .action-links li,
+    div.photo-circle.smallest {
+        border-color: $grey-800;
+    }
+    .ac_results,
+    .boxes.services ul:not(.tags):not(.action-bar) > li,
+    .checklist,
+    .counter-container .counter-item > a {
+        border-color: $black;
+    }
+    .ac_results {
+        li {
+            background-color: $grey-600 !important;
+            border-color: $black;
+            &.ac_odd {
+                background-color: $grey-600 !important;
+            }
+            &.ac_over {
+                background-color: $grey-500 !important;
+            }
+        }
+        .person {
+            box-shadow: 0 0 0 transparent;
+        }
+    }
+    ul.ajaxmultiselect_field li {
+        background-color: rgba($flat-green, 0.5);
+        color: $white;
+    }
+    .alertas {
+        padding: $main-p 0 $main-p $main-p;
+    }
+    .box {
+        > div {
+            padding-left: 0;
+        }
+        > h3 {
+            &:hover::before {
+                color: $brand-color;
+            }
+        }
+    }
+    .boxes {
+        &.no-background > .box-item {
+            background-color: rgba($black, 0.5) !important;
+        }
+        &.services {
+            h4 + h5,
+            .title + h5 {
+                color: $grey-500;
+            }
+            ol > li {
+                border-bottom-color: $black;
+                a:hover {
+                    background-color: rgba($black, 0.8);
+                    color: $white;
+                }
+            }
+            > li > span.far,
+            > li > span.fas {
+                opacity: 0.2;
+            }
+            .notes .note {
+                color: $white;
+                &.default {
+                    color: $black;
+                }
+            }
+        }
+        .indicator {
+            color: $grey-500;
+            small {
+                color: $grey-500;
+            }
+        }
+        span.status {
+            border: 0 none !important;
+        }
+    }
+    .calendario .fds {
+        background-color: rgba($black, 0.1);
+    }
+    .calendario-dias td,
+    .calendario-dias th {
+        margin-left: 3px;
+        outline: 0 none;
+        width: calc(14.28% - 3px);
+    }
+    .card:hover {
+        background-color: $grey-800;
+    }
+    .clear,
+    .definition-list.flex .list-item {
+        border-bottom: 1px solid $grey-800;
+    }
+    .custom-checkbox label,
+    .notifications a {
+        border-radius: $border-radius;
+    }
+    .custom-checkbox label {
+        border: 0 none;
+        &::after {
+            border-color: $primary-900;
+            left: 9px;
+            top: 11px;
+        }
+    }
+    .definition-list > dd + dt {
+        border-top: 1px solid $grey-900;
+    }
+    .tab-container {
+        .definition-list > dd + dt {
+            border-top: 1px solid $grey-800;
+        }
+    }
+    .errors {
+        background-color: rgba($flat-red, 0.1) !important;
+    }
+    .form-busca-rapida {
+        &::before {
+            color: $white;
+        }
+        input[type="search"] {
+            border: 0 none;
+            color: $white;
+        }
+    }
+    .format-html {
+        border-color: $black;
+        border-radius: $border-radius;
+    }
+    .general-box {
+        &:hover {
+            background-color: $grey-800;
+        }
+        .primary-info {
+            h3 small,
+            h4 small {
+                background-color: $grey-600;
+                border: 0 none;
+                color: $white;
+                line-height: 15px;
+            }
+            p {
+                color: $grey-200;
+            }
+            > .status {
+                border: 0 none;
+            }
+        }
+        .secondary-info,
+        .secondary-info .list-item {
+            color: $grey-200;
+        }
+    }
+    .lista-comentarios {
+        .comentario:after {
+            border-right-color: $grey-900;
+        }
+        .comentario:hover:after {
+            border-right-color: $grey-800;
+        }
+        ul .comentario {
+            border-top: 1px solid $black;
+        }
+    }
+    .tab-container .lista-comentarios {
+        .comentario:after {
+            border-right-color: $grey-800;
+        }
+        .comentario:hover:after {
+            border-right-color: $grey-700;
+        }
+    }
+    .list-articles {
+        > ul {
+            background-color: $black;
+            border-top-color: $grey-600;
+            border-bottom-color: $grey-600;
+        }
+        .article-container {
+            border-bottom-color: $black;
+            &:first-child,
+            &:last-child {
+                border-top-color: $black;
+            }
+            &:not(.active):not(.non-read):hover {
+                background-color: $grey-900;
+            }
+        }
+        .article-grouper .article-grouped-items::before {
+            background-color: $grey-800;
+        }
+        .article-anchor h4 {
+            color: $white;
+        }
+    }
+    .modulo-alertas {
+        h3 {
+            @extend %module-info-title;
+        }
+        .extra-info {
+            color: $grey-300;
+        }
+    }
+    .modulo-indicador {
+        h4 {
+            color: $white !important;
+            font-weight: 500;
+        }
+        h5 {
+            font-weight: 400;
+        }
+    }
+    .modulo-info {
+        h3 {
+            border: 0 none;
+            .esconder-quadro {
+                right: -15px;
+                top: -15px;
+            }
+        }
+        h4 {
+            color: $grey-400;
+        }
+        .action-bar a {
+            border-color: $white;
+        }
+    }
+    .modulo-noticias li a,
+    .text {
+        color: $white;
+    }
+    .msg.info:not(#feedback_message) a {
+        color: $white;
+        text-decoration: underline;
+    }
+    .notifications {
+        a {
+            background-color: $white;
+            border-color: $white;
+            &:hover {
+                background-color: $grey-700;
+                border-color: $grey-700;
+                .fas {
+                    color: $white;
+                }
+            }
+            .fas {
+                color: $black;
+            }
+        }
+        .counter {
+            background-color: $primary-700;
+        }
+    }
+    &.popup_,
+    .popup-user-container {
+        background-color: $grey-800;
+        box-shadow: 10px 10px 35px 10px rgba(0, 0, 0, .25);
+    }
+    input.popupChoiceFieldWidget {
+        background-color: $black !important; // Prevenir background padrao de cor cinza clara
+        &[readonly="true"] {
+            background-color: rgba($white, 0.1) !important;
+        }
+    }
+    .popup_multiple_choice_container .popup_multiple_choice_icon {
+        color: $grey-600;
+    }
+    .richtext {
+        background-color: $white;
+        color: $black;
+        margin-top: 1rem;
+        padding: 1rem 2rem !important;
+        h1,
+        h2,
+        h3,
+        li,
+        p {
+            color: $black !important;
+        }
+        tbody td,
+        .tab-container tbody td {
+            background-color: $grey-200;
+        }
+    }
+    .search-and-filters {
+        form fieldset {
+            background-color: transparent;
+        }
+        input[type="text"] {
+            padding: 5px 10px;
+        }
+        label {
+            margin-bottom: 2px;
+        }
+        label,
+        form div.form-row label {
+            color: $grey-300;
+        }
+        .submit-button {
+            margin-top: 17px;
+        }
+        .submit-row input:only-child,
+        .submit-row input[name="_save"],
+        .submit-row input.default {
+            color: $black;
+        }
+    }
+    .select2-container {
+        .select2-results__option {
+            border-bottom: 1px solid $black;
+            border-left: 1px solid $black;
+            border-right: 1px solid $black;
+            &:last-child {
+                border-bottom: 1px solid $black;
+            }
+        }
+        &.select2-container--default {
+            .select2-results__option[aria-selected=true] {
+                color: $grey-900;
+            }
+            .select2-results__option--highlighted[aria-selected] {
+                color: $white;
+            }
+            .select2-selection--multiple {
+                border-color: $black !important;
+                .select2-selection__rendered .select2-selection__choice {
+                    border-color: $input-filled-color;
+                }
+            }
+            .select2-selection--single {
+                border: 0 none !important;
+                border-radius: $border-radius !important;
+                .select2-selection__rendered[title] {
+                    border-radius: $border-radius;
+                }
+                .select2-selection__rendered:not(:empty) {
+                    color: $white;
+                }
+            }
+        }
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: $flat-red !important;
+        margin-right: 5px !important;
+    }
+    .select2-dropdown {
+        background-color: $grey-600 !important;
+        border: 0 none !important;
+    }
+    .select2-search--dropdown {
+        border: 1px solid $black;
+    }
+    .selector {
+        select {
+            margin: 5px 0;
+        }
+        .selector-available,
+        .selector-chosen {
+            background-color: $grey-600;
+        }
+        .selector-available .selector-filter {
+            width: 140px;
+        }
+    }
+    .selector-filter input[type="text"] {
+        float: right;
+    }
+    .steps li span:after {
+        box-shadow: 2px -2px 0 2px $black, 3px -3px 0 2px $black;
+    }
+    .tab-container {
+        border: 0 none;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+    }
+    .tabs {
+        a {
+            
+            &:hover {
+                color: $brand-color;
+            }
+        }
+        li span {
+            color: $grey-100;
+            margin-left: 10px;
+        }
+        li.active {
+            
+            a {
+                color: $brand-color;
+            }
+            span {
+                background-color: $grey-400;
+            }
+        }
+    }
+    .tags > li {
+        color: $grey-400;
+    }
+    .timeline {
+        .timeline-photo {
+            box-shadow: 0 0 0 5px $grey-800;
+        }
+        .obs .timeline-content {
+            background-color: $grey-800;
+            &:after {
+                border-right-color: $grey-800;
+            }
+        }
+    }
+    .tinner {
+        background-color: $grey-600;
+    }
+    .title-container > .object-status {
+        margin-bottom: 10px;
+    }
+    .toggleSidebar span.fas {
+        color: $white;
+    }
+    .with-title[title] {
+        border-bottom-color: $grey-500;
+        &:hover::before {
+            border-top-color: $black;
+        }
+        &:hover::after {
+            background-color: $black;
+        }
+    }
+    .xfull {
+        .date-back a {
+            color: $grey-500;
+        }
+        a:hover {
+            background-color: transparent;
+            color: $white;
+        }
+    }
+    &.debug {
+        border-top: 5px solid $flat-red;
+    }
+    &.index {
+        .flex-container .modulo-info,
+        .grid-container .modulo-info {
+            @extend %box;
+            border-radius: $border-radius;
+            padding: 3rem;
+        }
+        .grid-container {
+            grid-gap: $main-p;
+        }
+        .grid-container > .coluna > div:not(:last-child) {
+            margin-bottom: $main-p;
+        }
+        .modulo .wrapper {
+            box-shadow: 0 0 0 transparent;
+            color: $white;
+            padding: 20px 0 0;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .holder aside.nav {
+            background-color: $black !important;
+        }
+        .modulo-alertas,
+        &.index .grid-container > .coluna > div:not(:last-child) {
+            margin-bottom: 3rem;
+        }
+    }
+
+    @media screen and (max-width: 940px), only screen and (min-device-width: 320px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) { 
+        .alertas {
+            padding-bottom: 0;
+            padding-left: $main-pl-sm;
+            padding-right: $main-pr-sm;
+        }
+    }
+}

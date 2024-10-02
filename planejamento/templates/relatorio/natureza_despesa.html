@@ -1,0 +1,54 @@
+{% extends super_template %}
+
+{% block extrahead %}
+{% media_filter_box %}
+{% endblock %}
+
+{% block content %}
+	<div class="search-and-filters">
+		<div class="filter filter-large-select">
+			<form class="pesquisa_campus" method="post">
+				{% csrf_token %}
+				{{ campus_form.as_ul }}
+				{{ origem_form.as_ul }}
+				{{ dimensao_form.as_ul }}
+			</form>
+		</div>
+    </div>
+
+	{% if mensagem %}
+	<p class="msg alert">{{ mensagem }}</p>
+	{% endif %}
+	
+	{% regroup natureza_despesas by dimensao as nd_list %}
+
+	{% for nd in nd_list %}
+	{% box "{{nd.grouper}}" %}
+	<table>
+		<thead>
+			<tr>
+				<th style="text-align:center;" width="80px">Cód. Despesa</th>
+				<th>Descrição da Despesa</th>
+				<th style="text-align:center;" width="120px">Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for n in nd.list %}
+			<tr>
+				<td style="text-align:center;">{{ n.codigo_elemento_despesa }}</td>
+				<td>{{ n.elemento_despesa }}</td>
+				<td style="text-align:right;">{{ n.valor|mascara_dinheiro }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td style="font-weight:bold;text-align:right;" colspan="2">Total</td>
+				<td style="text-align:right;">{{ valor_total_natureza_despesa|get_value_dict:nd.grouper|mascara_dinheiro }}</td>
+			</tr>
+		</tfoot>
+	</table>
+	{% endbox %}
+	{% endfor %}
+
+{% endblock %}

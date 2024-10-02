@@ -1,0 +1,81 @@
+{% if fiscal and not contrato.cancelado %}
+    <ul class="action-bar">
+        <li><a class="btn success popup" href="/contratos/registrar_ocorrencia/{{ contrato.pk }}/">Adicionar Ocorrência</a></li>
+    </ul>
+{% endif %}
+
+{% include "includes/filter_campus.html" with tab="ocorrencias" %}
+
+{% if ocorrencias %}
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    {% if fiscal %}
+                        <th clas="no-print">Ações</th>
+                    {% endif %}
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Fiscal</th>
+                    <th>Descrição</th>
+                    <th>Campus</th>
+                    <th>Arquivo</th>
+                    <th>Prazo Resolução</th>
+                    <th>Situação</th>
+                    <th>Anexo Resposta</th>
+                    <th>Notificada?</th>
+                    {% if fiscal %}
+                        <th class="no-print">Opções</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for ocorrencia in ocorrencias %}
+                <tr>
+                    {% if fiscal and not contrato.cancelado  %}
+                        <td class="no-print">
+                            {% icon "edit" "/contratos/editar_ocorrencia/{{ ocorrencia.id }}/" "Editar" "popup" %}
+                            {% icon "delete" "?excluir_ocorrencia={{ ocorrencia.id  }}" %}
+                        </td>
+                    {% endif %}
+                    <td>{{ ocorrencia.data|date:"d/m/y" }}</td>
+                    <td>{{ ocorrencia.data|date:"H:i" }}</td>
+                    <td>{{ ocorrencia.fiscal }}</td>
+                    <td>{{ ocorrencia.descricao }}</td>
+                    <td>{{ ocorrencia.campus|format }}</td>
+                    <td>
+                        {% if ocorrencia.arquivo %}
+                            <a href="/contratos/visualizar_arquivo/{{ ocorrencia.arquivo.id }}/" target="_blank">{{ ocorrencia.arquivo.nome }}</a>
+                        {% else %}
+                            <span class="status status-alert">Nenhum arquivo enviado</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ocorrencia.prazo_resolucao|date }}</td>
+                    <td>{{ ocorrencia.get_situacao_display|format }}</td>
+                    <td>
+                        {% if ocorrencia.anexo_resposta %}
+                            <a href="{{ ocorrencia.anexo_resposta.url }}">Visualizar</a>
+                        {% else %}
+                            <span class="status status-alert">Nenhum arquivo enviado</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ocorrencia.notificacao_enviada|format }}</td>
+                    {% if fiscal and not contrato.cancelado %}
+                        <td class="no-print">
+                            <ul class="action-bar">
+                                <li><a href="/contratos/upload_ocorrencia/{{ ocorrencia.id }}/" class="btn success">Upload de Arquivo</a></li>
+                                <li><a href="/contratos/upload_ocorrencia_resposta/{{ ocorrencia.id }}/" class="btn success">Upload de Arquivo de Resposta</a></li>
+                                {% if not ocorrencia.notificacao_enviada %}
+                                    <li><a href="/contratos/notificar_ocorrencia/{{ ocorrencia.id }}" class="btn">Notificar por E-mail</a></li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="msg alert">Nenhuma ocorrência cadastrada.</p>
+{% endif %}

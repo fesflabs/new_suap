@@ -1,0 +1,43 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        <li><a class="btn success popup" href="/residencia/solicitar_eletivo/">Adicionar Solicitação Estágio Eletivo</a></li>
+    </ul>
+
+{% if solicitacoes.exists %}
+    {% autopaginate solicitacoes 25 %}
+    {% csrf_token %}
+    {% paginate %}
+    <table>
+        <thead>
+            <tr>
+                <th class="no-print">Ações</th>
+                <th>Nome</th>
+                <th>Serviço</th>
+                <th>Data da Solicitação</th>
+                <th>Situação da Solicitação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in solicitacoes %}
+            <tr>
+                <td>
+                    {% icon "view" "/residencia/solicitacao_eletivo/{{ obj.pk }}/" %}
+                </td>
+                <td>{{ obj.residente.get_nome|normalizar }}</td>
+                <td>{{ obj.nome_servico|format }}</td>
+                <td>{{ obj.solicitado_em|format }}</td>
+                <td>{{ obj.get_situacao_display|format }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% paginate %}
+
+{% else %}
+    <div class="msg alert">Nenhuma solicitação encontrada.</div>
+{% endif %}
+
+{% endblock %}

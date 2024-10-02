@@ -1,0 +1,66 @@
+Avaliador de Sala:
+  app_manager: comum
+  chaves:
+    chave:
+    - view_chave
+    - change_chave
+Coordenador de Chaves:
+  chaves:
+    chave:
+    - add_chave
+    - view_chave
+    - change_chave
+    - poder_ver_do_campus
+    movimentacao:
+    - add_movimentacao
+    - view_movimentacao
+    - change_movimentacao
+  comum:
+    predio:
+    - add_predio
+    - view_predio
+    - change_predio
+    sala:
+    - add_sala
+    - view_sala
+    - change_sala
+  rh:
+    servidor:
+    - view_servidor
+Coordenador de Chaves Sistêmico:
+  chaves:
+    chave:
+    - add_chave
+    - view_chave
+    - change_chave
+    - poder_ver_todas
+    movimentacao:
+    - add_movimentacao
+    - view_movimentacao
+    - change_movimentacao
+  comum:
+    predio:
+    - add_predio
+    - view_predio
+    - change_predio
+    sala:
+    - add_sala
+    - view_sala
+    - change_sala
+  rh:
+    servidor:
+    - view_servidor
+Operador de Chaves:
+  chaves:
+    chave:
+    - add_chave
+    - view_chave
+    - change_chave
+    - poder_ver_do_campus
+    movimentacao:
+    - add_movimentacao
+    - view_movimentacao
+    - change_movimentacao
+  rh:
+    servidor:
+    - view_servidor

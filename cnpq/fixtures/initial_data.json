@@ -1,0 +1,308 @@
+[
+  {
+        "pk": 1,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.01",
+			"descricao":"Orientação de IC na Instituição"
+        }
+   },
+   {
+        "pk": 2,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.02",
+			"descricao":"Orientação de Monografia Graduação ou Especialização"
+        }
+   },
+   {
+        "pk": 3,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.04",
+			"descricao":"Orientação de Dissertações de Mestrado"
+        }
+   },
+   {
+        "pk": 4,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.05",
+			"descricao":"Orientações de Teses de Doutorado"
+        }
+   },
+   {
+        "pk": 5,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.06",
+			"descricao":"Projetos de Pesquisa Concluídos na Instituição sob sua Coordenação"
+        }
+   },
+   {
+        "pk": 6,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.07",
+			"descricao":"Participação em Banca de Graduação ou Especialização"
+        }
+   },
+   {
+        "pk": 7,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.08",
+			"descricao":"Participação em Banca de Mestrado"
+        }
+   },
+   {
+        "pk": 8,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.09",
+			"descricao":"Participação em Banca de Doutorado"
+        }
+   },
+   {
+        "pk": 9,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.01",
+			"descricao":"Publicação de livro com ISBN"
+        }
+   },
+   {
+        "pk": 10,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.02",
+			"descricao":"Publicação de capítulo de livro com ISBN"
+        }
+   },
+   {
+        "pk": 11,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.03",
+			"descricao":"Publicação em revistas e periódicos (Qualis A1 e A2)"
+        }
+   },
+   {
+        "pk": 12,
+        "model": "cnpq.parametro",
+        "fields": {
+            "grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.04",
+            "descricao":"Publicação em revistas e periódicos (Qualis B1 e B2):"
+        }
+   },
+   {
+        "pk": 13,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.05",
+			"descricao":"Publicação em revistas e periódicos (Qualis entre B3 e B5)"
+        }
+   },
+   {
+        "pk": 14,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.06",
+			"descricao":"Publicação em revistas e periódicos (Qualis C)"
+        }
+   },
+   {
+        "pk": 15,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.07",
+			"descricao":"Participação como conferencista"
+        }
+   },
+   {
+        "pk": 16,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.08",
+			"descricao":"Trabalhos completo publicado em anais internacionais"
+        }
+   },
+   {
+        "pk": 17,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.09",
+			"descricao":"Trabalhos completo publicado em anais nacionais"
+        }
+   },
+   {
+        "pk": 18,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.11",
+			"descricao":"Produção de trabalhos técnicos"
+        }
+   },
+   {
+        "pk": 19,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.12",
+			"descricao":"Registro de Propriedade Industrial no INPI"
+        }
+   },
+   {
+        "pk": 20,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades acadêmicas",
+            "codigo": "3.01",
+			"descricao":"Doutor"
+        }
+   },
+   {
+        "pk": 21,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades acadêmicas",
+            "codigo": "3.02",
+			"descricao":"Mestre"
+        }
+   },
+   {
+        "pk": 22,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades acadêmicas",
+            "codigo": "3.03",
+			"descricao":"Especialista ou em processo de capacitação para mestre"
+        }
+   },
+  {
+        "pk": 23,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.03",
+			"descricao":"Orientação concluída de outra natureza, como: TCC de curso técnico e prática profissional"
+        }
+   },
+  {
+        "pk": 24,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.10",
+			"descricao":"Participação em bancas de comissões julgadoras"
+        }
+   },
+   {
+        "pk": 25,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.10",
+			"descricao":"Trabalhos publicado em anais de eventos regionais, locais ou não informados"
+        }
+   },
+   {
+        "pk": 26,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.13",
+			"descricao":"Membro de corpo editorial de periódicos"
+        }
+   },
+   {
+        "pk": 27,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.14",
+			"descricao":"Revisor de periódicos"
+        }
+   },
+   {
+        "pk": 28,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.15",
+			"descricao":"Premiações"
+        }
+   },
+   {
+        "pk": 29,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.11",
+			"descricao":"Projetos de Pesquisa Concluídos na Instituição como membro"
+        }
+   },
+   {
+        "pk": 30,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.16",
+			"descricao":"Registro de Patente no INPI"
+        }
+   },
+   {
+        "pk": 31,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.17",
+			"descricao":"Registro de Software no INPI"
+        }
+   },
+   {
+        "pk": 32,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes de atividades científicas e tecnológicas",
+            "codigo": "2.18",
+			"descricao":"Demais registros de Propriedade Intelectual no INPI"
+        }
+   },
+   {
+        "pk": 33,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.12",
+			"descricao":"Orientação de TCCs de curso técnico"
+        }
+   },
+   {
+        "pk": 34,
+        "model": "cnpq.parametro",
+        "fields": {
+			"grupo":"Títulos decorrentes da atividade didática",
+            "codigo": "1.13",
+			"descricao":"Orientação de prática profissional"
+        }
+   }
+]

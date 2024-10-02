@@ -1,0 +1,82 @@
+
+// Brand Colors
+$brand-color:          #130f40; // Deep Cove (Dark)
+$secondary-color:      #30336b; // Deep Koamaru (Medium)
+$hover-color:          #4bb3fd; // (Light)
+
+// Color Scale
+$grey-100:             #f9f9f9;
+$grey-800:             #454d62;
+$black:                #2d3436;
+
+// Form Colors
+$input-filled-color:   $brand-color;
+$light-filled-color:   $secondary-color;
+
+// Extra Colors
+$flat-green:           #6ab04c;     $flat-light-green:     #87c16e;
+$flat-blue:            #22a6b3;     $flat-dark-blue:       #0152a3;     $flat-light-blue:      #30c9d8;     /* Greenland Green = $flat-blue */
+$flat-yellow:          #f9ca24;     $flat-dark-yellow:     #f39c12;     $flat-darker-yellow:   #986200;
+$flat-red:             #eb4d4b;     $flat-light-red:       #ff7979;
+$flat-orange:          #f0932b;     $flat-light-orange:    #ffbe76;
+$flat-purple:          #be2edd;     $flat-light-purple:    #e056fd;
+$flat-lemon:           #badc58;
+
+// Layout Colors
+$body-bg-color:        $grey-100;
+$alertas-bg-color:     $grey-100;
+$aside-bg-color:       $grey-100;
+$aside-right-bg-color: $grey-100;
+$breadcrumbs-color:    $grey-600;
+$button-active-color:  $grey-600;
+$debug-color:          $flat-red;
+$disabled-color:       #e6e6e6;
+$link-color:           $brand-color;
+$main-bg-color:        $grey-100;
+$main-index-bg-color:  $grey-100;
+$usertools-bg-color:   $white;
+
+// Status Colors
+$success-color:        $flat-green;
+$success-active-color: $flat-light-green;
+$primary-color:        $flat-blue;
+$primary-active-color: $flat-light-blue;
+$warning-color:        $flat-orange;
+$warning-active-color: $flat-light-orange;
+$warning-border-color: #8a6d3b;
+$danger-color:         $flat-red;
+$danger-active-color:  $flat-light-red;
+$danger-border-color:  #a94442;
+$default-color:        $brand-color;
+$default-active-color: $secondary-color;
+
+// Components Colors
+$ancoras-bg-color:     $grey-100;
+
+// Layout
+$basis-nav:                318px;
+$basis-aside:              310px;
+$grid-area-end-row-2:      "footer footer";
+$grid-area-end-row-3:      "footer footer footer";
+
+// Margins and gaps
+$main-p:                   5rem;
+$main-pt:                  $main-p;
+$main-pr:                  $main-p;
+$main-pl:                  $main-p;
+$main-p-sm:                2.5rem;
+$menu-margin:              5rem;
+$regular-gap:              5rem;
+
+// Opacity
+$opacity-bg-alertas:       1;
+
+// Styling
+$title-container-size:     2.6rem;
+$title-container-weight:   300;
+
+// Functional
+$border-radius:            15px;
+$box-shadow:               0 0 20px 5px rgba(0, 0, 0, 0.05);
+$box-shadow-hover:         0 0 20px 5px rgba(0, 0, 0, 0.15);
+$letter-spacing:           .03em;

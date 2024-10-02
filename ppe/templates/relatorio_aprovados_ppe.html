@@ -1,0 +1,135 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% if request.user.historicorelatorio_set.exists %}
+            <li><a href="/ppe/meus_relatorios/1/" class="btn popup">Executar Consulta Salva Anteriormente</a></li>
+        {% endif %}
+        {% help_button %}
+    </ul>
+
+    {% if not formatacao %}
+        <div id="formbox">
+            <p class="msg info">Selecione um ou mais filtros para listar alunos.</p>
+            {% render_form form %}
+        </div>
+    {% else %}
+        <form method="post" id="relatorioform" class="mt-2">
+            {% csrf_token %}
+            <div id="resultadobox">
+                <script>$('#formbox').hide();</script>
+                {% box "Filtros" %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/ppe/relatorio_aprovados_ppe/">Realizar Nova Consulta</a></li>
+                        <li><a href="/ppe/relatorio_aprovados_ppe/?editar=1&{{ request.META.QUERY_STRING }}" class="btn primary">Editar
+                            Consulta</a></li>
+                        <li><a data-reload-on-close="false" href="/ppe/salvar_relatorio_ppe/1/{{ query_string }}/"
+                               class="btn popup">Salvar Consulta</a></li>
+                    </ul>
+                    {% if trabalhadores_educando.filtros %}
+                        <table class="info" border="0">
+                            {% for filtro in filtros %}
+                                <tr>
+                                    <td>{{ filtro.chave }}</td>
+                                    <td>{{ filtro.valor }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% else %}
+                        <p class="msg alert">Nenhum filtro selecionado.</p>
+                    {% endif %}
+                {% endbox %}
+
+                {% box "Resultado da Pesquisa ({{ trabalhadores_educando.count }} trabalhadores_educando)" %}
+                    {% if trabalhadores_educando.exists %}
+                        {% autopaginate trabalhadores_educando quantidade_itens %}
+                        <ul class="action-bar">
+                            {% if formatacao == 'simples' %}
+                                <li>
+                                    <button type="submit" class="btn confirm" name="imprimir" value="1"
+                                            data-confirm="Apenas os três primeiro campos selecionados serão exibidos neste relatório. Para exibir todos selecione a opção 'Exportar para XLS'">
+                                        Exportar para PDF
+                                    </button>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <button type="submit" class="btn" name="xls" value="1">Exportar para XLS</button>
+                            </li>
+                        </ul>
+
+                        {% if formatacao == 'simples' %}
+                            {% regroup trabalhadores_educando by curso as trabalhadores_educando_agrupados %}                            
+
+                            {% for item_trabalhador_educando in trabalhadores_educando_agrupados %}
+                                <h4>{{ item_trabalhador_educando.grouper }}</h4>
+
+                                <p class="msg alert">
+                                    <strong>Atenção: </strong> Ao selecionar um ou mais alunos da listagem abaixo, as
+                                    ações de impressão
+                                    e exportação levarão em consideração somente os itens selecionados na página atual.
+                                </p>
+
+                                <table class="mb-2">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th><input type="checkbox"
+                                                   onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++){ is[i].checked = this.checked;}">
+                                        </th>
+                                        <th>Matrícula</th>
+                                        <th>Nome</th>
+
+                                        {% for campo in campos_exibicao %}
+                                            {% for label in exibicao_choices %}
+                                                {% if label.0 == campo %}
+                                                    <th>{{ label.1 }}</th>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for trabalhador_educando in item_trabalhador_educando.list %}                                        
+                                        
+                                        <tr>
+                                            <td>{% index_paginacao %}</td>
+                                            <td><input value="{{ trabalhador_educando.pk }}" name="select_trabalhador_educando" type="checkbox"/></td>
+                                            <td>{% if perms.edu.view_trabalhador_educando %}<a target="_blank"
+                                                                                href="{{ trabalhador_educando.get_absolute_url }}">{{ trabalhador_educando.matricula }}</a>{% else %}
+                                                {{ trabalhador_educando.matricula }}{% endif %}</td>
+                                            <td>{{ trabalhador_educando.get_nome_social_composto }}</td>
+                                            
+                                            {% for campo in campos_exibicao %}                 
+                                                <td>{{ trabalhador_educando|getattrr:campo|format }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endfor %}
+                            {% paginate %} 
+                        {% else %}
+                            {{ tabela }}
+                        {% endif %}
+                    {% else %}
+                        <p class='msg alert'>Nenhum trabalhador educando encontrado.</p>
+                    {% endif %}
+                    <div class="submit-row">
+                        <ul class="action-bar">
+                            {% if formatacao == 'simples' %}
+                                <li>
+                                    <button type="submit" class="btn" name="imprimir" value="1">Exportar para PDF
+                                    </button>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <button type="submit" class="btn" name="xls" value="1">Exportar para XLS</button>
+                            </li>
+                        </ul>
+                    </div>
+                {% endbox %}
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}

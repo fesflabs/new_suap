@@ -1,0 +1,79 @@
+[
+    {
+        "pk": 1, 
+        "model": "patrimonio.baixatipo", 
+        "fields": {
+            "nome": "cessao"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "patrimonio.baixatipo", 
+        "fields": {
+            "nome": "doacao"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "patrimonio.baixatipo", 
+        "fields": {
+            "nome": "inservivel"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "patrimonio.inventariostatus", 
+        "fields": {
+            "nome": "ativo"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "patrimonio.inventariostatus", 
+        "fields": {
+            "nome": "baixado"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "patrimonio.inventariostatus", 
+        "fields": {
+            "nome": "estornado"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "patrimonio.inventariostatus", 
+        "fields": {
+            "nome": "pendente"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "patrimonio.movimentopatrimtipo", 
+        "fields": {
+            "nome": "pendência"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "patrimonio.movimentopatrimtipo", 
+        "fields": {
+            "nome": "transferência"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "patrimonio.movimentopatrimtipo", 
+        "fields": {
+            "nome": "baixa"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "patrimonio.movimentopatrimtipo", 
+        "fields": {
+            "nome": "estorno"
+        }
+    }
+]

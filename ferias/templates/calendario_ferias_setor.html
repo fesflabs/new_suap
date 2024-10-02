@@ -1,0 +1,20 @@
+{% extends super_template %}
+
+{% block content %}
+
+<h2>Calendário Férias por Setor</h2>
+
+{% if form %}
+	{% box "Programação de Férias por Ano" %}
+		{% render_form form %}
+	{% endbox %}
+{% endif %}
+
+{% if calendarios %}
+{% for ano, calendario in calendarios.items %}
+	{% box "Calendário {{ano}}" %}
+		{{ calendario|safe }}
+	{% endbox %}
+{% endfor %}
+{% endif %}
+{% endblock %}

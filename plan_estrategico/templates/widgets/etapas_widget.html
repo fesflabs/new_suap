@@ -1,0 +1,27 @@
+{% if objects %}
+        <table>
+        	<thead>
+	        	<tr>
+                    <th><input type="checkbox" onchange="var is = this.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked"/></th>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Data Início</th>
+                    <th>Data Fim</th>
+	        	</tr>
+        	</thead>
+        	<tbody>
+        		{% for ri in objects %}
+        		<tr>
+                    <td>{{ ri.widget }}</td>
+        			<td>{{ ri.codigo }}</td>
+        			<td>{{ ri.descricao }}</td>
+                    <td>{{ ri.data_inicio }}</td>
+                    <td>{{ ri.data_fim }}</td>
+        		</tr>
+        		{% endfor%}
+        	</tbody>
+        </table>
+{% else %}
+    <p class="msg alert">Nenhuma etapa do projeto disponível para este plano de atividades</p>
+{% endif %}
+

@@ -1,0 +1,11 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+    
+    {% box 'Resultados' %}
+        {% render_table table %}
+    {% endbox %}
+{% endblock %}

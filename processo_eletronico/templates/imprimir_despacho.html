@@ -1,0 +1,21 @@
+<main>
+    <h1>Despacho:</h1>
+    <div class="observacoes">
+        <p>{{ tramite.despacho_corpo|safe }}</p>
+    </div>
+    {% if tramite.valido %}
+        <div class="assinaturas">
+            <div>
+                <h3>Despacho assinado eletronicamente por:</h3>
+                <ul>
+                    <li>{{ tramite.remetente_pessoa.nome|format }},
+	                    {{ tramite.assinaturatramite.assinatura.papel }}, {{ tramite.remetente_setor|format }},
+                        em {{ tramite.data_hora_encaminhamento|format }}.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <div class="violado">Este despacho foi violado.</div>
+    {% endif %}
+</main>

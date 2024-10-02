@@ -1,0 +1,154 @@
+{% extends super_template %}
+
+
+
+{% block extrahead %}
+    <script src='/static/comum/js/controlurlparams.js'></script>
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    {% box 'Filtros' %}
+        {% render_form form %}
+    {% endbox %}
+
+    {% if form.is_valid %}
+
+        {% box 'Alunos' %}
+
+            {% if anos.exists and form.cleaned_data.periodicidade == 'por_ano_letivo' %}
+
+                <ul class="pills">
+                    {% for ano in anos %}
+                        <li class="{% if ano_selecionado.pk == ano.pk %}active{% endif %}">
+                            <a href="?{{ request.META.QUERY_STRING }}&ano_selecionado={{ ano.id }}"
+                               onclick="$('*').css({'cursor':'wait'});">{{ ano.ano }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            {% else %}
+
+                <ul class="pills">
+                    {% for periodo in periodos %}
+                        <li class="{% if periodo_selecionado == periodo %}active{% endif %}">
+                            <a href="?{{ request.META.QUERY_STRING }}&periodo_selecionado={{ periodo }}"
+                               onclick="$('*').css({'cursor':'wait'});">{{ periodo }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+
+            <ul class="pills">
+                <li class="{% if not uo_selecionada %}active{% endif %}">
+                    <a href="?{{ request.META.QUERY_STRING }}&uo_selecionada=" onclick="$('*').css({'cursor':'wait'});">Todos
+                        os Campi</a>
+                </li>
+                {% for uo in uos %}
+                    <li class="{% if uo_selecionada.pk == uo.pk %}active{% endif %}">
+                        <a href="?{{ request.META.QUERY_STRING }}&uo_selecionada={{ uo.id }}"
+                           onclick="$('*').css({'cursor':'wait'});">{{ uo.sigla }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <div class="tab-container" data-title="Evolução Anual" data-tab="evolucao_anual">
+                <script>
+                    {{ grafico_ano | safe }}
+                </script>
+                <div id="{{ grafico_ano.id }}"></div>
+                {% box "Resumo" %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ano/Período</th>
+                            <th>Alunos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for registro in grafico_ano.tabela_resumo %}
+                            <tr>
+                                <td>{{ registro.0 }}</td>
+                                <td>{{ registro.1 }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endbox %}
+            </div>
+
+            <div class="tab-container" data-title="Quantitativos" data-tab="total_curso">
+                <script>
+                    {{ grafico | safe }}
+                </script>
+                <div id="{{ grafico.id }}"></div>
+                {{ tabela }}
+                {{ tabela_aluno_polo_nivel_ensino }}
+                {{ tabela_aluno_curso_polo }}
+                {{ tabela_por_curso }}
+                <a href="javascript:insertParam('xls', '1')" class="btn">Exportar para Excel</a>
+            </div>
+
+
+
+        {% endbox %}
+
+
+
+        <div class="tab-container" data-title="Relação de Alunos <span>{{ grafico_ano.qtd_alunos_ano_selecionado }}</span>"
+             data-tab="listagem">
+
+
+            {% box 'Alunos' %}
+                {% if alunos.exists %}
+                    <ul class="action-bar">
+                        <li>
+                            <a class="btn success" href="?{{ request.META.QUERY_STRING }}&xls=1">Exportar para XLS</a>
+                        </li>
+                    </ul>
+                    <p class="msg info">Apenas os primeiros registros serão exibidos. Para obter a relação completa dos
+                        alunos, clique no botão "Exportar para XLS".</p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Aluno</th>
+                            <th>Curso</th>
+                            <th>Diretoria</th>
+                            <th>Modalidade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        {% for aluno in alunos %}
+                            <tr>
+                                <td><a href="{{ aluno.get_absolute_url }}">{{ aluno.matricula }}</a></td>
+                                <td>{{ aluno.get_nome }}</td>
+                                <td>{{ aluno.curso_campus }}</td>
+                                <td>{{ aluno.curso_campus.diretoria }}</td>
+                                <td>{{ aluno.curso_campus.modalidade }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                {% else %}
+                    <p class="msg alert">
+                        Nenhum aluno encontrado com a situação "{{ form.cleaned_data.situacao_matricula_periodo }}" no
+                        ano de {{ ano_selecionado.ano }}.
+                    </p>
+                {% endif %}
+            {% endbox %}
+
+        </div>
+
+
+    {% endif %}
+
+{% endblock %}

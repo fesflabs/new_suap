@@ -1,0 +1,149 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="630" measuredH="722" mockupW="592" mockupH="706">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="16" w="592" h="706" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="66" y="101" w="-1" h="-1" measuredW="359" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Minhas%20Requisi%E7%F5es%20de%20Sala%2C%20Visualizar%20Requisi%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::FieldSet" x="66" y="132" w="521" h="61" measuredW="200" measuredH="170" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dados%20Gerais</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Paragraph" x="81" y="160" w="549" h="18" measuredW="275" measuredH="80" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>*Sala%20solicitante*%3A%20Sala%20de%20ATOS%20do%202%BA%20andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::FieldSet" x="66" y="205" w="520" h="140" measuredW="200" measuredH="170" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Requisi%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="__group__" x="81" y="231" w="378" h="99" measuredW="378" measuredH="99" zOrder="5" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="55" y="0" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="0" locked="false" isInGroup="42">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Solicitante%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="0" y="21" w="-1" h="-1" measuredW="126" measuredH="21" zOrder="1" locked="false" isInGroup="42">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Dada%20da%20solicita%E7%E3o%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="50" y="40" w="-1" h="-1" measuredW="76" measuredH="21" zOrder="2" locked="false" isInGroup="42">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Dada%20Inicial%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="58" y="59" w="-1" h="-1" measuredW="68" measuredH="21" zOrder="3" locked="false" isInGroup="42">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Dada%20Final%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="56" y="78" w="-1" h="-1" measuredW="70" measuredH="21" zOrder="4" locked="false" isInGroup="42">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Justicativa%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="141" y="0" w="-1" h="-1" measuredW="237" measuredH="21" zOrder="5" locked="false" isInGroup="42">
+          <controlProperties>
+            <text>Jos%E9%20Augusto%20Nascimento%20de%20Medeiros%20</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="141" y="40" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="6" locked="false" isInGroup="42">
+          <controlProperties>
+            <text>26/05/2014%2007%3A00</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="141" y="59" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="7" locked="false" isInGroup="42">
+          <controlProperties>
+            <text>29/05/2014%2008%3A00</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="141" y="21" w="-1" h="-1" measuredW="109" measuredH="21" zOrder="8" locked="false" isInGroup="42">
+          <controlProperties>
+            <text>21/05/2014%2000%3A06</text>
+          </controlProperties>
+        </control>
+        <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="141" y="78" w="-1" h="-1" measuredW="32" measuredH="21" zOrder="9" locked="false" isInGroup="42">
+          <controlProperties>
+            <text>teste</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="60" controlTypeID="__group__" x="66" y="355" w="546" h="294" measuredW="546" measuredH="294" zOrder="6" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::FieldSet" x="0" y="0" w="520" h="294" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="60">
+          <controlProperties>
+            <text>Agenda%20Atual</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="15" y="27" w="531" h="218" measuredW="531" measuredH="218" zOrder="1" locked="false" isInGroup="60">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Calendar" x="1" y="34" w="163" h="133" measuredW="96" measuredH="96" zOrder="0" locked="false" isInGroup="1"/>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="60" y="140" w="82" h="21" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="1">
+              <controlProperties>
+                <backgroundAlpha>0.5</backgroundAlpha>
+                <borderStyle>none</borderStyle>
+                <color>9684093</color>
+              </controlProperties>
+            </control>
+            <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="1" y="172" w="217" h="46" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="1">
+              <controlProperties>
+                <backgroundAlpha>0.5</backgroundAlpha>
+                <borderStyle>none</borderStyle>
+                <color>9684093</color>
+              </controlProperties>
+            </control>
+            <control controlID="3" controlTypeID="com.balsamiq.mockups::Canvas" x="276" y="1" w="69" h="20" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="1">
+              <controlProperties>
+                <backgroundAlpha>0.5</backgroundAlpha>
+                <borderStyle>none</borderStyle>
+                <color>9684093</color>
+              </controlProperties>
+            </control>
+            <control controlID="4" controlTypeID="com.balsamiq.mockups::Canvas" x="345" y="1" w="76" h="20" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="1">
+              <controlProperties>
+                <backgroundAlpha>0.5</backgroundAlpha>
+                <borderStyle>none</borderStyle>
+                <color>13576743</color>
+              </controlProperties>
+            </control>
+            <control controlID="5" controlTypeID="com.balsamiq.mockups::Canvas" x="126" y="0" w="150" h="20" measuredW="100" measuredH="70" zOrder="5" locked="false" isInGroup="1">
+              <controlProperties>
+                <backgroundAlpha>0.5</backgroundAlpha>
+                <borderStyle>none</borderStyle>
+                <color>16770457</color>
+              </controlProperties>
+            </control>
+            <control controlID="6" controlTypeID="com.balsamiq.mockups::Paragraph" x="1" y="172" w="217" h="46" measuredW="275" measuredH="80" zOrder="6" locked="false" isInGroup="1">
+              <controlProperties>
+                <color>0</color>
+                <size>11</size>
+                <text>26/05/2014%2007%3A00%20a%2029/05/2014%2008%3A00%3A%20Agendada%20para%20Jos%E9%20Augusto%20Nascimento%20de%20Medeiros%20</text>
+              </controlProperties>
+            </control>
+            <control controlID="7" controlTypeID="com.balsamiq.mockups::Paragraph" x="0" y="4" w="531" h="17" measuredW="275" measuredH="80" zOrder="7" locked="false" isInGroup="1">
+              <controlProperties>
+                <text>Legenda%3A%20%20%20%20%20%20Hoje%20%20%20%20%20%20Requisi%E7%E3o%20solicitada%20%20%20%20%20%20Agenda%20%20%20%20%20%20Indispon%EDvel%09</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>

@@ -1,0 +1,53 @@
+Presentes Alessandro, Emiliano e Jailton.
+
+** Matricula por Componente Currícular
+
+
+por padrão listar todos diários de todas as turmas relativos aos componentes da matriz curricular do curso e campus do aluno
+do ano/período letivo.
+Inlcuir opção para listar os diários de outros campus.
+
+na listagem incluir a coluna nota/conceito
+
+
+Não listar os diários cujos componentes o aluno já cursou e listar
+os diários que esta atuamente cursando.
+
+Não listar os componentes(diários) cujos pré-requisitos o aluno ainda não pagou.
+
+Incluir link para o caso de uso Gerir alunos em turmas com opção de trazer o aluno já filtrado.
+
+
+incluir o botão "Matricula por componente currícular" no caso de uso gerir alunos.
+
+Emitir um aviso quando um diário não tiver horário definido.
+ 
+
+Incluir o aluno em um diário específico.
+
+
+o sistema deve avisar quando incluir o aluno em diário com conflito de horário.
+ 
+
+Entrada:
+	Ano, período letivo
+
+- pré-condição
+ Aluno deve estar matriculado.
+ Turmas e diários cadastrados.
+
+
+** Cancelar disciplina (diário)
+incluir na estrutua do curso a quantidade de cancelamento por disciplina.
+
+Cancelar procedimento volta para a situação cursando.
+
+
+
+
+
+****************************************
+Apresentou o Edmodo
+
+timestable
+

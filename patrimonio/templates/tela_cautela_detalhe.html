@@ -1,0 +1,49 @@
+{% extends super_template %}
+
+{% block content %}
+
+<h2>Detalhes da Cautela</h2>
+
+<ul class="action-bar">
+    <li><a class="btn" href="/patrimonio/relatorio/termo_cautela_PDF/{{ cautela.id }}">Gerar PDF</a></li>
+</ul>
+
+<div id="resposta">
+<table class="info">
+    <tr>
+        <td width="15%">Responsável: </td>
+        <td>{{ cautela.responsavel }}
+    </tr>
+    <tr>
+        <td>Data Inicial: </td>
+        <td>{{ cautela.get_data_inicio }}</td>
+    </tr>
+    <tr>
+        <td>Data Final: </td>
+        <td>{{ cautela.get_data_fim }}</td>
+    </tr>
+</table>
+
+<h3>Listagem de Materiais</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Descrição do material</th>
+            <th>Nº Patrimônio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in resposta %}
+            <tr>
+                <td width="5%" align="center">{{forloop.counter}}</td>
+                <td align="left">{{i.descricao}}</td>
+                <td width="10%" align="center">{{ i.numero}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+ </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends super_template %}
+{% load static %}
+
+{% block extrahead %}
+    {{ formset.media }}
+{% endblock %}
+
+{% block content %}
+    {% if form.errors or formset.errors %}
+		<p class="errornote">Por favor, corrija os erros abaixo.</p>
+	{% endif %}
+
+    {% box "Dados Pessoais" %}
+        <table class="info">
+            <tr>
+                <td>Matrícula SIAPE</td>
+                <td>{{ interessado.matricula }}</td>
+                <td>Nome</td>
+                <td>{{ interessado.nome }}</td>
+            </tr>
+            <tr>
+                <td>Endereço</td>
+                <td colspan="3">{{ interessado.endereco }}</td>
+            </tr>
+            <tr>
+                <td>Telefone</td>
+                <td>{{ interessado.telefones_pessoais}}</td>
+                <td>Email</td>
+                <td>{{ interessado.email }}</td>
+            </tr>
+            <tr>
+                <td>Categoria</td>
+                <td colspan="3">{{ categoria }}</td>
+            </tr>
+            <tr>
+                <td>Lotação</td>
+                <td>{{ interessado.setor_lotacao }}</td>
+                <td>Localização do Exercício</td>
+                <td>{{ interessado.setor }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    <form action="." method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        {% box "Dados Gerais" %}
+            {% render_form form render_full=False %}
+        {% endbox %}
+	    {% box "Anexos" %}
+            <div id="formset" data-formset-prefix="{{ formset.prefix }}">
+                <div class="action-bar">
+                    <input type="button" class="btn success" value="Adicionar Anexo" data-formset-add />
+                </div>
+                <p class="msg info">Use esta seção para adicionar anexos ao seu requerimento.</p>
+                {{ formset.management_form }}
+                {% if formset.non_form_errors %}
+                    {% for error in formset.non_form_errors %}
+                        <p class="errornote">{{ error|escape }}</p>
+                    {% endfor %}
+                {% endif %}
+                <div data-formset-body>
+                    {% for inline_form in formset %}
+                        <div class="inline-group" data-formset-form>
+                            <fieldset class="module">
+                                <h3 class="ContadorFormSet">
+                                    <a type="button" data-formset-delete-button class="inline-deletelink">
+                                        Remover anexo
+                                    </a>
+                                </h3>
+                                {% render_form inline_form submit_label=False %}
+                            </fieldset>
+                        </div>
+                    {% endfor %}
+                </div>
+                <script type="form-template" data-formset-empty-form>
+                    {% escapescript %}
+                        <div class="inline-group" data-formset-form>
+                            <fieldset class="module">
+                                <h3 class="ContadorFormSet">
+                                    <a type="button" data-formset-delete-button class="inline-deletelink">
+                                        Remover anexo
+                                    </a>
+                                </h3>
+                                {% render_form formset.empty_form submit_label=False %}
+                            </fieldset>
+                        </div>
+                    {% endescapescript %}
+                </script>
+            </div>
+	    {% endbox %}
+		<div class="submit-row">
+			<input type="submit" class="default" value="Enviar" />
+		</div>
+        <script>
+            jQuery(function($) {
+                $("#formset").formset({
+                    'animateForms': true,
+                    'reorderMode': 'animate'
+                }).on('formAdded', function() {}).on('formDeleted', function() {});
+            });
+        </script>
+    </form>
+{% endblock %}

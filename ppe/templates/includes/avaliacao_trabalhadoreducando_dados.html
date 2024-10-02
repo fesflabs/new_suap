@@ -1,0 +1,51 @@
+{% box 'IDENTIFICAÇÃO DO(A) TRABALHADOR(A)' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nome</dt>
+            <dd>{{ trabalhador_educando.pessoa_fisica.nome }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data de Admissão</dt>
+            <dd>{{ trabalhador_educando.data_admissao|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data de Demissão</dt>
+            <dd>{{ trabalhador_educando.data_demissao|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Formação</dt>
+            <dd>{{ trabalhador_educando.formacao_tecnica|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Setor</dt>
+            <dd>{{ trabalhador_educando.get_setor_atual|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Unidade</dt>
+            <dd>{{ trabalhador_educando.get_unidade_atual.nome|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Municipio</dt>
+            <dd>{{ trabalhador_educando.get_unidade_atual.municipio|format }}</dd>
+        </div>
+    </dl>
+{% endbox %}
+{% box 'IDENTIFICAÇÃO DA CHEFIA IMEDIATA' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nome</dt>
+            <dd>{{ trabalhador_educando.get_chefe_atual.nome }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Função</dt>
+            <dd>{{ trabalhador_educando.get_chefe_atual.funcao }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Formação</dt>
+            <dd>{{ trabalhador_educando.get_setor_atual.get_chefe_atual.formacao }}</dd>
+        </div>
+    </dl>
+{% endbox %}
+
+
+

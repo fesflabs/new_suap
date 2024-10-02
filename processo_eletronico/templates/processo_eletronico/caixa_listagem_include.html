@@ -1,0 +1,15 @@
+{% load tags  %}
+{% if contador and contador > 25 %}
+{% autopaginate caixa 25 %}
+{% paginate 25 %}
+{% endif %}
+{% for item in caixa %}
+    {% if item|tem_atributo:"ultimo_tramite" %}
+        {% include 'processo_eletronico/caixa_listagem_tramite_include.html' with tramite=item.ultimo_tramite aguardando_encaminhamento=aguardando_encaminhamento aguardando_despacho=aguardando_despacho aguardando_recebimento=aguardando_recebimento %}
+    {% else %}
+        {% include 'processo_eletronico/caixa_listagem_tramite_include.html' with tramite=item aguardando_encaminhamento=aguardando_encaminhamento aguardando_despacho=aguardando_despacho aguardando_recebimento=aguardando_recebimento %}
+    {% endif %}
+{% empty %}
+    <p class="msg alert">Nenhum processo encontrado.</p>
+{% endfor %}
+

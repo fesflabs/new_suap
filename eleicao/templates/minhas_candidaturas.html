@@ -1,0 +1,45 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% block content %}
+    {% box "Meus Dados" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Nome</dt>
+                <dd>{{ user.get_profile.nome }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Matrícula</dt>
+                <dd>{{ user.username }}</dd>
+            </div>
+            {% if cargo %}
+            <div class="list-item">
+                <dt>Cargo</dt>
+                <dd>{{ cargo }}</dd>
+            </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Campus</dt>
+                <dd>{{ campus.nome }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% box "Candidaturas" %}
+        {% for candidatura in candidaturas %}
+            <div class="general-box">
+                <div class="primary-info">
+                    {{ candidatura.status|status }}
+                    <h4>{{ candidatura.eleicao.descricao }}</h4>
+                    <div class="extra-info">
+                        <dl>
+                            <dt>Texto de Apresentação:</dt>
+                            <dd>{{ candidatura.descricao|linebreaks }}</dd>
+                            <dt>Justificativa do Parecer:</dt>
+                            <dd>{{ candidatura.justificativa_parecer }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </tr>
+        {% endfor %}
+    {% endbox %}
+{% endblock %}

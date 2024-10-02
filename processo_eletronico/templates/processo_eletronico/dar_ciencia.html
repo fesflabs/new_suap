@@ -1,0 +1,48 @@
+{% extends super_template %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% box "Solicitação de Ciência" %}
+    <table class="info">
+        <tr>
+            <td>Solicitante</td>
+            <td colspan="3">{{ solicitacao.solicitante|format }}</td>
+        </tr>
+        <tr>
+            <td>Data da Solicitação</td>
+            <td>{{ solicitacao.data_solicitacao|format }}</td>
+            <td>Data Limite</td>
+            <td>{{ solicitacao.data_limite_ciencia.date }}</td>
+        </tr>
+        <tr>
+            <td>Tipo de Ciência</td>
+            <td colspan="3">{{ solicitacao.get_tipo_display }}</td>
+        </tr>
+        <tr>
+            <td>Justificativa da Solicitação</td>
+            <td colspan="3">{{ solicitacao.motivo }}</td>
+        </tr>
+    </table>
+{% endbox %}
+
+{% box "Declaração de Ciência" %}
+        <p class="msg info">Eu, {{ instance }}, residente e domiciliado {{ instance.endereco }}
+            {% if not request.user.get_vinculo.eh_usuario_externo %}
+            estando vinculado a {{ setor }}, matrícula SIAPE n. {{ instance.funcionario.servidor.matricula }},
+            {% endif %}
+            RG n. {{ instance.rg }}, CPF n. {{ instance.cpf }} declaro para os devidos fins
+            que estou ciente do atual processo.
+        </p>
+    {% if solicitacao.data_limite_juntada %}
+        <p class="msg alert">Após a confirmação da Ciência você terá até o dia {{ solicitacao.data_limite_juntada.date }}
+            para manifestação via juntada de documentos.</p>
+    {% endif %}
+    {% render_form form %}
+
+    {% if eh_usuario_autenticado_govbr %}
+        <a class="btn success" href="?action=new_code">Enviar Novo Código</a>
+    {% endif %}
+{% endbox %}
+
+{% endblock %}

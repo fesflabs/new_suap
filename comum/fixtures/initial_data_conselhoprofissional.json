@@ -1,0 +1,236 @@
+[
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRA",
+      "nome": "Conselho Regional de Administra\u00e7\u00e3o"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRESS",
+      "nome": "Conselho Regional de Assist. Social"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRB",
+      "nome": "Conselho Regional de Biblioteconomia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRBIO",
+      "nome": "Conselho Regional de Biologia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRBM",
+      "nome": "Conselho Regional de Biomedicina"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRC",
+      "nome": "Conselho Regional de Contabilidade"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRECI",
+      "nome": "Conselho Regional de Corretores Im\u00f3veis"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CREP",
+      "nome": "Conselho Regional de Educadores e Pedagogos"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CREF",
+      "nome": "Conselho Regional de Educ\u00e7\u00e3o Físsica"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CREF",
+      "nome": "Conselho Regional de Educ\u00e7\u00e3o Físsica"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "COREN",
+      "nome": "Conselho Regional de Enfermagem"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CREA",
+      "nome": "Conselho Regional de Engenharia e Agronomia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CONRE",
+      "nome": "Conselho Regional de Estat\u00edstica"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CREFONO",
+      "nome": "Conselho Regional de Fonoaudiologia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRF",
+      "nome": "Conselho Regional de Farm\u00e1cia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CREFITO",
+      "nome": "Conselho Regional de Fisioterapia e Terapia Ocupacional"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRM",
+      "nome": "Conselho Regional de Medicina"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRMV",
+      "nome": "Conselho Regional de Medicina Veterin\u00e1ria"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRN",
+      "nome": "Conselho Regional de Nutri\u00e7\u00e3o"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRO",
+      "nome": "Conselho Regional de Odontologia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CONRERP",
+      "nome": "Conselho Regional de Profissionais de Rela\u00e7ões Públicas"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRP",
+      "nome": "Conselho Regional de Psicologia"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CRQ",
+      "nome": "Conselho Regional de Qu\u00edmica"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "CORE",
+      "nome": "Conselho Regional de Representantes Comerciais"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "OAB",
+      "nome": "Ordem dos Advogados do Brasil"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "ativo": true,
+      "sigla": "OMB",
+      "nome": "Ordem dos Musicos do Brasil"
+    },
+    "model": "comum.ConselhoProfissional",
+    "pk": 26
+  }
+]

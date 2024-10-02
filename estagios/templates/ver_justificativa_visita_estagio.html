@@ -1,0 +1,30 @@
+{% extends super_template %}
+
+{% block content %}
+
+<table class="info">
+    <tbody>
+        <tr>
+            <td>Estágio</td>
+            <td>{{ obj.pratica_profissional }}</td>
+        </tr>
+        <tr>
+            <td>Trimestre</td>
+            <td>De {{ obj.inicio|format }} até {{ obj.fim|format }}</td>
+        </tr>
+        <tr>
+            <td>Justificativa</td>
+            <td>{{ obj.motivos }}</td>
+        </tr>
+        <tr>
+            <td>Outras Formas de Acompanhamento</td>
+            <td>{{ obj.outros_acompanhamentos }}</td>
+        </tr>
+        <tr>
+            <td>Formulário de Justificativa</td>
+            <td><a href="{{ obj.formulario_justificativa.url }}">{{ obj.formulario_justificativa.name }}</a></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

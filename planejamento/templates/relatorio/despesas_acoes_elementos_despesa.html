@@ -1,0 +1,92 @@
+{% extends super_template %}
+
+{% block extracss %}
+<link rel="stylesheet" href="/static/planejamento/css/planejamento.css" />
+<link rel="stylesheet" href="/static/planejamento/css/relatorio.css" />
+{% endblock %}
+
+{% block content %}
+
+{% box 'Dados Gerais' True %}
+<table>
+	<tr>
+		<td>Ano Base</td>
+		<td>{{ configuracao }}</td>
+		<td>Ação do Orçamento</td>
+		<td>{{ acao_orcamento|default:"Todas" }}</td>
+	</tr>
+	<tr>
+		<td>Dimensão</td>
+		<td>{{ dimensao|default:"Todas" }}</td>
+		<td>Unidade Admin.</td>
+		<td>{{ unidade_administrativa }}</td>
+	</tr>
+	<tr>
+		<td>Despesa</td>
+		<td>{{ nat_despesa }}</td>
+		<td>Origem do Recurso</td>
+		<td>{{ origem_recurso }}</td>
+	</tr>
+	<tr>
+		<td>Data e Hora</td>
+		<td>{{ data_hora|date:"j \de F \de Y à\s H:i:s (l)"|format }}</td>
+		<td>Obs.</td>
+		<td>Este relatório não considera os valores das ações indeferidas</td>
+	</tr>
+</table>
+{% endbox %}
+
+{% if mensagem %}
+<p class="msg alert">{{ mensagem }}</p>
+{% else %}
+
+{% regroup relatorio by meta as lista_metas %}
+
+{% if lista_metas %}
+<div class="cx_tabela">
+	<table>
+		<thead>
+			<tr>
+				<th width="50px" style="text-align:center;">Código</th>
+				<th style="text-align:center;">Meta / Ação / Atividade</th>
+				<th style="text-align:center;" width="100px">Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for metas in lista_metas %}
+			<tr>
+				<td style="text-ident:5px;">{{ metas.list.0.meta_codigo }}</td>
+				<td style="font-weight:bold;">{{ metas.list.0.meta }}</td>
+				<td style="text-align:right;font-weight:bold;">{{ metas.list|sum_values_by_key:"valor"|mascara_dinheiro }}</td>
+			</tr>
+			{% regroup metas.list by acao as lista_acoes %}
+			{% for acoes in lista_acoes %}
+			<tr>
+				<td style="text-ident:5px;">{{ acoes.list.0.acao_codigo }}</td>
+				<td style="font-weight:bold;font-style:italic;text-indent:20px;">{{ acoes.list.0.acao }}</td>
+				<td style="text-align:right;font-weight:bold;font-style:italic;">{{ acoes.list|sum_values_by_key:"valor"|mascara_dinheiro }}</td>
+			</tr>
+			{% for atividade in acoes.list %}
+			<tr>
+				<td></td>
+				<td style="text-indent:50px;">{{ atividade.atividade }}</td>
+				<td style="text-align:right;">{{ atividade.valor|mascara_dinheiro }}</td>
+			</tr>
+			{% endfor %}
+			{% endfor %}
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td style="text-align:right;font-weight:bold" colspan="2">Total</td>
+				<td style="text-align:right;font-weight:bold">{{ relatorio|sum_values_by_key:"valor"|mascara_dinheiro }}</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+{% else %}
+<p class="msg alert">Não existem registros para os filtros utilizados.</p>
+{% endif %}
+
+{% endif %}
+{% endblock %}

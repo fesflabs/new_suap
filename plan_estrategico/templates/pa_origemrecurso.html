@@ -1,0 +1,50 @@
+
+{% block tabs %}
+        <ul class="action-bar">
+            {% if pode_incluir_dados_orcamentarios %}
+                <li><a href="/admin/financeiro/" class="btn primary">Dados Orçamentários</a></li>
+            {% endif %}
+            {% if origem_recurso_pode_incluir %}
+                <li><a href="{% url 'planoatividade_origemrecurso_add' plano_atividade.id %}" class="btn popup success">Adicionar Origem de Recurso</a></li>
+            {% endif %}
+        </ul>
+    {% if origemrecurso %}
+        <table>
+                <thead>
+                    <tr>
+                        {% if origem_recurso_pode_alterar  or origem_recurso_pode_excluir %}
+                            <th>#</th>
+                        {% endif %}
+                        <th>Ação Orçamentária</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for origem in origemrecurso %}
+                        <tr>
+                            {% if origem_recurso_pode_alterar or origem_recurso_pode_excluir%}
+                                <td>
+                                    {% if origem_recurso_pode_alterar %}
+                                        <a href="{% url 'planoatividade_origemrecurso_change' plano_atividade.id origem.id %}" class="popup icon icon-edit"><span class="sr-only">Editar Origem de Recurso</span></a>
+                                    {% endif %}
+                                    {% if origem_recurso_pode_excluir %}
+                                        <a href="{% url 'planoatividade_origemrecurso_delete' plano_atividade.id origem.id %}" class="icon icon-delete"><span class="sr-only">Excluir Origem de Recurso</span></a>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                            <td>{{ origem }}</td>
+                            <td>{{ origem.gnd }}</td>
+                            {% if origem.gnd.codigo == '4' %}
+                                <td>{{ origem.acao_financeira.valor_capital|format }}</td>
+                            {% else %}
+                                <td>{{ origem.acao_financeira.valor_custeio|format }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhuma origem de recurso foi criada para este plano de atividades.</p>
+    {% endif %}
+{% endblock %}

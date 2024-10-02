@@ -1,0 +1,44 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        <li><a class="btn success popup" href="/ppe/cadastrar_supervisor_pedagogico_ppe/">Adicionar Supervisores(as) Pedagógicos</a></li>
+    </ul>
+
+{% if supervisores.exists %}
+    {% autopaginate supervisores 25 %}
+    {% csrf_token %}
+    {% paginate %}
+    <table>
+        <thead>
+            <tr>
+                <th class="no-print">Ações</th>
+                <th>Matrícula FESF</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>CPF</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in supervisores %}
+            <tr>
+                <td>
+                    {% icon "edit" "/ppe/editar_supervisor_pedagogico_ppe/{{ obj.pk }}/" "Editar" "popup" %}
+                    {% icon "delete" "?del_prefil={{ obj.pk }}" "Remover Função de Supervisores(as)" "" %}
+                </td>
+                <td>{{ obj.matricula|format }}</td>
+                <td>{{ obj.nome|format }}</td>
+                <td>{{ obj.email|format }}</td>
+                <td>{{ obj.cpf|format }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% paginate %}
+
+{% else %}
+    <div class="msg alert">Nenhum registro encontrado.</div>
+{% endif %}
+
+{% endblock %}

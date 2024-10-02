@@ -1,0 +1,135 @@
+{% extends super_template %}
+
+{% block object-status %}
+    {% if obj.privado %}<span class="status status-error">Indisponível para resposta dos campi</span>{% else %}<span class="status status-success">Aberto para respostas dos campi</span>{% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="tab-container" data-title="Questões" data-counter="{{ qtd_questoes }}" data-tab="questoes">
+        <ul class="action-bar">
+            {% if perms.edu.change_questaoeducacenso and not obj.privado %}
+                <li><a class="btn success" href="/edu/responder_questionarioeducacenso/{{ obj.pk }}/">Responder Questões</a></li>
+            {% endif %}
+            {% if perms.edu.add_questaoeducacenso %}
+                <li><a class="btn success" href="/edu/adicionar_questaoeducacenso/{{ obj.pk }}/">Adicionar Questão</a></li>
+                {% if obj.privado %}
+                    <li><a class="btn" href="/edu/publicar_questaoeducacenso/{{ obj.pk }}/1/">Publicar Questionário</a></li>
+                {% else %}
+                <li><a class="btn" href="/edu/publicar_questaoeducacenso/{{ obj.pk }}/0/">Fechar Questionário</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+        <br /><br />
+        {% if qtd_questoes %}
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            {% if perms.edu.add_questaoeducacenso %}
+                                <th class="no-print"></th>
+                            {% endif %}
+                            <th>Campo</th>
+                            <th>Questão</th>
+                            <th>Resposta Privada</th>
+                            <th>Tipo de Resposta</th>
+                            <th>Tipo de Obrigatoriedade</th>
+                            {% if perms.edu.add_questaoeducacenso %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for questao in questoes %}
+                        <tr>
+                            {% if perms.edu.add_questaoeducacenso %}
+                                <td class="no-print field-get_acoes">
+                                    {% if perms.edu.add_questaoeducacenso %}
+                                        {% icon "edit" "/admin/edu/questaoeducacenso/{{ questao.pk }}/change/" "Editar Questão" %}
+                                    {% endif %}
+                                    {% if perms.edu.delete_questaoeducacenso %}
+                                        {% icon "delete" "/comum/excluir/edu/questaoeducacenso/{{ questao.pk }}/" "Excluir" "no-confirm popup" %}
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                            <td class="text-center">{{ questao.numero_campo|format }}</td>
+                            <td>{{ questao.nome_campo }}</td>
+                            <td class="text-center">{{ questao.resposta_privada|format }}</td>
+                            <td class="text-center">{{ questao.get_tipo_resposta_display }}</td>
+                            <td class="text-center">{{ questao.get_tipo_obrigatoriedade_display }}</td>
+                            {% if perms.edu.add_questaoeducacenso %}
+                                <td class="no-print field-get_acoes">
+                                    <a class="btn" href="/edu/adicionar_questaoeducacenso/{{ obj.pk }}/{{ questao.id }}/">Clonar</a>
+                                    <a class="btn" href="/edu/responder_questaoeducacenso/{{questao.id}}/">Responder para Todos</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="msg alert">Nenhuma questão cadastrada.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-title="Respostas" data-tab="resposta">
+        {% comment %} escondendo botão por enquanto.
+            {% if perms.edu.add_questaoeducacenso %}
+                <ul class="action-bar">
+                    <li><a class="btn" href="#">Exportar Respostas</a></li>
+                </ul>
+            {% endif %}
+        {% endcomment %}
+
+        <ul class="tabs with-content">
+            {% for campus in campi %}
+                <li {% if campus_selecionado.sigla == campus.sigla %}class="active"{% endif %}>
+                    <a href="?tab=resposta&campus={{ campus.sigla }}">
+                        {{ campus.sigla }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-container" data-titled-tab="true">
+            {% box "Respostas do {{ campus_selecionado.nome }}" %}
+                {% if perms.edu.add_questaoeducacenso %}
+                    <ul class="action-bar">
+                        <li><a class="btn" href="/edu/responder_questionarioeducacenso_campus/{{ obj.pk }}/{{ campus_selecionado.sigla }}/">Responder pelo Campus</a></li>
+                    </ul>
+                {% endif %}
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                {% if perms.edu.add_questaoeducacenso %}
+                                    <th class="no-print"></th>
+                                {% endif %}
+                                <th>Questão</th>
+                                <th>Resposta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q in respostas %}
+                                <tr>
+                                    {% if perms.edu.add_questaoeducacenso %}
+                                        <td class="no-print field-get_acoes">
+                                            {% if perms.edu.add_questaoeducacenso %}
+                                                {% icon "edit" "/edu/editar_resposta_questionarioeducacenso/{{q.pk}}/" "Editar Resposta" %}
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+                                    <td>{{ q.questao|format }}</td>
+                                    <td>{{ q.get_resposta_display|format }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endbox %}
+        </div>
+    </div>
+
+{% endblock %}

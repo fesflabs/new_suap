@@ -1,0 +1,75 @@
+<ul class="ajaxmultiselect_field" {{ attrs|safe }}>
+	{% for item in items %}
+	    <li id="li_{{ name }}_{{ item.id }}" {% if extra_style_item %}style="{{ extra_style_item }}"{% endif %}>
+	    	<img src="/static/admin/img/icon-deletelink.svg" class="ajaxmultiselect_remove"
+	    		onclick="remove_value(this)" title="Remover item" {% if extra_style_remove_icon %}style="{{ extra_style_remove_icon }}"{% endif %} />
+	    	{{ item }}
+	    	<input type="hidden" name="{{ name }}" value="{{ item.id }}" />
+		</li>
+	{% endfor %}
+
+	<li id="li_{{ name }}_add">
+	    <input id="ajaxmultiselect_input_{{ name }}_add" autocomplete="off" class="ajaxmultiselect_add active" type="text" placeholder="{{ placeholder }}" />
+	    <script>
+	    	if(!window['options']){
+		    	options = {};
+		    }
+	        AUTO_TEMP_ID_{{ name }} = '';
+	        function afterSelect(object) {
+	            AUTO_TEMP_ID_{{ name }} = object.data.data[object.data.data.length - 1];
+	            append_value{{ name }}();
+	        }
+	        options["{{name}}"] = {{ options|safe }};
+	        options["{{name}}"]["afterSelect"] = afterSelect;
+	        options["{{name}}"]["extraParams"]["control"] = '{{ control }}';
+	        $('input#ajaxmultiselect_input_{{ name }}_add').autocomplete("{{ url }}", options["{{name}}"]);
+            $('input#ajaxmultiselect_input_{{ name }}_add').keyup(function(){
+                if (!$(this).val().length) {
+                    clean_value{{name}}($(this));
+                }
+                if(options["{{name}}"]["extraParams"]["form_parameter_names"] != undefined){
+                    vetor = options["{{name}}"]["extraParams"]["form_parameter_names"].split(",");
+                    vetor_pks = [];
+                    for ( i in vetor ){
+                        if($("input[name$="+vetor[i].toString()+"]").length==2){
+                            vetor_pks[i] = $("#hidden_"+vetor[i].toString()).val(); 
+                        }
+                        if($("input[name$="+vetor[i].toString()+"]").length==1){
+                            vetor_pks[i] = $("input[name$="+vetor[i].toString()+"]").val().toString();
+                        }
+                    }
+                    options["{{name}}"]["extraParams"]["filter_pks"] = vetor_pks.toString();
+                }
+            });
+	    </script>
+	</li>
+</ul>
+<p class="help">É possível selecionar mais de um item</p>
+<script>
+    function append_value{{ name }}(){
+        if (!AUTO_TEMP_ID_{{ name }}) {
+            alert('O item escolhido esta invalido!');
+            return;
+        } else if (document.getElementById("li_{{ name }}_"+AUTO_TEMP_ID_{{ name }})) {
+            alert('O item escolhido ja foi adicionado!');
+            return;
+        }
+        var new_li = '<li id="li_{{ name }}_'+AUTO_TEMP_ID_{{ name }}+'" {% if extra_style_item %}style="{{ extra_style_item }}"{% endif %}>';
+	    new_li += '<img src="/static/admin/img/icon-deletelink.svg" class="ajaxmultiselect_remove" onclick="remove_value(this)" title="Remover item" style="margin-right: 4px;{% if extra_style_remove_icon %}{{ extra_style_remove_icon }}{% endif %}"/>';
+	    new_li += $('#ajaxmultiselect_input_{{ name }}_add').val();
+	    new_li += '<input type="hidden" name="{{ name }}" value="'+AUTO_TEMP_ID_{{ name }}+'"/>';
+		new_li += '</li>';
+		$("#li_{{ name }}_add").before($(new_li));
+		$('input#ajaxmultiselect_input_{{ name }}_add').val("");
+    }
+    function remove_value(img_remove) {
+        $(img_remove).parent().remove();
+    }
+    function clean_value{{name}}(input) {
+        input.val('');
+        input.next().val('');
+        input.removeClass('filled');
+        input.next().next().hide(); // Esconder "limpar valor"
+        input.focus();
+    }
+</script>

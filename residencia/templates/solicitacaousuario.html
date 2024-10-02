@@ -1,0 +1,162 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% if perms.residencia.change_solicitacaousuario %}
+            {% if not obj.atendida %}
+                    {% if not obj.razao_indeferimento %}
+                        {% if eh_solicitacao_desligamentos %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% elif eh_solicitacao_diplomas %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% elif eh_solicitacao_ferias %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% elif eh_solicitacao_licencas %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                         {% elif eh_solicitacao_congressos %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% else %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% endif %}
+
+                        <li><a href="/residencia/rejeitar_solicitacao/{{ obj.pk }}/"
+                                class="btn popup danger no-confirm">Rejeitar</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+        {% help_button %}
+    </ul>
+    {% box "Dados da Solicitação" %}
+        <table class="info">
+            <tr>
+                <td>Solicitante</td>
+                <td>{{ obj.solicitante|format }}</td>
+            </tr>
+            <tr>
+                <td>Data da Solicitação</td>
+                <td>{{ obj.data_solicitacao|format }}</td>
+            </tr>
+            <tr>
+                <td>Descrição</td>
+                <td>{{ obj.descricao }}</td>
+            </tr>
+            {% if eh_solicitacao_desligamentos %}
+                <tr>
+                    <td>Motivo</td>
+                    <td>{{ filho.motivo }}</td>
+                </tr>
+            {% elif eh_solicitacao_ferias %}
+                <tr>
+                    <td>Data Início</td>
+                    <td>{{ filho.data_inicio|format}}</td>
+                </tr>
+                <tr>
+                     <td>Data Fim</td>
+                     <td>{{ filho.data_fim|format}}</td>
+                </tr>
+                <tr>
+                    <td>E-mail para contato</td>
+                    <td>{{ filho.email|format }}</td>
+                </tr>
+                <tr>
+                    <td>Observação</td>
+                    <td>{{ filho.observacao|format }}</td>
+                </tr>
+             {% elif eh_solicitacao_congressos %}
+                <tr>
+                    <td>Descrição do evento</td>
+                    <td>{{ filho.descricao_evento|format}}</td>
+                </tr>
+                <tr>
+                    <td>Condição da participação</td>
+                    <td>{{ filho.condicao_participacao|format}}</td>
+                </tr>
+                <tr>
+                    <td>Modalidade do evento</td>
+                    <td>{{ filho.modalidade|format}}</td>
+                </tr>
+                <tr>
+                    <td>Data Início</td>
+                    <td>{{ filho.data_inicio|format}}</td>
+                </tr>
+                <tr>
+                     <td>Data Fim</td>
+                     <td>{{ filho.data_fim|format}}</td>
+                </tr>
+                <tr>
+                     <td>Horário do evento</td>
+                     <td>{{ filho.hora_inicio|format}}</td>
+                </tr>
+                <tr>
+                    <td>E-mail para contato</td>
+                    <td>{{ filho.email|format }}</td>
+                </tr>
+                <tr>
+                    <td>Turma</td>
+                    <td>{{ filho.turma|format }}</td>
+                </tr>
+                <tr>
+                    <td>Estágio</td>
+                    <td>{{ filho.estagio|format }}</td>
+                </tr>
+            {% elif eh_solicitacao_licencas %}
+                <tr>
+                    <td>Tipo</td>
+                    <td>{{ filho.tipo_display|format }}</td>
+                </tr>
+                <tr>
+                    <td>Data Início</td>
+                    <td>{{ filho.data_inicio|format}}</td>
+                </tr>
+                <tr>
+                     <td>Data Fim</td>
+                     <td>{{ filho.data_fim|format}}</td>
+                </tr>
+                <tr>
+                    <td>E-mail para contato</td>
+                    <td>{{ filho.email|format }}</td>
+                </tr>
+            {% else %}
+                {% if residente %}
+                    <tr>
+                        <td>Coordenador do Curso</td>
+                        <td>{{ residente.curso_campus.coordenador|format }}</td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </table>
+
+    {% endbox %}
+
+    {% box "Dados da Avaliação" %}
+        {% if obj.avaliador %}
+            <table class="info">
+                <tr>
+                    <td>Avaliador</td>
+                    <td>{{ obj.avaliador|format }}</td>
+                </tr>
+                <tr>
+                    <td>Data da Avaliação</td>
+                    <td>{{ obj.data_avaliacao|format }}</td>
+                </tr>
+                <tr>
+                    <td>Aceita</td>
+                    <td>{{ obj.atendida|format }}</td>
+                </tr>
+                {% if not obj.atendida %}
+                    <tr>
+                        <td>Razão do indeferimento</td>
+                        <td>{{ obj.razao_indeferimento|format }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% else %}
+            <p class="msg alert">A solicitação ainda não foi avaliada.</p>
+        {% endif %}
+    {% endbox %}
+
+
+{% endblock %}

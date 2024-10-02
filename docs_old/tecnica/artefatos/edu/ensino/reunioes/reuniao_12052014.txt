@@ -1,0 +1,4 @@
+Aluno do integrado (sistema seriado)
+das 10 disciplinas, o aluno passou em 9, isto é, ficou em uma.
+Período do aluno (status Aluno aprovado com dependência.) O aluno irá para qual turma em 2014.1? Ele irá para o 2º período. Mas ele deve
+uma disciplina, nesse caso, será realizado matricula diretamente no diário (componente).

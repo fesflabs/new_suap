@@ -1,0 +1,85 @@
+{% extends super_template %}
+{% load static %}
+{% block extrahead %}
+    {{ formset.media }}
+    {{ main_form.media }}
+
+    <style type="text/css">
+        .delete-row {
+            margin-left:5px;
+        }
+    </style>
+
+    <style type="text/css">
+
+        .add-row {
+            padding-left: 18px;
+        }
+        .delete-row {
+            display: block;
+            margin: 6px 0 0 0;
+            padding-left: 18px;
+        }
+        .dynamic-form {
+            margin-bottom:6px;
+            padding-bottom:6px;
+            border-bottom:1px dotted #ccc;
+        }
+        .row1 { background-color: #f9f9f9; }
+        .row2 { background-color: #f3f3f3; }
+        .row3 { background-color: #ededed; }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    {% if form.errors or formset.errors %}
+		<p class="errornote">Por favor, corrija os erros abaixo.</p>
+	{% endif %}
+
+    <form action="." method="post">{% csrf_token %}
+        <div class="module-row">
+            <div class="inline-related">
+                <h3>
+                    <b>Solicitação Principal</b>
+                </h3>
+                <fieldset class="module">
+                    <div class="required form-row">
+                        {% render_form main_form render_full=False %}
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="formset" data-formset-prefix="{{ formset.prefix }}">
+            {{ formset.management_form }}
+            <div data-formset-body>
+                {% for form in formset %}
+                    {% include "documento_eletronico/solicitacao_form.html" with form=form index=forloop.counter only %}
+                {% endfor %}
+            </div>
+            <script type="form-template" data-formset-empty-form>
+                {% escapescript %}
+                    {% include "documento_eletronico/solicitacao_form.html" with form=formset.empty_form index=formset.activeFormCount only %}
+                {% endescapescript %}
+            </script>
+            <div class="add-row">
+                <button type="button" data-formset-add>Adicionar Solicitação</button>
+            </div>
+        </div>
+        <div class="submit-row">
+            <input type="submit" name="{{ form.ID }}" class="default" value="Enviar solicitações"/>
+        </div>
+    </form>
+    <script>jQuery(function($) {
+        $("#formset").formset({
+            'animateForms': true,
+            'reorderMode': 'animate'
+        }).on('formAdded', function()
+        {
+            console.log("Form added:", this, arguments);
+        }).on('formDeleted', function()
+        {
+            console.log("Form deleted", this, arguments);
+        });
+    });</script>
+{% endblock %}

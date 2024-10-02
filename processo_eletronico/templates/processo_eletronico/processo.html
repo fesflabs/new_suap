@@ -1,0 +1,793 @@
+{% extends super_template %}
+
+{% block extrahead %}
+<script>
+jQuery(document).ready(function() {
+    jQuery(".processos-details").click(function() {
+        jQuery(".doc-error").toggleClass("d-none");
+        jQuery(this).toggleClass("active");
+        if (jQuery(this).hasClass("active")) {
+            jQuery(this).text("Esconder documentos removidos");
+        } else {
+            jQuery(this).text("Mostrar documentos removidos ");
+        }
+        return false;
+    });
+});
+</script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block object-status %}
+    {{ processo.get_status_display|status }}
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if processo_pode_ser_recebido %}
+            <li>
+                <a class="btn success confirm" href="/processo_eletronico/processo/receber/{{ processo.pk }}/">
+                    {% icone "reply" %} Receber
+                </a>
+            </li>
+        {% endif %}
+        {% if processo.pode_dar_ciencia %}
+            <li><a class="btn success confirm" href="{% url 'dar_ciencia' processo.id %}">{% icone "check" %} Dar Ciência</a></li>
+        {% endif %}
+        {% if processo.pode_finalizar %}
+            <li><a class="btn confirm success" href="{% url 'processo_finalizar' processo.id %}">{% icone "lock" %} Finalizar</a></li>
+        {% endif %}
+        {% if processo.pode_cadastrar_interesse %}
+            <li><a class="btn confirm success" href="{% url 'processo_acompanhar' processo.id %}">
+                {% icone "thumbs-up" %} Adicionar Interesse
+            </a></li>
+        {% endif %}
+        {% if processo_pode_ser_encaminhado %}
+            <li class="has-child">
+                <a class="btn primary" href="#">{% icone "share" %} Encaminhar</a>
+                <ul>
+                    <li><a href="/processo_eletronico/processo/encaminhar/{{ processo.pk }}/">
+                        Com despacho
+                    </a></li>
+                    <li><a href="/processo_eletronico/processo/encaminhar_sem_despacho/{{ processo.pk }}/">
+                        Sem despacho
+                    </a></li>
+                    {% if usuario_pode_tramitar_barramento %}
+                    <li><a href="/processo_eletronico/processo/encaminhar_externamente/{{ processo.pk }}/">
+                        Para outras instituições
+                    </a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if processo.pode_editar %}
+            <li class="has-child">
+                <a class="btn primary" href="#">{% icone "edit" %} Editar Dados</a>
+                <ul>
+                    <li>
+                        <a class="primary popup" href="{% url 'processo_editar_interessados' processo.id %}">
+                        Interessados
+                        </a>
+                    </li>
+                    <li>
+                        <a class="primary" href="{% url 'processo_editar_assunto' processo.id %}">Assunto</a>
+                    </li>
+                    <li>
+                        <a class="primary" href="{% url 'tramite_adicionar_prioridade' processo.id %}">Nível de Prioridade</a>
+                    </li>
+                    {% if processo.pode_editar_dados_basicos %}
+                        <li>
+                            <a class="primary" href="/admin/processo_eletronico/processo/{{ processo.id }}/">Outros dados</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if processo.pode_alterar_nivel_acesso or processo.pode_solicitar_alteracao_nivel_acesso %}
+            <li class="has-child">
+                <a class="btn" href="#">{% icone "bars" %} Nível de Acesso</a>
+                <ul>
+                    {% if processo.pode_alterar_nivel_acesso %}
+                        <li>
+                            <a href="{% url 'alterar_nivel_acesso_processo' processo.id %}">Editar Nível de Acesso</a>
+                        </li>
+                        {% if processo.existe_solicitacoes_nivel_acesso_aberto %}
+                            <li>
+                                <a href="{% url 'solicitacoes_alteracao_nivel_acesso_processo' processo.id %}">
+                                    Analisar/Visualizar Solicitações de Alteração de Nível de Acesso
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% if processo.pode_solicitar_alteracao_nivel_acesso %}
+                        <li><a href="{% url 'solicita_alteracao_nivel_acesso_processo' processo.id %}">
+                            Solicitar Alteração de Nível de Acesso
+                        </a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if processo.pode_solicitar_ciencia %}
+            <li class="has-child">
+                <a class="btn" href="#">{% icone "check-square" %} Solicitar</a>
+                <ul>
+                    {% if not processo.tem_solicitacoes_despacho_pendentes %}
+                        <li>
+                            <a href="/processo_eletronico/solicitar_despacho/{{ processo.pk }}/">Despacho</a>
+                        </li>
+                    {% endif %}
+                    {% if processo.pode_solicitar_juntada_documento %}
+                        <li><a href="{% url 'enviar_solicitacao_juntada' processo.id %}">Documento</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'solicitar_ciencia' processo.id %}">Ciência</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if processo_pode_ser_encaminhado %}
+            <li class="has-child">
+                <a class="btn" href="#">{% icone "bars" %} Ações</a>
+                <ul>
+                    <li>
+                        <a class="btn popup" href="/processo_eletronico/adicionar_rotulo/{{ ultimo_tramite.pk }}/">Rótulo</a>
+                    </li>
+                    {% if not ultimo_tramite.atendido and ultimo_tramite.processo.pode_atribuir_processo %}
+                        <li>
+                            <a class="btn popup" href="/processo_eletronico/atribuir_processo/{{ ultimo_tramite.id }}/">Atribuir</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if processo.possui_pedido_juntada_pendente_para %}
+            <li><a href="{% url 'concluir_juntada_documento' solicitacao.id %}" class="btn warning">
+                {% icone "check-circle" %} Concluir Manifestação
+            </a></li>
+        {% endif  %}
+        {% if processo.tem_tramite and processo_ultimo_tramite_pode_ser_removido %}
+            <li>
+                <a class="btn warning confirm" href="/processo_eletronico/processo/remover_ultimo_tramite/{{ processo.pk }}/">
+                    {% icone "trash" %} Remover Último Trâmite
+                </a>
+            </li>
+        {% endif %}
+        {% if processo.pode_desfinalizar %}
+            <li><a class="btn confirm danger" href="{% url 'processo_desfinalizar' processo.id %}">
+                {% icone "unlock" %} Remover Finalização
+            </a></li>
+        {% endif %}
+        {% if processo.pode_remover_interesse %}
+            <li><a class="btn danger" href="{% url 'processo_desacompanhar' processo.id %}">
+                {% icone "thumb-down" %} Remover Interesse
+            </a></li>
+        {% endif %}
+        {% if processo.pode_ler_consulta_publica %}
+            <li>
+                <a class="btn default" href="{% url 'visualizar_processo_publica' processo.uuid %}">
+                    {% icone "eye" %} Link Público</a>
+            </li>
+        {% endif %}
+        {% if quantidade_documentos_processo > 0 %}
+            <li>
+                <a class="btn default" href="/processo_eletronico/visualizar_processo/{{ processo.pk }}/">
+                    {% icone "download" %} Visualizar/Baixar Processo
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if not processo_pode_ser_encaminhado and processo.tem_solicitacoes_despacho_pendentes %}
+        <p class="msg alert"><strong>Atenção:</strong> Processo possui solicitação de despacho pendente.</p>
+    {% endif %}
+
+    {% if processo.tem_documento_cancelado_ativo_no_processo %}
+        <p class="msg alert">
+            <strong>Atenção:</strong> Este processo contém documento(s) cancelado(s) e só poderá ser
+            finalizado quando o(s) mesmo(s) for(em) removido(s).
+        </p>
+    {% endif %}
+
+    {% if existe_solicitacao_em_aberto_documento_digitalizado %}
+        <p class="msg info">
+            <strong>Atenção:</strong> Existem solicitações de alteração de nível de acesso em aberto para um ou mais documentos digitalizados deste processo.
+            Para analisar as solicitações, você deve acessar a opção "Editar Nível de Acesso" do documento.
+        </p>
+    {% endif %}
+
+    {% if existe_solicitacao_em_aberto_processo %}
+        <p class="msg alert">
+            <strong>Atenção:</strong> Existem solicitações de alteração de nível de acesso em aberto para este processo.
+            Para analisar as solicitações, você deve acessar a opção "Nível de Acesso" > "Analisar/Visualizar Solicitações de Alteração de Nível de Acesso" deste processo.
+        </p>
+    {% endif %}
+
+    {% include 'processo_eletronico/include_dados_processo.html' %}
+
+    {% if is_superuser %}
+        {% box "Metadados do Processo" "collapsed" %}
+            <dl class="definition-list">
+                <dt>Tamanho Total dos Documentos Digitalizados</dt>
+                <dd>{{ metadados_processo.total_em_kb_docs_digitalizados|format }} KB</dd>
+                <dt>Tamanho Total dos Documentos de Texto</dt>
+                <dd>{{ metadados_processo.total_em_kb_docs_textos|format }} KB</dd>
+            </dl>
+        {% endbox %}
+    {% endif %}
+
+    <div class="tab-container" data-title="Documentos" data-counter="{{ quantidade_documentos_processo }}" data-tab="documentos">
+        <ul class="action-bar">
+            {% if processo.pode_editar or quantidade_documentos_removidos %}
+                {% if processo.pode_editar %}
+                    <li>
+                        <button data-href="/processo_eletronico/listar_documentos_adicionar/{{ processo.id }}/" class="btn disable_on_click success">
+                            Adicionar Documento
+                        </button>
+                    </li>
+                    {% if processo.pode_realizar_upload %}
+                        <li>
+                            <a href="/processo_eletronico/documento_upload/{{ processo.id }}/" class="btn success">
+                                Upload de Documento Externo
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% if quantidade_documentos_removidos %}
+                    <li><a href="#" class="btn default processos-details">Exibir Documentos Removidos</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+        {% if quantidade_documentos_processo or quantidade_documentos_removidos or quantidade_documentos_aguardando_assinatura_para_serem_anexados or quantidade_documentos_aguardando_para_serem_anexados %}
+            {% for documento in documentos_aguardando_assinatura_para_serem_anexados %}
+                <div class="general-box alert">
+                    {% include 'processo_eletronico/documento_aguardando_assinatura_para_serem_anexados_include.html' %}
+                </div>
+            {% endfor %}
+            {% for solicitacao in documentos_aguardando_para_serem_anexados %}
+                <div class="general-box alert">
+                    {% include 'documento_aguardando_para_serem_anexados_include.html' %}
+                </div>
+            {% endfor %}
+            {% for documento_processo in documentos_do_processo %}
+                {% if documento_processo.processo_anexado %}
+                    {% ifchanged documento_processo.processo_anexado %}
+                        <h3 class="indented">Documentos Anexados pelo Processo {{ documento_processo.processo_anexado }} em {{ documento_processo.data_hora_anexado }}</h3>
+                    {% endifchanged %}
+                {% endif %}
+                <div class="general-box {% if documento_processo.processo_anexado %}indented{% endif %} {% if documento_processo.classe == 'minuta' %} alert {% endif %}">
+                    {% if documento_processo.classe == "despacho" %}
+                        {% include 'processo_eletronico/despacho_dados_include.html' with despacho=documento_processo data_hora_inclusao=documento_processo.data_hora_inclusao %}
+                    {% else %}
+                        {% include 'processo_eletronico/documento_dados_include.html' with data_hora_inclusao=documento_processo.data_hora_inclusao %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% for documento_processo in documentos_removidos_processo %}
+                <div class="general-box error doc-error d-none">
+                    {% include 'processo_eletronico/documento_dados_include.html' with removido=True %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="msg alert">Nenhum documento associado ao processo.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-title="Processos Apensados, Anexados e Relacionados" data-counter="{{ quantidade_processos_apensados_anexados_relacionados }}" data-tab="relacionados">
+        {% box 'Processos Apensados' %}
+            {% if processo.pode_editar %}
+                <ul class="action-bar">
+                    {% if processo.pode_apensar %}
+                        <li>
+                            <a class="btn popup success" href="/processo_eletronico/apensar_processos/{{ processo.pk }}/">Apensar Processo</a>
+                        </li>
+                    {% endif %}
+                    {% if processo.get_apensamento %}
+                        <li>
+                            <a class="btn popup warning confirm" href="/processo_eletronico/desapensar_processo/{{ processo.pk }}/">Desapensar este Processo</a>
+                        </li>
+                        <li>
+                            <a class="btn popup warning confirm" href="/processo_eletronico/desapensar_todos_processos/{{ processo.get_apensamento.id }}/">Desapensar todos os Processos</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if not processo.pode_apensar %}
+                    <p class="msg alert">
+                        <strong>Atenção:</strong> Nenhum processo disponível para ser apensado.
+                    </p>
+                {% endif %}
+
+                <div class="msg info">
+                    Para que um processo seja apensado é necessário atender os seguintes pré-requisitos:
+                    <ul>
+                        <li>O processo a ser apensado não pode ter sido anexado a nenhum outro processo.</li>
+                        <li>O processo a ser apensado não pode ter sido apensado a nenhum outro processo.</li>
+                        <li>Processos sigilosos só podem ser apensados a outros processos sigilosos.</li>
+                    </ul>
+                </div>
+            {% endif %}
+            {% if quantidade_processos_apensados %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Processos</th>
+                            <th>Assunto</th>
+                            <th>Apensado por</th>
+                            <th>Data de Apensação</th>
+                            <th>Justificativa</th>
+                            {% if processo.pode_editar %}
+                                <th class="no-print">Opções</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for processo_apensado in processos_apensados %}
+                            <tr>
+                                <td><a href="/processo_eletronico/processo/{{ processo_apensado.pk }}">
+                                    {{ processo_apensado }}</a>
+                                </td>
+                                <td>{{ processo_apensado.assunto }}</td>
+                                <td>{{ processo_apensado.get_apensamento_processo.usuario_criacao|format }}</td>
+                                <td>{{ processo_apensado.get_apensamento_processo.data_hora_criacao }}</td>
+                                <td>{{ processo_apensado.get_apensamento_processo.justificativa_criacao }}</td>
+                                {% if processo.pode_editar %}
+                                    <td class="no-print">
+                                        <a class="btn popup warning confirm" href="/processo_eletronico/desapensar_processo/{{ processo_apensado.pk }}/">
+                                            Desapensar Processo
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum processo apensado.</p>
+            {% endif %}
+
+            {% if processo.get_todos_apensamentosprocessos.exists %}
+                <h4>Processos Desapensados</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Processos</th>
+                            <th>Assunto</th>
+                            <th>Apensado por</th>
+                            <th>Data Apensação</th>
+                            <th>Data de Desapensação</th>
+                            <th>Justificativa de Remoção</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for processo_apensado in processo.get_todos_apensamentosprocessos %}
+                            <tr>
+                                <td><a href="/processo_eletronico/processo/{{ processo_apensado.processo.pk }}">
+                                    {{ processo_apensado.processo }}</a>
+                                </td>
+                                <td>{{ processo_apensado.processo.assunto }}</td>
+                                <td>{{ processo_apensado.usuario_criacao|format }}</td>
+                                <td>{{ processo_apensado.data_hora_criacao }}</td>
+                                <td>{{ processo_apensado.data_hora_remocao }}</td>
+                                <td>{{ processo_apensado.justificativa_remocao }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Processos Anexados' %}
+            {% if processo.pode_editar %}
+                {% if processo.pode_anexar %}
+                    <ul class="action-bar">
+                        <li><a class="btn popup success" href="/processo_eletronico/anexar_processos/{{ processo.pk }}/">Anexar Processo</a></li>
+                    </ul>
+                {% endif %}
+                <p class="msg alert">
+                    <strong>Atenção:</strong> Os processos que forem anexados deixarão de existir. É uma ação que não pode ser desfeita.
+                </p>
+                {% if processo.get_apensamento %}
+                    <p class="msg alert">
+                        <strong>Atenção:</strong> Os processos apensados não podem ser anexados.
+                    </p>
+                {% else %}
+                    <p class="msg alert">
+                        <strong>Atenção:</strong> Nenhum processo disponível para ser anexado.
+                    </p>
+                {% endif %}
+
+                <div class="msg info">
+                    Para que um processo seja anexado é necessário atender os seguintes pré-requisitos:
+                    <ul>
+                        <li>O processo a ser anexado não pode ter sido anexado a nenhum outro processo.</li>
+                        <li>O processo a ser anexado não pode ter sido apensado a nenhum outro processo.</li>
+                        <li>O processo deve ter sido criado posteriormente a este.</li>
+                        <li>O processo tem que ter o(s) mesmo(s) interessado(s).</li>
+                        <li>O processo tem que ter a(s) mesma(s) classificação(ões).</li>
+                        <li>Processos sigilosos só podem ser anexados a outros processos sigilosos.</li>
+                    </ul>
+                </div>
+            {% endif %}
+            {% if quantidade_processos_anexados %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Processos</th>
+                            <th>Assunto</th>
+                            <th>Anexado por</th>
+                            <th>Anexado em</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anexacao in processos_anexados %}
+                            <tr>
+                                <td>{{ anexacao.processo_anexado }}</td>
+                                <td>{{ anexacao.processo_anexado.assunto }}</td>
+                                <td>{{ anexacao.usuario_criacao|format }}</td>
+                                <td>{{ anexacao.data_hora_criacao|format }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum processo anexado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Processos Relacionados' %}
+            {% with processo_editavel=processo.pode_editar %}
+                {% if processo_editavel %}
+                    <ul class="action-bar">
+                        <li>
+                            <a class="btn success" href="{% url 'listar_processos_relacionado' processo.pk %}">
+                                Relacionar Processo
+                            </a>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if quantidade_processos_relacionados %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Processos</th>
+                                <th>Assunto</th>
+                                <th>Processo aberto por</th>
+                                <th>Data da abertura do processo</th>
+                                <th class="no-print">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for relacionado in processos_relacionados %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'processo' relacionado.id %}">{{ relacionado }}</a>
+                                    </td>
+                                    <td>{{ relacionado.assunto }}</td>
+                                    <td>{{ relacionado.usuario_gerador|format }}</td>
+                                    <td>{{ relacionado.data_hora_criacao|format }}</td>
+                                    <td class="no-print">
+                                        {% if processo_editavel %}
+                                            <a href="{% url 'remover_relacionamento_processos' processo.id relacionado.id %}"
+                                               class="icon icon-delete" title="Remover"><span class="sr-only">Remover</span></a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum processo relacionado ao atual.</p>
+                {% endif %}
+            {% endwith %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Minutas" data-counter="{{ quantidade_minutas }}" data-tab="minutas">
+        {% if processo.pode_editar or quantidade_minutas_removidas %}
+            <ul class="action-bar">
+                {% if processo.pode_editar %}
+                    <li>
+                        <a href="/processo_eletronico/listar_minutas_adicionar/{{ processo.id }}/" class="btn success">
+                            Adicionar Minuta
+                        </a>
+                    </li>
+                {% endif %}
+                {% if quantidade_minutas_removidas %}
+                    <li><a href="#" class="btn default processos-details">Exibir Minutas Removidas</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        {% if quantidade_minutas or quantidade_minutas_removidas %}
+            {% for processo_minuta in minutas %}
+                <div class="general-box">
+                    {% include 'processo_eletronico/minutas_dados_include.html' with processo_minuta=processo_minuta minuta=processo_minuta.minuta %}
+                </div>
+            {% endfor %}
+            {% for processo_minuta in minutas_removidas %}
+                <div class="general-box error doc-error d-none">
+                    {% include 'processo_eletronico/minutas_dados_include.html' with processo_minuta=processo_minuta minuta=processo_minuta.minuta %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="msg alert">Nenhuma minuta associada ao processo.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-title="Comentários" data-counter="{{ processo.comentarios.count }}" data-tab="comentarios">
+        {% if processo.pode_editar %}
+            <ul class="action-bar">
+                <li>
+                    <a class="btn popup success" href="/processo_eletronico/adicionar_comentario/{{ processo.pk }}/">Adicionar Comentário</a>
+                </li>
+            </ul>
+        {% endif %}
+        {% if processo.comentarios.exists %}
+            <ul class="timeline with-photos">
+                {% for comentario in processo.comentarios.all %}
+                    <li>
+                        <div class="timeline-date">{{ comentario.data|format }}</div>
+                        <div class="timeline-photo" title="{{ comentario.pessoa.nome_usual }}">
+                            <img alt="{{ comentario.pessoa.nome_usual }}"
+                                 src="{{ comentario.pessoa.pessoafisica.get_foto_75x100_url }}" />
+                        </div>
+                        <div class="timeline-content">
+                            {% if not comentario.desconsiderado_em %}
+                                {{ comentario.comentario|linebreaksbr }}
+                            {% else %}
+                                <s title="Comentário desconsiderado em {{ comentario.desconsiderado_em|format }}">{{ comentario.comentario|linebreaksbr }}</s>
+                            {% endif %}
+                        </div>
+                        {% if not comentario.desconsiderado_em %}
+                            {% if processo.pode_editar and comentario.pessoa.pessoafisica == request.user.get_profile %}
+                                <ul class="action-bar">
+                                    <li class="has-child">
+                                        <a href="#" class="btn"><span class="fas fa-cog" aria-hidden="true"></span><span class="sr-only">Opções</span></a>
+                                        <ul>
+                                            <li><a href="/processo_eletronico/desconsiderar_comentario/{{ comentario.id }}/">Desconsiderar Comentário</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="msg alert">Nenhum comentário.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-title="Solicitações" data-counter="{{ quantidade_solicitacoes }}" data-tab="solicitacoes">
+        {% if processo.pode_editar and processo_pode_ser_encaminhado %}
+            <ul class="action-bar">
+                {% if not processo.tem_solicitacoes_despacho_pendentes %}
+                    <li>
+                        <a class="btn success" href="/processo_eletronico/solicitar_despacho/{{ processo.pk }}/">
+                            Solicitar Despacho
+                        </a>
+                    </li>
+                    {% if processo.pode_solicitar_juntada_documento %}
+                        <li><a class="btn success" href="{% url 'enviar_solicitacao_juntada' processo.id %}">Solicitar Documento</a></li>
+                    {% endif %}
+                    {% if processo.pode_solicitar_ciencia %}
+                        <li><a class="btn success" href="{% url 'solicitar_ciencia' processo.id %}">Solicitar Ciência</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        {% if not ultimo_tramite %}
+            <p class="msg info">Não é possível solicitar documentos enquanto não houver trâmite no processo.</p>
+        {% endif %}
+
+        {% if quantidade_solicitacoes == 0 %}
+            <p class="msg alert">Não há nenhuma solicitação para este processo.</p>
+        {% endif %}
+
+        {% if quantidade_solicitacao_despachos %}
+            {% box "Solicitações de Despacho" %}
+                {% for solicitacao_despacho in solicitacao_despachos %}
+                    <div class="general-box">
+                        {% include 'processo_eletronico/solicitar_despacho_include.html'%}
+                    </div>
+                {% endfor %}
+            {% endbox %}
+        {% endif %}
+
+        {% if quantidade_solicitacoes_juntada_documento %}
+            {% box "Solicitações de Juntada de Documentos" %}
+                {% for solicitacao in solicitacoes_juntada_documento %}
+                    <div class="general-box">
+                        {% include 'processo_eletronico/solicitar_documento.html'%}
+                    </div>
+                {% endfor %}
+            {% endbox %}
+        {% endif %}
+
+        {% if quantidade_solicitacoes_ciencia %}
+            {% box "Solicitações de Ciência" %}
+               {% for solicitacao in solicitacoes_ciencia %}
+                   <div class="general-box">{% include 'processo_eletronico/solicitar_ciencia.html'%}</div>
+               {% endfor %}
+            {% endbox %}
+        {% endif %}
+
+        {% if quantidade_solicitacoes_acesso %}
+            {% box "Solicitações de Acesso a Documentos Digitalizados Sigilosos" %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Solicitação por</th>
+                            <th>Justificativa da Solicitação</th>
+                            <th>Solicitado</th>
+                            <th>Usuário Autorizador</th>
+                            <th>Data Autorização</th>
+                            <th>Justificativa Autorização</th>
+                            <th>Situação</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitacao in solicitacoes_acesso %}
+                            <tr>
+                                <td>{{ solicitacao.pessoa_solicitante|format }} em {{ solicitacao.data_criacao|format }}</td>
+                                <td>{{ solicitacao.justificativa_solicitacao|format }}</td>
+                                <td>{{ solicitacao.documento.dono_documento|format }}</td>
+                                <td>{{ solicitacao.usuario_autorizacaoformat }}</td>
+                                <td>{{ solicitacao.data_autorizacaoformat }}</td>
+                                <td>{{ solicitacao.justificativa_autorizacao|format }}</td>
+                                <td>{{ solicitacao.get_status_solicitacao_display|status }}</td>
+                                {% if solicitacao.documento.tem_permissao_editar and solicitacao.pendente %}
+                                    <td class="no-print">
+                                        <a class="btn popup" href="/documento_eletronico/avaliar_solicitacao_compartilhamento_documento_digitalizado/{{ processo.id }}/{{ solicitacao.id }}/"
+                                           title="Avaliar Solicitação">Avaliar Solicitação</a>
+                                    </td>
+                                {% else %}
+                                    <td>-</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{% block asideright %}
+
+<aside class="right">
+
+    <button id="collapseAsideRight"><span class="sr-only">Minimizar barra lateral</span></button>
+
+    <details open="open">
+        <summary>Trâmites</summary>
+        <div class="details-container">
+        {% if processo.tem_tramite %}
+            <div class="legenda">
+                <p>Legenda:</p>
+                <ul>
+                    <li class="info">Encaminhado</li>
+                    <li class="success">Recebido</li>
+                    <li class="alert">Aguardando recebimento</li>
+                </ul>
+            </div>
+            <ul class="timeline compact">
+                {% for tramite in processo.tramites.all %}
+                    {% if tramite.eh_tramite_externo %}
+                        <li class="{% if tramite.recebido %}success{% elif tramite.tramite_barramento.estah_recusado %}error{% else %}alert{% endif %}">
+                            <div class="timeline-date">{{ tramite.data_hora_encaminhamento }}</div>
+                            <div class="timeline-icon"></div>
+                            <div class="timeline-content">
+                                {% if tramite.destinatario_setor %}
+                                    <h4>{{ tramite.destinatario_setor }}: {{ tramite.pessoa_recebimento|format }}</h4>
+                                {% else %}
+                                    <h4><span class="fas fa-city" aria-hidden="true"></span> {{ tramite.tramite_barramento.destinatario_externo_estrutura_descricao }}</h4>
+                                {% endif %}
+
+                                {% if tramite.tramite_barramento.estah_recusado %}
+                                    <span class="status status-error">Recusado no Destino</span>
+                                    {% if tramite.tramite_barramento.retorno_situacao %}
+                                        <p class="msg">Mensagem de Retorno: {{ tramite.tramite_barramento.retorno_situacao }}</p>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if tramite.tramite_barramento.tramite_externo_recibo_conclusao_json %}
+                                    <a class="btn default" href="/processo_eletronico/tramite/recibo_conclusao_conectagov/{{ tramite.pk }}/"><span class="fas fa-file-download" aria-hidden="true"></span> Recibo de Conclusão</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% elif tramite.recebido %}
+                        <li class="success">
+                            <div class="timeline-date">{{ tramite.data_hora_recebimento }}</div>
+                            <div class="timeline-icon"></div>
+                            <div class="timeline-content">
+                                <h4>
+                                    {% if tramite.destinatario_setor %}
+                                        {{ tramite.destinatario_setor }}:
+                                    {% endif %}
+                                    {{ tramite.pessoa_recebimento|format }}
+                                </h4>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="alert">
+                            <div class="timeline-date">
+                                {{ tramite.data_hora_encaminhamento }}
+                            </div>
+                            <div class="timeline-icon"></div>
+                            <div class="timeline-content">
+                                {% if tramite.destinatario_setor %}
+                                    <h4>{{ tramite.destinatario_setor }}</h4>
+                                    {{ tramite.status|status }}
+                                {% else %}
+                                    <h4>{{ tramite.destinatario_pessoa|format }}</h4>
+                                    {{ tramite.status|status }}
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="info">
+                        <div class="timeline-date">{{ tramite.data_hora_encaminhamento }}</div>
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-content">
+                            {% if tramite.eh_tramite_externo %}
+                                {% if tramite.remetente_setor %}
+                                    <h4>{{ tramite.remetente_setor }}: {{ tramite.remetente_pessoa|format }}</h4>
+                                {% else %}
+                                    <h4><span class="fas fa-city" aria-hidden="true"></span> {{ tramite.tramite_barramento.remetente_externo_estrutura_descricao|format }}</h4>
+                                {% endif %}
+                                {% if tramite.tramite_barramento.tramite_externo_recibo_envio_json %}
+                                    <a class="btn default" href="/processo_eletronico/tramite/recibo_envio_conectagov/{{ tramite.pk }}/"><span class="fas fa-file-download" aria-hidden="true"></span> Recibo de Envio</a>
+                                {% endif %}
+                            {% else %}
+                                <h4>{{ tramite.remetente_setor }}: {{ tramite.remetente_pessoa|format }}</h4>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="msg alert">Nenhum trâmite registrado.</p>
+        {% endif %}
+        </div>
+    </details>
+
+    {% if processo.get_registros_acoes %}
+        <details open="open">
+            <summary>Registro de Ações</summary>
+            <div class="details-container">
+            <ul class="action-bar">
+                <li>
+                    <a href="/processo_eletronico/processo/registro_acoes_processo/{{ processo.id }}" class="btn default">Ver Detalhes</a>
+                </li>
+            </ul>
+            {% with registros_acoes=processo.get_registros_acoes %}
+                {% autopaginate registros_acoes 10 %}
+                {% paginate %}
+                <ul class="timeline compact">
+                    {% for registro_acao in registros_acoes %}
+                        <li>
+                            <div class="timeline-date">{{ registro_acao.data|format }}</div>
+                            <div class="timeline-icon"></div>
+                            <div class="timeline-content">
+                                <h4>{{ registro_acao.user|format }}</h4>
+                                <p>{{ registro_acao|format }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% paginate %}
+            {% endwith %}
+            </div>
+        </details>
+    {% endif %}
+</aside>
+
+{% endblock %}

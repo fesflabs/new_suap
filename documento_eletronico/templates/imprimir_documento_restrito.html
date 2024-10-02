@@ -1,0 +1,52 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block content %}
+    <h1>Documento {{ documento.get_nivel_acesso_display }}</h1>
+
+    {% if parecer_simples %}
+        <h2>{{ parecer_simples }} sobre {{ minuta }} do(a) {{ documento }}</h2>
+    {% elif minuta %}
+        <h2>{{ minuta }} do(a) {{ documento }}</h2>
+    {% else %}
+        <h2>{{ documento }}</h2>
+    {% endif %}
+
+    <table>
+        <tr>
+            <td width="30%" class="text-end"><strong>Assunto:</strong></td>
+            <td>{{ documento.assunto }}</td>
+        </tr>
+        {% if documento.numero %}
+            <tr>
+                <td class="text-end"><strong>Número:</strong></td>
+                <td>{{ documento.numero }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="text-end"><strong>Assinado por:</strong></td>
+            <td>{{ documento.assinado_por|format|safe}}</td>
+        </tr>
+        <tr>
+            <td class="text-end"><strong>Tipo do Documento:</strong></td>
+            <td>{{ documento.tipo }}</td>
+        </tr>
+        <tr>
+        <td class="text-end"><strong>Situação:</strong></td>
+        {% if documento.status %}
+            <td>{{ documento.get_status_display|status }}</td>
+        {% else %}
+            <td><span class="status status-success">Finalizado</span></td>
+        {% endif %}
+        </tr>
+        <tr>
+            <td class="text-end"><strong>Nível de Acesso:</strong></td>
+            <td>{{ documento.get_nivel_acesso_display }}</td>
+        </tr>
+        {% if documento.tipo_conferencia %}
+            <tr>
+                <td class="text-end"><strong>Tipo do Conferência:</strong></td>
+                <td>{{ documento.tipo_conferencia }}</td>
+            </tr>
+        {% endif %}
+    </table>
+{% endblock %}

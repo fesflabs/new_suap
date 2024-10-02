@@ -1,0 +1,795 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../suap.html">SUAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  <li><a href="">&lt;no title&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <p>SOBRE A IMPORTAÇÃO</p>
+<p>Chamamos de importação o processo de se retirar alguns dados pessoais e funcionais dos servidores federais presentes no Sistema Integrado de Administração de Recursos Humanos (SIAPE) e inseri-los mo Sistema Unificado de Administração Pública (SUAP).</p>
+<p>A importação consiste de duas fases: A extração dos arquivos do SIAPE e o upload desses mesmos para o SUAP.</p>
+<p>Antes de prosseguir, é interessante ler o Manual do Usuário do Extrator de Dados – SIAPE, disponível para download (apenas usuários do sistema) no Portal Siapenet para familizarizar-se com a utilização da extração. Como resultado da extração, são gerados dois tipos de arquivos. Um com extensão TXT e o segundo com extensão REF. O arquivo TXT contém todos os dados propriamente ditos. O arquivo REF descreve o layout de como as informações estão distribuídas no arquivo TXT (metadados). Devido às limitações de acesso ao SIAPE e a quantidade de servidores hoje presente no IFRN, dividimos a extração semanal em vários arquivos</p>
+<p>IMPORTAÇÃO EXTREMAMENTE SIMPLES</p>
+<p>Os passos a seguir permitem que a maior parte das aplicações que dependem dos dados do SIAPE (Ponto, Protocolo, Patrimônio, Almoxarifado, Frota, etc) passem a operar no SUAP. Porém alguns dados dos servidores continuarão incompletos até que TODOS os arquivos sejam devidamente importados. Consulte o tópico IMPORÇÃO COMPLETA caso o procedimento a seguir não atenda a suas necessidades.</p>
+<p>1 - Acesse o Extrator</p>
+<p>2 - Extraia os seguintes campos dos seguintes arquivos</p>
+<p>A)
+Arquivo Siape: SIAPE-UNIDADEORGANIZACIONAL:
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– GR-IDENTIFICACAO-UORG
+– IT-NO-UNIDADE-ORGANIZACIONAL
+– IT-SG-UNIDADE-ORGANIZACIONAL
+– IT-CO-UORG-VINCULACAO
+Campo Chave: GR-IDENTIFICACAO-UORG
+Operador: IN
+Faixa: XXXXX000000000 -&gt; XXXXX999999999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Setor</p>
+<p>B)
+Arquivo Siape: SIAPE-SERVIDOR-EXTR
+Campos:
+————– Página 1 —————–</p>
+<p>– GR-MATRICULA</p>
+<p>– IT-NO-SERVIDOR
+– IT-NO-MAE</p>
+<p>– IT-NU-CPF
+– IT-NU-PIS-PASEP</p>
+<p>————– Página 2 —————–</p>
+<p>– IT-CO-ESTADO-CIVIL</p>
+<p>————– Página 3 —————–</p>
+<p>– IT-SG-REGIME-JURIDICO
+– IT-CO-SITUACAO-SERVIDOR
+– IT-CO-BANCO-PGTO-SERVIDOR
+– IT-CO-AGENCIA-BANCARIA-PGTO-SERV
+– IT-NU-CCOR-PGTO-SERVIDOR</p>
+<p>————– Página 4 —————–</p>
+<p>– IT-CO-GRUPO-OCOR-AFASTAMENTO
+– IT-CO-OCOR-AFASTAMENTO
+– IT-DA-INICIO-OCOR-AFASTAMENTO
+– IT-DA-TERMINO-OCOR-AFASTAMENTO
+– IT-CO-DIPL-AFASTAMENTO
+– IT-DA-PUBL-DIPL-AFASTAMENTO
+– IT-NU-DIPL-AFASTAMENTO
+– IT-CO-GRUPO-OCOR-EXCLUSAO</p>
+<p>————– Página 5 —————–</p>
+<p>– IT-CO-OCOR-EXCLUSAO
+– IT-DA-OCOR-EXCLUSAO-SERV
+– IT-CO-DIPL-EXCLUSAO
+– IT-DA-PUBL-DIPL-EXCLUSAO
+– IT-NU-DIPL-EXCLUSAO
+– IT-CO-GRUPO-OCOR-INATIVIDADE
+– IT-CO-OCOR-INATIVIDADE
+– IT-DA-OCOR-INATIVIDADE-SERV
+– IT-CO-DIPL-INATIVIDADE
+– IT-DA-PUBL-DIPL-INATIVIDADE
+– IT-NU-DIPL-INATIVIDADE</p>
+<p>————– Página 7 —————–</p>
+<p>– IT-CO-GRUPO-CARGO-EMPREGO
+– IT-CO-CARGO-EMPREGO
+– IT-CO-CLASSE</p>
+<p>– IT-CO-PADRAO
+– IT-CO-NIVEL
+– IT-DA-OCUPACAO-CARGO-EMPREGO</p>
+<p>————– Página 8 —————–</p>
+<p>– IT-DA-SAIDA-CARGO-EMPREGO</p>
+<p>– IT-CO-UORG-LOTACAO-SERVIDOR
+– IT-DA-LOTACAO</p>
+<p>Campo Chave: GR-MATRICULA
+Operador: IN
+Faixa: XXXXX0000000 -&gt; XXXXX9999999
+Com XXXXX = Identificador da Instituição
+Destino da Extração: Portal Online (PO)
+Classe SUAP: Servidor</p>
+<p>3 - Acesse o Portal SiapeNET e efetue o download do ‘Arquivo de Dados’ com os setores e os servidores</p>
+<p>4 - Faça o upload dos setores no SUAP a partir do site administrativo (suap -&gt; setor -&gt; Importar do Arquivo).</p>
+<p>5 - Faça o upload dos servidores no SUAP a partir do site administrativo(suap -&gt; servidor -&gt; Importar do arquivo).</p>
+<p>IMPORTAÇÂO COMPLETA</p>
+<p>Na importação completa, todas as tabelas da base do SUAP serão preenchidas, permitindo precisão em todos os relatórios estatísticos e quantitativos da aplicação RH. Siga os passos 1, 2 e 3 do tópico anterior utilizando os seguintes arquivos do Siape:</p>
+<p>A)
+Arquivo Siape: SIAPE-UNIDADEORGANIZACIONAL:
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– GR-IDENTIFICACAO-UORG
+– IT-NO-UNIDADE-ORGANIZACIONAL
+– IT-SG-UNIDADE-ORGANIZACIONAL
+– IT-CO-UORG-VINCULACAO
+Campo Chave: GR-IDENTIFICACAO-UORG
+Operador: IN
+Faixa: XXXXX000000000 -&gt; XXXXX999999999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Setor</p>
+<ol class="upperalpha simple" start="2">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-ATIVIDADE
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-ATIVIDADE
+– IT-NO-ATIVIDADE
+Campo Chave: IT-CO-ATIVIDADE
+Operador: IN
+Faixa: 0000 -&gt; 9999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Atividade</p>
+<ol class="upperalpha simple" start="3">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-GRUPO-CARGO-EMPREGO
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-GRUPO-CARGO-EMPREGO
+– IT-SG-GRUPO-CARGO-EMPREGO
+– IT-NO-GRUPO-CARGO-EMPREGO
+Campo Chave: CO-GRUPO-CARGO-EMPREGO
+Operador: IN
+Faixa: 000 -&gt; 999
+Destino da Extração: Portal Online (PO)
+Classe Suap: GrupoCargoEmprego</p>
+<ol class="upperalpha simple" start="4">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-CARGO-EMPREGO
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– GR-IDEN-CARGO-EMPREGO
+– IT-NO-CARGO-EMPREGO
+– IT-SG-ESCOLARIDADE
+Campo Chave: GR-IDEN-CARGO-EMPREGO
+Operador: IN
+Faixa: 000000 -&gt; 999999
+Destino da Extração: Portal Online (PO)
+Classe Suap: CargoEmprego</p>
+<ol class="upperalpha simple" start="5">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-CLASSE
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-CLASSE
+– IT-NO-CLASSE
+Campo Chave: IT-CO-CLASSE
+Operador: IN
+Faixa: 0 -&gt; Z ou A -&gt; 9 (vou verificar)
+Destino da Extração: Portal Online (PO)
+Classe Suap: ClasseCargo</p>
+<ol class="upperalpha simple" start="6">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-DIPLOMA-LEGAL
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-DIPLOMA-LEGAL
+– IT-SG-DIPLOMA-LEGAL
+– IT-NO-DIPLOMA-LEGAL
+Campo Chave: IT-CO-DIPLOMA-LEGAL
+Operador: IN
+Faixa: 00 -&gt; 99
+Destino da Extração: Portal Online (PO)
+Classe Suap: DiplomaLegal</p>
+<ol class="upperalpha simple" start="7">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-ESTADO-CIVIL
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-ESTADO-CIVIL
+– IT-NO-ESTADO-CIVIL
+Campo Chave: IT-CO-ESTADO-CIVIL
+Operador: IN
+Faixa: 0 -&gt; 9
+Destino da Extração: Portal Online (PO)
+Classe Suap: EstadoCivil</p>
+<ol class="upperalpha simple" start="8">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-UF
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-SG-UF
+– IT-NO-UF
+Campo Chave: IT-SG-UF
+Operador: IN
+Faixa: AA -&gt; ZZ
+Destino da Extração: Portal Online (PO)
+Classe Suap: UnidadeFederativa</p>
+<ol class="upperroman simple">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-FUNCAO
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-SG-FUNCAO
+– IT-NO-FUNCAO
+Campo Chave: IT-SG-FUNCAO
+Operador: IN
+Faixa: AAA -&gt; ZZZ
+Destino da Extração: Portal Online (PO)
+Classe Suap: Funcao</p>
+<ol class="upperalpha simple" start="10">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-GRUPO-OCORRENCIA
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-GRUPO-OCORRENCIA
+– IT-NO-GRUPO-OCORRENCIA
+Classe Suap: GrupoOcorrencia
+Operador: IN
+Faixa: 00 -&gt; 99
+Destino da Extração: Portal Online (PO)
+Campo Chave: IT-CO-GRUPO-OCORRENCIA</p>
+<ol class="upperalpha simple" start="11">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-OCORRENCIA
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– GR-IDEN-OCORRENCIA
+– IT-NO-OCORRENCIA
+Campo Chave: GR-IDEN-OCORRENCIA
+Operador: IN
+Faixa: 00000 -&gt; 99999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Ocorrencia</p>
+<ol class="upperalpha simple" start="12">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-JORANDA-TRABALHO
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-JORNADA-TRABALHO
+– IT-NO-JORNADA-TRABALHO
+Campo Chave: IT-CO-JORNADA-TRABALHO
+Operador: IN
+Faixa: 00 -&gt; 99
+Destino da Extração: Portal Online (PO)
+Classe Suap: JornadaTrabalho</p>
+<ol class="upperalpha simple" start="13">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-NIVEL-ESCOLARIDADE
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-NIVEL-ESCOLARIDADE
+– IT-NO-NIVEL-ESCOLARIDADE
+Campo Chave: IT-CO-NIVEL-ESCOLARIDADE
+Operador: IN
+Faixa: 00 -&gt; 99
+Destino da Extração: Portal Online (PO)
+Classe Suap: NivelEscolaridade</p>
+<ol class="upperalpha simple" start="14">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-PAIS
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-PAIS
+– IT-NO-PAIS
+– IT-IN-PAIS-EQUIPARADO
+Campo Chave: IT-CO-PAIS
+Operador: IN
+Faixa: 000 -&gt; 999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Pais</p>
+<ol class="upperalpha simple" start="15">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-REGIME-JURIDICO
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-SG-REGIME-JURIDICO
+– IT-NO-REGIME-JURIDICO
+Campo Chave: IT-SG-REGIME-JURIDICO
+Operador: IN
+Faixa: AAA -&gt; ZZZ
+Destino da Extração: Portal Online (PO)
+Classe Suap: RegimeJuridico</p>
+<ol class="upperalpha simple" start="16">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-SITUACAO-SERVIDOR
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-SITUACAO-SERVIDOR
+– IT-NO-SITUACAO-SERVIDOR
+Campo Chave: IT-CO-SITUACAO-SERVIDOR
+Operador: IN
+Faixa: 00 -&gt; 99
+Destino da Extração: Portal Online (PO)
+Classe Suap: Situacao</p>
+<ol class="upperalpha simple" start="17">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-BANCO
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-BANCO
+– IT-NO-BANCO
+– IT-SG-BANCO
+Campo Chave: IT-CO-BANCO
+Operador: IN
+Faixa: 000 -&gt; 999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Banco</p>
+<ol class="upperalpha simple" start="18">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-BENEFICIARIO-PENSAO
+Campos:
+– IT-DA-ANO-MES-PAGAMENTO
+– IT-NU-MATRICULA-BENEF-PENSAO
+– IT-NO-BENEFICIARIO-PENSAO
+– IT-DA-NASCIMENTO-BENEF-PENSAO
+– IT-NU-CPF
+– IT-CO-SEXO
+– IT-CO-ESTADO-CIVIL
+– IT-QT-DEPENDENTE-IR
+– IT-CO-REGISTRO-GERAL
+– IT-SG-ORGAO-EXPEDIDOR-IDEN
+– IT-DA-EXPEDICAO-IDEN
+– IT-SG-UF-IDEN
+– IT-NO-LOGRADOURO
+– IT-NO-BAIRRO
+– IT-NO-MUNICIPIO
+– IT-CO-CEP
+– IT-NU-TELEFONE
+– IT-SG-UF
+– IT-0CO-ORGAO(1)
+– IT-NU-MATRICULA(1)
+– IT-DA-INICIO-OCOR-PENSAO
+– IT-DA-TERMINO-OCOR-PENSAO
+– IT-NO-MAE
+– IT-ED-CORREIO-ELETRONICO
+– IT-NU-TITULO-ELEITOR
+– IT-SG-UF-TITULO-ELEITOR
+– IT-NU-ZONA-ELEITORAL
+– IT-NU-SECAO-ELEITORAL
+– IT-DA-EMISSAO-TITULO-ELEITOR
+Campo Chave: IT-NU-MATRICULA-BENEF-PENSAO e IT-CO-ORGAO(1)
+Operador: IN e =
+Faixa: 00000000 -&gt; 99999999 e [Código de sua Instituição]
+Destino da Extração: Portal Online (PO)
+Classe Suap: Pensionista</p>
+<ol class="upperalpha simple" start="19">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-RUBRICA
+Campos:
+– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-RUBRICA
+– IT-NO-RUBRICA
+Campo Chave: IT-CO-RUBRICA
+Operador: IN
+Faixa: 0000 -&gt; 9999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Rubrica</p>
+<ol class="upperalpha simple" start="20">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-DEPENDENTE-EXTR
+Campos:
+– IT-NU-DEPENDENTE
+– IT-NO-DEPENDENTE
+– IT-CO-SEXO
+– GR-MATRICULA-DEPENDENCIA-SERV(1)
+– IT-CO-GRAU-PARENTESCO(1)
+– IT-NO-MAE
+– IT-DA-NASCIMENTO
+Campo Chave: GR-MATRICULA-DEPENDENCIA-SERV(1)
+Operador: IN
+Faixa: XXXXX0000000 -&gt; 264359999999
+Destino da Extração: Portal Online (PO)
+Classe Suap: Dependente
+U)</p>
+<p>Arquivo Siape: SIAPE-PARENTESCO
+Classe Suap: GrauParentesco</p>
+<p>– IT-IN-STATUS-REGISTRO-TABELA
+– IT-CO-GRAU-PARENTESCO
+– IT-NO-GRAU-PARENTESCO</p>
+<ol class="upperalpha simple" start="22">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-BENEFICIO
+Classe Suap: Beneficio</p>
+<p>– IT-CO-BENEFICIO
+– IT-NO-BENEFICIO
+– IT-IN-STATUS-REGISTRO-TABELA</p>
+<ol class="upperalpha simple" start="24">
+<li></li>
+</ol>
+<p>Arquivo Siape: SIAPE-BENEFICIO-DEPENDENTE
+Classe Suap: BeneficioDependente</p>
+<p>– GR-IDENT-BENEFICIO-DEPENDENTE
+– IT-DA-INIC-BENEFICIO-DEPENDENTE
+– IT-DA-TERM-BENEFICIO-DEPENDENTE
+– IT-DA-CADASTRAMENTO-BENEFICIO</p>
+<p>2 - Os Dados e Arquivos da Classe Servidor:</p>
+<p>A)
+Arquivo Siape: SIAPE-SERVIDOR-EXTR
+Campos:
+————– Página 1 —————–</p>
+<p>– GR-MATRICULA</p>
+<p>– IT-NO-SERVIDOR
+– IT-NO-MAE</p>
+<p>– IT-NU-CPF
+– IT-NU-PIS-PASEP</p>
+<p>————– Página 2 —————–</p>
+<p>– IT-CO-ESTADO-CIVIL</p>
+<p>————– Página 3 —————–</p>
+<p>– IT-SG-REGIME-JURIDICO
+– IT-CO-SITUACAO-SERVIDOR
+– IT-CO-BANCO-PGTO-SERVIDOR
+– IT-CO-AGENCIA-BANCARIA-PGTO-SERV
+– IT-NU-CCOR-PGTO-SERVIDOR</p>
+<p>————– Página 4 —————–</p>
+<p>– IT-CO-GRUPO-OCOR-AFASTAMENTO
+– IT-CO-OCOR-AFASTAMENTO
+– IT-DA-INICIO-OCOR-AFASTAMENTO
+– IT-DA-TERMINO-OCOR-AFASTAMENTO
+– IT-CO-DIPL-AFASTAMENTO
+– IT-DA-PUBL-DIPL-AFASTAMENTO
+– IT-NU-DIPL-AFASTAMENTO
+– IT-CO-GRUPO-OCOR-EXCLUSAO</p>
+<p>————– Página 5 —————–</p>
+<p>– IT-CO-OCOR-EXCLUSAO
+– IT-DA-OCOR-EXCLUSAO-SERV
+– IT-CO-DIPL-EXCLUSAO
+– IT-DA-PUBL-DIPL-EXCLUSAO
+– IT-NU-DIPL-EXCLUSAO
+– IT-CO-GRUPO-OCOR-INATIVIDADE
+– IT-CO-OCOR-INATIVIDADE
+– IT-DA-OCOR-INATIVIDADE-SERV
+– IT-CO-DIPL-INATIVIDADE
+– IT-DA-PUBL-DIPL-INATIVIDADE
+– IT-NU-DIPL-INATIVIDADE</p>
+<p>————– Página 7 —————–</p>
+<p>– IT-CO-GRUPO-CARGO-EMPREGO
+– IT-CO-CARGO-EMPREGO
+– IT-CO-CLASSE</p>
+<p>– IT-CO-PADRAO
+– IT-CO-NIVEL
+– IT-DA-OCUPACAO-CARGO-EMPREGO</p>
+<p>————– Página 8 —————–</p>
+<p>– IT-DA-SAIDA-CARGO-EMPREGO</p>
+<p>– IT-CO-UORG-LOTACAO-SERVIDOR
+– IT-DA-LOTACAO</p>
+<p>Campo Chave: GR-MATRICULA
+Operador: IN
+Faixa: XXXXX0000000 -&gt; XXXXX9999999
+Com XXXXX = Identificador da Instituição
+Destino da Extração: Portal Online (PO)
+Classe SUAP: Servidor</p>
+<p>B)
+Arquivo Siape: SIAPE-SERVIDOR-EXTR
+Campos:
+————– Página 1 —————–</p>
+<p>GR-MATRICULA</p>
+<p>IT-DA-NASCIMENTO</p>
+<p>————– Página 2 —————–</p>
+<p>IT-CO-SEXO</p>
+<p>IT-QT-DEPENDENTE-IR
+IT-NU-CARTEIRA-TRABALHO
+IT-NU-SERIE-CARTEIRA-TRABALHO
+IT-SG-UF-CTRA-SERVIDOR
+IT-DA-PRIMEIRO-EMPREGO</p>
+<p>IT-DA-CADASTRAMENTO-SERVIDOR</p>
+<p>IT-CO-NIVEL-ESCOLARIDADE</p>
+<p>————– Página 5 —————–</p>
+<p>IT-NU-PROCESSO-APOSENTADORIA
+IT-CO-GRUPO-OCOR-INGR-ORGAO</p>
+<p>————– Página 6 —————–</p>
+<p>IT-CO-OCOR-INGR-ORGAO
+IT-DA-OCOR-INGR-ORGAO-SERV
+IT-CO-DIPL-INGR-ORGAO
+IT-DA-PUBL-DIPL-INGR-ORGAO
+IT-NU-DIPL-INGR-ORGAO
+IT-CO-GRUPO-OCOR-INGR-SPUB
+IT-CO-OCOR-INGR-SPUB
+IT-DA-OCOR-INGR-SPUB-SERV
+IT-CO-DIPL-INGR-SPUB
+IT-DA-PUBL-DIPL-INGR-SPUB
+IT-NU-DIPL-INGR-SPUB</p>
+<p>————– Página 8 —————–</p>
+<p>IT-SG-FUNCAO
+IT-CO-NIVEL-FUNCAO
+IT-SG-ESCOLARIDADE-FUNCAO
+IT-IN-OPCAO-FUNCAO
+IT-DA-INGRESSO-FUNCAO
+IT-DA-SAIDA-FUNCAO
+IT-CO-UORG-FUNCAO
+IT-CO-ATIVIDADE-FUNCAO</p>
+<p>————– Página 9 —————–</p>
+<p>IT-SG-NOVA-FUNCAO
+IT-CO-NIVEL-NOVA-FUNCAO
+IT-SG-ESCOLARIDADE-NOVA-FUNCAO
+IT-IN-OPCAO-NOVA-FUNCAO
+IT-DA-INGRESSO-NOVA-FUNCAO
+IT-DA-SAIDA-NOVA-FUNCAO
+IT-CO-UORG-NOVA-FUNCAO
+IT-CO-ATIVIDADE-NOVA-FUNCAO</p>
+<p>IT-CO-JORNADA-TRABALHO</p>
+<p>————– Página 10 —————-</p>
+<p>IT-NU-NUMERADOR-PROP
+IT-NU-DENOMINADOR-PROP</p>
+<p>Campo Chave: GR-MATRICULA
+Operador: IN
+Faixa: XXXXX0000000 -&gt; XXXXX9999999
+Com XXXXX = Identificador da Instituição
+Destino da Extração: Portal Online (PO)
+Classe Suap: Servidor</p>
+<p>C)
+Arquivo Siape: SIAPE-SERVIDOR-EXTR
+Campos:
+————– Página 1 —————–</p>
+<p>GR-MATRICULA</p>
+<p>————– Página 8 —————–</p>
+<p>IT-CO-VAGA</p>
+<p>————– Página 11 —————-</p>
+<p>IT-CO-REGISTRO-GERAL
+IT-SG-ORGAO-EXPEDIDOR-IDEN
+IT-DA-EXPEDICAO-IDEN
+IT-SG-UF-IDEN</p>
+<p>————– Página 12 —————-</p>
+<p>IT-DA-OBITO</p>
+<p>————– Página 13 —————-</p>
+<p>IT-NU-TITULO-ELEITOR
+IT-IN-OPERADOR-RAIOX</p>
+<p>IT-CO-GRUPO-OCOR-INGR-SPUB-POSSE
+IT-CO-OCOR-INGR-SPUB-POSSE</p>
+<p>————– Página 14 —————-</p>
+<p>IT-DA-OCOR-INGR-SPUB-POSSE
+IT-CO-DIPL-INGR-SPUB-POSSE
+IT-DA-PUBL-DIPL-INGR-SPUB-POSSE
+IT-NU-DIPL-INGR-SPUB-POSSE</p>
+<p>————– Página 17 —————-</p>
+<p>IT-NU-SEQ-FORMACAO-RH
+IT-CO-TITULACAO-FORMACAO-RH</p>
+<p>Campo Chave: GR-MATRICULA
+Operador: IN
+Faixa: XXXXX0000000 -&gt; XXXXX9999999
+Com XXXXX = Identificador da Instituição
+Destino da Extração: Portal Online (PO)
+Classe Suap: Servidor</p>
+<p>D)
+Arquivo Siape: SIAPE-SERVIDOR-DISPONIVEL
+Campos:
+————– Página 1 —————–</p>
+<p>GR-MATRICULA-SERV-DISPONIVEL</p>
+<p>IT-NO-LOGRADOURO
+IT-NO-BAIRRO
+IT-NO-MUNICIPIO
+IT-CO-CEP
+IT-SG-UF-SERV-DISPONIVEL</p>
+<p>————– Página 2 —————–</p>
+<p>IT-NU-ENDERECO
+IT-NU-COMPLEMENTO-ENDERECO
+IT-CO-PAIS-ENDERECO
+IT-NU-DDD-TELEFONE
+IT-NU-TELEFONE
+IT-NU-RAMAL-TELEFONE</p>
+<p>————– Página 3 —————–</p>
+<p>IT-ED-CORREIO-ELETRONICO</p>
+<p>IT-SG-GRUPO-SANGUINEO
+IT-SG-FATOR-RH</p>
+<p>Campo Chave: GR-MATRICULA-SERV-DISPONIVEL
+Operador: IN
+Faixa: XXXXX0000000 -&gt; XXXXX9999999
+Com XXXXX = Identificador da Instituição
+Destino da Extração: Portal Online (PO)
+Classe Suap: Servidor</p>
+<p>E)
+Arquivo Siaper: SIPE-U-RH
+Campos:
+————– Página 1 —————–</p>
+<p>NU-CPF-RH</p>
+<p>NO-MUNICIPIO-NASCIMENTO-RH</p>
+<p>NO-PAI-RH</p>
+<p>————– Página 2 —————–</p>
+<p>SG-UF-TITULO-ELEITOR-RH</p>
+<p>NU-ZONA-ELEITORAL-RH
+NU-SECAO-ELEITORAL-RH
+DA-EMISSAO-TITULO-ELEITOR-RH</p>
+<p>————– Página 3 —————–</p>
+<p>NU-CART-MOTORISTA-RH
+NU-REGISTRO-CART-MOTORISTA-RH
+IN-CATEGORIA-CART-MOTORISTA-RH
+SG-UF-CART-MOTORISTA-RH</p>
+<p>DA-EXPEDICAO-CART-MOTORISTA-RH
+DA-VALIDADE-CART-MOTORISTA-RH</p>
+<p>————– Página 5 —————–</p>
+<p>ED-FAX-RH</p>
+<p>ED-SG-UF-MUNICIPIO-RH</p>
+<p>————– Página 6 —————–</p>
+<p>CO-IDENT-UNICA-SIAPE-RH</p>
+<p>Campo Chave: NU-CPF-RH
+Operador: IN
+Faixa: 00000000000 -&gt; 99999999999
+Campo Chave: ED-SG-UF-MUNICIPIO-RH
+Operador: =
+Faixa: RN
+Destino da Extração: Portal Batch (PO)
+Classe Suap: Servidor</p>
+<p>F)
+Arquivo Siape: SIAPE-SERVIDOR-FERIAS
+Campos:
+– GR-MATR-EXERCICIO-FERIAS
+– IT-DA-INICIO-FERIAS
+– IT-QT-DIAS-FERIAS
+Campo Chave: MATRICULA-EXERCICIO-FERIAS
+Operador: IN
+Faixa: XXXXX00000000000 -&gt; XXXXX9999999999
+Destino da Extração: Portal Online (PO)
+Com XXXXX = Identificador da Instituição
+Classe Suap: Servidor</p>
+<p>G)
+Arquivo Siape: SIAPE-SERVIDOR-FERIAS-HIST
+Campos:
+– GR-MATR-EXERCICIO-FERIAS-HIST
+– IT-DA-INICIO-FERIAS
+– IT-QT-DIAS-FERIAS
+Campo Chave: MATRICULA-EXERCICIO-FERIAS
+Operador: IN
+Faixa: XXXXX00000000000000000 -&gt; XXXXX99999999999999999
+Destino da Extração: Portal Online (PO)
+Com XXXXX = Código da Instituição
+Classe Suap: Servidor</p>
+<ol class="upperalpha simple" start="8">
+<li><p>A classe Contra-cheque é preenchida utilizando um arquivo chamado fita-espelho.</p></li>
+</ol>
+<p>OBSERVAÇÕES FINAIS</p>
+<p>Após a finalização de uma importação, um arquivo de log é gerado em suap/rh/logs. Lá pode-se encontrar dados que apontem para a possível solução de algum problema.</p>
+<p>O terminal do extrator oferece um recurso de macros que pode eventualmente automatizar parte do processo de importação. Mas os arquivo do extrator mudam com tanta freqüência que ainda estamos estudando a vaibilidade da criação de uma macro para população inicial. Por enquanto, possuimos apenas uma para atualização semanal de servidores. Onde a macro se torna “pequena” e as importações são mais freqüentes.</p>
+<p>Passo-a-passo de como utilizar a macro:</p>
+<p>1 - Faça o download do arquivo ‘Macro para Extracao de Servidores.mac’, presente na pasta raiz do projeto SUAP.
+2 - Edite-o, substituindo ‘ZZZZ’ pelo identificador de seu Órgão. Esse identificador pode ser decoberto consultando-se seu setor de recursos humanos ou seu temrminal de extração.
+3 - Acesse <a class="reference external" href="https://acesso.serpro.gov.br/HOD10/jsp/logonID.jsp">https://acesso.serpro.gov.br/HOD10/jsp/logonID.jsp</a> e log com seu usuário e senha
+4 - Uma vez no terminal do extrator, acesso a opação EXTRACAO-SIAPE
+5 - Navegue pelo terminal até a opção EXCOEXARQ -&gt; CONSULTA/EXTRAI ARQUIVO
+6 - Quando o cursor estiver posicionado para que seja digitado o NOME DO ARQUIVO, pressione o botão ‘Reproduzir Macro’ localizado na barra de botões do seu terminal de extração ou cliqeu em ‘Ação -&gt; Executar Macro’ presente na barra de menu do seu terminal de extração
+7 - Na janela ‘Reproduzir macro’ procure em ‘Local da macro’ por ‘Macro para Extracao de Servidores.mac’. Caso não encontre, clique no botão ‘Incluir’ e aponte o diretório onde você salvou o arquivo no passo 1 desse procedimento. Quando encontrar a macro, clique em ‘OK’
+8 - Aguarde até que a Macro seja completamente executada. Você sabe que ela chegou ao fim, depois que o ícone de um relógio desaparecer da última linha do terminal de extração. O último arquivo a ser processdado demora um pouco, por isso, não estranhe a demora. Apenas aguarde o desaparecimento do relógio e pode deslogar logo em seguida.
+9 - Acesse <a class="reference external" href="https://www.siapenet.gov.br/Portal/Orgao.asp">https://www.siapenet.gov.br/Portal/Orgao.asp</a> e log com seu CPF e senha
+10 - No menu localizado no lado esquedo da página, acesse ‘Obtenção e Envio de Arquivo -&gt; Obtenção de Arquivos -&gt; Arquivos do Extrator’
+11 - Faça o download dos ‘Arquivo de Dados’ EXTR1, EXTR2, EXTR3, EXTR4  e EXTR5.
+12 - Extraia todos, pois eles devem vir compactados.
+13 - Acesse o site administrativo do SUAP e na aplicação SUAP, selecione ‘Servidores’
+14 - Clique no botão ‘Importar do Arquivo’
+15 - Faça o upload dos 5 arquivos que foram baixados do portal SiapeNET aqui. A correspondência é:</p>
+<p>SIAPE-SERVIDOR-EXTR I: EXTR1
+SIAPE-SERVIDOR-EXTR II: EXTR2
+SIAPE-SERVIDOR-EXTR III: EXTR3
+SIAPE-SERVIDOR-DISPONIVEL: EXTR4
+SIPE-U-RH: EXTR5</p>
+<p>Lembrando que: A obrigatoriedade é apenas para o arquivo EXTR1, pois ele insere as informações mínimas para criação dos servidores (Matricula, CPF e Setor). Então, é possível, por exemplo, importar apenas o EXTR1. Ou apenas o EXTR1 e o EXTR5. Mas nunca apenas o EXTR5.</p>
+
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+{# Template criado para que list_filter seja renderizado como um <input>, não como um <select><ul><li><a> #}
+<div class="filter">
+    <label for="{{ choices.0.parameter_name }}_select">{{ title }}:</label>
+    <select class="js-example-data-ajax form-control" id="{{ choices.0.parameter_name }}_select" name="{{ choices.0.parameter_name }}__djt_filter_ac">
+        {% if choices.0.value %}
+            <option value="{{ choices.0.parameter_name }}={{ choices.0.value }}" selected="selected">{{ choices.0.unicode }}</option>
+        {% endif %}
+    </select>
+    <script>
+    $(function(){
+        let input = $("#{{ choices.0.parameter_name }}_select");
+        input.select2({
+            language: "pt-BR",
+            allowClear: true,
+            ajax: {
+                url: "{{ choices.0.url }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        {% for key, value in choices.0.form_filters %}
+                            form_filter__{{ value }}: ($("#{{ key }}_select").val()||"=").split("=")[1],
+                        {% endfor %}
+                        q: params.term, // search term
+                        control: '{{ choices.0.control }}',
+                        page: params.page
+                    }
+                },
+                type: 'POST',
+                params: { // extra parameters that will be passed to ajax
+                    contentType: "application/json; charset=utf-8",
+                },
+                processResults: function (data, params) {
+                    let itens = [];
+                    for(let i=0; i < data.items.length; i++){
+                        let item = {
+                            "id" : "{{ choices.0.parameter_name }}=" + data.items[i]["id"],
+                            "html" : data.items[i]["html"],
+                            "text" : data.items[i]["text"]
+                        };
+                        itens.push(item);
+                    }
+                    params.page = params.page || 1;
+
+                    return {
+                        results: itens,
+                        pagination: {
+                            more: (params.page * 20) < data.total
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Todos',
+            escapeMarkup: function (markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 0,
+            templateResult: function (data) {
+                return data.html || 'Buscando...';
+            },
+            templateSelection: function (data) {
+                return data.text;
+            }
+        }).on('select2:select', function (e) {
+            if (input.val() !== null) {
+                input.siblings().find('.select2-selection__rendered').addClass('option-selected');
+            }
+        }).on('select2:unselect', function (e) {
+            if (input.val() === null) {
+                input.siblings().find('.select2-selection__rendered').removeClass('option-selected');
+            }
+        });
+    });
+    </script>
+
+</div>
+{% if help_text %}
+    <span class="help">{{ help_text }}</span>
+{% endif %}

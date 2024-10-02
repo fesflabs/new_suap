@@ -1,0 +1,45 @@
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Avaliadores nos Processos:
+  permissions_required:
+  - rsc.view_processoavaliador
+  url: /admin/rsc/processoavaliador/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Cadastros::Critérios:
+  permissions_required:
+  - rsc.view_criterio
+  url: /admin/rsc/criterio/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Cadastros::Diretrizes:
+  permissions_required:
+  - rsc.view_diretriz
+  url: /admin/rsc/diretriz/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Cadastros::Parâmetros para Pagamento:
+  permissions_required:
+  - rsc.view_parametropagamento
+  url: /admin/rsc/parametropagamento/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Cadastros::Tipos de RSC:
+  permissions_required:
+  - rsc.view_tiporsc
+  url: /admin/rsc/tiporsc/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Cadastros::Unidades:
+  permissions_required:
+  - rsc.view_unidade
+  url: /admin/rsc/unidade/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Financeiro::Pagamento de Avaliadores:
+  permissions_required:
+  - rh.change_avaliador
+  url: /rsc/relatorio_pagamento/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Meus Processos:
+  permissions_required:
+  - rsc.view_processorsc
+  url: /admin/rsc/processorsc/?tab=tab_meus_processos
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Processos:
+  permissions_required:
+  - rsc.pode_validar_processorsc
+  - rsc.pode_ver_relatorio_rsc
+  url: /admin/rsc/processorsc/?tab=tab_processos_pendentes
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Processos para Avaliação:
+  permissions_required:
+  - rsc.pode_avaliar_processorsc
+  url: /rsc/processo_avaliacao/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Docentes::RSC::Processos sem Avaliador Reserva:
+  permissions_required:
+  - rh.change_avaliador
+  url: /rsc/processos_sem_avaliador_reserva/

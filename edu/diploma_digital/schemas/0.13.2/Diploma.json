@@ -1,0 +1,859 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/DiplomaDigital.schema.json",
+  "title": "Esquema JSON de Diploma Digital",
+  "description": "Esquema JSON para Validação de Diplomas Digitais, Versão 1.03",
+  "type": "object",
+  "required": [
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "meta": {
+      "description": "Metadados do diploma digital",
+      "type": "object",
+      "required": [
+        "clientId",
+        "clientSignature",
+        "docType",
+        "groupId",
+        "mimeType",
+        "yourNumber"
+      ],
+      "properties": {
+        "clientId": {
+          "description": "Identificador único universal do cliente do RAP",
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"
+        },
+        "clientSignature": {
+          "$comment": "Atributo ainda não tem funcionalidade, será usado em versões futuras",
+          "description": "Assinatura do cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "docType": {
+          "description": "Identificador do tipo Diploma Digital no RAP",
+          "type": "string",
+          "const": "digital_degree"
+        },
+        "groupId": {
+          "description": "Identificador único do grupo de documentos ao qual o documento faz parte",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "mimeType": {
+          "description": "Tipo da mídia do diploma digital",
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "text/xml"
+          ]
+        },
+        "yourNumber": {
+          "description": "Identificador único gerado pelo cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "dltId": {
+          "description": "Nome da DLT em que o documento assinado será registrado",
+          "type": "string",
+          "const": "ethereum"
+        },
+        "isDocSigned": {
+          "description": "Flag para indicar se o documento a ser registrado conterá assinaturas",
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      }
+    },
+    "data": {
+      "description": "Dados do diploma digital",
+      "type": "object",
+      "required": [
+        "Versao",
+        "infDiploma"
+      ],
+      "properties": {
+        "Versao": {
+          "description": "Versão do leiaute do diploma digital",
+          "type": "string",
+          "const": "1.03"
+        },
+        "infDiploma": {
+          "description": "Informações do diploma digital",
+          "type": "object",
+          "allOf": [
+            {
+              "oneOf": [
+                {
+                  "required": [
+                    "DadosDiploma"
+                  ],
+                  "properties": {
+                    "DadosDiploma": {
+                      "$ref": "#/definitions/TDadosDiploma"
+                    }
+                  }
+                },
+                {
+                  "required": [
+                    "DadosDiplomaNSF"
+                  ],
+                  "properties": {
+                    "DadosDiplomaNSF": {
+                      "$ref": "#/definitions/TDadosDiploma"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "oneOf": [
+                {
+                  "required": [
+                    "DadosRegistro"
+                  ],
+                  "properties": {
+                    "DadosRegistro": {
+                      "$ref": "#/definitions/TDadosRegistro"
+                    }
+                  }
+                },
+                {
+                  "required": [
+                    "DadosRegistroNSF"
+                  ],
+                  "properties": {
+                    "DadosRegistroNSF": {
+                      "$ref": "#/definitions/TDadosRegistroNSF"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TDadosDiploma": {
+      "description": "Dados do diploma",
+      "type": "object",
+      "required": [
+        "Diplomado",
+        "DadosCurso",
+        "IesEmissora"
+      ],
+      "properties": {
+        "Diplomado": {
+          "$ref": "#/definitions/TDadosDiplomado"
+        },
+        "DadosCurso": {
+          "$ref": "#/definitions/TDadosCurso"
+        },
+        "IesEmissora": {
+          "$ref": "#/definitions/TDadosIesEmissora"
+        }
+      }
+    },
+    "TDadosDiplomado": {
+      "description": "Dados pessoais do diplomado",
+      "type": "object",
+      "required": [
+        "ID",
+        "Nome"
+      ],
+      "properties": {
+        "ID": {
+          "description": "Identificador único do diplomado",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Nome": {
+          "description": "Nome completo do diplomado",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TDadosCurso": {
+      "description": "Dados do curso",
+      "type": "object",
+      "required": [
+        "NomeCurso"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "CodigoCursoEMEC"
+          ],
+          "properties": {
+            "CodigoCursoEMEC": {
+              "description": "Código e-MEC do curso",
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        {
+          "required": [
+            "SemCodigoCursoEMEC"
+          ],
+          "properties": {
+            "SemCodigoCursoEMEC": {
+              "description": "Informações sobre a tramitação do processo e-MEC",
+              "type": "object",
+              "required": [
+                "NumeroProcesso"
+              ],
+              "properties": {
+                "NumeroProcesso": {
+                  "description": "Número do processo e-MEC",
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "NomeCurso": {
+          "description": "Nome completo do curso",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TDadosIesEmissora": {
+      "description": "Dados da instituição de ensino superior emissora",
+      "type": "object",
+      "required": [
+        "Nome"
+      ],
+      "properties": {
+        "Nome": {
+          "description": "Nome completo da instituição",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TDadosRegistro": {
+      "description": "Dados de registro do diploma digital",
+      "type": "object",
+      "required": [
+        "IesRegistradora",
+        "LivroRegistro"
+      ],
+      "properties": {
+        "IesRegistradora": {
+          "$ref": "#/definitions/TDadosIesRegistradora"
+        },
+        "LivroRegistro": {
+          "$ref": "#/definitions/TDadosLivroRegistro"
+        },
+        "InformacoesAdicionais": {
+          "description": "Informações adicionais de registro",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      }
+    },
+    "TDadosRegistroNSF": {
+      "description": "Dados de registro do diploma digital de instituições fora do sistema federal",
+      "type": "object",
+      "required": [
+        "IesRegistradora",
+        "LivroRegistro"
+      ],
+      "properties": {
+        "IesRegistradora": {
+          "$ref": "#/definitions/TDadosIesRegistradora"
+        },
+        "LivroRegistro": {
+          "$ref": "#/definitions/TDadosLivroRegistroNSF"
+        },
+        "InformacoesAdicionais": {
+          "description": "Informações adicionais de registro",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      }
+    },
+    "TDadosIesRegistradora": {
+      "description": "Dados da instituição de ensino superior registradora",
+      "type": "object",
+      "required": [
+        "Nome",
+        "CodigoMEC",
+        "CNPJ",
+        "Endereco",
+        "Credenciamento",
+        "Mantenedora"
+      ],
+      "properties": {
+        "Nome": {
+          "description": "Nome completo da instituição",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "CodigoMEC": {
+          "description": "Código de identificação da instituição no MEC",
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "CNPJ": {
+          "$ref": "#/definitions/TCNPJ"
+        },
+        "Endereco": {
+          "$ref": "#/definitions/TEndereco"
+        },
+        "Credenciamento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "Recredenciamento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "RenovacaoDeRecredenciamento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "AtoRegulatorioAutorizacaoRegistro": {
+          "$ref": "#/definitions/TAtoRegulatorio"
+        },
+        "Mantenedora": {
+          "description": "Dados da mantenedora da instituição",
+          "type": "object",
+          "required": [
+            "RazaoSocial",
+            "CNPJ",
+            "Endereco"
+          ],
+          "properties": {
+            "RazaoSocial": {
+              "description": "Nome registrado da pessoa jurídica",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "CNPJ": {
+              "$ref": "#/definitions/TCNPJ"
+            },
+            "Endereco": {
+              "$ref": "#/definitions/TEndereco"
+            }
+          }
+        }
+      }
+    },
+    "TDadosLivroRegistro": {
+      "description": "Dados do livro de registro",
+      "type": "object",
+      "required": [
+        "LivroRegistro",
+        "DataColacaoGrau",
+        "DataExpedicaoDiploma",
+        "DataRegistroDiploma",
+        "ResponsavelRegistro"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "NumeroRegistro"
+          ],
+          "properties": {
+            "NumeroRegistro": {
+              "description": "Número do registro",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            }
+          }
+        },
+        {
+          "required": [
+            "NumeroFolhaDoDiploma",
+            "NumeroSequenciaDoDiploma"
+          ],
+          "properties": {
+            "NumeroFolhaDoDiploma": {
+              "description": "Número da folha do diploma",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "NumeroSequenciaDoDiploma": {
+              "description": "Número de sequencia do diploma",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "LivroRegistro": {
+          "description": "Código do livro de registro",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "ProcessoDoDiploma": {
+          "description": "Código do processo do diploma",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "DataColacaoGrau": {
+          "description": "Data da colação de grau",
+          "type": "string",
+          "format": "date"
+        },
+        "DataExpedicaoDiploma": {
+          "description": "Data da expedição do diploma",
+          "type": "string",
+          "format": "date"
+        },
+        "DataRegistroDiploma": {
+          "description": "Data de registro do diploma",
+          "type": "string",
+          "format": "date"
+        },
+        "ResponsavelRegistro": {
+          "description": "Dados do responsável pelo registro",
+          "type": "object",
+          "required": [
+            "Nome",
+            "CPF"
+          ],
+          "properties": {
+            "Nome": {
+              "description": "Nome completo do responsável",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "CPF": {
+              "description": "Número do CPF do responsável sem separadores",
+              "type": "string",
+              "pattern": "^[0-9]{11}$"
+            },
+            "IDouNumeroMatricula": {
+              "description": "Número da matrícula ou identificador do responsável",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            }
+          }
+        }
+      }
+    },
+    "TDadosLivroRegistroNSF": {
+      "description": "Dados do livro de registro de instituições fora do sistema federal",
+      "type": "object",
+      "required": [
+        "DataColacaoGrau",
+        "DataExpedicaoDiploma",
+        "DataRegistroDiploma",
+        "ResponsavelRegistro"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "NumeroRegistro"
+          ],
+          "properties": {
+            "NumeroRegistro": {
+              "description": "Número do registro",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            }
+          }
+        },
+        {
+          "required": [
+            "NumeroFolhaDoDiploma",
+            "NumeroSequenciaDoDiploma"
+          ],
+          "properties": {
+            "NumeroFolhaDoDiploma": {
+              "description": "Número da folha do diploma",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "NumeroSequenciaDoDiploma": {
+              "description": "Número de sequencia do diploma",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "NumeroRegistro": {
+              "description": "Número do registro",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "LivroRegistro": {
+          "description": "Código do livro de registro",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "ProcessoDoDiploma": {
+          "description": "Código do processo do diploma",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "DataColacaoGrau": {
+          "description": "Data da colação de grau",
+          "type": "string",
+          "format": "date"
+        },
+        "DataExpedicaoDiploma": {
+          "description": "Data da expedição do diploma",
+          "type": "string",
+          "format": "date"
+        },
+        "DataRegistroDiploma": {
+          "description": "Data de registro do diploma",
+          "type": "string",
+          "format": "date"
+        },
+        "ResponsavelRegistro": {
+          "description": "Dados do responsável pelo registro",
+          "type": "object",
+          "required": [
+            "Nome",
+            "CPF"
+          ],
+          "properties": {
+            "Nome": {
+              "description": "Nome completo do responsável",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "CPF": {
+              "description": "Número do CPF do responsável sem separadores",
+              "type": "string",
+              "pattern": "^[0-9]{11}$"
+            },
+            "IDouNumeroMatricula": {
+              "description": "Número da matrícula ou identificador do responsável",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            }
+          }
+        }
+      }
+    },
+    "TCNPJ": {
+      "description": "Número do CNPJ sem separadores",
+      "type": "string",
+      "pattern": "^[0-9]{14}$"
+    },
+    "TEndereco": {
+      "description": "Dados de localização",
+      "type": "object",
+      "required": [
+        "Logradouro",
+        "Bairro",
+        "CEP"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/TMunicipio"
+        }
+      ],
+      "properties": {
+        "Logradouro": {
+          "description": "Nome do local",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Numero": {
+          "description": "Número da casa ou edifício",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Complemento": {
+          "description": "Identificação da unidade",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Bairro": {
+          "description": "Região do município",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "CEP": {
+          "description": "Código Postal",
+          "type": "string",
+          "pattern": "^[0-9]{8}$"
+        }
+      }
+    },
+    "TMunicipio": {
+      "description": "Dados do município",
+      "type": "object",
+      "required": [
+        "CodigoMunicipio",
+        "NomeMunicipio",
+        "UF"
+      ],
+      "properties": {
+        "CodigoMunicipio": {
+          "description": "Código do município da tabela do IBGE",
+          "type": "string",
+          "pattern": "^[0-9]{7}$"
+        },
+        "NomeMunicipio": {
+          "description": "Nome completo do município",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "UF": {
+          "$ref": "#/definitions/TUF"
+        }
+      }
+    },
+    "TUF": {
+      "description": "Sigla da unidade federativa",
+      "type": "string",
+      "enum": [
+        "AC",
+        "AL",
+        "AM",
+        "AP",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MG",
+        "MS",
+        "MT",
+        "PA",
+        "PB",
+        "PE",
+        "PI",
+        "PR",
+        "RJ",
+        "RN",
+        "RO",
+        "RR",
+        "RS",
+        "SC",
+        "SE",
+        "SP",
+        "TO"
+      ]
+    },
+    "TAtoRegulatorio": {
+      "description": "Ato regulatório de reconhecimento",
+      "type": "object",
+      "required": [
+        "Tipo",
+        "Numero",
+        "Data"
+      ],
+      "properties": {
+        "Tipo": {
+          "description": "Tipo do ato regulatório",
+          "type": "string",
+          "enum": [
+            "Parecer",
+            "Resolução",
+            "Decreto",
+            "Portaria",
+            "Lei Federal",
+            "Lei Estadual",
+            "Lei Municipal"
+          ]
+        },
+        "Numero": {
+          "description": "Número do ato regulatório",
+          "type": "string",
+          "pattern": "^(S/N)|(([0-9])[-0-9a-zA-Z0-9_/]*)$"
+        },
+        "Data": {
+          "description": "Data do ato regulatório",
+          "format": "date"
+        },
+        "VeiculoPublicacao": {
+          "description": "Veículo de publicação do ato regulatório",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "DataPublicacao": {
+          "description": "Data de publicação do ato regulatório",
+          "format": "date"
+        },
+        "SecaoPublicacao": {
+          "description": "Seção de publicação do ato regulatório",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "PaginaPublicacao": {
+          "description": "Página de publicação do ato regulatório",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "NumeroDOU": {
+          "description": "Número do ato regulatório no diário oficial da união",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        }
+      }
+    },
+    "TAtoRegulatorioComOuSemEMEC": {
+      "description": "Ato regulatório de reconhecimento",
+      "type": "object",
+      "required": [
+        "Tipo",
+        "Numero",
+        "Data"
+      ],
+      "properties": {
+        "Tipo": {
+          "description": "Tipo do ato regulatório",
+          "type": "string",
+          "enum": [
+            "Parecer",
+            "Resolução",
+            "Decreto",
+            "Portaria",
+            "Lei Federal",
+            "Lei Estadual",
+            "Lei Municipal",
+            "Ato Próprio"
+          ]
+        },
+        "Numero": {
+          "description": "Número do ato regulatório",
+          "type": "string",
+          "pattern": "^(S/N)|(([0-9])[-0-9a-zA-Z0-9_/]*)$"
+        },
+        "Data": {
+          "description": "Data do ato regulatório",
+          "format": "date"
+        },
+        "VeiculoPublicacao": {
+          "description": "Veículo de publicação do ato regulatório",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "DataPublicacao": {
+          "description": "Data de publicação do ato regulatório",
+          "format": "date"
+        },
+        "SecaoPublicacao": {
+          "description": "Seção de publicação do ato regulatório",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "PaginaPublicacao": {
+          "description": "Página de publicação do ato regulatório",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "NumeroDOU": {
+          "description": "Número do ato regulatório no diário oficial da união",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "InformacoesTramitacaoEMEC": {
+          "description": "Informações sobre a tramitação do processo e-MEC",
+          "type": "object",
+          "required": [
+            "NumeroProcesso",
+            "TipoProcesso",
+            "DataCadastro",
+            "DataProtocolo"
+          ],
+          "properties": {
+            "NumeroProcesso": {
+              "description": "Número do processo e-MEC",
+              "type": "string",
+              "pattern": "^[1-9][0-9]*$"
+            },
+            "TipoProcesso": {
+              "description": "Tipo do processo e-MEC",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "DataCadastro": {
+              "description": "Data de abertura do processo e-MEC",
+              "format": "date"
+            },
+            "DataProtocolo": {
+              "description": "Data de emissão do protocolo e-MEC",
+              "format": "date"
+            }
+          }
+        }
+      }
+    }
+  }
+}

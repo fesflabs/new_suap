@@ -1,0 +1,34 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        <li><a href="/erros/erros/" class="btn default">{% icone "search" %} Visualizar Todos</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% box "Escolher Módulo" %}
+        <ul class="flex-container boxes services">
+            {% for app in lista_modulos %}
+                <li class="box-item">
+                    {% icone app.icon %}
+                    <a href="/erros/erros/?modulo={{ app.label }}">
+                        <h4>{{ app.verbose_name }}</h4>
+                    </a>
+                    {% if app.description %}
+                        <p>{{ app.description }}</p>
+                        <div class="clear"></div>
+                    {% endif %}
+                    {% if app.abertos > 0 %}
+                        <p class="note"><a href="/erros/erros/?modulo={{ app.label }}&tab=tab_abertos"><strong>{{ app.abertos }}</strong> em andamento</a></p>
+                    {% endif %}
+                    {% if app.resolvidos > 0 %}
+                        <p class="note"><a href="/erros/erros/?modulo={{ app.label }}&tab=tab_resolvidos"><strong>{{ app.resolvidos }}</strong> resolvido{{ app.resolvidos|pluralize }}</a></p>
+                    {% endif %}
+                    <p><a href="/erros/modulo/{{ app.label }}/" class="btn">{% icone "bug" %} Reportar Erro</a></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endbox %}
+
+{% endblock %}

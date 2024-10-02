@@ -1,0 +1,8 @@
+{% if matriculas_curso_turma %}
+    {% box 'Boletim' %}
+        {% include "tabela_boletim_te.html" %}
+    {% endbox %}
+
+{% else %}
+    <p class="msg alert">O trabalhador educando não possui boletim.</p>
+{% endif %} 

@@ -1,0 +1,15 @@
+<li class="has-child">
+    <a href="#" class="btn default">{% icone "search" %} Visualização</a>
+    <ul>
+        {% if perms.gerenciador_projetos.view_projeto %}
+            <li><a href="{% url 'projeto' projeto.id %}">Em Lista</a></li>
+        {% endif %}
+        {% if pode_editar_tarefas %}
+            <li><a href="{% url 'dashboard' projeto.id %}">Dashboard</a></li>
+        {% endif %}
+        <li><a href="{% url 'gantt' projeto.id %}" >Gantt</a></li>
+        <li><a href="{% url 'status_projeto' projeto.id %}">Situação das Tarefas</a></li>
+        <li><a href="{% url 'evolucao_tarefas_projeto' projeto.id %}">Evolução das Tarefas</a></li>
+    </ul>
+</li>
+

@@ -1,0 +1,56 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {{ periodo_letivo_atual.as_widget|safe }}
+    {% if matricula_periodo and matricula_periodo.matriculadiario_set.exists %}
+        <div class="flex-container boxes services">
+            {% for matricula_diario in matricula_periodo.matriculadiario_set.all %}
+                <div class="box-item">
+                    {% if matricula_diario.diario.is_semestral_segundo_semestre %}
+                        <span class="status status-alert">Ofertada no segundo semestre</span>
+                    {% endif %}
+                    <h4>{{ matricula_diario.diario.componente_curricular.componente.descricao_historico }}{{ matricula_diario.diario.get_descricao_dinamica }}</h4>
+                    <h5>{{ matricula_diario.diario.componente_curricular.componente.sigla }}</h5>
+                    {% if matricula_diario.is_cancelado %}
+                        <p class="msg alert">{{ matricula_diario.get_situacao_diario_boletim.rotulo }}</p>
+                    {% endif %}
+
+                    {% if matricula_diario.diario.get_locais_aula %}
+                        <dl>
+                            <dt>Local de Aula:</dt>
+                            <dd>{{ matricula_diario.diario.get_locais_aula|format }}</dd>
+                        </dl>
+                    {% endif %}
+
+                    {% for professor in matricula_diario.diario.professordiario_set.all %}
+                        <div class="person smallest">
+                            <div class="photo-circle smallest">
+                                <img src="{{ professor.professor.get_foto_75x100_url }}" alt="Foto de {{ professor.professor.get_nome }}">
+                            </div>
+                            <dl>
+                                <dt class="sr-only">Professor</dt>
+                                <dd>{{ professor.professor.get_nome }}</dd>
+                            </dl>
+                        </div>
+                    {% endfor %}
+                    
+                    <ul class="action-bar">
+                        {% if not matricula_diario.is_cancelado %}
+                            <li><a class="btn default" href="/edu/disciplina/{{ matricula_diario.diario.pk }}/">{% icone "search" %} Acessar Disciplina</a></li>
+                        {% endif %}
+                        {% if matricula_diario.diario.integracao_com_moodle %}
+                            <li><a class="btn default" href="{{ obj.url_moodle|format }}">{% icone "link" %} Moodle</a></li>
+                        {% endif %}
+                        {% if matricula_diario.diario.url_ambiente_virtual %}
+                            <li><a class="btn default" href="{{ obj.url_ambiente_virtual|format }}">{% icone "link" %} Ambiente Virtual</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="msg alert">Nenhum diário para o período letivo selecionado.</p>
+    {% endif %}
+
+{% endblock %}

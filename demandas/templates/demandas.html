@@ -1,0 +1,205 @@
+{% extends super_template %}
+{% load demandas_templatetags %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if perms.demandas.add_demanda %}
+            <li><a href="/admin/demandas/demanda/add/" class="btn success">{% icone "plus" %} Adicionar Demanda</a></li>
+        {% endif %}
+        <li><a href="/admin/demandas/demanda/" class="btn default">{% icone "search" %} Visualizar Todas</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    <ul class="flex-container boxes services">
+        {% if demandas_atrasadas_demandantes > 0 or demandas_atrasadas_desenvolvimento > 0 %}
+            <li class="box-item error">
+                {% icone "hourglass-end" %}
+                <h4>Atrasadas</h4>
+                {% if demandas_atrasadas_demandantes > 0 %}
+                    <p class="note"><strong>{{ demandas_atrasadas_demandantes }}</strong> pelos Demandantes</p>
+                {% endif %}
+                {% if demandas_atrasadas_desenvolvimento > 0 %}
+                    <p class="note"><strong>{{ demandas_atrasadas_desenvolvimento }}</strong> pelo Desenvolvimento</p>
+                {% endif %}
+            </li>
+        {% endif %}
+        <li class="box-item warning">
+            {% icone "hourglass-half" %}
+            <h4>Suspensas</h4>
+            <p class="indicator">{{ demandas_suspensas }}</p>
+        </li>
+        <li class="box-item success">
+            {% icone "check-circle" %}
+            <h4>Concluídas</h4>
+            <p class="note"><strong>{{ demandas_concluidas_ano.count }}</strong> em {{ ano_atual }}</p>
+            <p class="note"><strong>{{ demandas_concluidas_ano_passado.count }}</strong> em {{ ano_passado }}</p>
+        </li>
+        <li class="box-item info">
+            <h4>Tipos</h4>
+            <p class="note"><strong>{{ melhorias|format }}</strong> de Melhorias</p>
+            <p class="note"><strong>{{ funcionalidades|format }}</strong> de Funcionalidade</p>
+        </li>
+    </ul>
+
+    {% box "Demandas Prioritárias ({{ total_demandas_prioritarias }})" %}
+        <div class="legenda">
+            <p>Legenda:</p>
+            <ul>
+                <li class="info">Solicitada</li>
+                <li class="alert">Em andamento</li>
+                <li class="extra">Aguardando feedback</li>
+                <li class="success">Aprovada/Homologada</li>
+                <li class="error">Suspensa</li>
+            </ul>
+        </div>
+        <div class="table-responsive">
+            <table class="dashboard">
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Prioridade 1</th>
+                        <th>Prioridade 2</th>
+                        <th>Prioridade 3</th>
+                        <th>Prioridade 4</th>
+                        <th>Prioridade 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prioridade in prioritarias %}
+                        {% ifchanged prioridade.0 %}
+                            {% if not forloop.first %}
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>
+                                    <h4>{{ prioridade.0 }}</h4>
+                                    <p class="obs pt-3">Demandante Responsável: {{ prioridade.5 }}</p>
+                                    <div class="clear"></div>
+                                    <ul class="action-bar">
+                                        <li>
+                                            <a class="btn default" href="/admin/demandas/demanda/?area__id__exact={{ prioridade.0.pk }}&tab=tab_ativas">
+                                                {% icone "search" %} {{ prioridade.4 }} ativa{{ prioridade.4|pluralize }}
+                                            </a>
+                                        </li>
+                                        {% if prioridade.3 > 0 %}
+                                            <li>
+                                                <a class="btn default" href="/admin/demandas/demanda/?area__id__exact={{ prioridade.0.pk }}&situacao__exact=Concluída&data_atualizacao__year={{ ano_atual }}&tab=tab_any_data">
+                                                    {% icone "search" %} {{ prioridade.3 }} concluída{{ prioridade.3|pluralize }} em {{ ano_atual }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                        {% endifchanged %}
+                        {% for demanda in prioridade.1 %}
+                            <td class="{{ demanda.situacao|status_dashboard }}">
+                                <h5><a href="{% url 'demanda_visualizar' demanda.pk %}">{{ demanda|truncatechars:76 }}</a></h5>
+                                <dl class="definition-list flex compact mt-2">
+                                    <div class="list-item flex-basis-100">
+                                        <dt>Situação</dt>
+                                        <dd>{{ demanda.situacao }}{% if demanda.em_atraso %} <span class="false">(Em atraso)</span>{% endif %}</dd>
+                                    </div>
+                                    {% if demanda.situacao == "Solicitada" or demanda.situacao == "Em negociação" or demanda.situacao == "Em análise" %}
+                                        <div class="list-item">
+                                            <dt>Analistas</dt>
+                                            <dd>
+                                                {% if demanda.analistas.exists %}
+                                                    {% for analista in demanda.analistas.all %}
+                                                        <div class="photo-circle smallest">
+                                                            <img title="{{ analista }}" src="{{ analista.pessoafisica.get_foto_75x100_url }}" alt="Foto de {{ analista }}"/>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <span class="false">A definir</span>
+                                                {% endif %}
+                                            </dd>
+                                        </div>
+                                    {% elif demanda.situacao != "Suspensa" %}
+                                        <div class="list-item">
+                                            <dt>Desenvolvedores</dt>
+                                            <dd>
+                                                {% if demanda.desenvolvedores.exists %}
+                                                    {% for desenvolvedor in demanda.desenvolvedores.all %}
+                                                        <div class="photo-circle smallest">
+                                                            <img title="{{ desenvolvedor }}" src="{{ desenvolvedor.pessoafisica.get_foto_75x100_url }}" alt="Foto de {{ desenvolvedor }}" />
+                                                        </div>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <span class="false">A definir</span>
+                                                {% endif %}
+                                            </dd>
+                                        </div>
+                                    {% endif %}
+                                    <div class="list-item">
+                                        <dt>Votação</dt>
+                                        <dd>{{ demanda.votos }} ponto{{ demanda.votos|pluralize }}</dd>
+                                    </div>
+                                </dl>
+                            </td>
+                        {% endfor %}
+                        {% if prioridade.2 > 0 %}
+                            <td colspan="{{ prioridade.2 }}">-</td>
+                        {% endif %}
+                        {% if forloop.last %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endbox %}
+
+    {% box "Demandas Não-Prioritárias ({{ demandas_nao_prioritarias.count }})" %}
+        <p class="msg info">Cada Área de Atuação é responsável por selecionar as <strong>5 demandas prioritárias</strong> para iniciar o desenvolvimento. A estatística abaixo representa somente as demandas que não tem prioridade para desenvolvimento.</p>
+        <div class="total-container flex-container">
+            <a href="/admin/demandas/demanda/?situacao__exact=Solicitada&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item info">
+                <span class="fas fa-square" aria-hidden="true"></span>
+                <p class="total">{{ demandas_solicitadas }}</p>
+                <p class="description">Solicitada{{ demandas_solicitadas|pluralize }}</p>
+            </a>
+            <a href="/admin/demandas/demanda/?situacao__exact=Em+negociação&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item warning">
+                <span class="fas fa-hourglass-half" aria-hidden="true"></span>
+                <p class="total">{{ demandas_em_negociacao }}</p>
+                <p class="description">Em negociação</p>
+            </a>
+            {% if demandas_em_analise > 0 %}
+                <a href="/admin/demandas/demanda/?situacao__exact=Em+análise&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item warning">
+                    <span class="fas fa-hourglass-half" aria-hidden="true"></span>
+                    <p class="total">{{ demandas_em_analise }}</p>
+                    <p class="description">Em análise</p>
+                </a>
+            {% endif %}
+            {% if demandas_aprovadas > 0 %}
+                <a href="/admin/demandas/demanda/?situacao__exact=Aprovada&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item success">
+                    <span class="fas fa-thumbs-up" aria-hidden="true"></span>
+                    <p class="total">{{ demandas_aprovadas }}</p>
+                    <p class="description">Aprovada{{ demandas_aprovadas|pluralize }}</p>
+                </a>
+            {% endif %}
+            {% if demandas_homologadas > 0 %}
+                <a href="/admin/demandas/demanda/?situacao__exact=Homologada&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item success">
+                    <span class="fas fa-thumbs-up" aria-hidden="true"></span>
+                    <p class="total">{{ demandas_homologadas }}</p>
+                    <p class="description">Homologada{{ demandas_homologadas|pluralize }}</p>
+                </a>
+            {% endif %}
+            {% if demandas_em_homologacao > 0 %}
+                <a href="/admin/demandas/demanda/?situacao__exact=Em+homologação&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item warning">
+                    <span class="fas fa-hourglass-half" aria-hidden="true"></span>
+                    <p class="total">{{ demandas_em_homologacao }}</p>
+                    <p class="description">Em homologação</p>
+                </a>
+            {% endif %}
+            {% if demandas_em_implantacao > 0 %}
+                <a href="/admin/demandas/demanda/?situacao__exact=Em+implantação&eh_prioritaria=N%C3%A3o&tab=tab_ativas" class="total-item warning">
+                    <span class="fas fa-hourglass-half" aria-hidden="true"></span>
+                    <p class="total">{{ demandas_em_implantacao }}</p>
+                    <p class="description">Em implantação</p>
+                </a>
+            {% endif %}
+        </div>
+    {% endbox %}
+
+{% endblock %}

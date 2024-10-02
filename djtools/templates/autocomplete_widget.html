@@ -1,0 +1,162 @@
+{# Label Input #}
+
+<div name="{{ name }}" id="ac_{{ id }}"
+       class="{% if value %}filled{% endif %} autocomplete" current_value="" search_url="{{ url }}"
+     {% if not readonly %}contenteditable{% else %}readonly="readonly"{% endif %} autocomplete="off" ></div>
+{# Value Input #}
+<input type="{% if show_pk %}text{% else %}hidden{% endif %}" id="hidden_{{ name }}" 
+	   name="{{ name }}" value="{{ value }}" />
+
+{% if not readonly %}
+	<img src="/static/admin/img/icon-deletelink.svg" title="Limpar Valor"
+         style="display: {% if value %}inline{% else %}none{% endif %};"
+     	 onClick="clean_value{{name}}($(this).prev().prev())" class="cleanValue" />
+	
+	{% if side_html %}
+	   {{ side_html|safe }}
+	{% else %}
+		{% if has_change_permission %}
+		    <!--<a href="{{ change_list_url }}" class="related-lookup"  title="Buscar..."
+	   	       id="lookup_hidden_{{ id }}" onclick="return showRelatedObjectLookupPopup(this);">
+	    	    <img src="/static/admin/img/selector-search.gif" width="16" height="16" />
+	        </a>-->
+	    {% endif %}
+{#  Comentato porque estava com "conflito" com o fancybox #}
+{#		{% if has_add_permission and can_add_related %}#}
+{#			<a href="{{ add_another_url }}"  class="add-another" title="Adicionar Outro..."#}
+{#	   	   	   id="add_hidden_{{ name }}" onclick="return showAddAnotherPopup(this);">#}
+{#				<img alt="Adicionar outro" src="/static/admin/img/icon-addlink.svg"/>#}
+{#			</a>#}
+{#		{% endif %}#}
+	{% endif %}
+{% endif %} {# endif not readnoly #}
+
+<script>
+    // remove o label do campo
+    if ( "{{ show }}" == "False" ) {
+        $('div#ac_{{ id }}').prev().remove();
+    }
+    function set_value{{name|validjs_symbol}}(input, selected) {
+        /*
+         * ``data`` formats:
+         * 1) ["label", 1]
+         * 2) ["<strong>HTML label</strong>", "label", 1]
+         */
+
+        value = selected.data[selected.data.length-1];
+        if(options["{{name}}"]["extraParams"]["form_parameter_names"] != undefined){
+	        vetor = options["{{name}}"]["extraParams"]["form_parameter_names"].split(",");
+	        vetor_pks = [];
+	        for ( i in vetor ){
+	        	if($("input[name$="+vetor[i].toString()+"]").length==2){
+	        		vetor_pks[i] = $("#hidden_"+vetor[i].toString()).val(); 
+	        	}
+	        	if($("input[name$="+vetor[i].toString()+"]").length==1){
+	        		vetor_pks[i] = $("input[name$="+vetor[i].toString()+"]").val().toString();
+	        	}
+                if($("select[name$="+vetor[i].toString()+"]").length==1){
+	        		vetor_pks[i] = $("select[name$="+vetor[i].toString()+"]").val().toString();
+	        	}
+	        }
+	        options["{{name}}"]["extraParams"]["filter_pks"] = vetor_pks.toString();
+        }
+        input.next().val(value).change(); // habilitando o onchange do campo hidden
+        input.next().next().show(); // Mostrar "limpar valor"
+        input.addClass('filled');
+        input.attr("current_value", value);
+        input.removeAttr("contenteditable");
+        input.text(selected.value);
+    }
+    function clean_value{{name|validjs_symbol}}(input) {
+        input.text('');
+        input.next().val('').change(); // habilitando o onchange do campo hidden
+        input.removeClass('filled');
+        input.attr("contenteditable", "");
+        input.next().next().hide(); // Esconder "limpar valor"
+        input.focus();
+    }
+    function afterSelect{{name|validjs_symbol}}(object) {
+        set_value{{name|validjs_symbol}}(object.input, object.data);
+        {% if submit_on_select %}
+            $(object.input).closest('form').submit();
+        {%  endif %}
+    }
+    
+    if(!window['options']){
+    	options = {};
+    }
+    
+    options["{{name}}"] = {{ options|safe }};
+    options["{{name}}"]["afterSelect"] = afterSelect{{name|validjs_symbol}};
+    options["{{name}}"]["extraParams"]["control"] = '{{ control }}';
+    
+    $.ajaxSetup( { type: "post" } );
+    $('div#ac_{{ id }}').autocomplete("{{ url }}", options["{{name}}"]);
+    $('div#ac_{{ id }}').keyup(function(){
+        if (!$(this).text().length) {
+            clean_value{{name}}($(this));
+        }
+        if(options["{{name}}"]["extraParams"]["form_parameter_names"] != undefined){
+	        vetor = options["{{name}}"]["extraParams"]["form_parameter_names"].split(",");
+	        vetor_pks = [];
+	        for ( i in vetor ){
+	        	if($("input[name$="+vetor[i].toString()+"]").length==2){
+	        		vetor_pks[i] = $("#hidden_"+vetor[i].toString()).val(); 
+	        	}
+	        	if($("input[name$="+vetor[i].toString()+"]").length==1){
+	        		vetor_pks[i] = $("input[name$="+vetor[i].toString()+"]").val().toString();
+	        	}
+                if($("select[name$="+vetor[i].toString()+"]").length==1){
+	        		vetor_pks[i] = $("select[name$="+vetor[i].toString()+"]").val().toString();
+	        	}
+	        }
+	        options["{{name}}"]["extraParams"]["filter_pks"] = vetor_pks.toString();
+        }
+    });
+    function setValue{{name|validjs_symbol}}(input_label, pk) {
+    	
+        if (input_label.attr("fetching") == "true") {
+            return;
+        }
+        
+        input_label.attr("fetching", "true"); 
+    	$.ajax({
+    		type: "POST",
+    		url: input_label.attr("search_url"),
+            data: {
+    		    pk : pk,
+                control : '{{ control }}'
+            },
+    		success: function(data) {
+	    		input_label.text(data);
+	    		input_label.next().next("img").show();
+	        	input_label.attr("current_value", pk);
+	        	input_label.addClass("filled");
+	        	input_label.attr("fetching", "false");
+			},
+			error: function() {
+				input_label.text("");
+				input_label.next().next("img").hide();
+	        	input_label.attr("current_value", "");
+	        	input_label.removeClass("filled");
+	        	input_label.attr("fetching", "false");
+			}
+    	});
+    }
+    function check{{name|validjs_symbol}}() {
+    	
+        $.each($(".ac_input"), function(index, elem) {
+            input_label = $(elem);
+            input_hidden = input_label.next();
+            if ((input_hidden.val() != "") && (input_label.attr("current_value") != input_hidden.val())) {
+            	setValue{{name}}(input_label, input_hidden.val());
+            }
+            
+        });
+    }
+    $('div#ac_{{ id }}').attr("autocomplete", "off");
+    timeout = window.setInterval(check{{name|validjs_symbol}}, 1000);
+</script>
+{% if help_text %}
+    <p class="help">{{ help_text }}</p>
+{% endif %}

@@ -1,0 +1,146 @@
+{% extends super_template %}
+
+{% block content %}
+    {% if pode_realizar_procedimentos %}
+        {% if not obj.pode_ser_executado_automaticamente %}
+            <ul class="action-bar">
+                {% if obj.situacao == 'Arquivado' %}
+                    <li><a href="/edu/desarquivar_requerimento/{{ obj.pk }}" class="btn primary">Desarquivar</a></li>
+                {% endif %}
+                {% help_button %}
+            </ul>
+        {% else %}
+            {% if obj.deferido is None %}
+            <ul class="action-bar">
+                <li><a href="?processar=" class="btn success">Deferir e Realizar Processamento</a></li>
+                <li><a href="/edu/indeferir_requerimento/{{ obj.pk }}/" class="btn danger popup">Indeferir</a></li>
+            </ul>
+            <p class="msg info">
+                Esse requerimento pode ser processado automaticamente. Para deferí-lo e atender o que foi solicitado, clique no botão
+                "Deferir e Realizar Processamento" acima. Caso precise indeferir, clique no botão "Indeferir".
+            </p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'tipo' }}</td>
+                <td>{{ obj.get_tipo_display|format }}</td>
+                <td>Data do Requerimento</td>
+                <td>{{ obj.data|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'aluno'|normalizar }}</td>
+                <td colspan="3">
+                    {{ obj.aluno.pessoa_fisica.nome }}
+                    (<a href="/edu/aluno/{{ obj.aluno.matricula }}/">
+                        {{ obj.aluno.matricula }}
+                    </a>)
+                </td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'localizacao'|normalizar }}</td>
+                <td colspan="3">{{ obj.localizacao|format }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    {% box "Solicitação" %}
+
+        <table class="info">
+            {% if obj.turno %}
+                <tr>
+                    <td>{{ obj|verbose:'turno' }}</td>
+                    <td colspan="5">{{ obj.turno|format }}</td>
+                </tr>
+            {% endif %}
+            {% if obj.curso_campus %}
+                <tr>
+                    <td>{{ obj|verbose:'curso_campus' }}</td>
+                    <td colspan="5">{{ obj.curso_campus|format }}</td>
+                </tr>
+            {% endif %}
+            {% if obj.turma %}
+                <tr>
+                    <td>{{ obj|verbose:'turma' }}</td>
+                    <td colspan="5">{{ obj.turma|format }}</td>
+                </tr>
+            {% endif %}
+            {% if obj.inicio %}
+                <tr>
+                    <td>Data do Requerimento</td>
+                    <td>{{ obj.data_inicio|format }}</td>
+                    <td>Data do Atendimento</td>
+                    <td>{{ obj.data_fim|format }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>{{ obj|verbose:'descricao'|format|normalizar }}</td>
+                <td colspan="5">{{ obj.descricao|format }}</td>
+            </tr>
+            {% for chave, valor in obj.get_detalhamento %}
+            <tr>
+                <td>{{ chave }}</td>
+                <td colspan="5">{{ valor }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endbox %}
+
+
+    {% if obj.deferido is None or request.POST %}
+        {% if not obj.pode_ser_executado_automaticamente %}
+        {% box "Deferimento" %}
+            {% if pode_realizar_procedimentos and not obj.situacao == 'Arquivado' %}
+                {% if pode_realizar_procedimentos %}
+                {% render_form form %}
+                {% endif %}
+            {% else %}
+                <table class="info">
+                    <tr>
+                        <td>{{ obj|verbose:'situacao'|format|normalizar }}</td>
+                        <td>{{ obj.situacao|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ obj|verbose:'deferido'|format|normalizar }}</td>
+                        <td>{{ obj.deferido|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Observação/Motivo</td>
+                        <td>{{ obj.observacao|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ obj|verbose:'atendente' }}</td>
+                        <td>{{ obj.atendente|format }}</td>
+                    </tr>
+                </table>
+            {% endif %}
+        {% endbox %}
+        {% endif %}
+    {% else %}
+        {% box "Deferimento" %}
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'deferido' }}</td>
+                <td>{{ obj.deferido|format }}</td>
+                <td>{{ obj|verbose:'situacao' }}</td>
+                <td>{{ obj.get_situacao_display|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'termino' }}</td>
+                <td>{{ obj.termino|format }}</td>
+                <td>{{ obj|verbose:'atendente' }}</td>
+                <td>{{ obj.atendente|format }}</td>
+            </tr>
+            <tr>
+                <td>Observação</td>
+                <td colspan="3">{{ obj.observacao|format }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+    {% endif %}
+
+
+{% endblock %}

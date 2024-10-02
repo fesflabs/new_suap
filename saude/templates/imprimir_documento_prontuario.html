@@ -1,0 +1,80 @@
+{% extends "relatorio_pdf.html" %}
+{% block style %}
+td, th {
+    font-size: 12pt !important;
+    padding: 1px;
+    line-height: 1em;
+    font-family: Times New Roman, Verdana, Arial, sans-serif;
+}
+.cidade {
+    text-align: center;
+    padding-bottom: 15px;
+    vertical-align: bottom;
+    font-size: 12pt;
+}
+.autenticacao {
+    font-size: 12pt;
+    line-height: 1em;
+    font-family: "Times New Roman", Verdana, Arial, sans-serif;
+}
+
+#titulo_corpo {
+    font-size: 20pt;
+    text-align: center;
+    font-weight: bold;
+    font-family: Times New Roman, Verdana, Arial, sans-serif;
+}
+#texto_corpo {
+    font-size: 14pt;
+    text-align: justify;
+    padding-top: 2px;
+    line-height: 1.5em;
+    font-family: Times New Roman, Verdana, Arial, sans-serif;
+}
+.descricao{
+    font-size: 12pt;
+}
+{% endblock %}
+{% block cabecalho %}
+{% endblock %}
+{% block content %}
+
+    <div id="cabecalho">
+        <table border="0">
+            <tr>
+                <td rowspan="6" style="width: 30%"><img src="/static/comum/img/logo_instituicao.jpg" alt="Logo do {% get_valor_por_chave "comum" "instituicao_sigla" %}" class="logo" /></td>
+                <td class="titulo">Ministério da Educação</td>
+            </tr>
+            <tr>
+                <td class="titulo">Secretaria de Educação Tecnológica</td>
+            </tr>
+            <tr>
+                <td class="titulo">{{ instituicao }}</td>
+            </tr>
+            <tr>
+                <td class="titulo">{{ campus.nome|normalizar }}</td>
+            </tr>
+            <tr>
+                <td class="titulo">Coordenação de Atividades Estudantis</td>
+            </tr>
+            <tr>
+                <td class="titulo">{{ subtitulo }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <br /><br/><br/> <br /><br/><br/> <br />
+    <div id="titulo_corpo">
+        {{ documento.tipo }}
+    </div>
+    <br /><br /> <br /><br /><br/><br/>
+    <div id="texto_corpo">
+        <p class="text-center">{{ documento.texto|safe }}</p>
+    </div>
+    <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /><br /><br /><br />
+
+    <div id="footerblock" align="right">
+        <center>{{ campus.nome }} <br> {{ hoje }}</center>
+    </div>
+
+{% endblock %}

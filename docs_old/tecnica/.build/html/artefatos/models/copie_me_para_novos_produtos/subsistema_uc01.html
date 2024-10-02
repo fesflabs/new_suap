@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UC 01 - Nome do caso de Uso &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../suap.html">SUAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">UC 01 - Nome do caso de Uso &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Nome do Subsistema</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="uc-01-nome-do-caso-de-uso-v0-1">
+<span id="suap-artefatos-sistema-subsistema-uc01"></span><h1>UC 01 - Nome do caso de Uso &lt;v0.1&gt;<a class="headerlink" href="#uc-01-nome-do-caso-de-uso-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id2">Histórico da Revisão</a></p></li>
+<li><p><a class="reference internal" href="#objetivo" id="id3">Objetivo</a></p></li>
+<li><p><a class="reference internal" href="#atores" id="id4">Atores</a></p>
+<ul>
+<li><p><a class="reference internal" href="#principais" id="id5">Principais</a></p></li>
+<li><p><a class="reference internal" href="#interessado" id="id6">Interessado</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pre-condicoes" id="id7">Pré-condições</a></p></li>
+<li><p><a class="reference internal" href="#pos-condicoes" id="id8">Pós-condições</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-eventos" id="id9">Fluxo de Eventos</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fluxo-normal" id="id10">Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-alternativo" id="id11">Fluxo Alternativo</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fa1-nome-do-fluxo-alternativo-fn-1" id="id12">FA1 – Nome do fluxo alternativo (FN.1)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao" id="id13">Fluxo de Exceção</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fe1-nome-do-fluxo-de-excecao-fn-2" id="id14">FE1 – Nome do fluxo de exceção (FN.2)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#especificacao-suplementares" id="id15">Especificação suplementares</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requisitos-nao-funcionais" id="id16">Requisitos Não-Funcionais</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-interface" id="id17">Requisitos de Interface</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-informacao" id="id18">Requisitos de Informação</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rin1-campos-para-listagem" id="id19">RIN1 – Campos para listagem</a></p></li>
+<li><p><a class="reference internal" href="#rin2-campos-para-cadastros" id="id20">RIN2 – Campos para Cadastros</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#regras-de-negocio" id="id21">Regras de Negócio</a></p></li>
+<li><p><a class="reference internal" href="#mensagens" id="id22">Mensagens</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ponto-de-extensao" id="id23">Ponto de Extensão</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id24">Questões em Aberto</a></p></li>
+<li><p><a class="reference internal" href="#esboco-de-prototipo" id="id25">Esboço de Protótipo</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso" id="id26">Diagrama de domínio do caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-fluxo-de-operacao" id="id27">Diagrama de Fluxo de Operação</a></p></li>
+<li><p><a class="reference internal" href="#cenario-de-testes" id="id28">Cenário de Testes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#objetivos" id="id29">Objetivos</a></p></li>
+<li><p><a class="reference internal" href="#casos-e-registros-de-teste" id="id30">Casos e Registros de Teste</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fluxo-de-excecao-fe1" id="id31">Fluxo de Exceção FE1</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id2">Histórico da Revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>19/02/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>O propósito deste documento é coletar, analisar e definir as características, funcionalidades e regras de negócio
+específicas de um caso de uso do projeto. Para caso de uso do tipo MANTER, ou seja, que define as funcionalidades
+básicas de Incluir, Excluir, Alterar, Consultar e Pesquisar uma entidade, utilize o template “Especificação de Caso
+de Uso CRUD”.</p>
+<p>As regras de negócio pertinentes a mais de um caso de uso devem ser registradas em documento separado (Regras de
+Negócio), e tal documento deve ser referenciado em todos os casos de uso que utilizam tais regras, facilitando
+assim a manutenção das informações.</p>
+<p>Os textos que aparecem em azul e entre colchetes são explicações para ajudar no preenchimento de cada seção e
+devem ser apagados no documento final.</p>
+<p>Preencha nesta página inicial o nome do projeto e o nome do caso de uso. Mantenha o histórico de registros sempre
+atualizado, indicando a versão atual do documento. As seções que não forem preenchidas, por qualquer motivo, não
+devem ser removidas. Deve-se acrescentar o texto <code class="docutils literal notranslate"><span class="pre">Não</span> <span class="pre">há</span></code> ou <code class="docutils literal notranslate"><span class="pre">Não</span> <span class="pre">se</span> <span class="pre">aplica</span></code>, ou mesmo referenciar outro documento
+que já possua a informação para indicar a ausência de conteúdo.</p>
+</div>
+</section>
+<section id="objetivo">
+<h2><a class="toc-backref" href="#id3">Objetivo</a><a class="headerlink" href="#objetivo" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Forneça, resumidamente, a descrição do objetivo do caso de uso, ou seja, a função do sistema que será
+implementada. A descrição deve ter, preferencialmente, linguagem natural.</p>
+<p>Se este documente refere-se a um caso de uso estendido, indicar aqui o caso de uso base. Exemplo:
+este caso de uso é uma extensão do caso de uso base.</p>
+</div>
+</section>
+<section id="atores">
+<h2><a class="toc-backref" href="#id4">Atores</a><a class="headerlink" href="#atores" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Os atores que interagem com este caso de uso são listados aqui.São atores pessoas, sistemas, dispositivos
+que fornecem ou recebem estímulos (fornecem ou recebem informações) do sistema sob  análise.</p>
+</div>
+<section id="principais">
+<h3><a class="toc-backref" href="#id5">Principais</a><a class="headerlink" href="#principais" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Ator principal é aquele que interage com o sistema (fornece, altera, excluí informações no sistema)</p>
+</div>
+</section>
+<section id="interessado">
+<h3><a class="toc-backref" href="#id6">Interessado</a><a class="headerlink" href="#interessado" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Ator interessado é aquele (alguém ou algo) com interesse no comportamento do sistema. Nem sempre só os atores
+são interessados no caso de uso. Um setor de contabilidade pode estar interessado nas vendas da empresa ou
+o estoque pode querer saber quais produtos foram vendidos.</p>
+</div>
+</section>
+</section>
+<section id="pre-condicoes">
+<h2><a class="toc-backref" href="#id7">Pré-condições</a><a class="headerlink" href="#pre-condicoes" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Nesta seção, é definido o que deve ser verdade antes do início da execução do caso de uso. É a condição
+essencial para que o caso de uso possa ser realizado. Devem ser listadas as assertivas e condições validadas
+antes de entrar no caso de uso. Como exemplo, pode-se citar que, se esta condição não for verdadeira, um
+cadastro não poderá ser efetuado ou nem mesmo o fluxo do caso de uso poderá ser iniciado. Representa o
+estado em que um outro caso de uso anterior deixa o sistema para que o caso de uso em questão possa ser
+iniciado</p>
+</div>
+</section>
+<section id="pos-condicoes">
+<h2><a class="toc-backref" href="#id8">Pós-condições</a><a class="headerlink" href="#pos-condicoes" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aqui deve ser descrito o que deve ser verdadeiro quando o processo terminar com sucesso, mostrando o resultado
+após a execução do caso de uso. Deve-se colocar as criações de objetos, alterações de valores de atributos,
+associações formadas ou desfeitas, ou destruições de objetos. Verificar se os fluxos alternativos levam a
+diferentes pós-condições.</p>
+</div>
+</section>
+<section id="fluxo-de-eventos">
+<h2><a class="toc-backref" href="#id9">Fluxo de Eventos</a><a class="headerlink" href="#fluxo-de-eventos" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Este caso de uso começa quando o ator faz algo ou quando é chegada a hora de algo ser feito (no caso de
+processamento batch). O caso de uso deve descrever o que o ator faz e o que o sistema faz como resposta,
+mas não como ou porquê, evite descrever processos internos ao sistema. Deve ter o formato de um diálogo
+entre o ator e o sistema e deve apresentar uma linguagem simples e de fácil entendimento por todos os
+envolvidos. Se há troca de informação, seja específico sobre o que é passado para o sistema e vice-versa.</p>
+<p>Evite mencionar componentes de tela como botão, combo e outros. Por exemplo: Não é muito esclarecedor
+dizer que o ator clica no botão “Gerar Turma”, é melhor dizer que o ator inicia o caso de uso acionando
+a opção “Gerar Turma”;</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Foi definido que quando for uma seleção, evite descrevê-la em dois passos, por exemplo: 1. “O sistema exibe
+os Horários de Câmpus”;  2.“O ator seleciona o Horário do câmpus. Apenas o útlimo passo é necessário.</p>
+<p>Ao passar a informação, foi definido colocar entre aspas duplas (“ ”) o nome do campo e este será
+usado como rótulo na tela, se o campo for obrigatório, incluir um asterisco (*) depois do nome. Se
+for necessário relacionar o passo com alguma regra de negócio (RN), requisito de interface (RI), etc,
+incluir no final do passo entre parênteses. Exemplo: O ator seleciona o “Período Letivo*” (RN1, RI1, etc).</p>
+</div>
+</div>
+<section id="fluxo-normal">
+<h3><a class="toc-backref" href="#id10">Fluxo Normal</a><a class="headerlink" href="#fluxo-normal" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note" id="fn">
+<p class="admonition-title">Nota</p>
+<p>Também conhecido como cenário de sucesso. É o cenário do caso de uso em que tudo se realizará normalmente.</p>
+<p>Evite usar se/se não na descrição do fluxo, isso é uma indicação de um fluxo alternativo ou um fluxo de exceção.</p>
+<p>Exemplos de passos:</p>
+<ol class="arabic simple">
+<li><p>O caso de uso é iniciado acionando a opção  <code class="docutils literal notranslate"><span class="pre">ENSINO</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Cadastros</span> <span class="pre">Gerais</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Diretorias</span> <span class="pre">Acadêmicas</span></code></p></li>
+<li><p>O sistema exibe a lista de diretorias acadêmicas (<a class="reference internal" href="#rin1">RIN1</a>)</p></li>
+<li><p>O administrador seleciona a opção <code class="docutils literal notranslate"><span class="pre">Adicionar</span> <span class="pre">Diretoria</span> <span class="pre">Acadêmica</span></code></p></li>
+<li><p>O administrador informa os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O administrador finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M1</a></p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div>
+</section>
+<section id="fluxo-alternativo">
+<h3><a class="toc-backref" href="#id11">Fluxo Alternativo</a><a class="headerlink" href="#fluxo-alternativo" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aqui serão tratados todos os fluxos que não obedecem à forma normal de execução, isto é, são eventos
+alternativos do caso de uso, configurando cenários diferentes ou tratando outras funcionalidades, como,
+por exemplo, uma alteração ou uma exclusão. Quando o fluxo alternativo ou de exceção termina, nem sempre
+os eventos do fluxo original são retomados no mesmo ponto. Sendo assim, é necessário indicar o ponto de
+retomada do fluxo, que pode ser: retorna, avança ao passo x do fluxo normal.</p>
+<p>Pode haver, e normalmente haverá, um certo número de fluxos alternativos em um caso de uso. Mantenha cada um
+separado para melhorar a clareza. O uso de fluxos alternativos melhora a legibilidade do caso de uso e previne
+que eles sejam decompostos em hierarquias. Caso perceba que seu caso de uso está tendo muitos fluxos alternativos,
+talvez isso indique que o caso de uso respectivo deve ser particionado em mais casos de uso. Isso tornará a
+escrita e entendimento do caso de uso mais fácil.</p>
+</div>
+<section id="fa1-nome-do-fluxo-alternativo-fn-1">
+<h4>FA1 – Nome do fluxo alternativo (<a class="reference internal" href="#fn">FN</a>.1)<a class="headerlink" href="#fa1-nome-do-fluxo-alternativo-fn-1" title="Link permanente para este título">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Sempre que for descrever uma fluxo alternativo, use está subseção como exemplo. Aqui temos:
+Identificação do fluxo -  Nome do Evento (identificação do passo do fluxo normal)</p>
+<p>Exemplos:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O administrador aciona a opção <code class="docutils literal notranslate"><span class="pre">Editar</span></code> de uma das diretoria acadêmica disponíveis na listagem</p></li>
+<li><p>O sistema exibe a diretoria acadêmica com os dados (<a class="reference internal" href="#rin2">RIN2</a>) preenchidos</p></li>
+<li><p>O administrador informa novos valores para os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O administrador finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M2</a>.</p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</div>
+</section>
+</section>
+<section id="fluxo-de-excecao">
+<h3><a class="toc-backref" href="#id13">Fluxo de Exceção</a><a class="headerlink" href="#fluxo-de-excecao" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Neste tópico, devem ser descritas todas as exceções, isto é, todas as circunstâncias ou situações que se
+não for devidamente tratado impede o prosseguimetno do caso de uso. Como, por exemplo, uma exclusão que
+não pode acontecer.</p>
+<p>Quando a exceção acontecer em um fluxo alternativo, indicar o passo específico em que pode ocorrer</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Foi definido que para as regras de negócio na qual possui apenas um passo (o sistema exibe a mensagem <a class="reference internal" href="#mensagens">M1</a>)
+não será necessário criar um fluxo de exceção.</p>
+</div>
+<p>Exemplo:</p>
+</div>
+<section id="fe1-nome-do-fluxo-de-excecao-fn-2">
+<h4>FE1 – Nome do fluxo de exceção (<a class="reference internal" href="#fn">FN</a>.2)<a class="headerlink" href="#fe1-nome-do-fluxo-de-excecao-fn-2" title="Link permanente para este título">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Sempre que for descrever uma exceção, use está subseção como exemplo. Aqui temos:
+Identificação do fluxo -  Nome do Evento (identificação do passo do fluxo normal/alternativo)</p>
+</div>
+</section>
+</section>
+</section>
+<section id="especificacao-suplementares">
+<h2><a class="toc-backref" href="#id15">Especificação suplementares</a><a class="headerlink" href="#especificacao-suplementares" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Informe as regras de negócio, requisitos não funcionais: requisitos de hardware e software, requisitos de
+desempenho, requisitos de segurança, dentre outros.</p>
+</div>
+<section id="requisitos-nao-funcionais">
+<h3><a class="toc-backref" href="#id16">Requisitos Não-Funcionais</a><a class="headerlink" href="#requisitos-nao-funcionais" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Informe os requisitos de padrão, requisitos de hardware e software, requisitos de desempenho (tempo de
+resposta), requisitos de segurança, dentre outros requisitos não-funcionais.</p>
+<p>Ver <a class="reference internal" href="../requisitos_naofuncionais_categoria.html#suap-models-recnaofuncionais-categoria"><span class="std std-ref">Classificação dos Requisitos Não Funcionais</span></a>)</p>
+<p>Para cada tipo de requisito será criada uma subseção.</p>
+</div>
+</section>
+<section id="requisitos-de-interface">
+<h3><a class="toc-backref" href="#id17">Requisitos de Interface</a><a class="headerlink" href="#requisitos-de-interface" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Neste tópico é possível registrar alguma particularidade sobre a interface quando solicitada pelo cliente.
+Por exemplo:
+RI1 – Exibição do calendário
+Destacar no calendário a cor vemelha nos dias de indisponibilização da sala.</p>
+<blockquote>
+<div><p>RI1 – Exibição do campo XXX
+Se um determinado campo for selecionado, então o campo XXX deve ser desabilitado.</p>
+</div></blockquote>
+<p>Procure sempre utilizar os padrões de usabiliade definidos para o SUAP.</p>
+</div>
+</section>
+<section id="requisitos-de-informacao">
+<h3><a class="toc-backref" href="#id18">Requisitos de Informação</a><a class="headerlink" href="#requisitos-de-informacao" title="Link permanente para este título">¶</a></h3>
+<section id="rin1-campos-para-listagem">
+<span id="rin1"></span><h4><a class="toc-backref" href="#id19">RIN1 – Campos para listagem</a><a class="headerlink" href="#rin1-campos-para-listagem" title="Link permanente para este título">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>Ações</p></th>
+<th class="head"><p>Coluna 1</p></th>
+<th class="head"><p>Coluna 2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>Ordenação</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Filtro</p></th>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Busca</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Observações</p></th>
+<td><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Rótulo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ver</p></td>
+</tr>
+<tr class="row-odd"><td><p>Editar</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rin2-campos-para-cadastros">
+<span id="rin2"></span><h4><a class="toc-backref" href="#id20">RIN2 – Campos para Cadastros</a><a class="headerlink" href="#rin2-campos-para-cadastros" title="Link permanente para este título">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Liste aqui somente os campos que possuem uma certa particularidade, como por exempo:máscara específica,
+domínio não conhecido, oculto para o usuário, possui valor inicial, tamanho bem definido.
+Pode ser necessário especifiar tipo, tamanhao, obrigatoriedade, valor inicial, máscara,
+oculto [S/N], domínio.</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio/Máscara</p></th>
+<th class="head"><p>Observação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Nome campo*
+.. note:: * -&gt; campo obrigatório</p></td>
+<td><div class="admonition note">
+<p class="admonition-title">Nota</p>
+<ul class="simple">
+<li><p>use “texto autocompletar simples” para ForeignKeyPlus e</p></li>
+<li><p>texto “autocompletar multiplo” para MultipleModelChoiceFieldPlus</p></li>
+<li><p>texto longo para Textarea</p></li>
+<li><p>text</p></li>
+<li><p>seleção</p></li>
+<li><p>seleção multipla</p></li>
+<li><p>Data/Hora</p></li>
+<li><p>texto (somente leitura)</p></li>
+</ul>
+</div>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td><div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Em observação pode se incluir o texto que aparece logo abaixo do campo como dica.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="regras-de-negocio">
+<h3><a class="toc-backref" href="#id21">Regras de Negócio</a><a class="headerlink" href="#regras-de-negocio" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Descreva aqui as regras de negócio e para cada uma a mensagem que será exibida ao ator.</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN1</p></td>
+<td><div class="line-block">
+<div class="line">Nome da regra</div>
+<div class="line">Mensagem</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mensagens">
+<h3><a class="toc-backref" href="#id22">Mensagens</a><a class="headerlink" href="#mensagens" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Neste tópico são descritas todas as mensagens que o sistema apresenta ao ator, exceto as mensagens descritas nas regras de negócio.</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M1</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ponto-de-extensao">
+<span id="pe"></span><h2><a class="toc-backref" href="#id23">Ponto de Extensão</a><a class="headerlink" href="#ponto-de-extensao" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Neste tópico são descritos a(s) referência(s) ao(s) diagrama(s) de caso de uso que possuem relacionamento
+de extensão.</p>
+<p>O caso de uso base pode ser executado mesmo sem a extensão.</p>
+</div>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id24">Questões em Aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Registre aqui as dúvidas encontradas que precisam da presença do cliente para serem sanadas. No final da
+fase de análise espera-se que todas as questões em aberto tenham sido resolvidas e incorporadas ao resultado
+da análise, ou seja, à descrição do caso de uso expandido.</p>
+</div>
+</section>
+<section id="esboco-de-prototipo">
+<h2><a class="toc-backref" href="#id25">Esboço de Protótipo</a><a class="headerlink" href="#esboco-de-prototipo" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Se melhorar a clareza, use protótipo de interface de usuário.
+Esta seção define um esboço inicial da interface deste caso de uso, sem definir tecnologia, ferramentas,
+etc., mas somente um desenho de linhas e textos representando menus, botões, campos e outros. Esse esboço
+pode ser feito pelo próprio cliente (usuário). Caso esse protótipo já tenha sido feito em outro documento,
+basta fazer uma referência ao mesmo.</p>
+</div>
+</section>
+<section id="diagrama-de-dominio-do-caso-de-uso">
+<h2><a class="toc-backref" href="#id26">Diagrama de domínio do caso de uso</a><a class="headerlink" href="#diagrama-de-dominio-do-caso-de-uso" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Um diagrama de domínio pode ser representado por um diagrama de classe conceitual, isto é, uma representação
+das informações trocadas entre o ator e o sistema definidas no fluxo de eventos. Ele é independente de
+implementação (linguagem).</p>
+<p>Recomenda incluir nas classes somente os atributos que sofreram alterações decorrentes do caso de uso, para
+as demais especificar apenas os relacionamentos.</p>
+</div>
+</section>
+<section id="diagrama-de-fluxo-de-operacao">
+<h2><a class="toc-backref" href="#id27">Diagrama de Fluxo de Operação</a><a class="headerlink" href="#diagrama-de-fluxo-de-operacao" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Se um diagrama de fluxo for útil para apresentar um processo de decisão complexo, use-o. Similarmente para
+um comportamento dependente de estado, um diagrama de transição de estados frequentemente esclarece melhor
+do que páginas e páginas de texto. Use a melhor forma para representar o seu problema, mas cuidado para não
+usar terminologia, notação ou figura que sua audiência não possa compreender. Lembre-se de que sua finalidade
+é esclarecer, não confundir.</p>
+</div>
+</section>
+<section id="cenario-de-testes">
+<h2><a class="toc-backref" href="#id28">Cenário de Testes</a><a class="headerlink" href="#cenario-de-testes" title="Link permanente para este título">¶</a></h2>
+<section id="objetivos">
+<h3><a class="toc-backref" href="#id29">Objetivos</a><a class="headerlink" href="#objetivos" title="Link permanente para este título">¶</a></h3>
+<p>O objetivo desde Caso de Testes é identificar o maior número possível de cenários e variações dos requisitos
+de software desde Caso de Uso. É dado um conjunto de dados de entradas, condições de execução, resultados
+esperados que visam validar esse caso de uso.</p>
+</section>
+<section id="casos-e-registros-de-teste">
+<h3><a class="toc-backref" href="#id30">Casos e Registros de Teste</a><a class="headerlink" href="#casos-e-registros-de-teste" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Identifique (Tipo de Teste) se o teste é relativo a um fluxo alternativo, de exceção, regra de negócio,
+permissão.</p>
+</div>
+<section id="fluxo-de-excecao-fe1">
+<h4><a class="toc-backref" href="#id31">Fluxo de Exceção FE1</a><a class="headerlink" href="#fluxo-de-excecao-fe1" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Objetivo</p></th>
+<td><p>Texto com o objetivo do teste</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Dados de Entrada</p></th>
+<td><p>Texto descrevendo os dados de entrada</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Resultado Esperado</p></th>
+<td><p>Texto descrevendo o resultado esperado.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

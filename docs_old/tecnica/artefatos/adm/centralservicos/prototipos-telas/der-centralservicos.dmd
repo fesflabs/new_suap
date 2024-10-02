@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="der-centralservicos" id="D33C0FF9-9B23-4A8E-34B1-C86F7292B0FA" version="3.5">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 17:26:49 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>D33C0FF9-9B23-4A8E-34B1-C86F7292B0FA</designId>
+</OSDM_Design>

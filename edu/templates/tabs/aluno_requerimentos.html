@@ -1,0 +1,58 @@
+{% box 'Histórico de Requerimentos' %}
+
+    {% if is_proprio_aluno and obj.matriz.estrutura.tipo_avaliacao == 1 and obj.situacao.ativo %}
+    <ul class="action-bar">
+        <li class='has-child'>
+            <a href="#" class="btn">Cadastrar Requerimento</a>
+            <ul>
+                <li><a href="/edu/adicionar_requerimento/21/" class="popup">Matrícula em Disciplina</a></li>
+                <li><a href="/edu/adicionar_requerimento/20/" class="popup">Cancelamento de Disciplina</a></li>
+            </ul>
+        </li>
+    </ul>
+    {% endif %}
+
+    {% if requerimentos %}
+        <table>
+            <thead>
+            <tr>
+                <th class="no-print">Ações</th>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Detalhamento</th>
+                <th>Localização</th>
+                <th>Situação</th>
+                <th>Deferido</th>
+                <th>Observação/Motivo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for requerimento in requerimentos %}
+                <tr>
+                    <td class="no-print">
+                        {% icon "view" "/edu/requerimento/{{ requerimento.pk }}/" "Visualizar Requerimento" "popup" %}
+                        {% if requerimento.deferido == None  and requerimento.pode_ser_executado_automaticamente %}
+                            {% icon "delete" "?del_requerimento={{ requerimento.pk }}" "Excluir Requerimento" %}
+                        {% endif %}
+                    </td>
+                    <td>{{ requerimento.id }}</td>
+                    <td>{{ requerimento.get_tipo_display }}</td>
+                    <td>{{ requerimento.data|format }}</td>
+                    <td>
+                        {% for chave, valor in requerimento.sub_instance.get_detalhamento %}
+                            <i>{{ chave }}</i>: {{ valor }} {% if not forloop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ requerimento.localizacao|format }}</td>
+                    <td>{{ requerimento.get_situacao_display }}</td>
+                    <td>{{ requerimento.deferido|format }}</td>
+                    <td>{{ requerimento.observacao|format }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhum requerimento cadastrado até o momento.</p>
+    {% endif %}
+{% endbox %}

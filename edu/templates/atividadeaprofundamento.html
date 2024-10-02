@@ -1,0 +1,71 @@
+{% extends super_template %}
+
+{% block content %}
+{% if form %}
+    {% box "Formulário de Inderimento" %}
+        {% render_form form %}
+    {% endbox %}
+{% else %}
+    {% if pode_realizar_procedimentos %}
+        <ul class="action-bar">
+            {% if perms.edu.view_atividadecomplementar %}
+                {% if obj.deferida == None %}
+                    <li><a href="?deferir=1" class="btn success">Deferir</a></li>
+                    <li><a href="?indeferir=1" class="btn danger popup no-confirm">Indeferir</a></li>
+                {% endif %}
+                {% if obj.deferida == True %}
+                    <li><a href="?deferir=0" class="btn danger">Cancelar Deferimento</a></li>
+                {% endif %}
+                {% if obj.deferida == False %}
+                    <li><a href="?deferir=0" class="btn danger">Cancelar Indeferimento</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    {% endif %}
+
+    {% box 'Dados Gerais' %}
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'aluno' }}:</td>
+                <td>{{ obj.aluno|normalizar }}</td>
+                <td>{{ obj|verbose:'deferida' }}:</td>
+                <td>{{ obj.deferida|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'descricao' }}:</td>
+                <td colspan="3">{{ obj.descricao }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'tipo' }}:</td>
+                <td colspan="3">{{ obj.tipo }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'ano_letivo' }}:</td>
+                <td>{{ obj.ano_letivo }}</td>
+
+                <td>{{ obj|verbose:'periodo_letivo' }}:</td>
+                <td>{{ obj.periodo_letivo }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'carga_horaria' }}:</td>
+                <td>{{ obj.carga_horaria }} Hora(s)</td>
+                <td>{{ obj|verbose:'data_atividade' }}:</td>
+                <td>{{ obj.data_atividade }}</td>
+            </tr>
+            {% if obj.informacoes_complementares %}
+            <tr>
+                <td>{{ obj|verbose:'informacoes_complementares' }}:</td>
+                <td colspan="3">{{ obj.informacoes_complementares }}</td>
+            </tr>
+            {% endif %}
+            {% if obj.documento %}
+                <tr>
+                    <td>{{ obj|verbose:'documento' }}:</td>
+                    <td colspan="3"><a href="{{ obj.documento.url }}" target="_blank">Baixar</a></td>
+                </tr>
+            {% endif %}
+        </table>
+
+    {% endbox %}
+{% endif %}
+{% endblock %}

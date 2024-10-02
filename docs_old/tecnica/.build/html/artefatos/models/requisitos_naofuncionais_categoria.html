@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Classificação dos Requisitos Não Funcionais &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../index.html"/>
+        <link rel="up" title="Templates e Modelos de Artefatos" href="index.html"/>
+        <link rel="prev" title="1. UC 01 - Manter Sala &lt;v0.1&gt;" href="uc_example_manter_sala.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../suap.html">SUAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Templates e Modelos de Artefatos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="subsistema_uc01.html">Template de Caso de Uso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc_visao.html">Template de Documento de Visão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uc_crud_abstract.html">Caso de Uso Abstrato para CRUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uc_example_manter_sala.html">Exemplo de caso de uso concreto - Manter Sala</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Classificação dos Requisitos Não Funcionais</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Classificação dos Requisitos Não Funcionais</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <section id="classificacao-dos-requisitos-nao-funcionais">
+<span id="suap-models-recnaofuncionais-categoria"></span><h1>Classificação dos Requisitos Não Funcionais<a class="headerlink" href="#classificacao-dos-requisitos-nao-funcionais" title="Link permanente para este título">¶</a></h1>
+<p>Requisitos não funcionais são as características e aspectos internos do sistema, eles mapeiam os aspectos qualitativos de um software, por exemplo: performance (tempo de resposta);
+segurança (restrições de acesso, privilégios); perspectiva do usuário (padrão das cores, disposição dos objetivos na tela);
+comunicabilidade (e-mail, VoIP, Browser); usabilidade e portabilidade (a aplicação deve rodar em vários tipos de aplicativos:
+móveis, desktop, note).  Este grupo é de suma importância e não deve ser desprezado durante o processo de produção de software.
+Como qualquer outro tipo de requisito, ele deve ser levantado, analisado, especificado e validado. Uma dificuldade indentificar
+esse tipo de requisito é que eles não são explicitamente expostos pelo cliente, mas devem ser implicitamente compreendidos pelo desenvolvedor.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Catogira de requisitos</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Categoria</p></th>
+<th class="head"><p>O que descrever</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Requisitos de Padrão</p></td>
+<td><p>Liste todos os padrões com os quais o produto deverá estar em conformidade. Entre eles, poderão estar incluídos
+padrões legais, padrões de comunicações, padrões de qualidade e de segurança.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requisitos de Sistema</p></td>
+<td><p>Defina todos os requisitos de sistema, no que se refere a hardware e software, necessários para o desenvolvimento,
+suporte e uso do aplicativo. Entre eles, poderão estar incluídos os sistemas operacionais, as plataformas de rede
+suportadas, linguagem de programação, configurações de hardware, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p>Requisitos de Desempenho</p></td>
+<td><p>Descreva os requisitos de desempenho. Itens referentes a carga do usuário, largura de banda, taxa de transferência,
+confiabilidade e tempos de resposta podem ser abordados nesta subseção. Exemplo: a solução deverá suportar ate
+500 acessos simultâneos.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requisitos de Usabilidade e Acessibilidade</p></td>
+<td><p>Informe os requisitos referentes à usabilidade e acessibilidade do produto. Exemplo: um usuário inexperiente no uso
+de tecnologias deve executar a tarefa X em até 10 minutos; o usuário deve ter a opção de aumentar o tamanho da
+fonte no portal.</p></td>
+</tr>
+<tr class="row-even"><td><p>Requisitos de Confiabilidade</p></td>
+<td><p>Descreva os requisitos de confiabilidade acordados com o cliente. Devem ser incluídos nesta subseção requisitos que
+tratem sobre possibilidade de recuperação, tempo médio entre falhas, frequência e gravidade de falha, dentre outros.
+Exemplo: o tempo médio entre falhas do sistema deve ser menor que X horas.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requisitos de Suportabilidade</p></td>
+<td><p>Defina os requisitos referentes à suportabilidade do produto. Nesta subseção devem ser descritos requisitos que se
+referem à possibilidade de teste, adaptabilidade, manutenibilidade, compatibilidade, possibilidade de instalação, etc.&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>Requisitos de Segurança</p></td>
+<td><p>Informe os requisitos de segurança do produto, referentes a aspectos como: integridade, confidencialidade,
+autenticidade, etc. Exemplo: apenas o administrador do sistema pode alterar as permissões de acesso ao sistema.&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requisitos de Interface</p></td>
+<td><p>Liste os requisitos referentes à interface do sistema. Um requisito de interface especifica com o que o sistema deve
+interagir e quais as restrições de formatos ou outros fatores para essa interação. Interface de usuário, hardware,
+comunicação e software são alguns dos tipos de interface que podem ser abordados nesta subseção.&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>Requisitos Ambientais</p></td>
+<td><p>Descreva os requisitos ambientais quando necessário. Para aplicativos de software, os fatores ambientais podem
+incluir condições de uso, ambiente do usuário, disponibilidade de recursos, entre outros.&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requisitos de Documentação</p></td>
+<td><p>Esta subseção descreve a documentação que deverá ser desenvolvida para suportar a implantação bem-sucedida do
+produto. Manual do Usuário, Ajuda On-line, Guias de Instalação e de Configuração, e Arquivo Leiame são alguns
+exemplos de documentos que podem ser abordados nesta subseção. Para os documentos listados, devem ser
+abordados, dentre outros, aspectos referentes à finalidade, conteúdo, organização e restrições de formatação e
+impressão, se for o caso.</p></td>
+</tr>
+<tr class="row-even"><td><p>Requisitos de Treinamento</p></td>
+<td><p>Descreva os requisitos de treinamento. Devem ser abordados nesta subseção questões como necessidade de
+treinamento aos usuários, bem como metodologia e duração.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requisitos de Intraestrutura</p></td>
+<td><p>Descreva os requisitos de intraestrutura. Devem ser abordados nesta subseção questões como necessidade de
+infraestrutura no âmbito de software, hardware, redes, telecomunicações, infraestrutura física quando aplicável,
+dentre outras.</p></td>
+</tr>
+<tr class="row-even"><td><p>Requisitos de Sustentação</p></td>
+<td><p>Descreva os requisitos de sustentação. Devem ser abordados nesta subseção questões como necessidade de
+suporte/atendimento, requisitos de gestão de conteúdo e requisitos de níveis de serviço.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód</p></th>
+<th class="head"><p>Nome</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Categoria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;identificador único do requisito, use NF&lt;numero_sequencial&gt;, exemplo NF01, NF02&gt;</p></td>
+<td><p>&lt;Nome do requisito não funcional&gt;</p></td>
+<td><p>&lt;Descrição do que o requisito faz&gt;</p></td>
+<td><p>&lt;Categoria do requisito&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+      
+        <a href="uc_example_manter_sala.html" class="btn btn-neutral" title="1. UC 01 - Manter Sala &lt;v0.1&gt;"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

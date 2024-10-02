@@ -1,0 +1,110 @@
+{% extends super_template %}
+
+{% block bodyclass %}{% if object.avaliador %} hasAsideRight{% endif %}{% endblock %}
+
+{% block content %}
+<ul class="action-bar">
+    {% if object.pode_avaliar %}
+        {% if object.pode_deferir %}
+            <li><a class="btn success" href="{% url 'labvirtual:deferir_solicitacao' object.pk %}">Deferir</a></li>
+        {% endif %}
+        <li><a class="btn danger no-confirm" href="{% url 'labvirtual:indeferir_solicitacao' object.pk %}"> Indeferir</a></li>
+    {% endif %}
+    {% if object.pode_cancelar %}
+        <li><a class="btn danger no-confirm" href="{% url 'labvirtual:cancelar_solicitacao' object.pk %}"> Cancelar</a></li>
+    {% endif %}
+</ul>
+
+
+{% box "Dados da Solicitação" %}
+    <table class="info">
+        <tbody>
+            <tr>
+                <td>Número: </td>
+                <td>#{{object.id}} </td>
+                <td>Laboratorio Solicitada:</td>
+                <td colspan="2">{{ object.laboratorio }}</td>
+            </tr>
+            <tr>
+                <td>Solicitante:</td>
+                <td>{{ object.solicitante|format }}</td>
+                <td>Data da Solicitação:</td>
+                <td>{{ object.created }}</td>
+            </tr>
+            <tr>
+                <td>Período Solicitado:</td>
+                <td>{{ object.get_periodo }}</td>
+                <td>Recorrência:</td>
+                <td>
+                    {{ object.get_recorrencia_display }}
+                    {% if object.get_recorrencias %}
+                        {{ object.get_recorrencias }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <td colspan="3">{{object.get_formated_status}}</td>
+            </tr>
+            <tr>
+        </tbody>
+    </table>
+{% endbox %}
+{% if calendario %}
+    {% box 'Agenda Atual do Laboratório {{object.laboratorio}}' %}
+        <div class="legenda">
+            <p>Legenda:</p>
+            <ul>
+                <li class="hoje">Hoje</li>
+                <li class="alert">Solicitação de reserva</li>
+                <li class="info">Esta solicitação</li>
+                <li class="error">Esta Solicitação em conflito</li>
+                <li class="success">Reservas deferidas</li>
+                <li class="conflito">Conflito</li>
+            </ul>
+        </div>
+        {% for mes in calendario %}
+            {{ mes|safe }}
+        {% endfor %}
+    {% endbox %}
+{% endif %}
+
+{% endblock %}
+ 
+{% block asideright %}
+
+{% if object.avaliador %}
+    <aside class="right">
+        <details open="open">
+            <summary>Dados da Avaliação</summary>
+            <dl class="details-container">
+                <dt>Avaliador:</dt>
+                <dd>{{ object.avaliador|format}}</dd>
+                <dt>Data da Avaliação:</dt>
+                <dd>{{ object.data_avaliacao }}</dd>
+                {% if object.observacao_avaliador %}
+                    <dt>Observação do Avaliador:</dt>
+                    <dd>{{ object.observacao_avaliador }}</dd>
+                {% endif %}
+            </dl>
+        </details>
+    </aside>
+{% endif %}
+{% if object.cancelada_por %}
+    <aside class="right">
+        <details open="open">
+            <summary>Dados da Avaliação</summary>
+            <dl class="details-container">
+                <dt>Cancelada por:</dt>
+                <dd>{{ object.cancelada_por|format}}</dd>
+                <dt>Data do Cancelamento:</dt>
+                <dd>{{ object.data_cancelamento }}</dd>
+                <dt>Observação do Avaliador:</dt>
+                <dd>{{ object.justificativa_cancelamento }}</dd>
+            </dl>
+        </details>
+    </aside>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+Auditor:
+  app_manager: rh
+  remanejamento:
+    disciplina:
+    - view_disciplina
+    edital:
+    - view_edital
+    inscricao:
+    - view_inscricao
+Avaliador de Remanejamento:
+  remanejamento:
+    inscricao:
+    - view_inscricao
+    inscricaodisciplinaitem:
+    - view_inscricaodisciplinaitem
+Coordenador de Remanejamento:
+  remanejamento:
+    disciplina:
+    - view_disciplina
+    - add_disciplina
+    - change_disciplina
+    edital:
+    - add_edital
+    - view_edital
+    - change_edital
+    inscricao:
+    - view_inscricao
+Servidor:
+  app_manager: rh
+  remanejamento:
+    editalrecurso:
+    - view_editalrecurso
+    inscricao:
+    - view_inscricao

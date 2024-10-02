@@ -1,0 +1,33 @@
+Reunião dia 16.07.2014
+
+** UC Fechar período
+ - fluxo regime seriado
+* - fluxo regime de crédito
+No sistema de crédito não existe aprovado / reprovado no período, mas sim período fechado.
+
+Caso de uso tem impacto na estrutura de curso
+
+Criar uma área chamada "Representação Conceitual"
+Representar faixas de notas para conceitos A (8-10), B (7-8), C e D.
+
+Apuração por frequência, acrescentar o percentual de freq. mínima p não reprovar na disciplina (75 %)
+
+Critério para jubiliamento
+ - quant. máxima de períodos, ex. o curso possui 4 período, mas o aluno tem direito a 8.
+ - quant. reprov. no mesmo período, ex. reprovar duas vezes o período 1.
+ - quant. reprov. na mesma disciplina, ex. reprovado 3 vezes na disciplina matetemática.
+
+
+
+------------------------------------
+
+
+
+Regras de jubilamento, incluir na estrutua de curso.
+
+
+
+
+
+Indicadores coeficiente de progressão e coeficiente de carga horária cumprida.
+Carga horária cumprida x carga horária total

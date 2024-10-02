@@ -1,0 +1,13 @@
+[
+{
+    "model": "calculos_pagamentos.configpagamento",
+    "pk": 1,
+    "fields": {
+        "tipo_calculo": 1,
+        "rubricas": [
+            14,
+            23
+        ]
+    }
+}
+]

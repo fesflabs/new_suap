@@ -1,0 +1,49 @@
+{% with programacao=evento.get_programacao %}
+{% if programacao %}
+    {% box "Programação" %}
+        <div class="calendario calendario-mensal">
+            <table>
+                <thead>
+                    <tr>
+                        {% for dia, atividades in programacao %}
+                            <th class="semana">{{ dia|format }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for dia, atividades in programacao %}
+                        <td>
+                            <span>{{ atividades.count }}</span>
+                            <ul>
+                                {% for atividade in atividades %}
+                                <li class="success">
+                                    <strong>
+                                        {{ atividade.tipo }}
+                                        {% if atividade.hora %} as {{ atividade.hora|time:"H:i" }}{% endif %}
+                                    </strong>
+                                    <div>
+                                        {{ atividade }}
+                                    </div>
+                                    {% with responsaveis=atividade.get_responsaveis %}
+                                    {% if responsaveis %}
+                                    <dl>
+                                        {% for responsavel in responsaveis %}
+                                        <dt>{{ responsavel.tipo }}: </dt>
+                                        <dd>{{ responsavel.nome }}</dd>
+                                        {% endfor %}
+                                    </dl>
+                                    {% endif %}
+                                    {% endwith %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        {% endfor %}
+                   </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endbox %}
+{% endif %}
+{% endwith %}

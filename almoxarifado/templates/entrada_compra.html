@@ -1,0 +1,115 @@
+{% extends super_template %}
+
+{% block extrahead %}
+<script src="/static/djtools/jquery/jquery.maskedinput.js"></script>
+<script src="/static/djtools/jquery/widgets-core.js"></script>
+<script src="/static/almoxarifado/js/jquery.form.js"></script>
+<script src="/static/djtools/jquery/jquery.autocomplete.js"></script>
+<script src="/static/djtools/jquery/jquery.bgiframe.min.js"></script>
+<script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script src="/static/almoxarifado/js/mask.js"></script>
+<script src="/static/almoxarifado/js/jquery.autocomplete.js"></script>
+<script src="/static/almoxarifado/js/validacao.js"></script>
+<script src="/static/almoxarifado/js/auxiliar.js"></script>
+<script src="/static/almoxarifado/js/mascaras.js"></script>
+{% endblock %}
+
+{% block content %}
+
+	<form action="/almoxarifado/entrada_realizar/" method="POST" id="entrada_realizar">
+		{% csrf_token %}
+
+		<fieldset class="module aligned">
+			<div class="form-row">
+				<div class="field-box">
+					<label class="required">Campus:</label>
+					<input readonly="readonly" type="text" value="{{ uo }}" />
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="field-box">
+                    <label class="required">Data Entrada:</label>
+                    <input type="text" id="id_data_entrada" name="data_entrada" onkeypress="mascara(this,mask_date_BR)" maxlength="10" value="{% now "d/m/Y" %}" />
+                    <script>
+                        $(function() {
+                            $( "#id_data_entrada" ).datepicker();
+                            $( "#id_data_entrada" ).datepicker( "option", "dateFormat", 'dd/mm/yy' );
+                            $( "#datepicker" ).datepicker( "option", $.datepicker.regional['pt-BR'] );
+                        });
+                    </script>
+                </div>
+            </div>
+			<div class="form-row">
+                <div class="field-box">
+                    <label class="required">Tipo Entrada:</label>
+                    <input type="text" name="tipo_entrada" readonly="readonly" value="Compra" />
+                    <input type="hidden" id="tipoMaterial" />
+                </div>
+			</div>
+			<div id="tr_empenho" class="form-row">
+                <div class="field-box">
+				    <label class="required">Empenho:</label>
+				    <input type="text" id="empenho" name="empenho" />
+                </div>
+			</div>
+			<div id="tr_fornecedor" class="form-row">
+                <div class="field-box">
+				    <label class="required">Fornecedor:</label>
+				    <input type="text" id="fornecedor" name="fornecedor" />
+                </div>
+			</div>
+		    <div id="tr_numero_nota_fiscal" class="form-row">
+                <div class="field-box">
+				    <label class="required">Nº Nota Fiscal:</label>
+				    <input type="text" class="input_text" maxlength="25" name="numero_nota" value="" onkeypress="mascara(this, somenteNumerosPontoVirgula)" />
+                </div>
+			</div>
+		    <div id="tr_data_nota_fiscal" class="form-row">
+                <div class="field-box">
+				    <label class="required">Data Nota Fiscal:</label>
+				    <input type="text" onkeypress="mascara(this,mask_date_BR)" maxlength="10" name="data_nota" id="id_data_nota" value="">
+                    <script>
+                        $(function() {
+                            $( "#id_data_nota" ).datepicker();
+                            $( "#id_data_nota" ).datepicker( "option", "dateFormat", 'dd/mm/yy' );
+                            $( "#datepicker" ).datepicker( "option", $.datepicker.regional['pt-BR'] );
+                        });
+                    </script>
+                </div>
+			</div>
+		</fieldset> 
+
+		<div id="empenho_itens" style="margin-top: 20px;"></div>
+
+		<div class="options" style="text-align:right">
+		    Valor Total: <span id="valor_total" style="font-weight: bold"></span>
+		</div>
+
+		<div class="submit-row">
+			<input class="default" type="button" value="Efetuar" onclick="validate_and_submit('/almoxarifado/validar/entrada/', '#entrada_realizar')" />
+		</div>
+
+	</form>
+
+<script>
+
+function get_itens_empenho() {
+	$.ajax({
+		 type: "POST",
+		 url: "/almoxarifado/ajax/get_itens_empenho/",
+		 data: "empenho_id="+$("#empenho_hidden").attr("value"),
+		 dataType: "json",
+			 success: function(response) {
+				$("div#empenho_itens").html(response.itens);
+				$("input[name=fornecedor]").addClass("ac_filled_hidden").val(response.vinculo_fornecedor.nome);
+				$("input[name=fornecedor_hidden]").val(response.vinculo_fornecedor.id);
+			}
+	 });
+}
+
+$("[name=tipo_entrada][value=compra]").click();
+createAutoComplete("empenho", "/almoxarifado/buscar_empenho/", {"afterSelect": get_itens_empenho});
+createAutoComplete("fornecedor", "/almoxarifado/buscar_fornecedor/");
+</script>
+
+{% endblock %}

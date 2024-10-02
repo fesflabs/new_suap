@@ -1,0 +1,237 @@
+{% extends super_template %}
+
+{% block extrahead %}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/timeline.js"></script>
+
+{% endblock %}
+{% block object-status %}
+    {{ status|status }}
+{% endblock %}
+{% block content %}
+
+    <ul class="action-bar">
+        <li><a class="default" href="#"> Lead Time: {{ tempo_total_dias }} dias</a></li>
+    </ul>
+    {#<h2>Process Mining (<a href="{% url "processo" processo.pk %}">{{ processo }}</a>)</h2>#}
+
+    <h2>Processo ({{ processo }})</h2>
+    <h3>{{ processo.assunto }}</h3>
+    {% if possui_tramites %}
+        {% box 'Tempo efetivo no setor (h)' %}
+            <figure class="highcharts-figure">
+                <div id="tempo-efetivo-setor"></div>
+            </figure>
+        {% endbox %}
+
+        {% box 'Tempo no setor + tempo até o recebimento (h)' %}
+            <figure class="highcharts-figure">
+                <div id="container-with-handoff"></div>
+            </figure>
+        {% endbox %}
+
+        {% box 'Tempo efetivo no setor' %}
+            <figure class="highcharts-figure">
+                <div id="container-pizza"></div>
+            </figure>
+        {% endbox %}
+
+        {% box 'Tabela' %}
+            <table>
+                <thead>
+                <tr>
+                    <th>SETOR</th>
+                    <th>QTD. REPETIÇÕES</th>
+                    <th>TEMPO EFETIVO (H)</th>
+                    <th>PERCENTUAL EFETIVO</th>
+                    <th>TEMPO ATÉ O RECEBIMENTO (H)</th>
+                    <th>PERCENTUAL ATÉ O RECEBIMENTO</th>
+                    <th>TEMPO TOTAL (H)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for t in tabela %}
+                    <tr>
+                        <td>{{ t.setor }}</td>
+                        <td>{{ t.repeticao }}</td>
+                        <td>{{ t.tempo_efetivo | format }}</td>
+                        <td>{{ t.percent_efetivo | format }}</td>
+                        <td>{{ t.tempo_handoff | format }}</td>
+                        <td>{{ t.percent_handoff | format }}%</td>
+                        <td>{{ t.tempo_total | format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+
+        {% box 'Timeline' %}
+            <figure class="highcharts-figure">
+                <div id="timeline"></div>
+            </figure>
+        {% endbox %}
+    {% else %}
+        <p class="msg alert">
+            <strong>Atenção:</strong> O Processo não possui trâmites!
+        </p>
+    {% endif %}
+
+<script>
+// Tempo Efetivo no Setor (h)
+Highcharts.chart('tempo-efetivo-setor', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: {{ setores | safe}}
+    },
+    yAxis: {
+        title: {
+            text: 'Tempo (h)'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        },
+    },
+    series: [{
+        name: 'Tramite',
+        data: {{ tempo_efetivo_setor_list }}
+    },
+    ]
+});
+
+// Variação do Tempo no Setor com Handoff (h)
+Highcharts.chart('container-with-handoff', {
+    chart: {
+        type: 'column'
+    },
+    colors: ['#808080', '#7cb5ec'],
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: {{ setores | safe }}
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Tempo no setor (h)'
+        }
+    },
+    tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+        shared: true
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal'
+        }
+    },
+    series: [{
+        legendIndex: 1,
+        name: 'Tempo até o recebimento',
+        data: {{ handoff_list }}
+    }, {
+        legendIndex: 0,
+        name: 'Tempo efetivo no setor',
+        data: {{ tempo_efetivo_setor_list }}
+    }]
+});
+
+//PIZZA
+Highcharts.chart('container-pizza', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: {{ tempo_efetivo_total_no_setor | safe }}
+    }]
+});
+
+// Timeline
+Highcharts.chart('timeline', {
+    chart: {
+        zoomType: 'x',
+        type: 'timeline',
+        inverted: false,
+        {#height: '2000px'#}
+    },
+    xAxis: {
+        type: 'datetime',
+        visible: false
+    },
+    yAxis: {
+        gridLineWidth: 1,
+        title: null,
+        labels: {
+            enabled: false
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    tooltip: {
+        style: {
+            width: 300
+        }
+    },
+    series: [{
+        dataLabels: {
+            allowOverlap: false,
+            format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
+                '{point.x:%d %b %Y}</span><br/>{point.label}'
+        },
+        marker: {
+            symbol: 'circle'
+        },
+        data: {{ timeline | safe }}
+    }]
+});
+
+</script>
+
+{% endblock %}

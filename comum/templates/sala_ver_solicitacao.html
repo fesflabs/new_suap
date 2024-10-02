@@ -1,0 +1,189 @@
+{% extends super_template %}
+
+{% block bodyclass %}{% if solicitacao.avaliador %}hasAsideRight{% endif %}{% endblock %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    {% if solicitacao.pode_avaliar %}
+      <li><a class="btn success popup no-confirm" href="/comum/sala/avaliar_solicitacao/{{ solicitacao.pk }}/">Avaliar Solicitação</a></li>
+    {% endif %}
+    <li><a class="btn primary" href="/comum/sala/solicitar_reserva/{{ solicitacao.sala.pk }}/?solicitacao={{solicitacao.pk}}">Clonar Solicitação</a></li>
+    {% if solicitacao.pode_cancelar %}
+        <li><a class="btn danger popup no-confirm" href="/comum/sala/cancelar_solicitacao/{{ solicitacao.pk }}/">Cancelar Solicitação</a></li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% block object-status %}
+{{ solicitacao.get_status_display|status }}
+{% endblock %}
+
+{% block content %}
+
+{% box "Dados da Solicitação" %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Sala Solicitada</dt>
+            <dd>{{ solicitacao.sala }}</dd>
+        </div>
+        {% if solicitacao.sala.informacoes_complementares %}
+            <div class="list-item flex-basis-100">
+                <dt>Informações Complementares da Sala</dt>
+                <dd>{{ solicitacao.sala.informacoes_complementares }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Solicitante</dt>
+            <dd>{{ solicitacao.solicitante|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data da Solicitação</dt>
+            <dd>{{ solicitacao.data_solicitacao }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Período Solicitado</dt>
+            <dd>{{ solicitacao.get_periodo }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Recorrência</dt>
+            <dd>
+                {{ solicitacao.get_recorrencia_display }}
+                {% if solicitacao.get_recorrencias %}
+                    ({{ solicitacao.get_recorrencias }})
+                {% endif %}
+            </dd>
+        </div>
+        <div class="list-item">
+            <dt>Justificativa</dt>
+            <dd>{{ solicitacao.justificativa }}</dd>
+        </div>
+        {% if solicitacao.interessados_vinculos.exists %}
+            <div class="list-item">
+                <dt>Interessados</dt>
+                {% for interessado in solicitacao.interessados_vinculos.all %}
+                    <dd>{{ interessado.relacionamento|format }}</dd>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if solicitacao.anexo %}
+            <div class="list-item">
+                <dt>Anexo</dt>
+                <dd><a href="{{ solicitacao.anexo.url }}" class="btn default">Visualizar Anexo</a></dd>
+            </div>
+        {% endif %}
+    </dl>
+{% endbox %}
+
+{% if solicitacao.cancelada %}
+    {% box "Dados do Cancelamento" %}
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Data do Cancelamento:</td>
+                    <td>{{ solicitacao.data_cancelamento }}</td>
+                    <td>Justificativa do Cancelamento:</td>
+                    <td colspan="3">{{ solicitacao.justificativa_cancelamento }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endbox %}
+{% endif %}
+
+{% if reservas %}
+    {% box 'Reservas' %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th>Ocorrência</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.get_periodo }}</td>
+                        <td>
+                            {% if reserva.ocorreu == Null %}
+                                {% if eh_avaliador %}
+                                    <a href="/comum/sala/informar_ocorrencia/{{ reserva.id }}/" class="btn popup">Informar Ocorrência</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            {% elif reserva.ocorreu %}
+                                <span class="status status-success">Ocorreu</span>
+                            {% else %}
+                                <span class="status status-error">Não ocorreu</span>
+                                <dl>
+                                    <dt>Motivo:</dt>
+                                    <dd>{{ reserva.motivo_nao_ocorreu|format }}</dd>
+                                </dl>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if reserva.cancelada %}
+                                <span class="status status-error">Cancelada</span>
+                                <dl>
+                                    <dt>Cancelada por:</dt>
+                                    <dd>{{ reserva.cancelada_por|format }}</dd>
+                                    <dt>Justificativa do Cancelamento:</dt>
+                                    <dd>{{ reserva.justificativa_cancelamento|format }}</dd>
+                                </dl>
+                            {% else %}
+                                {% if reserva.pode_cancelar %}
+                                    <a href="/comum/sala/cancelar_reserva/{{ reserva.id }}/" class="btn danger popup">Cancelar Reserva</a>
+                                {% else %}
+                                    <span class="status status-success">Deferida</span>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+{% endif %}
+
+{% if calendario %}
+    {% box 'Agenda Atual da Sala' %}
+        <div class="legenda">
+            <p>Legenda:</p>
+            <ul>
+                <li class="hoje">Hoje</li>
+                <li class="alert">Solicitação de reserva</li>
+                <li class="info">Esta solicitação</li>
+                <li class="success">Reservas deferidas</li>
+                <li class="error">Reservas indisponíveis</li>
+                <li class="conflito">Conflito</li>
+            </ul>
+        </div>
+        {% for mes in calendario %}
+            {{ mes|safe }}
+        {% endfor %}
+    {% endbox %}
+{% endif %}
+    
+{% endblock %}
+
+{% block asideright %}
+
+{% if solicitacao.avaliador %}
+
+    <aside class="right">
+        <details open="open">
+            <summary>Dados da Avaliação</summary>
+            <dl class="details-container">
+                <dt>Avaliador:</dt>
+                <dd>{{ solicitacao.avaliador|format}}</dd>
+                <dt>Data da Avaliação:</dt>
+                <dd>{{ solicitacao.data_solicitacao }}</dd>
+                {% if solicitacao.observacao_avaliador %}
+                    <dt>Observação do Avaliador:</dt>
+                    <dd>{{ solicitacao.observacao_avaliador }}</dd>
+                {% endif %}
+            </dl>
+        </details>
+    </aside>
+{% endif %}
+
+{% endblock %}

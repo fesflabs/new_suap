@@ -1,0 +1,201 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block object-status %}
+    {% if obj.situacao.pk == 100 %}
+        <span class="status status-error">{{ residente.situacao|format }}</span>
+    {% else %}
+        {% if obj.situacao.pk == 6 %}
+            <span class="status status-success">{{ residente.situacao|format }}</span>
+        {% else %}
+            <span class="status status-info">{{ residente.situacao|format }}</span>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+
+        <li class='has-child'>
+            <a href="#" class="btn primary">Editar</a>
+            <ul>
+                {% if pode_alterar_email_residente %}
+                    <li><a class="popup" href="/residencia/atualizar_email_secundario/{{ residente.pk }}/">E-mail</a></li>
+                {% endif %}
+                {% if is_admin %}
+                    <li><a href="/admin/residencia/residente/{{ residente.pk }}/change/">Residente</a></li>
+                {% elif tem_permissao_realizar_procedimentos %}
+                    <li><a class="popup" href="/residencia/atualizar_dados_pessoais/{{ residente.pk }}/">Dados Pessoais</a></li>
+                {% elif is_proprio_residente %}
+                    <li><a class="popup" href="/residencia/atualizar_meus_dados_pessoais/{{ residente.matricula }}/">Dados
+                        Pessoais</a></li>
+                {% endif %}
+                {% if perms.residencia.change_foto %}
+                    <li><a href="/residencia/atualizar_foto/{{ residente.pk }}/">Foto Estudantil</a></li>
+                {% endif %}
+            </ul>
+        </li>
+
+        {% if residente.pessoa_fisica.username %}
+            {% ldap_actions residente.pessoa_fisica %}
+        {% endif %}
+
+        {% if is_proprio_residente or is_admin %}                    
+                {% if not is_responsavel %}
+                    <li class="has-child">
+                        <a class="btn default" href="#">Documentos</a>
+                        <ul>
+                            {% if residente.is_matriculado %}
+                                {% if residente.pode_emitir_declaracao and tem_permissao_para_emitir_docs_matricula %}
+                                    <li><a class="default" href="/residencia/declaracaomatricularesidente_pdf/{{ residente.pk }}/">Declaração de Matrícula</a></li>
+                                    <li><a class="default" href="/residencia/declaracao_orientacao_tcr/{{ residente.pk }}/">Declaração de Orientação TCR</a></li>
+                                {% endif %}
+                                    {% comment %} <li><a class="default" href="/edu/atestadofrequencia_pdf/{{ obj.pk }}/">Atestado de Frequência</a></li>
+                                {% endif %}
+                            {% elif obj.is_concluido and tem_permissao_realizar_procedimentos and urls_diploma_historico is None %}
+                                <li><a class="default" href="/edu/emitir_historico_final_pdf/{{ obj.pk }}/">Histórico Final</a></li>
+                            {% endif %}
+                            <li><a class="default" href="/edu/grade_curricular/{{ obj.matriz.pk }}/">Matriz Curricular</a></li>
+                            
+                            {% if urls_diploma_historico %}
+                                <li><a class="default" target="_blank" href="{{ urls_diploma_historico.0 }}">Histórico Final</a></li>
+                                <li><a class="default" target="_blank" href="{{ urls_diploma_historico.1 }}">Diploma</a></li> {% endcomment %}
+                            {% endif %}
+                            {% comment %} {% for certidao in obj.certificadodiploma_set.all %}
+                                <a target="_blank" class="btn" href="/edu/certificado_diploma_pdf/{{ certidao.pk }}/" title="Imprimir">Certificado de Conclusão</a>
+                            {% endfor %} {% endcomment %}
+                        </ul>
+                    </li>
+                {% endif %}            
+        {% endif %}
+
+        {% if is_proprio_residente %}
+            <li><a class="btn default" href="/comum/minha_conta/">{% icone "user" %} Minha Conta</a></li>
+        {% endif %}
+
+        {% help_button %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% if not residente.pessoa_fisica.username %}
+        <p class="msg alert"><strong>Atenção:</strong> o nome de usuário desse aluno ainda não foi definido pelo
+            sistema.</p>
+    {% endif %}
+
+    {% box 'Dados Gerais' %}
+        <div class="photo-circle big">
+            <img src="{{ residente.get_foto_150x200_url }}" alt="Foto de {{ residente.get_nome }}">
+        </div>
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-50">
+                <dt>Nome</dt>
+                <dd>{{ residente.get_nome|normalizar }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Matrícula</dt>
+                <dd>{{ residente.matricula }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>E-mail Acadêmico</dt>
+                <dd>{{ residente.email_academico|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>E-mail Google Sala de Aula</dt>
+                <dd>
+                    <p>{{ residente.email_google_classroom|format }}</p>
+                    <p class="obs">O login para este e-mail, e para os recursos do Google for Education, é realizado exclusivamente através de ícone do Google localizado na página inicial do SUAP. O login através de senha <strong>não está habilitado</strong> para os serviços do Google for Education.</p>
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>CPF</dt>
+                <dd>{% if pode_ver_cpf %}{{ residente.pessoa_fisica.cpf|format }}{% else %}***.****.***-**{% endif %}</dd>
+            </div>
+            {% if residente.pessoa_fisica.nome_social %}
+                <div class="list-item">
+                    <dt>Nome no Registro</dt>
+                    <dd>{{ residente.pessoa_fisica.nome_registro|format|normalizar }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item flex-basis-50">
+                <dt>Curso</dt>
+                <dd>
+                    {% if perms.residencia.view_cursoresidencia %}
+                        <a href="/residencia/cursoresidencia/{{ residente.curso_campus.pk }}/"
+                            title="Visualizar o Curso">
+                    {% endif %}
+                    {{ residente.curso_campus }}
+                    {% if perms.residencia.view_cursoresidencia %}
+                        </a>
+                    {% endif %}
+                    </dd>
+            </div>
+            <div class="list-item">
+                <dt>Matriz</dt>
+                <dd>
+                    {% if perms.residencia.view_matriz and residente.matriz %}
+                        <a href="/residencia/matriz/{{ residente.matriz.pk }}/" title="Visualizar a Matriz">
+                    {% endif %}
+                    {{ residente.matriz|format }}
+                    {% if perms.residencia.view_matriz and residente.matriz %}
+                        </a>
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Impressão Digital</dt>
+                <dd>{{ residente.pessoa_fisica.tem_digital|format }}</dd>
+            </div>
+            {% if is_admin %}
+                <div class="list-item">
+                    <dt>Chave Primária</dt>
+                    <dd>{{ residente.pk }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Acadêmicos" data-tab="dados_academicos">
+        {% if request.GET.tab == "dados_academicos" or not request.GET.tab %}
+            {% include "tabs/residente_dados_academicos.html" %}
+        {% endif %}
+    </div>
+    {% if perms.residencia.view_dados_pessoais or is_proprio_residente %}
+        <div class="tab-container ajax-rendered" data-title="Dados Pessoais" data-tab="dados_pessoais">
+            {% if request.GET.tab == "dados_pessoais" %}
+                {% include "tabs/residente_dados_pessoais.html" %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="tab-container ajax-rendered"
+             data-title="Frequencias dos Residentes"
+             data-tab="frequencia">
+            {% if request.GET.tab == "frequencia" %}
+                {% include "tabs/residente_frequencia.html" %}
+            {% endif %}
+    </div>
+
+    {% if perms.residencia.view_dados_bancarios or is_proprio_residente %}
+        <div class="tab-container ajax-rendered" data-title="Dados Bancários" data-tab="dados_bancarios" data-counter="{{ obj.get_dados_bancarios.count }}">
+            {% if request.GET.tab == "dados_bancarios" %}
+                {% include "rh/templates/includes/pessoafisica_dados_bancarios.html" with obj=residente.pessoa_fisica %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if pode_ver_dados_academicos %}
+        {% if residente.matriz and not obj.is_fic and not obj.is_proitec %}
+            <div class="tab-container ajax-rendered" data-title="TCR / Relatórios" data-counter="{{ projetos.count }}"
+                 data-tab="projeto">
+                {% if request.GET.tab == "projeto" %}
+                    {% include "tabs/residente_projeto_final.html" %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

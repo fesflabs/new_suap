@@ -1,0 +1,73 @@
+
+// Brand Colors
+$brand-color:          #4a69bd; // Azraq Blue
+$secondary-color:      #82ccdd; // Spray
+
+// Color Scale
+$grey-100:             #f8f9fd;
+$grey-200:             #eceff8;
+$grey-300:             #dfe5f3;
+$grey-400:             #c6d0ea;
+$grey-500:             #a1b1dd;
+$grey-600:             #889dd4;
+$black:                #222;
+
+// Extra Colors
+$flat-green:           #079992; // Reef Encounter
+$flat-blue:            #0a3d62; // Good Samaritan
+$flat-dark-blue:       #0c2461; // Dark Sapphire
+$flat-yellow:          #fad390; // Flat Flesh
+$flat-dark-yellow:     #f6b93b; // Squash Blossom
+$flat-darker-yellow:   #fa983a; // Iceland Poppy
+$flat-orange:          #e58e26; // Carrot Orange
+$flat-red:             #e55039; // Mandarin Red
+$flat-purple:          #b71540; // Jalapeno Red
+
+// Layout Colors
+$body-bg-color:        $grey-200;
+$aside-right-bg-color: $grey-200;
+$breadcrumbs-color:    $brand-color;
+$link-color:           $brand-color;
+$main-bg-color:        $grey-200;
+
+// Status Colors
+$success-active-color: $flat-green;
+$primary-active-color: $flat-blue;
+$warning-color:        $flat-dark-yellow;
+$warning-active-color: $flat-yellow;
+$warning-border-color: $flat-darker-yellow;
+$danger-color:         #eb2f06; // Tomato Red
+$danger-active-color:  $flat-red;
+$danger-border-color:  $flat-red;
+$default-color:        #60a3bc; // Dupain
+$default-active-color: $default-color;
+
+// Components Colors
+$ancoras-bg-color:     $aside-right-bg-color;
+$step-bg-color:        $grey-300;
+$step-gap-color:       $grey-200;
+
+// Layout
+$basis-nav:         300px;
+$basis-aside:       380px;
+
+// Margins and gaps
+$main-pt:           9.5rem;
+$main-pl:           4rem;
+$main-pt-sm:        7.5rem;
+$main-pl-sm:        2rem;
+$menu-margin:       3rem;
+$regular-margin:    3rem;
+
+// Forms
+$max-width-inputs:  100%;
+
+// Opacity
+$timeline-bg-opacity:  .15;
+
+// Styling
+$title-container-size: 2.8rem;
+
+// Functional
+$border-radius:     3px;
+$box-shadow:        0 0 0 transparent;

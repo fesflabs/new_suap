@@ -1,0 +1,45 @@
+{% extends super_template %}
+
+{% block content %}
+	{% box 'Registro frequências do servidor' %}
+	<table class="info">
+		<tbody>
+			<tr>
+				<td>Frequências do servidor</td>
+				<td>
+
+					{% if frequencias_servidor %}
+					{% for frequencia in frequencias_servidor %}
+                        {% if frequencia.acao == "E" %}
+                            <p class="text-nowrap"><strong>{{ frequencia.acao }}</strong>: <span class="true">{{ frequencia.horario|date:"H:i:s" }}</span> ({{ frequencia.maquina }})</p>
+                        {% else %}
+                            <p class="text-nowrap"><strong>{{ frequencia.acao }}</strong>: <span
+                                    class="false">{{ frequencia.horario|date:"H:i:s" }}</span> ({{ frequencia.maquina }})</p>
+                        {% endif %}
+					{% endfor %}
+					{% else %}
+					  Sem Registro de Frequência
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>Observações do funcionário</td>
+				<td>
+					{% if observacoes %}
+					{% for observacao in observacoes %}
+					<span class="status status-info">{{ observacao }} </span></br>
+					{% endfor %}
+					{% else %}
+					  <span class="status status-info">Sem observações.</span>
+					{% endif %}
+				</td>
+			</tr>		
+			<tr>
+				<td>Informação do registro</td>
+				<td><span class="status status-error">{{ informacao_registro }}</span></td>		
+			</tr>		
+		</tbody>
+	</table>
+{% endbox %}
+{% render_form form %}
+{% endblock %}

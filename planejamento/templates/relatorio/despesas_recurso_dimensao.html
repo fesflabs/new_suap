@@ -1,0 +1,56 @@
+{% extends super_template %}
+
+{% block extrahead %}
+{% media_filter_box %}
+{% endblock %}
+
+{% block content %}
+
+<div class="search-and-filters">
+	<div class="filter filter-large-select">
+		<form class="pesquisa_campus" method="post">
+			{% csrf_token %}
+			{{ origem_form.as_ul }}
+			{{ dimensao_form.as_ul }}
+		</form>
+	</div>
+</div>
+
+{% if mensagem %}
+<p class="msg alert">{{ mensagem }}</p>
+{% else %}
+{% if campi %}
+<table>
+	<thead>
+		<tr>
+			<th>Unidade Administrativa</th>
+			<th style="text-align:center;" width="120px">Valor</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for campus in campi %}
+		<tr>
+			<td>
+				{% if origem and dimensao %}
+				<a href="/planejamento/relatorio/acoes/origemrecurso/{{ origem.id }}/dimensao/{{ dimensao.id }}/unidadeadministrativa/{{ campus.id }}/">{{ campus.nome }}</a>
+				{% else %}
+				{{ campus.nome }}
+				{% endif %}
+			</td>
+			<td style="text-align:right;">{{ campus.valor|mascara_dinheiro }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td style="font-weight:bold;text-align:right;">Total</td>
+			<td style="font-weight:bold;text-align:right;">{{ campi|sum_values_by_key:"valor"|mascara_dinheiro }}</td>
+		</tr>
+	</tfoot>
+</table>
+{% else %}
+<p class="msg alert">Não existem recursos cadastrados para os filtros informados.</p>
+{% endif %}
+{% endif %}
+
+{% endblock %}

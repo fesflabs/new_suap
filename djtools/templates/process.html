@@ -1,0 +1,51 @@
+{% extends super_template %}
+
+
+{% block extrahead %}
+    <script>
+        var interval = null;
+        function atualizar(){
+            $.get("/djtools/process_progress/{{ obj.pid }}/", function( data ) {
+                if (data.length > 3){
+                    $(".msg.info").text('Sua solicitação foi processada!');
+                    $("#buttons").removeClass('d-none');
+                    $("#process-button").show();
+                    $("#send_email").hide();
+                    if (interval!=null) {
+                        clearTimeout(interval);
+                    }
+                    {% if obj.download %}
+                        window.location.replace('?download=1');
+                    {% else %}
+                        window.location.href = window.location.href + '?continue=1';
+                    {% endif %}
+                    $(".process").html('100 %');
+                } else {
+                    $(".process").html(data + '%');
+                    if (parseInt(data) > 100){
+                        $(".process").html('100 %');
+                    }
+                }
+            });
+        }
+        interval = setInterval(atualizar, {{ interval }});
+        $("#process-button").hide();
+    </script>
+{% endblock %}
+
+{% block content %}
+    
+    <p class="msg info" id="info">Sua solicitação está sendo processada. Por favor, aguarde!</p>
+
+    <div id="percentual" class="process">{{ obj.percentual }}%</div>
+    <div class="text-center" id='send_email'>
+        {% if not obj.send_email and obj.download %}
+            <a href="?send_email=1" class='btn success'>Enviar email</a>
+        {% endif %}
+    </div>
+    <div class="text-center d-none" id="buttons">
+        {% if obj.download %}
+            <a href="javascript:history.back(-2)" class="btn" id="button">Voltar</a>
+        {% endif %}
+    </div>
+{% endblock %}

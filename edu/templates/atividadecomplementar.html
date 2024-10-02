@@ -1,0 +1,81 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% if form %}
+        {% box "Formulário de Inderimento" %}
+            {% render_form form %}
+        {% endbox %}
+    {% else %}
+
+        <ul class="action-bar">
+            {% if perms.edu.change_atividadecomplementar %}
+                {% if obj.deferida == None %}
+                    <li><a href="?deferir=1" class="btn success">Deferir</a></li>
+                    <li><a href="?indeferir=1" class="btn danger popup no-confirm">Indeferir</a></li>
+                {% endif %}
+                {% if obj.deferida == True %}
+                    <li><a href="?deferir=0" class="btn danger">Cancelar Deferimento</a></li>
+                {% endif %}
+                {% if obj.deferida == False %}
+                    <li><a href="?deferir=0" class="btn danger">Cancelar Indeferimento</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+
+        {% box "Dados Gerais" %}
+            <table class="info">
+                <tr>
+                    <td>Aluno</td>
+                    <td>{{ obj.aluno.pessoa_fisica.nome|normalizar|format }} (<a
+                            href="/edu/aluno/{{ obj.aluno.matricula }}/">{{ obj.aluno.matricula }}</a>)
+                    </td>
+                    <td>Ano Letivo</td>
+                    <td>{{ obj.ano_letivo }}.{{ obj.periodo_letivo }}</td>
+                </tr>
+                <tr>
+                    <td>Descrição</td>
+                    <td colspan="3">{{ obj.descricao }}</td>
+                </tr>
+                <tr>
+                    <td>Arquivo</td>
+                    <td colspan="3"><a href="{{ obj.documento.url }}">{{ obj.documento.name }}</a></td>
+                </tr>
+                <tr>
+                    <td>Data</td>
+                    <td>{{ obj.data_atividade }}</td>
+                    <td>C.H.</td>
+                    <td>{{ obj.carga_horaria }}</td>
+                </tr>
+                <tr>
+                    <td>Tipo</td>
+                    <td>{{ obj.tipo }}</td>
+                    <td>Curricular?</td>
+                    <td>{{ obj.is_curricular|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box "Dados do Deferimento" %}
+            <table class="info">
+                <tr>
+                    <td>Deferida</td>
+                    <td colspan="3">
+                        {{ obj.deferida|format }}
+                    </td>
+                </tr>
+                {% if obj.razao_indeferimento %}
+                    <tr>
+                        <td>Razão do Indeferimento</td>
+                        <td colspan="3">
+                            {{ obj.razao_indeferimento|format }}
+                        </td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% endbox %}
+
+    {% endif %}
+
+{% endblock %}
+

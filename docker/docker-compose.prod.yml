@@ -1,0 +1,263 @@
+version: '3.9'
+# Para executar este docker-compose vá até a raiz do projeto do suap e execute:
+# make help
+services:
+  web:
+    restart: always
+    stdin_open: true
+    tty: true
+    env_file:
+      - ../.env
+    image: "${SUAP_IMAGE}"
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: suap-app
+    profiles:
+      - prod
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - type: bind
+        source: ../deploy
+        target: /opt/suap/deploy
+      - type: volume
+        source: static
+        target: /opt/suap/static
+      - type: volume
+        source: docker
+        target: /opt/suap/docker
+      - type: volume
+        source: docs
+        target: /opt/suap/docs_old
+      - type: bind
+        source: /etc/ssl/suap/
+        target: /etc/ssl/suap/
+        read_only: true
+    healthcheck:
+      test: curl --fail -s http://web:8000/accounts/login/
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - suap
+
+  celery:
+    restart: always
+    stdin_open: true
+    tty: true
+    env_file:
+      - ../.env
+    image: "${SUAP_IMAGE}"
+    profiles:
+      - prod
+    command: ./bin/celery.sh $CELERY_QUEUE
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - type: bind
+        source: ../deploy
+        target: /opt/suap/deploy
+      - type: bind
+        source: /etc/ssl/suap/
+        target: /etc/ssl/suap/
+        read_only: true
+    networks:
+      - suap
+    healthcheck:
+      test: celery -A suap inspect ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  celery-beat:
+    restart: always
+    stdin_open: true
+    tty: true
+    env_file:
+      - ../.env
+    image: "${SUAP_IMAGE}"
+    profiles:
+      - prod
+    command: ./bin/celery-beat.sh $CELERY_QUEUE
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - type: bind
+        source: ../deploy
+        target: /opt/suap/deploy
+      - type: bind
+        source: /etc/ssl/suap/
+        target: /etc/ssl/suap/
+        read_only: true
+    networks:
+      - suap
+    healthcheck:
+      test: celery -A suap inspect ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  celery-flower:
+    restart: always
+    stdin_open: true
+    tty: true
+    env_file:
+      - ../.env
+    image: "${SUAP_IMAGE}"
+    profiles:
+      - prod
+    command: ./bin/celery-flower.sh $CELERY_BROKER_URL $FLOWER_BASIC_AUTH
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "5555:5555"
+    networks:
+      - suap
+    healthcheck:
+      test: celery -A suap inspect ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  cron:
+    restart: always
+    stdin_open: true
+    tty: true
+    env_file:
+      - ../.env
+    image: "${SUAP_IMAGE}"
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: suap-cron
+    profiles:
+      - prod
+    user: "0:0"
+    command: cron -f
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - type: bind
+        source: ../deploy
+        target: /opt/suap/deploy
+      - type: bind
+        source: ../.env
+        target: /etc/environment
+        read_only: true
+      - type: bind
+        source: /etc/ssl/suap/
+        target: /etc/ssl/suap/
+        read_only: true
+    networks:
+      - suap
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    stdin_open: true
+    tty: true
+    env_file:
+      - ../.env
+    volumes:
+      - type: bind
+        source: ../deploy
+        target: /opt/suap/deploy
+      - type: volume
+        source: static
+        target: /opt/suap/static
+        read_only: true
+      - type: volume
+        source: docker
+        target: /opt/suap/docker
+        read_only: true
+      - type: volume
+        source: docs
+        target: /opt/suap/docs_old
+        read_only: true
+      - type: bind
+        source: ../docker/nginx/suap.conf.template
+        target: /etc/nginx/templates/suap.conf.template
+        read_only: true
+    profiles:
+      - prod
+    ports:
+      - "80:80"
+      - "8080:8080"
+    networks:
+      - suap
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      test: curl -s http://nginx:80
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  minio:
+    restart: always
+    user: "${USER_UID}:${USER_GID}"
+    networks:
+      - suap
+    image: quay.io/minio/minio:RELEASE.2022-02-18T01-50-10Z
+    profiles:
+      - minio
+    command: server --console-address ":9001" /data
+    volumes:
+      - ../deploy:/data
+    expose:
+      - "9000"
+      - "9001"
+    environment:
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-nginx:
+    restart: always
+    networks:
+      - suap
+    profiles:
+      - minio
+    image: nginx:latest
+    hostname: nginx
+    volumes:
+      - type: bind
+        source: ../docker/nginx/minio.conf.template
+        target: /etc/nginx/templates/minio.conf.template
+        read_only: true
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    depends_on:
+      minio:
+        condition: service_healthy
+
+networks:
+  suap:
+    driver: bridge
+
+volumes:
+  static:
+  docker:
+  docs:

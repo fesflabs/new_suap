@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. UC 01 - Manter Sala &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../index.html"/>
+        <link rel="up" title="Templates e Modelos de Artefatos" href="index.html"/>
+        <link rel="next" title="Classificação dos Requisitos Não Funcionais" href="requisitos_naofuncionais_categoria.html"/>
+        <link rel="prev" title="Caso de Uso Abstrato para CRUD &lt;v0.2&gt;" href="uc_crud_abstract.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../suap.html">SUAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Templates e Modelos de Artefatos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="subsistema_uc01.html">Template de Caso de Uso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc_visao.html">Template de Documento de Visão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uc_crud_abstract.html">Caso de Uso Abstrato para CRUD</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exemplo de caso de uso concreto - Manter Sala</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#historico-da-revisao"><span class="sectnum">1.1.</span> Histórico da Revisão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#objetivo"><span class="sectnum">1.2.</span> Objetivo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atores"><span class="sectnum">1.3.</span> Atores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-condicoes"><span class="sectnum">1.4.</span> Pré-condições</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pos-condicoes"><span class="sectnum">1.5.</span> Pós-condições</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fluxo-de-eventos"><span class="sectnum">1.6.</span> Fluxo de Eventos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#especificacao-suplementares"><span class="sectnum">1.7.</span> Especificação suplementares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ponto-de-extensao"><span class="sectnum">1.8.</span> Ponto de Extensão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#questoes-em-aberto"><span class="sectnum">1.9.</span> Questões em Aberto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#esboco-de-prototipo"><span class="sectnum">1.10.</span> Esboço de Protótipo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso"><span class="sectnum">1.11.</span> Diagrama de domínio do caso de uso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diagrama-de-fluxo-de-operacao"><span class="sectnum">1.12.</span> Diagrama de Fluxo de Operação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cenario-de-testes"><span class="sectnum">1.13.</span> Cenário de Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="requisitos_naofuncionais_categoria.html">Classificação dos Requisitos Não Funcionais</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../index.html">Docs</a> &raquo;</li>
+  <li><a href=""><span class="sectnum">1.</span> UC 01 - Manter Sala &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Comum</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="uc-01-manter-sala-v0-1">
+<span id="suap-artefatos-adm-comum-uc01"></span><h1><a class="toc-backref" href="#id2"><span class="sectnum">1.</span> UC 01 - Manter Sala &lt;v0.1&gt;</a><a class="headerlink" href="#uc-01-manter-sala-v0-1" title="Link permanente para este título">¶</a></h1>
+<p>Especialista do <span class="xref std std-ref">Caso de Uso Abstrado CRUD</span></p>
+<div class="contents topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="auto-toc simple">
+<li><p><a class="reference internal" href="#uc-01-manter-sala-v0-1" id="id2"><span class="sectnum">1.</span> UC 01 - Manter Sala &lt;v0.1&gt;</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id3"><span class="sectnum">1.1.</span> Histórico da Revisão</a></p></li>
+<li><p><a class="reference internal" href="#objetivo" id="id4"><span class="sectnum">1.2.</span> Objetivo</a></p></li>
+<li><p><a class="reference internal" href="#atores" id="id5"><span class="sectnum">1.3.</span> Atores</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#principais" id="id6"><span class="sectnum">1.3.1.</span> Principais</a></p></li>
+<li><p><a class="reference internal" href="#interessado" id="id7"><span class="sectnum">1.3.2.</span> Interessado</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pre-condicoes" id="id8"><span class="sectnum">1.4.</span> Pré-condições</a></p></li>
+<li><p><a class="reference internal" href="#pos-condicoes" id="id9"><span class="sectnum">1.5.</span> Pós-condições</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-eventos" id="id10"><span class="sectnum">1.6.</span> Fluxo de Eventos</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#fluxo-normal" id="id11"><span class="sectnum">1.6.1.</span> Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-alternativo" id="id12"><span class="sectnum">1.6.2.</span> Fluxo Alternativo</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao" id="id13"><span class="sectnum">1.6.3.</span> Fluxo de Exceção</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#especificacao-suplementares" id="id14"><span class="sectnum">1.7.</span> Especificação suplementares</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#requisitos-nao-funcionais" id="id15"><span class="sectnum">1.7.1.</span> Requisitos Não-Funcionais</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-interface" id="id16"><span class="sectnum">1.7.2.</span> Requisitos de Interface</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#ri1-acesso-ao-caso-de-uso" id="id17"><span class="sectnum">1.7.2.1.</span> RI1 – Acesso ao caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#ri2-acesso-a-opcao-cadastrar" id="id18"><span class="sectnum">1.7.2.2.</span> RI2 – Acesso a opção Cadastrar</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos-de-informacao" id="id19"><span class="sectnum">1.7.3.</span> Requisitos de Informação</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#rin1-listagem-criterio-de-exibicao-ordenacao-e-filtro" id="id20"><span class="sectnum">1.7.3.1.</span> RIN1 – Listagem – critério de exibição, ordenação e filtro</a></p></li>
+<li><p><a class="reference internal" href="#rin2-campos-para-cadastros" id="id21"><span class="sectnum">1.7.3.2.</span> RIN2 – Campos para Cadastros</a></p></li>
+<li><p><a class="reference internal" href="#rin3-campos-para-cadastros" id="id22"><span class="sectnum">1.7.3.3.</span> RIN3 – Campos para Cadastros</a></p></li>
+<li><p><a class="reference internal" href="#rin4-campos-para-validar-cadastro-em-duplicidade" id="id23"><span class="sectnum">1.7.3.4.</span> RIN4 – Campos para validar cadastro em duplicidade</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#regras-de-negocio" id="id24"><span class="sectnum">1.7.4.</span> Regras de Negócio</a></p></li>
+<li><p><a class="reference internal" href="#mensagens" id="id25"><span class="sectnum">1.7.5.</span> Mensagens</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ponto-de-extensao" id="id26"><span class="sectnum">1.8.</span> Ponto de Extensão</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id27"><span class="sectnum">1.9.</span> Questões em Aberto</a></p></li>
+<li><p><a class="reference internal" href="#esboco-de-prototipo" id="id28"><span class="sectnum">1.10.</span> Esboço de Protótipo</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso" id="id29"><span class="sectnum">1.11.</span> Diagrama de domínio do caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-fluxo-de-operacao" id="id30"><span class="sectnum">1.12.</span> Diagrama de Fluxo de Operação</a></p></li>
+<li><p><a class="reference internal" href="#cenario-de-testes" id="id31"><span class="sectnum">1.13.</span> Cenário de Testes</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#objetivos" id="id32"><span class="sectnum">1.13.1.</span> Objetivos</a></p></li>
+<li><p><a class="reference internal" href="#casos-e-registros-de-teste" id="id33"><span class="sectnum">1.13.2.</span> Casos e Registros de Teste</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#fluxo-de-excecao-fe1" id="id34"><span class="sectnum">1.13.2.1.</span> Fluxo de Exceção FE1</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id3"><span class="sectnum">1.1.</span> Histórico da Revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>18/02/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objetivo">
+<h2><a class="toc-backref" href="#id4"><span class="sectnum">1.2.</span> Objetivo</a><a class="headerlink" href="#objetivo" title="Link permanente para este título">¶</a></h2>
+<p>Este caso de uso possibilita que um usuário cadastre, liste ou altere uma sala.</p>
+</section>
+<section id="atores">
+<h2><a class="toc-backref" href="#id5"><span class="sectnum">1.3.</span> Atores</a><a class="headerlink" href="#atores" title="Link permanente para este título">¶</a></h2>
+<section id="principais">
+<h3><a class="toc-backref" href="#id6"><span class="sectnum">1.3.1.</span> Principais</a><a class="headerlink" href="#principais" title="Link permanente para este título">¶</a></h3>
+<p><strong>Operador de Chave (chaves_operador)</strong>: responsável por manter o cadastro de salas.</p>
+<p><strong>Gerente do Patrimônio (patrimonio_gerente_sistemico)</strong>: tem as mesmas atribuições do Operador de Chave.</p>
+</section>
+<section id="interessado">
+<h3><a class="toc-backref" href="#id7"><span class="sectnum">1.3.2.</span> Interessado</a><a class="headerlink" href="#interessado" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+</section>
+<section id="pre-condicoes">
+<h2><a class="toc-backref" href="#id8"><span class="sectnum">1.4.</span> Pré-condições</a><a class="headerlink" href="#pre-condicoes" title="Link permanente para este título">¶</a></h2>
+</section>
+<section id="pos-condicoes">
+<h2><a class="toc-backref" href="#id9"><span class="sectnum">1.5.</span> Pós-condições</a><a class="headerlink" href="#pos-condicoes" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="fluxo-de-eventos">
+<h2><a class="toc-backref" href="#id10"><span class="sectnum">1.6.</span> Fluxo de Eventos</a><a class="headerlink" href="#fluxo-de-eventos" title="Link permanente para este título">¶</a></h2>
+<section id="fluxo-normal">
+<h3><a class="toc-backref" href="#id11"><span class="sectnum">1.6.1.</span> Fluxo Normal</a><a class="headerlink" href="#fluxo-normal" title="Link permanente para este título">¶</a></h3>
+</section>
+<section id="fluxo-alternativo">
+<h3><a class="toc-backref" href="#id12"><span class="sectnum">1.6.2.</span> Fluxo Alternativo</a><a class="headerlink" href="#fluxo-alternativo" title="Link permanente para este título">¶</a></h3>
+</section>
+<section id="fluxo-de-excecao">
+<h3><a class="toc-backref" href="#id13"><span class="sectnum">1.6.3.</span> Fluxo de Exceção</a><a class="headerlink" href="#fluxo-de-excecao" title="Link permanente para este título">¶</a></h3>
+</section>
+</section>
+<section id="especificacao-suplementares">
+<h2><a class="toc-backref" href="#id14"><span class="sectnum">1.7.</span> Especificação suplementares</a><a class="headerlink" href="#especificacao-suplementares" title="Link permanente para este título">¶</a></h2>
+<section id="requisitos-nao-funcionais">
+<h3><a class="toc-backref" href="#id15"><span class="sectnum">1.7.1.</span> Requisitos Não-Funcionais</a><a class="headerlink" href="#requisitos-nao-funcionais" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="requisitos-de-interface">
+<h3><a class="toc-backref" href="#id16"><span class="sectnum">1.7.2.</span> Requisitos de Interface</a><a class="headerlink" href="#requisitos-de-interface" title="Link permanente para este título">¶</a></h3>
+<section id="ri1-acesso-ao-caso-de-uso">
+<span id="ri1"></span><h4><a class="toc-backref" href="#id17"><span class="sectnum">1.7.2.1.</span> RI1 – Acesso ao caso de uso</a><a class="headerlink" href="#ri1-acesso-ao-caso-de-uso" title="Link permanente para este título">¶</a></h4>
+<p>Menu ADMINISTRAÇÃO &gt; Cadastros &gt; Salas</p>
+</section>
+<section id="ri2-acesso-a-opcao-cadastrar">
+<h4><a class="toc-backref" href="#id18"><span class="sectnum">1.7.2.2.</span> RI2 – Acesso a opção Cadastrar</a><a class="headerlink" href="#ri2-acesso-a-opcao-cadastrar" title="Link permanente para este título">¶</a></h4>
+<p>O acesso a opção será efetuado a partir do botão “Adicionar Sala”</p>
+</section>
+</section>
+<section id="requisitos-de-informacao">
+<h3><a class="toc-backref" href="#id19"><span class="sectnum">1.7.3.</span> Requisitos de Informação</a><a class="headerlink" href="#requisitos-de-informacao" title="Link permanente para este título">¶</a></h3>
+<section id="rin1-listagem-criterio-de-exibicao-ordenacao-e-filtro">
+<h4><a class="toc-backref" href="#id20"><span class="sectnum">1.7.3.1.</span> RIN1 – Listagem – critério de exibição, ordenação e filtro</a><a class="headerlink" href="#rin1-listagem-criterio-de-exibicao-ordenacao-e-filtro" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><dl class="simple">
+<dt>Campos para exibição</dt><dd><p>“Nome”, “Prédio”, “Setores”, “Ativa”, “Agendável”</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Campos para ordenação</dt><dd><p>“Nome”</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Campos para filtro</dt><dd><p>“Nome”, “Campus” (predio)</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="rin2-campos-para-cadastros">
+<h4><a class="toc-backref" href="#id21"><span class="sectnum">1.7.3.2.</span> RIN2 – Campos para Cadastros</a><a class="headerlink" href="#rin2-campos-para-cadastros" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio</p></th>
+<th class="head"><p>Máscara</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Nome*</p></td>
+<td><p>Texto</p></td>
+<td><p>100</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ativa</p></td>
+<td><p>Boolean</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Predio*</p></td>
+<td><div class="line-block">
+<div class="line">Seleção</div>
+<div class="line">(Combo Box)</div>
+</div>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Setores</p></td>
+<td><div class="line-block">
+<div class="line">Texto</div>
+<div class="line">(Busca Interativa)</div>
+</div>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Agendavel</p></td>
+<td><p>Boolean</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Capacidade</p></td>
+<td><p>Texto</p></td>
+<td></td>
+<td></td>
+<td><p>Numérico</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Avaliadores</p></td>
+<td><div class="line-block">
+<div class="line">Texto</div>
+<div class="line">(Busca Interativa)</div>
+</div>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rin3-campos-para-cadastros">
+<h4><a class="toc-backref" href="#id22"><span class="sectnum">1.7.3.3.</span> RIN3 – Campos para Cadastros</a><a class="headerlink" href="#rin3-campos-para-cadastros" title="Link permanente para este título">¶</a></h4>
+<p>Os mesmos definidos em <a class="reference internal" href="#rin2-campos-para-cadastros">RIN2</a></p>
+</section>
+<section id="rin4-campos-para-validar-cadastro-em-duplicidade">
+<h4><a class="toc-backref" href="#id23"><span class="sectnum">1.7.3.4.</span> RIN4 – Campos para validar cadastro em duplicidade</a><a class="headerlink" href="#rin4-campos-para-validar-cadastro-em-duplicidade" title="Link permanente para este título">¶</a></h4>
+<p>“Nome”, “Prédio”</p>
+</section>
+</section>
+<section id="regras-de-negocio">
+<h3><a class="toc-backref" href="#id24"><span class="sectnum">1.7.4.</span> Regras de Negócio</a><a class="headerlink" href="#regras-de-negocio" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mensagens">
+<h3><a class="toc-backref" href="#id25"><span class="sectnum">1.7.5.</span> Mensagens</a><a class="headerlink" href="#mensagens" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="m">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M3</p></td>
+<td><p>Sala com este Nome e Prédio já existe.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ponto-de-extensao">
+<h2><a class="toc-backref" href="#id26"><span class="sectnum">1.8.</span> Ponto de Extensão</a><a class="headerlink" href="#ponto-de-extensao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id27"><span class="sectnum">1.9.</span> Questões em Aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="esboco-de-prototipo">
+<h2><a class="toc-backref" href="#id28"><span class="sectnum">1.10.</span> Esboço de Protótipo</a><a class="headerlink" href="#esboco-de-prototipo" title="Link permanente para este título">¶</a></h2>
+<p>Não se aplica.</p>
+</section>
+<section id="diagrama-de-dominio-do-caso-de-uso">
+<h2><a class="toc-backref" href="#id29"><span class="sectnum">1.11.</span> Diagrama de domínio do caso de uso</a><a class="headerlink" href="#diagrama-de-dominio-do-caso-de-uso" title="Link permanente para este título">¶</a></h2>
+<img alt="../../_images/diagrama_dominio.jpg" src="../../_images/diagrama_dominio.jpg" />
+</section>
+<section id="diagrama-de-fluxo-de-operacao">
+<h2><a class="toc-backref" href="#id30"><span class="sectnum">1.12.</span> Diagrama de Fluxo de Operação</a><a class="headerlink" href="#diagrama-de-fluxo-de-operacao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="cenario-de-testes">
+<h2><a class="toc-backref" href="#id31"><span class="sectnum">1.13.</span> Cenário de Testes</a><a class="headerlink" href="#cenario-de-testes" title="Link permanente para este título">¶</a></h2>
+<section id="objetivos">
+<h3><a class="toc-backref" href="#id32"><span class="sectnum">1.13.1.</span> Objetivos</a><a class="headerlink" href="#objetivos" title="Link permanente para este título">¶</a></h3>
+</section>
+<section id="casos-e-registros-de-teste">
+<h3><a class="toc-backref" href="#id33"><span class="sectnum">1.13.2.</span> Casos e Registros de Teste</a><a class="headerlink" href="#casos-e-registros-de-teste" title="Link permanente para este título">¶</a></h3>
+<section id="fluxo-de-excecao-fe1">
+<h4><a class="toc-backref" href="#id34"><span class="sectnum">1.13.2.1.</span> Fluxo de Exceção FE1</a><a class="headerlink" href="#fluxo-de-excecao-fe1" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Objetivo</p></th>
+<td></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Dados de Entrada</p></th>
+<td></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Resultado Esperado</p></th>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="requisitos_naofuncionais_categoria.html" class="btn btn-neutral float-right" title="Classificação dos Requisitos Não Funcionais"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="uc_crud_abstract.html" class="btn btn-neutral" title="Caso de Uso Abstrato para CRUD &lt;v0.2&gt;"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

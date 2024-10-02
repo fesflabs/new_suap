@@ -1,0 +1,6 @@
+{% if f.abono_chefia %}
+    <span class="status status-{{ f.abono_chefia.get_acao_abono_display_css }} text-nowrap-normal">{{ f.abono_chefia.get_acao_abono_display }}: {{ f.abono_chefia.descricao }}</span>
+    <span class="obs"><strong>Por:</strong> {{ f.abono_chefia.vinculo_chefe_imediato.relacionamento|format_user }} em {{ f.abono_chefia.data_cadastro }}</span>
+{% else %}
+    -
+{% endif %}

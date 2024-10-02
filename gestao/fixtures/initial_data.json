@@ -1,0 +1,1671 @@
+[
+{
+    "model": "gestao.variavel",
+    "pk": 1,
+    "fields": {
+        "sigla": "I",
+        "nome": "Inscri\u00e7\u00f5es",
+        "descricao": "N\u00famero de candidatos inscritos deferidos (aptos a fazer a prova) em cada processo seletivo para acesso discente.",
+        "fonte": "Sistema de concursos",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 4,
+    "fields": {
+        "sigla": "AM",
+        "nome": "Alunos Matriculados",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 5,
+    "fields": {
+        "sigla": "AC",
+        "nome": "Alunos Concluintes",
+        "descricao": "N\u00famero de estudantes que conclu\u00edram os cursos e est\u00e3o aptos a colar grau (receber certificados/diplomas de conclus\u00e3o).",
+        "fonte": "Sistema acad\u00eamico/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 6,
+    "fields": {
+        "sigla": "AR",
+        "nome": "Alunos Retidos",
+        "descricao": "N\u00famero de alunos reprovados (por nota/falta) ou com matr\u00edcula trancada.",
+        "fonte": "Sistema acad\u00eamico/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 7,
+    "fields": {
+        "sigla": "DTI",
+        "nome": "Docentes em Tempo Integral",
+        "descricao": "N\u00famero de docentes (efetivos, substitutos e tempor\u00e1rios) exclusivamente em sala de aula referente a jornada de trabalho de 40 horas semanais; professores com regime de 20 horas s\u00e3o contabilizados como 0,5; Dedica\u00e7\u00e3o Exclusiva e 40 horas s\u00e3o contabilizados como 1; professores em cargo de dire\u00e7\u00e3o e fun\u00e7\u00e3o gratificada contam como FG = 0,5, CD4 = 0,25, CD3=CD2=CD1=0.",
+        "fonte": "Siap/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 9,
+    "fields": {
+        "sigla": "AI",
+        "nome": "Alunos Ingressos",
+        "descricao": "N\u00famero de estudantes ingressantes em cursos ofertados pelo IFRN; \u00c9 igual ao n\u00famero de vagas ofertadas somando-se o numero de estudantes ingressos por transfer\u00eancia compuls\u00f3ria (ex-officio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 10,
+    "fields": {
+        "sigla": "AIC",
+        "nome": "Alunos Ingressos em Turma Concluinte",
+        "descricao": "N\u00famero de estudantes ingressantes em cada turma concluinte, relativo ao ano/per\u00edodo de ingresso da turma.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 11,
+    "fields": {
+        "sigla": "G",
+        "nome": "Graduados",
+        "descricao": "N\u00famero de professores com titula\u00e7\u00e3o acad\u00eamica m\u00e1xima de Graduado, com situa\u00e7\u00e3o ativo permanente, cedido ou tempor\u00e1rio.",
+        "fonte": "Siape/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 12,
+    "fields": {
+        "sigla": "M",
+        "nome": "Mestres",
+        "descricao": "N\u00famero de professores com titula\u00e7\u00e3o acad\u00eamica m\u00e1xima de Mestre, com situa\u00e7\u00e3o ativo permanente, cedido ou tempor\u00e1rio.",
+        "fonte": "Siape/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 13,
+    "fields": {
+        "sigla": "A",
+        "nome": "Aperfei\u00e7oado",
+        "descricao": "N\u00famero de professores com titula\u00e7\u00e3o acad\u00eamica m\u00e1xima de Aperfei\u00e7oado, com situa\u00e7\u00e3o ativo permanente, cedido ou tempor\u00e1rio.",
+        "fonte": "Siape/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 14,
+    "fields": {
+        "sigla": "E",
+        "nome": "Especialista",
+        "descricao": "N\u00famero de professores com titula\u00e7\u00e3o acad\u00eamica m\u00e1xima de Especialista, com situa\u00e7\u00e3o ativo permanente, cedido ou tempor\u00e1rio.",
+        "fonte": "Siape/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 15,
+    "fields": {
+        "sigla": "D",
+        "nome": "Doutor",
+        "descricao": "N\u00famero de professores com titula\u00e7\u00e3o acad\u00eamica m\u00e1xima de Doutor, com situa\u00e7\u00e3o ativo permanente, cedido ou tempor\u00e1rio.",
+        "fonte": "Siape/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 16,
+    "fields": {
+        "sigla": "GCO",
+        "nome": "Gastos Corrente",
+        "descricao": "Total de gastos: outros custeios + beneficios + pessoal ativo\r\n\r\nobs: os gastos com PASEP j\u00e1 s\u00e3o considerados no total de outros custeios.",
+        "fonte": "Simec/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 17,
+    "fields": {
+        "sigla": "GPE",
+        "nome": "Gastos com Pessoal",
+        "descricao": "Total dos gastos com servidores ativos, inativos, pensionistas, senten\u00e7as judiciais e precat\u00f3rios. Valores retirados a partir das notas de sistemas importadas do SIAFI",
+        "fonte": "Simec/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 18,
+    "fields": {
+        "sigla": "GTO",
+        "nome": "Gastos Totais",
+        "descricao": "Total dos gastos: Outros custeios + Benef\u00edcios + Capital + Pessoal",
+        "fonte": "SIAFI/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 19,
+    "fields": {
+        "sigla": "GOC",
+        "nome": "Gastos com Outros Custeios",
+        "descricao": "Total dos gastos apresentados nos empenhos onde as naturezas de despesas dos empenhos come\u00e7am com 33 + os benef\u00edcios em folha que come\u00e7am com 33",
+        "fonte": "Simec/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 20,
+    "fields": {
+        "sigla": "GCA",
+        "nome": "Gastos com Capital",
+        "descricao": "Total de gastos com investimentos e invers\u00f5es. S\u00e3o os gastos com aquisi\u00e7\u00e3o de im\u00f3veis ou bens de capital j\u00e1 em utiliza\u00e7\u00e3o e tamb\u00e9m a aquisi\u00e7\u00e3o de t\u00edtulos representativos do capital de empresas ou entidades de qualquer esp\u00e9cie, j\u00e1 constitu\u00eddas, quando a opera\u00e7\u00e3o n\u00e3o importe aumento do capital e com a constitui\u00e7\u00e3o ou aumento do capital de entidades ou empresas que visem a objetivos comerciais ou financeiros, inclusive opera\u00e7\u00f5es banc\u00e1rias ou de seguros.\r\n\r\nConsiderar todos os gastos presentes nas notas de empenho que possuem natureza de despesa come\u00e7ando com 44.",
+        "fonte": "Simec/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 21,
+    "fields": {
+        "sigla": "VO",
+        "nome": "Vagas Ofertadas",
+        "descricao": "N\u00famero de vagas constantes em Edital de acesso discente publicado.",
+        "fonte": "Sistema de concursos",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 22,
+    "fields": {
+        "sigla": "GPA",
+        "nome": "Gastos com Pessoal Ativo",
+        "descricao": "Total de gastos com pessoal ativo considerando as notas de sistemas emitidas atrav\u00e9s do SIAFI",
+        "fonte": "SIAFI/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 23,
+    "fields": {
+        "sigla": "AE",
+        "nome": "Alunos Evadidos",
+        "descricao": "N\u00famero de alunos evadidos",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 24,
+    "fields": {
+        "sigla": "AJ",
+        "nome": "Alunos Jubilidados",
+        "descricao": "N\u00famero de alunos jubilados",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 25,
+    "fields": {
+        "sigla": "RFP",
+        "nome": "Renda Familiar Per Capita",
+        "descricao": "N\u00famero de sal\u00e1rios m\u00edninos dividido pelo n\u00famero de residentes.",
+        "fonte": "Sistema de Assist\u00eancia Estudantil",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 26,
+    "fields": {
+        "sigla": "DEE",
+        "nome": "Docentes envolvidos com extens\u00e3o",
+        "descricao": "N\u00famero de docentes atuantes em projetos ou programas de extens\u00e3o no IFRN.",
+        "fonte": "Suap/ProEx",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 27,
+    "fields": {
+        "sigla": "DO",
+        "nome": "N\u00famero de Docentes",
+        "descricao": "N\u00famero total de docentes da Institui\u00e7\u00e3o que se encontram ativos na Instituição.",
+        "fonte": "Siape/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 28,
+    "fields": {
+        "sigla": "NL",
+        "nome": "N\u00famero de Livros",
+        "descricao": "N\u00famero de livros ou cap\u00edtulos de livros publicados pelo corpo docente da institui\u00e7\u00e3o, nos \u00faltimos 3 anos a partir do ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 29,
+    "fields": {
+        "sigla": "NR",
+        "nome": "N\u00famero de Resumos",
+        "descricao": "N\u00famero de resumos publicados em anais, pelo corpo docente da Institui\u00e7\u00e3o, nos \u00faltimos 3 anos a partir do ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 30,
+    "fields": {
+        "sigla": "NT",
+        "nome": "N\u00famero de Trabalhos Completos",
+        "descricao": "N\u00famero de trabalhos completos publicados em anais, pelo corpo docente da Institui\u00e7\u00e3o, nos \u00faltimos 3 anos a partir do ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 31,
+    "fields": {
+        "sigla": "NA",
+        "nome": "N\u00famero de Artigos",
+        "descricao": "N\u00famero de artigos publicados em peri\u00f3dicos cient\u00edficos indexados, pelo corpo docente da Institui\u00e7\u00e3o, nos \u00faltimos 3 anos a partir do ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 32,
+    "fields": {
+        "sigla": "C",
+        "nome": "Computadores em uso acad\u00eamico",
+        "descricao": "Total de computadores em uso acad\u00eamico no IFRN.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 33,
+    "fields": {
+        "sigla": "DOAP",
+        "nome": "Docentes Ativos Permantentes",
+        "descricao": "Docentes com situa\u00e7\u00e3o permanente e que se encontram ativos na Institui\u00e7\u00e3o.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 34,
+    "fields": {
+        "sigla": "AANF",
+        "nome": "Alunos Assistidos N\u00e3o FIC",
+        "descricao": "Alunos assistidos por programas de perman\u00eancia que participam de cursos de modalidade \"n\u00e3o FIC\".",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 35,
+    "fields": {
+        "sigla": "AMNF",
+        "nome": "Alunos Matriculados N\u00e3o FIC",
+        "descricao": "N\u00famero de estudantes matriculados em cursos de modalidade \"n\u00e3o FIC\" ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 36,
+    "fields": {
+        "sigla": "AM_EX",
+        "nome": "Alunos Matriculados - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 37,
+    "fields": {
+        "sigla": "AM_OR",
+        "nome": "Alunos Matriculados - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 38,
+    "fields": {
+        "sigla": "AC_EX",
+        "nome": "Alunos Concluintes - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes que conclu\u00edram os cursos e est\u00e3o aptos a colar grau (receber certificados/diplomas de conclus\u00e3o) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 39,
+    "fields": {
+        "sigla": "AC_OR",
+        "nome": "Alunos Concluintes - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes que conclu\u00edram os cursos e est\u00e3o aptos a colar grau (receber certificados/diplomas de conclus\u00e3o) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 40,
+    "fields": {
+        "sigla": "AE_EX",
+        "nome": "Alunos Evadidos - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de alunos evadidos (com conv\u00eanio)",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 41,
+    "fields": {
+        "sigla": "AE_OR",
+        "nome": "Alunos Evadidos - Ordin\u00e1rio",
+        "descricao": "N\u00famero de alunos evadidos (sem conv\u00eanio)",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 42,
+    "fields": {
+        "sigla": "AI_EX",
+        "nome": "Alunos Ingressos - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes ingressantes em cursos ofertados pelo IFRN; \u00c9 igual ao n\u00famero de vagas ofertadas somando-se o numero de estudantes ingressos por transfer\u00eancia compuls\u00f3ria (ex-officio) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 43,
+    "fields": {
+        "sigla": "AI_OR",
+        "nome": "Alunos Ingressos - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes ingressantes em cursos ofertados pelo IFRN; \u00c9 igual ao n\u00famero de vagas ofertadas somando-se o numero de estudantes ingressos por transfer\u00eancia compuls\u00f3ria (ex-officio) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 44,
+    "fields": {
+        "sigla": "AIC_EX",
+        "nome": "Alunos Ingressos em Turma Concluinte - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes ingressantes em cada turma concluinte, relativo ao ano/per\u00edodo de ingresso da turma (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 45,
+    "fields": {
+        "sigla": "AIC_OR",
+        "nome": "Alunos Ingressos em Turma Concluinte - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes ingressantes em cada turma concluinte, relativo ao ano/per\u00edodo de ingresso da turma (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 46,
+    "fields": {
+        "sigla": "AJ_EX",
+        "nome": "Alunos Jubilidados - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de alunos jubilados (com conv\u00eanio)",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 47,
+    "fields": {
+        "sigla": "AJ_OR",
+        "nome": "Alunos Jubilidados - Ordin\u00e1rio",
+        "descricao": "N\u00famero de alunos jubilados (sem conv\u00eanio)",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 48,
+    "fields": {
+        "sigla": "AR_EX",
+        "nome": "Alunos Retidos - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de alunos reprovados (por nota/falta) ou com matr\u00edcula trancada (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 49,
+    "fields": {
+        "sigla": "AR_OR",
+        "nome": "Alunos Retidos - Ordin\u00e1rio",
+        "descricao": "N\u00famero de alunos reprovados (por nota/falta) ou com matr\u00edcula trancada (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/SUAP",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 50,
+    "fields": {
+        "sigla": "NLA",
+        "nome": "N\u00famero de Livros no Ano",
+        "descricao": "N\u00famero de livros ou cap\u00edtulos de livros publicados, pelo corpo docente da institui\u00e7\u00e3o, no ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 51,
+    "fields": {
+        "sigla": "NRA",
+        "nome": "N\u00famero de Resumos no Ano",
+        "descricao": "N\u00famero de resumos publicados em anais, pelo corpo docente da Institui\u00e7\u00e3o, no ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 52,
+    "fields": {
+        "sigla": "NTA",
+        "nome": "N\u00famero de Trabalhos Completos no Ano",
+        "descricao": "N\u00famero de trabalhos completos publicados em anais, pelo corpo docente da Institui\u00e7\u00e3o, no ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 53,
+    "fields": {
+        "sigla": "NAA",
+        "nome": "N\u00famero de Artigos no Ano",
+        "descricao": "N\u00famero de artigos publicados em peri\u00f3dicos cient\u00edficos indexados, pelo corpo docente da Institui\u00e7\u00e3o, no ano de refer\u00eancia definido.",
+        "fonte": "CNPQ",
+        "valor": "0.00"
+    }
+},
+{
+    "pk": 54,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes de Dedica\u00e7\u00e3o Exclusiva",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com dedica\u00e7\u00e3o exclusiva (ativos permanente, cedidos, substitutos e tempor\u00e1rios), sem fun\u00e7\u00e3o",
+        "sigla": "DDESF"
+    }
+},
+{
+    "pk": 55,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes de Dedica\u00e7\u00e3o Exclusiva",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com dedica\u00e7\u00e3o exclusiva (ativos permanente, cedidos, substitutos e tempor\u00e1rios), com fun\u00e7\u00e3o",
+        "sigla": "DDECF"
+    }
+},
+{
+    "pk": 56,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Carga Hor\u00e1ria 40h",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com carga hor\u00e1ria de 40 horas semanais (ativos permanente, cedidos, substitutos e tempor\u00e1rios), sem fun\u00e7\u00e3o",
+        "sigla": "D40SF"
+    }
+},
+{
+    "pk": 57,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Carga Hor\u00e1ria 40h",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com carga hor\u00e1ria de 40 horas semanais (ativos permanente, cedidos, substitutos e tempor\u00e1rios), com fun\u00e7\u00e3o",
+        "sigla": "D40CF"
+    }
+},
+{
+    "pk": 58,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Carga Hor\u00e1ria 20h",
+        "fonte": "Suap",
+        "descricao": "N\u00famero de docentes com carga hor\u00e1ria de 20 horas semanais (ativos permanente, cedidos, substitutos e tempor\u00e1rios), sem fun\u00e7\u00e3o",
+        "sigla": "D20SF"
+    }
+},
+{
+    "pk": 59,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Carga Hor\u00e1ria 20h",
+        "fonte": "Suap",
+        "descricao": "N\u00famero de docentes com carga hor\u00e1ria de 20 horas semanais (ativos permanente, cedidos, substitutos e tempor\u00e1rios), com fun\u00e7\u00e3o",
+        "sigla": "D20CF"
+    }
+},
+{
+    "pk": 60,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Fun\u00e7\u00e3o FG",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com fun\u00e7\u00e3o FG (ativos permanente, cedidos, substitutos e tempor\u00e1rios)",
+        "sigla": "DFG"
+    }
+},
+{
+    "pk": 61,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Fun\u00e7\u00e3o CD1",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com fun\u00e7\u00e3o CD1 (ativos permanente, cedidos, substitutos e tempor\u00e1rios)",
+        "sigla": "DCD1"
+    }
+},
+{
+    "pk": 62,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Fun\u00e7\u00e3o CD2",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com fun\u00e7\u00e3o CD2 (ativos permanente, cedidos, substitutos e tempor\u00e1rios)",
+        "sigla": "DCD2"
+    }
+},
+{
+    "pk": 63,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Fun\u00e7\u00e3o CD3",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com fun\u00e7\u00e3o CD3 (ativos permanente, cedidos, substitutos e tempor\u00e1rios)",
+        "sigla": "DCD3"
+    }
+},
+{
+    "pk": 64,
+    "model": "gestao.variavel",
+    "fields": {
+        "valor": "0.00",
+        "nome": "Docentes com Fun\u00e7\u00e3o CD4",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "descricao": "N\u00famero de docentes com fun\u00e7\u00e3o CD4 (ativos permanente, cedidos, substitutos e tempor\u00e1rios)",
+        "sigla": "DCD4"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 65,
+    "fields": {
+        "sigla": "DOST",
+        "nome": "Docentes Substitudos ou Tempor\u00e1rios",
+        "descricao": "Docentes com situa\u00e7\u00e3o substituto ou tempor\u00e1rio e que se encontram ativos na Institui\u00e7\u00e3o.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 66,
+    "fields": {
+        "sigla": "DOC",
+        "nome": "Docentes Cedidos",
+        "descricao": "Docentes com situa\u00e7\u00e3o cedido e que se encontram ativos na Institui\u00e7\u00e3o.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 67,
+    "fields": {
+        "sigla": "AMTEC",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente)",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 68,
+    "fields": {
+        "sigla": "AMTEC_EX",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 69,
+    "fields": {
+        "sigla": "AMTEC_OR",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 70,
+    "fields": {
+        "sigla": "AMLIC",
+        "nome": "Alunos Matriculados - N\u00edvel Licenciatura",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no n\u00edvel licenciatura.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 71,
+    "fields": {
+        "sigla": "AMLIC_EX",
+        "nome": "Alunos Matriculados - N\u00edvel Licenciatura - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no n\u00edvel licenciatura (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 72,
+    "fields": {
+        "sigla": "AMLIC_OR",
+        "nome": "Alunos Matriculados - N\u00edvel Licenciatura - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no n\u00edvel licenciatura (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 73,
+    "fields": {
+        "sigla": "AMEJA",
+        "nome": "Alunos Matriculados - EJA",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no Integrado EJA.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 74,
+    "fields": {
+        "sigla": "AMEJA_EX",
+        "nome": "Alunos Matriculados - EJA - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no Integrado EJA (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 75,
+    "fields": {
+        "sigla": "AMEJA_OR",
+        "nome": "Alunos Matriculados - EJA - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN no Integrado EJA (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 76,
+    "fields": {
+        "sigla": "AMPRES",
+        "nome": "Alunos Matriculados Presenciais",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 77,
+    "fields": {
+        "sigla": "AMPRES_EX",
+        "nome": "Alunos Matriculados Presenciais - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presencias ofertados pelo IFRN (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 78,
+    "fields": {
+        "sigla": "AMPRES_OR",
+        "nome": "Alunos Matriculados Presenciais - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 79,
+    "fields": {
+        "sigla": "AMEAD",
+        "nome": "Alunos Matriculados Presenciais",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 80,
+    "fields": {
+        "sigla": "AMEAD_EX",
+        "nome": "Alunos Matriculados EAD - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 81,
+    "fields": {
+        "sigla": "AMEAD_OR",
+        "nome": "Alunos Matriculados EAD - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+
+{
+    "model": "gestao.variavel",
+    "pk": 82,
+    "fields": {
+        "sigla": "AMPRESF",
+        "nome": "Alunos Matriculados Presenciais FIC",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais FIC ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 83,
+    "fields": {
+        "sigla": "AMPRESF_EX",
+        "nome": "Alunos Matriculados Presenciais FIC - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presencias FIC ofertados pelo IFRN (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 84,
+    "fields": {
+        "sigla": "AMPRESF_OR",
+        "nome": "Alunos Matriculados Presenciais - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais FIC ofertados pelo IFRN (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 85,
+    "fields": {
+        "sigla": "AMMEST",
+        "nome": "Alunos Matriculados - Mestrado",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN de mestrado.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 86,
+    "fields": {
+        "sigla": "AMMEST_EX",
+        "nome": "Alunos Matriculados - Mestrado - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN de mestrado (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 87,
+    "fields": {
+        "sigla": "AMMEST_OR",
+        "nome": "Alunos Matriculados - Mestrado - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN de mestrado (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+
+{
+    "model": "gestao.variavel",
+    "pk": 88,
+    "fields": {
+        "sigla": "CO",
+        "nome": "Cursos Ofertados",
+        "descricao": "N\u00famero de cursos ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 89,
+    "fields": {
+        "sigla": "COPRES",
+        "nome": "Cursos Ofertados Presenciais",
+        "descricao": "N\u00famero de cursos presenciais ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 90,
+    "fields": {
+        "sigla": "COEAD",
+        "nome": "Cursos Ofertados EAD",
+        "descricao": "N\u00famero de cursos EAD ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 91,
+    "fields": {
+        "sigla": "COEAD_EX",
+        "nome": "Cursos Ofertados EAD - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de cursos EAD ofertados pelo IFRN que t\u00eam pelo menos um aluno com conv\u00eanio.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 92,
+    "fields": {
+        "sigla": "COEAD_OR",
+        "nome": "Cursos Ofertados EAD - Ordin\u00e1rio",
+        "descricao": "N\u00famero de cursos EAD ofertados pelo IFRN que t\u00eam pelo menos um aluno sem conv\u00eanio.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 93,
+    "fields": {
+        "sigla": "AMF",
+        "nome": "Alunos Matriculados FIC",
+        "descricao": "N\u00famero de estudantes matriculados em cursos de modalidade FIC ofertados pelo IFRN.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 94,
+    "fields": {
+        "sigla": "AICOR",
+        "nome": "Alunos Ingressos Correspondentes (MEC)",
+        "descricao": "Alunos ingressos correspondentes: n\u00famero vagas em cada turma ingressante, relativo ao ano/per\u00edodo de ingresso da turma.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 95,
+    "fields": {
+        "sigla": "AICOR_EX",
+        "nome": "Alunos Ingressos Correspondentes (MEC) - Extraordin\u00e1rio",
+        "descricao": "Alunos ingressos correspondentes: n\u00famero vagas em cada turma ingressante, relativo ao ano/per\u00edodo de ingresso da turma (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 96,
+    "fields": {
+        "sigla": "AICOR_OR",
+        "nome": "Alunos Ingressos Correspondentes (MEC) - Ordin\u00e1rio",
+        "descricao": "Alunos ingressos correspondentes: n\u00famero vagas em cada turma ingressante, relativo ao ano/per\u00edodo de ingresso da turma (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 97,
+    "fields": {
+        "sigla": "AM_NR",
+        "nome": "Alunos Matriculados N\u00e3o Retidos",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN e que n\u00e3o est\u00e3o retidos, segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 98,
+    "fields": {
+        "sigla": "AEQ",
+        "nome": "Alunos Equivalentes",
+        "descricao": "N\u00famero de estudantes equivalentes segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 99,
+    "fields": {
+        "sigla": "AEQ_FENC",
+        "nome": "Alunos Equivalentes Com FENC",
+        "descricao": "N\u00famero de estudantes equivalentes multiplicado pelo FENC (Fator de Equipara\u00e7\u00e3o de N\u00edvel de Curso) segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 100,
+    "fields": {
+        "sigla": "AICOR_NR",
+        "nome": "Alunos Ingressos Correspondentes N\u00e3o Retidos (MEC)",
+        "descricao": "Alunos ingressos correspondentes: n\u00famero vagas em cada turma ingressante, relativo ao ano/per\u00edodo de ingresso da turma, e que n\u00e3o est\u00e3o retidos, segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 101,
+    "fields": {
+        "sigla": "IAEQ",
+        "nome": "Ingressantes Acumulados Equivalentes",
+        "descricao": "N\u00famero de estudantes ingressados acumulados equivalentes segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 102,
+    "fields": {
+        "sigla": "DOAP_20",
+        "nome": "Docentes Ativos Permantentes (20 horas semanais)",
+        "descricao": "Docentes com situa\u00e7\u00e3o permanente, 20 horas semanais, e que se encontram ativos na Institui\u00e7\u00e3o.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 103,
+    "fields": {
+        "sigla": "DOAP_40",
+        "nome": "Docentes Ativos Permantentes (40 horas semanais)",
+        "descricao": "Docentes com situa\u00e7\u00e3o permanente, 40 horas semanais, e que se encontram ativos na Institui\u00e7\u00e3o.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 104,
+    "fields": {
+        "sigla": "DOAP_DDE",
+        "nome": "Docentes Ativos Permantentes (dedicação exclusiva)",
+        "descricao": "Docentes com situa\u00e7\u00e3o permanente, dedicação exclusiva, e que se encontram ativos na Institui\u00e7\u00e3o.",
+        "fonte": "Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 105,
+    "fields": {
+        "sigla": "AEQ_PROEJA",
+        "nome": "Alunos Equivalentes (PROEJA)",
+        "descricao": "N\u00famero de estudantes equivalentes do PROEJA (Proeja FIC e Técnico Integrado EJA) segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 106,
+    "fields": {
+        "sigla": "AEQ_TECNICO",
+        "nome": "Alunos Equivalentes (T\u00c9CNICO)",
+        "descricao": "N\u00famero de estudantes equivalentes do ensino técnico (integrado, e subsequente) segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 107,
+    "fields": {
+        "sigla": "AEQ_DOCENTE",
+        "nome": "Alunos Equivalentes Docentes",
+        "descricao": "N\u00famero de estudantes equivalentes de licenciatura segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 1,
+    "fields": {
+        "sigla": "RC/V (TCU)",
+        "nome": "Rela\u00e7\u00e3o Candidato/Vaga = \u00cdndice de Efetividade",
+        "objetivo": "Identificar o n\u00edvel de interesse da clientela escolar da regi\u00e3o",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "I/VO",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 2,
+    "fields": {
+        "sigla": "RI/A (TCU)",
+        "nome": "Rela\u00e7\u00e3o Ingressos/Aluno",
+        "objetivo": "Quantificar a taxa de ingressantes, relacionada ao total de alunos",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "(AI_OR*100)/AM_OR",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 3,
+    "fields": {
+        "sigla": "RC/A (TCU)",
+        "nome": "Rela\u00e7\u00e3o Concluintes/Alunos",
+        "objetivo": "Quantificar a taxa de concluintes relacionada ao total de alunos",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "(AC_OR*100)/AM_OR",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 4,
+    "fields": {
+        "sigla": "IEAC (TCU)",
+        "nome": "\u00cdndice de Efici\u00eancia Acad\u00eamica de Concluintes",
+        "objetivo": "Quantificar a efici\u00eancia das ofertas educacionais da Institui\u00e7\u00e3o",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "(AC_OR*100)/AIC_OR",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 5,
+    "fields": {
+        "sigla": "IRFE (TCU)",
+        "nome": "\u00cdndice de Reten\u00e7\u00e3o do Fluxo Escolar",
+        "objetivo": "Identificar o percentual de reten\u00e7\u00e3o dos alunos.",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "(AR_OR*100)/AM_OR",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 6,
+    "fields": {
+        "sigla": "RA/DTI (TCU)",
+        "nome": "Rela\u00e7\u00e3o Alunos/Docente em Tempo Integral",
+        "objetivo": "Quantificar o n\u00famero de alunos por docente em tempo integral",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino e  Gest\u00e3o de Pessoas",
+        "formula": "AM_OR / (DDESF + D40SF + D20SF/2)",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 7,
+    "fields": {
+        "sigla": "ITCD",
+        "nome": "\u00cdndice de Titula\u00e7\u00e3o do Corpo Docente",
+        "objetivo": "Quantificar a titula\u00e7\u00e3o do corpo de professores",
+        "responsavel": "Diretoria de Gest\u00e3o de Pessoas",
+        "formula": "(G*1+A*2+E*3+M*4+D*5)/(G+A+E+M+D)",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 8,
+    "fields": {
+        "sigla": "GCA",
+        "nome": "Gastos Correntes por Aluno",
+        "objetivo": "Quantificar todos os gastos da Institui\u00e7\u00e3o (exceto investimento, capital, precat\u00f3rios, inativos e pensionistas), por aluno atendido",
+        "responsavel": "  Pr\u00f3-Reitoria de Ensino e Adminstra\u00e7\u00e3o",
+        "formula": "GCO/AM_OR",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 9,
+    "fields": {
+        "sigla": "GP",
+        "nome": "Percentual de Gastos com Pessoal",
+        "objetivo": "Relacionar os gastos de pessoal (ativos, inativos, pensionistas, senten\u00e7as judiciais e precat\u00f3rios), em fun\u00e7\u00e3o dos gastos totais.",
+        "responsavel": "Pr\u00f3-Reitoria de Administra\u00e7\u00e3o e  Gest\u00e3o de Pessoas",
+        "formula": "(GPE*100)/GTO",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 10,
+    "fields": {
+        "sigla": "GOC (TCU)",
+        "nome": "Percentual de Gastos com Outros Custeios",
+        "objetivo": "Relacionar os gastos totais de outros custeios (exceto benef\u00edcios, pasep. investimentos e invers\u00f5es financeiras), em fun\u00e7\u00e3o dos gastos totais",
+        "responsavel": "Pr\u00f3-Reitoria de Administra\u00e7\u00e3o",
+        "formula": "(GOC*100)/GTO",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 11,
+    "fields": {
+        "sigla": "GI (TCU)",
+        "nome": "Percentual de Gastos com Investimentos",
+        "objetivo": "Relacionar os gastos com investimentos (execu\u00e7\u00e3o de obras e aquisi\u00e7\u00e3o de im\u00f3veis), em fun\u00e7\u00e3o dos gastos totais.",
+        "responsavel": "Pr\u00f3-Reitoria de Administra\u00e7\u00e3o",
+        "formula": "(GCA*100)/GTO",
+        "orgao_regulamentador": "TCU"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 12,
+    "fields": {
+        "sigla": "GEE (Outros)",
+        "nome": "Grau de Envolvimento com Extens\u00e3o",
+        "objetivo": "Avaliar o grau de envolvimento dos docentes da institui\u00e7\u00e3o com os projetos de extens\u00e3o.",
+        "responsavel": "Proex/Suap",
+        "formula": "(DEE*100)/DO",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 13,
+    "fields": {
+        "sigla": "IPUBD (Outros)",
+        "nome": "Indicador de Publica\u00e7\u00f5es dos Docentes",
+        "objetivo": "Avaliar as publica\u00e7\u00f5es cient\u00edficas realizadas pelo corpo docente da institui\u00e7\u00e3o.",
+        "responsavel": "CNPQ",
+        "formula": "(35*NA+35*NL+20*NT+10*NR)/DOAP",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 14,
+    "fields": {
+        "sigla": "RA/C (Outros)",
+        "nome": "Rela\u00e7\u00e3o Alunos/Computador",
+        "objetivo": "Mensurar a rela\u00e7\u00e3o de alunos em fun\u00e7\u00e3o do parque de computadores instalados na Institui\u00e7\u00e3o para fins acad\u00eamicos.",
+        "responsavel": "DIGTI",
+        "formula": "AM_OR/C",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 15,
+    "fields": {
+        "sigla": "RAANF/AMNF",
+        "nome": "Rela\u00e7\u00e3o de alunos assistidos n\u00e3o FIC / alunos matriculados \"n\u00e3o FIC\"",
+        "objetivo": "Mensurar a rela\u00e7\u00e3o entre a quantidade de alunos \"n\u00e3o FIC\" assistidos por programas de perman\u00eancia e a quantidade de alunos matriculados \"n\u00e3o FIC\".",
+        "responsavel": "DIGAE",
+        "formula": "AANF/AMNF",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "pk": 16,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "DDESF + D40SF + (D20SF/2)",
+        "responsavel": "Recursos Humanos",
+        "nome": "Docentes em Tempo Integral",
+        "objetivo": "N\u00famero de docentes (efetivos, substitutos e tempor\u00e1rios) exclusivamente em sala de aula referente a jornada de trabalho de 40 horas semanais; professores com regime de 20 horas s\u00e3o contabilizados como 0,5; Dedica\u00e7\u00e3o Exclusiva e 40 horas s\u00e3o contabilizados como 1; professores em cargo de dire\u00e7\u00e3o e fun\u00e7\u00e3o gratificada contam como FG = 0,5, CD4 = 0,25, CD3=CD2=CD1=0.\r\n\r\nObs: Como os docentes CD1, CD2 e CD3 possuem peso zero, n\u00e3o ser\u00e3o citados na f\u00f3rmula, a t\u00edtulo de desempenho.",
+        "sigla": "DTI",
+        "orgao_regulamentador": "OUTROS"
+    }
+},
+{
+    "pk": 17,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "AM_OR / AICOR_OR * 100",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "\u00cdndice de Efici\u00eancia da Institui\u00e7\u00e3o",
+        "objetivo": "Objetivo: Quantificar a taxa de ocupa\u00e7\u00e3o das vagas. Descri\u00e7\u00e3o: Percentual dos alunos matriculados (n\u00famero total de estudantes matriculados em cursos ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional) sobre o n\u00famero de ingressos correspondentes (n\u00famero vagas em cada turma ingressante, relativo ao ano/per\u00edodo de ingresso da turma).",
+        "sigla": "IEnI (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "pk": 18,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "((AMPRES_OR - AMF) + AMPRESF/4) / (DDESF + DDECF + D40SF + D40CF + (D20SF + D20CF)/2)",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "Rela\u00e7\u00e3o Alunos Matriculados em Rela\u00e7\u00e3o \u00e0 For\u00e7a de Trabalho (RAM)",
+        "objetivo": "Objetivo: Quantificar o n\u00famero de alunos em cursos presenciais em rela\u00e7\u00e3o \u00e0 for\u00e7a de trabalho docente. Detalhamento: Alunos em cursos presenciais ordin\u00e1rios: n\u00famero de estudantes matriculados (matr\u00edculas ordin\u00e1rias) em cursos presenciais ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional, considerando, para cursos FIC a normaliza\u00e7\u00e3o para 800 horas/matr\u00edcula. Docentes ativos em regime de tempo integral: n\u00famero de docentes ativos (efetivos, substitutos e tempor\u00e1rios), referente a jornada de trabalho de 40 horas semanais; professores com regime de 20 horas s\u00e3o contabilizados como 0,5; Dedica\u00e7\u00e3o Exclusiva e 40 horas s\u00e3o contabilizados como 1.",
+        "sigla": "RAM (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "pk": 19,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "AMTEC_OR / AM_OR * 100",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "Percentual de matr\u00edculas em cursos t\u00e9cnicos (PMTec)",
+        "objetivo": "Objetivo: Quantificar o percentual de matr\u00edculas em cursos t\u00e9cnicos, de acordo com o previsto no art. 8\u00ba da Lei n\u00ba 11.892/2008. Descri\u00e7\u00e3o: Alunos equivalentes em cursos t\u00e9cnicos: n\u00famero de alunos-equivalentes matriculados em cursos t\u00e9cnicos (presenciais e EAD) ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional. Alunos equivalentes matriculados: n\u00famero de alunos-equivalentes matriculados em cursos (presenciais e EAD) ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional. Considera-se o conceito de aluno-equivalente, regulamentado pela Portaria MEC n\u00ba 818, de 13/08/2015.",
+        "sigla": "PMTec (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "pk": 20,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "AMEJA_OR / AM_OR * 100",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "Percentual de matr\u00edculas em cursos articulados com a educa\u00e7\u00e3o de jovens e adultos (PMEja)",
+        "objetivo": "Objetivo: Quantificar o percentual de vagas ofertadas para o PROEJA, de acordo com o previsto no art. 2\u00ba do Decreto n\u00ba 5.840/2006. Descri\u00e7\u00e3o: Alunos equivalentes em cursos Eja: n\u00famero de alunos-equivalentes matriculados em cursos ordin\u00e1rios articulados com a educa\u00e7\u00e3o de jovens e adultos (presenciais e EAD) ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional, incluindo-se cursos FIC e t\u00e9cnicos. Alunos equivalentes ordin\u00e1rios matriculados: n\u00famero de alunos-equivalentes matriculados em cursos ordin\u00e1rios (presenciais e EAD) ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional. Considera-se o conceito de aluno-equivalente, regulamentado pela Portaria MEC n\u00ba 818, de 13/08/2015.",
+        "sigla": "PMEja (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "pk": 21,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "(AMLIC_OR + AMMEST_OR) / AM_OR * 100",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "Percentual de matr\u00edculas em cursos de forma\u00e7\u00e3o de professores (PMFor)",
+        "objetivo": "Objetivo: Quantificar o percentual de matr\u00edculas em cursos de forma\u00e7\u00e3o de professores, de acordo com o previsto no art. 8\u00ba da Lei n\u00ba 11.892/2008. Alunos equivalentes em cursos de forma\u00e7\u00e3o de professores: n\u00famero de alunos-equivalentes matriculados em cursos de forma\u00e7\u00e3o de professores (presenciais e EAD) ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional, incluindo-se cursos FIC, de gradua\u00e7\u00e3o (licenciatura) e de p\u00f3s-gradua\u00e7\u00e3o destinados \u00e0 forma\u00e7\u00e3o de professores. Alunos equivalentes matriculados: n\u00famero de alunos-equivalentes matriculados em cursos (presenciais e EAD) ofertados pelo IFRN, registrados no sistema acad\u00eamico institucional. Considera-se o conceito de aluno-equivalente, regulamentado pela Portaria MEC n\u00ba 818, de 13/08/2015.",
+        "sigla": "PMFor (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "pk": 22,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "COEAD_OR / COEAD * 100",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "Percentual de cursos ordin\u00e1rios na modalidade EaD (CEad)",
+        "objetivo": "Quantificar a propor\u00e7\u00e3o de cursos ordin\u00e1rios na modalidade EaD. Detalhamento: N\u00famero de cursos ordin\u00e1rios EAD: n\u00famero de cursos ofertados na modalidade EAD como atividade regular (cursos ordin\u00e1rios). N\u00famero de cursos EAD: total de cursos ofertados na modalidade EAD.",
+        "sigla": "CEad (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "pk": 23,
+    "model": "gestao.indicador",
+    "fields": {
+        "formula": "(D20CF + D20SF)/2 + D40CF + D40SF + DDECF + DDESF",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "nome": "Docentes ativos em regime de tempo integral",
+        "objetivo": "Docentes ativos em regime de tempo integral: n\u00famero de docentes ativos (efetivos, substitutos e tempor\u00e1rios), referente a jornada de trabalho de 40 horas semanais; professores com regime de 20 horas s\u00e3o contabilizados como 0,5; Dedica\u00e7\u00e3o Exclusiva e 40 horas s\u00e3o contabilizados como 1.",
+        "sigla": "DATI (MEC)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 25,
+    "fields": {
+        "sigla": "IEcI (MEC)",
+        "nome": "\u00cdndice de Efic\u00e1cia da Institui\u00e7\u00e3o",
+        "objetivo": "Quantificar a efici\u00eancia das ofertas educacionais da Institui\u00e7\u00e3o",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "(AC_OR*100)/AIC_OR",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 26,
+    "fields": {
+        "sigla": "RAP (MEC)",
+        "nome": "Relação Aluno por Professor",
+        "objetivo": "\u00c9 calculada a partir da raz\u00e3o entre o total de Aluno Equivalente corrigido pelo Fator de Equipara\u00e7\u00e3o de N\u00edvel de Curso e a somat\u00f3ria de Professor Tempo Integral, segundo PORTARIA n\u00ba 25, 13 DE AGOSTO DE 2015 do MEC, publicada no DOU - Se\u00e7\u00e3o n\u00ba 1 \u2013 Pag. 28 \u2013 28/08/2015.",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "AEQ_FENC/(DOAP_DDE + DOAP_40 + DOAP_20/2)",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 27,
+    "fields": {
+        "sigla": "PVTec (MEC)",
+        "nome": "Percentual de Vagas Equivalentes em Cursos T\\u00e9cnicos",
+        "objetivo": "\u00c9 calculado a partir da raz\u00e3o entre o total de Ingressantes Acumulados Equivalentes do N\u00edvel T\u00e9cnico dividido por Ingressantes Acumulados Equivalentes. Calculado isto, o valor dever\u00e1 ser multiplicado por 100.",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "AEQ_TECNICO/AEQ*100",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 28,
+    "fields": {
+        "sigla": "PVEja (MEC)",
+        "nome": "Percentual de Vagas e Matr\u00edculas PROEJA",
+        "objetivo": "\u00c9 calculado a partir da raz\u00e3o entre o total de Ingressantes Acumulados Equivalentes por Ingressantes Acumulados Equivalentes PROEJA. Calculado isto, o valor dever\u00e1 ser multiplicado por 100.",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "AEQ_PROEJA/AEQ*100",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "model": "gestao.indicador",
+    "pk": 29,
+    "fields": {
+        "sigla": "PVFor (MEC)",
+        "nome": "Percentual de Vagas Equivalentes em Cursos de Forma\u00e7\u00e3o de Professores, inclusive Licenciatura",
+        "objetivo": "\u00c9 calculado a partir da raz\u00e3o entre o total de Ingressantes Acumulados Equivalentes Docentes dividido por Ingressantes Acumulados Equivalentes. Calculado isto, o valor dever\u00e1 ser multiplicado por 100.",
+        "responsavel": "Pr\u00f3-Reitoria de Ensino",
+        "formula": "AEQ_DOCENTE/AEQ*100",
+        "orgao_regulamentador": "MEC"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 108,
+    "fields": {
+        "sigla": "AMGRAD",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - AAA",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 109,
+    "fields": {
+        "sigla": "AMGRAD_EX",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 110,
+    "fields": {
+        "sigla": "AMGRAD_OR",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 111,
+    "fields": {
+        "sigla": "AMGRAD_EAD",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - EAD",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 112,
+    "fields": {
+        "sigla": "AMGRAD_EAD_EX",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - EAD - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 113,
+    "fields": {
+        "sigla": "AMGRAD_EAD_OR",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - EAD - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 114,
+    "fields": {
+        "sigla": "AMGRAD_PRES",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - Presencial",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 115,
+    "fields": {
+        "sigla": "AMGRAD_PRES_EX",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - Presencial - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 116,
+    "fields": {
+        "sigla": "AMGRAD_PRES_OR",
+        "nome": "Alunos Matriculados - Gradua\u00e7\u00e3o - Presencial - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN de gradua\u00e7\u00e3o (Licenciatura, Engenharia e Tecnologia) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 117,
+    "fields": {
+        "sigla": "AMTEC_EAD",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - EAD",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 118,
+    "fields": {
+        "sigla": "AMTEC_EAD_EX",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - EAD - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 119,
+    "fields": {
+        "sigla": "AMTEC_EAD_OR",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - EAD - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos EAD ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 120,
+    "fields": {
+        "sigla": "AMTEC_PRES",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - Presencial",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 121,
+    "fields": {
+        "sigla": "AMTEC_PRES_EX",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - PRES - Extraordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente) (com conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 122,
+    "fields": {
+        "sigla": "AMTEC_PRES_OR",
+        "nome": "Alunos Matriculados - N\u00edvel T\u00e9cnico (Integrado, EJA, Subsequente) - PRES - Ordin\u00e1rio",
+        "descricao": "N\u00famero de estudantes matriculados em cursos presenciais ofertados pelo IFRN no n\u00edvel t\u00e9cnico (Integrado, Integrado EJA, Subsequente) (sem conv\u00eanio).",
+        "fonte": "Sistema acad\u00eamico/Suap",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 123,
+    "fields": {
+        "sigla": "TAEE",
+        "nome": "T\u00e9cnicos administrativos envolvidos com extens\u00e3o",
+        "descricao": "N\u00famero de t\u00e9cnicos atuantes em projetos ou programas de extens\u00e3o no IFRN.",
+        "fonte": "Suap/ProEx",
+        "valor": "0.00"
+    }
+},
+{
+    "model": "gestao.variavel",
+    "pk": 124,
+    "fields": {
+        "sigla": "DISCEE",
+        "nome": "Discentes envolvidos com extens\u00e3o",
+        "descricao": "N\u00famero de discentes atuantes em projetos ou programas de extens\u00e3o no IFRN.",
+        "fonte": "Suap/ProEx",
+        "valor": "0.00"
+    }
+}
+]

@@ -1,0 +1,36 @@
+<div class="person">
+    <div class="photo-circle">
+        <img alt="{{ chamado.interessado.get_profile.nome_usual }}" src="{{ chamado.interessado.get_profile.get_foto_75x100_url }}">
+    </div>
+    <dl>
+        <dt>Interessado:</dt>
+        <dd>{{ chamado.interessado|format }}</dd>
+        {% if chamado.interessado.get_profile.funcionario %}
+            {% if chamado.interessado.get_profile.funcionario.servidor.historico_funcao_ativa.exists %}
+                <dt>Funções:</dt>
+                {% for funcao in chamado.interessado.get_profile.funcionario.servidor.historico_funcao_ativa %}
+                    <dd>{{ funcao.atividade.nome }}</dd>
+                {% endfor %}
+            {% endif %}
+            <dt>Setor:</dt>
+            <dd>
+                <a href="/rh/setor/{{ chamado.interessado.get_profile.funcionario.setor.pk }}/">{{ chamado.interessado.get_profile.funcionario.setor|format }}</a>
+            </dd>
+            <dt>Contatos:</dt>
+            <dd>{{ chamado.interessado.get_profile.funcionario.email|format }}
+                {% if chamado.interessado.get_profile.funcionario.servidor.telefones_institucionais %}
+                    | {{ chamado.interessado.get_profile.funcionario.servidor.telefones_institucionais|format }}
+                {% endif %}
+            </dd>
+            {% if chamado.servico.permite_telefone_adicional and chamado.telefone_adicional %}
+                <dt>Telefone Adicional para Contato:</dt>
+                <dd>{{ chamado.telefone_adicional }}<dd>
+            {% endif %}
+        {% endif %}
+    </dl>
+</div>
+
+<dl class="definition-list">
+    <dt>Descrição</dt>
+    <dd>{{ chamado.descricao|linebreaksbr }}</dd>
+</dl>

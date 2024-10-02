@@ -1,0 +1,22 @@
+{% extends super_template|default:"admin/base_site.html" %}
+{% load static %}
+
+{% block favicon %}
+	<link rel="shortcut icon" href="{% static 'comum/img/favicon-maintenance.png' %}" />
+{% endblock %}
+
+{% block content_title %}
+    <div class="title-container">
+        <h2>Você não tem permissão para acessar essa página</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    {% if exception %}
+        <p class="msg alert">{{ exception|safe }}</p>
+    {% else %}
+        <p class="msg info">Você pode ir para a <a href="/">página inicial</a> e tentar um outro endereço.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% help_button %}
+    </ul>
+
+    {{ periodo_letivo_atual.as_widget|safe }}
+
+    {% regroup professores_diario by diario.turma.curso_campus as diarios_curso_campus %}
+    {% if diarios_curso_campus or diarios_especiais %}
+        {% for diarios_curso in diarios_curso_campus %}
+            {% box '{{ diarios_curso.grouper.descricao }}' %}
+                {% regroup diarios_curso.list by diario.turma as diarios_turma %}
+                {% for diario_turma in diarios_turma %}
+                    <h4>{{ diario_turma.grouper }}</h4>
+                    {% for professor_diario in diario_turma.list %}
+                        <table class="mb-2">
+                            <caption>{{ professor_diario.diario }}</caption>
+                            <thead>
+                            <tr>
+                                <th>Dados do Diário</th>
+                                <th>Situação da Etapas</th>
+                                <th class="no-print">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="width:60%">
+                                    <dl>
+                                        <dt>Professores:</dt>
+                                        <dd>{% for p in professor_diario.diario.professordiario_set.all %}
+                                            {{ p.professor.vinculo.pessoa.nome }} ({{ professor_diario.tipo }})
+                                            {% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+                                        <dt>Turno:</dt>
+                                        <dd>{{ professor_diario.diario.turno }}</dd>
+                                        <dt>Quantidade de Etapas:</dt>
+                                        <dd>{{ professor_diario.diario.componente_curricular.qtd_avaliacoes }}</dd>
+                                        <dt>Quantidade de Alunos:</dt>
+                                        <dd>{{ professor_diario.diario.get_quantidade_alunos_ativos }}</dd>
+                                        {% if professor_diario.diario.componente_curricular.ch_presencial %}
+                                        <dt>Aulas Ministradas:</dt>
+                                        <dd>{{ professor_diario.diario.get_carga_horaria_cumprida }}
+                                            de {{ professor_diario.diario.get_carga_horaria_presencial }} aulas
+                                        </dd>
+                                        <dt>Percentual de Carga Horária Cumprida:</dt>
+                                        <dd>
+                                            <div class="progress">
+                                                <p>{{ professor_diario.diario.get_percentual_carga_horaria_cumprida }}%</p>
+                                            </div>
+                                        </dd>
+                                        {% endif %}
+                                    </dl>
+                                </td>
+                                <td>
+                                    <dl>
+                                        <dt style="width: 30%">
+                                            Etapa {{ professor_diario.diario.get_numero_primeira_etapa }}:
+                                        </dt>
+                                        <dd>
+                                            {% if professor_diario.diario.etapa_1_em_posse_do_registro %}
+                                                <span class="status status-success">Entregue</span>
+                                            {% elif professor_diario.diario.etapa_1_em_atraso %}
+                                                	<span class="status status-error">Entrega em Atraso</span>
+                                            {% else %}
+                                                <span class="status status-alert">Não Entregue</span>
+                                            {% endif %}
+                                        </dd>
+                                        {% if professor_diario.diario.componente_curricular.qtd_avaliacoes > 1 %}
+                                            <dt style="width: 30%">
+                                                Etapa {{ professor_diario.diario.get_numero_segunda_etapa }}:
+                                            </dt>
+                                            <dd>
+                                                {% if professor_diario.diario.etapa_2_em_posse_do_registro %}
+                                                    <span class="status status-success">Entregue</span>
+                                                {% elif professor_diario.diario.etapa_2_em_atraso %}
+                                                	<span class="status status-error">Entrega em Atraso</span>
+                                                {% else %}
+                                                    <span class="status status-alert">Não Entregue</span>
+                                                {% endif %}
+                                            </dd>
+                                        {% endif %}
+                                        {% if professor_diario.diario.componente_curricular.qtd_avaliacoes > 2 %}
+                                            <dt style="width: 30%">Etapa 3:</dt>
+                                            <dd>
+                                                {% if professor_diario.diario.etapa_3_em_posse_do_registro %}
+                                                    <span class="status status-success">Entregue</span>
+                                                {% elif professor_diario.diario.etapa_3_em_atraso %}
+                                                	<span class="status status-error">Entrega em Atraso</span>
+                                                {% else %}
+                                                    <span class="status status-alert">Não Entregue</span>
+                                                {% endif %}
+                                            </dd>
+                                            <dt style="width: 30%">Etapa 4:</dt>
+                                            <dd>
+                                                {% if professor_diario.diario.etapa_4_em_posse_do_registro %}
+                                                    <span class="status status-success">Entregue</span>
+                                                {% elif professor_diario.diario.etapa_4_em_atraso %}
+                                                	<span class="status status-error">Entrega em Atraso</span>
+                                                {% else %}
+                                                    <span class="status status-alert">Não Entregue</span>
+                                                {% endif %}
+                                            </dd>
+                                        {% endif %}
+                                        <dt style="width: 30%">Etapa Final:</dt>
+                                        <dd>
+                                            {% if professor_diario.diario.etapa_5_em_posse_do_registro %}
+                                                <span class="status status-success">Entregue</span>
+                                            {% elif professor_diario.diario.etapa_5_em_atraso %}
+                                                <span class="status status-error">Entrega em Atraso</span>
+                                            {% else %}
+                                                <span class="status status-alert">Não Entregue</span>
+                                            {% endif %}
+                                        </dd>
+                                        {% if request.user.is_superuser %}
+                                            <dt>Carga Horária Mínima:</dt>
+                                            <dd>{{ professor_diario.diario.percentual_minimo_ch }}%
+                                                ({{ professor_diario.diario.get_carga_horaria_minima }} Aulas)
+                                            </dd>
+                                        {% endif %}
+                                    </dl>
+                                </td>
+                                <td class="no-print" style="width:10%">
+                                    <ul class="action-bar">
+                                        <li><a href="/edu/meu_diario/{{ professor_diario.diario.pk }}/0/" class="btn default">{% icone "search" %} Acessar
+                                            Diário</a></li>
+                                        <li class="has-child">
+                                            <a href="#" class="btn">{% icone "print" %} Imprimir</a>
+                                            <ul>
+                                                <li><a href="/edu/relacao_alunos_pdf/{{ professor_diario.diario.pk }}/">Relação
+                                                    de Alunos</a></li>
+                                                <li>
+                                                    <a href="/edu/emitir_boletins_pdf/{{ professor_diario.diario.pk }}/">Boletim
+                                                        de Notas</a></li>
+                                                {% if professor_diario.diario.componente_curricular.qtd_avaliacoes > 0 %}
+                                                    <li><a href="/edu/diario_pdf/{{ professor_diario.diario.pk }}/1/">Diário
+                                                        (Etapa 1)</a></li>
+                                                {% endif %}
+                                                {% if professor_diario.diario.componente_curricular.qtd_avaliacoes > 1 %}
+                                                    <li><a href="/edu/diario_pdf/{{ professor_diario.diario.pk }}/2/">Diário
+                                                        (Etapa 2)</a></li>
+                                                {% endif %}
+                                                {% if professor_diario.diario.componente_curricular.qtd_avaliacoes > 2 %}
+                                                    <li><a href="/edu/diario_pdf/{{ professor_diario.diario.pk }}/3/">Diário
+                                                        (Etapa 3)</a></li>
+                                                    <li><a href="/edu/diario_pdf/{{ professor_diario.diario.pk }}/4/">Diário
+                                                        (Etapa 4)</a></li>
+                                                {% endif %}
+                                                {% if professor_diario.diario.componente_curricular.qtd_avaliacoes > 0 %}
+                                                    <li><a href="/edu/diario_pdf/{{ professor_diario.diario.pk }}/5/">Diário
+                                                        (Etapa Final)</a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                {% endfor %}
+            {% endbox %}
+        {% endfor %}
+
+        {% if diarios_especiais %}
+            {% box "Diários Especiais" %}
+                {% for diario_especial in diarios_especiais %}
+                    <table class="mb-2">
+                        <caption>{{ diario_especial }}</caption>
+                        <thead>
+                        <tr>
+                            <th>Dados do Diário</th>
+                            <th class="no-print">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <dl>
+                                    <dt>Professores:</dt>
+                                    <dd>{% for p in diario_especial.professores.all %}{{ p.pessoa_fisica.nome }}
+                                        {% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+                                    <dt>Quantidade de Participantes:</dt>
+                                    <dd>{{ diario_especial.participantes.count }}</dd>
+                                    <dt>Quantidade de Encontros:</dt>
+                                    <dd>{{ diario_especial.encontro_set.count }} encontro(s)</dd>
+                                </dl>
+                            </td>
+                            <td class="no-print"><a href="/edu/diarioespecial/{{ diario_especial.pk }}/" class="btn">{% icone "search" %} Acessar
+                                Diário</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+            {% endbox %}
+        {% endif %}
+    {% else %}
+        <p class="msg alert">Você não possui nenhum diário para o ano
+            de {{ periodo_letivo_atual.ano }}.{{ periodo_letivo_atual.periodo }}.</p>
+    {% endif %}
+
+{% endblock %}

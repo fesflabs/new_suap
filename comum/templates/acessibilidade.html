@@ -1,0 +1,39 @@
+{% extends super_template %}
+
+{% block content %}
+
+	<p class="msg info">O SUAP foi projetado para ser acessível e usável, estando em conformidade com as Diretrizes de Acessibilidade para Conteúdo Web (WCAG v2.0). Se existir qualquer problema neste sistema — relacionado à acessibilidade ou validação — que não esteja de acordo com os padrões, por favor utilize a funcionalidade de Reportar Erro na tela que apresentar o problema.</p>
+
+    {% box "Opções de Contraste" %}
+        <p>Atualmente é ofertado um tema com Alto contraste:</p>
+
+        <div class="boxes services flex-container linkable no-grow">
+            <a href="/comum/alterar_tema?theme=Alto Contraste" title="Alterar tema para Alto Contraste" class="box-item">
+                <h4 class="title">Alto Contraste</h4>
+                <img src="/static/comum/img/thumbnail-theme-alto-contraste.png" alt="Imagem da página inicial do tema Alto Contraste">
+            </a>
+        </div>
+    {% endbox %}
+	
+    {% box "Teclas de acesso" %}
+        <p>Teclas de acesso são um recurso de navegação que permitem a você navegar neste sistema com o seu teclado.</p>
+
+        <h4>Teclas de acesso disponíveis:</h4>
+        <ul>
+            <li><code>1</code> — Página Inicial</li>
+            <li><code>2</code> — Busca</li>
+            <li><code>3</code> — Menu Principal</li>
+            <li><code>4</code> — Conteúdo</li>
+            <li><code>5</code> — Rodapé</li>
+            <li><code>S</code> — Sair</li>
+            <li><code>A</code> — Acessibilidade</li>
+            <li><code>C</code> — Abrir Chamado</li>
+        </ul>
+    {% endbox %}
+
+    {% box "Validação" %}
+        <p>O SUAP é construído com HTML 5 e CSS 3 conforme as especificações propostas pela W3C.</p>
+        <p>Nós temos nos esforçado para alcançar o nivel AA de acessibilidade como mencionado na versão 2.0 das WCAG. Nós estamos cientes, entretanto, que alguns pontos das WCAG são subjetivos, existindo casos em que a interpretação pode variar.</p>
+    {% endbox %}
+
+{% endblock %}

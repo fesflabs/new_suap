@@ -1,0 +1,46 @@
+Coordenador de Edital:
+  eleicao:
+    candidato:
+    - add_candidato
+    - view_candidato
+    - change_candidato
+    - validar_candidato
+    chapa:
+    - add_chapa
+    - view_chapa
+    - change_chapa
+    - validar_chapa
+    edital:
+    - view_edital
+    - change_edital
+    eleicao:
+    - add_eleicao
+    - view_eleicao
+    - change_eleicao
+    - delete_eleicao
+    voto:
+    - validar_voto
+Criador de Eleição:
+  eleicao:
+    candidato:
+    - add_candidato
+    - view_candidato
+    - change_candidato
+    - validar_candidato
+    chapa:
+    - add_chapa
+    - view_chapa
+    - change_chapa
+    - validar_chapa
+    edital:
+    - view_edital
+    - change_edital
+    - add_edital
+    - delete_edital
+    eleicao:
+    - add_eleicao
+    - view_eleicao
+    - change_eleicao
+    - delete_eleicao
+    voto:
+    - validar_voto

@@ -1,0 +1,24 @@
+{% if pode_ver_anotacoes_interdisciplinares %}
+    {% if anotacoes_disciplinares.exists %}
+        <table>
+            <thead>
+            <tr>
+                <th>Anotação</th>
+                <th>Data</th>
+                <th>Responsável</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for anotacao in anotacoes_disciplinares %}
+                <tr>
+                    <td>{{ anotacao.anotacao }}</td>
+                    <td>{{ anotacao.data }}</td>
+                    <td>{{ anotacao.profissional }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhuma anotação registrada.</p>
+    {% endif %}
+{% endif %}

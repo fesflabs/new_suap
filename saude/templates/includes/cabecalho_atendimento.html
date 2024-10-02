@@ -1,0 +1,68 @@
+{% box "Dados Gerais" %}
+    <div class="photo-circle big">
+        <img alt="{{ atendimento.prontuario.vinculo.pessoa.nome_usual }}" src="{{ atendimento.prontuario.vinculo.pessoa.get_foto_75x100_url }}" />
+    </div>
+    <dl class="definition-list flex">
+        <div class="list-item flex-basis-50">
+            <dt>Paciente</dt>
+            {% if atendimento.aluno %}
+                <dd><a href="/edu/aluno/{{ atendimento.get_vinculo.matricula }}/">{{ atendimento.get_vinculo }}</a></dd>
+            {% elif atendimento.servidor %}
+                <dd><a href="/rh/servidor/{{ atendimento.get_vinculo.matricula }}/">{{ atendimento.get_vinculo }}</a></dd>
+            {% else %}
+                <dd>{{ atendimento.get_vinculo }}</dd>
+            {% endif %}
+        </div>
+        <div class="list-item">
+            <dt>Vínculo</dt>
+            <dd>{{ atendimento.get_vinculo_title }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Sexo</dt>
+            <dd>
+                {% if atendimento.prontuario.vinculo.pessoa.pessoafisica.sexo == "M" %}
+                    Masculino
+                {% else %}
+                    Feminino
+                {% endif %}
+            </dd>
+        </div>
+        {% if not atendimento.prontuario.vinculo.pessoa.pessoafisica.idade == "-" %}
+            <div class="list-item">
+                <dt>Idade</dt>
+                <dd>{{ atendimento.prontuario.vinculo.pessoa.pessoafisica.idade }} anos</dd>
+            </div>
+        {% endif %}
+        {% if atendimento.aluno %}
+            <div class="list-item flex-basis-50">
+                <dt>Curso/Campus</dt>
+                <dd>{{ atendimento.get_vinculo.curso_campus }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Situação do Aluno</dt>
+                <dd>{{ atendimento.get_vinculo.situacao }}</dd>
+            </div>
+            {% if eh_psicologia %}
+                <div class="list-item">
+                    <dt>Endereço</dt>
+                    <dd>{{ atendimento.get_vinculo.get_endereco }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Telefone</dt>
+                    <dd>{{ atendimento.get_vinculo.get_telefones }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Raça</dt>
+                    <dd>{{ atendimento.prontuario.vinculo.pessoa.pessoafisica.raca|format }}</dd>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if atendimento.aluno and programas %}
+            <div class="list-item flex-basis-100">
+                <dt>Programas de Assistência Estudantil que participa</dt>
+                {% for programa in programas %}<dd>{{ programa.programa }}</dd>{% endfor %}
+            </tr>
+        {% endif %}
+    </dl>
+{% endbox %}

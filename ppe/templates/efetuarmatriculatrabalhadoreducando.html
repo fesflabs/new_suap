@@ -1,0 +1,78 @@
+{% extends super_template %}
+
+{% block content %}
+    <ul class="action-bar">
+        {% if not candidato_vaga_id %}
+            {% help_button %}
+        {% endif %}
+    </ul>
+    {% if alerta %}
+        <div class="msg alert">
+            {{ alerta }}
+        </div>
+    {% endif %}
+
+    {% render_form form %}
+
+    <script>
+        $('#id_nacionalidade').change(function () {
+            configureCpfPassaporte(this);
+        });
+
+        function configureCpfPassaporte(nacionalidade) {
+            if ($(nacionalidade).val() == 'Estrangeira') {
+                $('#id_cpf').val('');
+                $('#id_cpf').parent().parent().hide();
+                $('#id_passaporte').parent().parent().show();
+            } else {
+                $('#id_passaporte').val('');
+                $('#id_cpf').parent().parent().show();
+                $('#id_passaporte').parent().parent().hide();
+            }
+        }
+
+        configureCpfPassaporte('#id_nacionalidade');
+
+        function configurePne(valor) {
+            if (valor == 'Sim') {
+                $('#id_tipo_necessidade_especial').parent().parent().show();
+                $('#id_tipo_transtorno').parent().parent().show();
+                $('#id_superdotacao').parent().parent().show();
+            } else {
+                $('#id_tipo_necessidade_especial').parent().parent().hide();
+                $('#id_tipo_transtorno').parent().parent().hide();
+                $('#id_superdotacao').parent().parent().hide();
+            }
+        }
+
+        $('#id_tipo_necessidade_especial').parent().parent().hide();
+        $('#id_tipo_transtorno').parent().parent().hide();
+        $('#id_superdotacao').parent().parent().hide();
+        $('#id_aluno_pne').change(function () {
+            configurePne($(this).val());
+        });
+        configurePne($('#id_aluno_pne').val());
+
+        function configureUtilizaTransporteEscolarPublico(valor) {
+            if (valor == 'Sim') {
+                $('#id_poder_publico_responsavel_transporte').parent().parent().show();
+                $('#id_tipo_veiculo').parent().parent().show();
+            } else {
+                $('#id_poder_publico_responsavel_transporte').parent().parent().hide();
+                $('#id_tipo_veiculo').parent().parent().hide();
+            }
+        }
+        $('#id_poder_publico_responsavel_transporte').parent().parent().hide();
+        $('#id_tipo_veiculo').parent().parent().hide();
+        $('#id_utiliza_transporte_escolar_publico').change(function () {
+            configureUtilizaTransporteEscolarPublico($(this).val());
+        });
+        configureUtilizaTransporteEscolarPublico($('#id_utiliza_transporte_escolar_publico').val());
+
+        
+        $( document ).ready(function() {
+            initCepWidget('#id_cep');
+        });
+    </script>
+
+{% endblock %}

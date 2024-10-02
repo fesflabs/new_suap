@@ -1,0 +1,121 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="724" measuredH="504" mockupW="695" mockupH="495">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="29" y="9" w="257" h="361" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="51" y="90" w="-1" h="-1" measuredW="220" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20In%EDcio%2C%20Turmas%2C%2020141.1.091012.1V%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::TabBar" x="51" y="229" w="220" h="100" measuredW="175" measuredH="100" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Di%E1rios%2C%20Alunos</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::FieldSet" x="51" y="140" w="220" h="77" measuredW="200" measuredH="170" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dados%20Gerais</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="49" y="114" w="-1" h="-1" measuredW="144" measuredH="26" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>20141.1.091012.1V</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::StickyNote" x="57" y="159" w="206" h="51" measuredW="109" measuredH="123" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Manter%20os%20dados%20existentes.</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Arrow" x="160" y="24" w="210" h="220" measuredW="150" measuredH="100" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::TabBar" x="294" y="9" w="430" h="495" measuredW="175" measuredH="100" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Di%E1rios%2C%20Alunos</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="__group__" x="319" y="299" w="373" h="187" measuredW="373" measuredH="187" zOrder="9" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="__group__" x="0" y="0" w="373" h="187" measuredW="373" measuredH="187" zOrder="0" locked="false" isInGroup="71">
+          <groupChildrenDescriptors>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="15" y="26" w="343" h="81" measuredW="356" measuredH="97" zOrder="1" locked="false" isInGroup="0">
+              <controlProperties>
+                <text>%5B%5D%2C%20Matricula%20%5Ev%2C%20Nome%20%5Ev%2C%20H%E1%20notas%5Crlan%E7adas%0A%5B%5D%2C%20201410910120015%2C%20Aldeir%20Felipe%20Torres%2C%20Sim%0A%5B%5D%2C%20201410910120016%2C%20Aldemir%20Guedes%20G%EAgo%2C%20N%E3o%20</text>
+              </controlProperties>
+            </control>
+            <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="8" y="145" w="201" h="27" measuredW="201" measuredH="27" zOrder="2" locked="false" isInGroup="0">
+              <controlProperties>
+                <text>Remover%20Alunos%20Selecionados</text>
+              </controlProperties>
+            </control>
+            <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="15" y="109" w="171" h="-1" measuredW="171" measuredH="21" zOrder="3" locked="false" isInGroup="0">
+              <controlProperties>
+                <text>1%202%203%204%20Mostrando%2040%20Alunos</text>
+              </controlProperties>
+            </control>
+            <control controlID="5" controlTypeID="com.balsamiq.mockups::FieldSet" x="0" y="0" w="373" h="187" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="0">
+              <controlProperties>
+                <text>Alunos%20da%20turma</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="72" controlTypeID="__group__" x="319" y="63" w="373" h="224" measuredW="373" measuredH="224" zOrder="8" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::FieldSet" x="0" y="0" w="373" h="224" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>Alunos%20sem%20turmas</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="15" y="72" w="266" h="81" measuredW="266" measuredH="81" zOrder="1" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>%5B%5D%2C%20Matricula%20%20%5Ev%2C%20Nome%20%5Ev%0A%5B%5D%2C%20201410910120002%2C%20Andr%E9%20Luiz%20Nobre%0A%20</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="15" y="182" w="208" h="27" measuredW="208" measuredH="27" zOrder="2" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>Matricular%20Alunos%20Selecionados</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="15" y="33" w="-1" h="-1" measuredW="36" measuredH="21" zOrder="3" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>Turno%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::ComboBox" x="59" y="31" w="-1" h="-1" measuredW="93" measuredH="24" zOrder="4" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>Vespertino</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="160" y="30" w="-1" h="-1" measuredW="56" measuredH="27" zOrder="5" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>Filtrar</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="15" y="153" w="-1" h="-1" measuredW="171" measuredH="21" zOrder="6" locked="false" isInGroup="72">
+          <controlProperties>
+            <text>1%202%203%204%20Mostrando%2040%20Alunos</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::StickyNote" x="29" y="398" w="230" h="63" measuredW="109" measuredH="123" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ver%20componente%20AjaxMultiSelect.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

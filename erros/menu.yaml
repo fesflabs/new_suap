@@ -1,0 +1,4 @@
+Tec. da Informação::Desenvolvimento::Erros:
+  permissions_required:
+  - erros.view_erro
+  url: /erros/areas/

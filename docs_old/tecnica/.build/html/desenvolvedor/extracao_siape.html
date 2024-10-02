@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Extração dos arquivos do SIAPE &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../suap.html">SUAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Extração dos arquivos do SIAPE</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <section id="extracao-dos-arquivos-do-siape">
+<span id="suap-desenvolvedor-extracao-siape"></span><h1>Extração dos arquivos do SIAPE<a class="headerlink" href="#extracao-dos-arquivos-do-siape" title="Link permanente para este título">¶</a></h1>
+<p>A extração dos arquivos do SIAPE é feita acessando o <a class="reference external" href="http://acesso.serpro.gov.br/">Serviço de Emulação do Serpro</a></p>
+<p>Antes de prosseguir, é interessante ler o Manual do Usuário do Extrator de Dados – SIAPE, disponível para download (apenas usuários do sistema) no Portal Siapenet para familizarizar-se com a utilização da extração. Como resultado da extração, são gerados dois tipos de arquivos. Um tipo de arquivo com extensão TXT e outro com extensão REF. Os arquivos TXT contém todos os dados extraídos propriamente ditos. Os arquivos REF, possuem os metadados, isto é, a descrição do layout de como as informações estão distribuídas nos arquivos TXT.</p>
+<p>Devido às limitações de acesso ao SIAPE e a quantidade de servidores presente nas instituições, dividimos a extração semanal em vários arquivos.</p>
+<section id="extracao-siape">
+<h2>Extração SIAPE<a class="headerlink" href="#extracao-siape" title="Link permanente para este título">¶</a></h2>
+<p>Durante a extração, serão adquiridos os dados para que  todas as tabelas da base do SUAP sejam preenchidas, permitindo precisão em todos os relatórios estatísticos e quantitativos da aplicação RH.</p>
+<dl class="simple">
+<dt>É possível realizar a extração completa dos dados do SIAPE Executando a macro de extração completa, _macro_siape.mac_. Esta macro é obtida acessando o SUAP com um superusuário, clicando em:</dt><dd><p>_Administração –&gt; Baixar Macro <a href="#id1"><span class="problematic" id="id2">SIAPE_</span></a> no menu lateral direito.</p>
+</dd>
+</dl>
+<p>Além dos dados importados a partir dessa extração, também existem os dados de Contra-cheque, que são obtidos através da Fita-Espelho.</p>
+<section id="executando-a-macro">
+<h3>Executando a macro<a class="headerlink" href="#executando-a-macro" title="Link permanente para este título">¶</a></h3>
+<p>Uma macro Host On-Demand é um script XML que permite a um cliente HOD interagir automaticamente com um aplicativo rodando na sessão de emulador de terminal SIAPE. Uma macro HOD geralmente é escrita para realizar uma tarefa específica ou conjunto de tarefas no terminal.</p>
+<p>A _macro_siape.mac_ foi escrita para extrair os dados das tabelas contidas no processo de extração completa do SIAPE. Automatizando, desta forma, o processo de extração de dados dos servidores da instituição.</p>
+<p>Para rodar a macro no emulador de terminal SIAPE, execute os seguintes passos:</p>
+<ul class="simple">
+<li><p>Acesse o HOD da rede SERPRO em <a class="reference external" href="http://acesso.serpro.gov.br">http://acesso.serpro.gov.br</a></p></li>
+<li><p>Clique em Acesso ao HOD, no menu superior direito</p></li>
+<li><p>Informe CPF e senha de acesso</p></li>
+<li><p>Será aberto um terminal java em que deverá ser informado, novamente, usuário, senha e o sistema que deseja acessar.</p></li>
+<li><p>Escolha a aplicação EXCOEXARQ que realiza consulta e extração de arquivos no terminal.</p></li>
+<li><p>Na próxima tela, comece a executar a macro, clicando no ícone verde na barra superior do sistema correspondente ao circulado na figura abaixo:</p></li>
+</ul>
+<p><a class="reference external" href="https://bitbucket.org/ifrn/suap/downloads/Terminal3.png">Botao para Execução da macro</a></p>
+<ul class="simple">
+<li><p>Escolha o arquivo .mac baixado do SUAP para ser executado e aguarde o fim da execução.</p></li>
+</ul>
+<p>Após feita a extração, será necessário baixar os arquivos gerados, conforme abaixo.</p>
+</section>
+<section id="baixando-os-arquivos">
+<h3>Baixando os arquivos<a class="headerlink" href="#baixando-os-arquivos" title="Link permanente para este título">¶</a></h3>
+<p><strong>OPÇAO 1 - Quem ainda não tem TOKEN SIAPE</strong></p>
+<ul class="simple">
+<li><p>abra o terminal na pasta do suap e execute o comando:</p></li>
+</ul>
+<p><em>python manage.py rh_baixar_arquivos_siape</em></p>
+<p>Lembre-se que para o comando funcionar é necessário que o suap esteja corretamente configurado.</p>
+<p><strong>OPÇÃO 2 - ARQUIVOS ZIPADOS VIA SUAP</strong></p>
+<ul class="simple">
+<li><p>Entre no [Portal Siapenet](siapenet.gov.br) com seu token</p></li>
+<li><p>Clique no menu do lado esquerdo obtenção e envio de arquivos</p></li>
+<li><p>Escolha a opção arquivos extrator</p></li>
+<li><p>Baixe os arquivos em uma pasta e compacte-os no formato “.zip”</p></li>
+<li><p>Entre no SUAP na opção de configurações (permitida pra quem é ADMIN no SUAP)</p></li>
+<li><p>Clique no link “Upload Arquivos Extrator”</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

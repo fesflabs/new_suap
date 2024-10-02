@@ -1,0 +1,6 @@
+{% for message in messages %}
+    <p class="{{ classe }}{% if message.tags %} {{ message.tags }}{% endif %}"{% if id %} id="{{ id }}"{% endif %}>
+        {{ message|safe_message }}
+    </p>
+{% endfor %}
+

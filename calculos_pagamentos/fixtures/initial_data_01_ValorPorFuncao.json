@@ -1,0 +1,662 @@
+[
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 1,
+    "fields": {
+        "funcao": 1,
+        "valor": "7385.53",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 2,
+    "fields": {
+        "funcao": 2,
+        "valor": "6173.84",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 3,
+    "fields": {
+        "funcao": 3,
+        "valor": "4846.70",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 4,
+    "fields": {
+        "funcao": 4,
+        "valor": "3519.66",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 5,
+    "fields": {
+        "funcao": 5,
+        "valor": "891.17",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 6,
+    "fields": {
+        "funcao": 6,
+        "valor": "599.55",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 7,
+    "fields": {
+        "funcao": 7,
+        "valor": "486.07",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 8,
+    "fields": {
+        "funcao": 8,
+        "valor": "247.42",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 9,
+    "fields": {
+        "funcao": 9,
+        "valor": "200.76",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 10,
+    "fields": {
+        "funcao": 10,
+        "valor": "147.21",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 11,
+    "fields": {
+        "funcao": 11,
+        "valor": "93.88",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 12,
+    "fields": {
+        "funcao": 12,
+        "valor": "69.44",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 13,
+    "fields": {
+        "funcao": 13,
+        "valor": "56.34",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 14,
+    "fields": {
+        "funcao": 14,
+        "valor": "898.17",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 15,
+    "fields": {
+        "funcao": 1,
+        "valor": "7033.83",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 16,
+    "fields": {
+        "funcao": 2,
+        "valor": "5879.85",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 17,
+    "fields": {
+        "funcao": 3,
+        "valor": "4615.96",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 18,
+    "fields": {
+        "funcao": 4,
+        "valor": "3352.06",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 19,
+    "fields": {
+        "funcao": 5,
+        "valor": "848.74",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 20,
+    "fields": {
+        "funcao": 6,
+        "valor": "571.00",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 21,
+    "fields": {
+        "funcao": 7,
+        "valor": "462.92",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 22,
+    "fields": {
+        "funcao": 8,
+        "valor": "235.63",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 23,
+    "fields": {
+        "funcao": 9,
+        "valor": "191.20",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 24,
+    "fields": {
+        "funcao": 10,
+        "valor": "140.20",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 25,
+    "fields": {
+        "funcao": 11,
+        "valor": "89.41",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 26,
+    "fields": {
+        "funcao": 12,
+        "valor": "66.14",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 27,
+    "fields": {
+        "funcao": 13,
+        "valor": "53.66",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 28,
+    "fields": {
+        "funcao": 1,
+        "valor": "6677.14",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 29,
+    "fields": {
+        "funcao": 2,
+        "valor": "5573.31",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 30,
+    "fields": {
+        "funcao": 3,
+        "valor": "4375.31",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 31,
+    "fields": {
+        "funcao": 4,
+        "valor": "3177.30",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 32,
+    "fields": {
+        "funcao": 5,
+        "valor": "804.49",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 33,
+    "fields": {
+        "funcao": 6,
+        "valor": "541.23",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 34,
+    "fields": {
+        "funcao": 7,
+        "valor": "438.79",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 35,
+    "fields": {
+        "funcao": 8,
+        "valor": "223.35",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 36,
+    "fields": {
+        "funcao": 9,
+        "valor": "181.23",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 37,
+    "fields": {
+        "funcao": 10,
+        "valor": "132.89",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 38,
+    "fields": {
+        "funcao": 11,
+        "valor": "84.75",
+        "data_inicio": null,
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 39,
+    "fields": {
+        "funcao": 1,
+        "valor": "7736.33",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 40,
+    "fields": {
+        "funcao": 2,
+        "valor": "6467.10",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 41,
+    "fields": {
+        "funcao": 3,
+        "valor": "5076.97",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 42,
+    "fields": {
+        "funcao": 4,
+        "valor": "3686.84",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 43,
+    "fields": {
+        "funcao": 5,
+        "valor": "933.50",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 44,
+    "fields": {
+        "funcao": 6,
+        "valor": "628.03",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 45,
+    "fields": {
+        "funcao": 7,
+        "valor": "509.16",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 46,
+    "fields": {
+        "funcao": 8,
+        "valor": "259.16",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 47,
+    "fields": {
+        "funcao": 9,
+        "valor": "210.30",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 48,
+    "fields": {
+        "funcao": 10,
+        "valor": "154.20",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 49,
+    "fields": {
+        "funcao": 11,
+        "valor": "98.34",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 50,
+    "fields": {
+        "funcao": 12,
+        "valor": "72.74",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 51,
+    "fields": {
+        "funcao": 13,
+        "valor": "59.02",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 52,
+    "fields": {
+        "funcao": 14,
+        "valor": "940.84",
+        "data_inicio": "2018-01-01",
+        "data_fim": "2018-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 53,
+    "fields": {
+        "funcao": 1,
+        "valor": "8084.47",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 54,
+    "fields": {
+        "funcao": 2,
+        "valor": "6758.12",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 55,
+    "fields": {
+        "funcao": 3,
+        "valor": "5305.43",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 56,
+    "fields": {
+        "funcao": 4,
+        "valor": "3852.76",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 57,
+    "fields": {
+        "funcao": 5,
+        "valor": "975.51",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 58,
+    "fields": {
+        "funcao": 6,
+        "valor": "656.28",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 59,
+    "fields": {
+        "funcao": 7,
+        "valor": "532.07",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 60,
+    "fields": {
+        "funcao": 8,
+        "valor": "270.83",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 61,
+    "fields": {
+        "funcao": 9,
+        "valor": "219.75",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 62,
+    "fields": {
+        "funcao": 10,
+        "valor": "161.14",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 63,
+    "fields": {
+        "funcao": 11,
+        "valor": "102.76",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 64,
+    "fields": {
+        "funcao": 12,
+        "valor": "76.02",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 65,
+    "fields": {
+        "funcao": 13,
+        "valor": "61.67",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorporfuncao",
+    "pk": 66,
+    "fields": {
+        "funcao": 14,
+        "valor": "983.18",
+        "data_inicio": "2019-01-01",
+        "data_fim": null
+    }
+}
+]

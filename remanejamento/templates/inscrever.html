@@ -1,0 +1,69 @@
+{% extends super_template %}
+
+{% block media %}
+	{{ form.media }}
+{% endblock %}
+
+{% block action-bar %}
+{% if edital.url %}
+    <ul class="action-bar">
+        <li><a href="{{ edital.url }}" class="btn confirm" data-confirm="Você será redirecionado para outra página. Continuar?">Mais Informações</a></li>
+    </ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<dl class="definition-list flex">
+	<div class="list-item flex-basis-100">
+		<dt>Edital</dt>
+		<dd>{{ edital.titulo }}</dd>
+	</div>
+	<div class="list-item flex-basis-100">
+		<dt>Descrição</dt>
+		<dd>{{ edital.descricao }}</dd>
+	</div>
+	<div class="list-item">
+		<dt>Servidor</dt>
+		<dd>{{ user.get_relacionamento }}</dd>
+	</div>
+	<div class="list-item">
+		<dt>Cargo</dt>
+		<dd>{{ user.get_relacionamento.cargo_emprego }}</dd>
+	</div>
+	<div class="list-item">
+		<dt>Data de Nascimento</dt>
+		<dd>{{ user.get_profile.pessoafisica.nascimento_data|date:"d/m/Y" }}</dd>
+	</div>
+	<div class="list-item">
+		<dt>Campus de Lotação Atual</dt>
+		<dd>{{ user.get_relacionamento.setor_lotacao.uo.equivalente }}</dd>
+	</div>
+	<div class="list-item">
+		<dt>Jornada de Trabalho</dt>
+		<dd>{{ user.get_relacionamento.jornada_trabalho }}</dd>
+	</div>
+	<div class="list-item">
+		<dt>Início de Serviço na Instituição</dt>
+		<dd>{{ user.get_relacionamento.data_inicio_exercicio_na_instituicao }}</dd>
+	</div>
+</dl>
+
+<div class="msg alert">
+	<p><strong>Atenção:</strong></p>
+	<p>Caso seja feita uma nova inscrição para a MESMA DISCIPLINA, as anteriores serão CANCELADAS automaticamente.</p>
+	<p>
+		Na seção "Ordens de preferência por campus", o seu campus de lotação
+		atual ({{ user.get_relacionamento.setor_lotacao.uo.equivalente }})
+		será exibido, no entanto só deve ser escolhido nos casos de exercício provisório (ex. UEP/PAAS e UEP/LAJ). 
+		Ainda na seção em questão, só informe preferência para os campi para os quais deseja ser remanejado, 
+		mesmo que não tenham vagas disponíveis no edital, eles poderão abrir vagas durante 
+		o processo de remanejamento.
+    </p>
+</div>
+
+{% if form %}
+	{% render_form form %}
+{% endif %}
+
+{% endblock %}

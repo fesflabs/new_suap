@@ -1,0 +1,74 @@
+{% if diplomas.exists %}
+    {% box 'Histórico de Emissão' %}
+        <p class="msg info">Antes de buscar seu diploma/certificado, entre em contato com o <i>campus</i> para saber se
+            o mesmo já foi assinado.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Registro</th>
+                <th>Livro</th>
+                <th>Folha</th>
+                <th>Data de Expedição</th>
+                <th>Processo</th>
+                <th>Nº Pasta Arquivo Geral</th>
+                {% if obj.requer_autenticacao_sistec_para_emissao_diploma %}
+                    <th>Autenticação SISTEC</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for registro in diplomas %}
+                <tr>
+                    <td>
+                        {% if perms.view_registroemissaodiploma %}
+                            <a href="/edu/registroemissaodiploma/{{ registro.pk }}/">{{ registro.numero_registro }}</a>
+                        {% else %}
+                            {{ registro.numero_registro }}
+                        {% endif %}
+                    </td>
+                    <td>{{ registro.get_livro }}</td>
+                    <td>{{ registro.folha }}</td>
+                    <td>{{ registro.data_expedicao|format }}</td>
+                    <td>{{ registro.processo }}</td>
+                    <td>{{ registro.pasta|format }}</td>
+                    {% if obj.requer_autenticacao_sistec_para_emissao_diploma %}
+                        <td>{{ registro.autenticacao_sistec|format }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+{% else %}
+    <p class="msg alert">Nenhum registro de emissão de diplomas e certificados cadastrado até o momento.</p>
+{% endif %}
+
+{% if obj.certificadodiploma_set.exists %}
+    {% box 'Certificados de Conclusão' %}
+        <table>
+            <thead>
+            <tr>
+                <th>Processo</th>
+                <th>Validade</th>
+                <th class="no-print">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for certidao in obj.certificadodiploma_set.all %}
+                <tr>
+                    <td>{{ certidao.processo|format }}</td>
+                    <td>{{ certidao.validade|format }}</td>
+                    <td class="no-print">
+                         <ul class="action-bar inner-action-bar">
+                            <li>
+                                <a target="_blank" class="btn" href="/edu/certificado_diploma_pdf/{{ certidao.pk }}/" title="Imprimir">Imprimir</a>
+                            </li>
+                         </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+{% endif %}

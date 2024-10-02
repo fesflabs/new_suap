@@ -1,0 +1,106 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% box 'Dados Gerais' %}
+        <div class="photo-circle big">
+            <img src="{{ trabalhadoreducando.get_foto_150x200_url }}" alt="Foto de {{ trabalhadoreducando.get_nome }}">
+        </div>
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-50">
+                <dt>Nome</dt>
+                <dd>{{ trabalhadoreducando.get_nome|normalizar }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Matrícula</dt>
+                <dd>{{ trabalhadoreducando.matricula }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Turma</dt>
+                <dd>
+                    {% if perms.ppe.view_turma and trabalhadoreducando.turma %}
+                        <a href="/ppe/turma/{{ trabalhadoreducando.turma.pk }}/" title="Visualizar a Turma">
+                    {% endif %}
+                    {{ trabalhadoreducando.turma|format }}
+                    {% if perms.ppe.view_turma and trabalhadoreducando.turma %}
+                        </a>
+                    {% endif %}
+                </dd>
+            </div>
+
+            <div class="list-item">
+                <dt>Formação PPE</dt>
+                <dd>
+                    {% if perms.ppe.view_formacaoppe and trabalhadoreducando.formacao %}
+                        <a href="/ppe/formacaoppe/{{ trabalhadoreducando.formacao.pk }}/" title="Visualizar a Formação">
+                    {% endif %}
+                    {{ trabalhadoreducando.formacao|format }}
+                    {% if perms.ppe.view_formacaoppe and trabalhadoreducando.formacao %}
+                        </a>
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>CPF</dt>
+                <dd>{% if pode_ver_cpf %}{{ trabalhadoreducando.pessoa_fisica.cpf|format }}{% else %}***.****.***-**{% endif %}</dd>
+            </div>
+            {% if trabalhadoreducando.pessoa_fisica.nome_social %}
+                <div class="list-item">
+                    <dt>Nome no Registro</dt>
+                    <dd>{{ trabalhadoreducando.pessoa_fisica.nome_registro|format|normalizar }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+    {% box '' %}
+        {% for tipo, componentes in cursos_trabalhador_educando.grupos_cursos.items %}
+            {% box '{{ tipo }}' %}
+                {% if componentes %}
+                    <div class="table-responsive">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colspan="4" class="text-center">Curso</th>
+                            <th rowspan="2" class="text-center">C.H.</th>
+                            <th rowspan="2" class="text-center">Situação</th>
+                            <th rowspan="2" class="text-center">Ações</th>
+                        </tr>
+                        <tr>
+                            <th>Código</th>
+                            <th colspan="3">Descrição</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for componente_curricular in componentes %}
+                            <tr>
+                                <td class="text-center">{{ componente_curricular.sigla_componente|format }}</td>
+                                <td colspan="3">
+                                    {{ componente_curricular.descricao_componente|format }}
+                                </td>
+                                <td class="text-center">{{ componente_curricular.carga_horaria|format }}</td>
+                                <td class="text-center">{{ componente_curricular.situacao_display|format }}</td>
+                                <td>
+                                    {% if not componente_curricular.mct.get_situacao_is_aprovado %}
+                                    -
+                                    {% else %}
+                                    <ul>
+                                        <li><a target="_blank" class="default" href="/ppe/certconclusaoporcursoppe_pdf/{{ componente_curricular.mct.pk }}/">Visualizar Certificado</a></li>
+                                    </ul>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                {% else %}
+                    <p class="msg alert">Nenhum registro encontrado.</p>
+                {% endif %}
+            {% endbox %}
+        {% endfor %}
+    {% endbox %}
+{% endblock %}

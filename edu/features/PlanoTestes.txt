@@ -1,0 +1,57 @@
+Plano de testes para o módulo edu.
+------------------------------------------------------------------------------------------------------------------------
+
+Estrutura administrativa necessária:
+====================================
+
+                   RAIZ                       - RE
+           +---------+---------+
+          CEN                 CZN             - Campus
+           |                   |
+       DIAC/CEN             DIAC/CZN          - Diretoria Acadêmica
+
+
+Usuários envolvidos:
+====================
+
+| Usuário                 | Lotação  | Grupo                                      |
+| Administrador Acadêmico | DIAC/CEN | Administrador Acadêmico                    |
+| Servidor SA             | DIAC/CEN | Secretário Acadêmico                       |
+| Servidor DG             | DIAC/CEN | Diretor Geral                              |
+| Servidor DA             | DIAC/CEN | Diretor Acadêmico                          |
+| Servidor CC             | DIAC/CEN | Coordenador de Curso                       |
+| Servidor CRA            | DIAC/CEN | Coordenador de Registros Acadêmicos        |
+| Servidor P              | DIAC/CEN | Professor                                  |
+| Servidor Op Enade       | RAIZ     | Operador ENADE                             |
+| Servidor DARE           | RAIZ     | Diretor de Avaliação e Regulação do Ensino |
+
+
+Fluxo das etapas
+================
+
+001. Configurações em diretoria acadêmica
+
+002. Configuração de curso no regime modular
+
+003. Configuração de turmas e diários
+
+004. Matrícula de aluno em curso e diários
+
+005. Funcionalidades do professor
+
+006. Fechamento de período letivo do aluno
+
+007. Renovação de matrícula do aluno
+
+008. Funcionalidades do aluno
+
+009. Requisitos para conclusão do aluno
+
+010. Configuração de curso no regime crédito
+
+011. Validação de pré e co requisitos na matrícula do aluno
+
+012. ENADE
+
+
+

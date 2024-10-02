@@ -1,0 +1,37 @@
+Coordenador Competições Desportivas Campus:
+  temp_rh2:
+    competicaodesportiva:
+    - view_competicaodesportiva
+    inscricaocompeticaodesportiva:
+    - view_inscricaocompeticaodesportiva
+    - pode_validar_inscricaocompeticaodesportiva
+    modalidadedesportiva:
+    - view_modalidadedesportiva
+Coordenador de Competições Desportivas Sistêmico:
+  temp_rh2:
+    categoria:
+    - view_categoria
+    - add_categoria
+    - change_categoria
+    - delete_categoria
+    competicaodesportiva:
+    - view_competicaodesportiva
+    - add_competicaodesportiva
+    - change_competicaodesportiva
+    - delete_competicaodesportiva
+    inscricaocompeticaodesportiva:
+    - view_inscricaocompeticaodesportiva
+    - add_inscricaocompeticaodesportiva
+    - change_inscricaocompeticaodesportiva
+    - delete_inscricaocompeticaodesportiva
+    - pode_validar_inscricaocompeticaodesportiva
+    modalidadedesportiva:
+    - view_modalidadedesportiva
+    - add_modalidadedesportiva
+    - change_modalidadedesportiva
+    - delete_modalidadedesportiva
+Servidor:
+  app_manager: rh
+  temp_rh2:
+    inscricaocompeticaodesportiva:
+    - view_inscricaocompeticaodesportiva

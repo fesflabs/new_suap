@@ -1,0 +1,29 @@
+<div class="inline-related" data-formset-form>
+    <h3>
+        <b>Solicitação Complementar #{{ index }}</b>
+        {% if form.DELETE %}
+            <span>
+                <div class="hidden">{{ form.DELETE }}</div>
+                <a type="button" data-formset-delete-button class="inline-deletelink">
+                    Remover solicitação
+                </a>
+            </span>
+        {% endif %}
+    </h3>
+    <fieldset class="module">
+        <div class="form-row">
+            <div class="field-box">
+                {{ form.ordem.errors }}
+                <label>Ordem:</label>
+                {{ form.ordem }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="field-box">
+                {{ form.solicitacao.errors }}
+                <label>Pessoa: </label>
+                {{ form.solicitacao }}
+            </div>
+        </div>
+    </fieldset>
+</div>

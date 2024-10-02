@@ -1,0 +1,74 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="963" measuredH="482" mockupW="920" mockupH="467">
+  <controls>
+    <control controlID="3184" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="43" y="15" w="920" h="467" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="3185" controlTypeID="com.balsamiq.mockups::SubTitle" x="61" y="104" w="-1" h="-1" measuredW="507" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lista%20de%20Chamados%20-%20Visualizado%20pelo%20Suporte</text>
+      </controlProperties>
+    </control>
+    <control controlID="3186" controlTypeID="com.balsamiq.mockups::FieldSet" x="61" y="212" w="884" h="201" measuredW="200" measuredH="170" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="3187" controlTypeID="com.balsamiq.mockups::DataGrid" x="65" y="231" w="-1" h="-1" measuredW="865" measuredH="111" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Servi%E7o%2C%20Em%20nome%20de%2C%20Solicitante%2C%20Atribuido%20a%2C%20Aberto%20em%2C%20Tempo%20Restante%2C%20Status%2C%20Autorizado%0ACria%E7%E3o%20de%20Conta%20de%20Email%2C%20Sicrano%20de%20Tal%2C%20Fulano%20de%20Tal%2C%20Atendente%2001%2C%2026/06/2014%2009%3A00%2C%20Limite%2C%20Em%20Aberto%2C%20%5Bx%5D%0ATroca%20de%20m%E1quina%2C%20Sicrano%20de%20Tal%2C%20Fulano%20de%20Tal%2C%20Atendente%2001%2C%2026/06/2014%2008%3A30%2C%20-01%3A30%2C%20Em%20Aberto%2C%20%5Bx%5D%0AInstala%E7%E3o%20de%20software%2C%20Sicrano%20de%20Tal%2C%20Fulano%20de%20Tal%2C%20-%2C%2025/06/2014%2009%3A00%2C%20-%20%2C%20Ag.%20Autoriza%E7%E3o%2C%20%5B%20%5D%0A%7B65L%2C%200L%2C%200L%2C%200C%2C%200C%2C%200C%2C%200C%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="3188" controlTypeID="com.balsamiq.mockups::ComboBox" x="284" y="163" w="224" h="-1" measuredW="119" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Suporte%20N%EDvel%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="3189" controlTypeID="com.balsamiq.mockups::ComboBox" x="61" y="163" w="214" h="-1" measuredW="116" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Natal%20-%20Central</text>
+      </controlProperties>
+    </control>
+    <control controlID="3190" controlTypeID="com.balsamiq.mockups::Label" x="61" y="144" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Campus</text>
+      </controlProperties>
+    </control>
+    <control controlID="3191" controlTypeID="com.balsamiq.mockups::Label" x="284" y="144" w="-1" h="-1" measuredW="132" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Grupo%20de%20Atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="3192" controlTypeID="com.balsamiq.mockups::ButtonBar" x="61" y="196" w="-1" h="-1" measuredW="361" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Em%20aberto%2C%20Em%20atendimento%2C%20Resolvido%2C%20Fechado</text>
+      </controlProperties>
+    </control>
+    <control controlID="3193" controlTypeID="com.balsamiq.mockups::Button" x="863" y="162" w="-1" h="-1" measuredW="82" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pesquisar</text>
+      </controlProperties>
+    </control>
+    <control controlID="3194" controlTypeID="com.balsamiq.mockups::Button" x="62" y="416" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Button</text>
+      </controlProperties>
+    </control>
+    <control controlID="3195" controlTypeID="com.balsamiq.mockups::CheckBox" x="617" y="164" w="-1" h="-1" measuredW="237" measuredH="22" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Somente%20chamados%20atribu%EDdos%20a%20mim</text>
+      </controlProperties>
+    </control>
+    <control controlID="3196" controlTypeID="com.balsamiq.mockups::ComboBox" x="517" y="163" w="92" h="-1" measuredW="66" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Todos</text>
+      </controlProperties>
+    </control>
+    <control controlID="3197" controlTypeID="com.balsamiq.mockups::Label" x="517" y="144" w="-1" h="-1" measuredW="39" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

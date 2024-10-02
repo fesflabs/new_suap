@@ -1,0 +1,14 @@
+<h1>Nova Atribuição</h1>
+<h2>Erro #{{ erro.pk }}</h2>
+<dl>
+    <dt>Responsável pela atribuição:</dt>
+    <dd>{{ atribuinte }}</dd>
+    <dt>Novo Atendente:</dt>
+    <dd>{{ erro.atendente_atual }}</dd>
+    <dt>Reportado por:</dt>
+    <dd>{{ erro.informante }}</dd>
+</dl>
+<p>--</p>
+<p>
+    Para mais informações, acesse: <a href="{{ erro.get_visualizar_erro_url }}">{{ erro.get_visualizar_erro_url }}</a>
+</p>

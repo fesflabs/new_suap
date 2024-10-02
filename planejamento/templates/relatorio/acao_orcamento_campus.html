@@ -1,0 +1,52 @@
+{% extends super_template %}
+
+{% block content %}
+
+{% box 'Dados Gerais' %}
+<table>
+	<tr>
+		<td>Fonte do Recurso</td>
+		<td>{{ fonte.nome }}</td>
+	</tr>
+	<tr>
+		<td>Ação do Orçamento</td>
+		<td>{{ acao.codigo_acao }} - {{ acao.nome }}</td>
+	</tr>
+	<tr>
+	<td>Unidade Adm.</td>
+	<td>{{ campus }}</td>
+	</tr>
+</table>
+{% endbox %}
+
+	{% if acoes_planejamento %}
+	<div class="cx_tabela">
+		<table>
+			<thead>
+				<tr>
+					<th>Ação</th>
+					<th style="text-align:center;" width="120px">Valor</th>
+				</tr>
+			</thead>
+			<tbody>
+    			{% for acao_planejamento in acoes_planejamento %}
+				<tr>
+					<td>{{ acao_planejamento.titulo }}</td>
+					<td style="text-align:right;">{{ acao_planejamento.valor_total|mascara_dinheiro }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>				
+				<tr>
+					<td style="text-align:right;font-weight:bold;">Total</td>
+					<td style="text-align:right;font-weight:bold;">{{ valor_total|mascara_dinheiro }}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	{% else %}
+	<p class="msg">Não existem ações cadastradas nestas condições.</p>
+	{% endif %}
+
+	
+{% endblock %}

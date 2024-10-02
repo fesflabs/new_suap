@@ -1,0 +1,18 @@
+
+Fechamento do periodo Regime seriado também se aplica a pós.
+
+o aluno pode ter o periodo fechado
+
+Fechamento do período no regime de crédito
+
+impacta na estrutura de curso pois no calculo do fechamento deve ser levada em consideracao as condições de jubilamento maximo de periodos permitidos.
+
+Na estrutura do curso será cadastrada faixas de notas para representacao conceitual A, B, C e D, 
+
+verificacao de jubilamento ( verificacao no fechamento do periodo )
+. qtd max de periodos
+. qtd max de reprovacoes no periodo 1º por ex
+. qtd max de reprovacoes na disciplina.
+
+
+

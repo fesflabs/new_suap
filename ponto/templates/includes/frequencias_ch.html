@@ -1,0 +1,4 @@
+{% if not f.dia_liberado_frequencia %}
+    {{ f.carga_horaria_do_dia_h }}h
+    {% if f.carga_horaria_do_dia_m %}{{ f.carga_horaria_do_dia_m }}min{% endif %}
+{% endif %}

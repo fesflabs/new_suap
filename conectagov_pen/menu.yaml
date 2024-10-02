@@ -1,0 +1,12 @@
+Documentos/Processos::Processos Eletrônicos::Barramento::Mapeamento de Hipóteses Legais:
+  groups_required:
+  - Gerente Sistêmico do Barramento
+  url: /admin/conectagov_pen/hipoteselegalpen/
+Documentos/Processos::Processos Eletrônicos::Barramento::Mapeamento de Tipos de Documentos:
+  groups_required:
+  - Gerente Sistêmico do Barramento
+  url: /admin/conectagov_pen/mapeamentotiposdocumento/
+Documentos/Processos::Processos Eletrônicos::Barramento::Trâmites Externos:
+  groups_required:
+  - Gerente Sistêmico do Barramento
+  url: /admin/conectagov_pen/tramitebarramento/

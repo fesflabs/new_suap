@@ -1,0 +1,63 @@
+{% extends super_template %}
+
+{% block action-bar %}
+
+{% endblock %}
+
+{% block content %}
+
+    {% box "Dados Gerais" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Descrição</dt>
+                <dd>{{ obj.descricao }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Descrição no Diploma e Histórico</dt>
+                <dd>{{ obj.descricao_historico }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Abreviatura</dt>
+                <dd>{{ obj.abreviatura|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Sigla</dt>
+                <dd>{{ obj.sigla }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Tipo</dt>
+                <dd><a href='{{ obj.tipo.get_absolute_url }}'>{{ obj.tipo }}</a></dd>
+            </div>
+            <div class="list-item">
+                <dt>Está Ativo</dt>
+                <dd>{{ obj.ativo|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Observação</dt>
+                <dd>{{ obj.observacao|format }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% box "Carga Horária" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Hora/relógio</dt>
+                <dd>{{ obj.ch_hora_relogio }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Hora/aula</dt>
+                <dd>{{ obj.ch_hora_aula }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% box "Matrizes" %}
+        <ol>
+            {% for matriz in matrizes %}
+                <li><a href="/residencia/matriz/{{ matriz.pk }}/">{{ matriz }}</a></li>
+            {% endfor %}
+        </ol>
+    {% endbox %}
+
+{% endblock %}

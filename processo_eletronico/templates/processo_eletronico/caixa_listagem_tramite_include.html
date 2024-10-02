@@ -1,0 +1,210 @@
+<div class="general-box {% if tramite.tem_retorno_programado and tramite.retorno_programado_atrasado %}error{% endif %}">
+    <div class="primary-info">
+        {% if tramite.processo.get_processos_apensados.exists %}
+            <span class="status status-info">
+            Apensado a outro(s) processo(s). Ao receber ou encaminhar, todos processos apensados serão recebidos ou encaminhados.
+            </span>
+        {% endif %}
+        {% if tramite.tem_retorno_programado and tramite.retorno_programado_atrasado %}<span class="status status-error">Atrasado</span>{% endif %}
+        <h4>
+            <small {% if tramite.rotulo %}style="background-color:{{ tramite.rotulo }};color:#fff;"{% endif %}>{{ forloop.counter }}</small> <a href="{{ tramite.processo.get_absolute_url }}"><strong>{{ tramite.processo }}</strong></a> -
+            {{ tramite.processo.assunto }}
+        </h4>
+        <ul class="action-bar">
+            {% if aguardando_recebimento %}
+                {% if tramite.processo.get_processos_apensados.exists %}
+                    <li><a class="btn success"
+                           href="/processo_eletronico/processo/receber/{{ tramite.processo.id }}/">{% icone "reply" %}
+                        Receber Todos</a></li>
+                {% else %}
+                    <li><a class="btn success"
+                           href="/processo_eletronico/processo/receber/{{ tramite.processo.id }}/">{% icone "reply" %}
+                        Receber</a></li>
+                {% endif %}
+            {% elif aguardando_encaminhamento %}
+                {% if tramite.processo.pode_finalizar and not tramite.processo.get_processos_apensados.exists %}
+                    <li><a class="btn success"
+                           href="/processo_eletronico/processo/finalizar/{{ tramite.processo.id }}/">{% icone "lock" %}
+                        Finalizar</a></li>
+                {% endif %}
+                {% if tramite.processo.get_processos_apensados.exists %}
+                    <li><a class="btn primary"
+                           href="/processo_eletronico/processo/encaminhar/{{ tramite.processo.id }}/">{% icone "share" %}
+                        Encaminhar Todos</a>
+                    </li>
+                {% else %}
+                    {% if tramite.processo.pode_ser_encaminhado %}
+                        <li class="has-child">
+                            <a class="btn primary" href="#">{% icone "share" %} Encaminhar</a>
+                            <ul>
+                                <li><a href="/processo_eletronico/processo/encaminhar/{{ tramite.processo.pk }}/">
+                                    Com despacho
+                                </a></li>
+                                <li><a href="/processo_eletronico/processo/encaminhar_sem_despacho/{{ tramite.processo.pk }}/">
+                                    Sem despacho
+                                </a></li>
+                                {% if perms.conectagov_pen.pode_tramitar_pelo_barramento and tramite.processo.setor_atual %}
+                                    <li><a href="/processo_eletronico/processo/encaminhar_externamente/{{ tramite.processo.pk }}/">
+                                        Para outras instituições
+                                    </a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% if not tramite.atendido and eh_chefe_do_setor %}
+                    <li><a class="btn popup" href="/processo_eletronico/atribuir_processo/{{ tramite.id }}/"><i
+                            class="fa fa-user" aria-hidden="true"></i> Atribuir</a></li>
+                {% endif %}
+                <li><a class="btn popup"
+                       href="/processo_eletronico/adicionar_comentario/{{ tramite.processo.pk }}/">{% icone "plus" %}
+                    Comentário</a></li>
+                <li><a class="btn popup"
+                       href="/processo_eletronico/adicionar_rotulo/{{ tramite.pk }}/">{% icone "plus" %}
+                    Rótulo</a>
+                </li>
+            {% endif %}
+
+        </ul>
+        {% if tramite.processo.get_processos_apensados.exists %}
+            <div class="extra-info">
+                <h4 class="mt-1">Processos Apensados:</h4>
+                {% for processo in tramite.processo.get_processos_apensados %}
+                    <p>
+                        <a href="{{ processo.get_absolute_url }}">{{ processo }}</a> -
+                        {{ processo.assunto }}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <dl class="secondary-info">
+        <div class="list-item">
+            <dt>{% icone "users" %} Interessado(s):</dt>
+            {% for interessado in tramite.processo.interessados.all %}
+                <dd>{{ interessado|format }}</dd>
+            {% endfor %}
+        </div>
+        {% if not tramite.data_hora_recebimento %}
+            <div class="list-item">
+                <dt>{% icone "share" %} Encaminhamento:</dt>
+                <dd>{{ tramite.data_hora_encaminhamento|format}}</dd>
+            </div>
+        {% endif %}
+        {% if tramite.data_hora_recebimento %}
+            <div class="list-item">
+                <dt>{% icone "reply" %} Recebimento:</dt>
+                <dd>{{ tramite.data_hora_recebimento|format}}</dd>
+            </div>
+        {% endif %}
+        {% if tramite.atribuido_para %}
+            <div class="list-item">
+                <dt>{% icone "user" %} Atribuído para:</dt>
+                <dd>{{ tramite.atribuido_para|format }}</dd>
+            </div>
+        {% endif %}
+        {% if aguardando_despacho %}
+            <div class="list-item">
+                <dt>{% icone "paragraph" %} Despacho em Análise:</dt>
+                <dd>{{ tramite.solicitacao_despacho_em_espera.despacho_corpo|format|safe|truncatewords:20 }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{% icone "user" %} Requerente:</dt>
+                <dd>{{ tramite.solicitacao_despacho_em_espera.remetente_pessoa.nome_usual }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{% icone "user" %} Requisitado:</dt>
+                <dd>{{ tramite.solicitacao_despacho_em_espera.solicitado.nome_usual }}</dd>
+            </div>
+        {% else %}
+            {% if tramite.despacho_corpo %}
+                <div class="list-item">
+                    <dt>{% icone "paragraph" %} Despacho:</dt>
+                    <dd>{{ tramite.despacho_corpo|format|safe|truncatewords:20 }}</dd>
+                </div>
+            {% endif %}
+            {% if tramite.eh_tramite_externo %}
+                <div class="list-item">
+                    <dt>{% icone "city" %}  Instituição de Origem:</dt>
+                    <dd>{{ tramite.tramite_barramento.remetente_externo_estrutura_descricao }} {% if tramite.remetente_pessoa %}- {{ tramite.remetente_pessoa.nome_usual }}{% endif %}</dd>
+                </div>
+                {% if tramite.destinatario_setor %}
+                    <div class="list-item">
+                        <dt>{% icone "building" %} Destino:</dt>
+                        <dd>{{ tramite.destinatario_setor|default:"-" }}</dd>
+                    </div>
+                {% else %}
+                      <div class="list-item">
+                        <dt>{% icone "building" %} Instituição de Destino:</dt>
+                        <dd>{{ tramite.tramite_barramento.destinatario_externo_estrutura_descricao|default:"-" }}</dd>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="list-item">
+                    <dt>{% icone "building" %} Origem:</dt>
+                    <dd>{{ tramite.remetente_setor }} - {{ tramite.remetente_pessoa.nome_usual }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "building" %} Destino:</dt>
+                    <dd>{{ tramite.destinatario_setor|default:"-" }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>{% icone "key" %} Nível de Acesso:</dt>
+                <dd>{{ tramite.processo.get_nivel_acesso_display|status }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>{% icone "clock" %} Tempo de Inatividade:</dt>
+            <dd>
+                {% if tramite.atrasado %}
+                    <span class="false" title="Processo atrasado">
+                        {{ tramite.data_hora_encaminhamento|timesince }}
+                    </span>
+                {% else %}
+                    {{ tramite.data_hora_encaminhamento|timesince }}
+                {% endif %}
+            </dd>
+        </div>
+        {% if tramite.tem_retorno_programado  %}
+            <div class="list-item">
+                <dt>{% icone "clock" %} Data Limite de Retorno:</dt>
+                <dd>{{ tramite.get_retorno_programado.data_prevista_retorno|format}}</dd>
+            </div>
+            {% if tramite.retorno_programado_atrasado %}
+                <div class="list-item">
+                    <dt>{% icone "clock" %} Tempo de Atraso do Retorno Programado:</dt>
+                    <dd class="false" title="Processo atrasado">{{ tramite.get_retorno_programado.data_prevista_retorno|timesince}}</dd>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if tramite.prioridadetramite and not tramite.processo.possui_solicitacao_juntada_pendente  %}
+            <div class="list-item">
+                <dt>{% icone "exclamation" %} Prioridade:</dt>
+                <dd>{{ tramite.prioridadetramite|format}}</dd>
+            </div>
+        {% endif %}
+        {% if tramite.processo.possui_ciencias_pendentes %}
+            <div class="list-item">
+                <dt>{% icone "users" %} Aguardando ciência de:</dt>
+                {% for solicitacao in tramite.processo.solicitacoes_ciencias_pendentes %}
+                    <dd>{{ solicitacao.solicitado|format }}</dd>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if tramite.processo.possui_solicitacao_juntada_pendente %}
+            <div class="list-item">
+                <dt>{% icone "users" %} Aguardando juntada de documento por:</dt>
+                {% for solicitacao in tramite.processo.solicitacoes_juntada_documento %}
+                    <dd>{{ solicitacao.solicitado|format }}</dd>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if tramite.processo.get_ultimo_comentario %}
+            <div class="list-item">
+                <dt>{% icone "comment-alt" %} Último Comentário:</dt>
+                <dd>{{ tramite.processo.get_ultimo_comentario.pessoa|format }} em {{ tramite.processo.get_ultimo_comentario.data }}: {{ tramite.processo.get_ultimo_comentario.comentario|truncatewords:10 }}</dd>
+            </div>
+        {% endif %}
+    </dl>
+</div>

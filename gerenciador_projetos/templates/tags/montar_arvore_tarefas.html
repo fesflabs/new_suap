@@ -1,0 +1,70 @@
+{% load gerenciador_projetos_templatetags %}
+{# Está sendo populado em gerenciador_projetos_templatetags #}
+{% if tarefas %}
+    <ul class="general-box-container">
+        {% for tarefa in tarefas %}
+            <li>
+                <div class="general-box">
+                    <div class="primary-info">
+                        {{ tarefa.get_situacao|status }}
+                        <h4>
+                            <small>{{ tarefa.id }}</small>
+                            <a href="{% url 'tarefa' tarefa.id %}" title="Visualizar">{{ tarefa.titulo }}</a>
+                        </h4>
+                        <ul class="action-bar">
+                            {% if pode_registrar_evolucao and not tarefa.concluida %}
+                                <li><a class="btn success popup" href="{% url 'gerenciar_historicoevolucao' tarefa.id %}">{% icone "pen" %} Registrar Evolução</a></li>
+                            {% endif %}
+                            {% if pode_editar_tarefas %}
+                                <li><a href="{% url 'alterar_tarefa' tarefa.projeto.id tarefa.id %}" class="btn primary">{% icone "edit" %} Editar</a></li>
+                            {% endif %}
+                            {% if eh_membro_projeto and not tarefa.atribuido_a.exists %}
+                                <li><a href="{% url 'atribuir_a_mim' tarefa.id %}" class="btn primary">{% icone "edit" %} Atribuir a Mim</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <dl class="secondary-info">
+                        {% if tarefa.atribuido_a.exists %}
+                            <div class="list-item">
+                                <dt>{% icone "user" %} Atribuído para:</dt>
+                                <dd>
+                                    {% for atribuido in tarefa.atribuido_a.all %}
+                                        {{ atribuido |format }}
+                                    {% endfor %}
+                                </dd>
+                            </div>
+                        {% endif %}
+                        <div class="list-item">
+                            <dt>{% icone "user" %} Criada por:</dt>
+                            <dd>{{ tarefa.criado_por|format }} em {{ tarefa.aberto_em|date }}</dd>
+                        </div>
+                        {% if tarefa.data_inicio %}
+                            <div class="list-item">
+                                <dt>{% icone "calendar" %} Início em:</dt>
+                                <dd>{{ tarefa.data_inicio|date|format }}</dd>
+                            </div>
+                        {% endif %}
+                        {% if tarefa.data_conclusao_estimada %}
+                        <div class="list-item">
+                            <dt>{% icone "calendar" %} Conclusão Estimada para:</dt>
+                            <dd>{{ tarefa.data_conclusao_estimada|date|format }}</dd>
+                        </div>
+                        {% endif %}
+                        {% if tarefa.data_conclusao %}
+                            <div class="list-item">
+                                <dt>{% icone "calendar" %} Concluída em:</dt>
+                                <dd>{{ tarefa.data_conclusao|date|format }}</dd>
+                            </div>
+                        {% endif %}
+                        <div class="list-item">
+                            <dt>Progresso em:</dt>
+                            <dd><p>{{ tarefa.total_progresso }}%</p></dd>
+                        </div>
+                    </dl>
+                </div>
+
+                {% montar_arvore_tarefas tarefa.gerenciador_tarefa_pai_set.all %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

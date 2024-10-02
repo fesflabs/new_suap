@@ -1,0 +1,232 @@
+{% extends super_template %}
+
+{% block object-status %}
+{{ obj.get_situacao_display|status }}
+{% endblock %}
+
+{% block content %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Aluno</dt>
+            <dd>{{ obj.matricula_diario.matricula_periodo.aluno.get_nome_social_composto }} (<a
+                    href="{{ obj.matricula_diario.matricula_periodo.aluno.get_absolute_url }}">{{ obj.matricula_diario.matricula_periodo.aluno.matricula }}</a>)
+            </dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo</dt>
+            <dd>{{ obj.matricula_diario.diario.componente_curricular.get_tipo_estagio_docente_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Turno</dt>
+            <dd>{{ obj.turno|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Situação no Diário</dt>
+            <dd>{{ obj.matricula_diario.get_situacao_display|status }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Convênio</dt>
+            <dd>{{ obj.convenio|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Escola</dt>
+            <dd>{{ obj.escola|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Nível de Ensino</dt>
+            <dd>{{ obj.get_nivel_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Orientador</dt>
+            <dd>{{ obj.professor_orientador|format }}</dd>
+        </div>
+    </dl>
+
+    <div class="tab-container" data-title="Dados Gerais">
+        {% box 'Carga Horária' %}
+            <table class="info">
+                <tr>
+                    <td>Carga Horária</td>
+                    <td colspan="3">{{ obj.ch_final|format }} horas</td>
+                </tr>
+                <tr>
+                    <td>Data de Início</td>
+                    <td>{{ obj.data_inicio|format }}</td>
+                    <td>Data de Fim</td>
+                    <td>{{ obj.data_fim|format }}</td>
+                </tr>
+                <tr>
+                    <td>Data de Final para Envio do Portfólio</td>
+                    <td colspan="3">{{ obj.data_final_envio_portfolio|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box 'Documentação' %}
+            <table class="info">
+                <tr>
+                    <td>Plano de Estágio</td>
+                    <td>{% if obj.plano_estagio %}
+                        <a href="{{ obj.plano_estagio.url }}">{{ obj.plano_estagio.name }}</a>{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Termo de Compromisso</td>
+                    <td>{% if obj.termo_compromisso %}
+                        <a href="{{ obj.termo_compromisso.url }}">{{ obj.termo_compromisso.name }}</a>{% else %}-{% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Documentação Comprobatória</td>
+                    <td>{% if obj.documentacao_comprobatoria %}
+                        <a href="{{ obj.documentacao_comprobatoria.name|format }}">{{ obj.documentacao_comprobatoria.name }}</a>{% else %}
+                        -{% endif %}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box 'Seguro' %}
+            <table class="info">
+                <tr>
+                    <td>Nome da Seguradora</td>
+                    <td>{{ obj.nome_seguradora|format }}</td>
+                </tr>
+                <tr>
+                    <td>Número da Apólice do Seguro</td>
+                    <td>{{ obj.numero_seguro|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Supervisor">
+        {% box 'Supervisor' %}
+            <table class="info">
+                <tr>
+                    <td>Nome</td>
+                    <td colspan="3">{{ obj.nome_professor_colaborador|format }}</td>
+                </tr>
+                <tr>
+                    <td>Telefone</td>
+                    <td>{{ obj.telefone_professor_colaborador|format }}</td>
+                    <td>Cargo</td>
+                    <td>{{ obj.cargo_professor_colaborador|format }}</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td colspan="3">{{ obj.email_professor_colaborador|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Observações">
+        {% box 'Observações' %}
+            <table class="info">
+                <tr>
+                    <td>Observações</td>
+                    <td>{{ obj.observacoes|format|linebreaksbr }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Visitas do Orientador" data-counter="{{ obj.visitaestagiodocente_set.count }}">
+        {% box 'Visitas do Orientador' %}
+            {% if request.user == obj.professor_orientador.vinculo.user and not obj.situacao == obj.SITUACAO_MUDANCA and not obj.situacao == obj.SITUACAO_NAO_CONCLUIDO and not obj.situacao == obj.SITUACAO_ENCERRADO %}
+                <ul class="action-bar">
+                    <li>
+                        <a class="btn popup" href="/edu/cadastrar_visita_estagio_docente/{{ obj.pk }}/">Registrar Visita</a>
+                    </li>
+                </ul>
+            {% endif %}
+
+            {% if obj.visitaestagiodocente_set.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            {% if request.user == obj.professor_orientador.vinculo.user %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Data da Visita</th>
+                            <th>Relatório</th>
+                            <th>Está desesenvolvendo as atividades previstas?</th>
+                            <th>Informações Adicionais</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for visita in obj.visitaestagiodocente_set.all %}
+                        <tr>
+                            {% if request.user == obj.professor_orientador.vinculo.user %}
+                                <td class="no-print">
+                                    {% icon "edit" "/edu/cadastrar_visita_estagio_docente/{{ obj.pk }}/{{ visita.pk }}/" "Editar" "popup" %}
+                                </td>
+                            {% endif %}
+                            <td>{{ visita.data_visita|format }}</td>
+                            <td>
+                                {% if visita.relatorio %}
+                                    <a href="{{ visita.relatorio.url }}">{{ visita.relatorio.name }}</a>
+                                {% else %}-{% endif %}
+                            </td>
+                            <td>{{ visita.desenvolvendo_atividades_previstas|format }}</td>
+                            <td>{{ visita.informacoes_complementares|format }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma visita foi realizada pelo professor para essa prática profissional.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Portfólio do Aluno">
+        {% box 'Portfólio do Aluno' %}
+            <table class="info">
+                <tr>
+                    <td>Portfólio</td>
+                    <td>{% if obj.portfolio %}<a href="{{ obj.portfolio.url }}">{{ obj.portfolio.name }}{% else %}
+                        -{% endif %}</a></td>
+                </tr>
+            </table>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Dados do Encerramento">
+        {% box 'Dados do Encerramento' %}
+            <ul class="action-bar">
+                {% if perms.edu.change_estagiodocente and not obj.situacao == obj.SITUACAO_MUDANCA and not obj.is_encerrado %}
+                    <li>
+                        <a class="btn popup warning" href="/edu/encerrar_estagio_docente/{{ obj.pk }}/">Registrar Encerramento
+                            por Conclusão</a>
+                    </li>
+                    <li>
+                        <a class="btn popup warning" href="/edu/encerrar_estagio_docente_nao_concluido/{{ obj.pk }}/">Registrar
+                            Encerramento por Não Conclusão</a>
+                    </li>
+                {% endif %}
+                {% if perms.edu.change_estagiodocente and obj.is_encerrado %}
+                    <li>
+                        <a class="btn popup primary" href="/edu/encerrar_estagio_docente/{{ obj.pk }}/">Editar Registro de
+                            Encerramento</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <table class="info">
+                <tr>
+                    <td>Avaliação do Orientador</td>
+                    <td>{% if obj.avaliacao_do_orientador %}
+                        <a href="{{ obj.avaliacao_do_orientador.url }}">{{ obj.avaliacao_do_orientador.name }}</a>{% else %}
+                        -{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Avaliação do Professor Colaborador</td>
+                    <td>{% if obj.avaliacao_do_professor_colaborador %}
+                        <a href="{{ obj.avaliacao_do_professor_colaborador.url }}">{{ obj.avaliacao_do_professor_colaborador.name }}</a>{% else %}
+                        -{% endif %}</td>
+                </tr>
+            </table>
+        {% endbox %}
+    </div>
+
+{% endblock %}

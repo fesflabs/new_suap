@@ -1,0 +1,106 @@
+{% if fiscal and not contrato.cancelado %}
+    <ul class="action-bar">
+        <li><a class="btn success popup" href="/contratos/adicionar_maodeobra/{{ contrato.pk }}/">Adicionar Mão de Obra</a></li>
+        {% if maosdeobra %}
+            <li><a class="btn primary" href="/contratos/exportar_maodeobra/{{ contrato.pk }}/">Exportar Dados de Mão de Obra</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+{% include "includes/filter_campus.html" with tab="maodeobra" %}
+
+{% if maosdeobra %}
+    {% for maodeobra in maosdeobra %}
+        <div class="general-box">
+            <div class="primary-info">
+                {% if maodeobra.desligamento %}
+                    <span class="status status-error">Inativo</span>
+                {% else %}
+                    <span class="status status-success ">Ativo</span>
+                {% endif %}
+                <div class="photo-circle small">
+                    <img alt="Foto de {{ maodeobra.prestador_servico.nome }}" src="{{ maodeobra.prestador_servico.get_foto_75x100_url }}" />
+                </div>
+                <h4><small>{{ forloop.counter }}</small> {{ maodeobra.prestador_servico.nome }} - {{ maodeobra.prestador_servico.cpf|format }}</h4>
+                {% if fiscal and not contrato.cancelado %}
+                    <ul class="action-bar">
+                        <li><a href="/contratos/adicionar_anexomaodeobra/{{ maodeobra.id }}/" class="btn success popup">{% icone "plus" %} <span class="sr-only">Adicionar</span> Anexo</a></li>
+                        <li><a href="/contratos/editar_maodeobra/{{ maodeobra.id }}/" class="btn primary popup">{% icone "edit" %} Editar</a></li>
+                        <li><a href="/contratos/excluir_maodeobra/{{ maodeobra.id  }}/" class="btn danger">{% icone "trash" %} Remover</a></li>
+                    </ul>
+                {% endif %}
+                {% if maodeobra.anexos_set.exists %}
+                    <div class="extra-info">
+                        <h5>Anexos</h5>
+                        <table>
+                            <thead>
+                                <tr>
+                                    {% if fiscal and not contrato.cancelado %}
+                                        <th class="no-print">Ações</th>
+                                    {% endif %}
+                                    <th>Anexo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for anexo in maodeobra.anexos_set.all %}
+                                    <tr>
+                                        {% if fiscal and not contrato.cancelado %}
+                                            <td>{% icon "delete" "/contratos/remover_anexomaodeobra/{{ anexo.pk }}/" %}</td>
+                                        {% endif %}
+                                        <td><a href="{{ anexo.arquivo.url }}">{{ anexo.descricao }}</a></td>
+                                    </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+            <dl class="secondary-info">
+                <div class="list-item">
+                    <dt>{% icone "calendar" %} Nascimento:</dt>
+                    <dd>{{ maodeobra.data_nascimento|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "square" %} Categoria:</dt>
+                    <dd>{{ maodeobra.categoria }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "square" %} Função:</dt>
+                    <dd>{{ maodeobra.funcao }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "square" %} Escolaridade:</dt>
+                    <dd>{{ maodeobra.escolaridade }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "square" %} Número da CCT:</dt>
+                    <dd>{{ maodeobra.numero_cct|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "square" %} Jornada de Trabalho:</dt>
+                    <dd>{{ maodeobra.jornada_trabalho }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "dollar-sign" %} Salário Bruto:</dt>
+                    <dd>R$ {{ maodeobra.salario_bruto|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "dollar-sign" %} Custo Mensal:</dt>
+                    <dd>R$ {{ maodeobra.custo_mensal|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "square" %} Campus:</dt>
+                    <dd>{{ maodeobra.campus|format }}</dd>
+                </div>
+                {% if maodeobra.desligamento %}
+                    <div class="list-item">
+                        <dt>{% icone "calendar" %} Desligamento:</dt>
+                        <dd>{{ maodeobra.desligamento|format }}</dd>
+                    </div>
+                {% endif %}
+            </dl>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="msg alert">Nenhuma mão de obra cadastrada.</p>
+{% endif %}

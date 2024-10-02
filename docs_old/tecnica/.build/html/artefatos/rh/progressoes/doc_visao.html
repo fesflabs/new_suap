@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documento de Visão do Subsistema Progressões &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../index.html"/>
+        <link rel="up" title="Progressão Funcional" href="index.html"/>
+        <link rel="next" title="UC 01 - Selecionar avaliadores &lt;v0.1&gt;" href="progressoes_uc01.html"/>
+        <link rel="prev" title="Progressão Funcional" href="index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../edu/index.html">Ensino</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Rercursos Humanos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mapa_tempo_servico/index.html">Mapa de Tempo de Serviço</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cursos/index.html">Cursos</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Progressão Funcional</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Documento de Visão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#casos-de-uso">Casos de Uso</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Documento de Visão do Subsistema <strong>Progressões</strong> &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Documento de Visão de Produto</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Progressões</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="documento-de-visao-do-subsistema-titulo-v0-1">
+<span id="suap-artefatos-rh-progressoes-visao"></span><h1>Documento de Visão do Subsistema <strong>Progressões</strong> &lt;v0.1&gt;<a class="headerlink" href="#documento-de-visao-do-subsistema-titulo-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id2">Histórico da revisão</a></p></li>
+<li><p><a class="reference internal" href="#introducao" id="id3">Introdução</a></p>
+<ul>
+<li><p><a class="reference internal" href="#finalidade-do-documento" id="id4">Finalidade do documento</a></p></li>
+<li><p><a class="reference internal" href="#finalidade-do-sistema" id="id5">Finalidade do sistema</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#analise-de-contexto" id="id6">Análise de contexto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cenario" id="id7">Cenário</a></p></li>
+<li><p><a class="reference internal" href="#motivacoes-necessidades-e-problemas" id="id8">Motivações, necessidades e problemas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#escopo-do-produto" id="id9">Escopo do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#declaracao-do-escopo-do-produto" id="id10">Declaração do escopo do produto</a></p></li>
+<li><p><a class="reference internal" href="#nao-faz-parte-do-escopo" id="id11">Não faz parte do escopo</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#descricao-dos-papeis" id="id12">Descrição dos papéis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#papel-das-partes-interessadas" id="id13">Papel das partes interessadas</a></p></li>
+<li><p><a class="reference internal" href="#papel-dos-atores" id="id14">Papel dos atores</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#visao-geral-do-produto" id="id15">Visão geral do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modelagem-de-processos-de-negocio" id="id16">Modelagem de processos de negócio</a></p></li>
+<li><p><a class="reference internal" href="#projeto-da-solucao" id="id17">Projeto da solução</a></p></li>
+<li><p><a class="reference internal" href="#perspectiva-do-produto" id="id18">Perspectiva do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#integracao-com-outros-sistemas" id="id19">Integração com outros sistemas</a></p></li>
+<li><p><a class="reference internal" href="#relacionamentos-com-outros-subsistemas" id="id20">Relacionamentos com outros subsistemas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos" id="id21">Requisitos</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso" id="id22">Casos de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-caso-de-uso" id="id23">Diagrama de caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-modelagem-de-dominio" id="id24">Diagrama de modelagem de domínio</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#metas-gerenciais" id="id25">Metas gerenciais</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id26">Questões em aberto</a></p></li>
+<li><p><a class="reference internal" href="#encerramento-de-projetos" id="id27">Encerramento de Projetos</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id2">Histórico da revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>07/07/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p>Esdras Valentim</p></td>
+</tr>
+<tr class="row-odd"><td><p>09/07/2014</p></td>
+<td><p>0.2</p></td>
+<td><p>Inclusão dos casos de uso</p></td>
+<td><p>Esdras Valentim</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="introducao">
+<h2><a class="toc-backref" href="#id3">Introdução</a><a class="headerlink" href="#introducao" title="Link permanente para este título">¶</a></h2>
+<section id="finalidade-do-documento">
+<h3><a class="toc-backref" href="#id4">Finalidade do documento</a><a class="headerlink" href="#finalidade-do-documento" title="Link permanente para este título">¶</a></h3>
+<p>A finalidade deste documento é especificar os requisitos relevantes dos usuários, assim como os limites e restrições evidentes que
+dão uma visão geral. Essa visão viabiliza a identificação e a produção de documentos e requisitos mais técnicos, assim como do
+próprio sistema. A visão serve como forma de permitir a compreensão, pelos participantes do projeto, do “o quê e por quê” o projeto
+existe e provê uma estratégia a partir da qual todas as futuras decisões podem ser validadas.</p>
+</section>
+<section id="finalidade-do-sistema">
+<h3><a class="toc-backref" href="#id5">Finalidade do sistema</a><a class="headerlink" href="#finalidade-do-sistema" title="Link permanente para este título">¶</a></h3>
+<p>Este módulo/aplicação tem como finalidade automatizar as progressões por mérito profissional dos servidores, utilizando um sistema
+integrado de avaliações composto de auto-avaliação, avaliação dos pares (de mesma função administrativa), avaliação dos subordinados
+e avaliação dos superiores.</p>
+</section>
+</section>
+<section id="analise-de-contexto">
+<h2><a class="toc-backref" href="#id6">Análise de contexto</a><a class="headerlink" href="#analise-de-contexto" title="Link permanente para este título">¶</a></h2>
+<section id="cenario">
+<h3><a class="toc-backref" href="#id7">Cenário</a><a class="headerlink" href="#cenario" title="Link permanente para este título">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Não</span> <span class="pre">se</span> <span class="pre">aplica.</span></code></p>
+</section>
+<section id="motivacoes-necessidades-e-problemas">
+<h3><a class="toc-backref" href="#id8">Motivações, necessidades e problemas</a><a class="headerlink" href="#motivacoes-necessidades-e-problemas" title="Link permanente para este título">¶</a></h3>
+<p>A motivação para o desenvolvimento do módulo é melhorar o processo de análise e automatizar as progressões por mérito profissional dos servidores.
+Uma progressão ocorre a cada interstício de 18 meses de efetivo exercício. Serão utilizados formulários on-line de avaliação e uma média será gerada
+de forma automática, servindo de base para o servidor progredir (aprovação) ou não (reprovação).</p>
+</section>
+</section>
+<section id="escopo-do-produto">
+<h2><a class="toc-backref" href="#id9">Escopo do produto</a><a class="headerlink" href="#escopo-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="declaracao-do-escopo-do-produto">
+<h3><a class="toc-backref" href="#id10">Declaração do escopo do produto</a><a class="headerlink" href="#declaracao-do-escopo-do-produto" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Seção utilizada para documentar novos produtos.</p>
+<p>Forneça a declaração do escopo do produto, descrevendo as características do produto, serviço ou resultado que se
+deseja obter com a execução do projeto.</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+<section id="nao-faz-parte-do-escopo">
+<h3><a class="toc-backref" href="#id11">Não faz parte do escopo</a><a class="headerlink" href="#nao-faz-parte-do-escopo" title="Link permanente para este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>O sistema não fará controle das progressões por capacitação profissional (I, II, III, IV);</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="descricao-dos-papeis">
+<h2><a class="toc-backref" href="#id12">Descrição dos papéis</a><a class="headerlink" href="#descricao-dos-papeis" title="Link permanente para este título">¶</a></h2>
+<section id="papel-das-partes-interessadas">
+<h3><a class="toc-backref" href="#id13">Papel das partes interessadas</a><a class="headerlink" href="#papel-das-partes-interessadas" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Representante</p></th>
+<th class="head"><p>Responsabilidades</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Raul Alexandre (DIGPE)</p></td>
+<td><p>Fornecer requisitos; Validar documentação; Testar/Homologar o software.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="papel-dos-atores">
+<h3><a class="toc-backref" href="#id14">Papel dos atores</a><a class="headerlink" href="#papel-dos-atores" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 20%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ator</p></th>
+<th class="head"><p>Sinônimo</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RH</p></td>
+<td><p><cite>-</cite></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SIAPE</p></td>
+<td><p><cite>-</cite></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="visao-geral-do-produto">
+<h2><a class="toc-backref" href="#id15">Visão geral do produto</a><a class="headerlink" href="#visao-geral-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="modelagem-de-processos-de-negocio">
+<h3><a class="toc-backref" href="#id16">Modelagem de processos de negócio</a><a class="headerlink" href="#modelagem-de-processos-de-negocio" title="Link permanente para este título">¶</a></h3>
+<a class="reference internal image-reference" href="../../../_images/atividade_asis.png"><img alt="../../../_images/atividade_asis.png" src="../../../_images/atividade_asis.png" style="width: 612.0px; height: 805.5px;" /></a>
+<img alt="../../../_images/atividade_tobe.png" src="../../../_images/atividade_tobe.png" />
+</section>
+<section id="projeto-da-solucao">
+<h3><a class="toc-backref" href="#id17">Projeto da solução</a><a class="headerlink" href="#projeto-da-solucao" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Descreva aqui os elementos do modelo de projeto, que são importantes para a arquitetura, a estrutura de camadas e componentes do
+projeto.</p>
+</div>
+</section>
+<section id="perspectiva-do-produto">
+<h3><a class="toc-backref" href="#id18">Perspectiva do produto</a><a class="headerlink" href="#perspectiva-do-produto" title="Link permanente para este título">¶</a></h3>
+<section id="integracao-com-outros-sistemas">
+<h4><a class="toc-backref" href="#id19">Integração com outros sistemas</a><a class="headerlink" href="#integracao-com-outros-sistemas" title="Link permanente para este título">¶</a></h4>
+<p>“Não se aplica.”</p>
+</section>
+<section id="relacionamentos-com-outros-subsistemas">
+<h4><a class="toc-backref" href="#id20">Relacionamentos com outros subsistemas</a><a class="headerlink" href="#relacionamentos-com-outros-subsistemas" title="Link permanente para este título">¶</a></h4>
+<p>“Não se aplica.”</p>
+</section>
+</section>
+<section id="requisitos">
+<h3><a class="toc-backref" href="#id21">Requisitos</a><a class="headerlink" href="#requisitos" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Categoria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R01</p></td>
+<td><p>O sistema disponibilizará a opção para selecionar os avaliadores do servidor, independentemente do setor que ele está alocado.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R02</p></td>
+<td><p>O sistema deverá calcular a média das avaliações de acordo com o perfil do servidor.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R03</p></td>
+<td><p>O sistema disponibilizará os formulários de avaliação dos servidores para cada setor.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R04</p></td>
+<td><p>O Servidor deve ser aprovado se a média do período avaliado for igual ou superior a 60 pontos.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R05</p></td>
+<td><p>O Servidor removido ou redistribuído no período de avaliação deve ser avaliado na lotação anterior.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R06</p></td>
+<td><p>O servidor cedido à outra instituição num prazo igual ou superior a 06 meses deve ser avaliado no setor em que estiver.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R07</p></td>
+<td><p>O resultado da avaliação será obtido por uma média ponderada com pesos diferentes para cada grupo de avaliação, sendo peso 1 para auto-avaliação e avaliação da chefia imediata e peso 2 para avaliação da equipe de trabalho do servidor (a média de avaliação da equipe é a média aritmética da avalição feita pela equipe).</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R08</p></td>
+<td><p>O servidor deve ser avaliado por: ele mesmo, equipe de trabalho e chefia imediata.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="casos-de-uso">
+<span id="uc"></span><h3><a class="toc-backref" href="#id22">Casos de uso</a><a class="headerlink" href="#casos-de-uso" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 44%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód, Nome, Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Complexidade</p></th>
+<th class="head"><p>Requisitos relacionados</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="progressoes_uc01.html#suap-artefatos-rh-progressoes-uc01"><span class="std std-ref">UC 01 - Selecionar avaliadores &lt;v0.1&gt;</span></a></p></td>
+<td><p>Esse caso de uso descreve como o RH selecionará avaliadores que preencherão o formulário de avaliação de desempenho do servidor.</p></td>
+<td><p>Média</p></td>
+<td><p>R01</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="progressoes_uc02.html#suap-artefatos-rh-progressoes-uc02"><span class="std std-ref">UC 02 - Obter servidores a progredir &lt;v0.1&gt;</span></a></p></td>
+<td><p>Esse caso de uso descreve a ação de mostrar todos os servidores que estão aptos a progredir.</p></td>
+<td><p>Baixa</p></td>
+<td><p>R01</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="progressoes_uc03.html#suap-artefatos-rh-progressoes-uc03"><span class="std std-ref">UC 03 - Preencher formulário de avaliação &lt;v0.1&gt;</span></a></p></td>
+<td><p>Esse caso de uso descreve o preenchimento dos formuláros de avaliação por parte dos servidores.</p></td>
+<td><p>Média</p></td>
+<td><p>R03, R05, R06, R08</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="progressoes_uc04.html#suap-artefatos-rh-progressoes-uc04"><span class="std std-ref">UC 04 - Calcular média de avaliação &lt;v0.1&gt;</span></a></p></td>
+<td><p>Esse caso de uso calcula a média de avaliação do servidor (com ou sem função).</p></td>
+<td><p>Média</p></td>
+<td><p>R02, R04, R07</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="progressoes_uc05.html#suap-artefatos-rh-progressoes-uc05"><span class="std std-ref">UC 05 - Iniciar Processo &lt;v0.1&gt;</span></a></p></td>
+<td><p>Descreve a abertura do processo de progressão.</p></td>
+<td><p>Baixa</p></td>
+<td><p>R01</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="progressoes_uc06.html#suap-artefatos-rh-progressoes-uc06"><span class="std std-ref">UC 06 - Confirmar progressão &lt;v0.1&gt;</span></a></p></td>
+<td><p>Descreve o ato de convalidar a progressão do servidor.</p></td>
+<td><p>Baixa</p></td>
+<td><p>R01</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="progressoes_uc07.html#suap-artefatos-rh-progressoes-uc07"><span class="std std-ref">UC 07 - Enviar email ao servidor &lt;v0.1&gt;</span></a></p></td>
+<td><p>Descreve como o servidor será notificado da aprovação ou não da sua progressão.</p></td>
+<td><p>Baixa</p></td>
+<td><p>R01</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="diagrama-de-caso-de-uso">
+<h3><a class="toc-backref" href="#id23">Diagrama de caso de uso</a><a class="headerlink" href="#diagrama-de-caso-de-uso" title="Link permanente para este título">¶</a></h3>
+<a class="reference internal image-reference" href="../../../_images/diagrama_caso_de_uso_progressao.png" id="diagramauc"><img alt="../../../_images/diagrama_caso_de_uso_progressao.png" id="diagramauc" src="../../../_images/diagrama_caso_de_uso_progressao.png" style="width: 931.5px; height: 924.0px;" /></a>
+</section>
+<section id="diagrama-de-modelagem-de-dominio">
+<h3><a class="toc-backref" href="#id24">Diagrama de modelagem de domínio</a><a class="headerlink" href="#diagrama-de-modelagem-de-dominio" title="Link permanente para este título">¶</a></h3>
+<a class="reference internal image-reference" href="../../../_images/diagrama_dominio_progressao.png" id="diagramadominio"><img alt="../../../_images/diagrama_dominio_progressao.png" id="diagramadominio" src="../../../_images/diagrama_dominio_progressao.png" style="width: 1179.0px; height: 1122.0px;" /></a>
+</section>
+</section>
+<section id="metas-gerenciais">
+<h2><a class="toc-backref" href="#id25">Metas gerenciais</a><a class="headerlink" href="#metas-gerenciais" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Exemplo: O projeto deverá ser executado até o mês de Agosto de 2014.</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id26">Questões em aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Em caso de afastamento a data de progressão muda?</p></li>
+<li><p>Se o servidor se afastar da função pouco antes da progressão, como ele será avaliado?</p></li>
+<li><p>O tempo da progressão (18 meses) é fícto ou real?</p></li>
+<li><p>Qual o tempo de antecedência que o suap deve informar que há servidores aptos a progredir?</p></li>
+</ul>
+</section>
+<section id="encerramento-de-projetos">
+<h2><a class="toc-backref" href="#id27">Encerramento de Projetos</a><a class="headerlink" href="#encerramento-de-projetos" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Esta seção visa além de formalizar o término do projeto discutir como foi o mesmo e coletar lições aprendidas. No processo de
+gerenciamento de projetos ele é o documento final. Durante o encerramento é interessante tratar assuntos como:</p>
+<ul class="simple">
+<li><p>Os produtos previstos no projeto foram concluídos</p></li>
+<li><p>O objetivo final do projeto foi alcançado</p></li>
+<li><p>O resultado alcançado está coerente com a justificativa apresentada</p></li>
+<li><p>Quais os principais problemas do projeto</p></li>
+<li><p>Discutir sobre as lições aprendidas</p></li>
+<li><p>Registrar na base de conhecimento da organização</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="progressoes_uc01.html" class="btn btn-neutral float-right" title="UC 01 - Selecionar avaliadores &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Progressão Funcional"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

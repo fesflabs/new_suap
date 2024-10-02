@@ -1,0 +1,166 @@
+{% extends super_template %}
+
+{% block extrahead %}
+<style>
+    dd > .action-bar {
+        float: none;
+        margin: 0;
+        width: 100%;
+    }
+    .definition-list > dt {
+        font-weight: 700;
+        padding-bottom: .75rem;
+        text-transform: uppercase;
+    }
+    .definition-list > dd {
+        padding-bottom: 2rem;
+    }
+    .definition-list > dd + dt {
+        padding-top: 3rem;
+        padding-bottom: .75rem;
+    }
+    .msg {
+        margin-bottom: 0;
+    }
+    .steps {
+        margin-bottom: 0;
+    }
+</style>
+<script>
+jQuery(document).ready(function() {
+
+    let urlQueryString = new URLQueryString(window.location.search);
+    if (urlQueryString.has('tab')) {
+        $(".ancoras").addClass("d-none");
+        $(".ancoras[data-ancora='" + urlQueryString.get('tab') + "'").removeClass("d-none");
+    }
+
+    $(".tabs a").on("click", function() {
+        let tab = $(this).data("tab");
+        $(".ancoras").addClass("d-none");
+        $(".ancoras[data-ancora='" + tab + "'").removeClass("d-none");
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block content %}
+
+<p class="msg info">
+    Este <strong>Guia do Desenvolvedor</strong> compreende uma lista de regras que orientam a criação de páginas e funcionalidades para o SUAP,
+    assim, tem o propósito de fornecer as diretrizes (relativas a CSS3, HTML5 e a linguagem de template para Django para disposição de elementos de leiaute,
+    tipografia, formulários, botões/links, tabelas, grids, navegação, entre outros) com o objetivo de manter uma identidade visual
+    padrão para todos as páginas do sistema.
+</p>
+
+<div class="tab-container" data-title="Geral" data-tab="geral" data-counter="8">
+    {% include "tabs/guia_geral.html" %}
+</div>
+
+<div class="tab-container" data-title="Botões e Ações" data-tab="botoes_e_acoes" data-counter="3">
+    {% include "tabs/guia_botoes_e_acoes.html" %}
+</div>
+
+<div class="tab-container" data-title="Tabelas e Listas" data-tab="tabelas_e_listas" data-counter="4">
+    {% include "tabs/guia_tabelas_e_listas.html" %}
+</div>
+
+<div class="tab-container" data-title="Formulários" data-tab="formularios" data-counter="4">
+    {% include "tabs/guia_formularios.html" %}
+</div>
+
+<div class="tab-container" data-title="Mensagens" data-tab="mensagens" data-counter="4">
+    {% include "tabs/guia_mensagens.html" %}
+</div>
+
+<div class="tab-container" data-title="Caixas/Seções" data-tab="caixas_secoes" data-counter="11">
+    {% include "tabs/guia_caixas_secoes.html" %}
+</div>
+
+<div class="tab-container" data-title="Componentes" data-tab="componentes" data-counter="16">
+    {% include "tabs/guia_componentes.html" %}
+</div>
+
+{% endblock %}
+
+{% block asideright %}
+
+<aside class="right">
+
+    <ol class="ancoras" data-ancora="geral">
+        <li><a href="#geral-1">Padrões de Escrita</a></li>
+        <li><a href="#geral-2">Títulos</a></li>
+        <li><a href="#geral-3">Recomendações de Nomenclaturas</a></li>
+        <li><a href="#geral-4">Instruções de CSS e HTML</a></li>
+        <li><a href="#geral-5">Tags HTML</a></li>
+        <li><a href="#geral-6">Classes Funcionais</a></li>
+        <li><a href="#geral-7">Template Filters</a></li>
+        <li><a href="#geral-8">Template Tags</a></li>
+    </ol>
+
+    <ol class="ancoras d-none" data-ancora="botoes_e_acoes">
+        <li><a href="#botoes_e_acoes-1">Botões</a></li>
+        <li><a href="#botoes_e_acoes-2">Barra de Ações</a></li>
+        <li><a href="#botoes_e_acoes-3">Ícones de Ações</a></li>
+    </ol>
+
+    <ol class="ancoras d-none" data-ancora="tabelas_e_listas">
+        <li><a href="#tabelas_e_listas-1">Tabelas</a></li>
+        <li><a href="#tabelas_e_listas-2">Lista de Definições</a></li>
+        <li><a href="#tabelas_e_listas-3">Lista de Links Ordenados</a></li>
+        <li><a href="#tabelas_e_listas-4">Lista Numerada com Ícones</a></li>
+    </ol>
+
+    <ol class="ancoras d-none" data-ancora="formularios">
+        <li><a href="#formularios-1">Formulários</a></li>
+        <li><a href="#formularios-2">Barra de Busca e Filtros</a></li>
+        <li><a href="#formularios-3">Botão: Switch</a></li>
+        <li><a href="#formularios-4">Checkbox: Marcar Todos</a></li>
+    </ol>
+
+    <ol class="ancoras d-none" data-ancora="mensagens">
+        <li><a href="#mensagens-1">Mensagens de Alerta</a></li>
+        <li><a href="#mensagens-2">Mensagens de Retorno</a></li>
+        <li><a href="#mensagens-3">Erros em Formulários</a></li>
+        <li><a href="#mensagens-4">Situações</a></li>
+    </ol>
+
+    <ol class="ancoras d-none" data-ancora="caixas_secoes">
+        <li><a href="#caixas_secoes-1">Board</a></li>
+        <li><a href="#caixas_secoes-2">Box</a></li>
+        <li><a href="#caixas_secoes-3">Boxes: Imagens</a></li>
+        <li><a href="#caixas_secoes-4">Boxes: Ícones</a></li>
+        <li><a href="#caixas_secoes-5">Boxes: Indicadores</a></li>
+        <li><a href="#caixas_secoes-6">Boxes: Textos</a></li>
+        <li><a href="#caixas_secoes-7">Boxes: Geral</a></li>
+        <li><a href="#caixas_secoes-8">Card</a></li>
+        <li><a href="#caixas_secoes-9">Fotos</a></li>
+        <li><a href="#caixas_secoes-10">General Box</a></li>
+        <li><a href="#caixas_secoes-11">Totalizadores</a></li>
+    </ol>
+
+    <ol class="ancoras d-none" data-ancora="componentes">
+        <li><a href="#componentes-1">Abas</a></li>
+        <li><a href="#componentes-2">Abas Dinâmicas</a></li>
+        <li><a href="#componentes-3">Âncoras</a></li>
+        <li><a href="#componentes-4">Avaliação com Estrelas</a></li>
+        <li><a href="#componentes-4">Badges</a></li>
+        <li><a href="#componentes-6">Barra de Loading (Página)</a></li>
+        <li><a href="#componentes-7">Barra de Loading (Container)</a></li>
+        <li><a href="#componentes-8">Barra de Progresso</a></li>
+        <li><a href="#componentes-9">Calendário</a></li>
+        <li><a href="#componentes-10">Checklist</a></li>
+        <li><a href="#componentes-11">Foto de Pessoa</a></li>
+        <li><a href="#componentes-12">Gráficos</a></li>
+        <li><a href="#componentes-13">Passos</a></li>
+        <li><a href="#componentes-14">Pills</a></li>
+        <li><a href="#componentes-15">Timeline</a></li>
+        <li><a href="#componentes-16">Timeline Horizontal</a></li>
+    </ol>
+
+</aside>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends super_template %}
+
+{% block content %}
+    {% if alunos_dados_incompletos_para_diploma.exists %}
+        {% box "Alunos ({{ alunos_dados_incompletos_para_diploma.count }})" %}
+            <table>
+                <thead>
+                <tr>
+                    <th class="no-print">Ações</th>
+                    <th>Aluno</th>
+                    <th>Curso</th>
+                    <th>Naturalidade</th>
+                    <th>Data de Nascimento</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for aluno in alunos_dados_incompletos_para_diploma %}
+                    <tr>
+                        <td class="no-print">
+                            {% icon "view" "{{ aluno.get_absolute_url }}" %}
+                            {% icon "edit" "/admin/edu/aluno/{{ aluno.pk }}/" %}
+                        </td>
+                        <td>{{ aluno }}</td>
+                        <td>{{ aluno.curso_campus }}</td>
+                        <td>{{ aluno.naturalidade|format }}</td>
+                        <td>{{ aluno.pessoa_fisica.nascimento_data|format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    {% else %}
+        <p class="msg alert">Não existem alunos nesta situação.</p>
+    {% endif %}
+{% endblock %}

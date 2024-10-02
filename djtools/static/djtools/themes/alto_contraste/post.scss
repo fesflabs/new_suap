@@ -1,0 +1,102 @@
+body.theme-alto-contraste {
+    background-color: $white !important;
+    aside,
+    .pills .active a,
+    .select2-container .select2-results__option .person,
+    .select2-container.select2-container--default .select2-selection--multiple {
+        background-color: $white !important;
+    }
+    a,
+    a:active,
+    a:hover,
+    nav > ul > li > a,
+    nav > ul > li li > a,
+    .action-links button,
+    .action-links button:hover,
+    .boxes.links .fas,
+    .btn,
+    .notifications .fas,
+    .total-container .total-item span.fas {
+        color: $color !important;
+    }
+    aside input[type="search"] {
+        -webkit-text-fill-color: $white;
+    }
+    thead th,
+    tbody td,
+    tbody th,
+    tfoot td,
+    .pills a:hover,
+    .search-and-filters {
+        background-color: transparent !important;
+    }
+    thead th,
+    tbody td,
+    tbody th,
+    tfoot td,
+    &.index .wrapper {
+        border: 1px solid $black;
+    }
+    thead th {
+        padding: 15px 8px;
+        text-transform: uppercase;
+    }
+    #footer h3,
+    #footer h4,
+    #footer dt,
+    #footer dd,
+    #footer p,
+    .deletelink,
+    .title-container > h2 {
+        color: $black !important;
+    }
+    #user-tools {
+        .minha-conta {
+            border-left: 0 none;
+        }
+    }
+    .action-links button {
+        text-decoration: underline;
+    }
+    .action-links button:hover,
+    .btn,
+    .deletelink,
+    .modulo-indicador a {
+        text-decoration: none;
+    }
+    .btn,
+    .deletelink {
+        background-color: $white !important;
+        font-weight: 600;
+    }
+    .list-articles,
+    .progress {
+        border: 1px solid $white;
+    }
+    .select2-container.select2-container--default .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
+        color: $white;
+    }
+    .submit-row input {
+        &[name="_addanother"],
+        &[name="_continue"],
+        &[name="receber_e_encaminhar"],
+        &[name="receber_e_finalizar"],
+        &[name="wizard_goto_step"],
+        &[type="submit"] + button {
+            background-color: $white;
+            color: $black;
+        }
+    }
+    .timeline-content {
+        padding-top: 1rem;
+        &:after {
+            border-right-color: $black;
+        }
+    }
+
+    @media screen and (max-width: 940px), only screen and (min-device-width: 320px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+        .alertas {
+            padding-right: $main-p-sm;
+        }
+    }
+}

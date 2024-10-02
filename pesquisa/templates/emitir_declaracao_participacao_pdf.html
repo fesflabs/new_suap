@@ -1,0 +1,136 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block style %}
+    .cidade {
+        text-align: center;
+        padding-bottom: 15px;
+        vertical-align: bottom;
+        font-size: 14px;
+    }
+    .autenticacao {
+        font-size: 8pt;
+        line-height: 1em;
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    }
+    #titulo_corpo {
+        font-size: 24px;
+        text-align: center;
+        font-weight: bold;
+    }
+    #texto_corpo {
+        font-size: 20px;
+        text-align: justify;
+        padding-top: 2px;
+        line-height: 1.5em;
+    }
+    {% block page_settings %}
+        @page {
+            size: a4 {% block page_orientation %}portrait{% endblock %};
+            background-image: url(/static/comum/img/logo_if_portrait.png);
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            margin-top: 1cm; /* HeaderHeight */
+            margin-bottom: 1cm; /* FooterHeight */
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            @bottom-right {
+                content: "Página " counter(page) " de " counter(pages);
+            }
+        }
+        header{
+            top: -2cm; /* -HeaderHeight */
+            height: 2cm; /* HeaderHeight */
+            position: fixed;
+            width:98%;
+            padding-top: 0.5cm;
+        }
+        main{
+
+        }
+        footer{
+            bottom: 0cm; /* -FooterHeight */
+            height: 1cm; /* FooterHeight */
+            position: fixed;
+            width: 100%;
+            text-align: center;
+        }
+    {% endblock %}
+{% endblock %}
+
+{% block cabecalho %}
+{% endblock %}
+
+
+
+{% block content %}
+    	<div id="cabecalho">
+            <table border="0">
+                <tr>
+                    <td rowspan="4" width="100"><img src="/static/comum/img/brazao_colorido.jpg" alt="Brasão do Brasil"></td>
+                    <td class="titulo">MINISTÉRIO DA EDUCAÇÃO</td>
+                </tr>
+                <tr>
+                    <td class="titulo">SECRETARIA DE EDUCAÇÃO TECNOLÓGICA</td>
+                </tr>
+                <tr>
+                    <td class="titulo">{{ nome_instituicao|upper }}</td>
+                </tr>
+                 <tr>
+                    <td class="titulo">{{ participacao.projeto.uo.nome }} </td>
+                </tr>
+            </table>
+        </div>
+        <div id="texto_corpo">
+         <br/>
+             <center>DECLARAÇÃO</center>
+            <br/><br/>
+
+                Declaramos para os devidos fins que <b>{{ nome }}</b>,
+                {% if cpf %}CPF {{ cpf }},{% endif %}
+                {% if rg %}RG {{ rg }} -{% endif %}
+                {% if rg_orgao %}
+                    {{ rg_orgao }}/
+                {% endif %}
+                {% if rg_uf %}{{ rg_uf }},{% endif %}
+                {% if not eh_aluno and matricula %}
+                    matrícula SIAPE {{ matricula }},
+                {% endif %}
+                {% if logradouro %}
+                    residente à {{ logradouro }},
+                    {{ bairro }}, {{ cidade }}
+                {% endif %}
+                {% if not eh_coordenador %}
+                    {% if eh_aluno %}
+                        é aluno(a) do curso {{ participante.curso_campus }}, matrícula N° {{ matricula }} e
+                    {% endif %}
+                    participa como membro {% if eh_externo %} externo {% endif %}
+                {% else %}
+                    é Coordenador(a)
+                {% endif %}
+                do projeto de {{ tipo_projeto }} "{{ participacao.projeto.titulo }}" no {{ participacao.projeto.edital.titulo }},
+                com carga horária semanal de {{ carga_horaria }} horas,
+                {% if eh_aluno and possui_bolsa %}
+                tendo sido contemplado(a) com uma bolsa de iniciação científica
+                {% endif %}
+                no período entre {{ data_inicio_vinculo }} e {{ data_fim_vinculo }}.
+                {% if not eh_coordenador %}
+                    {%  if eh_aluno %}
+                         sob a orientação do(a)
+                    {% else %}
+                        sob a coordenação do(a)
+                    {% endif %}
+                    pesquisador(a) {{ participacao.projeto.vinculo_coordenador.pessoa.nome }}.
+                {% endif %}
+
+
+            <br /><br /><br /><br />
+            <table>
+
+                <tr>
+                    <td align="center" class="cidade">{{ participacao.projeto.uo.municipio.nome|lower|title }}, {{ hoje.day }} de {{ mes }} de {{ hoje.year }}.</td>
+                </tr>
+            </table>
+        </div>
+
+
+{% endblock %}

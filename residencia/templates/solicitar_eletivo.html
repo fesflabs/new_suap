@@ -1,0 +1,24 @@
+{% extends super_template %}
+
+{% block content %}
+    {% if alerta %}
+        <div class="msg alert">
+            {{ alerta }}
+        </div>
+    {% endif %}
+
+    {% box "Dados Residente" %}
+        <div class="photo-circle big">
+            <img src="{{ residente.get_foto_150x200_url }}" alt="Foto de {{ residente.get_nome }}">
+        </div>
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-50">
+                <dt>Nome</dt>
+                <dd>{{ residente.get_nome|normalizar }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% render_form form %}
+
+{% endblock %}

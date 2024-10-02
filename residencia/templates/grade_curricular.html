@@ -1,0 +1,35 @@
+{% extends super_template %}
+
+{% block content %}
+<div class="flex-container boards compact">
+    {% for periodo, componentes in obj.get_grade_curricular.items %}
+        <div class="board-container">
+            <h3 class="title">{% if periodo != "0" %}{{ periodo }}º Ano{% else %}Optativas{% endif %}</h3>
+
+            {% for componente in componentes %}
+                <div class="general-box">
+                    <div class="primary-info">
+                        <h4>
+                            {% if perms.edu.add_componentecurricular %}
+                                <a href="/residencia/definir_requisitos/{{ componente.id }}/">{{ componente.componente }}</a>
+                            {% else %}
+                                {{ componente.componente }}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <dl class="secondary-info">
+                        <div class="list-item">
+                            <dt>{% icone "info-circle" %} Atividade:</dt>
+                            <dd>{{ componente.abreviacao }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>{% icone "clock" %} Carga Horária:</dt>
+                            <dd>{{ componente.ch_hora_relogio }}h</dd>
+                        </div>
+                    </dl>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

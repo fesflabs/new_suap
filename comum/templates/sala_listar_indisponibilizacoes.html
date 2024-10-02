@@ -1,0 +1,88 @@
+{% extends super_template %}
+
+{% block action-bar %}
+{% if perms.comum.add_indisponibilizacaosala and eh_avaliador %}
+    <ul class="action-bar">
+        <li><a class="btn" href="/comum/sala/registrar_indisponibilizacao/">Registrar Indisponibilização</a></li>
+    </ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<ul class="tabs">
+    <li {% if tab == 'qualquer' %}class="active"{% endif %}>
+        <a href="?tab=qualquer">Qualquer <span class="badge">{{ qualquer.count }}</span></a>
+    </li>
+    <li {% if tab == 'em_manutencao' %}class="active"{% endif %}>
+        <a href="?tab=em_manutencao">Salas Atualmente em Manutenção <span class="badge">{{ em_manutencao.count }}</span></a>
+    </li>
+</ul>
+
+{% if indisponibilizacoes %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% autopaginate indisponibilizacoes %}
+    {% paginate %}
+    <table>
+        <thead>
+            <tr>
+                <th>Ações</th>
+                <th>
+                    {% if order_str == 'sala' %}
+                        <div class="sortoptions">
+                            <a class="sortremove" title="Remover da ordenação" href="?{{ params }}"></a>
+                            {% if order_sign %}
+                                <a class="toggle descending" title="Alternar ordenção" href="?order_by=sala&{{ params }}"></a>
+                            {% else %}
+                                <a class="toggle ascending" title="Alternar ordenção" href="?order_by=-sala&{{ params }}"></a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <div class="text">
+                        <a href="?order_by=sala&{{ params }}">Sala</a>
+                    </div>
+                    <div class="clear"></div>
+                </th>
+                <th>
+                    {% if order_str == 'periodo' %}
+                        <div class="sortoptions">
+                            <a class="sortremove" title="Remover da ordenação" href="?{{ params }}"></a>
+                            {% if order_sign %}
+                                <a class="toggle descending" title="Alternar ordenção" href="?order_by=periodo&{{ params }}"></a>
+                            {% else %}
+                                <a class="toggle ascending" title="Alternar ordenção" href="?order_by=-periodo&{{ params }}"></a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <div class="text">
+                        <a href="?order_by=periodo&{{ params }}">Período solicitado</a>
+                    </div>
+                    <div class="clear"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for indisponibilizacao in indisponibilizacoes %}
+                <tr>
+                    <td>
+                        {% icon "view" "/comum/sala/ver_indisponibilizacao/{{ indisponibilizacao.pk }}/" %}
+                        {% if indisponibilizacao.pode_excluir %}
+                            {% icon "delete" "/comum/sala/excluir_indisponibilizacao/{{ indisponibilizacao.pk }}/" "Remover" ""%}
+                        {% endif %}
+                    </td>
+                    <td>{{ indisponibilizacao.sala }}</td>
+                    <td>{{ indisponibilizacao.get_periodo }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% paginate %}
+{% else %}
+    <p class="msg alert">Não há salas disponíveis para essa busca.</p>
+{% endif %}
+
+
+{% endblock %}

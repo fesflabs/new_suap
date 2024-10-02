@@ -1,0 +1,79 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        $(document).ready(function() {
+            {% for desenvolvedor in analistas_desenvolvedores %}
+                atualizar_card_desenvolvedor({{ desenvolvedor.id }});
+                window.setInterval(function(){
+                    atualizar_card_desenvolvedor({{ desenvolvedor.id }});
+                }, 5*60000);
+            {% endfor %}
+
+            function atualizar_card_desenvolvedor(desenvolvedor_id){
+                $.get("/demandas/painel_forca_trabalho_desenvolvedor/"+desenvolvedor_id+"/", function(data) {
+                    $('#card-'+desenvolvedor_id).html(data.html);
+                    $('#card-'+desenvolvedor_id).addClass(data.estilo);
+                    $('#card-'+desenvolvedor_id).attr("ordem", data.ordem);
+                    ordenar();
+                });
+            }
+            function ordenar(){
+                var divList = $(".card-desenvolvedor");
+                divList.sort(function(a, b) {
+                    return $(a).attr("ordem") - $(b).attr("ordem")
+                });
+                $("#container-desenvolvedores").html(divList);
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    {% box 'Força-Trabalho' %}
+        <div class="legenda">
+            <p>Legenda:</p>
+            <ul>
+                <li class="error">Atrasado</li>
+                <li class="alert">Ocioso</li>
+                <li class="success">Disponível</li>
+            </ul>
+        </div>
+        <div id="container-desenvolvedores" class="flex-container">
+            {% for desenvolvedor in analistas_desenvolvedores %}
+                <div id="card-{{ desenvolvedor.id }}" class="card center card-desenvolvedor">
+                    <div class="photo">
+                        <img title="{{ desenvolvedor.usuario.pessoafisica.nome_usual }}" src="{{ desenvolvedor.usuario.pessoafisica.get_foto_75x100_url }}" />
+                    </div>
+                    <h4>{{ desenvolvedor.usuario.pessoafisica.nome_usual }}</h4>
+                    <div class="content">
+                        <span class='fas fa-spinner fa-spin' aria-hidden='true'></span> Aguarde...
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <p class="obs">O dado de Demandas Concluídas de cada Desenvolvedor é relativo ao ano de {{ ano_atual }}.</p>
+    {% endbox %}
+
+    {% box 'Desenvolvedores por Atualizações' %}
+        <div class="card-container">
+            {% for atualizador in atualizadores %}
+                <div class="card center">
+                    <div class="photo">
+                        <img title="{{ atualizador.1 }}" src="{{ atualizador.3 }}" alt="{{ atualizador.1 }}"/>
+                    </div>
+                    <h4>{{ atualizador.1 }}</h4>
+                    <div class="content">
+                        <div class="clear"></div>
+                        {% for tag in atualizador.2 %}
+                            <p class="note"><a href="/admin/demandas/atualizacao/?tags__id__exact={{ tag.0 }}&responsaveis__id__exact={{ atualizador.0 }}"><strong>{{ tag.2 }}</strong> {{ tag.1 }}</a></p>
+                        {% endfor %}
+                    </div>
+                    <footer>{{ atualizador.4 }} atualizaç{{ atualizador.4|pluralize:"ão,ões" }}</footer>
+                </div>
+            {% endfor %}
+        </div>
+    {% endbox %}
+
+{% endblock %}

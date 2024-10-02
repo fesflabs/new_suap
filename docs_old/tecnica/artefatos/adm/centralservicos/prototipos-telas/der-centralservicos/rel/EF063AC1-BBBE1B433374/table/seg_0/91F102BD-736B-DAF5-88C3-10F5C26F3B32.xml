@@ -1,0 +1,36 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="91F102BD-736B-DAF5-88C3-10F5C26F3B32" name="auth_user">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:13:23 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>auth_user</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:19:05 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7678C708-46F7-FABF-0142-D42C186A8918" name="funcionario_PK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:19:05 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

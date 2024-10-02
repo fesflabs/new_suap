@@ -1,0 +1,141 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block style %}
+    .cidade {
+        text-align: center;
+        padding-bottom: 15px;
+        vertical-align: bottom;
+        font-size: 14px;
+    }
+    .autenticacao {
+        font-size: 8pt;
+        line-height: 1em;
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    }
+    #titulo_corpo {
+        font-size: 24px;
+        text-align: center;
+        font-weight: bold;
+    }
+    #texto_corpo {
+        font-size: 20px;
+        text-align: justify;
+        padding-top: 2px;
+        line-height: 1.5em;
+    }
+    {% block page_settings %}
+        @page {
+            size: a4 {% block page_orientation %}portrait{% endblock %};
+            background-image: url(/static/comum/img/logo_if_portrait.png);
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            margin-top: 1cm; /* HeaderHeight */
+            margin-bottom: 1cm; /* FooterHeight */
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            @bottom-right {
+                content: "Página " counter(page) " de " counter(pages);
+            }
+        }
+        header{
+            top: -2cm; /* -HeaderHeight */
+            height: 2cm; /* HeaderHeight */
+            position: fixed;
+            width:98%;
+            padding-top: 0.5cm;
+        }
+        main{
+
+        }
+        footer{
+            bottom: 0cm; /* -FooterHeight */
+            height: 1cm; /* FooterHeight */
+            position: fixed;
+            width: 100%;
+            text-align: center;
+        }
+    {% endblock %}
+{% endblock %}
+
+{% block cabecalho %}
+{% endblock %}
+
+
+
+{% block content %}
+
+        <div id="cabecalho">
+            <table border="0">
+                <tr>
+                    <td rowspan="4" width="100"><img src="/static/comum/img/brazao_colorido.jpg" alt="Brasão do Brasil"></td>
+                    <td class="titulo">MINISTÉRIO DA EDUCAÇÃO</td>
+                </tr>
+                <tr>
+                    <td class="titulo">SECRETARIA DE EDUCAÇÃO TECNOLÓGICA</td>
+                </tr>
+                <tr>
+                    <td class="titulo">{{ nome_instituicao|upper }}</td>
+                </tr>
+                 <tr>
+                    <td class="titulo">{{ participacao.projeto.uo.nome }} </td>
+                </tr>
+            </table>
+        </div>
+        <div id="texto_corpo">
+             <br/>
+                 <center>DECLARAÇÃO DE ORIENTAÇÃO</center>
+            <br/>
+                Declaramos para os devidos fins que <b>{{ nome }}</b>,
+                CPF {{ cpf }},
+                RG {{ rg }} -
+                {% if rg_orgao %}
+                    {{ rg_orgao }}/
+                {% endif %}
+                {{ rg_uf }},
+                matrícula SIAPE {{ matricula }},
+                residente à {{ logradouro }},
+                {{ bairro }}, {{ cidade }},
+                foi orientador de iniciação científica dos estudantes discriminados abaixo, no âmbito do projeto de pesquisa
+                <b>{{participacao.projeto.titulo }}</b>,
+                {% if participacao.projeto.edital.tem_formato_completo %}
+                    no <b>{{participacao.projeto.edital.titulo }}</b>,
+                {% else %}
+                    registrado no Sistema Unificado de Administração Pública - SUAP,
+                    via <b>{{ participacao.projeto.edital.titulo }}</b>,
+                    da {{ nome_pro_reitoria }} do {{ nome_instituicao }},
+                {% endif %}
+
+
+                no período de <b>{{ participacao.projeto.inicio_execucao }}</b> até <b>{{ participacao.projeto.fim_execucao }}</b>.
+            <br><br><br>
+            <table width="100%" align="center" class="alunos">
+                <thead>
+                    <tr>
+                        <th width="25%" align="left">Matrícula</th>
+                        <th width="35%" align="left">Nome</th>
+                        <th width="40%" align="left">Curso</th>
+                        <th width="25%" align="left">Vínculo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno in alunos %}
+                    <tr>
+                        <td align="left">{{ aluno.get_identificador }}</td>
+                        <td align="left">{{ aluno.get_nome }}</td>
+                        <td align="left">{{ aluno.get_participante.curso_campus }}</td>
+                        <td align="left">{{ aluno.vinculo }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br /><br /><br /><br />
+            <table>
+
+                <tr>
+                    <td align="center" class="cidade">{{ participacao.projeto.uo.municipio.nome|lower|title }}, {{ hoje.day }} de {{ mes }} de {{ hoje.year }}.</td>
+                </tr>
+            </table>
+        </div>
+
+
+{% endblock %}

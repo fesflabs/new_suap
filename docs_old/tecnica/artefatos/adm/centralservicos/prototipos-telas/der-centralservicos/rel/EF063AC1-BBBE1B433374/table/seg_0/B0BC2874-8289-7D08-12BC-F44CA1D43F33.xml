@@ -1,0 +1,47 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B0BC2874-8289-7D08-12BC-F44CA1D43F33" name="centralservicos_statuschamado">
+<createdBy>root</createdBy>
+<createdTime>2014-07-29 21:05:02 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>statuschamado</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="FB14DD87-AD87-1927-1B87-769B9A95F4E0">
+<createdBy>root</createdBy>
+<createdTime>2014-07-29 21:06:09 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nome" id="32F0BD0B-16BA-5B29-82CC-D260C0929604">
+<createdBy>root</createdBy>
+<createdTime>2014-07-29 21:06:09 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="59EF0DBF-64AD-429B-8191-B954D8760FB7" name="centralservicos_statuschamado_PK">
+<createdBy>root</createdBy>
+<createdTime>2014-07-29 21:06:09 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FB14DD87-AD87-1927-1B87-769B9A95F4E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

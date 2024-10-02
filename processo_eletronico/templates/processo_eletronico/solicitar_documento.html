@@ -1,0 +1,103 @@
+<div class="primary-info">
+    {% if solicitacao.estah_expirada %}
+        <span class="status status-error">Expirada</span>
+    {% else %}
+        {{ solicitacao.get_status_display|status }}
+    {% endif %}
+    <h4>
+        <strong>Solicitação de Anexação de Documento a {{ solicitacao.solicitado|format }} </strong>
+    </h4>
+    {% if solicitacao.estah_esperando %}
+        <div class="msg info">
+          <strong>Atenção: </strong>{{ solicitacao.solicitante.pessoafisica.nome_usual }} só poderá avaliar os documentos desta solicitação se
+            {{ solicitacao.solicitado.nome_usual }} concluir a solicitação de juntada até {{ solicitacao.data_limite|date }}
+        ou quando esta solicitação expirar.
+         </div>
+    {% endif %}
+    <ul class="action-bar">
+        {% if solicitacao.pode_anexar_documento %}
+            {% if solicitacao.pode_adicionar_documento_interno %}
+            <li><a href="{% url 'listar_documentos_juntar' solicitacao.id %}" class="btn success">
+                Adicionar Documento
+            </a></li>
+            {% endif %}
+            <li><a href="{% url 'solicitar_juntada_documento_externo' solicitacao.id %}" class="btn success">
+                Realizar Upload de Documento
+            </a></li>
+            <li><a href="{% url 'concluir_juntada_documento' solicitacao.id %}" class="btn success">
+                Concluir Solicitação
+            </a></li>
+        {% endif %}
+        {% if solicitacao.pode_cancelar_solicitacao%}
+            <li><a href="{% url 'cancelar_solicitacao_documento' solicitacao.id %}" class="btn danger">
+                Cancelar Solicitação
+            </a></li>
+        {% endif %}
+    </ul>
+    <div class="extra-info">
+        <h5>Justificativa da Solicitação</h5>
+        {{ solicitacao.motivo|linebreaks }}
+        {% if solicitacao.possui_solicitacoes_de_juntada %}
+            <h5>Documentos</h5>
+            <table>
+                <thead>
+                <tr>
+                    <th>Documento</th>
+                    <th>Situação</th>
+                    <th>Justificativa do (In)deferimento</th>
+                    <th>Avaliado por</th>
+                    <th>Avaliado em</th>
+                    <th class="no-print">Opções</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for item in solicitacao.solicitacoes_de_juntada %}
+                        <tr>
+                            <td>{{ item.documento }}</td>
+                            <td>{{ item.get_status_display|status }}</td>
+                            <td>{{ item.parecer|format }}</td>
+                            <td>{{ item.avaliado_por|format }}</td>
+                            <td>{{ item.avaliado_em|format }}</td>
+                            <td class="no-print">
+                                {% if item.pode_deferir_documento %}
+                                    <a href="{% url 'avaliar_solicitacao_juntada_documento' item.id %}" class="btn">Avaliar</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+<dl class="secondary-info">
+    <div class="list-item">
+        <dt><span class="fas fa-calendar" aria-hidden="true"></span> Data Limite:</dt>
+        <dd>{{ solicitacao.data_limite|date }}</dd>
+    </div>
+    <div class="list-item">
+        <dt><span class="fas fa-user" aria-hidden="true"></span> Solicitação por:</dt>
+        <dd>{{ solicitacao.solicitante|format }} em {{ solicitacao.data_solicitacao|format }}</dd>
+    </div>
+    {% if solicitacao.estah_cancelada %}
+        <div class="list-item">
+            <dt><span class="fas fa-user" aria-hidden="true"></span> Cancelada por:</dt>
+            <dd>{{ solicitacao.cancelada_por|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt><span class="fas fa-calendar-times" aria-hidden="true"></span> Data do Cancelamento:</dt>
+            <dd>{{ solicitacao.data_cancelamento|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt><span class="fas fa-paragraph" aria-hidden="true"></span> Justificativa do Cancelamento:</dt>
+            <dd>{{ solicitacao.justificativa_cancelamento|linebreaks }}</dd>
+        </div>
+    {% elif solicitacao.data_conclusao %}
+        <div class="list-item">
+            <dt><span class="fas fa-calendar" aria-hidden="true"></span> Data da Resposta:</dt>
+            <dd>{{ solicitacao.data_conclusao|format }}</dd>
+        </div>
+    {% endif %}
+</dl>

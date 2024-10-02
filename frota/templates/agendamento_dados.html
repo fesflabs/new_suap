@@ -1,0 +1,116 @@
+{% box 'Dados do Agendamento' %}
+    <table class="info">
+        <tbody>
+            <tr>
+                <td>Solicitante</td>
+                <td>{{ agendamento.vinculo_solicitante.user|format }} <small>Em {{ agendamento.data_solicitacao }}</small></td>
+                <td>Setor</td><td>{{ agendamento.setor }}</td>
+
+            </tr>
+            {% if agendamento.nome_responsavel %}
+                <tr>
+                    <td>Responsável</td>
+                    <td>{{ agendamento.nome_responsavel|format }}</td>
+                    <td>Contato</td>
+                    <td>{{ agendamento.telefone_responsavel|format }}</td>
+                </tr>
+            {% endif %}
+
+            <tr>
+                <td>Chefia</td>
+                <td>{{ agendamento.avaliado_por|format }}</td>
+                <td>Autorizado</td>
+                <td>{% if agendamento.aprovado %}<span class="status status-success">Sim</span> {% elif not agendamento.avaliado_em %}<span class="status status-alert">Aguardando</span> {% else %}<span class="status status-error">Não</span> {% endif %}{% if agendamento.avaliado_em %}<small>Em {{ agendamento.avaliado_em }}</small>{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Avaliador</td>
+                <td>{{ agendamento.viagemagendamentoresposta.autor|format }}</td>
+                <td>Situação</td>
+                <td>
+                 {% if agendamento.viagemagendamentoresposta %}
+                     {% if agendamento.is_deferido %}
+                         <span class="status status-success">
+                     {% else %}
+                         <span class="status status-error">
+                     {% endif %}
+                     {{ agendamento.status }}
+                     </span><small> Em {{ agendamento.viagemagendamentoresposta.data_avaliacao }}</small>
+                 {% else %}
+                     <span class="status status-alert">Aguardando</span>
+                 {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Saída Prevista</td>
+                <td>{{ agendamento.data_saida|format }}</td>
+                <td>Chegada Prevista</td>
+                <td>{{ agendamento.data_chegada|format }}</td>
+            </tr>
+            <tr>
+                <td>Objetivo</td>
+                <td colspan="3">{{ agendamento.objetivo }}</td>
+            </tr>
+            <tr>
+                <td>Itinerário</td>
+                <td colspan="3">{{ agendamento.intinerario }}</td>
+            </tr>
+            {% if agendamento.local_saida %}
+                <tr>
+                    <td>Local de Saída</td>
+                    <td colspan="3">{{ agendamento.local_saida }}</td>
+                </tr>
+            {% endif %}
+            {% if agendamento.viagemagendamentoresposta %}
+                 <tr>
+                     <td>Viatura Prevista</td>
+                     <td>{{ agendamento.viagemagendamentoresposta.viatura|format }}</td>
+                     <td>Motorista(s) Previsto(s)</td>
+                     <td>{{ agendamento.viagemagendamentoresposta.get_motoristas|format }}</td>
+                 </tr>
+            {% endif %}
+            <tr>
+                <td>Quantidade de Passageiros</td>
+                <td>{{ agendamento.vinculos_passageiros.count }}</td>
+                {% if agendamento.quantidade_diarias %}
+                    <td>Quantidade de Diárias</td>
+                    <td>{{ agendamento.quantidade_diarias }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                 <td>Lista de Passageiros</td>
+                 <td colspan="3">
+                     {% if not agendamento.vinculos_passageiros.exists %}
+                        -
+                    {% else %}
+                        <ul>
+                            {% for passageiro in agendamento.vinculos_passageiros.all %}
+                                <li>{{ passageiro.pessoa.nome }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                 </td>
+            </tr>
+            {% if agendamento.vinculos_interessados.exists %}
+                <tr>
+                    <td>Interessados</td>
+                    <td colspan="3">
+                        <ul>
+                            {% for interessado in agendamento.vinculos_interessados.all %}
+                                <li>{{ interessado.pessoa.nome }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if agendamento.arquivo %}
+                <tr>
+                    <td>Documento de Comprovação</td>
+                    <td colspan="3">
+                    <a href="{{ agendamento.arquivo.url }}">Ver arquivo</a>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endbox %}

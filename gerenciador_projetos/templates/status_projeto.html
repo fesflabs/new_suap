@@ -1,0 +1,83 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% include "acoes_visualizacao.html" %}
+    </ul>
+{% endblock %}
+
+{% block object-status %}
+    {{ projeto.get_situacao_display|status }}
+{% endblock %}
+
+{% block content %}
+
+    <dl>
+        <dt>Descrição:</dt>
+        <dd>{{ projeto.descricao|linebreaksbr }}</dd>
+    </dl>
+
+    {% include "includes/progresso.html" %}
+
+    {% if tarefas %}
+        <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Tarefas</th>
+                    <th>Criado por</th>
+                    <th>Atribuído para</th>
+                    <th>Início em</th>
+                    <th>Conclusão Estimada para</th>
+                    <th>Concluída em</th>
+                    <th>Progresso em</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarefa in lista_tarefas %}
+                    <tr>
+                        {% if not tarefa.tarefa_pai %}
+                            <td colspan="2"><strong>{{ tarefa }}</strong></td>
+                        {% else %}
+                            <td></td>
+                            <td>
+                                {{ tarefa }}
+                            </td>
+                        {% endif %}
+                        <td>
+                            {{ tarefa.criado_por|format }} em {{ tarefa.aberto_em|date }}
+                        </td>
+                        <td>
+                            <ul>
+                                {% for atribuido in tarefa.atribuido_a.all %}
+                                    <li>
+                                        {{ atribuido |format }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            {{ tarefa.data_inicio|date|format }}
+                        </td>
+                        <td>
+                            {{ tarefa.data_conclusao_estimada|date|format }}
+                        </td>
+                        <td>
+                            {{ tarefa.data_conclusao|date|format }}
+                        </td>
+                        <td>
+                            <div class="progress">
+                                <p>{{ tarefa.total_progresso }}%</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    {% else %}
+        <p class="msg alert">Não há tarefas cadastradas para esse projeto.</p>
+    {% endif %}
+
+{% endblock %}
+

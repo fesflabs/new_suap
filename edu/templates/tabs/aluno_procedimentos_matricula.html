@@ -1,0 +1,43 @@
+{% box 'Histórico de Procedimentos' %}
+    {% if procedimentos %}
+        <table>
+            <thead>
+            <tr>
+                <th>Matricula Período</th>
+                <th>Tipo</th>
+                <th>Motivo</th>
+                <th>Processo</th>
+                <th>Usuário</th>
+                <th>Data</th>
+                {% if pode_realizar_procedimentos %}
+                    <th class="no-print">Opções</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for procedimento in procedimentos %}
+                <tr>
+                    <td>{{ procedimento.matricula_periodo.ano_letivo }}/{{ procedimento.matricula_periodo.periodo_letivo }}</td>
+                    <td>{{ procedimento.tipo }} {% if procedimento.nova_matricula %}(
+                        <a href="{{ procedimento.get_aluno.get_absolute_url }}">{{ procedimento.get_aluno.matricula }}</a>
+                        ){% endif %}</td>
+                    <td>{{ procedimento.motivo }}</td>
+                    <td>{{ procedimento.processo|format }}</td>
+                    <td>{{ procedimento.user|format }}</td>
+                    <td>{{ procedimento.data|format }}</td>
+                    {% if pode_realizar_procedimentos %}
+                        {% if procedimento.pode_ser_desfeito %}
+                            <td class="no-print"><a href="?tab=procedimentos&procedimento_id={{ procedimento.pk }}" class="btn danger">Desfazer Procedimento</a></td>
+                        {% else %}
+                            <td class="no-print">-</td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhum procedimento realizado até o momento.</p>
+    {% endif %}
+{% endbox %}
+

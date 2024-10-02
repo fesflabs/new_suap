@@ -1,0 +1,1058 @@
+{% extends super_template %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    {% if perms.edu.change_professor %}
+        <li class="has-child">
+            <a href="#" class="btn primary">Editar</a>
+            <ul>
+                <li><a href="/admin/edu/professor/{{ obj.pk }}/">Professor</a></li>
+                {% if perms.edu.efetuar_matricula %}
+                    <li><a href="/edu/atualizar_foto_professor/{{ obj.pk }}/">Foto</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    {% endif %}
+    <li><a href="{{ obj.vinculo.relacionamento.get_absolute_url }}" class="btn default">Dados Funcionais</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if not obj.vinculo.user.username %}
+        <p class="msg alert"><strong>Atenção:</strong> O nome de usuário (<em>username</em>) desse professor ainda não foi definido pelo sistema.</p>
+    {% endif %}
+
+    {% box 'Dados Gerais' %}
+        <div class="photo-circle big">
+            <img src="{{ obj.get_foto_150x200_url }}" alt="Foto de {{ obj.vinculo.pessoa.nome }}"/>
+        </div>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Nome</dt>
+                <dd>{{ obj.vinculo.pessoa.nome|normalizar }}</dd>
+            </div>
+            {% if pode_ver_dados_pessoais %}
+                <div class="list-item">
+                    <dt>CPF</dt>
+                    <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.cpf }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>E-mail Institucional</dt>
+                <dd>{{ obj.vinculo.pessoa.email|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Telefones Institucionais</dt>
+                <dd>{{ obj.vinculo.setor.setortelefone_set.all|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>NCE</dd>
+                <dd>
+                    <ul>
+                        {% for nce in obj.nce.all %}
+                            <li>{{ nce|format }}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Matéria/Disciplina</dt>
+                <dd>{{ obj.disciplina|format }}</dd>
+            </div>
+            {% if vinculo_professor_ead %}
+            <div class="list-item">
+                <dt>Vínculo do Professor com o EAD</dt>
+                <dd>{{ vinculo_professor_ead|format }}</dd>
+            </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Possui formação/complementação pedagógica</dt>
+                <dd>{{ obj.possui_formacao_complementar|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Titulação</dt>
+                <dd>{{ obj.titulacao|format }}</dd>
+            </div>
+            {% if obj.ano_ultima_titulacao or obj.ultima_instituicao_de_titulacao %}
+                <div class="list-item">
+                    <dt>Instituição onde recebeu a última titulação</dt>
+                    <dd> {{ obj.ultima_instituicao_de_titulacao|format }} </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Área da última titulação</dt>
+                    <dd> {{ obj.get_area_ultima_titulacao_display|format }} </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Ano da última titulação</dt>
+                    <dd>{{ obj.ano_ultima_titulacao|format }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Curso Superior</dt>
+                <dd>{{ obj.curso_superior|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Instituição de Ensino Superior</dt>
+                <dd>{{ obj.instituicao_ensino_superior|format }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% if pode_ver_dados_pessoais %}
+        <div class="tab-container ajax-rendered" data-title="Dados Pessoais" data-tab="dados_gerais">
+            {% if request.GET.tab == "dados_gerais" or not request.GET.tab %}
+                {% box 'Dados Pessoais' %}
+                    <dl class="definition-list flex">
+                        <div class="list-item">
+                            <dt>RG</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.rg|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Data de Nascimento</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.nascimento_data|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Estado Civil</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.estado_civil|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Filiação</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.nome_mae|format }}</dd>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.nome_pai|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Naturalidade</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.nascimento_municipio|format }}</dd>
+                        </div>
+                        <div class="list-item flex-basis-50">
+                            <dt>Endereço</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.endereco_logradouro|format }}, {{ obj.vinculo.relacionamento.pessoa_fisica.endereco_numero|format }},
+                                {% if obj.vinculo.relacionamento.pessoa_fisica.endereco_complemento %}
+                                    {{ obj.vinculo.relacionamento.pessoa_fisica.endereco_complemento|format }}
+                                    ,  {% endif %} {{ obj.vinculo.relacionamento.pessoa_fisica.endereco_bairro|format }}
+                            </dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>CEP</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.endereco_cep|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Município</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.endereco_municipio|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>E-mails</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.email|format }}, {{ obj.vinculo.relacionamento.pessoa_fisica.email_secundario|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Telefone Pessoal</dt>
+                            <dd>{{ obj.vinculo.relacionamento.pessoa_fisica.telefones_pessoais|format }}</dd>
+                        </div>
+                    </dl>
+                {% endbox %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="tab-container ajax-rendered" data-title="Diários e Cursos Lecionados" data-tab="disciplinas">
+        {% if request.GET.tab == "disciplinas" or not request.GET.tab and not pode_ver_dados_pessoais %}
+
+             <ul class="action-bar">
+                <li class='has-child'>
+                    <a class="btn" href="#">Emitir Declaração de Docência</a>
+                    <ul>
+                        <li><a href="/edu/declaracaodocencia_pdf/{{ obj.pk }}/">Todos</a></li>
+                        {% for ano in obj.get_anos_com_diarios %}
+                            <li><a href="/edu/declaracaodocencia_pdf/{{ obj.pk }}/{{ ano }}/">{{ ano }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+
+            {% box 'Diários' %}
+                {{ periodo_letivo_atual.as_widget|safe }}
+                {% if vinculos_diarios_regulares or vinculos_diarios_fics or vinculos_turmas_minicurso or diarios_especiais %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Período</th>
+                                <th>Diário</th>
+                                <th>Turma</th>
+                                <th>Campus</th>
+                                <th>Tipo</th>
+                                <th>Semestral</th>
+                                <th>Ativo</th>
+                                <th>Financiamento Externo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for professordiario in vinculos_diarios_regulares %}
+                            <tr>
+                                <td> {{ professordiario.diario.ano_letivo }}.{{ professordiario.diario.get_periodo_letivo }}</td>
+                                <td>
+                                    {% if eh_proprio_professor %}
+                                        <a href="/edu/meu_diario/{{ professordiario.diario.pk }}/0/">{{ professordiario.diario }}</a>
+                                    {% else %}
+                                        {% if perms.edu.view_diario %}
+                                            <a href="{{ professordiario.diario.get_absolute_url }}">{{ professordiario.diario }}</a>
+                                        {% else %}
+                                            {{ professordiario.diario }}
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td>{{ professordiario.diario.turma }}</td>
+                                <td>{{ professordiario.diario.turma.curso_campus.diretoria.setor.uo }}</td>
+                                <td> {{ professordiario.tipo }} </td>
+                                <td> {{ professordiario.diario.is_semestral|format }} </td>
+                                <td> {{ professordiario.ativo|format }} </td>
+                                <td> {{ professordiario.financiamento_externo|format }} </td>
+                            </tr>
+                        {% endfor %}
+                        {% for professordiario in vinculos_diarios_fics %}
+                            <tr>
+                                <td> {{ professordiario.diario.ano_letivo }}.{{ professordiario.diario.get_periodo_letivo }}</td>
+                                <td>
+                                    {% if eh_proprio_professor %}
+                                        <a href="/edu/meu_diario/{{ professordiario.diario.pk }}/0/">{{ professordiario.diario }}</a>
+                                    {% else %}
+                                        {% if perms.edu.view_diario %}
+                                            <a href="{{ professordiario.diario.get_absolute_url }}">{{ professordiario.diario }}</a>
+                                        {% else %}
+                                            {{ professordiario.diario }}
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td>{{ professordiario.diario.turma }}</td>
+                                <td>{{ professordiario.diario.turma.curso_campus.diretoria.setor.uo }}</td>
+                                <td> {{ professordiario.tipo }} </td>
+                                <td> {{ professordiario.diario.is_semestral|format }} </td>
+                                <td> {{ professordiario.ativo|format }} </td>
+                                <td> {{ professordiario.financiamento_externo|format }} </td>
+                            </tr>
+                        {% endfor %}
+                        {% for professor_minicurso in vinculos_turmas_minicurso %}
+                            <tr>
+                                <td> {{ professor_minicurso.turma_minicurso.ano_letivo }}.{{ professor_minicurso.turma_minicurso.periodo_letivo }}</td>
+                                <td>
+                                    {% if eh_proprio_professor or perms.edu.view_diario %}
+                                        <a href="/edu/turma_minicurso/{{ professor_minicurso.turma_minicurso.pk }}/">{{ professor_minicurso.turma_minicurso.minicurso.descricao }}</a>
+                                    {% else %}
+                                       	{{ professor_minicurso.turma_minicurso.minicurso.descricao }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ professor_minicurso.turma_minicurso.descricao }}</td>
+                                <td>{{ professor_minicurso.turma_minicurso.minicurso.diretoria.setor.uo }}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        {% endfor %}
+                        {% for diario_especial in diarios_especiais %}
+                            <tr>
+                                <td> {{ diario_especial.ano_letivo }}.{{ diario_especial.periodo_letivo }}</td>
+                                <td>
+                                    {% if eh_proprio_professor or perms.edu.view_diario %}
+                                        <a href="/edu/diarioespecial/{{ diario_especial.pk }}/">{{ diario_especial }}</a>
+                                    {% else %}
+                                         {{ diario_especial }}
+                                    {% endif %}
+                                </td>
+                                <td>-</td>
+                                <td>{{ diario_especial.diretoria.setor.uo }}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma disciplina ministrada neste ano/periodo.</p>
+                {% endif %}
+            {% endbox %}
+
+            {% box 'Cursos Lecionados' %}
+                {% if obj.cursos_lecionados.exists %}
+                    <ul>
+                        {% for curso_campus in obj.cursos_lecionados.all %}
+                            <li>{{ curso_campus }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="msg alert">O professor não lecionou em nenhum curso até o momento.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Minicursos" data-tab="minicursos" data-counter="{{ obj.professorminicurso_set.count }}" data-hide-tab-on-counter-zero="true">
+        {% if request.GET.tab == "minicursos" %}
+            {% for pm in obj.professorminicurso_set.all %}
+                {% box '{{ pm.turma_minicurso.minicurso }}' %}
+                    <dl class="definition-list flex">
+                        <div class="list-item">
+                            <dt>Ano/Período Letivo</dt>
+                            <dd>{{ pm.turma_minicurso.ano_letivo }}.{{ pm.turma_minicurso.periodo_letivo }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Início/Fim</dt>
+                            <dd>De {{ pm.turma_minicurso.data_inicio }} a {{ pm.turma_minicurso.data_fim }}</dd>
+                        </div>
+                    </dl>
+
+                    <h4>Minicurso</h4>
+                    <dl class="definition-list flex">
+                        <div class="list-item flex-basis-50">
+                            <dt>Descrição</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.descricao }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Código</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.codigo }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Ano/Período Letivo</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.ano_letivo }}.{{ pm.turma_minicurso.minicurso.periodo_letivo }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Modalidade</dt>
+                            <dd>FIC</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Diretoria</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.diretoria }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Ato Normativo</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.resolucao_criacao }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>PPC</dt>
+                            <dd><a href="{{ pm.turma_minicurso.minicurso.ppc.url }}">{{ pm.turma_minicurso.minicurso.ppc.name|format }}</a></dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>CH Total hora/relógio</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.ch_total|format }} horas</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Tipo Hora Aula</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.tipo_hora_aula|format }} min</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>CH Total hora/aula</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.ch_aula|format }} horas</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Código SISTEC</dt>
+                            <dd>{{ pm.turma_minicurso.minicurso.codigo_sistec|format }}</dd>
+                        </div>
+                    </dl>
+
+                    <h4>Turma</h4>
+                    <dl class="definition-list flex">
+                        <div class="list-item flex-basis-50">
+                            <dt>Descrição</dt>
+                            <dd>{{ pm.turma_minicurso.descricao }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Ano/Período Letivo</dt>
+                            <dd>{{ pm.turma_minicurso.ano_letivo }}.{{ pm.turma_minicurso.periodo_letivo }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Gerar Matrícula</dt>
+                            <dd>{{ pm.turma_minicurso.gerar_matricula|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Início/Fim</dt>
+                            <dd>De {{ pm.turma_minicurso.data_inicio }} até {{ pm.turma_minicurso.data_fim }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Alunos Participantes</dt>
+                            <dd><a class="popup" href="/edu/ver_alunos_turma_minicurso/{{ pm.turma_minicurso.pk }}/">{{ pm.turma_minicurso.participantes.count}} alunos</a></dd>
+                        </div>
+                        <div class="list-item flex-basis-100">
+                            <dt>Professores</dt>
+                            {% for professor_minicurso in pm.turma_minicurso.professorminicurso_set.all %}
+                                <dd>
+                                    {{ professor_minicurso.professor }}: Carga Horária em h/r: {{ professor_minicurso.carga_horaria|default:"Não definido" }}, Carga Horária em h/a: {{ professor_minicurso.get_carga_horaria_ha|default:"Não definido" }}
+                                </dd>
+                            {% endfor %}
+                        </div>
+                    </dl>
+                {% endbox %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Horários" data-tab="horarios">
+        {% if request.GET.tab == "horarios" %}
+            {% box 'Horários do Professor' %}
+                {{ periodo_letivo_atual.as_widget|safe }}
+                {% include "includes/professor_tabela_horarios.html" %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    {% if professor_eh_docente and app_pit_rit_instalada %}
+        <div class="tab-container ajax-rendered" data-title="Plano Individual de Trabalho" data-tab="planoatividades">
+            {% if request.GET.tab == "planoatividades" %}
+                {% if periodo_letivo_atual.ano < 2019 %}
+                    {% include "pit_rit/templates/includes/professor_atividades_academicas.html" %}
+                {% else %}
+                    {% include "pit_rit_v2/templates/includes/professor_atividades_academicas.html" %}
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="tab-container ajax-rendered" data-title="Orientações de Estágios e Afins" data-hide-tab-on-counter-zero="true" data-counter="{{ qtd_estagios }}"
+         data-tab="estagios">
+        {% if request.GET.tab == "estagios" %}
+            {% if usuario_emite_declaracao_orientacao and obj.get_anos_com_orientacao_estagios %}
+                <ul class="action-bar">
+                    <li class='has-child'>
+                        <a class="btn" href="#">Emitir Declaração de Orientação de Estágios</a>
+                        <ul>
+                            <li>
+                                <a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/estagios/0/">Todos</a>
+                            </li>
+                            {% for ano in obj.get_anos_com_orientacao_estagios %}
+                                <li>
+                                    <a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/estagios/{{ ano }}/">{{ ano }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
+            {% box 'Orientações de Estágio - Em Andamento' %}
+                {% if obj.get_estagios_em_andamento.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Tipo</th>
+                            <th>Aluno</th>
+                            <th>Concedente</th>
+                            <th>Data de Início</th>
+                            <th>Data Prevista para Encerramento</th>
+                            <th>Datas sugeridas como limite para visitas trimestrais</th>
+                            <th>C.H. Semanal</th>
+                            <th>Situação</th>
+                            <th>C.H. Final</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for pratica_profissional in obj.get_estagios_em_andamento %}
+                            <tr>
+                                <td class="no-print">{% icon "view" "{{ pratica_profissional.get_absolute_url }}" %}</td>
+                                <td>{{ pratica_profissional.get_tipo_display }}</td>
+                                <td>{{ pratica_profissional.aluno|format }}</td>
+                                <td>{{ pratica_profissional.empresa|format }}</td>
+                                <td>{{ pratica_profissional.data_inicio }}</td>
+                                <td>{{ pratica_profissional.data_prevista_fim }}</td>
+                                <td>
+                                    <p>Este estágio tem previsão de duração de {{ pratica_profissional.get_qtd_dias }}
+                                        dias,
+                                        ou {{ pratica_profissional.get_qtd_trimestres }} trimestres,
+                                        logo devem ser feitas {{ pratica_profissional.get_qtd_trimestres }} visitas.
+                                        Seguem discriminação dos períodos trimestrais. Favor estar
+                                        atento(a) aos calendários de funcionamento tanto da empresa quanto do {% get_valor_por_chave "comum" "instituicao_sigla" %}.</p>
+                                    <ul>
+                                        {% for periodo in pratica_profissional.get_periodos_trimestrais %}
+                                            <li>{{ forloop.counter }}º de {{ periodo.inicio|format }}
+                                                a {{ periodo.fim|format }}. Visitas já
+                                                realizadas: {{ periodo.visitas|format }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ pratica_profissional.ch_semanal }}</td>
+                                <td>{{ pratica_profissional.resumo_pendencias }}</td>
+                                <td>{{ pratica_profissional.ch_final }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma orientação de estágio em andamento para este professor.</p>
+                {% endif %}
+            {% endbox %}
+
+            {% box 'Orientações de Estágio - Encerrados' %}
+                {% if obj.get_estagios_encerrados.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Tipo</th>
+                            <th>Aluno</th>
+                            <th>Concedente</th>
+                            <th>Data de Início</th>
+                            <th>Data Prevista para Encerramento</th>
+                            <th>Datas sugeridas como limite para visitas trimestrais</th>
+                            <th>C.H. Semanal</th>
+                            <th>Situação</th>
+                            <th>C.H. Final</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for pratica_profissional in obj.get_estagios_encerrados %}
+                            <tr>
+                                <td class="no-print">
+
+                                    {% icon "view" "{{ pratica_profissional.get_absolute_url }}" %}
+                                </td>
+                                <td>{{ pratica_profissional.get_tipo_display }}</td>
+                                <td>
+                                    {{ pratica_profissional.aluno | format}}
+                                </td>
+                                <td>{{ pratica_profissional.empresa|format }}</td>
+                                <td>{{ pratica_profissional.data_inicio }}</td>
+                                <td>{{ pratica_profissional.data_prevista_fim }}</td>
+                                <td>
+                                    <p>Este estágio tem previsão de duração de {{ pratica_profissional.get_qtd_dias }}
+                                        dias,
+                                        ou {{ pratica_profissional.get_qtd_trimestres }} trimestres,
+                                        logo devem ser feitas {{ pratica_profissional.get_qtd_trimestres }} visitas.
+                                        Seguem discriminação dos períodos trimestrais. Favor estar
+                                        atento(a) aos calendários de funcionamento tanto da empresa quanto do {% get_valor_por_chave "comum" "instituicao_sigla" %}.</p>
+                                    <ul>
+                                        {% for periodo in pratica_profissional.get_periodos_trimestrais %}
+                                            <li>{{ forloop.counter }}º de {{ periodo.inicio|format }}
+                                                a {{ periodo.fim|format }}. Visitas já
+                                                realizadas: {{ periodo.visitas|format }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ pratica_profissional.ch_semanal }}</td>
+                                <td>{{ pratica_profissional.resumo_pendencias }}</td>
+                                <td>{{ pratica_profissional.ch_final }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma orientação de estágio encerrado para este professor.</p>
+                {% endif %}
+            {% endbox %}
+
+            {% if usuario_emite_declaracao_orientacao and obj.get_anos_com_orientacao_aprendizagens %}
+                <ul class="action-bar">
+                    <li class='has-child'>
+                        <a class="btn" href="#">Emitir Declaração de Orientação de Aprendizagens</a>
+                        <ul>
+                            <li><a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/aprendizagens/0/">Todos</a>
+                            </li>
+                            {% for ano in obj.get_anos_com_orientacao_aprendizagens %}
+                                <li>
+                                    <a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/aprendizagens/{{ ano }}/">{{ ano }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
+
+            {% box 'Orientações de Aprendizagens - Em Andamento' %}
+                {% if obj.get_aprendizagens_em_andamento.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Aluno</th>
+                            <th>Concedente</th>
+                            <th>Datas sugeridas como limite para visitas trimestrais</th>
+                            <th>C.H. Final</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for aprendizagem in obj.get_aprendizagens_em_andamento %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "{{ aprendizagem.get_absolute_url }}" %}
+                                </td>
+                                <td>{{ aprendizagem.aprendiz|format }}</td>
+                                <td>{{ aprendizagem.empresa|format }}</td>
+                                <td>
+                                    <p>Deve ser feita uma visita por módulo.</p>
+                                    <ul>
+                                        {% for modulo in aprendizagem.moduloaprendizagem_set.all %}
+                                            <li>{{ modulo.get_tipo_modulo_display }}: de {{ modulo.inicio }}
+                                                até {{ modulo.fim }} {% if not modulo.visitaaprendizagem_set.exists %}
+                                                    <span class="status status-error">Não visitado.</span> {% else %}
+                                                    <span class="status status-info">Visita registrada.</span> {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ aprendizagem.ch_final|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma orientação de aprendizagem em andamento para este professor.</p>
+                {% endif %}
+            {% endbox %}
+
+             {% box 'Orientações de Aprendizagens - Encerrada' %}
+                {% if obj.get_aprendizagens_encerradas.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Aluno</th>
+                            <th>Concedente</th>
+                            <th>Datas sugeridas como limite para visitas trimestrais</th>
+                            <th>C.H. Final</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for aprendizagem in obj.get_aprendizagens_encerradas %}
+                            <tr>
+                                <td class="no-print">{% icon "view" "{{ aprendizagem.get_absolute_url }}" %}</td>
+                                <td>{{ aprendizagem.aprendiz|format }}</td>
+                                <td>{{ aprendizagem.empresa|format}}</td>
+                                <td>
+                                    <p>Deve ser feita uma visita por módulo.</p>
+                                    <ul>
+                                        {% for modulo in aprendizagem.moduloaprendizagem_set.all %}
+                                            <li>{{ modulo.get_tipo_modulo_display }}: de {{ modulo.inicio }}
+                                                até {{ modulo.fim }} {% if not modulo.visitaaprendizagem_set.exists %}
+                                                    <span class="status status-error">Não visitado.</span> {% else %}
+                                                    <span class="status status-info">Visita registrada.</span> {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ aprendizagem.ch_final|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma orientação de aprendizagem encerrada para este professor.</p>
+                {% endif %}
+
+            {% endbox %}
+
+            {% box 'Orientações de Atividade Profissional Efetiva' %}
+                {% if usuario_emite_declaracao_orientacao and obj.get_anos_com_orientacao_atividades_profissionais_efetivas %}
+                    <ul class="action-bar">
+                        <li class='has-child'>
+                            <a class="btn" href="#">Emitir Declaração</a>
+                            <ul>
+                                <li>
+                                    <a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/atividadesprofissionaisefetivas/0/">Todos</a>
+                                </li>
+                                {% for ano in obj.get_anos_com_orientacao_atividades_profissionais_efetivas %}
+                                    <li>
+                                        <a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/atividadesprofissionaisefetivas/{{ ano }}/">{{ ano }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if obj.atividadeprofissionalefetiva_set.all.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Aluno</th>
+                            <th>Instituição de Realização da Atividade</th>
+                            <th>Atividades de Orientação</th>
+                            <th>Encerramento</th>
+                            <th>C.H. Final</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for atividade in obj.atividadeprofissionalefetiva_set.all %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "{{ atividade.get_absolute_url }}" %}
+                                </td>
+                                <td>{{ atividade.aluno|format }}</td>
+                                <td>{{ atividade.instituicao|format }}</td>
+                                <td>
+                                    <ul>
+                                        {% for orientacao in obj.orientacaoatividadeprofissionalefetiva_set.all %}
+                                            <li>{{ orientacao }}</li>
+                                        {% empty %}
+                                            <li><span class="status status-alert">Nenhuma orientação de atividade profissional efetiva.</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ atividade.encerramento|default:"Em Andamento" }}</td>
+                                <td>{{ atividade.ch_final|default:"Em Andamento" }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma orientação de atividade profissional efetiva para este professor.</p>
+                {% endif %}
+            {% endbox %}
+
+            {% box 'Orientações de Estágios de Docência' %}
+                {% if usuario_emite_declaracao_orientacao and obj.get_anos_com_orientacao_estagios_docentes %}
+                    <ul class="action-bar">
+                        <li class='has-child'>
+                            <a class="btn" href="#">Emitir Declaração</a>
+                            <ul>
+                                <li><a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/estagiosdocentes/0/">Todos</a>
+                                </li>
+                                {% for ano in obj.get_anos_com_orientacao_estagios_docentes %}
+                                    <li>
+                                        <a href="/edu/emitir_declaracao_de_orientacao_pdf/{{ obj.pk }}/estagiosdocentes/{{ ano }}/">{{ ano }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if obj.estagiodocente_orientador_set.exists %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="no-print">Ações</th>
+                                <th>Tipo</th>
+                                <th>Aluno</th>
+                                <th>Escola</th>
+                                <th>Data de Início</th>
+                                <th>Data de Fim</th>
+                                <th>Situação</th>
+                                <th>Fez registro da visita?</th>
+                                <th class="no-print">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for estagio_docente in obj.estagiodocente_orientador_set.all %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "{{ estagio_docente.get_absolute_url }}" %}
+                                </td>
+                                <td>{{ estagio_docente.matricula_diario.diario.componente_curricular.get_tipo_estagio_docente_display }}</td>
+                                <td>
+                                    {{ estagio_docente.matricula_diario.matricula_periodo.aluno|format }}
+                                </td>
+                                <td>{{ estagio_docente.escola|format }}</td>
+                                <td>{{ estagio_docente.data_inicio }}</td>
+                                <td>{{ estagio_docente.data_fim }}</td>
+                                <td>{{ estagio_docente.get_situacao_display }}</td>
+                                <td>
+                                    {{ estagio_docente.visitaestagiodocente_set.exists|format }}
+                                </td>
+                                <td class="no-print">
+                                    {% if eh_proprio_professor and not estagio_docente.situacao == estagio_docente.SITUACAO_ENCERRADO and not estagio_docente.situacao == estagio_docente.SITUACAO_MUDANCA and not estagio_docente.situacao == estagio_docente.SITUACAO_NAO_CONCLUIDO %}
+                                        <ul class="action-bar">
+                                            <li>
+                                                <a class="btn popup"
+                                                   href="/edu/cadastrar_visita_estagio_docente/{{ estagio_docente.pk }}/">Registrar
+                                                    Visita</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn popup"
+                                                   href="/edu/enviar_avaliacao_estagio_docente/{{ estagio_docente.pk }}/">Enviar
+                                                    Avaliação</a>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma orientação de estágio docente para este professor.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+
+    {% include "tabs/professor_participacoes_eventos.html" %}
+
+    <div class="tab-container ajax-rendered" data-title="Orientações de Projeto Final" data-hide-tab-on-counter-zero="true" data-counter="{{ projetos_finais.count|somar:projetos_finais_coorientador.count }}"
+         data-tab="projetofinal">
+        {% if request.GET.tab == "projetofinal" %}
+            {% box 'Projetos finais de curso orientados pelo professor' %}
+                {% if projetos_finais.exists %}
+                        {% if pode_emitir_declaracao_orientacao_tcc %}
+                        <ul class="action-bar">
+                            <li class='has-child'>
+                                <a class="btn" href="#">Emitir Declaração</a>
+                                <ul>
+                                    <li>
+                                        <a href="/edu/emitir_declaracao_de_orientacao_tcc_pdf/{{ obj.pk }}/">Todos</a>
+                                    </li>
+                                    {% for ano in obj.get_anos_com_orientacao_tcc %}
+                                        <li>
+                                            <a href="/edu/emitir_declaracao_de_orientacao_tcc_pdf/{{ obj.pk }}/{{ ano }}/">{{ ano }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Ano Período Letivo</th>
+                            <th>Tipo</th>
+                            <th>Título</th>
+                            <th>Aluno</th>
+                            <th>Situação</th>
+                            <th>Nota</th>
+                            <th>Data da Apresentação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for projeto in projetos_finais %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "/edu/visualizar_projeto_final/{{ projeto.pk }}/" "Visualizar Trabalho de Conclusão de Curso" "popup" %}
+                                </td>
+                                <td>{{ projeto.get_ano_periodo_letivo|format }}</td>
+                                <td>{{ projeto.tipo|format }}</td>
+                                <td>{{ projeto.titulo|format }}</td>
+                                <td>{{ projeto.matricula_periodo.aluno|format }}</td>
+                                <td>{{ projeto.matricula_periodo.aluno.situacao|format }}</td>
+                                <td>{{ projeto.nota|format }}</td>
+                                <td>{{ projeto.resultado_data|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não há trabalho de conclusão de curso orientado por esse professor.</p>
+                {% endif %}
+            {% endbox %}
+
+            {% box 'Projetos finais de curso coorientados pelo professor' %}
+                {% if projetos_finais_coorientador.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Ano Período Letivo</th>
+                            <th>Tipo</th>
+                            <th>Título</th>
+                            <th>Aluno</th>
+                            <th>Nota</th>
+                            <th>Data da Apresentação</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for projeto in projetos_finais_coorientador %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "/edu/visualizar_projeto_final/{{ projeto.pk }}/" %}
+                                </td>
+                                <td>{{ projeto.get_ano_periodo_letivo|format }}</td>
+                                <td>{{ projeto.tipo|format }}</td>
+                                <td>{{ projeto.titulo|format }}</td>
+                                <td>{{ projeto.matricula_periodo.aluno|format }}</td>
+                                <td>{{ projeto.nota|format }}</td>
+                                <td>{{ projeto.resultado_data|format }}</td>
+                                <td class="no-print">
+                                    <a class="btn default" href="/edu/declaracao_participacao_projeto_final_pdf/{{ projeto.pk }}/coorientador/?coorientador={{ obj.vinculo.pessoa.pk }}">Declaração de Participação</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não há trabalho de conclusão de curso coorientado por esse professor.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Participações em Projetos" data-tab="projetos" data-hide-tab-on-counter-zero="true" data-counter="{{ participacoes_extensao.count|somar:participacoes_pesquisa.count }}">
+        {% if request.GET.tab == "projetos" %}
+            {% box 'Projetos de Extensão' %}
+                <table>
+                    <thead>
+                    <tr>
+                        {% if eh_proprio_professor %}
+                            <th class="no-print">#</th>
+                        {% endif %}
+                        <th>Edital</th>
+                        <th>Projeto</th>
+                        {% if eh_proprio_professor %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participacao in participacoes_extensao %}
+                        <tr>
+                            {% if eh_proprio_professor %}
+                                <td>{% icon "view" "{{ participacao.projeto.get_absolute_url}}" %}</td>
+                            {% endif %}
+                            <td>{{ participacao.projeto.edital.titulo }}</td>
+                            <td>{{ participacao.projeto.titulo }}</td>
+                            <td class="no-print">
+                            {% if eh_proprio_professor and participacao.pode_emitir_certificado_de_participacao_extensao %}
+                                <ul class="action-bar">
+                                    <li>
+                                        <a class="btn default" href="/projetos/emitir_certificado_extensao_pdf/{{ participacao.id }}/">
+                                            Certificado de Participação
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            {% endif %}
+                            </td>
+                        </tr>
+
+                        {% empty %}
+                        <tr>
+                            <td colspan="{% if eh_proprio_professor %}3{% else %}2{% endif %}">
+                                <p class="msg alert">O professor não participa de nenhum projeto de extensão.</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+
+            {% box 'Projetos de Pesquisa' %}
+                {% if participacoes_pesquisa %}
+                    <table>
+                        <thead>
+                            <tr>
+                                {% if eh_proprio_professor %}
+                                    <th class="no-print">Ações</th>
+                                {% endif %}
+                                <th>Edital</th>
+                                <th>Projeto</th>
+                                {% if eh_proprio_professor %}
+                                    <th class="no-print">Opções</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for participacao in participacoes_pesquisa %}
+                            <tr>
+                                {% if eh_proprio_professor %}
+                                    <td>{% icon "view" "{{ participacao.projeto.get_absolute_url}}" %}</td>
+                                {% endif %}
+                                <td>{{ participacao.projeto.edital.titulo }}</td>
+                                <td>{{ participacao.projeto.titulo }}</td>
+                                <td class="no-print">
+                                    {% if eh_proprio_professor %}
+                                        <ul class="action-bar">
+                                            <li>
+                                                <a class="btn default" href="/pesquisa/emitir_declaracao_participacao_pdf/{{ participacao.id }}/">Declaração
+                                                    de Participação</a></li>
+                                        </ul>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">O professor não participa de nenhum projeto de pesquisa.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Participações em Bancas" data-hide-tab-on-counter-zero="true" data-counter="{{ qtd_bancas_presidente|somar:qtd_bancas_examinador }}"
+         data-tab="banca">
+        {% if request.GET.tab == "banca" %}
+            {% box 'Participações como presidente de banca' %}
+                {% if bancas_presidente %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Ano Período Letivo</th>
+                            <th>Tipo</th>
+                            <th>Título</th>
+                            <th>Aluno</th>
+                            <th>Situação</th>
+                            <th>Nota</th>
+                            <th>Data da Apresentação</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for projeto in bancas_presidente %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "/edu/visualizar_projeto_final/{{ projeto.pk }}/" "Visualizar Trabalho de Conclusão de Curso" "popup" %}
+                                </td>
+                                <td>{{ projeto.get_ano_periodo_letivo|format }}</td>
+                                <td>{{ projeto.tipo|format }}</td>
+                                <td>{{ projeto.titulo|format }}</td>
+                                <td>{{ projeto.matricula_periodo.aluno|format }}</td>
+                                <td>{{ projeto.matricula_periodo.aluno.situacao|format }}</td>
+                                <td>{{ projeto.nota|format }}</td>
+                                <td>{{ projeto.resultado_data|format }}</td>
+                                <td class="no-print text-center">
+                                    {% if eh_proprio_professor and not projeto.resultado_data %}
+                                        <a class="btn primary" href="/edu/lancar_resultado_projeto_final/{{ projeto.pk }}/">Lançar Resultado</a>
+                                    {% endif %}
+                                    <a class="btn default" href="/edu/declaracao_participacao_projeto_final_pdf/{{ projeto.pk }}/presidente/">Declaração de Participação</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não há trabalho de conclusão de curso presidido por esse professor.</p>
+                {% endif %}
+            {% endbox %}
+
+            {% box 'Participações como examinador de banca' %}
+                {% if bancas_examinador %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Ano Período Letivo</th>
+                            <th>Tipo</th>
+                            <th>Título</th>
+                            <th>Aluno</th>
+                            <th>Nota</th>
+                            <th>Data da Apresentação</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for projeto in bancas_examinador %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "/edu/visualizar_projeto_final/{{ projeto.pk }}/" "Visualizar Trabalho de Conclusão de Curso" "popup" %}
+                                </td>
+                                <td>{{ projeto.get_ano_periodo_letivo|format }}</td>
+                                <td>{{ projeto.tipo|format }}</td>
+                                <td>{{ projeto.titulo|format }}</td>
+                                <td>{{ projeto.matricula_periodo.aluno|format }}</td>
+                                <td>{{ projeto.nota|format }}</td>
+                                <td>{{ projeto.resultado_data|format }}</td>
+                                <td class="no-print">
+                                    <a class="btn default" href="/edu/declaracao_participacao_projeto_final_pdf/{{ projeto.pk }}/{{projeto.examinador}}/">Declaração de Participação</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não há trabalho de conclusão de curso examinado por esse professor.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+{% endblock %}

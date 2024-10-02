@@ -1,0 +1,133 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1340" measuredH="386" mockupW="1301" mockupH="363">
+  <controls>
+    <control controlID="3244" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="39" y="23" w="770" h="363" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="3245" controlTypeID="com.balsamiq.mockups::SubTitle" x="61" y="112" w="275" h="-1" measuredW="275" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Autoriza%E7%E3o%20de%20Chamado</text>
+      </controlProperties>
+    </control>
+    <control controlID="3246" controlTypeID="com.balsamiq.mockups::Label" x="61" y="199" w="135" h="-1" measuredW="135" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Descri%E7%E3o%20do%20chamado</text>
+      </controlProperties>
+    </control>
+    <control controlID="3247" controlTypeID="com.balsamiq.mockups::ComboBox" x="61" y="167" w="275" h="-1" measuredW="189" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <state>disabled</state>
+        <text>Cria%E7%E3o%20de%20Conta%20de%20Email</text>
+      </controlProperties>
+    </control>
+    <control controlID="3248" controlTypeID="com.balsamiq.mockups::Label" x="62" y="146" w="46" h="-1" measuredW="46" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Servi%E7o</text>
+      </controlProperties>
+    </control>
+    <control controlID="3249" controlTypeID="com.balsamiq.mockups::Label" x="355" y="199" w="63" h="-1" measuredW="63" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Solicitante</text>
+      </controlProperties>
+    </control>
+    <control controlID="3250" controlTypeID="com.balsamiq.mockups::Label" x="355" y="146" w="74" h="-1" measuredW="74" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Em%20nome%20de</text>
+      </controlProperties>
+    </control>
+    <control controlID="3251" controlTypeID="com.balsamiq.mockups::TextArea" x="61" y="221" w="274" h="74" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15658734</color>
+        <state>disabled</state>
+        <text>Gostaria%20que%20o%20email%20fosse%3A%20sicrano.de.tal@ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="3252" controlTypeID="com.balsamiq.mockups::DateChooser" x="355" y="272" w="159" h="-1" measuredW="159" measuredH="25" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <state>disabled</state>
+        <text>26/06/2014%2009%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="3253" controlTypeID="com.balsamiq.mockups::Label" x="355" y="251" w="61" h="-1" measuredW="61" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Data/Hora</text>
+      </controlProperties>
+    </control>
+    <control controlID="3254" controlTypeID="com.balsamiq.mockups::Label" x="523" y="251" w="39" h="-1" measuredW="39" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status</text>
+      </controlProperties>
+    </control>
+    <control controlID="3255" controlTypeID="com.balsamiq.mockups::ComboBox" x="523" y="271" w="260" h="-1" measuredW="126" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>Em%20atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="3256" controlTypeID="com.balsamiq.mockups::Button" x="61" y="310" w="77" h="27" measuredW="77" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Autorizar</text>
+      </controlProperties>
+    </control>
+    <control controlID="3257" controlTypeID="com.balsamiq.mockups::TextInput" x="355" y="219" w="429" h="-1" measuredW="167" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>Fulano%20de%20Tal%20%2821060626%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="3258" controlTypeID="com.balsamiq.mockups::TextInput" x="355" y="167" w="429" h="-1" measuredW="172" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>Sicrano%20de%20Tal%20%2821064545%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="3259" controlTypeID="com.balsamiq.mockups::TitleWindow" x="1001" y="72" w="339" h="225" measuredW="450" measuredH="400" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reencaminhar%20solicita%E7%E3o%20de%20autoriza%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="3260" controlTypeID="com.balsamiq.mockups::Label" x="1017" y="102" w="-1" h="-1" measuredW="46" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Usu%E1rio</text>
+      </controlProperties>
+    </control>
+    <control controlID="3261" controlTypeID="com.balsamiq.mockups::Button" x="1263" y="240" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Enviar</text>
+      </controlProperties>
+    </control>
+    <control controlID="3262" controlTypeID="com.balsamiq.mockups::TextInput" x="1018" y="121" w="305" h="-1" measuredW="100" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>Alex%20Furtunato</text>
+      </controlProperties>
+    </control>
+    <control controlID="3263" controlTypeID="com.balsamiq.mockups::TextArea" x="1018" y="174" w="305" h="55" measuredW="200" measuredH="140" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reencaminho%20esta%20solicita%E7%E3o%20de%20autoriza%E7%E3o%2C%20tendo%20em%20vista%20tratar-se...</text>
+      </controlProperties>
+    </control>
+    <control controlID="3264" controlTypeID="com.balsamiq.mockups::Label" x="1017" y="155" w="-1" h="-1" measuredW="62" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Texto%20livre</text>
+      </controlProperties>
+    </control>
+    <control controlID="3265" controlTypeID="com.balsamiq.mockups::Arrow" x="829" y="223" w="-1" h="-1" measuredW="150" measuredH="100" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+      </controlProperties>
+    </control>
+    <control controlID="3266" controlTypeID="com.balsamiq.mockups::Button" x="675" y="310" w="-1" h="-1" measuredW="108" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reencaminhar</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

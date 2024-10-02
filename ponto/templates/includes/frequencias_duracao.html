@@ -1,0 +1,7 @@
+{% if f.duracao_computada %}
+    <span class="line-through">{{ f.duracao_bruto }}</span> {{ f.duracao_computada }}
+{% elif f.duracao_bruto > f.duracao %}
+    <span class="line-through">{{ f.duracao_bruto }}</span> {{ f.duracao }}
+{% else %}
+    {{ f.duracao_bruto }}
+{% endif %}

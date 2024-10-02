@@ -1,0 +1,27 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        $(document).ready(function() {
+            $('select[name=ambiente_homologacao]').on('change', function(){
+                let url_validacao = $('div.url_validacao');
+                let senha_homologacao = $('div.senha_homologacao');
+                if($(this).val()){
+                    url_validacao.hide();
+                    senha_homologacao.hide();
+                } else {
+                    url_validacao.show();
+                    senha_homologacao.show();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    {% box "{{ sub_title }}" %}
+        {% render_form form %}
+    {% endbox %}
+
+{% endblock %}

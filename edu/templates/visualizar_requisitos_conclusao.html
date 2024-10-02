@@ -1,0 +1,159 @@
+{% extends super_template %}
+
+{% block content %}
+    {% if obj.matriz.inconsistente %}
+        <p class="msg alert">Matriz inconsistente, a carga horária aqui pode estar diferente da carga horária teórica da
+            matriz.</p>
+    {% endif %}
+    {% for item in lista %}
+        {% box '{{ item.descricao }}' %}
+            {% if item.componentes.exists %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>
+                            Código
+                        </th>
+                        <th>
+                            Descrição
+                        </th>
+                        <th>C.H.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for componente in item.componentes %}
+                        <tr>
+                            <td>{{ componente.sigla|format }}</td>
+                            <td>{{ componente.descricao_historico|format }}</td>
+                            <td>{{ componente.ch_hora_relogio|format }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                {% if tipo_ch == 'cumprida' %}
+                    <p class="msg info">Nenhum componente curricular cumprido.</p>
+                {% else %}
+                    <p class="msg info">Nenhum componente curricular pendente.</p>
+                {% endif %}
+            {% endif %}
+        {% endbox %}
+    {% endfor %}
+
+    {% if obj.matriz.configuracao_creditos_especiais %}
+        {% if tipo_requisito == 'disciplinas_regulares_optativas' and tipo_ch == 'cumprida' %}
+            {% box 'Crédito Especial Lançado' %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Ano Letivo</th>
+                        <th>Atividade Acadêmica</th>
+                        <th>Equivalência de Créditos</th>
+                        <th>Carga Horária Equivalente</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for credito_especial in obj.get_creditos_especiais %}
+                        <tr>
+                            <td>{{ credito_especial.matricula_periodo.ano_letivo.ano }}.{{ credito_especial.matricula_periodo.periodo_letivo }}</td>
+                            <td>{{ credito_especial.item_configuracao_creditos_especiais.atividade_academica }}</td>
+                            <td>{{ credito_especial.item_configuracao_creditos_especiais.equivalencia_creditos }}</td>
+                            <td>{{ credito_especial.get_ch_equivalente }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% endif %}
+    {% endif %}
+
+    {% if tipo_requisito == 'atividades_extensao' %}
+        {% box 'Atividades de Extensão' %}
+        {% with atividades=obj.get_atividades_extensao_aprovadas %}
+        {% if atividades.exists %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Ano Letivo</th>
+                    <th>Período Letivo</th>
+                    <th>Carga Horária</th>
+                    <th>Descrição</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for atividade in atividades%}
+                    <tr>
+                        <td>{{ atividade.matricula_periodo.ano_letivo }}</td>
+                        <td>{{ atividade.matricula_periodo.periodo_letivo }}</td>
+                        <td>{{ atividade.carga_horaria }} hora(s)</td>
+                        <td>{{ atividade.descricao }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhuma atividade curricular de extensão cadastrada até o momento.</p>
+        {% endif %}
+        {% endwith %}
+        {% endbox %}
+    {% endif %}
+
+    {% if tipo_requisito == 'pratica_como_componente' %}
+        {% with diarios=obj.get_diarios_aulas_pcc %}
+        {% if diarios.exists %}
+            {% box 'Horas Cursadas em Diários' %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Ano Letivo</th>
+                    <th>Período Letivo</th>
+                    <th>Carga Horária</th>
+                    <th>Diário</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for diario in diarios %}
+                    <tr>
+                        <td>{{ diario.ano_letivo }}</td>
+                        <td>{{ diario.periodo_letivo }}</td>
+                        <td>{{ diario.get_carga_horaria_relogio_pcc_contabilizada }} hora(s)</td>
+                        <td>{{ diario }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endbox %}
+        {% endif %}
+        {% endwith %}
+    {% endif %}
+
+    {% if tipo_requisito == 'visita_tecnica' %}
+        {% with diarios=obj.get_diarios_aulas_visita_tecnica %}
+        {% if diarios.exists %}
+            {% box 'Horas Cursadas em Diários' %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Ano Letivo</th>
+                    <th>Período Letivo</th>
+                    <th>Carga Horária</th>
+                    <th>Diário</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for diario in diarios %}
+                    <tr>
+                        <td>{{ diario.ano_letivo }}</td>
+                        <td>{{ diario.periodo_letivo }}</td>
+                        <td>{{ diario.get_carga_horaria_relogio_visita_tecnica_contabilizada }} hora(s)</td>
+                        <td>{{ diario }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endbox %}
+        {% endif %}
+        {% endwith %}
+    {% endif %}
+
+{% endblock %}

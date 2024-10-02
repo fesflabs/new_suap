@@ -1,0 +1,61 @@
+
+// Brand Colors
+$brand-color:     #248232;
+$secondary-color: #1E3231;
+$contrast-color: #B5DDA4;
+
+// Color Scale
+$grey-50:         #E9F2EA;
+$grey-100:        #D4DED6;
+$grey-200:        #C0CBC1;
+$grey-300:        #ABB7AD;
+$grey-400:        #97A399;
+$grey-500:        #829084;
+$grey-600:        #6E7C70;
+$grey-700:        #59695B;
+$grey-800:        #455547;
+$grey-900:        #304133;
+$black:           $secondary-color;
+
+// Extra Colors
+$flat-blue:       #048BA8;
+$flat-green:      $brand-color;
+$flat-orange:     #FC7753;
+$flat-red:        #FF101F;
+
+// Layout Colors
+$body-bg-color:        $secondary-color;
+$alertas-bg-color:     $grey-100;
+$aside-bg-color:       $secondary-color;
+$breadcrumbs-color:    $grey-700;
+$main-index-bg-color:  $grey-100;
+$usertools-bg-color:   $brand-color;
+$usertools-text-color: $white;
+
+// Status Colors
+$success-color:        $flat-green;
+$default-color:        $grey-500;
+$default-active-color: $grey-600;
+
+// Menu Colors
+$menu-3-level-color:   $white;
+$menu-4-level-color:   $grey-50;
+$menu-5-level-color:   $grey-100;
+$menu-6-level-color:   $grey-200;
+
+// Layout
+$basis-nav:            320px;
+$basis-nav-collapsed:  90px;
+
+// Margins and gaps
+$main-p:                 5rem;
+$menu-margin:            5rem;
+
+// Opacity
+$opacity-bg-alertas:   .5;
+$opacity-bg-legenda:   .6;
+
+// Styling
+$title-container-color:  $grey-900;
+$title-container-size:   3.5rem;
+$title-container-weight: 900;

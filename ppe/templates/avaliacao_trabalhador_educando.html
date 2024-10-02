@@ -1,0 +1,44 @@
+{% extends super_template %}
+
+{% block extrahead %}
+
+<style>
+
+table.info td:first-child {
+    width: 70%;
+    text-align: left;
+}
+.popupChoiceFieldWidget { color: blue; }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{#    {% include "includes/inscricao_steps.html" with active="detalhamento" %}#}
+{##}
+    {% include "includes/avaliacao_trabalhadoreducando_dados.html" %}
+
+    {% if respostasautoavaliacao.exists %}
+    {% box "MONITORAMENTO DAS ATRIBUIÇÕES (AUTOAVALIAÇÂO)" %}
+        <table class="info">
+            <tbody>
+                {% for resposta in respostasautoavaliacao %}
+                    <tr>
+                        <td>{{ resposta.pergunta }}</td>
+                        <td>{{ resposta.get_resposta }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+    {% endif %}
+
+    {% if form %}
+        {% box "MONITORAMENTO DAS ATRIBUIÇÕES " %}
+            {% render_form form %}
+        {% endbox %}
+    {% endif %}
+    <div>* Os critérios utilizados para acompanhar e monitorar os(as) trabalhadores(as) do PPE se baseiam na Classificação Brasileira de Ocupações (CBO) e estão  de acordo com a Resolução CNE/CEB nº 01/2014. Contudo, as atividades de trabalho obedecem as demandas do setor específico ao  qual o (a) trabalhador(a) está lotado(a), o que pode representar diferentes atribuições, não acarretando necessariamente em desvio de função.  Por se tratar da primeira experiência profissional, o Programa oferta orientação e  suporte técnico para melhor adaptação e desenvolvimento profissional.</div>
+
+{% endblock %}

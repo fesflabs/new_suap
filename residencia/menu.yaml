@@ -1,0 +1,144 @@
+Residência::Residentes e Preceptores:
+  order: 2
+Residência::Residentes e Preceptores::Residentes:
+  permissions_required:
+  - residencia.view_residente
+  url: /admin/residencia/residente
+Residência::Residentes e Preceptores::Solicitações de Matrícula de Residentes:
+  permissions_required:
+  - residencia.add_residente
+  url: /admin/residencia/solicitacaoresidente
+Residência::Dados do Residente:
+  groups_required:
+  - Residente
+  order: 10
+  url: /residencia/meus_dados/
+Residência::Estágio Eletivo::Minhas Solicitações Estágio Eletivo:
+  groups_required:
+  - Residente
+  order: 10
+  url: /residencia/solicitacoes_eletivo/
+Residência::Estágio Eletivo::Meus Estágios Eletivos:
+  groups_required:
+  - Residente
+  order: 10
+  url: /residencia/estagios_eletivos/
+Residência::Cadastros::Secretário(a) Residência:
+  groups_required:
+  - RH
+  - Coordenadores(as) Residência
+  order: 1
+  url: /residencia/secretarios_residencia/
+Residência::Cadastros::Coordenador(a) Residência:
+  groups_required:
+  - RH
+  order: 1
+  url: /residencia/coordenadores_residencia/
+Residência::Cadastros::Preceptor(a):
+  groups_required:
+  - Secretário(a) Residência
+  - Coordenadores(as) Residência
+  order: 1
+  url: /residencia/preceptores/
+Residência::Cadastros::Apoiador(a) Pedagógico(a):
+  groups_required:
+  - Secretário(a) Residência
+  - Coordenadores(as) Residência
+  order: 1
+  url: /residencia/apoiadores_pedagogicos_residencia/
+Residência::Cursos, Matrizes e Componentes:
+  order: 9
+Residência::Cursos, Matrizes e Componentes::Atividades:
+  permissions_required:
+  - residencia.view_componente
+  url: /admin/residencia/componente/?ativo__exact=1
+Residência::Cursos, Matrizes e Componentes::Matrizes Curriculares:
+  permissions_required:
+  - residencia.view_matriz
+  url: /admin/residencia/matriz/correntes/
+Residência::Cursos, Matrizes e Componentes::Estrutura de Curso:
+  permissions_required:
+  - residencia.view_estruturacurso
+  url: /admin/residencia/estruturacurso/?ativo__exact=1
+Residência::Cursos, Matrizes e Componentes::Unidade de Aprendizagem:
+  permissions_required:
+  - residencia.view_unidadeaprendizagem
+  url: /admin/residencia/unidadeaprendizagem/
+Residência::Cursos, Matrizes e Componentes::Componente Curricular:
+  permissions_required:
+  - residencia.view_componentecurricular
+  url: /admin/residencia/componentecurricular/
+Residência::Cursos, Matrizes e Componentes::Cursos:
+  permissions_required:
+  - residencia.view_cursoresidencia
+  url: /admin/residencia/cursoresidencia/correntes/
+Residência::Turmas e Diários::Turmas:
+  permissions_required:
+  - residencia.view_turma
+  url: /admin/residencia/turma/correntes/
+Residência::Turmas e Diários::Diários:
+  permissions_required:
+  - residencia.view_diario
+  url: /admin/residencia/diario/correntes/
+Residência::Turmas e Diários::Meus Diários:
+  groups_required:
+  - Preceptor(a)
+  url: /residencia/meus_diarios/
+Residência::Procedimentos de Apoio::Calendários Acadêmicos:
+  permissions_required:
+  - residencia.view_calendarioacademico
+  url: /admin/residencia/calendarioacademico/correntes/
+Residência::Cadastros Gerais::Tipos de Preceptor em Diário:
+  permissions_required:
+  - residencia.view_tipopreceptordiario
+  url: /admin/residencia/tipopreceptordiario/
+Residência::Estágio Eletivo::Solicitações de Estágio Eletivo:
+  groups_required:
+  permissions_required:
+  - residencia.add_residente
+  url: /admin/residencia/solicitacaoeletivo
+Residência::Estágio Eletivo::Estágios Eletivos:
+  groups_required:
+  permissions_required:
+  - residencia.add_residente
+  url: /admin/residencia/estagioeletivo
+Residência::Procedimentos de Apoio::Solicitações de Usuários:
+  permissions_required:
+  - residencia.change_solicitacaousuario
+  url: /admin/residencia/solicitacaousuario/?tab=tab_pendentes
+Residência::Solicitações::Solicitação de Desligamentos:
+  permissions_required:
+  - residencia.add_solicitacaousuario
+  url: /residencia/solicitar_desligamento/
+Residência::Solicitações::Solicitação de Diplomas:
+  permissions_required:
+  - residencia.add_solicitacaousuario
+  url: /residencia/solicitar_diplomas/
+Residência::Solicitações::Solicitação de Férias:
+  permissions_required:
+  - residencia.add_solicitacaousuario
+  url: /residencia/solicitar_ferias/
+Residência::Solicitações::Solicitação de Licenças:
+  permissions_required:
+  - residencia.add_solicitacaousuario
+  url: /residencia/solicitar_licencas/
+Residência::Solicitações::Solicitação de Congressos:
+  permissions_required:
+  - residencia.add_solicitacaousuario
+  url: /residencia/solicitar_congressos/
+Residência::Relatórios::Relatório do corpo pedagógico:
+  permissions_required:
+  - residencia.gerar_relatorio
+  url: /residencia/relatorio_corpo_pedagogico/
+Residência::Estatísticas::Quantitativo de Residentes:
+  permissions_required:
+  - residencia.gerar_relatorio
+  url: /residencia/estatistica/
+Residência::Estatísticas::Quantitativo de Residentes em Estágios Eletivos:
+  permissions_required:
+  - residencia.gerar_relatorio
+  url: /residencia/estatistica_eletivo/
+ADMINISTRAÇÃO::Cadastros::Ano:
+  permissions_required:
+  - comum.change_ano
+  url: /admin/comum/ano

@@ -1,0 +1,21 @@
+Reunião 20.05.2014
+
+** Gerir Professor **
+Padronizar a tela do professor para ficar parecida com a do aluno
+Tem que permitir procurar tanto pelo nome como por matrícula
+
+Editar a foto do professor:
+Secretário, Administradores, Coordenadores de Curso e Diretores Acadêmicos e Geral
+
+Os dados de Matéria, Disciplina e NCE (Núcleo Central Estruturante) não vem nativamente pelo SIAPE devendo ser preenchido pelos administradores e RH.
+
+Os Cadastros Gerais devem conter os tipos de matéria disciplina e NCE e devem ser editados somente pelo administrador.
+
+Opções de exibição dos diários
+Todos ou por ano/periodo com paginação. Não deixar rolar a tela
+
+Visão do horário do professor no período, selecionando o período previamente, sem a opção de todos.
+
+Férias:
+Mesma informação do RH.
+

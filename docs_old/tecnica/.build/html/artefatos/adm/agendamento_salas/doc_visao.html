@@ -1,0 +1,555 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documento de Visão do Subsistema Agendamento de Salas &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../index.html"/>
+        <link rel="up" title="Agendamento de Salas" href="index.html"/>
+        <link rel="next" title="UC 01- Manter Salas &lt;v0.1&gt;" href="agendamento_salas_uc01.html"/>
+        <link rel="prev" title="Agendamento de Salas" href="index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Administração</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../projetos/index.html">Projetos educacionais</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Agendamento de Salas</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Documento de Visão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc01.html">UC 01- Manter Salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc02.html">UC 02 - Requisitar Reserva de  Salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc03.html">UC 03 - Indisponibilizar Salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc04.html">UC 04 - Avaliar requisição de reservas de salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc05.html">UC 05 - Cancelar Agenda &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc06.html">UC 06 - Indeferir solicitações fora de prazo &lt;v0.1&gt;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Documento de Visão do Subsistema <strong>Agendamento de Salas</strong> &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Agendamento de Salas</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="documento-de-visao-do-subsistema-titulo-v0-1">
+<span id="suap-models-docvisao-produto-template"></span><h1>Documento de Visão do Subsistema <strong>Agendamento de Salas</strong> &lt;v0.1&gt;<a class="headerlink" href="#documento-de-visao-do-subsistema-titulo-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id5">Histórico da revisão</a></p></li>
+<li><p><a class="reference internal" href="#introducao" id="id6">Introdução</a></p>
+<ul>
+<li><p><a class="reference internal" href="#finalidade-do-documento" id="id7">Finalidade do documento</a></p></li>
+<li><p><a class="reference internal" href="#finalidade-do-sistema" id="id8">Finalidade do sistema</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#analise-de-contexto" id="id9">Análise de contexto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cenario" id="id10">Cenário</a></p></li>
+<li><p><a class="reference internal" href="#motivacoes-necessidades-e-problemas" id="id11">Motivações, necessidades e problemas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#escopo-do-produto" id="id12">Escopo do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#declaracao-do-escopo-do-produto" id="id13">Declaração do escopo do produto</a></p></li>
+<li><p><a class="reference internal" href="#nao-faz-parte-do-escopo" id="id14">Não faz parte do escopo</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#descricao-dos-papeis" id="id15">Descrição dos papeis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#papel-das-partes-interessadas" id="id16">Papel das partes interessadas</a></p></li>
+<li><p><a class="reference internal" href="#papel-dos-atores" id="id17">Papel dos atores</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#visao-geral-do-produto" id="id18">Visão geral do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modelagem-de-processos-de-negocio" id="id19">Modelagem de processos de negócio</a></p></li>
+<li><p><a class="reference internal" href="#projeto-da-solucao" id="id20">Projeto da solução</a></p></li>
+<li><p><a class="reference internal" href="#perspectiva-do-produto" id="id21">Perspectiva do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#integracao-com-outros-sistemas" id="id22">Integração com outros sistemas</a></p></li>
+<li><p><a class="reference internal" href="#relacionamentos-com-outros-subsistemas" id="id23">Relacionamentos com outros subsistemas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos" id="id24">Requisitos</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso" id="id25">Casos de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-caso-de-uso" id="id26">Diagrama de caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-modelagem-de-dominio" id="id27">Diagrama de modelagem de domínio</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#metas-gerenciais" id="id28">Metas gerenciais</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id29">Questões em aberto</a></p></li>
+<li><p><a class="reference internal" href="#encerramento-de-projetos" id="id30">Encerramento de Projetos</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id5">Histórico da revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id3" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>08/04/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p><a href="#id1"><span class="problematic" id="id2">|</span></a>Jailton Carlos</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="introducao">
+<h2><a class="toc-backref" href="#id6">Introdução</a><a class="headerlink" href="#introducao" title="Link permanente para este título">¶</a></h2>
+<section id="finalidade-do-documento">
+<h3><a class="toc-backref" href="#id7">Finalidade do documento</a><a class="headerlink" href="#finalidade-do-documento" title="Link permanente para este título">¶</a></h3>
+<p>A finalidade deste documento é especificar os requisitos relevantes do usuários, assim como os limites e restrições evidentes que
+dão uma visão geral. Essa visão viabiliza a identificação e a produção de documentos e requisitos mais técnicos, assim como do
+próprio sistema. A visão serve como forma de permitir a compreensão, pelos participantes do projeto, do “o quê e por quê” o projeto
+existe e provê uma estratégia a partir da qual todas as futuras decisões podem ser validadas.</p>
+</section>
+<section id="finalidade-do-sistema">
+<h3><a class="toc-backref" href="#id8">Finalidade do sistema</a><a class="headerlink" href="#finalidade-do-sistema" title="Link permanente para este título">¶</a></h3>
+<p>A finalidade do subsistema Gerenciamento de Salas é prover funcionalidades que permitam um melhor controle do gerenciamento de salas
+dos diversos campi do IFRN.</p>
+</section>
+</section>
+<section id="analise-de-contexto">
+<h2><a class="toc-backref" href="#id9">Análise de contexto</a><a class="headerlink" href="#analise-de-contexto" title="Link permanente para este título">¶</a></h2>
+<section id="cenario">
+<h3><a class="toc-backref" href="#id10">Cenário</a><a class="headerlink" href="#cenario" title="Link permanente para este título">¶</a></h3>
+<p>Não se aplica.</p>
+</section>
+<section id="motivacoes-necessidades-e-problemas">
+<h3><a class="toc-backref" href="#id11">Motivações, necessidades e problemas</a><a class="headerlink" href="#motivacoes-necessidades-e-problemas" title="Link permanente para este título">¶</a></h3>
+<p>Não se aplica.</p>
+</section>
+</section>
+<section id="escopo-do-produto">
+<h2><a class="toc-backref" href="#id12">Escopo do produto</a><a class="headerlink" href="#escopo-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="declaracao-do-escopo-do-produto">
+<h3><a class="toc-backref" href="#id13">Declaração do escopo do produto</a><a class="headerlink" href="#declaracao-do-escopo-do-produto" title="Link permanente para este título">¶</a></h3>
+<p>Espera-se obter com uso do sistema, um maior controle da agenda da sala:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>O servidor terá conhecimento da agenda de uma determinada sala;</p></li>
+<li><p>O agendamento da sala só será efetivo após uma aprovação previa por um avaliador;</p></li>
+<li><p>Todos os envolvidos no agendamento receberam emails com informações sobre a agenda;</p></li>
+<li><p>Evitação de conflitos de agendas, não será possível agendar uma sala previamente agendada.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="nao-faz-parte-do-escopo">
+<h3><a class="toc-backref" href="#id14">Não faz parte do escopo</a><a class="headerlink" href="#nao-faz-parte-do-escopo" title="Link permanente para este título">¶</a></h3>
+<ul class="simple">
+<li><p>O sistema não fará o controle de utilização de chaves das salas.</p></li>
+</ul>
+</section>
+</section>
+<section id="descricao-dos-papeis">
+<h2><a class="toc-backref" href="#id15">Descrição dos papeis</a><a class="headerlink" href="#descricao-dos-papeis" title="Link permanente para este título">¶</a></h2>
+<section id="papel-das-partes-interessadas">
+<h3><a class="toc-backref" href="#id16">Papel das partes interessadas</a><a class="headerlink" href="#papel-das-partes-interessadas" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Representante</p></th>
+<th class="head"><p>Responsabilidades</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Von Klaus Dantas Bezerra</div>
+<div class="line">(SECRETARIO EXECUTIVO (PCIFE)/IFRN → RE → GABIN/RE → SEC/RE)</div>
+</div>
+</td>
+<td><p>Fornecedor de Requisitos: fornecer informações sobre o domínio do sistema; testar funcionalidades.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="papel-dos-atores">
+<h3><a class="toc-backref" href="#id17">Papel dos atores</a><a class="headerlink" href="#papel-dos-atores" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 20%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ator</p></th>
+<th class="head"><p>Sinônimo</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Servidor</p></td>
+<td></td>
+<td><p>Solicita reserva de salas, acompanha solicitações.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Operador de Chaves</p></td>
+<td><p>chaves_operador</p></td>
+<td><p>Informa se a sala está disponível para agenda e informa quais são os avaliadores de uma determinada sala.</p></td>
+</tr>
+<tr class="row-even"><td><p>Avaliador</p></td>
+<td></td>
+<td><p>Servidor que está associado como avaliador de uma sala, defere ou indefere solicitações de reservas.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="visao-geral-do-produto">
+<h2><a class="toc-backref" href="#id18">Visão geral do produto</a><a class="headerlink" href="#visao-geral-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="modelagem-de-processos-de-negocio">
+<h3><a class="toc-backref" href="#id19">Modelagem de processos de negócio</a><a class="headerlink" href="#modelagem-de-processos-de-negocio" title="Link permanente para este título">¶</a></h3>
+</section>
+<section id="projeto-da-solucao">
+<h3><a class="toc-backref" href="#id20">Projeto da solução</a><a class="headerlink" href="#projeto-da-solucao" title="Link permanente para este título">¶</a></h3>
+<p>Não se aplica.</p>
+</section>
+<section id="perspectiva-do-produto">
+<h3><a class="toc-backref" href="#id21">Perspectiva do produto</a><a class="headerlink" href="#perspectiva-do-produto" title="Link permanente para este título">¶</a></h3>
+<section id="integracao-com-outros-sistemas">
+<h4><a class="toc-backref" href="#id22">Integração com outros sistemas</a><a class="headerlink" href="#integracao-com-outros-sistemas" title="Link permanente para este título">¶</a></h4>
+<p>Não há.</p>
+</section>
+<section id="relacionamentos-com-outros-subsistemas">
+<h4><a class="toc-backref" href="#id23">Relacionamentos com outros subsistemas</a><a class="headerlink" href="#relacionamentos-com-outros-subsistemas" title="Link permanente para este título">¶</a></h4>
+<ul class="simple">
+<li><p>Integra-se com o subsistema de Gestão de Pessoa para obter os dados do servidor;</p></li>
+<li><p>Integra-se com o subistema de Patrimônio para obter os dados da sala.</p></li>
+</ul>
+</section>
+</section>
+<section id="requisitos">
+<h3><a class="toc-backref" href="#id24">Requisitos</a><a class="headerlink" href="#requisitos" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Categoria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R01</p></td>
+<td><p>O sistema deve permitir compartilhar uma agenda com outros servidores</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R02</p></td>
+<td><p>O sistema deve permitir reservar salas na mesma data e hora, nesse caso a reserva entrará em uma fila de reservas;</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R03</p></td>
+<td><p>Solicitações fora do prazo serão indeferidas automáticamente</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R04</p></td>
+<td><p>O sistema deve enviar emails para os solicitantes de reserva de sala após uma avaliação, independente se deferida ou não</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R05</p></td>
+<td><p>Um email deve ser enviado para o avaliador a cada solicitação de sala, caso ele seja o responsável por avaliar aquela sala</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R06</p></td>
+<td><p>O sistema deve permitir informar se a sala está disponível para agenda e também quais são os seus respectivos avaliadores</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R07</p></td>
+<td><p>O sistema deverá permitir indisponibilizar uma sala por um determinado período.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R08</p></td>
+<td><p>Uma solicitação de reserva de sala só será entrar em vigor (entrar na agenda da sala) após ser deferida por um avaliador.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R09</p></td>
+<td><p>O servidor poderá consultar a agenda atual da sala. Destacar na agenda a cor:</p>
+<ul class="simple">
+<li><p>Amarela: para solicitações de reserva;</p></li>
+<li><p>Verde: para agenda deferida</p></li>
+<li><p>Vermelho: para sala indisponível.</p></li>
+</ul>
+</td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R10</p></td>
+<td><p>O sistema deve permitir que um servidor acompanhe as suas solicitações de reservas</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R11</p></td>
+<td><p>O sistema deve permitir que um avaliador acompanhe todas as solicitações de reservas de salas na qual ele é responsável</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R12</p></td>
+<td><p>O sistema deve permitir que um avaliador cancela uma agenda (solicitação de reserva deferida)</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R13</p></td>
+<td><p>O sistema deve permitir que um servidor cancele uma solicitação de reserva apenas quando a mesma não tiver sido avaliada</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R14</p></td>
+<td><p>Um email será enviado para todos os envolvidos quando uma agenda é cancelada.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="casos-de-uso">
+<h3><a class="toc-backref" href="#id25">Casos de uso</a><a class="headerlink" href="#casos-de-uso" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 44%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód, Nome, Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Complexidade</p></th>
+<th class="head"><p>Requisitos relacionados</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="agendamento_salas_uc01.html#suap-artefatos-adm-agendamento-salas-uc01"><span class="std std-ref">UC 01- Manter Salas &lt;v0.1&gt;</span></a></p></td>
+<td><p>Cadastrar, alterar ou listar Salas.</p></td>
+<td><p>Normal</p></td>
+<td><p>R6</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="agendamento_salas_uc02.html#suap-artefatos-adm-agendamento-salas-uc02"><span class="std std-ref">UC 02 - Requisitar Reserva de  Salas &lt;v0.1&gt;</span></a></p></td>
+<td><p>Este caso de uso possibilita que um servidor reserve com antencedência uma sala em qualquer um dos
+campi do IFRN para a realização de evento, reunião, aulas e outras necessidades. A reserva estará
+sujeita à aprovação por um avaliador.</p></td>
+<td><p>Normal</p></td>
+<td><p>R1, R2, R5, R09, R10, R13</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="agendamento_salas_uc03.html#suap-artefatos-adm-agendamento-salas-uc03"><span class="std std-ref">UC 03 - Indisponibilizar Salas &lt;v0.1&gt;</span></a></p></td>
+<td><p>Este caso de uso possibilita que um avaliador indisponibilize  com antencedência uma sala para manutenção.</p></td>
+<td><p>Normal</p></td>
+<td><p>R07</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="agendamento_salas_uc04.html#suap-artefatos-adm-agendamento-salas-uc04"><span class="std std-ref">UC 04 - Avaliar requisição de reservas de salas &lt;v0.1&gt;</span></a></p></td>
+<td><p>Permitir que um avaliador possa deferir ou indefir uma solicitação de reserva de salas.</p></td>
+<td><p>Normal</p></td>
+<td><p>R4, R08</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">suap-artefatos-adm-agendamento_salas-uc06</span></p></td>
+<td><p>Todas as solicitações de reservas não avaliadas fora de prazo, isto é, data final maior que data atual, serão automaticamente
+indeferidas.</p></td>
+<td><p>Normal</p></td>
+<td><p>R09, R11, R13</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="diagrama-de-caso-de-uso">
+<h3><a class="toc-backref" href="#id26">Diagrama de caso de uso</a><a class="headerlink" href="#diagrama-de-caso-de-uso" title="Link permanente para este título">¶</a></h3>
+<p>Lengenda:</p>
+<ul class="simple">
+<li><p>Cor azul: Em produção e documentado</p></li>
+<li><p>Cor amarelo: Em produção e não documentado</p></li>
+<li><p>Cor verde: Novos e documentado</p></li>
+<li><p>Cor Vermelho: Novos e não documentados</p></li>
+</ul>
+<figure class="align-center" id="id4">
+<span id="figura-1"></span><a class="reference internal image-reference" href="../../../_images/diagrama_casos_uso.png"><img alt="Diagrama caso de uso." src="../../../_images/diagrama_casos_uso.png" style="width: 770.0px; height: 691.5999999999999px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 1: Diagrama de caso de uso.</span><a class="headerlink" href="#id4" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagrama-de-modelagem-de-dominio">
+<h3><a class="toc-backref" href="#id27">Diagrama de modelagem de domínio</a><a class="headerlink" href="#diagrama-de-modelagem-de-dominio" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+</section>
+<section id="metas-gerenciais">
+<h2><a class="toc-backref" href="#id28">Metas gerenciais</a><a class="headerlink" href="#metas-gerenciais" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id29">Questões em aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<p>Não ha.</p>
+</section>
+<section id="encerramento-de-projetos">
+<h2><a class="toc-backref" href="#id30">Encerramento de Projetos</a><a class="headerlink" href="#encerramento-de-projetos" title="Link permanente para este título">¶</a></h2>
+<p>Não se aplica.</p>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="agendamento_salas_uc01.html" class="btn btn-neutral float-right" title="UC 01- Manter Salas &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Agendamento de Salas"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+
+    {% if registros.exists %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Ação</th>
+                    <th>Realizado Por</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.action_time }}</td>
+                        <td>{{ registro.change_message }}</td>
+                        <td>{{ registro.user }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhum registro de histórico encontrado.</p>
+    {% endif %}
+
+{% endblock %}

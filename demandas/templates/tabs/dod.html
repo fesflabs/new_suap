@@ -1,0 +1,89 @@
+<div class="tab-container" data-tab="dod" data-title="Consolidação" data-checked="{% if demanda.ja_foi_aprovada %}True{% else %}False{% endif %}">
+    {% if not demanda.aprovada %}
+        <ul class="action-bar">
+            {% if demanda.em_analise and eh_demandante %}
+                <li><a href="{% url 'dod_aprovar' demanda.pk dod.pk %}" class="btn success">{% icone "thumbs-up" %} Aprovar</a></li>
+                <li><a href="{% url 'dod_reprovar' demanda.pk dod.pk %}" class="btn danger">{% icone "thumbs-down" %} Reprovar</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+    {% box 'Solicitação Original' '{{ aprovada }}' %}
+        {% if demanda.sugestaomelhoria_set.exists %}
+            <p class="msg info">Esta demanda foi criada a partir da Sugestão de Melhoria: <a href="{{ demanda.sugestaomelhoria_set.first.get_absolute_url }}">{{ demanda.sugestaomelhoria_set.first.titulo }}</a></p>
+        {% endif %}
+        <dl class="definition-list">
+            <dt>Solicitação</dt>
+            <dd><strong>{{ demanda.titulo }}</strong>: {{ demanda.descricao|linebreaksbr }}</dd>
+        </dl>
+    {% endbox %}
+
+    {% if exibir_consolidacao %}
+        {% box 'Consolidação {{ sempre_visivel }}' %}
+            {% if eh_demandante and demanda.situacao == "Em análise" %}
+                <p class="msg info">O texto da Consolidação deve ser escrito em linguagem comum (não-técnica) e se houver qualquer dúvida, esta demanda pode ser reprovada para que as dúvidas possam ser tiradas e a consolidação melhorada.</p>
+            {% endif %}
+
+            {% if demanda.em_negociacao and eh_analista %}
+                <ul class="action-bar">
+                    <li><a href="{% url 'dod_alterar' demanda.pk dod.pk %}" class="btn primary">{% icone "edit" %} Editar</a></li>
+                </ul>
+            {% endif %}
+
+            <dl class="definition-list">
+                <dt>Descrição</dt>
+                <dd>{{ dod.descricao|safe|default:"Não definido" }}</dd>
+                {% if dod.detalhamento %}
+                    <dt>Detalhamento</dt>
+                    <dd>{{ dod.detalhamento|safe|default:"Não definido" }}</dd>
+                {% endif %}
+                <dt>Grupos de Usuários Envolvidos</dt>
+                <dd>{{ dod.envolvidos|default:"Não definido"|linebreaks }}</dd>
+            </dl>
+
+            <div class="clear"></div>
+            <h4>Especificações</h4>
+
+            {% if demanda.em_negociacao and pode_add_or_change_especificacao %}
+                <ul class="action-bar">
+                    <li><a href="{% url 'dod_especificacao_add' demanda.pk dod.pk %}" class="btn success"><span class="fas fa-plus" aria-hidden="true"></span> Adicionar Especificação</a></li>
+                </ul>
+            {% endif %}
+
+            {% for especificacao in dod.especificacao_set.all %}
+                <div class="general-box{% if not especificacao.atividades %} error{% endif %}">
+                    <div class="primary-info">
+                        <h4><small>{{ especificacao.ordem }}</small> {{ especificacao.nome }}</h4>
+                        {% if demanda.em_negociacao %}
+                            {% if pode_add_or_change_especificacao %}
+                                <ul class="action-bar">
+                                    <li><a href="{% url 'dod_especificacao_change' demanda.pk dod.pk especificacao.pk %}" class="btn primary"><span class="fas fa-edit" aria-hidden="true" title="Editar"></span><span class="sr-only">Editar</span></a></li>
+                                    <li><a href="{% url 'dod_especificacao_delete' demanda.pk dod.pk especificacao.pk %}" class="btn danger"><span class="fas fa-trash" aria-hidden="true" title="Remover"></span><span class="sr-only">Remover</span></a></li>
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                        <div class="extra-info">
+                            {% if especificacao.atividades %}
+                                <div class="richtext">{{ especificacao.atividades|safe }}</div>
+                            {% else %}
+                                <p class="msg alert">Nenhuma atividade cadastrada.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="msg alert">Nenhuma especificação cadastrada.</p>
+            {% endfor %}
+        {% endbox %}
+    {% endif %}
+
+    {% if perms.demandas.atende_demanda and demanda.especificacao_tecnica %}
+        {% box "Especificação Técnica" %}
+            <ul class="action-bar">
+                <li><a href="{% url 'demanda_especificacao_tecnica' demanda.pk %}" class="btn primary">Editar</a></li>
+            </ul>
+
+            {{ demanda.especificacao_tecnica|safe }}
+        {% endbox %}
+    {% endif %}
+</div>

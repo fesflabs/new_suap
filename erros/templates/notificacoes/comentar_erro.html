@@ -1,0 +1,26 @@
+<h1>
+    {% if comentario.tipo == 'nota_interna' %}
+        Nova Nota Interna
+    {% else %}
+        Novo Comentário
+    {% endif %}
+</h1>
+<h2>Erro #{{ comentario.erro.pk }}</h2>
+<dl>
+    <dt>Descrição:</dt>
+    <dd>{{ comentario.descricao }}</dd>
+    <dt>Autor:</dt>
+    <dd>{{ comentario.vinculo }}</dd>
+    <dt>Horário do Comentário:</dt>
+    <dd>{{ comentario.data_alteracao }}</dd>
+    <dt>Reportado por:</dt>
+    <dd>{{ comentario.erro.informante }}</dd>
+    {% if comentario.erro.atendente_atual %}
+        <dt>Atendente Principal:</dt>
+        <dd>{{ comentario.erro.atendente_atual|format }}</dd>
+    {% endif %}
+</dl>
+<p>--</p>
+<p>
+    Para mais informações, acesse: <a href="{{ comentario.erro.get_visualizar_erro_url }}">{{ comentario.erro.get_visualizar_erro_url }}</a>
+</p>

@@ -1,0 +1,121 @@
+{% extends super_template %}
+
+{% block title %}Detalhamento da Requisição #{{ requisicao.id }} - {% endblock %}
+
+{% block content %}
+
+<h2>Detalhamento da Requisição #{{ requisicao.id }}</h2>
+
+<ul class="action-bar">
+	{% if pode_remover and not requisicao.avaliada %}
+		<li><a class="btn danger" href="/almoxarifado/requisicao/{{ requisicao.tipo }}/{{ requisicao.id }}/remover/" title="Remover Requisição">Remover Requisição</a></li>
+	{% endif %}
+    {% if requisicao.avaliada %}
+        {% if requisicao.tipo == "user" and pode_devolver %}
+            <li><a href="/almoxarifado/devolver_item/{{ requisicao.tipo }}/{{ requisicao.uo_fornecedora.id }}/{{ requisicao.id }}/" class="btn popup">Selecionar Itens para Devolução</a></li>
+        {% endif %}
+        <li><a href="/almoxarifado/relatorio/nota_fornecimento_pdf/{{ requisicao.tipo }}/{{ requisicao.id }}/" class="btn">Gerar PDF</a></li>
+    {% endif %}
+</ul>
+
+{% box 'Dados Gerais' %}
+    <table class="info">
+        <tr>
+            <td>Data</td>
+            <td colspan="3">{{ requisicao.data|format }}</td>
+        </tr>
+        <tr>
+            <td>Servidor Destino</td>
+            <td>{{ requisicao.vinculo_solicitante.relacionamento|format }}</td>
+            {% if requisicao.tipo == "user" %}
+                    <td>Setor Requisitante</td>
+                    <td>{{ requisicao.setor_solicitante.sigla }}</td>
+                </tr>
+                <tr>
+                    <td>Servidor Origem</td>
+                    <td>{{ requisicao.vinculo_fornecedor|format }}</td>
+                    <td>Transferência Realizada Em</td>
+                    <td>{{ requisicao.data_avaliacao_fornecedor|format }}</td>
+            {% else %}
+                <td>Unidade Requisitante</td>
+                <td>{{ requisicao.uo_solicitante.setor.sigla }}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td>Unidade Fornecedora</td>
+            <td>{{ requisicao.uo_fornecedora.setor.sigla }}</td>
+            <td>Observações</td>
+            <td>{{ requisicao.observacoes|format }}</td>
+        </tr>
+    </table>
+{% endbox %}
+
+{% box 'Itens Requisitados' %}
+    <table>
+	     <thead>
+            <tr>
+                <th>#</th>
+                <th>ED</th>
+                <th>Cód. Mat</th>
+                <th>Material</th>
+                <th>Qtd. Solicitada</th>
+                {% if requisicao.avaliada %}
+                    <th>Qtd. Aceita</th>
+                    <th>Valor</th>
+                {% endif %}
+            </tr>
+	    </thead>
+	    <tbody>
+            {% for item in requisicao.item_set.all %}
+                <tr >
+                    <td>{{ forloop.counter }}</td>
+                    <td align="center">{{ item.material.categoria.codigo }}</td>
+                    <td>{{ item.material.codigo }}</td>
+                    <td>{{ item.material }}</td>
+                    <td align="right">{{ item.qtd }}</td>
+                    {% if requisicao.avaliada %}
+                        <td align="right">{{ item.saida.qtd }}</td>
+                        <td align="right">R$ {{ item.valor_unitario }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        {% if requisicao.avaliada %}
+            <tfoot>
+                <tr>
+                    <td colspan="6">Total:</td>
+                    <td>R$ {{ requisicao.get_total }}</td>
+                </tr>
+            </tfoot>
+        {% endif %}
+    </table>
+{% endbox %}
+
+{% if itens_devolvidos %}
+    {% box 'Itens Devolvidos' %}
+        <table>
+             <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ED</th>
+                    <th>Cód. Mat</th>
+                    <th>Material</th>
+                    <th>Qtd. Devolvida</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens_devolvidos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td align="center">{{ item.material.categoria.codigo }}</td>
+                        <td>{{ item.material.codigo }}</td>
+                        <td>{{ item.material }}</td>
+                        <td align="right">{{ item.quantidade }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends super_template %}
+
+{% block content %}
+    {% box 'Dados Gerais' %}
+
+        <table class="info">
+            <tr>
+                <td>Ano Letivo:</td>
+                <td>{{ obj.matricula_periodo.ano_letivo }}</td>
+
+                <td>Período Letivo:</td>
+                <td>{{ obj.matricula_periodo.periodo_letivo }}</td>
+
+                <td>Escola de Origem:</td>
+                <td>{{ obj.escola_origem }}</td>
+            </tr>
+            <tr>
+                <td>Data:</td>
+                <td>{{ obj.data|format }}</td>
+
+                <td>Frequência:</td>
+                <td>{{ obj.frequencia|format }}</td>
+
+                <td>Nota:</td>
+                <td>{{ obj.nota|formatar_nota }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+{% endblock %}

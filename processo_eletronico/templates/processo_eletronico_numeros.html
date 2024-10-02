@@ -1,0 +1,124 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% if setores_numeros_todos %}
+        {% box "Por setor (todos)" %}
+            {% for sn in setores_numeros_todos %}
+                <ul class="list-tree">
+                    {{ sn }}
+                </ul>
+            {% endfor %}
+        {% endbox %}
+    {% endif %}
+
+    {% box "Por Setor" %}
+        <p class="msg alert">
+            Apenas os setores que sou chefe ou tenho poder de chefe.
+        </p>
+
+        {% for sn in setores_numeros %}
+            <ul class="list-tree">
+                {{ sn }}
+            </ul>
+        {% endfor %}
+    {% endbox %}
+
+    {% box "Geral Por tipo" "collapsed" %}
+        <table>
+            <thead>
+            <th>Tipo de processo</th>
+            <th>Quantidade</th>
+            </thead>
+            <tbody>
+            {% for t in por_tipo %}
+                <tr>
+                    <td>{{ t.tipo }}</td>
+                    <td>{{ t.qtd }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% box "Geral por Situação" "collapsed" %}
+        <table>
+            <thead>
+            <th>Situação</th>
+            <th>Quantidade</th>
+            </thead>
+            <tbody>
+            {% for t in geral %}
+                <tr>
+                    <td>Processos</td>
+                    <td>{{ t.qtd_processos }} </td>
+                </tr>
+                <tr>
+                    <td>Em trâmite</td>
+                    <td>{{ t.STATUS_ATIVO }} </td>
+                </tr>
+                <tr>
+                    <td>Arquivado</td>
+                    <td>{{ t.STATUS_ARQUIVADO }} </td>
+                </tr>
+                <tr>
+                    <td>Sobrestado</td>
+                    <td>{{ t.STATUS_SOBRESTADO }} </td>
+                </tr>
+                <tr>
+                    <td>Finalizado</td>
+                    <td>{{ t.STATUS_FINALIZADO }} </td>
+                </tr>
+                <tr>
+                    <td>Anexado</td>
+                    <td>{{ t.STATUS_ANEXADO }} </td>
+                </tr>
+                <tr>
+                    <td>Reaberto</td>
+                    <td>{{ t.STATUS_REABERTO }} </td>
+                </tr>
+                <tr>
+                    <td>Aguardando ciência</td>
+                    <td>{{ t.STATUS_AGUARDANDO_CIENCIA }} </td>
+                </tr>
+                <tr>
+                    <td>Aguardando juntada de documentos</td>
+                    <td>{{ t.STATUS_AGUARDANDO_JUNTADA }} </td>
+                </tr>
+                <tr>
+                    <td>Em validação de juntada de documentos</td>
+                    <td>{{ t.STATUS_EM_HOMOLOGACAO }} </td>
+                </tr>
+                <tr>
+                    <td>Documentos Texto</td>
+                    <td>{{ t.qtd_documentos_texto }} </td>
+                </tr>
+                <tr>
+                    <td>Documentos Digitalizado</td>
+                    <td>{{ t.qtd_documentos_digitalizado }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% box "Tempo médio de trâmite dos processos para a(o) {{ uo }}" "collapsed" %}
+        <table>
+            <thead>
+            <th>Campus de origem</th>
+            <th>Tipo de processo</th>
+            <th>Tempo médio (dias)</th>
+            </thead>
+            <tbody>
+            {% for t in tempo_medio_por_tipo %}
+                <tr>
+                    <td>{{ t.uo_origem_interessado }}</td>
+                    <td>{{ t.tipo }}</td>
+                    <td>{{ t.tempo_medio|format }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+{% endblock %}

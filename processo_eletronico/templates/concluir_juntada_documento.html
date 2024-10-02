@@ -1,0 +1,34 @@
+{% extends super_template %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+{% include 'processo_eletronico/include_dados_processo.html' %}
+
+{% box "Solicitação" %}
+    <table class="info">
+        <tr>
+            <td>Solicitante</td>
+            <td colspan="3">{{ solicitacao.solicitante|format }}</td>
+        </tr>
+        <tr>
+            <td>Data da Solicitação</td>
+            <td>{{ solicitacao.data_solicitacao|date:'d/m/Y'|format }}</td>
+            <td>Data Limite</td>
+            <td>{{ solicitacao.data_limite|date:'d/m/Y'| format }}</td>
+        </tr>
+        <tr>
+            <td>Justificativa da Solicitação</td>
+            <td colspan="3">{{ solicitacao.motivo }}</td>
+        </tr>
+    </table>
+{% endbox %}
+
+{% box "Declaração de Conclusão de Juntada" %}
+    <p class="msg info">Eu, {{ solicitacao.solicitado }} declaro para os devidos fins
+        que concluí a juntada de documentos do atual processo.</p>
+    {% render_form form %}
+{% endbox %}
+
+{% endblock %}

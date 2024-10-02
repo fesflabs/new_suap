@@ -1,0 +1,290 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>jQuery.getScript('/static/residencia/js/TransferirTurma.js');</script>
+{% endblock %}
+
+{% block content %}
+    <ul class="action-bar">
+{#        <li>#}
+{#            <a class="btn primary popup" href="/residencia/calendario_avaliacao/{{ obj.pk }}/">#}
+{#                Calendário de Avaliações <i class="fa fa-calendar-alt"></i>#}
+{#            </a>#}
+{#        </li>#}
+{#        <li><a class="btn default" href="/residencia/turma_estatistica/{{ obj.pk }}/">Estatística da Turma</a></li>#}
+{#        <li><a class="btn default wait" href="/residencia/mapa_turma/{{ obj.pk }}/">Mapa da Turma</a></li>#}
+        {% help_button %}
+    </ul>
+{#    {% if diarios_pendentes %}#}
+{#        <div class="msg alert">#}
+{#            Esta turma possui os seguintes diários pendentes:#}
+{#            <ul>#}
+{#                {% for diario in diarios_pendentes %}#}
+{#                    <li><a href="{{ diario.get_absolute_url }}">{{ diario }}</a></li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% endif %}#}
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>Descrição</td>
+                <td>{{ obj.descricao }}</td>
+                <td>Código</td>
+                <td>{{ obj.codigo }}</td>
+            </tr>
+            <tr>
+                <td>Ano/Período Letivo</td>
+                <td>{{ obj.ano_letivo }}/{{ obj.periodo_letivo }}</td>
+            </tr>
+            <tr>
+                <td>Curso</td>
+                <td colspan="3">
+                    <a href="{{ obj.curso_campus.get_absolute_url }}">{{ obj.curso_campus }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Matriz</td>
+                <td colspan="3">
+                    <a href="{{ obj.matriz.get_absolute_url }}">{{ obj.matriz }}</a>
+                </td>
+            </tr>
+            {% if obj.diarios_turma_residencia_set.exists %}
+                <tr>
+                    <td>Calendário Acadêmico</td>
+                    <td colspan="3">
+                        <a class="popup"
+                           href="{{ obj.calendario_academico.get_absolute_url }}">{{ obj.calendario_academico|format }}</a>
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>Ano da Residência</td>
+                <td colspan="3">{{ obj.periodo_matriz }}º Ano</td>
+            </tr>
+            <tr>
+                <td>Quantidade de Vagas</td>
+                <td colspan="3">
+                    {{ obj.quantidade_vagas|format }}
+                </td>
+            </tr>
+
+        </table>
+    {% endbox %}
+    <div class="tab-container" data-title="Residentes" data-counter="{{ qtd_residentes_ativos  }}"
+         data-tab="dados_residentes">
+
+        <ul class="action-bar">
+{#            <li class="has-child">#}
+{#                <a class="btn" href="#">Exportar XLS</a>#}
+{#                <ul>#}
+{#                    <li><a href="/residencia/exportar_xls_residente/?escopo=turma&turma={{ obj.pk }}&xls=residentes_na_turma">Residentes na Turma</a></li>#}
+{#                    <li><a href="/residencia/exportar_xls_residente/?escopo=turma&turma={{ obj.pk }}&xls=residentes_apenas_em_diarios">Residentes apenas em Diários</a></li>#}
+{#                    <li><a href="/residencia/exportar_xls_residente/?escopo=turma&turma={{ obj.pk }}&xls=residentes_todos">Ambos</a></li>#}
+{#                </ul>#}
+{#            </li>#}
+        </ul>
+
+        <p class="msg info">Os residentes sem destaque estão com o período letivo fechado.</p>
+
+        {% box "Residentes na Turma" %}
+            {% if pode_realizar_procedimentos %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/residencia/adicionar_residente_turma/{{ obj.pk }}/">Adicionar Residentes</a></li>
+                </ul>
+            {% endif %}
+            {% if residentes.exists %}
+                <form method="post" action="">
+                    {% csrf_token %}
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            {% if pode_realizar_procedimentos %}
+                                <th class="text-center">
+                                    <input type="checkbox"
+                                           onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++){ is[i].checked = this.checked;}"/>
+                                </th>
+                            {% endif %}
+                            <th>Aluno</th>
+                            <th>Situação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for matricula_periodo in residentes %}
+                            <tr {% if not matricula_periodo.situacao.pk == matricula_periodo.situacao.MATRICULADO %} class="disabled" {% endif %}>
+                                <td>{{ forloop.counter }}</td>
+                                {% if pode_realizar_procedimentos %}
+                                    <td class="text-center">
+                                        {% if matricula_periodo|method:"pode_remover_da_turma"|call:request.user %}
+                                            <input value="{{ matricula_periodo.pk }}" name="matriculas_periodo" type="checkbox"/>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td> {{ matricula_periodo.residente.get_nome }} (<a
+                                        href="{{ matricula_periodo.residente.get_absolute_url }}">{{ matricula_periodo.residente.matricula }}</a>)
+                                </td>
+                                <td>{{ matricula_periodo.situacao }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if pode_realizar_procedimentos %}
+                        <div class="submit-row">
+{#                            {% if obj.matriz.estrutura.tipo_avaliacao == obj.matriz.estrutura.TIPO_AVALIACAO_SERIADO %}#}
+{#                                <input class="success" type="button" value="Transferir Residentes Selecionados"#}
+{#                                       onclick="popupTransferencia({{ obj.pk }})" name="_addanother"/>#}
+{#                            {% endif %}#}
+                            <input type="button" class="danger no-confirm" id="btn_remover"
+                                   value="Remover Residentes Selecionados"/>
+                        </div>
+                    {% endif %}
+                </form>
+            {% else %}
+                <p class="msg alert">Nenhum residente matriculado na turma.</p>
+            {% endif %}
+        {% endbox %}
+        {% box "Residentes apenas em Diários" %}
+            {% if residentes_diarios.exists %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Aluno</th>
+                        <th>Situação no Período</th>
+                        <th>Possui Nota</th>
+                        <th>Possui Falta</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for matricula_periodo in residentes_diarios %}
+                        <tr {% if not matricula_periodo.situacao.pk == matricula_periodo.situacao.MATRICULADO %}
+                            class="disabled" {% endif %}>
+                            <td>{{ forloop.counter }}</td>
+                            <td> {{ matricula_periodo.residente.get_nome }} (<a
+                                    href="{{ matricula_periodo.residente.get_absolute_url }}">{{ matricula_periodo.residente.matricula }}</a>)
+                            </td>
+                            <td>{{ matricula_periodo.situacao }}</td>
+                            <td class="text-center">{{ matricula_periodo.possui_nota_lancada|format }}</td>
+                            <td class="text-center">{{ matricula_periodo.possui_falta_lancada|format }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum residente matriculado apenas em um ou mais diários da turma.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+
+        <div class="tab-container" data-title="Unidades de Apredizagens <span>{{ unidades.count }}</span>" data-tab="dados_unidades">
+
+        {% box "Unidades de Apredizagens da Turma" %}
+            {% if obj.unidadeaprendizagemturma_set.exists %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">-</th>
+                        <th>Código</th>
+                        <th>Unidade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for unidade in unidades %}
+                        <tr>
+                            <td class="no-print">
+                                 {% icon "view" "/residencia/unidadeaprendizagemturma/{{ unidade.pk }}/" %}
+                            </td>
+                            <td>{{ unidade.pk }}</td>
+                            <td>{{ unidade.unidade_aprendizagem }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma unidade cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Diários <span>{{ diarios.count }}</span>" data-tab="dados_diarios">
+
+        {% box "Diários da Turma" %}
+            {% if obj.diarios_turma_residencia_set.exists %}
+{#                {% if pode_realizar_procedimentos %}#}
+{#                    <ul class="action-bar">#}
+{#                        <li><a class="btn popup" href="/residencia/definir_local_aula_turma/{{ obj.pk }}/">Definir Local das#}
+{#                            Aulas</a></li>#}
+{#                    </ul>#}
+{#                {% endif %}#}
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">-</th>
+                        <th>Código</th>
+                        <th>Componente</th>
+                        <th>Percentual Mínimo (CH)</th>
+                        <th>Quantidade de Vagas</th>
+                        <th>Quantidade de Residentes</th>
+{#                        <th>Carga Horária Ministrada (%)</th>#}
+{#                        <th>Local das Aulas</th>#}
+{#                        <th>Professores</th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for diario in diarios %}
+                        <tr>
+                            <td class="no-print">
+                                {% icon "view" "/residencia/diario/{{ diario.pk }}/" %}
+                                {% if perms.residencia.delete_diario and diario.pode_ser_excluido %}
+                                    {% icon "delete" "/comum/excluir/residencia/diario/{{ diario.pk }}/" "Remover" "no-confirm popup" %}
+                                {% endif %}
+                            </td>
+                            <td>{{ diario.pk }}</td>
+                            <td>{{ diario.componente_curricular.componente }}</td>
+                            <td align="center">{{ diario.percentual_minimo_ch }}%</td>
+                            <td align="center">{{ diario.quantidade_vagas }}</td>
+                            <td align="center">{{ diario.matriculas_diarios_diario_residencia_set.count }}</td>
+{#                            <td>#}
+{#                                <div class="progress">#}
+{#                                    <p>{{ diario.get_percentual_carga_horaria_cumprida }}%</p>#}
+{#                                </div>#}
+{#                            </td>#}
+{#                            <td>{{ diario.get_locais_aula|format }}</td>#}
+{#                            <td>{% for professor_diario in diario.get_professores %}#}
+{#                                <a href="{{ professor_diario.professor.get_absolute_url }}">#}
+{#                                    {{ professor_diario.professor.vinculo.pessoa.nome|format }}{% if not forloop.last %}#}
+{#                                        ,{% endif %}</a>{% endfor %}</td>#}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum diário cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+
+{#    <div class="tab-container" data-title="Horários" data-tab="horarios">#}
+{#        {% include "horarios_turma.html" %}#}
+{#    </div>#}
+    <script>
+        jQuery(function () {
+            if (!$("input[name='matriculas_periodo']").length) {
+                $("#btn_remover").hide();
+            }
+        });
+        $("#btn_remover").click(function (ev) {
+            ids = $("input[name='matriculas_periodo']:checked").map(function () {
+                return this.value;
+            }).get().join("_");
+            if (ids && confirm("Você tem certeza que deseja remover o(s) residente(s) selecionado(s)? Isso implicará na exlcusão de suas matrículas nos diários vinculados à turma caso seja(m) do regime seriado. O registro de notas e faltas nesses diários para estes residentes também serão removidos.")) {
+                document.location.href = '?tab=dados_residentes&matriculas_periodo=' + ids;
+            }
+        });
+    </script>
+{% endblock %}

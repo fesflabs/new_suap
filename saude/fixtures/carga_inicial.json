@@ -1,0 +1,711 @@
+[
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 10,
+    "fields": {
+      "descricao": "C\u00e1rie",
+      "categoria": "red",
+      "preenchimento": "1",
+      "cpod": "C"
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 11,
+    "fields": {
+      "descricao": "Dente Ausente ou Extra\u00eddo por Outras Raz\u00f5es",
+      "categoria": "black",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 12,
+    "fields": {
+      "descricao": "Dente extra\u00eddo por C\u00e1rie",
+      "categoria": "black",
+      "preenchimento": "1",
+      "cpod": "P"
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 13,
+    "fields": {
+      "descricao": "Exodontia Indicada por C\u00e1rie",
+      "categoria": "grey",
+      "preenchimento": "1",
+      "cpod": "P"
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 14,
+    "fields": {
+      "descricao": "Exodontia Indicada por Outros Motivos",
+      "categoria": "grey",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 15,
+    "fields": {
+      "descricao": "Les\u00e3o N\u00e3o Cariosa ou Fratura",
+      "categoria": "orange",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 16,
+    "fields": {
+      "descricao": "C\u00e1lculo",
+      "categoria": "orange",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 17,
+    "fields": {
+      "descricao": "Restaura\u00e7\u00e3o ou Coroa Insatisfat\u00f3ria",
+      "categoria": "orange",
+      "preenchimento": "1",
+      "cpod": "O"
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 18,
+    "fields": {
+      "descricao": "Restaura\u00e7\u00e3o ou Coroa Provis\u00f3ria",
+      "categoria": "orange",
+      "preenchimento": "1",
+      "cpod": "C"
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 19,
+    "fields": {
+      "descricao": "Restaura\u00e7\u00e3o ou Coroa Satisfat\u00f3ria",
+      "categoria": "blue",
+      "preenchimento": "1",
+      "cpod": "O"
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 20,
+    "fields": {
+      "descricao": "Tratamento Endod\u00f4ntico Conclu\u00eddo",
+      "categoria": "blue",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 21,
+    "fields": {
+      "descricao": "Tratamento Endod\u00f4ntico Indicado",
+      "categoria": "red",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.situacaoclinica",
+    "pk": 22,
+    "fields": {
+      "descricao": "Sangramento",
+      "categoria": "blue",
+      "preenchimento": "1",
+      "cpod": null
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 1,
+    "fields": {
+      "denominacao": "Acesso endod\u00f4ntico",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 2,
+    "fields": {
+      "denominacao": "Acesso e/ou Curativo de Demora",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 3,
+    "fields": {
+      "denominacao": "Aplica\u00e7\u00e3o T\u00f3pica de Fl\u00faor",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 4,
+    "fields": {
+      "denominacao": "Evidencia\u00e7\u00e3o de Placa",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 5,
+    "fields": {
+      "denominacao": "Exame Cl\u00ednico",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 6,
+    "fields": {
+      "denominacao": "Exodontia por C\u00e1rie",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 7,
+    "fields": {
+      "denominacao": "Exodontia por Outras Raz\u00f5es",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 8,
+    "fields": {
+      "denominacao": "Orienta\u00e7\u00e3o de Higiene Bucal",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 9,
+    "fields": {
+      "denominacao": "Pequena Cirurgia",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 10,
+    "fields": {
+      "denominacao": "Profilaxia",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 11,
+    "fields": {
+      "denominacao": "Raio-X Interproximal",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 12,
+    "fields": {
+      "denominacao": "Raio-X Periapical",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 13,
+    "fields": {
+      "denominacao": "Raspagem Corono-Radicular",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 14,
+    "fields": {
+      "denominacao": "Remo\u00e7\u00e3o de Sutura",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 15,
+    "fields": {
+      "denominacao": "Restaura\u00e7\u00e3o de Am\u00e1lgama",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 16,
+    "fields": {
+      "denominacao": "Restaura\u00e7\u00e3o de Ion\u00f4mero",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 17,
+    "fields": {
+      "denominacao": "Restaura\u00e7\u00e3o de Resina",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 18,
+    "fields": {
+      "denominacao": "Restaura\u00e7\u00e3o Provis\u00f3ria",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 19,
+    "fields": {
+      "denominacao": "Selante",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 20,
+    "fields": {
+      "denominacao": "Sutura",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 21,
+    "fields": {
+      "denominacao": "Acabamento e Polimento de Restaura\u00e7\u00e3o",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 22,
+    "fields": {
+      "denominacao": "Prescri\u00e7\u00e3o Medicamentosa",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 23,
+    "fields": {
+      "denominacao": "Orienta\u00e7\u00e3o Odontol\u00f3gica",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 24,
+    "fields": {
+      "denominacao": "Ajuste Ortodôntico",
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 25,
+    "fields": {
+      "denominacao": "Condensação de Resina e Escultura",
+      "pode_odontologo": false,
+      "pode_tecnico": true,
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 26,
+    "fields": {
+      "denominacao": "Condensação de Amálgama e Escultura",
+      "pode_odontologo": false,
+      "pode_tecnico": true,
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 27,
+    "fields": {
+      "denominacao": "Condensação de Ionômero e Escultura",
+      "pode_odontologo": false,
+      "pode_tecnico": true,
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoodontologia",
+    "pk": 28,
+    "fields": {
+      "denominacao": "Condensação e Material Restaurador Provisório",
+      "pode_odontologo": false,
+      "pode_tecnico": true,
+      "ativo": true
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 1,
+    "fields": {
+      "situacao_clinica": 10,
+      "procedimento": 1
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 2,
+    "fields": {
+      "situacao_clinica": 10,
+      "procedimento": 15
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 3,
+    "fields": {
+      "situacao_clinica": 10,
+      "procedimento": 16
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 4,
+    "fields": {
+      "situacao_clinica": 10,
+      "procedimento": 17
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 5,
+    "fields": {
+      "situacao_clinica": 10,
+      "procedimento": 18
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 6,
+    "fields": {
+      "situacao_clinica": 13,
+      "procedimento": 6
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 7,
+    "fields": {
+      "situacao_clinica": 13,
+      "procedimento": 20
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 8,
+    "fields": {
+      "situacao_clinica": 14,
+      "procedimento": 7
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 9,
+    "fields": {
+      "situacao_clinica": 14,
+      "procedimento": 20
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 10,
+    "fields": {
+      "situacao_clinica": 15,
+      "procedimento": 15
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 11,
+    "fields": {
+      "situacao_clinica": 15,
+      "procedimento": 16
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 12,
+    "fields": {
+      "situacao_clinica": 15,
+      "procedimento": 17
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 13,
+    "fields": {
+      "situacao_clinica": 15,
+      "procedimento": 18
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 14,
+    "fields": {
+      "situacao_clinica": 17,
+      "procedimento": 1
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 15,
+    "fields": {
+      "situacao_clinica": 17,
+      "procedimento": 15
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 16,
+    "fields": {
+      "situacao_clinica": 17,
+      "procedimento": 16
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 17,
+    "fields": {
+      "situacao_clinica": 17,
+      "procedimento": 17
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 18,
+    "fields": {
+      "situacao_clinica": 17,
+      "procedimento": 18
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 19,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 1
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 20,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 15
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 21,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 16
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 22,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 17
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 23,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 18
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 24,
+    "fields": {
+      "situacao_clinica": 21,
+      "procedimento": 2
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 25,
+    "fields": {
+      "situacao_clinica": 16,
+      "procedimento": 13
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 26,
+    "fields": {
+      "situacao_clinica": 22,
+      "procedimento": 8
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 27,
+    "fields": {
+      "situacao_clinica": 16,
+      "procedimento": 10
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 28,
+    "fields": {
+      "situacao_clinica": 22,
+      "procedimento": 10
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 29,
+    "fields": {
+      "situacao_clinica": 10,
+      "procedimento": 19
+    }
+  },
+  {
+    "model": "saude.procedimentoindicado",
+    "pk": 30,
+    "fields": {
+      "situacao_clinica": 17,
+      "procedimento": 21
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 1,
+    "fields": {
+      "situacao_clinica": 19,
+      "procedimento": 16
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 2,
+    "fields": {
+      "situacao_clinica": 19,
+      "procedimento": 17
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 3,
+    "fields": {
+      "situacao_clinica": 19,
+      "procedimento": 15
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 4,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 18
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 5,
+    "fields": {
+      "situacao_clinica": 18,
+      "procedimento": 2
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 6,
+    "fields": {
+      "situacao_clinica": 12,
+      "procedimento": 6
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 7,
+    "fields": {
+      "situacao_clinica": 11,
+      "procedimento": 7
+    }
+  },
+  {
+    "model": "saude.resultadoprocedimento",
+    "pk": 8,
+    "fields": {
+      "situacao_clinica": 19,
+      "procedimento": 21
+    }
+  },
+  {
+    "model": "saude.tipoconsultaodontologia",
+    "pk": 1,
+    "fields": {
+      "descricao": "Avaliação Clínica Inicial"
+    }
+  },
+  {
+    "model": "saude.tipoconsultaodontologia",
+    "pk": 2,
+    "fields": {
+      "descricao": "Conclusão de tratamento"
+    }
+  },
+  {
+    "model": "saude.tipoconsultaodontologia",
+    "pk": 3,
+    "fields": {
+      "descricao": "Consulta"
+    }
+  },
+  {
+    "model": "saude.tipoconsultaodontologia",
+    "pk": 4,
+    "fields": {
+      "descricao": "Continuação de Tratamento"
+    }
+  },
+  {
+    "model": "saude.tipoconsultaodontologia",
+    "pk": 5,
+    "fields": {
+      "descricao": "Reavaliação"
+    }
+  },
+  {
+    "model": "saude.tipoconsultaodontologia",
+    "pk": 6,
+    "fields": {
+      "descricao": "Urgência"
+    }
+  }
+
+]

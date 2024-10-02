@@ -1,0 +1,25 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        jQuery(document).ready(function (e) {
+            var html = '<a class="btn default" href="/ae/inscricao_documentacao/{{ aluno_id }}/{{ periodo_id }}/{{ programa_id }}/{{ data_cadastro }}/">Voltar</a>';
+            jQuery(html).insertAfter('input[type=submit]');
+            $('input[type=submit]').val('Continuar');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    {% include "includes/inscricao_steps.html" with active="detalhamento" %}
+
+    {% include "includes/inscricao_dados.html" %}
+
+    {% if form %}
+        {% box "Formulário de Inscrição" %}
+            {% render_form form %}
+        {% endbox %}
+    {% endif %}
+
+{% endblock %}

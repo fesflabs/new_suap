@@ -1,0 +1,60 @@
+{% extends super_template %}
+
+{% block content %}
+     <div class="search-and-filters">
+		{% render_form resumoplano_form %}
+    </div>
+    {% if lista_projetos %}
+        {% for item in lista_projetos %}
+            {% box "{{ item.projeto_plano.projeto.codigo }} - {{ item.projeto_plano.projeto.nome }}" %}
+                {% if item.atividades %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Unidade Gestora</th>
+                                <th>Etapa</th>
+                                <th>Atividade</th>
+                                <th>Descrição da Atividade</th>
+                                <th>Origem de Recurso</th>
+                                <th>Valor Proposto pela UA (R$) </th>
+                                <th>Valor Compatibilizado pela UA (R$)</th>
+                                <th>Valor Complementado pela UA (R$)</th>
+                                <th>Valor Total (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for atividade in item.atividades %}
+                                 <tr>
+                                        <td align="right">{{ atividade.unidade_gestora.setor_equivalente.sigla}}</td>
+                                        <td>{{ atividade.etapa_projeto_plano_atividade.etapa.codigo }} - {{ atividade.etapa_projeto_plano_atividade.etapa.descricao }}</td>
+                                        <td>{{ atividade.nome}}</td>
+                                        <td>{{ atividade.descricao }}</td>
+                                        <td align="right">{{ atividade.origem_recurso_etapa|format }}</td>
+                                        <td align="right">{{ atividade.valor|format_money }}</td>
+                                        <td align="right">{{ atividade.get_valor_rateio|format_money }}</td>
+                                        <td align="right">{{ atividade.get_valor_reserva_tecnica|format_money }}</td>
+                                        <td align="right"><strong>{{ atividade.get_total|format_money }}</strong></td>
+                                 </tr>
+                                {% endfor %}
+                                <tr>
+                                        <td align="right" colspan="5"><strong>Total</strong></td>
+                                        <td align="right"><strong>{{ item.total_valor_proposto|format_money }}</strong></td>
+                                        <td align="right"><strong>{{ item.total_valor_rateio|format_money }}</strong></td>
+                                        <td align="right"><strong>{{ item.total_valor_reserva|format_money }}</strong></td>
+                                        <td align="right"><strong>{{ item.total_atividades|format_money }}</strong></td>
+                                 </tr>
+                         </tbody>
+                    </table>
+                {% else %}
+                     <p class="msg alert">Nenhuma atividade neste projeto conforme o filtro aplicado.</p>
+                {% endif %}
+            {% endbox %}
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Utilize o filtro para gerar o relatório.</p>
+    {% endif %}
+
+
+{% endblock %}
+
+

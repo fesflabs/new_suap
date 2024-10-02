@@ -1,0 +1,30 @@
+{% if objects %}
+    <table>
+        <thead>
+        <tr>
+            <th><input type="checkbox"
+                       onchange="var is = this.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked"/>
+            </th>
+            <th>Período</th>
+            <th>Descrição</th>
+            <th>Tipo</th>
+            <th>Unidade Aprendizagem</th>
+            <th>Qtd Avaliações</th>
+            <th>CH Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for obj in objects %}
+            <tr>
+                <td align="center">{{ obj.widget }}</td>
+                <td align="center">{{ obj.periodo_letivo|format }}</td>
+                <td>{{ obj.componente }}</td>
+                <td>{{ obj.get_tipo_display }}</td>
+                <td align="center">{{ obj.unidade_aprendizagem }}</td>
+                <td align="center">{{ obj.unidade_aprendizagem.qtd_avaliacoes }}</td>
+                <td align="center">{{ obj.ch_total }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

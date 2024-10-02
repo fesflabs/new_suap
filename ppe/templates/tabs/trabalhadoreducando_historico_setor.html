@@ -1,0 +1,26 @@
+
+    {% box 'Histórico nos Setores' %}
+        {% if historico_setor.exists %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Setor</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for hist_set in historico_setor %}
+                    <tr>
+                        <td>{{ hist_set.setor.nome }} - {{ hist_set.setor.sigla }}</td>
+                        <td>{{ hist_set.data_inicio|format }} </td>
+                        <td>{{ hist_set.data_fim|format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Não há histórico em setores SUAP.</p>
+        {% endif %}
+    {% endbox %}
+

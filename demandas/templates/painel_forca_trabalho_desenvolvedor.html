@@ -1,0 +1,76 @@
+<div class="photo">
+    <img title="{{ desenvolvedor.usuario.pessoafisica.nome_usual }}" src="{{ desenvolvedor.usuario.pessoafisica.get_foto_75x100_url }}" />
+</div>
+
+<h4><a href="/rh/servidor/{{ desenvolvedor.usuario.get_relacionamento.matricula }}">{{ desenvolvedor.usuario.pessoafisica.nome_usual }}</a></h4>
+
+<div class="content">
+    <span class="sr-only">{{ situacao }}</span>
+
+    {% if qtd_demandas_como_analista > 0 %}
+        <div class="clear"></div>
+        <h5 class="subtitle">Demandas como Analista</h5>
+        {% if qtd_como_analista_a_iniciar > 0 %}
+            <p class="note"><a href="/admin/demandas/demanda/?perfil=analista&tab=tab_nao_iniciadas&analistas__id__exact={{ desenvolvedor.usuario.pk }}" class="false"><strong>{{ qtd_como_analista_a_iniciar }}</strong> a iniciar</a></p>
+        {% endif %}
+        {% if qtd_como_analista_em_andamento > 0 %}
+            <p class="note"><a href="/admin/demandas/demanda/?perfil=analista&tab=tab_em_andamento&analistas__id__exact={{ desenvolvedor.usuario.pk }}" title="{% for tag in tags %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}"><strong>{{ qtd_como_analista_em_andamento }}</strong> em andamento</a></p>
+        {% endif %}
+        {% if qtd_como_analista_aguardando_feedback > 0 %}
+            <p class="note"><a href="/admin/demandas/demanda/?perfil=analista&tab=tab_pendentes&analistas__id__exact={{ desenvolvedor.usuario.pk }}"><strong>{{ qtd_como_analista_aguardando_feedback }}</strong> aguardando feedback</a></p>
+        {% endif %}
+    {% endif %}
+
+    {% if qtd_demandas_como_desenvolvedor > 0 %}
+        <div class="clear"></div>
+        <h5 class="subtitle">Demandas como Desenvolvedor</h5>
+        {% if qtd_como_desenvolvedor_a_iniciar > 0 %}
+            <p class="note"><a href="/admin/demandas/demanda/?perfil=desenvolvedor&tab=tab_nao_iniciadas&desenvolvedores__id__exact={{ desenvolvedor.usuario.pk }}" class="false"><strong>{{ qtd_como_desenvolvedor_a_iniciar }}</strong> a iniciar</a></p>
+        {% endif %}
+        {% if qtd_como_desenvolvedor_em_andamento > 0 %}
+            <p class="note"><a href="/admin/demandas/demanda/?perfil=desenvolvedor&tab=tab_em_andamento&desenvolvedores__id__exact={{ desenvolvedor.usuario.pk }}" title="{% for tag in tags %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}"><strong>{{ qtd_como_desenvolvedor_em_andamento }}</strong> em andamento</a></p>
+        {% endif %}
+        {% if qtd_como_desenvolvedor_aguardando_feedback > 0 %}
+            <p class="note"><a href="/admin/demandas/demanda/?perfil=desenvolvedor&tab=tab_pendentes&desenvolvedores__id__exact={{ desenvolvedor.usuario.pk }}"><strong>{{ qtd_como_desenvolvedor_aguardando_feedback }}</strong> aguardando feedback</a></p>
+        {% endif %}
+    {% endif %}
+
+    {% if qtd_tarefas > 0 %}
+        <div class="clear"></div>
+        <h5 class="subtitle">Issues em Andamento</h5>
+        {% for projeto, qtd_issues, url in issues_desenvolvedor_em_andamento %}
+            {% if qtd_issues %}
+                <p class="note"><a href="{{ url }}"><strong>{{ qtd_issues }}</strong> para {{ projeto }}</a></p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if qtd_chamados > 0 %}
+        <div class="clear"></div>
+        <h5 class="subtitle">Chamados Atribuídos</h5>
+        <p class="note"><a href="/centralservicos/listar_chamados_suporte/?atribuicoes=2&atendente={{ desenvolvedor.usuario.pk }}&ordenar_por=data_limite_atendimento"><strong>{{ qtd_chamados }}</strong> chamado{{ qtd_chamados|pluralize }}</a></p>
+    {% endif %}
+    
+    {% if qtd_erros > 0 %}
+        <div class="clear"></div>
+        <h5 class="subtitle">Erros em Andamento</h5>
+        <p class="note"><a href="/erros/erros/?atendente_atual={{ vinculo.pk }}"><strong>{{ qtd_erros }}</strong> erro{{ qtd_erros|pluralize }}</a></p>
+    {% endif %}
+
+    <div class="clear"></div>
+    <h5 class="subtitle">Issues Atualizadas</h5>
+    <p class="note">{{ qtd_issues_atualizadas_7dias }}</strong> nos últimos 7 dias</p>
+    <p class="note">{{ qtd_issues_atualizadas_14dias }}</strong> nos últimos 14 dias</p>
+
+    <div class="clear"></div>
+    <h5 class="subtitle">Concluídas no Ano</h5>
+    <p class="note">{{ qtd_issues_concluidas_ano }}</strong> issue{{ qtd_issues_concluidas_ano|pluralize }}</p>
+    <p class="note">{{ qtd_concluidas }}</strong> demanda{{ qtd_concluidas|pluralize }}</p>
+</div>
+
+{% if afastamento_ou_ferias %}
+    <footer><p class="false text-center">{{ afastamento_ou_ferias }}</p></footer>
+{% endif %}
+{% if recesso %}
+    <footer><p class="false text-center">Em recesso</p></footer>
+{% endif %}

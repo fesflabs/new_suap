@@ -1,0 +1,132 @@
+
+// Extends
+%box {
+    background-color: $white;
+    border: 0 none;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+}
+%box-hover {
+    box-shadow: $box-shadow-hover;
+}
+%box-collapse-icon {
+    float: right;
+    text-align: right;
+}
+%btn {
+    background-color: $grey-700;
+}
+%btn-default {
+    color: $white;
+}
+%btn-default-active {
+    color: $white;
+}
+%filters-text-before {
+    color: $secondary-color;
+    font-weight: 900;
+    text-transform: none;
+}
+%hidesidebar-nav-first-level {
+    background-color: $white;
+    border-radius: 50%;
+    box-shadow: $box-shadow;
+    height: 32px;
+    padding: 0;
+    width: 32px;
+}
+%hidesidebar-nav-first-level-icon {
+    font-size: 1.4rem;
+    line-height: 32px;
+}
+%inputs {
+    border: 2px solid $grey-200;
+    border-radius: 10px;
+}
+%inputs-focus {
+    border-color: $grey-300;
+}
+%form-select {
+    padding: 3px 6px;
+}
+%form-textarea {
+    padding: 12px;
+}
+%module-alert {
+    border: 0 none;
+    color: $white;
+    letter-spacing: $letter-spacing;
+    margin-bottom: 1px;
+    padding: 2rem;
+}
+%module-alert-hover {
+    color: $white;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+%module-info-title {
+    background-color: transparent;
+    color: $grey-600;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+    text-transform: none;
+}
+%nav-first-level-icon {
+    color: $secondary-color;
+    font-size: 1.35rem;
+    margin-right: 9px;
+    opacity: 0.5;
+}
+%pagination-active {
+    background-color: $brand-color;
+    color: $white;
+    font-weight: 700;
+}
+%scrollbar-track {
+    border: 0 none;
+}
+%status {
+    border: 0 none;
+    border-radius: $border-radius;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+%status-inside-container {
+    border-radius: $border-radius;
+    border-top-width: 0;
+}
+%subtitle {
+    font-weight: 600;
+}
+%table {
+    border: 1px solid transparent;
+}
+%table-thead {
+    background-color: transparent;
+    border: 0 none;
+    color: $grey-800;
+    font-size: 1.5rem;
+    font-weight: 900;
+    &.sorted {
+        background-color: transparent;
+        font-weight: 700;
+    }
+}
+%table-tbody {
+    background-color: $white;
+    border: 1px solid $grey-200;
+    box-shadow: 0 0 0 transparent;
+}
+%table-tfoot {
+    border: 0 none;
+}
+%table-tr-hover {
+    background-color: $white;
+    &:first-child {
+        border-left: 1px solid $secondary-color;
+    }
+}

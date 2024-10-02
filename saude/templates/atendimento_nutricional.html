@@ -1,0 +1,898 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% include "includes/actionbar_atendimento.html" %}
+{% endblock %}
+
+{% block object-status %}
+    {% include "includes/status_atendimento.html" %}
+{% endblock %}
+
+{% block content %}
+
+    {% include "includes/cabecalho_atendimento.html" %}
+
+    <div class="tab-container" data-tab="aba_motivo" data-title="Motivo do Atendimento" data-checked="{% if atendimento_nutricao.motivo.exists %}True{% endif %}">
+        {% if atendimento.is_aberto %}
+            <ul class="action-bar">
+                {% if pode_editar and atendimento_nutricao.motivo.exists %}
+                    <li><a class="btn primary" href="/saude/adicionar_motivo_nutricao/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                {% elif pode_editar %}
+                    <li><a class="btn success" href="/saude/adicionar_motivo_nutricao/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        {% if atendimento_nutricao.motivo.exists %}
+            <table class="info">
+                <tr>
+                    <td>Motivo do Atendimento</td>
+                    <td>{{ atendimento_nutricao.motivo.all|format }}</td>
+                </tr>
+                <tr>
+                    <td>Observações</td>
+                    <td>{{ atendimento_nutricao.observacoes|format }}</td>
+                </tr>
+            </table>
+            <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+        {% else %}
+            <p class="msg alert">Nenhum registro cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_dados_clinicos" data-title="Dados Clínicos" data-checked="{% if aba_antecedentes_preenchida %}True{% endif %}">
+        {% box 'Antecedentes' %}
+            {% if atendimento.is_aberto %}
+                {% if pode_editar %}
+                    <ul class="action-bar">
+                        {% if atendimento.antecedentesfamiliares_set.exists %}
+                            <li><a class="btn primary" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                        {% else %}
+                            <li><a class="btn success" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            {% if antecedentesfamiliares %}
+                <table class="info">
+                    <tr>
+                        <td>Agravos à saúde com parentesco de 1º grau</td>
+                        <td>
+                            {% if antecedentesfamiliares.agravos_primeiro_grau.all %}
+                                <ul>
+                                    {% for doenca in antecedentesfamiliares.agravos_primeiro_grau.all %}
+                                        <li>{{ doenca }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>Agravos à saúde com parentesco de 2º grau</td>
+                        <td>
+                            {% if antecedentesfamiliares.agravos_segundo_grau.all %}
+                                <ul>
+                                    {% for doenca in antecedentesfamiliares.agravos_segundo_grau.all %}
+                                        <li>{{ doenca }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <p class="obs">{{ antecedentesfamiliares_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Processo Saúde-Doença' %}
+
+            {% if atendimento.is_aberto %}
+                {% if pode_editar %}
+                    <ul class="action-bar">
+                        {% if atendimento.processosaudedoenca_set.exists %}
+                            <li><a class="btn primary" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                        {% else %}
+                            <li><a class="btn success" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            {% if processosaudedoenca %}
+                <table class="info">
+                    <tr>
+                        {% if processosaudedoenca.fez_cirurgia %}
+                            <td>Cirurgias</td>
+                            <td>{{ processosaudedoenca.fez_cirurgia|format }}</td>
+                            <td>Quais cirurgias</td>
+                            <td>{{ processosaudedoenca.que_cirurgia|format }}</td>
+                            <td>Há quanto tempo</td>
+                            <td>{{ processosaudedoenca.tempo_cirurgia|format }}</td>
+                        {% else %}
+                            <td>Cirurgias</td>
+                            <td colspan="5">{{ processosaudedoenca.fez_cirurgia|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.hemorragia %}
+                            <td>Histórico de hemorragias</td>
+                            <td>{{ processosaudedoenca.hemorragia|format }}</td>
+                            <td>Há quanto tempo ocorreu</td>
+                            <td colspan="3">{{ processosaudedoenca.tempo_hemorragia|format }}</td>
+                        {% else %}
+                            <td>Histórico de hemorragias</td>
+                            <td colspan="5">{{ processosaudedoenca.hemorragia|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.alergia_alimentos %}
+                            <td>Alergias a alimentos</td>
+                            <td>{{ processosaudedoenca.alergia_alimentos|format }}</td>
+                            <td>Quais alimentos</td>
+                            <td colspan="3">{{ processosaudedoenca.que_alimentos|format }}</td>
+                        {% else %}
+                            <td>Alergias a alimentos</td>
+                            <td colspan="5">{{ processosaudedoenca.alergia_alimentos|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.alergia_medicamentos %}
+                            <td>Alergias a medicamentos</td>
+                            <td>{{ processosaudedoenca.alergia_medicamentos|format }}</td>
+                            <td>Quais medicamentos</td>
+                            <td colspan="3">{{ processosaudedoenca.que_medicamentos|format }}</td>
+                        {% else %}
+                            <td>Alergias a medicamentos</td>
+                            <td colspan="5">{{ processosaudedoenca.alergia_medicamentos|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.usa_medicamentos %}
+                            <td>Uso de medicamentos rotineiramente</td>
+                            <td>{{ processosaudedoenca.usa_medicamentos|format }}</td>
+                            <td>Quais medicamentos</td>
+                            <td colspan="3">{{ processosaudedoenca.usa_que_medicamentos|format }}</td>
+                        {% else %}
+                            <td>Uso de medicamentos rotineiramente</td>
+                            <td colspan="5">{{ processosaudedoenca.usa_medicamentos|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.lesoes_ortopedicas %}
+                            <td>Teve lesões ortopédicas</td>
+                            <td>{{ processosaudedoenca.lesoes_ortopedicas|format }}</td>
+                            <td>Qual lesão ortopédica</td>
+                            <td colspan="3">{{ processosaudedoenca.quais_lesoes_ortopedicas|format }}</td>
+                        {% else %}
+                            <td>Teve lesões ortopédicas</td>
+                            <td colspan="5">{{ processosaudedoenca.lesoes_ortopedicas|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.transtorno_psiquiatrico %}
+                            <td>Já teve transtorno psiquiátrico?</td>
+                            <td>{{ processosaudedoenca.transtorno_psiquiatrico|format }}</td>
+                            <td>Qual transtorno psiquiátrico?</td>
+                            <td colspan="3">{{ processosaudedoenca.qual_transtorno_psiquiatrico|format }}</td>
+                        {% else %}
+                            <td>Já teve transtorno psiquiátrico?</td>
+                            <td colspan="5">{{ processosaudedoenca.transtorno_psiquiatrico|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.psiquiatra %}
+                            <td>Já procurou algum psiquiatra</td>
+                            <td>{{ processosaudedoenca.psiquiatra|format }}</td>
+                            <td>Duração do tratamento psiquiátrico</td>
+                            <td>{{ processosaudedoenca.get_duracao_psiquiatria_display }}</td>
+                            <td>Há quanto tempo foi tratado por psiquiatra</td>
+                            <td>{{ processosaudedoenca.get_tempo_psiquiatria_display }}</td>
+                        {% else %}
+                            <td>Já procurou algum psiquiatra</td>
+                            <td colspan="5">{{ processosaudedoenca.psiquiatra|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Doenças crônicas</td>
+                        <td colspan="5">{{ processosaudedoenca.doencas_cronicas.all|join:", "|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        {% if processosaudedoenca.doencas_previas %}
+                            <td>Tem Doenças Prévias</td>
+                            <td>{{ processosaudedoenca.doencas_previas|format }}</td>
+                            <td>Quais Doenças Prévias</td>
+                            <td colspan="3">{{ processosaudedoenca.que_doencas_previas|format }}</td>
+                        {% else %}
+                            <td>Tem Doenças Prévias</td>
+                            <td colspan="5">{{ processosaudedoenca.doencas_previas|format }}</td>
+                        {% endif %}
+                    </tr>
+                    {% if processosaudedoenca.atendimento.prontuario.vinculo.pessoa.pessoafisica.sexo == "F" %}
+                        <tr>
+                            <td>Gestante</td>
+                            <td colspan="4">{{ processosaudedoenca.gestante|format }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Possui problemas auditivos</td>
+                        <td>{{ processosaudedoenca.problema_auditivo|format }}</td>
+                        <td>Qual problema auditivo</td>
+                        <td>{{ processosaudedoenca.qual_problema|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ processosaudedoenca_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_anamnese" data-title="Anamnese" data-checked="{% if aba_anamnese_preenchida %}True{% endif %}">
+        {% box 'Hábitos de Vida' %}
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if pode_editar %}
+                        <li><a class="btn success" href="/saude/adicionar_habitosdevida/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if habitosdevida_count > 1 %}
+                    <li><a class="btn popup" href="/saude/historico_ficha/{{ atendimento.id }}/4/">{% icone "search" %} Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if habitosdevida %}
+                <table class="info">
+                    <tr>
+                        <td>Pratica atividade física</td>
+                        <td {% if not habitosdevida.atividade_fisica %}colspan="5"{% endif %}>{{ habitosdevida.atividade_fisica|format }}</td>
+                        {% if habitosdevida.atividade_fisica %}
+                            <td>Quais atividades</td>
+                            <td colspan="3">{{ habitosdevida.qual_atividade|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Frequência da atividade física</td>
+                        <td>{{ habitosdevida.get_frequencia_atividade|format }}</td>
+                        <td>Duração da atividade física</td>
+                        <td colspan="3">{{ habitosdevida.get_duracao_atividade|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Fumante</td>
+                        <td {% if not habitosdevida.fuma %}colspan="5"{% endif %}>{{ habitosdevida.fuma|format }}</td>
+                        {% if habitosdevida.fuma %}
+                            <td>Frequência mínima de uso do fumo</td>
+                            <td colspan="3">{{ habitosdevida.frequencia_fumo|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Ingere bebidas alcoólicas</td>
+                        <td {% if not habitosdevida.bebe %}colspan="5"{% endif %}>{{ habitosdevida.bebe|format }}</td>
+                        {% if habitosdevida.bebe %}
+                            <td>Frequência mínima de ingestão de bebidas alcoólicas</td>
+                            <td colspan="3">{{ habitosdevida.get_frequencia_bebida|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Faz uso ou já usou drogas ilícitas</td>
+                        <td {% if not habitosdevida.usa_drogas %}colspan="5"{% endif %}>{{ habitosdevida.usa_drogas|format }}</td>
+                        {% if habitosdevida.usa_drogas %}
+                            <td>Quais drogas</td>
+                            <td colspan="3">
+                                {% if habitosdevida.que_drogas or habitosdevida.outras_drogas %}
+                                    <ul>
+                                        {% for droga in habitosdevida.que_drogas.all %}
+                                            <li>{{ droga }}</li>
+                                        {% endfor %}
+                                        {% if habitosdevida.outras_drogas %}
+                                            <li>{{ habitosdevida.outras_drogas|format }}</li>
+                                        {% endif %}
+                                    </ul>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Tem dificuldade para dormir</td>
+                        <td>{{ habitosdevida.dificuldade_dormir|format }}</td>
+                        <td>Horas de sono diárias</td>
+                        <td>{{ habitosdevida.get_horas_sono|format }}</td>
+                        <td>Refeições por dia</td>
+                        <td>{{ habitosdevida.get_refeicoes|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tem vida sexual ativa</td>
+                        <td {% if not habitosdevida.vida_sexual_ativa %}colspan="5"{% endif %}>{{ habitosdevida.vida_sexual_ativa|format }}</td>
+                        {% if habitosdevida.vida_sexual_ativa %}
+                            <td>Faz uso de algum método contraceptivo</td>
+                            <td>{{ habitosdevida.metodo_contraceptivo|format }}</td>
+                            <td>Qual método contraceptivo</td>
+                            <td>{{ habitosdevida.qual_metodo_contraceptivo.all|join:", "|default:"-" }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Faz uso da internet?</td>
+                        <td>{{ habitosdevida.uso_internet|format }}</td>
+                        <td>Qual o tempo de uso</td>
+                        <td>{{ habitosdevida.get_tempo_uso_internet|format }}</td>
+                        <td>Objetivo do uso</td>
+                        <td>
+                            {% if habitosdevida.objetivo_uso_internet %}
+                                <ul>
+                                    {% for objetivo in habitosdevida.get_objetivo_uso_internet %}
+                                        <li>{{ objetivo }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <p class="obs">{{ habitosdevida_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Antropometria' %}
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if pode_editar %}
+                        <li><a class="btn success" href="/saude/adicionar_antropometria/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                <li><a href="/saude/antropometria_valores_referencia/" class="btn popup default">{% icone "search" %} Valores de Referência</a></li>
+                {% if antropometria_count > 1 %}
+                    <li><a class="btn popup default" href="/saude/historico_ficha/{{ atendimento.id }}/2/">{% icone "search" %} Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if antropometria %}
+                <table class="info">
+                    <tr>
+                        <td>Estatura</td>
+                        <td>{{ antropometria.get_estatura_display|format }}</td>
+                        <td>Peso</td>
+                        <td colspan="3">{{ antropometria.get_peso_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Circunferência da cintura</td>
+                        <td>
+                            {{ antropometria.get_cintura_display|format }}
+                            {% if antropometria.get_cintura_display %}
+                                {{ antropometria.get_complicacao_metabolica|format|text_small  }}
+                            {% endif %}
+                        </td>
+                        <td>Circunferência da quadril</td>
+                        <td>{{ antropometria.get_quadril_display|format }}</td>
+                        <td>Circunferência do braço</td>
+                        <td>{{ antropometria.get_circunferencia_braco_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Razão cintura-quadril</td>
+                        <td>{{ antropometria.get_RCQ|format }}</td>
+                        <td>Índice de massa corporal</td>
+                        <td>{{ antropometria.get_IMC|format }}</td>
+                        <td>Índice de adiposidade corporal</td>
+                        <td>{{ antropometria.get_IAC|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Percentual de gordura</td>
+                        <td colspan="5">{{ antropometria.get_percentual_gordura_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Perda de peso</td>
+                        <td {% if not antropometria.perda_peso %}colspan="5"{% endif %}>{{ antropometria.perda_peso|format }}</td>
+                        {% if antropometria.perda_peso %}
+                            <td>Quanto de perda</td>
+                            <td>{{ antropometria.get_quanto_perdeu_display|format }}</td>
+                            <td>Há quanto tempo vem perdendo peso?</td>
+                            <td>{{ antropometria.get_tempo_perda_display|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Ganho de peso</td>
+                        <td {% if not antropometria.ganho_peso %}colspan="5"{% endif %}>{{ antropometria.ganho_peso|format }}</td>
+                        {% if antropometria.ganho_peso %}
+                            <td>Quanto de ganho</td>
+                            <td>{{ antropometria.get_quanto_ganhou_display|format }}</td>
+                            <td>Há quanto tempo vem ganhando peso?</td>
+                            <td>{{ antropometria.get_tempo_ganho_display|format }}</td>
+                        {% endif %}
+                    </tr>
+                </table>
+
+                <h4>Dobras cutâneas</h4>
+                <table class="info">
+                    <tr>
+                        <td>Dobras cutânea triciptal</td>
+                        <td>{{ antropometria.get_pc_triciptal_display|format }}</td>
+                        <td>Dobras cutânea biciptal</td>
+                        <td>{{ antropometria.get_pc_biciptal_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dobras cutânea subescapular</td>
+                        <td>{{ antropometria.get_pc_subescapular_display|format }}</td>
+                        <td>Dobras cutânea suprailíaca</td>
+                        <td>{{ antropometria.get_pc_suprailiaca_display|format }}</td>
+                    </tr>
+                </table>
+                <h4>Dobras cutâneas</h4>
+                <table class="info">
+                    <tr>
+                        <td>Dobra cutânea abdominal</td>
+                        <td>{{ antropometria.get_dobra_cutanea_abdominal_display|format }}</td>
+                        <td>Dobra cutânea supraespinhal</td>
+                        <td>{{ antropometria.get_dobra_cutanea_supraespinhal_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dobra cutânea coxa média</td>
+                        <td>{{ antropometria.get_dobra_cutanea_coxa_media_display|format }}</td>
+                        <td>Dobra cutânea panturrilha medial</td>
+                        <td>{{ antropometria.get_dobra_cutanea_panturrilha_medial_display|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ antropometria_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Avaliação Gastrointestinal' %}
+            {% if atendimento.is_aberto %}
+                <ul class="action-bar">
+                    {% if pode_editar and atendimento_nutricao.avaliacao_gastrointestinal.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_avaliacao_gastrointestinal/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% elif pode_editar %}
+                        <li><a class="btn success" href="/saude/adicionar_avaliacao_gastrointestinal/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            {% if atendimento_nutricao.avaliacao_gastrointestinal.exists %}
+                <table class="info">
+                    <tr>
+                        <td>Avaliação Gastrointestinal</td>
+                        <td>{{ atendimento_nutricao.avaliacao_gastrointestinal.all|format }}</td>
+                    </tr>
+
+                </table>
+                <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Dados Gerais da Alimentação' %}
+            {% if atendimento.is_aberto %}
+                <ul class="action-bar">
+                    {% if pode_editar and dados_gerais_alimentacao %}
+                        <li><a class="btn primary" href="/saude/adicionar_dados_alimentacao/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% elif pode_editar %}
+                        <li><a class="btn success" href="/saude/adicionar_dados_alimentacao/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            {% if dados_gerais_alimentacao %}
+                <table class="info">
+                    <tr>
+                        <td>Apetite</td>
+                        <td>{{ atendimento_nutricao.apetite|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aversões</td>
+                        <td>{{ atendimento_nutricao.aversoes|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Preferências</td>
+                        <td>{{ atendimento_nutricao.preferencias|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Consumo de Água/Líquidos</td>
+                        <td>{{ atendimento_nutricao.consumo_liquidos|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Restrições Alimentares' %}
+            {% if atendimento.is_aberto %}
+                <ul class="action-bar">
+                    {% if pode_editar and atendimento_nutricao.restricao_alimentar.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_restricao_alimentar/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% elif pode_editar %}
+                        <li><a class="btn success" href="/saude/adicionar_restricao_alimentar/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            {% if atendimento_nutricao.restricao_alimentar.exists %}
+                <table class="info">
+                    <tr>
+                        <td>Restrição Alimentar</td>
+                        <td>{{ atendimento_nutricao.restricao_alimentar.all|format }}</td>
+                    </tr>
+
+                </table>
+                <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Marcadores de Práticas e de Consumo Alimentar' %}
+            {% if atendimento.is_aberto and pode_editar %}
+                {% if lista_respostas_marcadores %}
+                    <ul class="action-bar">
+                        <li><a class="btn danger" href="/saude/excluir_marcadores_consumo_alimentar/{{ atendimento.id }}/">{% icone "trash" %} Remover</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/saude/adicionar_marcadores_consumo_alimentar/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            {% if lista_respostas_marcadores %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pergunta</th>
+                            <th>Resposta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in lista_respostas_marcadores.items %}
+                            <tr>
+                                <td>{{ item.0 }}</td>
+                                <td>{{ item.1|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% for item in frequencia_marcadores %}
+                            <tr>
+                                <td>Nos últimos sete dias, em quantos dias você consumiu os seguintes alimentos ou bebidas: <b>{{ item.frequencia }}</b></td>
+                                <td>{{ item.valor }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p class="obs">{{ respostas_marcadores_responsavel }}</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Recordatório Alimentar' %}
+            {% if atendimento.is_aberto and pode_editar %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/saude/adicionar_consumo_nutricao/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                </ul>
+            {% endif %}
+
+            {% if dados_consumo.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Refeição</th>
+                            <th>Horário de Consumo</th>
+                            <th>Local de Consumo</th>
+                            <th>Alimentos Consumidos</th>
+                            <th>Atualizado por</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for consumo in dados_consumo %}
+                            <tr>
+                                <td class="no-print">
+                                    {% if pode_editar %}
+                                        {% icon "edit" "/saude/editar_consumo/{{ consumo.id }}/" %}
+                                        {% icon "delete" "/saude/remover_consumo/{{ consumo.id }}/" %}
+                                    {% endif %}
+                                </td>
+                                <td>{{ consumo.refeicao }}</td>
+                                <td>{{ consumo.horario_consumo_alimentacao|time:"H:i" }}</td>
+                                <td>{{ consumo.local_consumo_alimentacao }}</td>
+                                <td>{{ consumo.get_descricao_alimentos|safe }}</td>
+                                <td>{{ consumo.profissional|format }} em {{ consumo.data_cadastro }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_diagnostico_nutricional" data-title="Diagnóstico Nutricional" data-checked="{% if motivo_count > 0 %}True{% endif %}">
+        {% if atendimento.is_aberto %}
+            <ul class="action-bar">
+                {% if pode_editar and atendimento_nutricao.diagnostico_nutricional.exists %}
+                    <li><a class="btn primary" href="/saude/adicionar_diagnostico_nutricional/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                {% elif pode_editar %}
+                    <li><a class="btn success" href="/saude/adicionar_diagnostico_nutricional/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        {% if atendimento_nutricao.diagnostico_nutricional.exists %}
+            <table class="info">
+                <tr>
+                    <td>Diagnóstico Nutricional</td>
+                    <td>{{ atendimento_nutricao.diagnostico_nutricional.all|format }}</td>
+                </tr>
+                <tr>
+                    <td>Observações</td>
+                    <td>{{ atendimento_nutricao.diagnostico_nutricional_obs|format }}</td>
+                </tr>
+
+            </table>
+            <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+        {% else %}
+            <p class="msg alert">Nenhum registro cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_conduta_nutricional" data-title="Conduta Nutricional" data-checked="{% if motivo_count > 0 %}True{% endif %}">
+
+        {% box 'Cálculo das Necessidades Energéticas' %}
+            {% if atendimento.is_aberto %}
+                <ul class="action-bar">
+                    {% if pode_editar and atendimento_nutricao.categoria_trabalho %}
+                        <li><a class="btn primary" href="/saude/adicionar_categoria_trabalho/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% elif pode_editar %}
+                        <li><a class="btn success" href="/saude/adicionar_categoria_trabalho/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            {% if atendimento_nutricao.categoria_trabalho %}
+                <table class="info">
+                    <tr>
+                        <td>Resultado do Cálculo das Necessidades Energéticas</td>
+                        <td>
+                            {% if antropometria %}
+                                {{ atendimento_nutricao.get_tmb|format }} kcal
+                            {% else %}
+                                <span class="status status-alert">Antropometria não informada</span>
+                            {% endif %}
+                        </td>
+                        <td>Categoria de Trabalho</td>
+                        <td>{{ atendimento_nutricao.categoria_trabalho }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Conduta' %}
+            {% if atendimento.is_aberto %}
+                {% if pode_editar and not atendimento_nutricao.conduta  %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/saude/adicionar_conduta_nutricao/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            {% if atendimento_nutricao.conduta %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">Ações</th>
+                        <th>Descrição</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="no-print">
+                            {% if pode_editar %}
+                                {% icon "edit" "/saude/adicionar_conduta_nutricao/{{ atendimento.id }}/" %}
+                                {% icon "delete" "/saude/remover_conduta_nutricao/{{ atendimento_nutricao.id }}/" %}
+                            {% endif %}
+                        </td>
+                        <td>{{ atendimento_nutricao.conduta|safe }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Plano Alimentar' %}
+            {% if atendimento.is_aberto and pode_editar %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/saude/adicionar_plano_alimentar/{{ atendimento.id }}/">{% icone "plus" %} Adicionar Plano Alimentar</a></li>
+                </ul>
+            {% endif %}
+            {% if plano_alimentar.exists %}
+                {% for plano in plano_alimentar %}
+                    {% box 'Plano Alimentar #{{ forloop.counter }}' %}
+                        {% if plano.plano_alimentar_liberado or request.user == atendimento.usuario_aberto %}
+                            <ul class="action-bar">
+                                {% if pode_editar %}
+                                    <li><a class="btn success" href="/saude/editar_plano_alimentar/{{ plano.id }}/">{% icone "edit" %} Editar Plano</a></li>
+                                    <li><a class="btn danger" href="/saude/remover_plano_alimentar/{{plano.id }}/">{% icone "trash" %} Remover Plano</a></li>
+                                {% endif %}
+                                <li><a class="btn" href="/saude/imprimir_plano_alimentar/{{ plano.id }}/">{% icone "print" %} Imprimir Plano</a></li>
+                            </ul>
+                            <dl>
+                                <dt>Visualização liberada para outros nutricionistas:</dt>
+                                <dd>{{ plano.plano_alimentar_liberado|format }}</dd>
+                            </dl>
+                            {% if plano.orientacao_nutricional.exists %}
+                                <br>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Orientações Nutricionais</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="40%">Título</th>
+                                            <th>Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for orientacao in plano.orientacao_nutricional.all %}
+                                            <tr>
+                                                <td>{{ orientacao.titulo|format|safe }}</td>
+                                                <td>{{ orientacao.descricao|format|safe }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                            {% if plano.cardapio %}
+                                <br>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Cardápio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ plano.cardapio|format|safe }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                            {% if plano.receita_nutricional.exists %}
+                                <br>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Receitas</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="40%">Título</th>
+                                            <th>Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for receita in plano.receita_nutricional.all %}
+                                            <tr>
+                                                <td>{{ receita.titulo|format|safe }}</td>
+                                                <td>{{ receita.descricao|format|safe }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                            <br>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sugestões de Leituras e Links</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ plano.sugestoes_leitura|format|safe }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    {% endbox %}
+                {% endfor %}
+                <p class="obs">{{ atendimento_nutricao_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum plano alimentar cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+    <div class="tab-container" data-tab="aba_exames_laboratoriais" data-title="Exames Laboratoriais">
+            {% box "Exames Laboratoriais" %}
+                {% if atendimento.is_aberto and pode_editar %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/saude/adicionar_exame_laboratorial/{{ prontuario.id }}/">{% icone "plus" %} Adicionar Exame</a></li>
+                        <li><a href="/saude/exame_laboratorial_valores_referencia/" class="btn popup default">{% icone "search" %} Valores de Referência</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if exames_laboratoriais.exists %}
+                    {% for categoria, exames in dados_exames.items %}
+                        {% if exames.registros %}
+                            {% box "{{ categoria }}" %}
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Resultado</th>
+                                                {% for data in exames.meses.keys %}
+                                                    <th>{{ data }} </th>
+                                                {% endfor %}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           {% for tipo, registro in exames.registros.items %}
+                                                <tr>
+                                                    <td><strong>{{ tipo }}</strong></td>
+                                                    {% for data in exames.meses.keys %}
+                                                        <td>{{ registro|getkey:data }}</td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endbox %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% box "Lista de Exames" "collapsed" %}
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="no-print">Ações</th>
+                                        <th>Nome</th>
+                                        <th>Observações</th>
+                                        <th>Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for registro in exames_laboratoriais %}
+                                    <tr>
+                                        <td class="no-print">
+                                            {% if not registro.sigiloso or registro.profissional == request.user.get_relacionamento %}
+                                                {% icon "view" "/saude/ver_exame_laboratorial/{{ registro.id }}/" %}
+                                            {% endif %}
+                                            {% if registro.profissional == request.user.get_relacionamento %}
+                                                {% icon "edit" "/saude/editar_exame_laboratorial/{{ registro.id }}/" %}
+                                                {% icon "delete" "/saude/excluir_exame_laboratorial/{{ registro.id }}/" %}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ registro.categoria }}</td>
+                                        <td>
+                                            {% if not registro.sigiloso or registro.profissional == request.user.get_relacionamento %}
+                                                {{ registro.observacao|format }}
+                                            {% else %}
+                                                <span class="status status-error">Sigiloso</span>
+                                            {% endif %}
+
+                                        </td>
+                                        <td>{{ registro.data_realizado }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endbox %}
+                {% else %}
+                    <p class="msg alert">Nenhum exame laboratorial cadastrado para este prontuário.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+
+{% endblock %}

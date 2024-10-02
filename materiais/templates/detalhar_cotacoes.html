@@ -1,0 +1,93 @@
+{% extends super_template %}
+
+{% block content %}
+
+{% box 'Dados do Material' %}
+<table class="info">
+    <tr>
+        <td>Material</td>
+        <td>{{ material.descricao }}</td>
+    </tr>
+    <tr>
+        <td>Código CATMAT</td>
+        <td>{{ material.codigo_catmat }}</td>
+    </tr>
+    <tr>
+        <td>Categoria</td>
+        <td>{{ material.categoria }}</td>
+    </tr>
+    <tr>
+        <td>Valor Médio</td>
+        <td>{{ material.valor_medio|format }}</td>
+    </tr>
+</table>
+{% endbox %}
+
+{% if materialcotacao %}
+	{% box 'Cotação' %}
+	{% if materialcotacao.uasg %}
+	<table class="info">
+	    <tr>
+	        <td>UASG</td>
+	        <td>{{ materialcotacao.uasg }}</td>
+	    </tr>
+	    <tr>
+	        <td>Data vencimento da ata</td>
+	        <td>{{ materialcotacao.data }}</td>
+	    </tr>
+	    <tr>
+	        <td>Número do Pregão</td>
+	        <td>{{ materialcotacao.numero_pregao }}</td>
+	    </tr>
+	    <tr>
+	        <td>Número do Item</td>
+	        <td>{{ materialcotacao.numero_item }}</td>
+	    </tr>
+	    <tr>
+	        <td>Valor</td>
+	        <td>{{ materialcotacao.valor|format }}</td>
+	    </tr>
+	</table>
+	{% elif materialcotacao.site %}
+	<table class="info">
+	    <tr>
+	        <td>Fornecedor</td>
+	        <td>{{ materialcotacao.fornecedor }}</td>
+	    </tr>
+	    <tr>
+	        <td>Site</td>
+	        <td>{{ materialcotacao.site }}</td>
+	    </tr>
+	    <tr>
+	        <td>Data de Acesso</td>
+	        <td>{{ materialcotacao.data }}</td>
+	    </tr>
+	    <tr>
+	        <td>Valor</td>
+	        <td>{{ materialcotacoa.valor|format }}</td>
+	    </tr>
+	</table>
+	{% else %}
+		<table class="info">
+		    <tr>
+		        <td>Fornecedor</td>
+		        <td>{{ materialcotacao.fornecedor }}</td>
+		    </tr>
+		    <tr>
+		        <td>Data de Recebimento</td>
+		        <td>{{ materialcotacao.data }}</td>
+		    </tr>
+		    <tr>
+		        <td>Arquivo</td>
+		        <td>{{ materialcotacao.arquivo }}</td>
+		    </tr>
+		    <tr>
+		        <td>Valor</td>
+		        <td>{{ materialcotacoa.valor|format }}</td>
+		    </tr>
+		</table>
+	{% endif %}
+
+{% endbox %}
+{% endif %}
+{% endblock %}

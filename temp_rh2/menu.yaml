@@ -1,0 +1,16 @@
+Gestão de Pessoas::Atenção a Saúde do Servidor::Competições Desportivas::Cadastros::Categorias:
+  permissions_required:
+  - temp_rh2.view_categoria
+  url: /admin/temp_rh2/categoria/
+Gestão de Pessoas::Atenção a Saúde do Servidor::Competições Desportivas::Cadastros::Modalidades:
+  permissions_required:
+  - temp_rh2.view_competicaodesportiva
+  url: /admin/temp_rh2/modalidadedesportiva/
+Gestão de Pessoas::Atenção a Saúde do Servidor::Competições Desportivas::Competição Desportiva:
+  permissions_required:
+  - temp_rh2.view_competicaodesportiva
+  url: /admin/temp_rh2/competicaodesportiva
+Gestão de Pessoas::Atenção a Saúde do Servidor::Competições Desportivas::Inscrições:
+  permissions_required:
+  - temp_rh2.view_inscricaocompeticaodesportiva
+  url: /admin/temp_rh2/inscricaocompeticaodesportiva/

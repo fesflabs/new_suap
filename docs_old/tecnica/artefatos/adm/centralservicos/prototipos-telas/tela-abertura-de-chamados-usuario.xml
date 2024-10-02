@@ -1,0 +1,56 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="814" measuredH="412" mockupW="770" mockupH="371">
+  <controls>
+    <control controlID="3402" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="44" y="41" w="770" h="371" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="3403" controlTypeID="com.balsamiq.mockups::SubTitle" x="66" y="121" w="-1" h="-1" measuredW="361" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Abertura%20de%20Chamados%20%28Usu%E1rio%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="3404" controlTypeID="com.balsamiq.mockups::Button" x="66" y="335" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+    <control controlID="3405" controlTypeID="com.balsamiq.mockups::Label" x="66" y="228" w="-1" h="-1" measuredW="74" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Em%20nome%20de</text>
+      </controlProperties>
+    </control>
+    <control controlID="3406" controlTypeID="__group__" x="66" y="151" w="340" h="71" measuredW="340" measuredH="71" zOrder="4" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="0" w="168" h="-1" measuredW="135" measuredH="21" zOrder="0" locked="false" isInGroup="3406">
+          <controlProperties>
+            <markup>true</markup>
+            <text>Descri%E7%E3o%20do%20chamado</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::TextArea" x="0" y="18" w="340" h="53" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="3406">
+          <controlProperties>
+            <text>Gostaria%20que%20o%20email%20fosse%3A%20sicrano.de.tal@ifrn.edu.br</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="3407" controlTypeID="com.balsamiq.mockups::TextInput" x="67" y="298" w="132" h="-1" measuredW="60" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15658734</color>
+        <text>123456</text>
+      </controlProperties>
+    </control>
+    <control controlID="3408" controlTypeID="com.balsamiq.mockups::Label" x="66" y="280" w="-1" h="-1" measuredW="129" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>N%FAmero%20do%20patrim%F4nio</text>
+      </controlProperties>
+    </control>
+    <control controlID="3409" controlTypeID="com.balsamiq.mockups::TextInput" x="66" y="246" w="340" h="-1" measuredW="98" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sicrano%20de%20Tal</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

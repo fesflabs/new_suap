@@ -1,0 +1,59 @@
+{% extends super_template %}
+
+
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+    {% if registros.exists %}
+        <ul class="action-bar">
+            <li><a class="btn" href="{{request.get_full_path }}&xls=1">Exportar para XLS</a></li>
+        </ul>
+        <table>
+            <thead>
+                <th class="no-print">Ações</th>
+                <th>Aluno</th>
+                <th>Edital</th>
+                <th>Projeto</th>
+                <th>Bolsista</th>
+                <th>Ativo</th>
+                <th class="no-print">Arquivo</th>
+            </thead>
+            <tbody>
+                {% autopaginate registros 50 %}
+                {% paginate %}
+                {% for registro in registros %}
+                   <tr>
+                       <td class="no-print">{% icon "view" "/pesquisa/projeto/{{ registro.projeto.id }}/?tab=anexos" %}</td>
+                       <td>{{ registro.vinculo_membro_equipe.pessoa.nome }} ({{ registro.get_participacao.get_participante.matricula }})</td>
+                       <td>{{ registro.projeto.edital.titulo }}</td>
+                       <td>{{ registro.projeto.titulo }}</td>
+                       <td>
+                           {% if registro.get_participacao.vinculo == "Bolsista" and registro.get_participacao.bolsa_concedida == True %}
+                               <span class="status status-success">Sim</span>
+                           {% else %}
+                                <span class="status status-error">Não</span>
+                           {% endif %}
+                       </td>
+                       <td>{{ registro.get_participacao.ativo|format }}</td>
+                       <td class="no-print">
+                           {% if registro.arquivo %}
+                               <ul class="action-bar">
+                                   <li><a href="/pesquisa/visualizar_arquivo/{{ registro.arquivo.id }}/" class="btn default">Ver Arquivo</a></li>
+                               </ul>
+                           {% endif %}
+                       </td>
+                   </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% paginate %}
+
+
+    {% elif form.is_bound %}
+        <p class="msg alert">Nenhum bolsista encontrado para o mês e ano informados.</p>
+    {% else %}
+        <p class="msg alert">Selecione o mês e o ano para exibir a lista de bolsistas.</p>
+    {% endif %}
+{% endblock %}

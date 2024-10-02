@@ -1,0 +1,97 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    {{ block.super }}
+
+    <script src="/static/ckeditor/ckeditor-init.js"></script>
+    <script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script src="/static/documento_eletronico/js/ckeditor_toolbar.js"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            $('#editardocumento_form').on('submit', function( event ) {
+                if (validarTags()) {
+                    salvar_tags();
+                } else {
+                    $('#editardocumento_form_salvar').removeAttr('disabled');
+                    $('#editardocumento_form_salvar_visualizar').removeAttr('disabled');
+                    $('#editardocumento_form_salvar').val('Salvar');
+                    $('#editardocumento_form_salvar_visualizar').val('Salvar e Visualizar');
+                    return false;
+                }
+            });
+        });
+    </script>
+    <style>
+        #showcase {
+            margin: 0 20px;
+            text-align: center;
+        }
+        #range {
+            height: 300px;
+            margin: 0 auto 30px;
+        }
+        #value-span,
+        #value-input {
+            width: 50%;
+            float: left;
+            display: block;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+
+{% endblock %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    {% help_button %}
+    <li><a class="btn popup default" href="/documento_eletronico/visualizar_variaveis/">Visualizar Variáveis</a></li>
+    <li><a class="btn" href='{% url "editar_documento" documento.id "remontar_corpo" %}'>Remontar Corpo</a></li>
+    {% if documento.pode_imprimir %}
+        <li class="has-child">
+            <a class="btn" href="#"> Imprimir </a>
+            <ul>
+                <li><a href="/documento_eletronico/imprimir_documento_pdf/{{ documento.id }}/carta/">Carta</a></li>
+                <li><a href="/documento_eletronico/imprimir_documento_pdf/{{ documento.id }}/paisagem/">Paisagem</a></li>
+            </ul>
+        </li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+    <p class="errornote">Por favor, corrija os erros abaixo.</p>
+{% endif %}
+
+<form method="POST" id="editardocumento_form" name="editardocumento_form" action="">
+    {% csrf_token %}
+    {{ form.media }}
+
+    {% box 'Corpo do Documento' %}
+        <input type="hidden" value="{{ documento.data_ultima_modificacao.isoformat }}" name="data_ultima_modificacao__isoformat" id="id_data_ultima_modificacao__isoformat"/>
+        <div id="top"></div>
+        {% render_form form_corpo False %}
+        <p class="obs" id="bottom">Tamanho atual: {{ documento.tamanho_em_mb }} MB</p>
+        <p class="obs" id="bottom">Tamanho máximo permitido: {{ documento_texto_tamanho_maximo_em_mb }} MB</p>
+    {% endbox %}
+
+    <div class="submit-row">
+        <input type="submit" value="Salvar" class="default dontdisable" id="editardocumento_form_salvar">
+        <input type="submit" value="Salvar e Visualizar" name="_salvar_e_visualizar" class="default dontdisable" id="editardocumento_form_salvar_visualizar">
+
+{# TODO: Remover ou se for pertinente transferir pra página de visualização do documento #}
+{#        {% if documento.estah_em_minuta%}#}
+{#            <input type="submit" value="Salvar e concluir" name="_salvar_e_concluir" class="default">#}
+{#        {% endif %}#}
+{##}
+{#        {% if documento.sou_revisor and documento.estah_em_revisao %}#}
+{#                <a class="btn success" href="{% url 'revisar_documento' documento.id %}">Marcar como Revisado</a>#}
+{#        {% endif %}#}
+    </div>
+</form>
+
+{% endblock %}
+

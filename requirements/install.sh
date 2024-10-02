@@ -1,0 +1,1 @@
+pip freeze > frozen-requirements.txt && grep -v -F -x -i -f frozen-requirements.txt requirements/base.txt | grep -v '#' | grep -v -e '^$' && grep -v -F -x -i -f frozen-requirements.txt requirements/base.txt | grep -v '#' | xargs pip install && rm -f frozen-requirements.txt

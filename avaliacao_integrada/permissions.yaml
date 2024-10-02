@@ -1,0 +1,97 @@
+Administrador de Avaliação Institucional:
+  avaliacao_integrada:
+    avaliacao:
+    - add_avaliacao
+    - change_avaliacao
+    - view_avaliacao
+    - delete_avaliacao
+    dimensao:
+    - add_dimensao
+    - change_dimensao
+    - view_dimensao
+    - delete_dimensao
+    eixo:
+    - add_eixo
+    - change_eixo
+    - view_eixo
+    - delete_eixo
+    indicador:
+    - add_indicador
+    - change_indicador
+    - view_indicador
+    - delete_indicador
+    iterador:
+    - add_iterador
+    - change_iterador
+    - view_iterador
+    - delete_iterador
+    macroprocesso:
+    - add_macroprocesso
+    - change_macroprocesso
+    - view_macroprocesso
+    - delete_macroprocesso
+    opcaoresposta:
+    - add_opcaoresposta
+    - change_opcaoresposta
+    - view_opcaoresposta
+    - delete_opcaoresposta
+    resposta:
+    - add_resposta
+    - view_resposta
+    - delete_resposta
+    segmento:
+    - view_segmento
+    tipoavaliacao:
+    - add_tipoavaliacao
+    - change_tipoavaliacao
+    - view_tipoavaliacao
+    - delete_tipoavaliacao
+    variavel:
+    - add_variavel
+    - change_variavel
+    - view_variavel
+    - delete_variavel
+Aplicador de Avaliação Institucional:
+  avaliacao_integrada:
+    avaliacao:
+    - add_avaliacao
+    - change_avaliacao
+    - view_avaliacao
+    - delete_avaliacao
+    dimensao:
+    - view_dimensao
+    eixo:
+    - view_eixo
+    indicador:
+    - view_indicador
+    iterador:
+    - add_iterador
+    - change_iterador
+    - view_iterador
+    - delete_iterador
+    macroprocesso:
+    - view_macroprocesso
+    opcaoresposta:
+    - add_opcaoresposta
+    - change_opcaoresposta
+    - view_opcaoresposta
+    - delete_opcaoresposta
+    resposta:
+    - view_resposta
+    segmento:
+    - view_segmento
+    tipoavaliacao:
+    - view_tipoavaliacao
+    variavel:
+    - add_variavel
+    - change_variavel
+    - view_variavel
+    - delete_variavel
+    - add_variavel
+    - change_variavel
+    - view_variavel
+    - delete_variavel
+Visualizador de Avaliação Institucional:
+  avaliacao_integrada:
+    resposta:
+    - view_resposta

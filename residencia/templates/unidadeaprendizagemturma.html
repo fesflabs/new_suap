@@ -1,0 +1,355 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>jQuery.getScript('/static/edu/js/TransferirDiario.js');</script>
+{% endblock %}
+
+{% block action-bar %}
+    {% if perms.edu.emitir_boletins %}
+        <ul class="action-bar">
+{#            {% if perms.edu.view_log %}#}
+{#                <li><a class="btn" href="/edu/log_diario/{{ obj.pk }}/">Visualizar Log</a></li>#}
+{#            {% endif %}#}
+{#            {% if obj.matriculadiario_set.exists %}#}
+{#                <li><a class="btn" href="/edu/enviar_mensagem/?diario={{ obj.pk }}">Enviar Mensagem</a></li>#}
+{#            {% endif %}#}
+            {% if acesso_total %}
+                <li class="has-child">
+                    <a class="btn" href="#">Ações</a>
+                    <ul>
+                        <li><a class="popup" href="/residencia/matricular_avulso_unidadeaprendizagemturma/{{ obj.pk }}/">Adicionar Residente Avulso</a></li>
+{#                        {% if not obj.matriculadiario_set.exists %}#}
+{#                            <li><a href="/edu/replicar_diario/{{ obj.pk }}/">Replicar Diário</a></li>#}
+{#                        {% endif %}#}
+                        <li><a href="?xls=1">Exportar Excel</a></li>
+                    </ul>
+                </li>
+{#                {% if obj.matriculadiario_set.exists %}#}
+{#                    <li class="has-child">#}
+{#                        <a class="btn" href="#">Dividir</a>#}
+{#                        <ul>#}
+{#                            {% if obj.pode_ser_dividido_ao_meio %}#}
+{#                            <li><a class="confirm"#}
+{#                                   data-confirm="Esta operação moverá a metade dos alunos deste diário para um novo. Deseja continuar?"#}
+{#                                   href="/edu/dividir_diario/{{ obj.pk }}/">Ao Meio</a></li>#}
+{#                            {% endif %}#}
+{#                            <li><a class="popup" href="/edu/dividir_diario_individualizado/{{ obj.pk }}/">Individualizado</a>#}
+{#                            </li>#}
+{#                            <li><a class="confirm"#}
+{#                                   data-confirm="Esta operação moverá os alunos reprovados/dependentes deste diário para um novo. Deseja continuar?"#}
+{#                                   href="/edu/dividir_diario_reprovados_dependentes/{{ obj.pk }}/">Reprovados /#}
+{#                                Dependentes</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+{#                {% endif %}#}
+            {% endif %}
+{#            {% if obj.matriculadiario_set.exists %}#}
+{#                <li class="has-child">#}
+{#                    <a class="btn default" href="#">Impressões</a>#}
+{#                    <ul>#}
+{#                        {% if qtd_avaliacoes > 0 %}#}
+{#                            <li><a href="/edu/emitir_boletins_pdf/{{ obj.pk }}/">Boletim de Notas</a></li>#}
+{#                        {% endif %}#}
+{#                        <li><a href="/edu/relacao_alunos_pdf/{{ obj.pk }}/">Relação de Alunos </a></li>#}
+{#                        <li><a href="/edu/diario_pdf/{{ obj.pk }}/1/">Diário (Etapa 1) </a></li>#}
+{#                        {% if qtd_avaliacoes > 1 %}#}
+{#                            <li><a href="/edu/diario_pdf/{{ obj.pk }}/2/">Diário (Etapa 2) </a></li>#}
+{#                        {% endif %}#}
+{#                        {% if qtd_avaliacoes > 2 %}#}
+{#                            <li><a href="/edu/diario_pdf/{{ obj.pk }}/3/">Diário (Etapa 3) </a></li>#}
+{#                            <li><a href="/edu/diario_pdf/{{ obj.pk }}/4/">Diário (Etapa 4) </a></li>#}
+{#                        {% endif %}#}
+{#                        {% if qtd_avaliacoes > 0 %}#}
+{#                            <li><a href="/edu/diario_pdf/{{ obj.pk }}/5/">Diário (Etapa Final) </a></li>#}
+{#                        {% endif %}#}
+{##}
+{#                        <li><a href="/edu/diario_pdf/{{ obj.pk }}/0/">Diário (Todas Etapas) </a></li>#}
+{##}
+{#                    </ul>#}
+{#                </li>#}
+{#            {% endif %}#}
+            {% help_button %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% box "Dados do Unidade Aprendizagem" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Código</dt>
+                <dd>{{ obj.pk }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Descrição</dt>
+                <dd>{{ obj.unidade_aprendizagem }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Ciclo de avaliação</dt>
+                <dd>{{ obj.unidade_aprendizagem.ciclo }}º ciclo</dd>
+            </div>
+        </dl>
+
+
+    {% endbox %}
+
+    {% box "Avaliação" %}
+        <table>
+            <thead>
+            <tr>
+                <th>Período de Lançamento</th>
+                <th>Entregue</th>
+                <th>Configuração de Avaliação</th>
+                {% if acesso_total %}
+                    {% if perms.residencia.mudar_posse_unidadeaprendizagemturma %}
+                        <th class="no-print">Opções</th>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>De {{ obj.get_inicio_etapa_1|format }} a {{ obj.get_fim_etapa_1|format }}</td>
+                <td>{{ obj.etapa_1_em_posse_do_registro|format }}</td>
+                <td>
+                    {% if obj.unidade_aprendizagem.qtd_avaliacoes > 0 %}
+                        {% if obj.etapa_1_em_posse_do_registro and acesso_total %}
+                             <a href="/admin/residencia/configuracaoavaliacaounidadeaprendizagem/{{ obj.configuracao_avaliacao_1.pk }}/">{{ obj.configuracao_avaliacao_1 }}</a>
+                        {% else %}
+                           {{ obj.configuracao_avaliacao_1 }}
+                        {% endif %}
+                    {% else %}
+                        Sem avaliações.
+                    {% endif %}
+                </td>
+                {% if acesso_total %}
+                    {% if perms.residencia.mudar_posse_unidadeaprendizagemturma %}
+                        <td class="no-print">
+                            <ul class="action-bar">
+                                {% if obj.posse_etapa_1 %}
+                                    <li><a class="btn" href="/residencia/transferir_posse_unidadeaprendizagemturma/{{ obj.pk }}/1/0/">Transferir para o Registro</a></li>
+                                {% else %}
+                                    <li><a class="btn" href="/residencia/transferir_posse_unidadeaprendizagemturma/{{ obj.pk }}/1/1/">Transferir para o Tutor</a></li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            {% if qtd_avaliacoes > 1 %}
+                <tr>
+                    <td>De {{ obj.get_inicio_etapa_2|format }} a {{ obj.get_fim_etapa_2|format }}</td>
+                    <td>{{ obj.etapa_2_em_posse_do_registro|format }}</td>
+                    <td>
+                        {% if obj.etapa_2_em_posse_do_registro and acesso_total %}
+                            <a href="/admin/residencia/configuracaoavaliacaounidadeaprendizagem/{{ obj.configuracao_avaliacao_2.pk }}/">{{ obj.configuracao_avaliacao_2 }}</a>
+                        {% else %}
+                           {{ obj.configuracao_avaliacao_2 }}
+                        {% endif %}
+                    </td>
+                    {% if acesso_total %}
+                        {% if perms.residencia.mudar_posse_unidadeaprendizagemturma %}
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    {% if obj.posse_etapa_2 %}
+                                        <li><a class="btn" href="/residencia/transferir_posse_unidadeaprendizagemturma/{{ obj.pk }}/2/0/">Transferir para o Registro</a></li>
+                                    {% else %}
+                                        <li><a class="btn" href="/residencia/transferir_posse_unidadeaprendizagemturma/{{ obj.pk }}/2/1/">Transferir para o Tutor</a></li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endif %}
+{#            {% if qtd_avaliacoes > 2 %}#}
+{#                <tr>#}
+{#                    <td>3</td>#}
+{#                    <td>De {{ obj.get_inicio_etapa_3|format }} a {{ obj.get_fim_etapa_3|format }}</td>#}
+{#                    <td>{{ obj.etapa_3_em_posse_do_registro|format }}</td>#}
+{#                    <td>#}
+{#                        {% if obj.etapa_3_em_posse_do_registro and acesso_total %}#}
+{#                            <a href="/admin/residencia/configuracaoavaliacao/{{ obj.configuracao_avaliacao_3.pk }}/">{{ obj.configuracao_avaliacao_3 }}</a>#}
+{#                        {% else %}#}
+{#                            <a class="popup"#}
+{#                               href="/residencia/configuracao_avaliacao/{{ obj.configuracao_avaliacao_3.pk }}/">{{ obj.configuracao_avaliacao_3 }}</a>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                    {% if acesso_total %}#}
+{#                        {% if obj.is_aberto and perms.residencia.mudar_posse_diario %}#}
+{#                            <td>#}
+{#                                <ul class="action-bar">#}
+{#                                    {% if obj.posse_etapa_3 %}#}
+{#                                        <li><a class="btn" href="/residencia/transferir_posse_diario/{{ obj.pk }}/3/0/">Transferir para o Registro</a></li>#}
+{#                                    {% else %}#}
+{#                                        <li><a class="btn" href="/residencia/transferir_posse_diario/{{ obj.pk }}/3/1/">Transferir para o Professor</a></li>#}
+{#                                        <li><a class="btn default" href="/residencia/registrar_chamada/{{ obj.pk }}/3/">Registrar Aula/Falta</a></li>#}
+{#                                    {% endif %}#}
+{#                                </ul>#}
+{#                            </td>#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
+{#                </tr>#}
+{#                <tr>#}
+{#                    <td>4</td>#}
+{#                    </td>#}
+{#                    <td>De {{ obj.get_inicio_etapa_4|format }} a {{ obj.get_fim_etapa_4|format }}</td>#}
+{#                    <td>{{ obj.etapa_4_em_posse_do_registro|format }}</td>#}
+{#                    <td>#}
+{#                        {% if obj.etapa_4_em_posse_do_registro and acesso_total %}#}
+{#                            <a href="/admin/residencia/configuracaoavaliacao/{{ obj.configuracao_avaliacao_4.pk }}/">{{ obj.configuracao_avaliacao_4 }}</a>#}
+{#                        {% else %}#}
+{#                            <a class="popup"#}
+{#                               href="/residencia/configuracao_avaliacao/{{ obj.configuracao_avaliacao_4.pk }}/">{{ obj.configuracao_avaliacao_4 }}</a>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                    {% if acesso_total %}#}
+{#                        {% if obj.is_aberto and perms.residencia.mudar_posse_diario %}#}
+{#                            <td>#}
+{#                                <ul class="action-bar">#}
+{#                                    {% if obj.posse_etapa_4 %}#}
+{#                                        <li><a class="btn" href="/residencia/transferir_posse_diario/{{ obj.pk }}/4/0/">Transferir para o Registro</a></li>#}
+{#                                    {% else %}#}
+{#                                        <li><a class="btn" href="/residencia/transferir_posse_diario/{{ obj.pk }}/4/1/">Transferir para o Professor</a></li>#}
+{#                                        <li><a class="btn default" href="/residencia/registrar_chamada/{{ obj.pk }}/4/">Registrar Aula/Falta</a></li>#}
+{#                                    {% endif %}#}
+{#                                </ul>#}
+{#                            </td>#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
+{#                </tr>#}
+{#            {% endif %}#}
+            </tbody>
+        </table>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Gerais" data-tab="dados_gerais">
+        {% if request.GET.tab == "dados_gerais" or not request.GET.tab %}
+            {% box "Dados Complementares" %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Turma</dt>
+                        <dd><a href="{{ obj.turma.get_absolute_url }}">{{ obj.turma }}</a></dd>
+                    </div>
+                    <div class="list-item flex-basis-100">
+                        <dt>Curso</dt>
+                        <dd><a
+                                href="{{ obj.turma.curso_campus.get_absolute_url }}">{{ obj.turma.curso_campus }}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Ano/Período Letivo</dt>
+                        <dd>{{ obj.ano_letivo }}.{{ obj.periodo_letivo }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Quantidade de Matriculados</dt>
+                        <dd>{{ obj.matriculadiario_set.count }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Calendário</dt>
+                        <dd>
+                            <a class="popup"
+                               href="/residencia/calendarioacademico/{{ obj.calendario_academico.pk }}/">{{ obj.calendario_academico }}</a>
+                        </dd>
+                    </div>
+                </dl>
+            {% endbox %}
+            {% box "Preceptores" %}
+                {% if acesso_total and perms.residencia.add_professordiario and obj.is_aberto %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/risidencia/adicionar_preceptor_unidadeaprendizagemturma/{{ obj.pk }}/">Adicionar Preceptor</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if obj.professordiario_set.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            {% if acesso_total and perms.residencia.add_professordiario and obj.is_aberto  %}
+                                <th>Ações</th>
+                            {% endif %}
+                            <th>Matrícula</th>
+                            <th>Nome</th>
+                            <th>Campus</th>
+                            <th>Tipo</th>
+                            <th>Carga Horária</th>
+                            <th>Ativo</th>
+                            <th>Período da Posse</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for professordiario in obj.professordiario_set.all %}
+                            <tr>
+                                {% if acesso_total and perms.residencia.add_professordiario and obj.is_aberto %}
+                                    <td>
+                                    {% if not professordiario.is_rit_publicado %}
+                                        {% icon "edit" "/residencia/adicionar_professor_diario/{{ obj.pk }}/{{ professordiario.pk }}/" "Editar" "popup" %}
+                                        {% if request.user.is_superuser or professordiario.can_delete %}
+                                            {% icon "delete" "/comum/excluir/residencia/professordiario/{{ professordiario.pk }}/" "Remover" "no-confirm popup" %}
+                                        {% endif %}
+                                    {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td>{{ professordiario.professor.get_matricula }}</td>
+                                <td>{{ professordiario.professor.get_nome }}</td>
+                                <td>
+                                    <p>{{ professordiario.professor.get_uo|format }}</p>
+                                    {% if professordiario.is_mesmo_campus_do_curso %}
+                                        <p><small class="true">Mesmo campus</small></p>
+                                    {% else %}
+                                        <p><small class="false">Campus diferente</small></p>
+                                    {% endif %}
+                                </td>
+                                <td>{{ professordiario.tipo }}</td>
+                                <td>
+                                    <strong>Percentual Atribuído</strong>: {{ professordiario.get_percentual_ch|format }}%<br>
+                                    <strong>Percentual Registrado</strong>: {{ professordiario|method:"get_percentual_ch_ministrada"|call:0|format }}%<br>
+                                    <strong>Período Letivo</strong>: {{ professordiario.periodo_letivo_ch|default:"Ambos" }}
+                                </td>
+                                <td>{{ professordiario.ativo|format }}</td>
+                                <td>
+                                    {% for inicio, fim in professordiario.get_periodo_posse %}
+                                        De {{ inicio|format }} até {{ fim|format }}<br/>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum professor cadastrado.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered"
+         data-title="Registro de Notas/Conceitos"
+         data-tab="notas_faltas"
+         data-counter="{{ obj.get_quantidade_alunos_ativos }}">
+        {% if request.GET.tab == "notas_faltas" %}
+
+            {% if obj.componente_curricular.avaliacao_por_conceito %}
+                {% if obj.estrutura_curso.get_representacoesconceituais %}
+                    <div class="msg info">
+                        <p>Esta disciplina é avaliada por conceito. Para lançamento das notas se baseie nas faixas a
+                            seguir:</p>
+                        <ul>
+                            {% for conceito in obj.estrutura_curso.get_representacoesconceituais %}
+                                <li><strong>{{ conceito.descricao }}</strong>: {{ conceito.valor_minimo }}
+                                    à {{ conceito.valor_maximo }} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <p class="msg alert">Solicite o cadastro das representações conceituais para estrutura deste curso.</p>
+                {% endif %}
+            {% endif %}
+
+            {% include "includes/notas_unidadeaprendizagemturma_form.html" %}
+        {% endif %}
+    </div>
+
+
+{% endblock %}

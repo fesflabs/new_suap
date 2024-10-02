@@ -1,0 +1,25 @@
+{% extends super_template %}
+
+
+
+{% block extrahead %}
+<script src="/static/djtools/graficos/highcharts.js"></script>
+<script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% if form.is_bound %}
+        {% for grafico in grafico_atendimentos %}
+            <script>{{ grafico|safe }}</script>
+            <div class="grafico50" id="{{ grafico.id }}"></div>
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Utilize o filtro para exibir os gráficos.</p>
+    {% endif %}
+
+{% endblock %}

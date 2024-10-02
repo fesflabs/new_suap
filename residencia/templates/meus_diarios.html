@@ -1,0 +1,75 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% help_button %}
+    </ul>
+
+    {% regroup preceptores_diario by diario.turma.curso_campus as diarios_curso_campus %}
+    {% if diarios_curso_campus %}
+        {% for diarios_curso in diarios_curso_campus %}
+            {% box '{{ diarios_curso.grouper.descricao }}' %}
+                {% regroup diarios_curso.list by diario.turma as diarios_turma %}
+                {% for diario_turma in diarios_turma %}
+                    <h4>{{ diario_turma.grouper }}</h4>
+                    {% for preceptor_diario in diario_turma.list %}
+                        <table class="mb-2">
+                            <caption>{{ preceptor_diario.diario }}</caption>
+                            <thead>
+                            <tr>
+                                <th>Dados do Diário</th>
+                                <th>Situação da Etapas</th>
+                                <th class="no-print">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="width:60%">
+                                    <dl>
+                                        <dt>Preceptores:</dt>
+                                        <dd>{% for p in preceptor_diario.diario.preceptordiario_set.all %}
+                                            {{ p.preceptor.nome }} ({{ preceptor_diario.tipo }})
+                                            {% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+                                        <dt>Quantidade de Alunos:</dt>
+                                        <dd>{{ preceptor_diario.diario.get_quantidade_alunos_ativos }}</dd>
+                                    </dl>
+                                </td>
+                                <td>
+                                    <dl>
+                                        <dt style="width: 30%">
+                                            Etapa Única:
+                                        </dt>
+                                        <dd>
+                                            {% if preceptor_diario.diario.etapa_1_em_posse_do_registro %}
+                                                <span class="status status-success">Entregue</span>
+                                            {% else %}
+                                                <span class="status status-alert">Não Entregue</span>
+                                            {% endif %}
+                                        </dd>
+                                    </dl>
+                                </td>
+                                <td class="no-print" style="width:10%">
+                                    <ul class="action-bar">
+                                        <li><a href="/residencia/meu_diario/{{ preceptor_diario.diario.pk }}/1/" class="btn default">{% icone "search" %} Acessar
+                                            Diário</a></li>
+                                        <li class="has-child">
+                                            <a href="#" class="btn">{% icone "print" %} Imprimir</a>
+                                            <ul>
+                                                <li><a href="/residencia/diario_pdf/{{ preceptor_diario.diario.pk }}/1/">Diário (Etapa Única)</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                {% endfor %}
+            {% endbox %}
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Você não possui nenhum diário.</p>
+    {% endif %}
+
+{% endblock %}

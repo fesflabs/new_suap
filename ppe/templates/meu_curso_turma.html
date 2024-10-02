@@ -1,0 +1,253 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        function change_configuracao(valor) {
+            var url = '/ppe/meu_curso_turma/{{ obj.pk }}/' + valor + '/';
+            var tab = null;
+            if (window['current_tab']) tab = window['current_tab'];
+            else tab = '{{ request.GET.tab }}';
+            if (tab) url += '?tab=' + tab + '#etapa';
+
+            document.location.href = url;
+        }
+
+        function alterar_configuracao(url) {
+            var resposta = confirm("Atenção! Esta alteração resultará na exclusão das notas já lançadas nesta etapa. Você confirma a alteração?");
+            if (resposta) {
+                window.location.href = url;
+            }
+        }
+    </script>
+    <style>
+        .box_faltas > div {
+            overflow-x: scroll;
+        }
+    </style>
+{% endblock %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    {% if obj.matriculacursoturma_set.exists %}
+{#        <li><a class="btn success" href="/edu/enviar_mensagem/?diario={{ obj.pk }}">{% icone "paper-plane" %} Enviar Mensagem</a></li>#}
+        {% if obj.integracao_com_moodle %}
+            <li><a class="btn primary" href="?moodle=1">{% icone "sync" %} Sincronizar com Moodle</a></li>
+        {% endif %}
+{#        <li><a class="btn primary popup" href="/edu/configurar_ambiente_virtual_diario/{{ obj.pk }}/">{% icone "cog" %} Configurar Ambiente Virtual</a></li>#}
+    {% endif %}
+{#    <li><a class="btn" href="?xls=1">{% icone "file-excel" %} Exportar para XLS</a></li>#}
+{#    <li class="has-child">#}
+{#        <a class="btn" href="#">{% icone "print" %} Imprimir</a>#}
+{#        <ul>#}
+{#            <li><a href="/edu/relacao_alunos_pdf/{{ obj.pk }}/">Relação de Alunos</a></li>#}
+{#            <li><a href="/edu/emitir_boletins_pdf/{{ obj.pk }}/">Boletim de Notas</a></li>#}
+{##}
+{#            <li><a href="/edu/diario_pdf/{{ obj.pk }}/1/">Diário (Etapa 1)</a></li>#}
+{##}
+{#            {% if obj.curso_formacao.qtd_avaliacoes > 1 %}#}
+{#                <li><a href="/edu/diario_pdf/{{ obj.pk }}/2/">Diário (Etapa 2)</a></li>#}
+{#            {% endif %}#}
+{#            {% if obj.curso_formacao.qtd_avaliacoes > 2 %}#}
+{#                <li><a href="/edu/diario_pdf/{{ obj.pk }}/3/">Diário (Etapa 3)</a></li>#}
+{#                <li><a href="/edu/diario_pdf/{{ obj.pk }}/4/">Diário (Etapa 4)</a></li>#}
+{#            {% endif %}#}
+{#            {% if obj.curso_formacao.qtd_avaliacoes > 0 %}#}
+{#                <li><a href="/edu/diario_pdf/{{ obj.pk }}/5/">Diário (Etapa Final)</a></li>#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#    </li>#}
+    {% help_button %}
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if possui_solicitacao_pendente %}
+        <p class="msg info">Uma solicitação de relançamento de etapa {{ etapa_str }} encontra-se em análise.</p>
+    {% endif %}
+
+    {% if not obj.cumpriu_carga_horaria_minina %}
+        <p class="msg alert">O percentual mínimo de {{ obj.percentual_minimo_ch }}% da carga horária
+            necessária para o fechamento do período letivo dos alunos matriculados nesse diário ainda não foi
+            registrado.</p>
+    {% endif %}
+
+    {% box "Dados do Diário de curso" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Tutores</dt>
+                <dd>
+                    {% for p in obj.turma.tutorturma_set.all %}
+                        <p>{{p.tutor }} </p>
+                    {% endfor %}
+                </dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Curso</dt>
+                <dd>{{ obj.curso_formacao }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Turma</dt>
+                <dd>{{ obj.turma }}</dd>
+            </div>
+            {% if request.user.is_superuser %}
+                <div class="list-item flex-basis-50">
+                    <dt>Quantidade de Alunos</dt>
+                    <dd>{{ obj.matriculacursoturma_set.count }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Quantidade de Avaliações</dt>
+                    <dd>{{ obj.curso_formacao.qtd_avaliacoes }}</dd>
+                </div>
+            {% endif %}
+            {% if obj.integracao_com_moodle %}
+                <div class="list-item flex-basis-100">
+                    <dt>URL do Moodle</dt>
+                    <dd><a href="{{ obj.url_moodle|format }}">{{ obj.url_moodle|format }}</a></dd>
+                </div>
+            {% endif %}
+            {% if obj.url_ambiente_virtual %}
+                <div class="list-item flex-basis-100">
+                    <dt>URL do Ambiente Virtual</dt>
+                    <dd><a href="{{ obj.url_ambiente_virtual|format }}">{{ obj.url_ambiente_virtual|format }}</a></dd>
+                </div>
+            {% endif %}
+        </dl>
+
+        <span id="etapas"></span>
+
+        <h4>Etapas</h4>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                <tr>
+                    <th>Etapa</th>
+                    <th>Período</th>
+                    <th>Período da Posse</th>
+                    <th>Entregue</th>
+                    {% if obj.curso_formacao.qtd_avaliacoes %}
+                        <th>Configuração de Avaliação</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for numero_etapa, dados in etapas.items %}
+                    <tr>
+                        <td>{{ dados.numero_etapa_exibicao }}</td>
+                        <td>{{ dados.inicio_etapa|format }}
+                            a {{ dados.fim_etapa|format }}
+                        <td>
+                            {% if dados.inicio_posse and dados.fim_posse %}
+                                {{ dados.inicio_posse|format }} a {{ dados.fim_posse|format }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>{{ dados.posse|format }}</td>
+                        {% if obj.curso_formacao.qtd_avaliacoes %}
+                            <td>{{ dados.configuracao_avaliacao|format }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endbox %}
+
+    <div class="search-and-filters">
+        <div class="filter">
+            <label>Alternar Etapa para:</label>
+            <select onchange="change_configuracao($(this).val())">
+                <option {% if etapa == 1 %}selected{% endif %} value="1">
+                    Etapa {{ obj.get_numero_primeira_etapa }}</option>
+                <option {% if etapa == 5 %}selected{% endif %} value="5">Etapa Final</option>
+            </select>
+        </div>
+    </div>
+
+    <span id="etapa"></span>
+
+    {% box "{{ descricao_etapa }}" %}
+
+        <ul class="action-bar">
+{#            {% if pode_manipular_etapa and etapas_anteriores_entegues %}#}
+{#                <li><a class="btn success popup" href="/edu/entregar_etapa/{{ obj.pk }}/{{ etapa }}/">{% icone "share" %} Entregar Etapa {{ etapa_str }}</a></li>#}
+{#            {% else %}#}
+{#                {% if not possui_solicitacao_pendente and em_posse_do_registro %}#}
+{#                    <li><a class="btn popup"#}
+{#                            href="/edu/solicitar_relancamento_etapa/{{ professor_diario.pk }}/{{ etapa }}/">{% icone "share" %} Solicitar#}
+{#                            Relançamento da Etapa {{ etapa_str }}</a></li>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+            {% if obj.curso_formacao.qtd_avaliacoes %}
+                {% if pode_manipular_etapa %}
+                    <li>
+                        <a href="/admin/ppe/configuracaoavaliacao/{{ configuracao_avaliacao_selecionada.pk }}/"
+                        class="btn primary">{% icone "edit" %} Editar Configuração de Avaliação</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+{#            {% if fim_etapa < data_atual and not solicitacao_prorrogacao_pendente and not em_posse_do_registro %}#}
+{#                <li><a class="btn popup" href="/edu/solicitar_prorrogacao_etapa/{{ professor_diario.pk }}/{{ etapa }}/">{% icone "share" %} Solicitar#}
+{#                        Prorrogação de Posse</a></li>#}
+{#            {% endif %}#}
+        </ul>
+
+        {% if fim_etapa < data_atual and not solicitacao_prorrogacao_pendente and not em_posse_do_registro %}
+        {% else %}
+            {% if solicitacao_prorrogacao_pendente %}
+                <p class="msg info">Sua solicitação prorrogação da etapa será analisada pela secretaria acadêmica.</p>
+            {% endif %}
+        {% endif %}
+
+
+        <div class="tab-container ajax-rendered" data-title="Registro de Notas/Conceitos"
+             data-counter="{{ obj.get_quantidade_alunos_ativos }}" data-tab="notas">
+            {% if request.GET.tab == "notas" %}
+
+                {% if obj.curso_formacao.avaliacao_por_conceito %}
+                    {% if obj.estrutura_curso.get_representacoesconceituais %}
+                        <div class="msg info">
+                            <p>Esta disciplina é avaliada por conceito. Para lançamento das notas se baseie nas faixas a
+                                seguir:</p>
+                            <ul>
+                                {% for conceito in obj.estrutura_curso.get_representacoesconceituais %}
+                                    <li><strong>{{ conceito.descricao }}</strong>: {{ conceito.valor_minimo }}
+                                        à {{ conceito.valor_maximo }} </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <p class="msg alert">Solicite o cadastro das representações conceituais para estrutura deste
+                            curso.</p>
+                    {% endif %}
+                {% endif %}
+
+                {% include "includes/notas_curso_turma_form.html" %}
+            {% endif %}
+        </div>
+
+
+
+
+        <script>
+            jQuery.moveRow = function (table, from, to) {
+                var rows = jQuery('tr', table);
+                rows.eq(from).detach().insertAfter(rows.eq(to));
+            }
+
+            function inverterOrdenacao() {
+                var tbl = document.getElementById('table_registro_aula');
+                cont = tbl.rows.length;
+
+                while (cont > 2) {
+                    cont--;
+                    jQuery.moveRow(tbl, 1, cont);
+                }
+            }
+
+        </script>
+
+    {% endbox %}
+
+{% endblock %}

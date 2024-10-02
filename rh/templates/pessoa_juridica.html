@@ -1,0 +1,52 @@
+{% extends super_template %}
+
+{% block content %}
+
+	<h2>Detalhamento de Pessoa Jurídica</h2>
+	{% if user|in_group:"Operador de Almoxarifado,Coordenador de Almoxarifado,Coordenador de Almoxarifado Sistêmico" %}
+		<ul class="action-bar">
+			<li><a class="btn primary" href="/admin/rh/pessoajuridica/{{ pj.pk }}/">Editar</a></li>
+		</ul>
+	{% endif %}
+	
+	{% box 'Dados Principais' %}
+	<table>
+		<tr>
+			<td>Razão Social</td>
+			<td>{{ pj.nome }}</td>
+	        <td>CNPJ</td>
+			<td>{{ pj.cnpj }}</td>
+		</tr>
+		<tr>
+			<td>Natureza Jurídica</td>
+			<td>{{ pj.get_natureza_juridica_display }}</td>
+	        <td>Nome fantasia</td>
+			<td>{{ pj.nome_usual }}</td>
+		</tr>
+		<tr>
+			<td>Telefones</td>
+			<td>
+                <ul>
+                    {% for t in pessoajuridicacontato_set.all %}
+                    <li>
+                        <strong>Descrição:</strong> {{ t.descricao }}<br />
+                        <strong>Telefone:</strong> {{ t.telefone }}<br />
+                        <strong>E-mail:</strong> {{ t.email }}<br />
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+		</tr>
+		<tr>
+	        <td>Enderecos</td>
+			<td>{{ pj.pessoaendereco_set.all.0 }}</td>
+		</tr>
+	</table>
+	{% endbox %}
+	
+	{% box 'Ocorrências' %}
+		<a href="/almoxarifado/entrada_busca/?fornecedor={{ pj.pk }}">Buscar Entradas de NF desta pessoa jurídica</a>
+	{% endbox %}
+	
+
+{% endblock %}

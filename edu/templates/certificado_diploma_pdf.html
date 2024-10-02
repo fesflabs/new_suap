@@ -1,0 +1,28 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block content %}
+
+    <div class="corpo">
+        <div>
+            <h1 class="title">
+                CERTIFICADO
+            </h1>
+        </div>
+        <div style="text-align: justify; font-size:16px; line-height:100%; margin: 0px; padding: 0px;">
+            <p style='text-indent: 80px; line-height:150%;margin-top:130px'>
+                Certificamos que <b>{{ obj.aluno.pessoa_fisica.nome }}</b>, CPF: <b>{{ obj.aluno.pessoa_fisica.cpf }}</b>, concluiu neste INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA / {{ obj.aluno.curso_campus.diretoria.setor.uo.nome }}, em <b>{{ obj.aluno.dt_conclusao_curso|format }}</b>, o curso <b>{{ obj.aluno.curso_campus.descricao_historico }}</b>.
+                O(A) aluno(a) deu entrada no processo de emissão do diploma.
+            </p>
+
+            <br/><br/><br/>
+            <p style="text-align: center">{{ uo.municipio.nome | title }}({{ uo.municipio.uf }}), {{ hoje }}</p>
+
+            <br/><br/><br/>
+            <p style="text-align: right">
+                <strong>Responsável pela informação:</strong> Diretoria Acadêmica - {{ uo.nome }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

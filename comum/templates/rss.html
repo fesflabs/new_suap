@@ -1,0 +1,7 @@
+<ul class="info">
+{% for l in rss_links %}
+	<li>
+		<a href="{{ l.url }}"><span class="extra-info">{{ l.updated.date }}</span> {{ l.title }}</a>
+	</li>
+{% endfor %}
+</ul>

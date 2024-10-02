@@ -1,0 +1,42 @@
+{% if fiscal or is_operador and not contrato.cancelado %}
+    <ul class="action-bar">
+        <li><a class="btn success popup" href="/contratos/adicionar_penalidade/{{ contrato.pk }}/">Adicionar Penalidade</a></li>
+    </ul>
+{% endif %}
+{% if penalidades %}
+    <table>
+        <thead>
+        <tr>
+            {% if fiscal or is_operador and not contrato.cancelado  %}
+                <th class="no-print">Ações</th>
+            {% endif %}
+            <th>Tipo</th>
+            <th>Arquivo</th>
+            <th>Última atualização</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%  for penalidade in penalidades %}
+            <tr>
+                {% if fiscal or is_operador and not contrato.cancelado  %}
+                    <td class="no-print">
+                        {% icon "edit" "/contratos/editar_penalidade/{{ penalidade.id }}/" %}
+                        {% icon "delete" "/contratos/excluir_penalidade/{{ penalidade.id  }}/" %}
+                    </td>
+                {% endif %}
+                <td>{{ penalidade.get_tipo_display }}</td>
+                <td>
+                     {% if penalidade.arquivo %}
+                        <a href="/media/{{ penalidade.arquivo }}" class="btn default">{% icone "search" %} Arquivo</a>
+                    {% else %}
+                        <span class="status status-alert">Nenhum arquivo enviado</span>
+                    {% endif %}
+                </td>
+                <td>{{ penalidade.atualizado_por }} em {{ penalidade.atualizado_em|format }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="msg alert">Nenhuma penalidade cadastrada.</p>
+{% endif %}

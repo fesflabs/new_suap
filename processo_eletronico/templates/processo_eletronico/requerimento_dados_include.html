@@ -1,0 +1,20 @@
+{% box "Dados Gerais do Requerimento" "collapsed" %}
+    <table class="info">
+        <tr>
+            <td>Número</td>
+            <td>{{ requerimento.get_numero_requerimento }}</td>
+        </tr>
+        <tr>
+            <td>{% verbose_field_name requerimento 'tipo_processo' %}</td>
+            <td>{{ requerimento.tipo_processo }}</td>
+        </tr>
+        <tr>
+            <td>{% verbose_field_name requerimento 'assunto' %}</td>
+            <td>{{ requerimento.assunto }}</td>
+        </tr>
+        <tr>
+            <td>{% verbose_field_name requerimento 'data_hora_iniciado' %}</td>
+            <td>{{ requerimento.data_hora_iniciado }}</td>
+        </tr>
+    </table>
+{% endbox %}

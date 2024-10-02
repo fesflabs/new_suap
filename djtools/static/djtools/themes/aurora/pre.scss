@@ -1,0 +1,217 @@
+
+// Extends
+%background-aurora-style {
+    background: #536976 !important;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #292E49, #536976) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #292E49, #536976) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+%badge {
+    background-color: $grey-300;
+    color: $brand-color;
+}
+%box {
+    background-color: $white;
+    border: 2px solid $grey-200;
+}
+%box-collapse-icon {
+    margin-top: 3px;
+}
+%box-title {
+    color: $brand-color;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+%btn {
+    background-color: transparent;
+    border: 2px solid $black;
+    color: $black;
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 1px;
+    min-height: 39px;
+}
+%btn-disabled {
+    color: $black;
+}
+%btn-active {
+    background-color: $black;
+    box-shadow: 0 0 0;
+}
+%btn-danger {
+    background-color: transparent;
+    border-color: $flat-red;
+    color: $flat-red;
+}
+%btn-danger-active {
+    background-color: $flat-red !important; /* Necessario para sobrescrever o background-white quando há btn dentro de general-box */
+    color: $white;
+}
+%btn-default {
+    background-color: transparent;
+    border-color: $default-color;
+    color: $default-color;
+}
+%btn-default-active {
+    background-color: $default-color !important;
+    color: $white;
+}
+%btn-primary {
+    background-color: transparent;
+    border-color: $flat-blue;
+    color: $flat-blue;
+}
+%btn-primary-active {
+    background-color: $flat-blue !important;
+    color: $white;
+}
+%btn-success {
+    background-color: transparent;
+    border-color: $flat-green;
+    color: $flat-green;
+}
+%btn-success-active {
+    background-color: $flat-green !important;
+    color: $white;
+}
+%btn-warning {
+    background-color: transparent;
+    border-color: $flat-orange;
+    color: $flat-orange;
+}
+%btn-warning-active {
+    background-color: $flat-orange !important;
+    color: $white;
+}
+%fieldset-title {
+    background-color: $grey-500;
+    color: $white;
+    @extend %box-title;
+}
+%footer-icon {
+    color: $brand-color;
+}
+%form-label {
+    color: $brand-color;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 0 5px;
+    text-align: left;
+    text-transform: uppercase;
+    width: 100%;
+}
+%form-row-div {
+    padding: 1.5rem;
+}
+%form-textarea {
+    padding: 8px 0;
+}
+%inputs {
+    background-color: transparent;
+    border: 0 none;
+    border-bottom: 2px solid $brand-color;
+    border-radius: 0;
+    color: $black;
+    font-size: 1.4rem;
+    height: 38px;
+    max-width: 100% !important;
+    padding: 5px 0;
+    width: 100% !important;
+}
+%messages {
+    position: absolute;
+    top: 55px;
+}
+%module-alert {
+    background-color: transparent !important;
+    border: 0 none;
+    color: $black;
+    padding-left: 2rem;
+    padding-right: 0;
+    position: relative;
+}
+%module-alert-hover {
+    padding-left: 2rem;
+    padding-right: 0;
+}
+%nav-first-level {
+    align-items: center;
+    letter-spacing: 1px;
+}
+%nav-first-level-icon {
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 50%;
+    color: $secondary-color;
+    font-size: 1rem;
+    height: 24px;
+    line-height: 24px;
+    opacity: 1;
+    text-align: center;
+    width: 24px;
+}
+%pagination-active {
+    background-color: $grey-600;
+    color: $white;
+}
+%scrollbar-track {
+    background-color: $grey-200;
+}
+%scrollbar-thumb {
+    background-color: $grey-500;
+}
+%scrollbar-thumb-hover {
+    background-color: $grey-600;
+}
+%status {
+    border: 1px solid;
+    border-radius: $border-radius;
+}
+%status-inside-container {
+    border-left-width: 1px;
+    border-top: 0 none;
+}
+%table {
+    border: 0 none;
+}
+%table-action-icon {
+    background-color: $grey-300;
+}
+%table-action-icon-before {
+    color: $brand-color;
+}
+%table-thead {
+    background-color: transparent;
+    border: 0 none;
+    border-bottom: 2px solid $brand-color;
+    color: $brand-color;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+%table-tbody {
+    border: 0 none;
+    box-shadow: 1px 1px 0 $grey-200 inset;
+}
+%table-tfoot {
+    background-color: $grey-200;
+    border: 0 none;
+    box-shadow: 1px 1px 0 $white inset;
+}
+%tabs {
+    background-color: transparent;
+    border: 0 none;
+    border-radius: $border-radius;
+}
+%tabs-active {
+    border: 2px solid $grey-200;
+}
+%tabs-link {
+    color: $brand-color;
+    letter-spacing: 1px;
+    padding: 1rem 1.5rem;
+    text-transform: uppercase;
+}
+%title {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

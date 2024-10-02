@@ -1,0 +1,74 @@
+{% load documento_eletronico_templatetags %}
+
+<div class="primary-info">
+    <span class="status status-info">Digitalizado</span>
+
+    <h4>
+        <a href="/processo_eletronico/visualizar_documento_requerimento_pdf/{{ documento_requerimento.id }}/"><strong>{{ documento_requerimento.tipo }}:</strong> {{ documento_requerimento }} </a>
+    </h4>
+
+    {% if requerimento.pode_editar %}
+        <ul class="action-bar">
+            {% if not documento_requerimento.documento.eh_documento_pessoal %}
+                <li>
+                    <a href="/processo_eletronico/editar_documento_upload_requerimento/{{ documento_requerimento.id }}" class="btn primary" title="Editar">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="sr-only">Editar</span>
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                {% if documento_requerimento.documento.eh_documento_pessoal %}
+                    <a href="/processo_eletronico/remover_documento_upload_requerimento/{{ documento_requerimento.id }}/?dps=sim"
+                       class="btn confirm danger">Remover</a>
+                {% else %}
+                    <a href="/processo_eletronico/remover_documento_upload_requerimento/{{ documento_requerimento.id }}/"
+                       class="btn confirm danger">Remover</a>
+                {% endif %}
+            </li>
+        </ul>
+    {% endif %}
+
+    <div class="extra-info">
+        <p> {{ documento_requerimento.assunto }}</p>
+    </div>
+</div>
+
+<dl class="secondary-info">
+    {% if documento_requerimento.numero %}
+        <div class="list-item">
+            <dt><span class="fas fa-circle" aria-hidden="true"></span> Número:</dt>
+            <dd>{{ documento_requerimento.numero }}</dd>
+        </div>
+    {% endif %}
+
+    <div class="list-item">
+        <dt><span class="fas fa-circle" aria-hidden="true"></span> Nível de Acesso:</dt>
+        <dd>{{ documento_requerimento.get_nivel_acesso_display|status }}</dd>
+    </div>
+
+    {% if documento_requerimento.hipotese_legal %}
+        <div class="list-item">
+            <dt><span class="fas fa-circle" aria-hidden="true"></span> Hipótese Legal:</dt>
+            <dd>{{ documento_requerimento.hipotese_legal }}</dd>
+        </div>
+    {% endif %}
+
+    <div class="list-item">
+        <dt><span class="fas fa-circle" aria-hidden="true"></span> Tipo do Conferência:</dt>
+        <dd>{{ documento_requerimento.tipo_conferencia }}</dd>
+    </div>
+
+    {% if documento_requerimento.compartilhamento_pessoa.exists %}
+        <div class="list-item">
+            <dt><span class="fas fa-search-plus" aria-hidden="true"></span> Pode Visualizar:</dt>
+            <dd>
+                <ul>
+                    {% for pessoa in documento_requerimento.compartilhamento_pessoa.all %}
+                        <li>{{ pessoa|format }}</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+        </div>
+    {% endif %}
+
+</dl>

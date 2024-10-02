@@ -1,0 +1,132 @@
+{% extends super_template %}
+
+{% block extrahead %}
+<script>
+jQuery(document).ready(function () {
+    function preferencias_notificacoes(element, request_url) {
+        var class_name = "true";
+
+        $.ajax({
+            url: request_url,
+            success: function(response) {
+                msg = "Salvo com sucesso.";
+                class_name = "true";
+                $(element).addClass(class_name).html(msg).show().delay(2500).fadeOut(500, function() {
+                    $(element).removeClass(class_name);
+                });
+            },
+            error: function(response) {
+                msg = "Não é possível inativar as duas formas de Notificação.";
+                class_name = "false";
+
+                $(element).addClass(class_name).html(msg).show().delay(2500).fadeOut(500, function() {
+                    $(element).removeClass(class_name);
+                });
+                $(element).prev().find("[type='checkbox']").prop('checked', true);
+            }
+        });
+    }
+    $('[data-switch-suap]').on('change', function(){
+        preferencias_notificacoes('[data-switch-message-suap]', '/comum/atualizar_preferencia_padrao/?envio=suap&is_ajax=True');
+    });
+    $('[data-switch-email]').on('change', function(){
+        preferencias_notificacoes('[data-switch-message-email]', '/comum/atualizar_preferencia_padrao/?envio=email&is_ajax=True');
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-container gap-5">
+        <div class="flex-item general-box">
+            <div class="primary-info">
+                <h3>Vínculo Atual: <strong>{{ usuario.get_tipo }}</strong></h3>
+                <ul class="action-bar">
+                    {% if usuario.eh_servidor %}
+                        <li><a href="/rh/servidor/{{ usuario.get_relacionamento.matricula }}" class="btn default">{% icone "search" %} Visualizar</a></li>
+                    {% elif usuario.eh_aluno %}
+                        <li><a href="/edu/aluno/{{ usuario.get_relacionamento.matricula }}" class="btn default">{% icone "search" %} Visualizar</a></li>
+                    {% else %}
+                        <li><a href="/comum/prestador_servico/{{ usuario.get_relacionamento.pk }}" class="btn default">{% icone "search" %} Visualizar</a></li>
+                    {% endif %}
+                </ul>
+                <div class="extra-info mt-4">
+                    <h4>Foto:</h4>
+                    <div class="photo-circle big mb-0">
+                        <img src="{{ usuario.get_relacionamento.get_foto_150x200_url }}" alt="Foto de {{ usuario.get_relacionamento.nome|format }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-item general-box">
+            <div class="primary-info">
+                <h3><strong>Usuário</strong> #{{ usuario.pk }}</h3>
+                <ul class="action-bar">
+                    {% if perms.auth.change_user %}
+                        <li><a href="/admin/comum/user/{{ usuario.pk }}/" class="btn primary">{% icone "edit" %}<span class="sr-only">Editar Usuário</span></a></li>
+                    {% endif %}
+                    <li><a href="/comum/alterar_senha/" class="btn primary">{% icone "key" %} Alterar Senha</a></li>
+                    {% if not usuario.eh_aluno %}
+                        <li><a href="/comum/grupos_usuario/{{ usuario.pk }}/" class="btn default popup">{% icone "search" %} Grupos</a></li>
+                    {% endif %}
+                    {% if usuario.tem_historico_grupos %}
+                        <li><a class="btn default popup" href="/comum/usuario/{{ usuario.pk }}/historico_grupos/">{% icone "search" %} Histórico em Grupos</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <dl class="secondary-info">
+                <div class="list-item">
+                    <dt>{% icone "calendar" %} Último Login:</dt>
+                    <dd>{{ usuario.last_login|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "calendar" %} Data de Registro:</dt>
+                    <dd>{{ usuario.date_joined|format }}</dd>
+                </div>
+            </dl>
+        </div>
+
+        <div class="flex-item general-box">
+            <div class="primary-info">
+                <h3><strong>Preferências de Recebimento de Notificações</strong></h3>
+                <ul class="action-bar">
+                    <li><a href="/admin/comum/preferencianotificacao/" class="btn primary">{% icone "edit" %} Editar Preferências de Notificações</a></li>
+                </ul>
+            </div>
+            <dl class="secondary-info">
+                <div class="list-item">
+                    <dt>{% icone "edit" %} Padrão via SUAP:</dt>
+                    <dd>
+                        <label class="switch" data-switch-suap>
+                            <input type="checkbox" {% if usuario.eh_notificado_suap %}checked{% endif %}>
+                            <span class="slider"></span>
+                        </label>
+                        <p class="message" data-switch-message-suap></p>
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "envelope" %} Padrão via E-mail:</dt>
+                    <dd>
+                        <label class="switch" data-switch-email>
+                            <input type="checkbox" {% if usuario.eh_notificado_email %}checked{% endif %}>
+                            <span class="slider"></span>
+                        </label>
+                        <p class="message" data-switch-message-email></p>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    
+        <div class="flex-item general-box">
+            <div class="primary-info">
+                <h3>Tema Utilizado: <strong>{{ usuario.tema_preferido }}</strong></h3>
+                <ul class="action-bar">
+                    <li><a href="/comum/temas/" class="btn primary">{% icone "edit" %} Alterar Tema</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

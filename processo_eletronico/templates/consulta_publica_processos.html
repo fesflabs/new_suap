@@ -1,0 +1,134 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+
+{% if not processos_qs %}
+    <p align="center">
+        Dados não encontrados. Verifique os dados e tente novamente.
+    </p>
+{% else %}
+    {% autopaginate processos_qs %}
+    {% for processo in processos_qs %}
+        {% box "Processo {{ processo.numero_protocolo_fisico }}" %}
+            <h4>Dados Gerais</h4>
+
+            <table class="info">
+                <tr>
+                    <td>Nº do Processo</td>
+                    <td>
+                        {{ processo.numero_protocolo_fisico }}
+                        {% if processo.pode_ler_consulta_publica %}
+                            <a class="btn default" href="{{ processo.get_absolute_url_consulta_publica }}">Visualizar Processo</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Situação</td>
+                    <td>{{ processo.get_status_display }}</td>
+                </tr>
+                {% if not processo.eh_privado %}
+                <tr>
+                    <td>Assunto</td>
+                    {% if processo.eh_restrito %}
+                        <td>Assunto Restrito</td>
+                    {% else %}
+                        <td>{{ processo.assunto }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Interessados</td>
+                    <td colspan="2">{% for interessado in processo.interessados.all %}{{ interessado.nome }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+                </tr>
+                <tr>
+                    <td>Tipo do Processo</td>
+                    <td>{{ processo.tipo_processo }}</td>
+                </tr>
+                <tr>
+                    <td>Setor Atual</td>
+                    <td>{{ processo.setor_atual }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>Nível de Acesso</td>
+                    <td>{{ processo.get_nivel_acesso_display }}</td>
+                </tr>
+                <tr>
+                    <td>Data de Criação</td>
+                    <td>{{processo.data_hora_criacao|date:"d/m/Y H:i"}}</td>
+                </tr>
+            </table>
+
+
+            {% if not processo.eh_privado %}
+                {% if processo.tem_tramite %}
+                    <h4>Trâmites</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Setor de Origem</th>
+                                <th>Enviado em</th>
+                                <th></th>
+                                <th>Setor de Destino</th>
+                                <th>Recebido em</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tramite in processo.tramites.all %}
+                                {% if tramite.recebido %}
+                                <tr>
+                                    <td>{{ tramite.destinatario_setor }}</td>
+                                    <td>{{ tramite.data_hora_encaminhamento|date:"d/m/Y H:i"}}</td>
+                                    <td>&rarr;</td>
+                                    <td>{{ tramite.destinatario_setor }}</td>
+                                    <td>{{ tramite.data_hora_recebimento|date:"d/m/Y H:i"}}</td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                <h4>Documentos</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo Documento</th>
+                            <th>Assunto</th>
+                            <th>Adicionado em</th>
+                            <th>Nível de Acesso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for documento in processo.get_todos_documentos_processo %}
+                            <tr>
+                                {% if documento.classe == 'despacho'  %}
+                                    <td>Despacho</td>
+                                    <td>Despacho</td>
+                                    <td>{{ documento.data_hora_encaminhamento|date:"d/m/Y H:i"}}</td>
+                                    <td>{{ documento.processo.get_nivel_acesso_display }}</td>
+                                {% elif documento.classe == 'parecer'  %}
+                                    <td>Parecer</td>
+                                    <td>Parecer</td>
+                                    <td>{{ documento.data_hora_encaminhamento|date:"d/m/Y H:i"}}</td>
+                                    <td>{{ documento.processo_minuta.processo.get_nivel_acesso_display }}</td>
+                                {% else %}
+                                    <td>{{ documento.documento.tipo }}</td>
+                                     {% if processo.eh_restrito or documento.documento.eh_restrito or documento.documento.eh_privado %}
+                                         <td>Assunto Restrito</td>
+                                     {% else %}
+                                        <td>{{ documento.documento.assunto}}</td>
+                                     {% endif %}
+                                    <td>{{ documento.data_hora_inclusao|date:"d/m/Y H:i"}}</td>
+                                    <td>{{ documento.documento.get_nivel_acesso_display}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endbox %}
+    {% endfor %}
+    {% paginate %}
+{% endif %}
+
+{% endblock %}

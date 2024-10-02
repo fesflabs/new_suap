@@ -1,0 +1,17 @@
+{% if calendario %}
+	<div class="legenda">
+        <p>Legenda:</p>
+        <ul>
+            <li class="hoje">Hoje</li>
+            <li class="alert">Solicitação de reserva</li>
+            <li class="success">Reservas deferidas</li>
+            <li class="error">Reservas indisponíveis</li>
+            <li class="conflito">Conflito</li>
+        </ul>
+	</div>
+{% else %}
+	<p class="msg alert">Nenhum agendamento encontrado.</p>
+{% endif %}
+{% for mes in calendario %}
+	{{ mes|safe }}
+{% endfor %}

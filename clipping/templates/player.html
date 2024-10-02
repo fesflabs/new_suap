@@ -1,0 +1,45 @@
+{% load pipeline %}
+<html>
+	<head>
+	<script src="/static/comum/js/jquery.min.js"></script>
+	<script src="/static/djtools/jplayer/js/jquery.jplayer.min.js"></script>
+	<link href="/static/djtools/jplayer/css/jplayer.pink.flag.css" rel="stylesheet" type="text/css" />
+	<link href="/static/djtools/jplayer/css/prettify-jPlayer.css" rel="stylesheet" type="text/css" />
+	<style>
+		a {
+		    outline: 0 none;
+			text-decoration: none;
+		}
+	</style>
+	</head>
+	<body>
+
+
+			<script>
+						$(document).ready(function(){
+
+							$("#jquery_jplayer_{{ publicacao.id }}").jPlayer({
+								ready: function () {
+									$(this).jPlayer("setMedia", {
+										webmv: "{{ publicacao.arquivo.url }}",
+									});
+								},
+								swfPath: "/static/djtools/jplayer/js",
+								supplied: "webmv"
+							});
+
+
+							$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_{{ publicacao.id }}")});
+						});
+			</script>
+			<div align="center">
+				<div id="jquery_jplayer_{{ publicacao.id }}"></div>
+				<div id="jp_container_1">
+				 <a href="#" class="jp-play btn success">Play</a>
+				 <a href="#" class="jp-pause btn primary">Pause</a>
+				</div>
+			</div>
+
+
+	</body>
+</html>

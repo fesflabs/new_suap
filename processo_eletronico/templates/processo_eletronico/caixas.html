@@ -1,0 +1,83 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if setor_escolhido %}
+    <ul class="action-bar">
+        <li class="has-child">
+            <a class="btn default" href="#">{% icone "search" %} Ver Processos</a>
+            <ul>
+                <li><a href="/admin/processo_eletronico/processo/?setor_atual={{ setor_escolhido.id }}&status__exact=4">Finalizados</a></li>
+                <li><a href="/admin/processo_eletronico/processo/?setor_atual={{ setor_escolhido.id }}&status__exact=6">Reabertos</a></li>
+            </ul>
+        </li>
+        <li><a class="btn" href="/processo_eletronico/distribuicao_interna_processos_setor/{{ setor_escolhido.id }}/"><span class="fa fa-cogs" aria-hidden="true"></span> Distribuição Interna</a></li>
+    </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <ul class="pills">
+        <li {% if not setor_escolhido %}class="active"{% endif %}>
+            <a href="?setor={{ request.META.QUERY_STRING|retirar_parametro_get:'setor,page,tab' }}">Qualquer Setor</a>
+        </li>
+        {% for setor in setores_visiveis %}
+            <li {% if setor_escolhido == setor %}class="active" {% endif %}>
+                <a href="?setor={{ setor.id }}{{ request.META.QUERY_STRING|retirar_parametro_get:'setor,page,tab' }}">{{ setor }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+	<div class="search-and-filters">
+		{% render_form form %}
+	</div>
+
+    <div class="tab-container" data-title="Externos a Receber" data-counter="{{ cx_entrada_externos_nao_recebidos|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_entrada_externos_nao_recebidos aguardando_recebimento=True contador=cx_entrada_externos_nao_recebidos|length %}
+    </div>
+    <div class="tab-container" data-title="A Receber" data-tab="a-receber" data-counter="{{ cx_entrada_nao_recebidos|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_entrada_nao_recebidos aguardando_recebimento=True contador=cx_entrada_nao_recebidos|length %}
+    </div>
+    <div class="tab-container" data-title="A Encaminhar" data-tab="a-encaminhar" data-counter="{{ cx_entrada_recebidos|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_entrada_recebidos aguardando_encaminhamento=True contador=cx_entrada_recebidos|length %}
+    </div>
+    <div class="tab-container" data-title="Sem Tramitação" data-counter="{{ cx_entrada_sem_tramitacao|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_processos_sem_tramitacao_include.html' with caixa=cx_entrada_sem_tramitacao contador=cx_entrada_sem_tramitacao|length%}
+    </div>
+    <div class="tab-container" data-title="A Despachar" data-tab="a-despachar" data-counter="{{ cx_esperando_despachos|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_esperando_despachos aguardando_despacho=True contador=cx_esperando_despachos|length %}
+    </div>
+    <div class="tab-container" data-title="A Receber pelo Setor de Destino" data-counter="{{ cx_saida|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_saida contador=cx_saida|length %}
+    </div>
+    <div class="tab-container" data-title="Aguardando Retorno do Setor de Destino" data-counter="{{ cx_saida_aguardando_retorno|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_saida_aguardando_retorno %}
+    </div>
+    <div class="tab-container" data-title="Externos a Receber pelo Setor de Destino" data-counter="{{ cx_saida_externos|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_saida_externos contador=cx_saida_externos|length %}
+    </div>
+    <div class="tab-container" data-title="Aguardando Juntada de Documento" data-counter="{{ cx_esperando_juntada|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_esperando_juntada contador=cx_esperando_juntada|length%}
+    </div>
+    <div class="tab-container" data-title="Aguardando Ciência" data-counter="{{ cx_esperando_ciencia|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_esperando_ciencia contador=cx_esperando_ciencia|length %}
+    </div>
+    <div class="tab-container" data-title="Aguardando Validação de Juntada" data-tab="aguardando-validacao-juntada" data-counter="{{ cx_homologacao_juntada|length }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_homologacao_juntada contador=cx_homologacao_juntada|length %}
+    </div>
+    <div class="tab-container" data-title="Sigilosos" data-counter="{{ cx_sigilosos.count }}" data-hide-tab-on-counter-zero="true">
+        {% include 'processo_eletronico/caixa_listagem_include.html' with caixa=cx_sigilosos contador=cx_sigilosos.count %}
+    </div>
+
+    <script>
+        function desfazer_tramite(tramite)
+        {
+            if( confirm("Tem certeza que deseja desfazer este trâmite?"))
+            {
+                id_tramite = $(tramite).attr("id");
+                location.href = "/processo_eletronico/processo_remover_encaminhamento/"+ id_tramite +"/";
+            }
+        }
+    </script>
+
+{% endblock %}

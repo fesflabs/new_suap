@@ -1,0 +1,24 @@
+{% if grupos_gerenciados_pelo_grupo_escolhido or grupos_que_gerenciam_grupo_escolhido %}
+    <ul class="flex-container boxes texts">
+        {% if grupos_gerenciados_pelo_grupo_escolhido %}
+            <li class="box-item">
+                <h4>Gerencia:</h4>
+                <ul>
+                {% for gg in grupos_gerenciados_pelo_grupo_escolhido %}
+                        <li>{{ gg.name }} {% if gg.eh_local %}<small>(somente usuários do mesmo campus)</small>{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if grupos_que_gerenciam_grupo_escolhido %}
+            <li class="box-item">
+                <h4>É gerenciado por:</h4>
+                <ul>
+                    {% for gg in grupos_que_gerenciam_grupo_escolhido %}
+                        <li>{{ gg.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

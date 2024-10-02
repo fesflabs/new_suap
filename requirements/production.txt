@@ -1,0 +1,10 @@
+-r ./base.txt
+django-compressor==2.4.1
+python-Levenshtein==0.12.2
+endesive==2.0.5
+#Instalar: apt-get install swig
+pikepdf==4.0.2
+flower==1.0.0
+docker==5.0.3
+pymssql==2.2.2
+docker-compose==1.29.2

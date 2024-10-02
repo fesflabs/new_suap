@@ -1,0 +1,11 @@
+{% box 'Dados Gerais' %}
+    {% include 'includes/funcionario_dados_gerais.html' %}
+{% endbox %}
+
+{% box "Frequências" %}
+    {% include "includes/frequencias_funcionario.html" with avaliar_frequencia_in_popup=True avaliar_frequencia_in_popup_reload_on_close=False avaliar_frequencia_in_popup_callback="callback_after_avaliar_frequencia" %}
+{% endbox %}
+
+{% box "Detalhamento das Horas" %}
+    {% include 'includes/frequencias_detalhamento.html' %}
+{% endbox %}

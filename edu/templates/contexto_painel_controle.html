@@ -1,0 +1,35 @@
+{{ periodo_letivo_atual.as_widget|safe }}
+
+{% for diretoria in diretorias_com_pendencia %}
+    <div class="modulo modulo-info">
+        <h3><span class="titulo"><span class="fas fa-exclamation-circle" aria-hidden="true"></span> Pendências da {{ diretoria }}</span></h3>
+        <div class="wrapper">
+            <div class="flex-container">
+                {% for pendencia in diretoria.pendencias %}
+                    <div class="modulo modulo-indicador">
+                        <a href="{{ pendencia.url }}">
+                            <h4>{{ pendencia.quantidade }}</h4>
+                            <h5>{{ pendencia.nome }}</h5>
+                            <p>{{ pendencia.subtexto }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for box in painel %}
+    <div class="modulo modulo-info">
+        <h3><span class="titulo">{{ box.0 }}</span></h3>
+        <div class="wrapper">
+            <ul class="action-bar">
+                {% for item in box.1 %}
+                    <li><a data-width="700" class='btn default {{ item.3|default:"" }}' data-reload-on-close="false"
+                           href="{{ item.1 }}">{% if item.2 %}<strong>{{ item.2 }}</strong> - {% endif %}{{ item.0 }}
+                    </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,81 @@
+{% extends super_template %}
+
+{% block content %}
+    {% render_form form %}
+    {% if form.compensacoes_horarios %}
+        {% box 'Visualização dos Informes de Compensação de Horário' %}
+            <table class="info">
+                <tr>
+                    <td>Funcionário</td>
+                    <td>{{ request.user.get_profile }}</td>
+                </tr>
+                <tr>
+                    <td>Período Coberto</td>
+                    <td>{{ form.periodo_analisado.0|format }} a {{ form.periodo_analisado.1|format }}</td>
+                </tr>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data da Compensação</th>
+                        <th>Data da Aplicação</th>
+                        <th>Carga Horária Compensada</th>
+                        <th>Autorização</th>
+                        <th>Observações Pessoais no Ponto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for compensacao in form.compensacoes_horarios %}
+                        <tr>
+                            <td>
+                                {{ compensacao.data_compensacao|format }} ({{ compensacao.data_compensacao|date:"l" }})
+                                Ponto: {{ compensacao.frequencia_duracao|date:"H:i:s" }}
+                            </td>
+                            <td>{{ compensacao.data_aplicacao|format }} ({{ compensacao.data_aplicacao|date:"l" }})</td>
+                            <td>{{ compensacao.ch_compensada|date:"H:i:s" }}</td>
+                            <td>
+                                {% if compensacao.validador %}
+                                    {% if compensacao.is_autorizado %}
+                                        <span class='status status-finalizado text-nowrap-normal'>
+                                            Autorização Automática (<strong>{{ compensacao.validador }}</strong>)
+                                        </span>
+                                    {% else %}
+                                        <span class='status status-em-tramite text-nowrap-normal'>
+                                            Aguardar Autorização (<strong>{{ compensacao.validador }}</strong>)
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    ?
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if compensacao.validador and compensacao.is_autorizado %}
+                                    <p>{{ compensacao.data_aplicacao }}: {{ compensacao.get_auto_obs_descricao_na_data_aplicacao|format }}</p>
+                                    <p>{{ compensacao.data_compensacao }}: {{ compensacao.get_auto_obs_descricao_na_data_compensacao|format }}</p>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>
+                <span class="obs">{{ form.compensacoes_horarios|length }} informes exibidos.</span>
+            </p>
+            <ul class="action-bar">
+                <li><a class="btn success" onclick='salvar();'>Salvar Informes</a></li>
+            </ul>
+            <script type="text/javascript">
+                function salvar(){
+                    $(document).ready(function(){
+                        $('form').append("<input type='hidden' name='_salvar' value='_sim'/>");
+                        $('form').submit();
+                    });
+                }
+            </script>
+        {% endbox %}
+    {% elif form.is_bound %}
+        <p class="msg alert">Nenhum informe.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+<table>
+    <tbody>
+        {% for obj in qs %}
+        <tr>
+            <td>{{ obj|radio_input:obj.checked_|safe }} {{ obj|input_label|safe }}</td>
+        </tr>
+         {% endfor %}
+    </tbody>
+</table>

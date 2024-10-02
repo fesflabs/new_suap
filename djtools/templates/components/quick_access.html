@@ -1,0 +1,8 @@
+{% for acesso in quick_access %}
+    <li>
+        <a href="{{ acesso.url }}">
+            <span class="fas fa-{{ acesso.icone }}" aria-hidden="true"></span>
+            {{ acesso.titulo }}
+        </a>
+    </li>
+{% endfor %}

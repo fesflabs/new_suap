@@ -1,0 +1,356 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if not contrato.cancelado %}
+        {% if pode_atualizar_contrato or pode_cancelar_contrato %}
+            <ul class="action-bar">
+                {% if pode_atualizar_contrato %}
+                    <li><a class="btn primary" href="/admin/contratos/contrato/{{ contrato.pk }}/">Editar</a></li>
+                {% endif %}
+                {% if pode_cancelar_contrato %}
+                    <li><a class="btn danger popup" href="/contratos/cancelar_contrato/{{ contrato.pk }}/">Cancelar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block object-status %}
+    {% if vence_nos_proximos_90_dias %}
+        <span class="status status-alert">Vence em {{ data_vencimento }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% box "Dados Gerais" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Tipo</dt>
+                <dd>{{ contrato.tipo }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Subtipo</dt>
+                <dd>{{ contrato.subtipo|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Continuado</dt>
+                <dd>{% if contrato.continuado %} <span class="status status-success">Sim</span> {% else %}
+                    <span class="status status-error">Não</span> {% endif %}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Arrecadação de Receitas</dt>
+                <dd>{% if contrato.arrecadacao_receita %} <span class="status status-success">Sim</span> {% else %}
+                    <span class="status status-error">Não</span> {% endif %}</dd>
+            </div>
+            {% if contrato.contrato %}
+                <div class="list-item">
+                    <dt>Tipo de Aditivo</dt>
+                    <dd>
+                        {% if contrato.de_fiscal %}Aditivo de Fiscal{% endif %}
+                        {% if contrato.de_prazo %}Aditivo de Prazo{% endif %}
+                        {% if contrato.de_valor %}Aditivo de Valor{% endif %}
+                        {% if contrato.de_outro %}Aditivo de Outro{% endif %}
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Número do Contrato</dt>
+                    <dd><a href="/contratos/contrato/{{ contrato.contrato.pk }}/">{{ contrato.numero }}</a></dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Data de Início</dt>
+                <dd>{{ contrato.data_inicio|date:"d/m/Y" }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Data de Término</dt>
+                {% if not contrato.data_fim %}
+                    <dd>Tempo indeterminado</dd>
+                {% elif contrato.get_data_fim != contrato.data_fim %}
+                    <dd>Prorrogado de {{ contrato.data_fim|date:"d/m/Y" }}
+                        para {{ contrato.data_vencimento|date:"d/m/Y" }}</dd>
+                {% else %}
+                    <dd>{{ contrato.data_fim|format }}</dd>
+                {% endif %}
+            </div>
+            {% if contrato.continuado %}
+                <div class="list-item">
+                    <dt>Data Limite de Prorrogação</dt>
+                    <dd>{{ contrato.get_data_prorrogacao|date:"d/m/Y" }}</dd>
+                </div>
+            {% endif %}
+            {% if contrato.processo %}
+                <div class="list-item flex-basis-100">
+                    <dt>Processo</dt>
+                    <dd><a href="{{ contrato.processo.get_absolute_url }}">{{ contrato.processo.numero_processo }}</a></dd>
+                </div>
+            {% endif %}
+            {% if contrato.empenho %}
+                <div class="list-item">
+                    <dt>Empenho</dt>
+                    <dd><a href="/almoxarifado/empenho/{{ contrato.empenho.pk }}">{{ contrato.empenho.numero }}</a></dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Campi</dt>
+                <dd>
+                    <ul>
+                        {% for campus in contrato.campi.all %}
+                            <li>{{ campus.setor.nome }}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            </div>
+            {% if pode_visualizar_arquivo %}
+                <div class="list-item">
+                    <dt>Arquivo Digitalizado</dt>
+                    <dd>
+                        {% if pode_visualizar_arquivo %}
+                            {% if contrato.arquivo_contrato %}
+                                <a href="/contratos/visualizar_arquivo_contrato/{{ contrato.id }}/" class="btn default"><span
+                                class="fas fa-search" aria-hidden="true"></span> {{ contrato.arquivo.nome }}</a>
+                            {% else %}
+                                <span class="status status-alert">Aguardando submissão do arquivo</span>
+                            {% endif %}
+                        {% endif %}
+                        {% if pode_submeter_arquivo and not contrato.cancelado %}
+                            <a href="/contratos/upload_contrato/{{ contrato.id }}/" class="btn primary">Atualizar
+                                Arquivo</a>
+                        {% endif %}
+                    </dd>
+                </div>
+            {% endif %}
+            <div class="list-item flex-basis-100">
+                <dt>Objeto</dt>
+                <dd>{{ contrato.objeto }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Licitação</dt>
+                <dd>{{ contrato.tipo_licitacao|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Pregão</dt>
+                <dd>{{ contrato.pregao|format }}</dd>
+            </div>
+            {% if contrato.estimativa_licitacao %}
+                <div class="list-item">
+                    <dt>Estimativa para Início dos Procedimentos para Nova Licitação</dt>
+                    <dd>{{ contrato.estimativa_licitacao|format }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Número do Cronograma</dt>
+                <dd>
+                    {% if contrato.get_cronograma %}
+                        {{ contrato.get_cronograma|default:"" }}
+                    {% else %}
+                        <span class="status status-alert">Aguardando definição do cronograma</span>
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Quantidade de Parcelas</dt>
+                <dd>{{ contrato.qtd_parcelas }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Concluído</dt>
+                {% if contrato.concluido %}
+                    <dd><span class="status status-success">Sim</span></dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Motivo da Conclusão</dt>
+                    <dd>{{ contrato.motivo_conclusao }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data da Conclusão</dt>
+                    <dd>{{ contrato.data_conclusao|format }}</dd>
+                {% else %}
+                    <dd><span class="status status-error">Não</span></dd>
+                {% endif %}
+            </div>
+            {% if contrato.cancelado %}
+                <div class="list-item">
+                    <dt>Cancelado</dt>
+                    <dd>
+                        <span class="status status-error">Cancelado em {{ contrato.dh_cancelamento }} por {{ contrato.usuario_cancelamento.pessoafisica.nome }}</span>
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Motivo do Cancelamento</dt>
+                    <dd>{{ contrato.motivo_cancelamento }}</dd>
+                </div>
+            {% endif %}
+            {% if contrato.documentos_texto_tipo_contato_relacionados %}
+                <div class="list-item">
+                    <dt>Documento do Contrato</dt>
+                    <dd>
+                        <span><a class="popup default" href="{% url 'visualizar_documento' contrato.documentos_texto_tipo_contato_relacionados.first.documento.id %}">Visualizar Documento</a></span>
+                    </dd>
+                </div>
+            {% endif %}
+            <div class="list-item flex-basis-50">
+                <dt>Período Executado</dt>
+                <dd>
+                    <div class="progress">
+                        <p>{{ contrato.get_percentual_dias_executado }}%</p>
+                    </div>
+                    <p class="progress-description">
+                        <span class="{% if contrato.get_qtd_dias_executado > contrato.get_qtd_dias_total %}false{% else %}true{% endif %}"><strong>{{ contrato.get_qtd_dias_executado }}</strong> dias</span> de <strong>{{ contrato.get_qtd_dias_total }} dias</strong>
+                    </p>
+                </dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Valor Executado</dt>
+                <dd>
+                    <div class="progress">
+                        <p>{{ contrato.get_percentual_executado }}%</p>
+                    </div>
+                    <p class="progress-description">
+                        <span class="{% if contrato.valor_executado > contrato.valor_total %}false{% endif %}">
+                            R$ {{ contrato.valor_executado|mascara_dinheiro }} de <strong>R$ {{ contrato.valor_total|mascara_dinheiro }}</strong>
+                        </span>
+                    </p>
+                </dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% box "Demonstrativo de Valores" %}
+        <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-end">Item</th>
+                    <th class="text-end">Valor (R$)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-end">Contrato Original</td>
+                    <td class="text-end">{{ contrato.valor|mascara_dinheiro }}</td>
+                </tr>
+                {% for aditivo in contrato.get_aditivos %}
+                    {% if aditivo.de_valor %}
+                        <tr>
+                            <td class="text-end">Termo Aditivo {{ aditivo.ordem }} ({{ aditivo.get_tipo }})</td>
+                            {% if aditivo.tipo_termo_aditivo == 'SUP' %}
+                                <td class="text-end false"> -
+                            {% else %}
+                                <td class="text-end true"> +
+                            {% endif %}
+                            {{ aditivo.valor|mascara_dinheiro }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                {% for apostilamento in contrato.get_apostilamentos %}
+                    <tr>
+                        <td class="text-end">Apostilamento {{ forloop.counter }}</td>
+                        <td {% if apostilamento.valor < 0.0 %} class="text-end false">&nbsp;-{% else %}
+                            class="true">+{% endif %}
+                        R$ {{ apostilamento.valor|mascara_dinheiro }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>Total: Contrato + Aditivos de Valor + Apostilamentos:</td>
+                <td class="text-end {% if contrato.valor_total < 0.0 %}false{% endif %}"> {{ contrato.valor_total|mascara_dinheiro }}</td>
+            </tr>
+            <tr>
+                <td>Total Executado:</td>
+                <td class="text-end {% if contrato.valor_total > 0.0 %}false{% endif %}">- {{ contrato.valor_executado|mascara_dinheiro }}</td>
+            </tr>
+            <tr>
+                <td>Saldo:</td>
+                <td class="text-end {% if contrato.get_saldo_atual >= 0.0 %}true{% else %}false{% endif %}"> {{ contrato.get_saldo_atual|mascara_dinheiro }}</td>
+            </tr>
+            </tfoot>
+        </table>
+        </div>
+    {% endbox %}
+
+    {% box "Dados da Contratada" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-grow-3">
+                <dt>Nome</dt>
+                <dd>{{ contrato.pessoa_contratada.nome|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{% if contrato.pessoa_contratada.eh_pessoa_juridica %}CNPJ{% else %}CPF{% endif %}</dt>
+                <dd>{{ contrato.pessoa_contratada.get_cpf_ou_cnpj|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>E-mail</dt>
+                <dd>{{ contrato.pessoa_contratada.email|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Telefones</dt>
+                <dd>{{ contrato.pessoa_contratada.telefones|format }}</dd>
+            </div>
+            <div class="list-item flex-grow-3">
+                <dt>Endereço</dt>
+                <dd>{{ contrato.pessoa_contratada.endereco|format }}</dd>
+            </div>
+            {% if contrato.pessoa_contratada.eh_pessoa_juridica %}
+                <div class="list-item">
+                    <dt>Representantes</dt>
+                    <dd>{{ contrato.pessoa_contratada.get_representantes|format }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container" data-title="Cronograma" data-counter="{{ parcelas.count }}" data-tab="cronograma">
+        {% include "tabs/cronograma.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Fiscais" data-counter="{{ fiscais.count }}" data-tab="fiscais">
+        {% include "tabs/fiscais.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Aditivos" data-counter="{{ aditivos.count }}" data-tab="aditivos">
+        {% include "tabs/aditivos.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Publicações" data-counter="{{ contrato.publicacoes_set.count }}" data-tab="publicacoes">
+        {% include "tabs/publicacoes.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Apostilamentos" data-counter="{{ apostilamentos.count }}" data-tab="apostilamentos">
+        {% include "tabs/apostilamentos.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Documentos Relacionados" data-counter="{{ documentos_relacionados }}" data-tab="documentos_relacionados">
+        {% include "tabs/anexos.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Ocorrências" data-counter="{{ ocorrencias.count }}" data-tab="ocorrencias">
+        {% include "tabs/ocorrencias.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Garantias" data-counter="{{ garantias.count }}" data-tab="garantias">
+        {% include "tabs/garantias.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Penalidades" data-counter="{{ penalidades.count }}" data-tab="penalidades">
+        {% include "tabs/penalidades.html" %}
+    </div>
+
+    <div class="tab-container" data-title="Mão de Obra" data-counter="{{ maosdeobra.count }}" data-tab="maodeobra">
+        {% include "tabs/mao-de-obra.html" %}
+    </div>
+
+    {% if tipo_contrato_eletrico %}
+        <div class="tab-container" data-title="Detalhes do Contrato Elétrico" data-tab="contrato_eletrico">
+            {% include "tabs/contrato-eletrico.html" %}
+        </div>
+    {% endif %}
+
+    {% if contrato.arrecadacao_receita %}
+        <div class="tab-container" data-title="Valores da Concessão" data-counter="{{ arrecadacaoreceita.count }}" data-tab="valores_concessao">
+            {% include "tabs/arrecadacao-receita.html" %}
+        </div>
+    {% endif %}
+
+{% endblock %}

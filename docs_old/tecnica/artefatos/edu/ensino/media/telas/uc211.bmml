@@ -1,0 +1,185 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="642" measuredH="598" mockupW="602" mockupH="580">
+  <controls>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="40" y="18" w="602" h="559" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::Label" x="211" y="577" w="-1" h="-1" measuredW="221" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Exibir%20Dados%20Funcionais%20do%20Professor</text>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="55" y="101" w="-1" h="-1" measuredW="253" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Professor%2C%20Hugo%20Sena%20%281234567%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::SubTitle" x="55" y="122" w="-1" h="-1" measuredW="242" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Hugo%20Sena%20%281234567%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::TabBar" x="55" y="149" w="572" h="393" measuredW="502" measuredH="100" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Dados%20Pessoais%2C%20Dados%20Funcionais%2C%20Per%EDodos/Disciplinas%2C%20Hor%E1rios%2C%20F%E9rias</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::Label" x="160" y="197" w="-1" h="-1" measuredW="100" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Matr%EDcula%20SIAPE%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::Label" x="278" y="197" w="-1" h="-1" measuredW="53" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1234567</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::Label" x="213" y="219" w="-1" h="-1" measuredW="47" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Regime%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::Label" x="277" y="219" w="-1" h="-1" measuredW="164" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>REGIME%20JURIDICO%20UNICO</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::Label" x="223" y="241" w="-1" h="-1" measuredW="39" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cargo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Label" x="277" y="241" w="-1" h="-1" measuredW="314" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>PROFESSOR%20ENS%20BASICO%20TECN%20%28CMEBT%29%20-%20707001</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::Label" x="136" y="262" w="-1" h="-1" measuredW="123" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Jornada%20de%20Trabalho%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::Label" x="277" y="262" w="-1" h="-1" measuredW="152" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>DEDICA%C7%C3O%20EXCLUSIVA</text>
+      </controlProperties>
+    </control>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::Label" x="157" y="281" w="-1" h="-1" measuredW="103" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Classe%20de%20Cargo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::Label" x="277" y="281" w="-1" h="-1" measuredW="65" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>CLASSE%20D</text>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::Label" x="202" y="302" w="-1" h="-1" measuredW="58" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Titula%E7%E3o%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Label" x="277" y="302" w="-1" h="-1" measuredW="73" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>MESTRADO</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="186" y="323" w="-1" h="-1" measuredW="73" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Setor%20SUAP%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::Label" x="277" y="323" w="-1" h="-1" measuredW="129" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>COSINF%20%28campus%3ARE%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::Label" x="166" y="344" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lota%E7%E3o%20SIAPE%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Label" x="277" y="344" w="-1" h="-1" measuredW="98" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>RE%20%28campus%3ARE%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::Label" x="162" y="367" w="-1" h="-1" measuredW="98" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Exerc%EDcio%20SIAPE%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::Label" x="277" y="367" w="-1" h="-1" measuredW="117" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>DIGTI%20%28campus%3ARE%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::Label" x="154" y="388" w="-1" h="-1" measuredW="108" measuredH="21" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mat%E9ria%20Disciplina%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::Label" x="277" y="388" w="-1" h="-1" measuredW="143" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Engenharia%20de%20Software</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::Label" x="232" y="409" w="-1" h="-1" measuredW="30" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>NCE%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::Label" x="277" y="409" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tecnol%F3gico</text>
+      </controlProperties>
+    </control>
+    <control controlID="149" controlTypeID="com.balsamiq.mockups::Button" x="415" y="100" w="-1" h="-1" measuredW="209" measuredH="27" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Editar%20Matr%EDcula%20Disciplina/NCE</text>
+      </controlProperties>
+    </control>
+    <control controlID="193" controlTypeID="__group__" x="186" y="219" w="364" h="145" measuredW="364" measuredH="145" zOrder="28" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="364" h="145" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="193">
+          <controlProperties>
+            <text>Editar%20Dados%20Funcionais</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="289" y="91" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="1" locked="false" isInGroup="193">
+          <controlProperties>
+            <text>Salvar</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::ComboBox" x="177" y="60" w="-1" h="-1" measuredW="91" measuredH="24" zOrder="2" locked="false" isInGroup="193">
+          <controlProperties>
+            <text>Tecn%F3logo</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::ComboBox" x="176" y="34" w="-1" h="-1" measuredW="173" measuredH="24" zOrder="3" locked="false" isInGroup="193">
+          <controlProperties>
+            <text>Engenharia%20de%20Software</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="65" y="36" w="-1" h="-1" measuredW="108" measuredH="21" zOrder="4" locked="false" isInGroup="193">
+          <controlProperties>
+            <text>Mat%E9ria%20Disciplina%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="6" y="62" w="-1" h="-1" measuredW="167" measuredH="21" zOrder="5" locked="false" isInGroup="193">
+          <controlProperties>
+            <text>N%FAcleo%20Central%20Estruturante%3A</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="194" controlTypeID="com.balsamiq.mockups::Arrow" x="457" y="126" w="10" h="93" measuredW="150" measuredH="100" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

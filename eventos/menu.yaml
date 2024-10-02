@@ -1,0 +1,80 @@
+Comunicação Social::Atendimento ao Público:
+  permissions_required:
+  - eventos.change_atendimentopublico
+  url: /admin/eventos/atendimentopublico/
+Comunicação Social::Banners:
+  permissions_required:
+  - eventos.change_banner
+  url: /admin/eventos/banner/
+Comunicação Social::Cadastros::Assuntos de Atendimentos:
+  permissions_required:
+  - eventos.change_assuntoatendimento
+  url: /admin/eventos/assuntoatendimento/
+Comunicação Social::Cadastros::Classificações de Eventos:
+  permissions_required:
+  - eventos.change_classificacaoevento
+  url: /admin/eventos/classificacaoevento/
+Comunicação Social::Cadastros::Dimensões:
+  permissions_required:
+  - eventos.change_dimensao
+  url: /admin/eventos/dimensao/
+Comunicação Social::Cadastros::Espacialidades:
+  permissions_required:
+  - eventos.change_espacialidade
+  url: /admin/eventos/espacialidade/
+Comunicação Social::Cadastros::Motivos de Atendimentos:
+  permissions_required:
+  - eventos.change_motivoatendimento
+  url: /admin/eventos/motivoatendimento/
+Comunicação Social::Cadastros::Natureza de Eventos:
+  permissions_required:
+  - eventos.change_natureza
+  url: /admin/eventos/natureza/
+Comunicação Social::Cadastros::Portes de Eventos:
+  permissions_required:
+  - eventos.change_porteevento
+  url: /admin/eventos/porteevento/
+Comunicação Social::Cadastros::Públicos Alvo de Eventos:
+  permissions_required:
+  - eventos.change_publicoalvoevento
+  url: /admin/eventos/publicoalvoevento/
+Comunicação Social::Cadastros::Públicos de Atendimentos:
+  permissions_required:
+  - eventos.change_publicoatendimento
+  url: /admin/eventos/publicoatendimento/
+Comunicação Social::Cadastros::Situações de Atendimentos:
+  permissions_required:
+  - eventos.change_situacaoatendimento
+  url: /admin/eventos/situacaoatendimento/
+Comunicação Social::Cadastros::Subtipos de Eventos:
+  permissions_required:
+  - eventos.change_subtipoevento
+  url: /admin/eventos/subtipoevento/
+Comunicação Social::Cadastros::Tipos de Atendimentos:
+  permissions_required:
+  - eventos.change_tipoatendimento
+  url: /admin/eventos/tipoatendimento/
+Comunicação Social::Cadastros::Tipos de Atividade em Evento:
+  permissions_required:
+  - eventos.change_tipoatividade
+  url: /admin/eventos/tipoatividade/
+Comunicação Social::Cadastros::Tipos de Eventos:
+  permissions_required:
+  - eventos.change_tipoevento
+  url: /admin/eventos/tipoevento/
+Comunicação Social::Cadastros::Tipos de Participação:
+  permissions_required:
+  - eventos.change_tipoparticipacao
+  url: /admin/eventos/tipoparticipacao/
+Comunicação Social::Eventos:
+  permissions_required:
+  - eventos.view_evento
+  url: /admin/eventos/evento/
+Comunicação Social::Relatórios::Calendário de Eventos:
+  permissions_required:
+  - eventos.change_evento
+  url: /eventos/calendario_eventos/
+Comunicação Social::Relatórios::Relatório de Eventos:
+  permissions_required:
+  - eventos.change_evento
+  url: /eventos/relatorio/

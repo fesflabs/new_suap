@@ -1,0 +1,25 @@
+{% extends super_template %}
+
+{% block content %}
+    {% box 'Informações Gerais' %}
+        <table class="info">
+            <tr>
+                <td>Período</td>
+                <td>{{ edital }}</td>
+            </tr>
+            <tr>
+                <td>Instruções para Submissão da Obra</td>
+                <td>{{ edital.instrucoes|safe }}</td>
+            </tr>
+            <tr>
+                <td>Manual do Autor</td>
+                <td><a href="{{ edital.manual.url }}" class="btn default">Ver arquivo</a></td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    {% box 'Formulário de Submissão' %}
+        <p class="msg alert">Certifique-se de que todos os dados estão corretos, pois não haverá edição pelo usuário.</p>
+        {% render_form form %}
+    {% endbox %}
+{% endblock %}

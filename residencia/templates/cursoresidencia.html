@@ -1,0 +1,145 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/joint/lodash.js"></script>
+    <script src="/static/djtools/joint/backbone.js"></script>
+    <script src="/static/djtools/joint/joint.js"></script>
+    <script src="/static/residencia/js/Matriz.js"></script>
+{% endblock %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    {% if perms.residencia.add_cursoresidencia %}
+        <li><a class="btn popup" href="/residencia/definir_coordenador_residencia/{{ obj.pk }}/">Definir Coordenação</a></li>
+    {% endif %}
+    {% help_button %}
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    {% box "Identificação" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Código</dt>
+                <dd>{{ obj.codigo|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Descrição</dt>
+                <dd>{{ obj.descricao }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Descrição no Histórico</dt>
+                <dd>{{ obj.descricao_historico }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Gerais" data-tab="dados_gerais">
+        {% box "Dados Gerais" %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Data de Início</dt>
+                    <dd>{{ obj.data_inicio|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data de Fim</dt>
+                    <dd>{{ obj.data_fim|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Está ativo</dt>
+                    <dd>{{ obj.ativo|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Coordenação" data-tab="coordenacao">
+    {% if request.GET.tab == "coordenacao" or not request.GET.tab %}
+        {% box "Coordenação" %}
+            <dl class="definition-list flex">
+                <div class="list-item flex-basis-50">
+                    <dt>Coordenador</dt>
+                    <dd>{{ obj.coordenador.servidor|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+
+        {% box "Histórico de Mudança" %}
+            {% if logs %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data da Mudança</th>
+                            <th>Função</th>
+                            <th>Atual</th>
+                            <th>Anterior</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for historico in logs %}
+                        <tr>
+                            <td>{{ historico.0 }}</td>
+                            <td>{{ historico.3 }}</td>
+                            <td>{{ historico.2 }}</td>
+                            <td>{{ historico.1 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Não existe histórico de mudança de coordenador para este curso.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Matrizes" data-tab="matrizes">
+    {% box "Matrizes" %}
+
+        {% if perms.residencia.add_matriz %}
+            <ul class="action-bar">
+                <li><a class="btn success popup" href="/residencia/adicionar_matriz_curso/{{ obj.pk }}/">Vincular Matriz</a></li>
+            </ul>
+        {% endif %}
+
+        <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th class="no-print">Ações</th>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Ativa</th>
+                    {% if perms.residencia.efetuar_matricula or perms.residencia.add_matriz or pode_visualizar_estatistica %}
+                        <th class="no-print">Opções</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for matriz_curso in obj.matrizcurso_set.all %}
+                <tr>
+                    <td class="no-print">
+                        {% icon "view" "/residencia/matriz/{{ matriz_curso.matriz.pk }}/" %}
+                        {% if perms.residencia.change_cursoresidencia and matriz_curso.pode_ser_excluida %}
+                            {% icon "delete" "/comum/excluir/residencia/matrizcurso/{{ matriz_curso.pk }}/" "Remover" "no-confirm popup" %}
+                        {% endif %}
+                    </td>
+                    <td>{{ matriz_curso.matriz.id }}</td>
+                    <td>{{ matriz_curso.matriz.descricao }}</td>
+                    <td>{{ matriz_curso.matriz.ativo|format }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7"><p class="msg alert">Nenhuma matriz adicionada.</p></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    {% endbox %}
+    </div>
+
+{% endblock %}

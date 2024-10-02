@@ -1,0 +1,670 @@
+<script>
+    function validar_nota(input, id_avaliacao, nota_maxima) {
+        var valor = input.value{% if NOTA_DECIMAL %}.replaceAll(',', '.'){% endif %};
+        if (isNaN(valor)) {
+            input.value = "";
+        }
+{% if NOTA_DECIMAL %}
+        else if (valor > 10) {
+            input.value = "";
+            alert("A nota deve ser no máximo 10.");
+        }
+{% else %}
+        else if (valor.indexOf(".") > -1) {
+            input.value = "";
+            alert("A nota deve ser um valor inteiro.");
+        }
+{% endif %}
+        else {
+            var registrar_nota = false;
+{#            {% if obj.componente_curricular.avaliacao_por_conceito and obj.estrutura_curso.get_representacoesconceituais %}#}
+{#                var faixas = "";#}
+{#                {% for conceito in obj.estrutura_curso.get_representacoesconceituais %}#}
+{#                    if (valor >= {{ conceito.valor_minimo }} && valor <= {{ conceito.valor_maximo }}) {#}
+{#                        registrar_nota = true#}
+{#                    }#}
+{#                    faixas += "{{ conceito.descricao }} = {{ conceito.valor_minimo }} à {{ conceito.valor_maximo }}\n";#}
+{#                {% endfor %}#}
+{#                if (!registrar_nota) {#}
+{#                    alert('A nota deve estar em umas dessas faixas:\n\n' + faixas);#}
+{#                    input.value = "";#}
+{#                }#}
+{#            {% else %}#}
+                if (valor < 0) {
+                    input.value = "";
+                    alert('A nota deve ser maior ou igual à 0.');
+                } else {
+                    if (valor > nota_maxima) {
+                        alert('A nota ' + input.value + ' é uma nota invalida para essa avaliação. Ela deve ser entre 0 e ' + nota_maxima + '.');
+                        input.value = "";
+                    } else {
+                        registrar_nota = true
+                    }
+                }
+{#            {% endif %}#}
+
+            if (registrar_nota & input.oldvalue != input.value) {
+                var n = valor {% if NOTA_DECIMAL %}*{{ MULTIPLICADOR_DECIMAL }}{% endif %};
+                if (valor == '') var url = "/residencia/registrar_nota_unidade_ajax/" + id_avaliacao + "/";
+                else var url = "/residencia/registrar_nota_unidade_ajax/" + id_avaliacao + "/" + Math.round(n) + "/";
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    context: input,
+                    error: function() {
+                        $( input ).val(input.oldvalue).addClass( 'errors' );
+                        msg = '<span style="position:fixed;top:0;left:0" id="'+id_avaliacao+'" class="msg error">Problema ao tentar salvar nota. Verifique sua conexão com a internet.</span>';
+                    	$('#message').append(msg);
+                    	$('#'+id_avaliacao).delay(5000).fadeOut(500, function() { $(this).remove(); });
+                    },
+                    success: function(retorno) {
+                        {% if NOTA_DECIMAL %}
+                            if(!isNaN(retorno.etapa)) retorno.etapa = Number(retorno.etapa/{{ MULTIPLICADOR_DECIMAL }}).toFixed({{ CASA_DECIMAL }}).replaceAll('.', ',');
+                            if(!isNaN(retorno.media)) retorno.media = Number(retorno.media/{{ MULTIPLICADOR_DECIMAL }}).toFixed({{ CASA_DECIMAL }}).replaceAll('.', ',');
+                            if(!isNaN(retorno.media_final)) retorno.media_final = Number(retorno.media_final/{{ MULTIPLICADOR_DECIMAL }}).toFixed({{ CASA_DECIMAL }}).replaceAll('.', ',');
+                        {% endif %}
+                    	$( input ).removeClass().addClass( 'int filled' );
+                    	msg = '<span style="position:fixed;top:0;left:0" id="'+id_avaliacao+'" class="msg success">Nota salva!</span>';
+                    	$('#message').append(msg);
+                    	$('#'+id_avaliacao).delay(2500).fadeOut(500, function() { $(this).remove(); });
+                    	$(input).parent().parent().parent().find('input.int.disabled-input').val(retorno.etapa);
+                    	$(input).parent().parent().parent().parent().parent().parent().find('span.md').html(retorno.media);
+                    	$(input).parent().parent().parent().parent().parent().parent().find('span.mfd').html(retorno.media_final);
+                    	matricula_pk = $(input).attr('name').split(';')[1]
+                    	etapa = $(input).attr('name').split(';')[0]
+                    	if (etapa == 5){
+                    		if(retorno.em_prova_final){
+                    			$('#input_5_'+matricula_pk).removeClass().addClass( 'int filled' );
+                    		}
+                    		else if(retorno.prova_final_invalida){
+                    			$('#input_5_'+matricula_pk).removeClass().addClass( 'int error' );
+                    		}
+                    		else{
+                    			$('#input_5_'+matricula_pk).attr('type', 'hidden')
+                        		$('#label_5_'+matricula_pk).attr('style', 'display:block')
+                        		$('#label_5_'+matricula_pk).html('-')
+                    		}
+                    	}
+                    	else{
+                    		if(retorno.em_prova_final || retorno.prova_final_invalida){
+                        		$('#input_5_'+matricula_pk).attr('type', 'text')
+                        		$('#label_5_'+matricula_pk).attr('style', 'display:none')
+                        	}
+                        	else{
+                        		$('#input_5_'+matricula_pk).attr('type', 'hidden')
+                        		$('#label_5_'+matricula_pk).attr('style', 'display:block')
+                        	}
+                        	if (!retorno.em_prova_final && retorno.prova_final_invalida){
+                        		$('#input_5_'+matricula_pk).removeClass().addClass( 'int error' );
+                        	}
+                        	else{
+                        		$('#input_5_'+matricula_pk).removeClass().addClass( 'int' );
+                        	}
+                    	}
+                        $(input).parent().parent().parent().parent().parent().parent().find('span.status').removeClass().addClass('status status-'+retorno.situacao.status);
+                        $(input).parent().parent().parent().parent().parent().parent().find('span.status').html(retorno.situacao.rotulo);
+                    }
+                });
+            }
+        }
+    }
+</script>
+<style>
+    .nota {
+        padding-top: 1px;
+        height: 40px;
+        width: 90px;
+    }
+    .disabled-input {
+        background-color: inherit !important;
+        border-width: 0px !important;
+    }
+    table#table_notas.info td {
+        background-color: inherit !important;
+    }
+</style>
+
+<span id="message"></span>
+
+{% if polos %}
+<div class="search-and-filters" id="polo">
+    <div class="filter">
+        <label>Polo:</label>
+        <select class="text-center" onchange="document.location.href={% if preceptor_diario %}'/residencia/meu_diario/{{ obj.pk }}/{{ etapa }}/'+$(this).val()+'/?tab=notas#polo'{% else %}'/residencia/diario/{{ obj.pk }}/'+$(this).val()+'/?tab=notas_faltas#polo'{% endif %}">
+            <option {% if 0 == polo_pk %}selected{% endif %} value="0">Todos</option>
+            {% for polo in polos %}
+                <option {% if polo.pk == polo_pk %}selected{% endif %} value="{{ polo.pk }}">{{ polo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+{% endif %}
+
+<form method="post" class="mt-2">
+    {% for matriculas in matriculas_unidadeaprendizagemturma %}
+        {% box "{{ matriculas.0.matricula_periodo.residente.polo|default:'Registro de Notas'  }}" %}
+
+            <div class="msg info">
+                <p><strong>Atenção</strong>:</p>
+                <ul>
+                    <li>O salvamento das notas é realizado de forma individual, para isso, basta remover o foco da caixa de texto relativa à nota, seja clicando com o mouse fora da caixa ou utilizando a tecla <code>Tab</code>, e aguardar a mensagem de sucesso: "Nota salva!". Esta mensagem somente irá aparecer caso houver uma mudança na nota ou se a nota estiver sendo informada pela primeira vez.</li>
+                    <li>Evite utilizar de mais de 1 aba no navegador para o registro de notas.</li>
+                </ul>
+            </div>
+
+            <div class="msg info">
+                <p>Legenda:</p>
+                <dl>
+                    <dt>A1, A2:</dt>
+                    <dd>Notas 1, 2 </dd>
+{#                    <dt>F1, F2, F3 e F4:</dt>#}
+{#                    <dd>Faltas nas etapas 1, 2, 3 e 4</dd>#}
+{#                    <dt>MD:</dt>#}
+{#                    <dd>Média da Disciplina</dd>#}
+{#                    <dt>NAF:</dt>#}
+{#                    <dd>Nota da Avaliação Final</dd>#}
+{#                    <dt>MFD:</dt>#}
+{#                    <dd>Média Final da Disciplina</dd>#}
+                </dl>
+            </div>
+
+            {% csrf_token %}
+            {% if matriculas.exists %}
+                <div id="notas_input_ocultar_msg"></div>
+                <div class="checkbox">
+                    <input id="notas_input_ocultar" type="checkbox" onchange="exibirResidentesInativosNotas(this)"/>
+                    <label for="notas_input_ocultar" style="width: auto; margin: 0">
+                    	<span class="negrito" style="padding-left: 5px">Exibir residentes trancados, cancelados, transferidos ou com período letivo fechado.</span>
+                    </label>
+                </div>
+                <div class="table-responsive">
+                <table id="table_notas">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        {% if pode_realizar_procedimentos %}
+                            <th>
+                                <input type="checkbox"
+                                       onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++){ is[i].checked = this.checked;}"/>
+                            </th>
+                        {% endif %}
+                        <th>Residente</th>
+                        {% if qtd_avaliacoes > 0 %}
+                            <th class="text-center">Nota {{ obj.get_numero_primeira_etapa }}</th>
+                        {% endif %}
+                        {% if qtd_avaliacoes > 1 %}
+                            <th class="text-center">Nota {{ obj.get_numero_segunda_etapa }}</th>
+                        {% endif %}
+{#                        {% if qtd_avaliacoes > 0 %}#}
+{#                            <th class="text-center">MD</th>#}
+{#                        {% endif %}#}
+{#                        {% if qtd_avaliacoes > 0 %}#}
+{#                            <th class="text-center">Etapa Final</th>#}
+{#                        {% endif %}#}
+                        {% if qtd_avaliacoes > 0 %}
+                            {% if not etapa or etapa > 0 %}
+                                <th class="text-center">Média Final</th>
+                            {% endif %}
+                        {% endif %}
+                        {% if obj.componente_curricular.tipo == 1 %}
+                            <th class="text-center">Frequência (Horas)</th>
+                        {% endif %}
+                        {% if request.GET.debug or preceptor_diario %}
+                            {% if qtd_avaliacoes > 0 %}
+                                <th class="text-center">Situação do Residente na Unidade</th>
+                            {% endif %}
+                        {% endif %}
+                        {% if request.GET.debug or not qtd_avaliacoes > 0 %}
+                            <th class="text-center">Freq. (%)</th>
+                        {% endif %}
+                        {% if request.GET.debug or not preceptor_diario %}
+                            <th class="text-center">Situação na Unidade</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for matricula_unidade_aprendizagem_turma in matriculas %}
+                        {% with esteve_reprovado=matricula_unidade_aprendizagem_turma.esteve_reprovado %}
+                            <tr {% if not matricula_unidade_aprendizagem_turma.habilitada %} class="disabled"
+                                                                        title="Período letivo deste residente está fechado"
+                                                                        style="display: none;"{% endif %}>
+                                <td>{{ forloop.counter }}</td>
+                                {% if pode_realizar_procedimentos %}
+                                    <td>
+                                        {% if matricula_unidade_aprendizagem_turma|method:"pode_ser_excluido_do_diario"|call:request.user or request.user|in_group:"edu Administrador" %}
+                                            <input value="{{ matricula_unidade_aprendizagem_turma.pk }}" name="del_residente_diario" type="checkbox"/>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    <div class="photo-circle responsive">
+                                        <img src="{{ matricula_unidade_aprendizagem_turma.matricula_periodo.residente.get_foto_75x100_url }}" alt="Foto de {{ matricula_unidade_aprendizagem_turma.matricula_periodo.residente.get_nome }}" />
+                                    </div>
+                                    <dl>
+                                        <dt class="d-none">Residente:</dt>
+                                        <dd>
+                                            {{ matricula_unidade_aprendizagem_turma.matricula_periodo.residente.get_nome }}
+                                            ({% if perms.residencia.view_residente or preceptor_diario.ativo %}<a href="{{ matricula_unidade_aprendizagem_turma.matricula_periodo.residente.get_absolute_url }}">{% endif %}{{ matricula_unidade_aprendizagem_turma.matricula_periodo.residente.matricula|format }}{% if perms.residencia.view_residente or preceptor_diario.ativo %}</a>{% endif %})
+                                        </dd>
+                                        {% if request.GET.debug %}
+                                            <dt>Situação do Matrícula:</dt>
+                                            <dd>{{ matricula_unidade_aprendizagem_turma.matricula_periodo.residente.situacao }}</dd>
+                                            <dt>Situação do Matrícula no Período:</dt>
+                                            <dd>{{ matricula_unidade_aprendizagem_turma.matricula_periodo.situacao }}</dd>
+                                            <dt>Frequência no Período:</dt>
+                                            <dd>{{ matricula_unidade_aprendizagem_turma.matricula_periodo.get_percentual_carga_horaria_frequentada }}%</dd>
+                                        {% endif %}
+                                        <dt class="sr-only">Situações</dt>
+                                        {% if not matricula_unidade_aprendizagem_turma.habilitada %}<dd class="false">Período letivo fechado</dd>{% endif %}
+                                        {% if esteve_reprovado %}<dd class="false">Já esteve reprovado nesta disciplina</dd>{% endif %}
+                                        {% if esteve_reprovado and matricula_unidade_aprendizagem_turma.is_em_dependencia %}<dd class="false">Cursando dependência</dd>{% endif %}
+                                    </dl>
+                                </td>
+                                {% if qtd_avaliacoes > 0 %}
+                                    <td class="vertical-align-bottom">
+                                        <table class="info">
+                                            {% for nota_avaliacao in matricula_unidade_aprendizagem_turma.get_notas_etapa_1 %}
+                                                {% if pode_manipular_etapa_1 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                    <tr>
+                                                        <td><label
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}class="hint"
+                                                                data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}</label>
+                                                        </td>
+                                                        <td><input
+                                                        		onfocus="this.oldvalue = this.value;"
+                                                                onblur="validar_nota(this, {{ nota_avaliacao.id }}, {{ nota_avaliacao.item_configuracao_avaliacao.nota_maxima }})"
+                                                                tabindex="{{ forloop.counter }}" class="int"
+                                                                name="1;{{ matricula_unidade_aprendizagem_turma.pk }};{{ nota_avaliacao.item_configuracao_avaliacao.pk }}"
+                                                                type="text" value="{% if nota_avaliacao.nota == None %}{% else %}{{ nota_avaliacao.nota|formatar_nota }}{% endif %}"/>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td><span
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}class="hint"
+                                                                data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}&nbsp;&nbsp;</span>
+                                                        </td>
+                                                        <td><span
+                                                                class="no-input">{{ nota_avaliacao.nota|formatar_nota }}</span>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% if forloop.last %}
+                                                    <tr>
+                                                        <td><span class="hint" data-hint="Média final da etapa">Nota&nbsp;&nbsp;</span></td>
+                                                        <td class="negrito">
+                                                            {% if pode_manipular_etapa_1 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                                <input type="text" class="int disabled-input"
+                                                                       value="{{ matricula_unidade_aprendizagem_turma.nota_1|formatar_nota }}"
+                                                                       disabled="disabled"/>
+                                                            {% else %}
+                                                                <span class="no-input">{{ matricula_unidade_aprendizagem_turma.nota_1|formatar_nota }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </table>
+                                    </td>
+                                {% endif %}
+                                {% if qtd_avaliacoes > 1 %}
+                                    <td class="vertical-align-bottom">
+                                        <table class="info">
+                                            {% for nota_avaliacao in matricula_unidade_aprendizagem_turma.get_notas_etapa_2 %}
+                                                {% if pode_manipular_etapa_2 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                    <tr>
+                                                        <td><label class="hint"
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}
+                                                                   data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}&nbsp;&nbsp;</label>
+                                                        </td>
+                                                        <td><input
+                                                        		onfocus="this.oldvalue = this.value;"
+                                                                onblur="validar_nota(this, {{ nota_avaliacao.id }}, {{ nota_avaliacao.item_configuracao_avaliacao.nota_maxima }})"
+                                                                tabindex="{{ forloop.counter }}" class="int"
+                                                                name="2;{{ matricula_unidade_aprendizagem_turma.pk }};{{ nota_avaliacao.item_configuracao_avaliacao.pk }}"
+                                                                type="text" value="{% if nota_avaliacao.nota == None %}{% else %}{{ nota_avaliacao.nota|formatar_nota }}{% endif %}"/>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td><span class="hint"
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}
+                                                                  data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}&nbsp;&nbsp;</span>
+                                                        </td>
+                                                        <td><span
+                                                                class="no-input">{{ nota_avaliacao.nota|formatar_nota }}</span>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% if forloop.last %}
+                                                    <tr>
+                                                        <td><label class="hint" data-hint="Média final da etapa">Nota&nbsp;&nbsp;</label>
+                                                        </td>
+                                                        <td class="negrito">
+                                                            {% if pode_manipular_etapa_2 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                                <input type="text" class="int disabled-input"
+                                                                       value="{{ matricula_unidade_aprendizagem_turma.nota_2|formatar_nota }}"
+                                                                       disabled="disabled"
+                                                                       style="border:none;border-width:0px;background:#f9f9f9"/>
+                                                            {% else %}
+                                                                <span class="no-input">{{ matricula_unidade_aprendizagem_turma.nota_2|formatar_nota }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </table>
+                                    </td>
+                                {% endif %}
+                                {% if qtd_avaliacoes > 2 %}
+                                    <td class="vertical-align-bottom">
+                                        <table class="info">
+                                            {% for nota_avaliacao in matricula_unidade_aprendizagem_turma.get_notas_etapa_3 %}
+                                                {% if pode_manipular_etapa_3 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                    <tr>
+                                                        <td><label class="hint"
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}
+                                                                   data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}&nbsp;&nbsp;</label>
+                                                        </td>
+                                                        <td><input
+                                                        		onfocus="this.oldvalue = this.value;"
+                                                                onblur="validar_nota(this, {{ nota_avaliacao.id }}, {{ nota_avaliacao.item_configuracao_avaliacao.nota_maxima }})"
+                                                                tabindex="{{ forloop.counter }}" class="int"
+                                                                name="3;{{ matricula_unidade_aprendizagem_turma.pk }};{{ nota_avaliacao.item_configuracao_avaliacao.pk }}"
+                                                                type="text" value="{% if nota_avaliacao.nota == None %}{% else %}{{ nota_avaliacao.nota|formatar_nota }}{% endif %}"/>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td><label class="hint"
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}
+                                                                   data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}&nbsp;&nbsp;</label>
+                                                        </td>
+                                                        <td><span
+                                                                class="no-input">{{ nota_avaliacao.nota|formatar_nota }}</span>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% if forloop.last %}
+                                                    <tr>
+                                                        <td><span class="hint" data-hint="Média final da etapa">Nota&nbsp;&nbsp;</span>
+                                                        </td>
+                                                        <td class="negrito">
+                                                            {% if pode_manipular_etapa_3 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                                <input type="text" class="int disabled-input"
+                                                                       value="{{ matricula_unidade_aprendizagem_turma.nota_3|formatar_nota }}"
+                                                                       disabled="disabled"/>
+                                                            {% else %}
+                                                                <span class="no-input">{{ matricula_unidade_aprendizagem_turma.nota_3|formatar_nota }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </table>
+                                    </td>
+                                {% endif %}
+                                {% if qtd_avaliacoes > 2 %}
+                                    <td class="vertical-align-bottom">
+                                        <table class="info">
+                                            {% for nota_avaliacao in matricula_unidade_aprendizagem_turma.get_notas_etapa_4 %}
+                                                {% if pode_manipular_etapa_4 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                    <tr>
+                                                        <td><label class="hint"
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}
+                                                                   data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}:</label>
+                                                        </td>
+                                                        <td><input
+                                                        		onfocus="this.oldvalue = this.value;"
+                                                                onblur="validar_nota(this, {{ nota_avaliacao.id }}, {{ nota_avaliacao.item_configuracao_avaliacao.nota_maxima }})"
+                                                                tabindex="{{ forloop.counter }}" class="int"
+                                                                name="4;{{ matricula_unidade_aprendizagem_turma.pk }};{{ nota_avaliacao.item_configuracao_avaliacao.pk }}"
+                                                                type="text" value="{% if nota_avaliacao.nota == None %}{% else %}{{ nota_avaliacao.nota|formatar_nota }}{% endif %}"/>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td><label class="hint"
+                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}
+                                                                   data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}
+                                                            :</label></td>
+                                                        <td><span
+                                                                class="no-input">{{ nota_avaliacao.nota|formatar_nota }}</span>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% if forloop.last %}
+                                                    <tr>
+                                                        <td><span class="hint" data-hint="Média final da etapa">Nota&nbsp;&nbsp;</span>
+                                                        </td>
+                                                        <td class="negrito">
+                                                            {% if pode_manipular_etapa_4 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}
+                                                                <input type="text" class="int disabled-input"
+                                                                       value="{{ matricula_unidade_aprendizagem_turma.nota_4|formatar_nota }}"
+                                                                       disabled="disabled"/>
+                                                            {% else %}
+                                                                <span class="no-input">{{ matricula_unidade_aprendizagem_turma.nota_4|formatar_nota }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </table>
+                                    </td>
+                                {% endif %}
+
+                                {% if qtd_avaliacoes > 0 or request.GET.debug %}
+                                    <td class="vertical-align-bottom">
+                                        <table class="info">
+                                            <tr>
+                                                <td>Média:</td>
+                                                <td><span
+                                                        class="no-input md">{{ matricula_unidade_aprendizagem_turma.get_media_disciplina|formatar_nota}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                {% endif %}
+
+{#                                {% if qtd_avaliacoes > 0 %}#}
+{#                                    <td class="vertical-align-bottom">#}
+{#                                        <table class="info">#}
+{#                                            {% for nota_avaliacao in matricula_unidade_aprendizagem_turma.get_notas_etapa_5 %}#}
+{#                                                    <tr>#}
+{#                                                        <td><label class="hint"#}
+{#                                                                {% if nota_avaliacao.item_configuracao_avaliacao.descricao %}#}
+{#                                                                   data-hint="{{ nota_avaliacao.item_configuracao_avaliacao.descricao }}" {% endif %}>{{ nota_avaliacao.item_configuracao_avaliacao.sigla }}:</label>#}
+{#                                                        </td>#}
+{#                                                        <td>#}
+{#                                                        	{% if pode_manipular_etapa_5 and perms.residencia.lancar_nota_diario and matricula_unidade_aprendizagem_turma.is_cursando %}#}
+{#                                                        	<input#}
+{#                                                        		onfocus="this.oldvalue = this.value;"#}
+{#                                                                onblur="validar_nota(this, {{ nota_avaliacao.id }}, {{ nota_avaliacao.item_configuracao_avaliacao.nota_maxima }})"#}
+{#                                                                tabindex="{{ forloop.counter }}"#}
+{#                                                                class="int {% if not matricula_unidade_aprendizagem_turma.is_em_prova_final and matricula_unidade_aprendizagem_turma.nota_final %}error{% endif %}"#}
+{#                                                                id="input_5_{{ matricula_unidade_aprendizagem_turma.pk }}"#}
+{#                                                                name="5;{{ matricula_unidade_aprendizagem_turma.pk }};{{ nota_avaliacao.item_configuracao_avaliacao.pk }}"#}
+{#                                                                type="{% if matricula_unidade_aprendizagem_turma.is_em_prova_final or not matricula_unidade_aprendizagem_turma.is_em_prova_final and matricula_unidade_aprendizagem_turma.nota_final %}text{% else %}hidden{% endif %}"#}
+{#                                                                value="{% if nota_avaliacao.nota == None %}{% else %}{{ nota_avaliacao.nota|formatar_nota }}{% endif %}"#}
+{#                                                                />#}
+{#                                                             <span id="label_5_{{ matricula_unidade_aprendizagem_turma.pk }}"#}
+{#                                                             	style="display:{% if matricula_unidade_aprendizagem_turma.is_em_prova_final or not matricula_unidade_aprendizagem_turma.is_em_prova_final and matricula_unidade_aprendizagem_turma.nota_final %}none{% else %}block{% endif %}"#}
+{#                                                             	class="no-input">{{ nota_avaliacao.nota|formatar_nota }}#}
+{#                                                             </span>#}
+{#                                                             {% else %}#}
+{#                                                             <span class="no-input">{{ nota_avaliacao.nota|formatar_nota }}#}
+{#                                                             </span>#}
+{#                                                             {% endif %}#}
+{#                                                        </td>#}
+{#                                                    </tr>#}
+{##}
+{#                                                {% if forloop.last and not forloop.first %}#}
+{#                                                    <tr>#}
+{#                                                        <td><span class="hint" data-hint="Média final da etapa">Nota&nbsp;&nbsp;</span>#}
+{#                                                        </td>#}
+{#                                                        <td class="negrito">#}
+{#                                                            {% if pode_manipular_etapa_5 and matricula_unidade_aprendizagem_turma.is_cursando and perms.residencia.lancar_nota_diario %}#}
+{#                                                                <input type="text" class="int disabled-input" value="#}
+{#                                                                        {% if matricula_unidade_aprendizagem_turma.nota_final != None %}{{ matricula_unidade_aprendizagem_turma.nota_final|formatar_nota }}{% endif %}"#}
+{#                                                                       disabled="disabled"/>#}
+{#                                                            {% else %}#}
+{#                                                                <span class="no-input">{{ matricula_unidade_aprendizagem_turma.nota_final|formatar_nota }}</span>#}
+{#                                                            {% endif %}#}
+{#                                                        </td>#}
+{#                                                    </tr>#}
+{#                                                {% endif %}#}
+{#                                            {% endfor %}#}
+{#                                        </table>#}
+{#                                    </td>#}
+{#                                {% endif %}#}
+{##}
+{#                                {% if qtd_avaliacoes > 0 or request.GET.debug %}#}
+{#                                    {% if not etapa or etapa > 0 %}#}
+{#                                        <td class="vertical-align-bottom">#}
+{#                                            <table class="info">#}
+{#                                                <tr>#}
+{#                                                    <td>Média Final:</td>#}
+{#                                                    <td><span#}
+{#                                                            class="no-input mfd">{{ matricula_unidade_aprendizagem_turma.get_media_final_disciplina|formatar_nota}}</span>#}
+{#                                                    </td>#}
+{#                                                </tr>#}
+{#                                            </table>#}
+{#                                        </td>#}
+{#                                    {% endif %}#}
+{#                                {% endif %}#}
+                                  {% if obj.componente_curricular.tipo == 1 %}
+                                    <td>{{matricula_unidade_aprendizagem_turma.get_frequencia_confirmada_total}}</td>
+                                  {% endif %}
+                                {% if request.GET.debug or preceptor_diario %}
+                                    {% if qtd_avaliacoes > 0 %}
+                                        {% if matricula_unidade_aprendizagem_turma.situacao == 1 %}
+                                            <td><span
+                                                    class="status status-{{ matricula_unidade_aprendizagem_turma.get_situacao_nota.status }}">{{ matricula_unidade_aprendizagem_turma.get_situacao_nota.rotulo }}</span>
+                                            </td>
+                                        {% else %}
+                                            <td><span
+                                                    class="status status-{{ matricula_unidade_aprendizagem_turma.get_situacao_registrada_diario.status }}">{{ matricula_unidade_aprendizagem_turma.get_situacao_registrada_diario.rotulo }}</span>
+                                            </td>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if request.GET.debug or not qtd_avaliacoes > 0 %}
+                                    <td>{{ matricula_unidade_aprendizagem_turma.get_percentual_carga_horaria_frequentada|format }} %</td>
+                                {% endif %}
+
+                                {% if request.GET.debug or not qtd_avaliacoes > 0 %}
+                                    {% if request.GET.debug or preceptor_diario %}
+                                        <td><span
+                                                class="status status-{{ matricula_unidade_aprendizagem_turma.get_situacao_frequencia.status }}">{{ matricula_unidade_aprendizagem_turma.get_situacao_frequencia.rotulo }}</span>
+                                        </td>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if request.GET.debug or not preceptor_diario %}
+                                    {% if matricula_unidade_aprendizagem_turma.situacao == 1 %}
+                                        <td><span
+                                                class="status status-{{ matricula_unidade_aprendizagem_turma.get_situacao_diario.status }}">{{ matricula_unidade_aprendizagem_turma.get_situacao_diario.rotulo }}</span>
+                                        </td>
+                                    {% else %}
+                                        <td><span
+                                                class="status status-{{ matricula_unidade_aprendizagem_turma.get_situacao_registrada_diario.status }}">{{ matricula_unidade_aprendizagem_turma.get_situacao_registrada_diario.rotulo }}</span>
+                                        </td>
+                                    {% endif %}
+                                {% endif %}
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum residente matriculado.</p>
+            {% endif %}
+        {% endbox %}
+        {% empty %}
+        <p class="msg alert">Nenhum residente matriculado no diário.</p>
+    {% endfor %}
+    <div class="submit-row">
+        {% if pode_realizar_procedimentos and perms.residencia.delete_matricula_unidade_aprendizagem_turma %}
+            <input type="button" class="danger no-confirm" id="btn_remover" value="Remover Residentes Selecionados"/>
+            <input class="success hidden" type="button" id="btn_transferir" value="Transferir Residentes Selecionados" onclick="popupTransferencia({{ obj.pk }})" name="_addanother"/>
+        {% endif %}
+    </div>
+</form>
+<script>
+    jQuery(function () {
+        if (!$("input[name='del_residente_diario']").length) {
+            $("#btn_remover").hide();
+            $("#btn_transferir").hide();
+        }
+    });
+    $("#btn_remover").click(function (e) {
+        ids = $("input[name='del_residente_diario']:checked").map(function () {
+            return this.value;
+        }).get().join("_");
+        if (!ids) {
+            alert("Nenhum residente selecionado.");
+        } else {
+            $.fancybox.open({
+                src  : '/comum/excluir/residencia/matricula_unidade_aprendizagem_turma/' + ids + '/?_popup=1',
+                type : 'iframe'
+            });
+        }
+    });
+
+</script>
+<script>
+    function exibirResidentesInativosNotas(e) {
+        if (e.checked) {
+            $('#table_notas > tbody > tr.disabled').show();
+            recontar_index_linha(true);
+
+        } else {
+            $('#table_notas > tbody > tr.disabled').hide();
+            recontar_index_linha(false);
+        }
+        if ($('#notas_input_ocultar').length > 0) {
+            var qtd_residentes_inativos = $('#table_notas > tbody > tr.disabled').length;
+            if (!$('#notas_input_ocultar')[0].checked && qtd_residentes_inativos > 0) {
+                if (qtd_residentes_inativos == 1) var msg = '<div class="msg alert">Este diário possui 1 residente cancelado/trancado que não está sendo exibido. Caso deseje que ele seja mostrado na tabela abaixo, marque o checkbox abaixo.</div>';
+                else var msg = '<div class="msg alert">Este diário possui ' + qtd_residentes_inativos + ' residentes cancelados/trancados que não estão sendo exibidos. Caso deseje que eles sejam mostrados na tabela abaixo, marque o checkbox abaixo.</div>';
+                $('#notas_input_ocultar_msg').html(msg);
+            } else {
+                $('#notas_input_ocultar_msg').html('');
+            }
+        }
+    }
+
+    function recontar_index_linha(exibir_residentes_inativos) {
+        if (exibir_residentes_inativos) {
+            $('#table_notas > tbody > tr').each(function (index) {
+                var target_td = $('td', this)[0];
+                $(target_td).html(index + 1);
+            });
+        } else {
+            $('#table_notas > tbody > tr').not('.disabled').each(function (index) {
+                var target_td = $('td', this)[0];
+                $(target_td).html(index + 1);
+            });
+        }
+    }
+
+
+    if ($('#notas_input_ocultar').length > 0) {
+        var x = $('#notas_input_ocultar')[0];
+        x.checked = true;
+        exibirResidentesInativosNotas(x);
+    }
+
+</script>
+
+{% if NOTA_DECIMAL %}
+<script src="/static/djtools/jquery/jquery.maskedinput.js"></script>
+<script src="/static/djtools/jquery/widgets-core.js"></script>
+<script>
+    $("input.int").keyup(function () {
+        mask_nota(this, {{ CASA_DECIMAL }} );
+    });
+</script>
+{% endif %}

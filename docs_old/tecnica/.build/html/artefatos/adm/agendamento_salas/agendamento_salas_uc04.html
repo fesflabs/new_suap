@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UC 04 - Avaliar requisição de reservas de salas &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../index.html"/>
+        <link rel="up" title="Agendamento de Salas" href="index.html"/>
+        <link rel="next" title="UC 05 - Cancelar Agenda &lt;v0.1&gt;" href="agendamento_salas_uc05.html"/>
+        <link rel="prev" title="UC 03 - Indisponibilizar Salas &lt;v0.1&gt;" href="agendamento_salas_uc03.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Administração</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../projetos/index.html">Projetos educacionais</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Agendamento de Salas</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="doc_visao.html">Documento de Visão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc01.html">UC 01- Manter Salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc02.html">UC 02 - Requisitar Reserva de  Salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc03.html">UC 03 - Indisponibilizar Salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UC 04 - Avaliar requisição de reservas de salas &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc05.html">UC 05 - Cancelar Agenda &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agendamento_salas_uc06.html">UC 06 - Indeferir solicitações fora de prazo &lt;v0.1&gt;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">UC 04 - Avaliar requisição de reservas de salas &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Comum</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="uc-04-avaliar-requisicao-de-reservas-de-salas-v0-1">
+<span id="suap-artefatos-adm-agendamento-salas-uc04"></span><h1>UC 04 - Avaliar requisição de reservas de salas &lt;v0.1&gt;<a class="headerlink" href="#uc-04-avaliar-requisicao-de-reservas-de-salas-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id5">Histórico da Revisão</a></p></li>
+<li><p><a class="reference internal" href="#objetivo" id="id6">Objetivo</a></p></li>
+<li><p><a class="reference internal" href="#atores" id="id7">Atores</a></p>
+<ul>
+<li><p><a class="reference internal" href="#principais" id="id8">Principais</a></p></li>
+<li><p><a class="reference internal" href="#interessado" id="id9">Interessado</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pre-condicoes" id="id10">Pré-condições</a></p></li>
+<li><p><a class="reference internal" href="#pos-condicoes" id="id11">Pós-condições</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-eventos" id="id12">Fluxo de Eventos</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fluxo-normal" id="id13">Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-alternativo" id="id14">Fluxo Alternativo</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao" id="id15">Fluxo de Exceção</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#especificacao-suplementares" id="id16">Especificação suplementares</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requisitos-nao-funcionais" id="id17">Requisitos Não-Funcionais</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-interface" id="id18">Requisitos de Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ri1-exibicao-de-requisicao-de-reserva-de-sala" id="id19">RI1 – Exibição de requisição de reserva de sala</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos-de-informacao" id="id20">Requisitos de Informação</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rin1-campos-para-listagem-de-requisicoes-de-reservas" id="id21">RIN1 – Campos para listagem de requisições de reservas</a></p></li>
+<li><p><a class="reference internal" href="#rin2-campos-para-cadastros" id="id22">RIN2 – Campos para Cadastros</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#regras-de-negocio" id="id23">Regras de Negócio</a></p></li>
+<li><p><a class="reference internal" href="#mensagens" id="id24">Mensagens</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ponto-de-extensao" id="id25">Ponto de Extensão</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id26">Questões em Aberto</a></p></li>
+<li><p><a class="reference internal" href="#esboco-de-prototipo" id="id27">Esboço de Protótipo</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso" id="id28">Diagrama de domínio do caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-fluxo-de-operacao" id="id29">Diagrama de Fluxo de Operação</a></p></li>
+<li><p><a class="reference internal" href="#cenario-de-testes" id="id30">Cenário de Testes</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id5">Histórico da Revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>07/05/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p>Jailton Carlos</p></td>
+</tr>
+<tr class="row-odd"><td><p>03/07/2014</p></td>
+<td><p>0.2</p></td>
+<td><p>Ajustes finais na documentação, inclusão de protótipos de telas.</p></td>
+<td><p>Jailton Carlos</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objetivo">
+<h2><a class="toc-backref" href="#id6">Objetivo</a><a class="headerlink" href="#objetivo" title="Link permanente para este título">¶</a></h2>
+<p>Permitir que um avaliador possa deferir ou indefir uma solicitação de reserva de salas.</p>
+</section>
+<section id="atores">
+<h2><a class="toc-backref" href="#id7">Atores</a><a class="headerlink" href="#atores" title="Link permanente para este título">¶</a></h2>
+<section id="principais">
+<h3><a class="toc-backref" href="#id8">Principais</a><a class="headerlink" href="#principais" title="Link permanente para este título">¶</a></h3>
+<p>Avaliador: usuário autenticado pertecente ao grupo “Servidores” e que seja avaliador em ao menos uma sala.</p>
+</section>
+<section id="interessado">
+<h3><a class="toc-backref" href="#id9">Interessado</a><a class="headerlink" href="#interessado" title="Link permanente para este título">¶</a></h3>
+<p>Não se aplica.</p>
+</section>
+</section>
+<section id="pre-condicoes">
+<h2><a class="toc-backref" href="#id10">Pré-condições</a><a class="headerlink" href="#pre-condicoes" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Deve existir ao menos uma solicitação de reserva de sala.</p></li>
+<li><p>Usuário corrente dever ser avaliador de pelo menos uma sala.</p></li>
+</ul>
+</section>
+<section id="pos-condicoes">
+<h2><a class="toc-backref" href="#id11">Pós-condições</a><a class="headerlink" href="#pos-condicoes" title="Link permanente para este título">¶</a></h2>
+<ul>
+<li><p>É enviado um e-mail para os solicitantes de reserva informando que a reserva foi avaliada;</p></li>
+<li><p>É excluído no Painel de Notificação do avaliador o aviso de que existem agendamentos pendentes de avaliação.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Ver <a class="reference internal" href="#regras-de-negocio">RN2</a></p>
+</div>
+</li>
+</ul>
+</section>
+<section id="fluxo-de-eventos">
+<h2><a class="toc-backref" href="#id12">Fluxo de Eventos</a><a class="headerlink" href="#fluxo-de-eventos" title="Link permanente para este título">¶</a></h2>
+<section id="fluxo-normal">
+<h3><a class="toc-backref" href="#id13">Fluxo Normal</a><a class="headerlink" href="#fluxo-normal" title="Link permanente para este título">¶</a></h3>
+<blockquote id="fn">
+<div><ol class="arabic simple">
+<li><p>O caso de uso é iniciado acionando a opção  <code class="docutils literal notranslate"><span class="pre">ADMINISTRAÇÃO</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Reservas</span> <span class="pre">de</span> <span class="pre">Salas</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Acompanhamentos</span></code></p></li>
+<li><p>O sistema lista todas as requisições de reservas de salas na qual o usuário corrente é avaliador (<a class="reference internal" href="#rin1">RIN1</a>)</p></li>
+<li><p>O avaliador aciona a opção <code class="docutils literal notranslate"><span class="pre">Ver</span></code> de uma das linhas da listagem de solicitações de reservas</p></li>
+<li><p>O sistema exibe informações da requisição da reserva de sala (<a class="reference internal" href="#ri1">RI1</a>)</p></li>
+<li><p>O avaliador aciona a opção <code class="docutils literal notranslate"><span class="pre">Avaliar</span> <span class="pre">Requisição</span></code></p></li>
+<li><p>O avaliador informa os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O avaliador finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M1</a></p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fluxo-alternativo">
+<h3><a class="toc-backref" href="#id14">Fluxo Alternativo</a><a class="headerlink" href="#fluxo-alternativo" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="fluxo-de-excecao">
+<h3><a class="toc-backref" href="#id15">Fluxo de Exceção</a><a class="headerlink" href="#fluxo-de-excecao" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+</section>
+<section id="especificacao-suplementares">
+<h2><a class="toc-backref" href="#id16">Especificação suplementares</a><a class="headerlink" href="#especificacao-suplementares" title="Link permanente para este título">¶</a></h2>
+<section id="requisitos-nao-funcionais">
+<h3><a class="toc-backref" href="#id17">Requisitos Não-Funcionais</a><a class="headerlink" href="#requisitos-nao-funcionais" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="requisitos-de-interface">
+<h3><a class="toc-backref" href="#id18">Requisitos de Interface</a><a class="headerlink" href="#requisitos-de-interface" title="Link permanente para este título">¶</a></h3>
+<section id="ri1-exibicao-de-requisicao-de-reserva-de-sala">
+<span id="ri1"></span><h4><a class="toc-backref" href="#id19">RI1 – Exibição de requisição de reserva de sala</a><a class="headerlink" href="#ri1-exibicao-de-requisicao-de-reserva-de-sala" title="Link permanente para este título">¶</a></h4>
+<p>É exibida informações da requisição da reserva dentro dos seguintes caixas:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dados</span> <span class="pre">Gerais</span></code>: exbe informações da sala;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Requisição</span></code>: Exibe a data da requisição, data inicial e final da reserva, justificativa e nome do solicitante;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Agenda</span> <span class="pre">atual</span></code>: exibe o calendário com a agenda atual da sala.</p></li>
+</ul>
+<p>A <a class="reference internal" href="#figura-2">Figura 2</a> a esquerda esboça como essas informações estariam dispostas.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Se uma requisição foi avalida, além das caixas acima citadas, é exibida a caixa <code class="docutils literal notranslate"><span class="pre">Avaliação</span></code> com os dados
+da avaliação: nome do avaliador, data da avaliação, parecer e observação do avaliador conforme pode ser
+visto na <a class="reference internal" href="#figura-3">Figura 3</a>.</p>
+</div>
+</section>
+</section>
+<section id="requisitos-de-informacao">
+<h3><a class="toc-backref" href="#id20">Requisitos de Informação</a><a class="headerlink" href="#requisitos-de-informacao" title="Link permanente para este título">¶</a></h3>
+<section id="rin1-campos-para-listagem-de-requisicoes-de-reservas">
+<span id="rin1"></span><h4><a class="toc-backref" href="#id21">RIN1 – Campos para listagem de requisições de reservas</a><a class="headerlink" href="#rin1-campos-para-listagem-de-requisicoes-de-reservas" title="Link permanente para este título">¶</a></h4>
+<p>A listagem é exibida dividida em abas conforme especificadas abaixo:</p>
+<ul class="simple">
+<li><p>Aba <code class="docutils literal notranslate"><span class="pre">Qualquer</span></code>: lista todas as solicitações de reservas independente se foram avaliadas ou não.</p></li>
+<li><p>Aba <code class="docutils literal notranslate"><span class="pre">Minhas</span> <span class="pre">avaliações</span> <span class="pre">pendentes</span></code>: lista todas as requisições de reservas de salas na qual o usuário corrente
+é avaliador e que ainda não foram avaliadas</p></li>
+<li><p>Aba <code class="docutils literal notranslate"><span class="pre">Minhas</span> <span class="pre">avaliações</span> <span class="pre">atendidas</span></code>: lista todas as requisições de reservas de salas na qual o usuário corrente
+é avaliador e que já foram avaliadas.</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>Ações</p></th>
+<th class="head"><p>Sala solicitada</p></th>
+<th class="head"><p>Período solicitado</p></th>
+<th class="head"><p>Deferido</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>Ordenação</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Filtro</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Busca</p></th>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Observações</p></th>
+<td><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Rótulo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ver</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td></td>
+<td></td>
+<td><p>Sim, Não, ?</p></td>
+</tr>
+</tbody>
+</table>
+<p>A <a class="reference internal" href="#figura-1">Figura 1</a> exibe um esboço de como esses dados serão exibidos.</p>
+</section>
+<section id="rin2-campos-para-cadastros">
+<span id="rin2"></span><h4><a class="toc-backref" href="#id22">RIN2 – Campos para Cadastros</a><a class="headerlink" href="#rin2-campos-para-cadastros" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio/Máscara</p></th>
+<th class="head"><p>Observação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Deferimento*</p></td>
+<td><p>Caixa de seleção</p></td>
+<td></td>
+<td></td>
+<td><p>Sim, Não</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Observação do avaliador*</p></td>
+<td><p>Texto longo</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A <a class="reference internal" href="#figura-2">Figura 2</a> a direita exibe um esboço do formulário de cadastro.</p>
+</section>
+</section>
+<section id="regras-de-negocio">
+<h3><a class="toc-backref" href="#id23">Regras de Negócio</a><a class="headerlink" href="#regras-de-negocio" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN1</p></td>
+<td><div class="line-block">
+<div class="line">Critério para exibição da opção <code class="docutils literal notranslate"><span class="pre">Avaliar</span> <span class="pre">Requisição</span></code>:  essa opção só estará disponível para avaliador e se a data final da</div>
+<div class="line">requisição for menor ou igual a data atual e a requisição não tenha sido avaliada.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN2</p></td>
+<td><div class="line-block">
+<div class="line">O aviso de que existem agendamentos pendentes de avaliação disponível no Painel de Notificação só será excluído se não existir mais solicitações</div>
+<div class="line">de reservas a serem avaliadas.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mensagens">
+<h3><a class="toc-backref" href="#id24">Mensagens</a><a class="headerlink" href="#mensagens" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="m">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M1</p></td>
+<td><p>Cadastro realizado com sucesso.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ponto-de-extensao">
+<span id="pe"></span><h2><a class="toc-backref" href="#id25">Ponto de Extensão</a><a class="headerlink" href="#ponto-de-extensao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id26">Questões em Aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="esboco-de-prototipo">
+<h2><a class="toc-backref" href="#id27">Esboço de Protótipo</a><a class="headerlink" href="#esboco-de-prototipo" title="Link permanente para este título">¶</a></h2>
+<figure class="align-center" id="id2">
+<span id="figura-1"></span><a class="reference internal image-reference" href="../../../_images/UC04_listar_requisicoes.png"><img alt="protótipo de tela." src="../../../_images/UC04_listar_requisicoes.png" style="width: 871.0px; height: 383.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 1: Protótipo de tela para listagem de requisições.</span><a class="headerlink" href="#id2" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id3">
+<span id="figura-2"></span><a class="reference internal image-reference" href="../../../_images/UC04_avaliar_requisicao.png"><img alt="protótipo de tela." src="../../../_images/UC04_avaliar_requisicao.png" style="width: 814.0999999999999px; height: 483.7px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 2: Protótip de tela a esquerda para exibir requisição e a direita para cadastro de avaliação de requisição.</span><a class="headerlink" href="#id3" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id4">
+<span id="figura-3"></span><a class="reference internal image-reference" href="../../../_images/UC04_visualizar_reserva_avaliada.png"><img alt="protótipo de tela." src="../../../_images/UC04_visualizar_reserva_avaliada.png" style="width: 414.4px; height: 576.8px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 3: Protótip de tela para exbição de requisição com parecer do avaliador.</span><a class="headerlink" href="#id4" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagrama-de-dominio-do-caso-de-uso">
+<h2><a class="toc-backref" href="#id28">Diagrama de domínio do caso de uso</a><a class="headerlink" href="#diagrama-de-dominio-do-caso-de-uso" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="diagrama-de-fluxo-de-operacao">
+<h2><a class="toc-backref" href="#id29">Diagrama de Fluxo de Operação</a><a class="headerlink" href="#diagrama-de-fluxo-de-operacao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="cenario-de-testes">
+<h2><a class="toc-backref" href="#id30">Cenário de Testes</a><a class="headerlink" href="#cenario-de-testes" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="agendamento_salas_uc05.html" class="btn btn-neutral float-right" title="UC 05 - Cancelar Agenda &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="agendamento_salas_uc03.html" class="btn btn-neutral" title="UC 03 - Indisponibilizar Salas &lt;v0.1&gt;"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

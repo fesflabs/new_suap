@@ -1,0 +1,147 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% if perms.ppe.change_solicitacaousuario %}
+            {% if not obj.atendida %}
+                    {% if not obj.razao_indeferimento %}
+                        {% if eh_atendimentopsicossocial %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% elif eh_continuidadeaperfeicoamentoprofissional %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% elif eh_ampliacaoprazocurso %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% elif eh_realocacao %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                         {% elif eh_visitatecnicaunidade %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% else %}
+                            <li><a href="?atender=1" class="btn success">Deferir</a></li>
+                        {% endif %}
+
+                        <li><a href="/ppe/rejeitar_solicitacao/{{ obj.pk }}/"
+                                class="btn popup danger no-confirm">Rejeitar</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+        {% help_button %}
+    </ul>
+    {% box "Dados da Solicitação" %}
+        <table class="info">
+            <tr>
+                <td>Solicitante</td>
+                <td>{{ obj.solicitante|format }}</td>
+            </tr>
+            <tr>
+                <td>Data da Solicitação</td>
+                <td>{{ obj.data_solicitacao|format }}</td>
+            </tr>
+            <tr>
+                <td>Descrição</td>
+                <td>{{ obj.descricao }}</td>
+            </tr>
+            {% if eh_atendimentopsicossocial %}
+                <tr>
+                    <td>Motivo</td>
+                    <td>{{ filho.motivo }}</td>
+                </tr>
+            {% elif eh_continuidadeaperfeicoamentoprofissional%}
+                <tr>
+                    <td>Observação</td>
+                    <td>{{ filho.observacao }}</td>
+                </tr>
+            {% elif eh_ampliacaoprazocurso %}
+                <tr>
+                    <td>Observação</td>
+                    <td>{{ filho.observacao }}</td>
+                </tr>
+                <tr>
+                    <td>E-mail para contato</td>
+                    <td>{{ filho.email|format }}</td>
+                </tr>
+             {% elif eh_realocacao %}
+                <tr>
+                    <td>Unidade de lotação</td>
+                    <td>{{ filho.unidade_lotacao|format}}</td>
+                </tr>
+                <tr>
+                    <td>Motivo</td>
+                    <td>{{ filho.motivo|format}}</td>
+                </tr>
+                <tr>
+                    <td>Novo setor de trabalho</td>
+                    <td>{{ filho.novo_setor_trabalho|format}}</td>
+                </tr>
+                <tr>
+                    <td>Nome da nova chefia</td>
+                    <td>{{ filho.nome_nova_chefia|format}}</td>
+                </tr>
+                <tr>
+                     <td>Cargo da nova chefia</td>
+                     <td>{{ filho.cargo_nova_chefia|format}}</td>
+                </tr>
+            {% elif eh_visitatecnicaunidade%}
+                <tr>
+                    <td>Unidade</td>
+                    <td>{{ filho.unidade|format}}</td>
+                </tr>
+                <tr>
+                     <td>Data</td>
+                     <td>{{ filho.data|format}}</td>
+                </tr>
+                <tr>
+                    <td>Horário Início</td>
+                    <td>{{ filho.hora_inicio|format }}</td>
+                </tr>
+                <tr>
+                    <td>Horário Fim</td>
+                    <td>{{ filho.hora_fim|format }}</td>
+                </tr>
+                <tr>
+                    <td>Observação</td>
+                    <td>{{ filho.observacao }}</td>
+                </tr>
+            {% else %}
+                {% if trabalhadoreducando %}
+                    <tr>
+                        <td>Coordenador do Curso</td>
+                        <td>{{ residente.curso_campus.coordenador|format }}</td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </table>
+
+    {% endbox %}
+
+    {% box "Dados da Avaliação" %}
+        {% if obj.avaliador %}
+            <table class="info">
+                <tr>
+                    <td>Avaliador</td>
+                    <td>{{ obj.avaliador|format }}</td>
+                </tr>
+                <tr>
+                    <td>Data da Avaliação</td>
+                    <td>{{ obj.data_avaliacao|format }}</td>
+                </tr>
+                <tr>
+                    <td>Aceita</td>
+                    <td>{{ obj.atendida|format }}</td>
+                </tr>
+                {% if not obj.atendida %}
+                    <tr>
+                        <td>Razão do indeferimento</td>
+                        <td>{{ obj.razao_indeferimento|format }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% else %}
+            <p class="msg alert">A solicitação ainda não foi avaliada.</p>
+        {% endif %}
+    {% endbox %}
+
+
+{% endblock %}

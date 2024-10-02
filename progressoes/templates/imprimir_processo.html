@@ -1,0 +1,295 @@
+{% extends "relatorio_pdf.html" %}
+{% block style %}
+    .top-padding{
+        padding-top: 3cm;
+    }
+    td, th {
+        font-size: 8pt;
+        line-height: 1em;
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    }
+    td.lei {
+        padding-top: 16px;
+        text-align: center;
+    }
+    div.lei {
+        padding-top: 8px;
+        border: 1px solid black;
+        line-height: 16px;
+    }
+    h2 {
+        text-align: center;
+        padding-top: 6px;
+        margin-bottom: 0px;
+        border: 1px solid black;
+        border-bottom: none;
+    }
+    tr.assinatura{
+        border: 0;
+    }
+    div.assinatura-valor{
+        padding-left: 20px;
+        font-size: 80%;
+    }
+
+    {% block page_settings %}
+        @page {
+            size: a4 {% block page_orientation %}portrait{% endblock %};
+            background-image: url(/static/comum/img/logo_if_portrait.png);
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            margin-top: 2cm; /* HeaderHeight */
+            margin-bottom: 1cm; /* FooterHeight */
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+        @bottom-right {
+            content: "Página " counter(page) " de " counter(pages);
+        }
+        }
+        header{
+            top: -2cm; /* -HeaderHeight */
+            height: 2cm; /* HeaderHeight */
+            position: fixed;
+            width:98%;
+            padding-top: 0.5cm;
+        }
+        footer{
+            bottom: 0cm; /* -FooterHeight */
+            height: 1cm; /* FooterHeight */
+            position: fixed;
+            width: 100%;
+            text-align: center;
+        }
+    {% endblock %}
+{% endblock %}
+
+{% block cabecalho %}
+    <header>
+        <table id="cabecalho">
+            <tr>
+                <td align="left" class="linhasdocabecalho" rowspan="4"><img src="/static/comum/img/brazao_colorido.jpg"
+                                                                            alt="Brasão do Brasil"/></td>
+                <td class="linhasdocabecalho">SERVIÇO PÚBLICO FEDERAL</td>
+                <td align="right" rowspan="4"><img src="{{ logo_instituicao_media_url }}"
+                                                   alt="Logotipo do {% get_valor_por_chave "comum" "instituicao_sigla" %}"/></td>
+            </tr>
+            <tr>
+                <td class="linhasdocabecalho">INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA DO RIO GRANDE DO
+                    NORTE
+                </td>
+            </tr>
+            <tr>
+                <td class="linhasdocabecalho">DIRETORIA DE GESTÃO DE PESSOAS</td>
+            </tr>
+            <tr>
+                <td class="linhasdocabecalho">COORDENAÇÃO DE DESENVOLVIMENTO DE PESSOAL</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="linhasdocabecalho text-center">
+                    <div class="lei">
+                        {% if avaliacao.processo.is_tipo_progressao_merito %}
+                            FICHA DE AVALIAÇÃO PARA EFEITO DE CONCESSÃO DE PROGRESSÃO POR AVALIAÇÃO DE DESEMPENHO<br/>
+                            AOS SERVIDORES TÉCNICOS ADMINISTRATIVOS EM EDUCAÇÃO DE QUE TRATA A LEI
+                            Nº 11.091/2005, REGULAMENTADA PELO DECRETO 5.825/2006. (Resolução nº 15/2004-CD/CEFET-RN, de
+                            27/06/2007)
+                        {% else %}
+                            FICHA DE AVALIAÇÃO DO SERVIDOR EM ESTÁGIO PROBATÓRIO (Resolução nº 08/92 - CONSUP)
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </header>
+{% endblock %}
+{% block content %}
+    {% for avaliacao in avaliacoes %}
+        <p class="top-padding"></p>
+        <table class="borda">
+            <tr>
+                <td class="text-center negrito" colspan="8">{{ avaliacao.periodo.avaliacao_modelo }}</td>
+            </tr>
+        </table>
+        <br/>
+        <table class="borda">
+            <tbody>
+            <tr>
+                <td>Avaliado</td>
+                <td colspan="3">{{ avaliacao.processo.avaliado.nome }}</td>
+
+                <td>Matrícula</td>
+                <td colspan="3">{{ avaliacao.processo.avaliado.matricula }}</td>
+            </tr>
+            <tr>
+                <td>Cargo</td>
+                <td colspan="7">{{ avaliacao.processo.avaliado.cargo_emprego }}</td>
+            </tr>
+            <tr>
+                {% if avaliacao.processo.is_tipo_progressao_merito %}
+                    <td>Padrão atual</td>
+                    <td>{{ avaliacao.processo.padrao_anterior }}</td>
+
+                    <td>Padrão novo</td>
+                    <td>{{ avaliacao.processo.padrao_novo }}</td>
+
+                    <td>Período avaliado</td>
+                    <td colspan="3">{{ avaliacao.periodo }}</td>
+                {% else %}
+                    <td>Período avaliado</td>
+                    <td colspan="7">{{ avaliacao.periodo }}</td>
+                {% endif %}
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        <table class="borda">
+            <tbody>
+            <tr>
+                <td>Data da avaliação</td>
+                <td colspan="7">{{ avaliacao.data_avaliacao|format }}</td>
+            </tr>
+            {% for questao in avaliacao.obter_itens_avaliados %}
+                <tr>
+                    <td colspan="7">{{ questao.criterio_avaliado }}</td>
+                    <td class="text-center">{{ questao.nota|format }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td class="text-center negrito" colspan="7">TOTAL DE PONTOS</td>
+                <td class="text-center">{{ avaliacao.total_pontos|format }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <table class="borda">
+            <tbody>
+            <tr>
+                <td width="120px">Avaliador{% if avaliacao.processo.is_tipo_estagio_probatorio %} - Chefe
+                    Imediato{% endif %}</td>
+                <td colspan="3">{{ avaliacao.avaliador.nome }}</td>
+                <td>Matrícula</td>
+                <td>{{ avaliacao.avaliador.matricula }}</td>
+            </tr>
+            <tr>
+                <td>Cargo</td>
+                <td colspan="5">{{ avaliacao.avaliador.cargo_emprego }}</td>
+            </tr>
+            {% if avaliacao.processo.is_tipo_progressao_merito %}
+                <tr>
+                    <td>Chefe imediato</td>
+                    <td class="text-center">{% if avaliacao.tipo_avaliador == avaliacao.TIPO_AVALIADOR_CHEFE %}
+                        <strong>X</strong>{% endif %}</td>
+
+                    <td>Auto-avaliação</td>
+                    <td class="text-center">{% if avaliacao.tipo_avaliador == avaliacao.TIPO_AVALIADOR_AUTO %}
+                        <strong>X</strong>{% endif %}</td>
+
+                    <td>Membro da equipe</td>
+                    <td class="text-center">{% if avaliacao.tipo_avaliador == avaliacao.TIPO_AVALIADOR_EQUIPE %}
+                        <strong>X</strong>{% endif %}</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <br>
+        <table class="borda">
+            <tbody>
+            <tr>
+                <td>{% if avaliacao.processo.is_tipo_estagio_probatorio %}PARECER GERAL/{% endif %}
+                    CONSIDERAÇÕES/COMENTÁRIOS DO CHEFE IMEDIATO
+                    {% if avaliacao.processo.is_tipo_progressao_merito %} OU DO MEMBRO DA EQUIPE{% endif %}</td>
+            </tr>
+            <tr>
+                <td>
+                    {{ avaliacao.comentario_avaliador|format }}
+                    {% if avaliacao.processo.is_tipo_estagio_probatorio %}
+                        <br/><br/>
+                        ASSINATURA
+                        <div class="assinatura-valor">
+                            {{ avaliacao.get_assinatura_chefe_imediato_as_html|safe }}
+                            {% if avaliacao.data_assinatura_chefe_imediato %}
+                                <br>Data da Assinatura: {{ avaliacao.data_assinatura_chefe_imediato }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <table class="borda">
+            <tbody>
+            <tr>
+                <td>CONSIDERAÇÕES/COMENTÁRIOS DO SERVIDOR AVALIADO</td>
+            </tr>
+            <tr>
+                <td>{{ avaliacao.comentario_avaliado|format }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {% if avaliacao.processo.is_tipo_progressao_merito %}
+            <br>
+            <table class="borda">
+                <tbody>
+                <tr>
+                    <td colspan="2" class="text-start">ASSINATURAS</td>
+                </tr>
+                <tr class="assinatura">
+                    <td colspan="2" class="text-start">
+                        AVALIADO:<br/>
+                        <div class="assinatura-valor">
+                            {{ avaliacao.get_assinatura_avaliado_as_html|safe }}
+                            {% if avaliacao.data_assinatura_avaliado %}
+                                <br>Data da Assinatura: {{ avaliacao.data_assinatura_avaliado }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="assinatura">
+                    <td colspan="2" class="text-start">
+                        AVALIADOR:<br/>
+                        <div class="assinatura-valor">
+                            {{ avaliacao.get_assinatura_avaliador_as_html|safe }}
+                            {% if avaliacao.data_assinatura_avaliador %}
+                                <br>Data da Assinatura: {{ avaliacao.data_assinatura_avaliador }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="assinatura">
+                    <td colspan="2" class="text-start">
+                        CHEFE IMEDIATO:
+                        {% if avaliacao.chefe_imediato_assinante %}
+                            {% if not avaliacao.chefe_imediato_assinante == avaliacao.avaliador %}
+                                {{ avaliacao.chefe_imediato_assinante }}
+                            {% endif %}
+                        {% endif %}<br/>
+                        <div class="assinatura-valor">
+                            {{ avaliacao.get_assinatura_chefe_imediato_as_html|safe }}
+                            {% if avaliacao.data_assinatura_chefe_imediato %}
+                                <br>Data da Assinatura: {{ avaliacao.data_assinatura_chefe_imediato }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        <br/>
+        <table class="borda">
+            <tbody>
+            <tr>
+                <td>CONSIDERAÇÕES/COMENTÁRIOS DO DEPARTAMENTO DE RECURSOS HUMANOS</td>
+            </tr>
+            <tr>
+                <td>{{ avaliacao.comentario_rh|format }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {% if not forloop.last %}
+            <p class="page-break"></p>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

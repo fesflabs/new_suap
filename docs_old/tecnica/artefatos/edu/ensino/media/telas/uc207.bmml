@@ -1,0 +1,142 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1086" measuredH="835" mockupW="996" mockupH="778">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="90" y="57" w="983" h="463" measuredW="450" measuredH="400" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="101" y="138" w="-1" h="-1" measuredW="233" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Aluno%2C%20Aluno%202013108426092</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TabBar" x="101" y="194" w="955" h="277" measuredW="820" measuredH="100" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>5</selectedIndex>
+        <text>Dados%20Pessoais%2C%20Dados%20Acad%EAmicos%2C%20Caracteriza%E7%E3o%20Socioecon%F4mica%2C%20Atividades%20Estudantis%2C%20Diplomas%20e%20Certificados%2C%20Hist%F3rico</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="101" y="162" w="-1" h="-1" measuredW="171" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Aluno%202013108426092</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::DataGrid" x="132" y="235" w="783" h="187" measuredW="739" measuredH="187" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Per%EDodo%5CrLetivo%2C%20Per%EDodo%20%5Ev%2C%20Di%E1rio%2C%20C%F3digo%2C%20Componente%20Curricular%20%5Ev%2C%20C.%20H.%2C%20Faltas%2C%20Nota%2C%20Situa%E7%E3o%2C%20%23%0A2013/1%2C%201%2C%20108681%2C%20TIN.426.0001%2C%20Anatomia%20e%20Fisiologia%20Animal%2C%2060%2C%202%2C%2077%2C%20Aprovado%2C%20%0A2013/1%2C%201%2C%20108688%2C%20TIN.NE.0001%2C%20L%EDngua%20Portuguesa%20e%20Literatura%20I%2C%2090%2C%20%2C%2080%2C%20Certificado%2C%20%0A2013/1%2C%201%2C%20108693%2C%20TIN.426.0013%2C%20Semin%E1rio%20de%20Integra%E7%E3o%20Acad%EAmica%2C%2010%2C%200%2C%20%2C%20Aprovado%2C%20%0A2014/1%2C%202%2C%20133343%2C%20TIN.NE.0002%2C%20L%EDngua%20Portuguesa%20e%20Literatura%20II%2C%2090%2C%20%20%2C%20%20%2C%20Cursando%2C%0A2016/1%2C%204%2C%20134244%2C%20TIN.500.0001%2C%20Economia%20I%2C%2030%2C%20%20%2C%20%20%2C%20Aproveitado%2C%0A%7B0L%2C%200C%2C%200C%2C%200L%2C%200L%2C%200C%2C%200C%2C%200C%2C%200L%2C%2050%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::ComboBox" x="830" y="271" w="-1" h="-1" measuredW="65" measuredH="23" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <size>12</size>
+        <state>up</state>
+        <text>A%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Tooltip" x="888" y="310" w="198" h="44" measuredW="199" measuredH="0" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Registrar%20Certifica%E7%E3o%20de%20Conhecimento</text>
+        <tooltipDirection>NW</tooltipDirection>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::ComboBox" x="830" y="302" w="-1" h="-1" measuredW="65" measuredH="23" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <size>12</size>
+        <state>up</state>
+        <text>A%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::ComboBox" x="830" y="333" w="-1" h="-1" measuredW="65" measuredH="23" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <size>12</size>
+        <state>up</state>
+        <text>A%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::ComboBox" x="830" y="364" w="-1" h="-1" measuredW="65" measuredH="23" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <size>12</size>
+        <state>up</state>
+        <text>A%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::ComboBox" x="830" y="395" w="-1" h="-1" measuredW="65" measuredH="23" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <size>12</size>
+        <state>up</state>
+        <text>A%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Label" x="287" y="604" w="-1" h="-1" measuredW="511" measuredH="22" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>14</size>
+        <text>Componente%3ATIN.NE.0001%2C%20L%EDngua%20Portuguesa%20e%20Literatura%20%5B%2090%20Hs/90%20Aulas%20%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::TitleWindow" x="272" y="563" w="638" h="272" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Registrar%20Certifica%E7%E3o%20de%20Conhecimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="21" controlTypeID="com.balsamiq.mockups::Label" x="331" y="640" w="-1" h="-1" measuredW="65" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ano%20Letivo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::ComboBox" x="402" y="638" w="-1" h="-1" measuredW="60" measuredH="24" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2013</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Label" x="309" y="670" w="-1" h="-1" measuredW="87" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Per%EDodo%20Letivo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::ComboBox" x="402" y="668" w="-1" h="-1" measuredW="36" measuredH="24" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="365" y="706" w="-1" h="-1" measuredW="31" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Data%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::DateChooser" x="403" y="701" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="365" y="738" w="-1" h="-1" measuredW="31" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nota%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::TextInput" x="402" y="735" w="36" h="-1" measuredW="79" measuredH="26" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Arrow" x="332" y="310" w="498" h="253" measuredW="150" measuredH="100" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Button" x="287" y="774" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

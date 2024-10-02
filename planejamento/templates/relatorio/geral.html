@@ -1,0 +1,70 @@
+{% extends super_template %}
+
+{% block extrahead %}
+	{% media_filter_box %}
+{% endblock %}
+
+{% block content %}
+	
+	<div class="search-and-filters">
+		<div class="filter filter-large-select">
+			<form class="pesquisa_campus" method="post">
+				{% csrf_token %}
+				{{ form.as_ul }}
+			</form>
+		</div>
+    </div>
+
+	{% for dimensao in dimensoes %}
+	<div class="rel_geral_dimensao">
+		<h3>{{ dimensao.codigo|default:"x" }}. {{ dimensao.descricao }}</h3>
+		<p>Os objetivos, metas e ações desta dimensão estão vinculadas sistemicamente à {{ dimensao.nome_setor }} ({{ dimensao.sigla_setor }})</p>
+	
+	    {% for objetivo_estrategico in dimensao.objetivos_estrategicos %}
+		<h4>{{ dimensao.codigo|default:"x" }}.{{ objetivo_estrategico.codigo|default:"x" }}. {{ objetivo_estrategico.descricao }}</h4>
+		{% for meta in objetivo_estrategico.metas %}
+		<h5>{{ dimensao.codigo|default:"x" }}.{{ objetivo_estrategico.codigo|default:"x" }}.{{ meta.codigo|default:"x" }}. {{ meta.titulo }}</h5>
+		<p class="justificativa">Justificativa: {{ meta.justificativa }}</p>
+		{% if meta.acoes %}
+		<div class="cx_tabela">
+			<table>
+				<thead>
+					<tr>
+						<th colspan="2" style="text-align:center;">Ações</th>
+						<th rowspan="2" style="text-align:center;" width="70px">Unid. Adm.</th>
+						<th colspan="3" style="text-align:center;" width="260px">Quantitativo Previsto</th>
+						<th colspan="2" style="text-align:center;" width="80px">Execução</th>
+					</tr>
+					<tr>
+						<th style="text-align:center;" width="40px">Código</th>
+						<th style="text-align:center;">Título</th>
+						<th style="text-align:center;" width="100px">Unidade</th>
+						<th style="text-align:center;" width="60px">Qtd.</th>
+						<th style="text-align:center;" width="100px">Valor Total (R$)</th>
+						<th style="text-align:center;" width="40px">Início</th>
+						<th style="text-align:center;" width="40px">Final</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for acao in meta.acoes %}
+					<tr>
+						<td>{{ dimensao.codigo|default:"x" }}.{{ objetivo_estrategico.codigo|default:"x" }}.{{ meta.codigo|default:"x" }}.{{ acao.codigo|default:"x" }}</td>
+						<td style="text-align:justify;">{{ acao.titulo }}</td>
+						<td style="text-align:center;">{{ acao.num_unidades }}</td>
+						<td style="text-align:center;">{{ acao.unidade_medida }}</td>	
+						<td style="text-align:center;">{{ acao.quantidade }}</td>
+						<td style="text-align:right;">{{ acao.valor|mascara_dinheiro }}</td>
+						<td style="text-align:center;">{{ acao.data_inicial|date:"b" }}</td>
+						<td style="text-align:center;">{{ acao.data_final|date:"b" }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>	
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+	</div>
+	{% endfor %}
+
+{% endblock %}

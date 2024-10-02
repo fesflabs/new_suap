@@ -1,0 +1,168 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E13D5BC7-27C1-4856-D71F-6535C5BDA31C" name="centralservicos_grupoatendimento">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:16:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>grupoatendimento</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="407C8E33-C71E-0C8B-D495-21C0552A6B98">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:18:08 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="grupoatendimento_pai_id" id="6172C408-D9DC-9F88-4F86-80F831DF60DC">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:25:15 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="715E4AF8-3CB4-A0FC-D006-2997D41436FB" referredColumn="407C8E33-C71E-0C8B-D495-21C0552A6B98"/>
+</associations>
+</Column>
+<Column name="nome" id="5A0122EB-97E8-E945-6EDD-32302780BCA0">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:12:54 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80</dataTypeSize>
+<ownDataTypeParameters>80,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tipo" id="CD1311F0-B3D4-A9C1-4488-918C1C76AAD3">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:13:16 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="responsavel_id" id="E769A307-85EA-96F5-E27D-853293903B3E">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:19:20 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="54E8E324-9A47-341D-EB99-03517ADB2AB9" referredColumn="AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06"/>
+</associations>
+</Column>
+<Column name="unidadeorganizacional_id" id="23128EEC-8095-03FB-497E-D636E79234DB">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:23:47 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="08A4F573-6FC2-20BE-BE95-43ADDEB90272" referredColumn="075495AE-BBFB-2752-252F-6FD6C9F98B90"/>
+</associations>
+</Column>
+<Column name="centro_atendimento_id" id="F51E674A-CB66-F4DB-B3A9-F42BBC1A5E3E">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:59:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5371F910-993E-6C94-A7C7-89205E9DA0E1" referredColumn="CA705962-9270-EEA4-DBFE-05AC6BE2CA9D"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9A2B5C17-5EBA-AC00-F2EE-05B4A8E854B0" name="centralservicos_grupoatendimento_PK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:18:08 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="407C8E33-C71E-0C8B-D495-21C0552A6B98"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5A15F14C-A6A5-BC65-6514-CC2E674EF14F" name="centralservicos_grupoatendimento_servidor_FK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:19:20 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E769A307-85EA-96F5-E27D-853293903B3E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9B0FE33C-9939-8441-D4FA-FF45BC9FAB50" name="centralservicos_grupoatendimento_unidadeorganizacional_FK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:23:47 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="23128EEC-8095-03FB-497E-D636E79234DB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E9ECE18D-F829-D071-A17D-C07E15415695" name="centralservicos_grupoatendimento_centralservicos_grupoatendimento_FK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 11:25:15 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6172C408-D9DC-9F88-4F86-80F831DF60DC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E9B358B0-0DB2-511A-6DB5-8C4514C6A731" name="grupoatendimento_centralservicos_centroatendimento_id">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:59:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F51E674A-CB66-F4DB-B3A9-F42BBC1A5E3E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

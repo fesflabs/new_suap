@@ -1,0 +1,404 @@
+{% extends super_template %}
+{% load centralservicos_templatetags %}
+
+{% block extracss %}
+<style>
+    textarea#id_texto {
+        margin-top: 5px;
+    }
+    #id_bases_conhecimento > li {
+        list-style: none;
+    }
+</style>
+{% endblock %}
+
+{% block extrahead %}
+    <script>
+        jQuery.getScript('/static/centralservicos/js/AvaliaBaseConhecimento.js');
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery(".timeline-details").click(function() {
+                jQuery(".timeline .obs").toggleClass("d-none");
+                jQuery(this).toggleClass("active");
+                if (jQuery(this).hasClass("active")) {
+                    jQuery(this).text("Mostrar menos detalhes");
+                } else {
+                    jQuery(this).text("Mostrar mais detalhes");
+                }
+                return false;
+            });
+
+            jQuery("#resolverchamado_form input[type=checkbox]").change(function(){
+                jQuery(this).parent().parent().toggleClass("success");
+            });
+
+            jQuery("#resolverchamado_form").bind("submit", function() {
+                var canSubmit = true;
+
+                if (!jQuery.trim(jQuery("textarea#id_observacao").val())) {
+                    window.alert("Por favor, preencha o campo: Comentário.");
+                    this.focus();
+                    canSubmit = false;
+                } else if (jQuery("input[type='checkbox']:checked").length === 0) {
+                    window.alert('Você precisa marcar, no mínimo, um dos artigos.');
+                    canSubmit = false;
+                }
+
+                return canSubmit;
+            });
+
+            jQuery('#alterar_para_resolvido').click(function(e){
+                e.preventDefault();
+                changeTabs('bases');
+                var target = this.hash,
+                    $target = $(target);
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block object-status %}
+
+    {{ chamado.get_status_display|status }}
+
+    {% if chamado.get_tempo_ultrapassado %}
+        <span class="status status-error">Tempo de atendimento previsto ultrapassado</span>
+    {% endif %}
+
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if pode_assumir %}
+            <li><a class="btn success" href="/centralservicos/auto_atribuir_chamado/{{ chamado.id }}/">Assumir</a></li>
+        {% endif %}
+        {% if pode_alterar_status %}
+            {% if chamado.eh_proximo_status_em_atendimento or chamado.estah_suspenso %}
+                <li><a class="btn success"
+                       href="/centralservicos/colocar_em_atendimento/{{ chamado.id }}/">Alterar para Em Atendimento
+                </a></li>
+            {% else %}
+                <li><a class="btn success" href="#artigos_relacionados" id="alterar_para_resolvido">Alterar para Resolvido</a></li>
+            {% endif %}
+        {% endif %}
+        {% if pode_fechar %}
+            <li>
+                {% if chamado.interessado == request.user %}
+                    <a class="btn success" href="/centralservicos/fechar_chamado/{{ chamado.id }}/">
+                        Fechar Chamado</a>
+                {% else %}
+                    <form method="POST" action="/centralservicos/fechar_chamado/{{ chamado.pk }}/">
+                        {% csrf_token %}
+                        <div class="submit-row">
+                            <input class="btn success" type="submit" value="Fechar Chamado" />
+                        </div>
+                    </form>
+                {% endif %}
+            </li>
+        {% endif %}
+        {% if pode_reabrir %}
+            <li><a class="btn" href="/centralservicos/reabrir_chamado/{{ chamado.id }}/">Reabrir Chamado</a></li>
+        {% endif %}
+        {% if outras_opcoes %}
+            <li class="has-child">
+                <a class="btn" href="#">Outras Opções</a>
+                <ul>
+                    {% for opcao in outras_opcoes %}
+                        {{ opcao|safe }}
+                    {% endfor %}
+                    {% if chamado.interessado.get_profile.funcionario and user|in_group:"Coordenador de TI de campus" or user|in_group:"Coordenador de TI sistêmico" %}
+                        <li><a href="/comum/grupos_usuario/{{ chamado.interessado.get_profile.funcionario.user.pk }}/" class="popup">Grupos do Interessado</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if pode_suspender %}
+            <li><a class="btn warning" href="/centralservicos/suspender_chamado/{{ chamado.id }}/">Suspender</a></li>
+        {% endif %}
+        {% if pode_cancelar %}
+            <li><a class="btn danger" href="/centralservicos/cancelar_chamado/{{ chamado.id }}/">Cancelar</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% box "{{ chamado.servico }}" %}
+        {% include "include_dados_interessado.html" %}
+    {% endbox %}
+
+    {% include "tab_visualizar_chamado/tab_linha_tempo.html" %}
+
+    {% if perms.centralservicos.change_chamado %}
+        {% if eh_atendente or user in chamado.get_atendentes_equipe_atendimento or user in chamado.get_responsaveis_equipe_atendimento %}
+            {% include "tab_visualizar_chamado/tab_notas_internas.html" %}
+        {% endif %}
+    {% endif %}
+
+    {% if chamado.servico.permite_anexos or chamado.chamadoanexo_set.exists %}
+        {% include "tab_visualizar_chamado/tab_anexos.html" %}
+    {% endif %}
+
+    {% if user.is_superuser or eh_atendente or user in chamado.get_responsaveis_equipe_atendimento %}
+        {% if pode_alterar_status and chamado.estah_em_atendimento %}
+            {% include "tab_visualizar_chamado/tab_artigos_relacionados.html" %}
+        {% endif %}
+        {% if chamado.estah_fechado or chamado.estah_resolvido %}
+            {% include "tab_visualizar_chamado/tab_bases_utilizadas.html" %}
+        {% endif %}
+    {% endif %}
+
+    {% if chamado.servico.get_bases_conhecimento_faq.exists %}
+        {% if request.user == chamado.requisitante or request.user == chamado.interessado %}
+            {% include "tab_visualizar_chamado/tab_artigos_publicos.html" %}
+        {% endif %}
+    {% endif %}
+
+    {% include "tab_visualizar_chamado/tab_situacoes.html" %}
+
+{% endblock %}
+
+{% block asideright %}
+
+    <aside class="right">
+        <details open="open">
+            <summary>Dados Gerais</summary>
+            <dl class="details-container">
+                {% if chamado.tags.exists %}
+                    <dt>Tags:</dt>
+                    <dd>
+                        <ul class="tags">
+                            {% for tag in chamado.tags.all %}
+                                <li>{{ tag.nome }}
+                                    {% if user.is_superuser or eh_atendente or user in chamado.get_responsaveis_equipe_atendimento %}
+                                        <form method="POST" action="/centralservicos/remover_tag_do_chamado/{{ chamado.pk }}/{{ tag.pk }}/">
+                                            {% csrf_token %}
+                                            <button type="submit"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </dd>
+                {% endif %}
+                <dt>Área:</dt>
+                <dd>{{ chamado.servico.area.nome }}</dd>
+                <dt>Meio de Abertura:</dt>
+                <dd>{{ chamado.get_meio_abertura_display }}</dd>
+                {% if chamado.numero_patrimonio %}
+                    <dt>Número do Patrimônio:</dt>
+                    <dd>{{ chamado.numero_patrimonio }}</dd>
+                {% endif %}
+                <dt>Aberto em:</dt>
+                <dd>{{ chamado.aberto_em }}</dd>
+            </dl>
+        </details>
+
+        <details open="open">
+            <summary>Atendimento</summary>
+            <div class="details-container">
+                {% if chamado.get_atendimento_atribuicao_atual.atribuido_para %}
+                    <div class="person small">
+                        <div class="photo-circle small">
+                            <img alt="{{ chamado.get_atendimento_atribuicao_atual.atribuido_para.get_profile.nome_usual }}"
+                                 src="{{ chamado.get_atendimento_atribuicao_atual.atribuido_para.get_profile.get_foto_75x100_url }}" />
+                        </div>
+                        <dl>
+                            <dt>Atribuído para:</dt>
+                            <dd>{{ chamado.get_atendimento_atribuicao_atual.atribuido_para|format }}</dd>
+                            <dt>Atribuído em:</dt>
+                            <dd>{{ chamado.get_atendimento_atribuicao_atual.atribuido_em }}</dd>
+                            <dt>Grupo de Atendimento:</dt>
+                            <dd>{{ chamado.get_atendimento_atribuicao_atual.grupo_atendimento.nome }}</dd>
+                        </dl>
+                    </div>
+                {% else %}
+                    <dl>
+                        <dt>Grupo de Atendimento:</dt>
+                        <dd>{{ chamado.get_atendimento_atribuicao_atual.grupo_atendimento.nome }}</dd>
+                    </dl>
+                {% endif %}
+                <dl>
+                    <dt>Centro de Atendimento:</dt>
+                    <dd>{{ chamado.get_atendimento_atribuicao_atual.grupo_atendimento.centro_atendimento.nome }}{% if chamado.campus %}/{{ chamado.campus.sigla }}{% endif %}</dd>
+                    {% if chamado.get_tempo_resposta %}
+                        <dt class="hint" data-hint="Tempo de Resposta entre as situações Aberto e Em Atendimento.">Tempo de Resposta:</dt>
+                        <dd>{{ chamado.get_tempo_resposta|format }}</dd>
+                    {% endif %}
+                    <dt>Data Limite:</dt>
+                    <dd>{{ chamado.data_limite_atendimento }} {% if chamado.data_limite_atendimento >= hoje %}(Faltam {{ chamado.data_limite_atendimento|timeuntil }}){% endif %}</dd>
+                    {% if chamado.get_tempo_atendimento %}
+                        <dt class="hint" data-hint="Tempo de Atendimento entre as situações Em Atendimento e Resolvido.">Tempo de Atendimento:</dt>
+                        <dd>{{ chamado.get_tempo_atendimento|format }}</dd>
+                    {% endif %}
+                    {% if chamado.estah_fechado or chamado.estah_resolvido %}
+                        <dt>Tempo Total:</dt>
+                        <dd>{{ chamado.get_tempo_gasto|format }} </dd>
+                    {% endif %}
+                    {% if chamado.get_tempo_ultrapassado %}
+                        <dt class="hint" data-hint="Tempo ultrapassado em relação ao Tempo de Atendimento Previsto (SLA).">Tempo Ultrapassado:</dt>
+                        <dd class="false">{{ chamado.get_tempo_ultrapassado|format }} </dd>
+                    {% endif %}
+                </dl>
+            </div>
+        </details>
+
+        {% if chamado.servico.permite_abertura_terceiros %}
+            <details open="open">
+                <summary>Requisitante</summary>
+                <div class="details-container">
+                    <div class="person small">
+                        <div class="photo-circle small">
+                            <img alt="{{ chamado.requisitante.get_profile.nome_usual }}"
+                                 src="{{ chamado.requisitante.get_profile.get_foto_75x100_url }}" />
+                        </div>
+                        <dl>
+                            <dt class="sr-only">Nome:</dt>
+                            <dd>{{ chamado.requisitante|format }}</dd>
+                            {% if chamado.requisitante.get_profile.funcionario %}
+                                {% if chamado.requisitante.get_profile.funcionario.servidor.historico_funcao_ativa.exists %}
+                                    <dt>Funções:</dt>
+                                    {% for funcao in chamado.requisitante.get_profile.funcionario.servidor.historico_funcao_ativa %}
+                                        <dd>{{ funcao.atividade.nome }}</dd>
+                                    {% endfor %}
+                                {% endif %}
+                                <dt>Setor:</dt>
+                                <dd>
+                                    <a href="/rh/setor/{{ chamado.requisitante.get_profile.funcionario.setor.pk }}/">
+                                        {{ chamado.requisitante.get_profile.funcionario.servidor.setor_lotacao.uo.equivalente }} -
+                                        {{ chamado.requisitante.get_profile.funcionario.setor|format }}
+                                    </a>
+                                </dd>
+                                <dt>Email:</dt>
+                                <dd>{{ chamado.requisitante.get_profile.funcionario.email|format }}</dd>
+                                {% if chamado.requisitante.get_profile.funcionario.servidor.setor_lotacao.uo.telefone %}
+                                    <dt>Telefone:</dt>
+                                    <dd>{{ chamado.requisitante.get_profile.funcionario.servidor.setor_lotacao.uo.telefone|format }}</dd>
+                                {% endif %}
+                            {% endif %}
+                        </dl>
+                    </div>
+                </div>
+            </details>
+        {% endif %}
+
+        {% if chamado.outros_interessados.exists %}
+            <details open="open">
+                <summary>Outros Interessados <span>{{ chamado.outros_interessados.count }}</span></summary>
+                <div class="details-container">
+                    {% for interessado in chamado.outros_interessados.all %}
+                        <div class="person small">
+                            <div class="photo-circle small">
+                                <img alt="{{ interessado.get_profile.nome_usual }}"
+                                     src="{{ interessado.get_profile.get_foto_75x100_url }}" />
+                            </div>
+                            <dl>
+                                <dt class="sr-only">Nome:</dt>
+                                <dd>{{ interessado|format }} ({{ interessado.username }})</dd>
+                                {% if interessado.get_profile.funcionario %}
+                                    {% if interessado.get_profile.funcionario.servidor.historico_funcao_ativa.exists %}
+                                        <dt>Funções:</dt>
+                                        {% for funcao in interessado.get_profile.funcionario.servidor.historico_funcao_ativa %}
+                                            <dd>{{ funcao.atividade.nome }}</dd>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <dt>Setor:</dt>
+                                    <dd>
+                                        <a href="/rh/setor/{{ interessado.get_profile.funcionario.setor.pk }}/">
+                                            {{ interessado.get_profile.funcionario.servidor.setor_lotacao.uo.equivalente }} -
+                                            {{ interessado.get_profile.funcionario.setor|format }}
+                                        </a>
+                                    </dd>
+                                    <dt>Email:</dt>
+                                    <dd>{{ interessado.get_profile.funcionario.email|format }}</dd>
+                                    {% if interessado.get_profile.funcionario.servidor.setor_lotacao.uo.telefone %}
+                                        <dt>Telefone:</dt>
+                                        <dd>{{ interessado.get_profile.funcionario.servidor.setor_lotacao.uo.telefone|format }}</dd>
+                                    {% endif %}
+                                {% else %}
+                                    {% if interessado.get_profile.aluno_edu_set.count == 1 %}
+                                        <dt>Funções:</dt>
+                                        <dd>Aluno</dd>
+                                        <dt>Setor:</dt>
+                                        <dd>{{ interessado.get_profile.aluno_edu_set.first.curso_campus.diretoria }}</dd>
+                                    {% endif %}
+                                {% endif %}
+                            </dl>
+                            {% if pode_adicionar_outros_interessados %}
+                                <form method="POST"
+                                      action="/centralservicos/remover_outros_interessados/{{ chamado.id }}/{{ interessado.id }}/">
+                                    {% csrf_token %}
+                                    <button class="btn danger float-end" type="submit">{% icone "trash" %}<span class="sr-only">Remover</span></button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </details>
+        {% endif %}
+
+        <details open="open">
+            <summary>Aberto Por</summary>
+            <div class="details-container">
+                <div class="person small">
+                    <div class="photo-circle small">
+                        <img alt="{{ chamado.aberto_por.get_profile.nome_usual }}"
+                             src="{{ chamado.aberto_por.get_profile.get_foto_75x100_url }}" />
+                    </div>
+                    <dl>
+                        <dt class="sr-only">Nome:</dt>
+                        <dd>{{ chamado.aberto_por|format }}</dd>
+                        {% if chamado.aberto_por.get_profile.funcionario %}
+                            {% if chamado.aberto_por.get_profile.funcionario.servidor.historico_funcao_ativa.exists %}
+                                <dt>Funções:</dt>
+                                {% for funcao in chamado.aberto_por.get_profile.funcionario.servidor.historico_funcao_ativa %}
+                                    <dd>{{ funcao.atividade.nome }}</dd>
+                                {% endfor %}
+                            {% endif %}
+                            <dt>Setor:</dt>
+                            <dd>
+                                <a href="/rh/setor/{{ chamado.aberto_por.get_profile.funcionario.setor.pk }}/">
+                                    {{ chamado.aberto_por.get_profile.funcionario.servidor.setor_lotacao.uo.equivalente}} -
+                                    {{ chamado.aberto_por.get_profile.funcionario.setor|format }}
+                                </a>
+                            </dd>
+                            <dt>Email:</dt>
+                            <dd>{{ chamado.aberto_por.get_profile.funcionario.email|format }}</dd>
+                            {% if chamado.aberto_por.get_profile.funcionario.servidor.setor_lotacao.uo.telefone %}
+                                <dt>Telefone:</dt>
+                                <dd>{{ chamado.aberto_por.get_profile.funcionario.servidor.setor_lotacao.uo.telefone|format }}</dd>
+                            {% endif %}
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+        </details>
+
+        {% if chamado.servico.texto_ajuda or chamado.servico.texto_modelo %}
+            <details open="open">
+                <summary>Sobre o Serviço</summary>
+                <div class="details-container">
+                    <h5>Previsão de Atendimento</h5>
+                    <p>{{ chamado.servico.sla_em_horas }} horas</p>
+
+                    {% if chamado.servico.texto_ajuda %}
+                        <h5>Informações Adicionais</h5>
+                        {{ chamado.servico.texto_ajuda|linebreaksbr }}
+                    {% endif %}
+
+                    {% if chamado.servico.texto_modelo %}
+                        <h5>Informações para Preenchimento do Chamado</h5>
+                        {{ chamado.servico.texto_modelo|linebreaksbr }}
+                    {% endif %}
+                </div>
+            </details>
+        {% endif %}
+    </aside>
+
+{% endblock %}

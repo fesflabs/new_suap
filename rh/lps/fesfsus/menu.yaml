@@ -1,0 +1,31 @@
+Gestão de Pessoas::Cadastros::Cargos de Emprego:
+  permissions_required:
+  - rh.view_cargoemprego
+  url: /admin/rh/cargoemprego/?usado_no_sistema=SIM
+
+Gestão de Pessoas::Cadastros::Instituições Bancárias:
+  permissions_required:
+  - rh.change_banco
+  url: /admin/rh/banco/
+
+Gestão de Pessoas::Cadastros::Situações do Empregado:
+  permissions_required:
+  - rh.view_situacao
+  url: /admin/rh/situacao/
+
+Gestão de Pessoas::Relatórios::Buscar Empregados Fesf:
+  permissions_required:
+  - rh.pode_ver_relatorios_rh
+  url: /rh/servidor/buscar/
+
+Gestão de Pessoas::Empregados Fesf:
+  order: 1
+  permissions_required:
+  - rh.view_servidor
+  url: /admin/rh/servidor/?excluido__exact=0
+
+Gestão de Pessoas::Setores:
+  order: 2
+  permissions_required:
+  - rh.view_setor
+  url: /admin/rh/setor/?excluido__exact=0

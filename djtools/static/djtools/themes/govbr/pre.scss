@@ -1,0 +1,244 @@
+
+// Extends
+%action-link {
+    color: $brand-color;
+}
+%action-link-icon {
+    color: $brand-color;
+    opacity: 0.5;
+}
+%box {
+    background-color: $white;
+    border: 0 none;
+    box-shadow: $box-shadow;
+}
+%box-collapse-icon {
+    color: $secondary-color;
+    font-size: 1.3rem;
+    margin-right: 1rem;
+}
+%box-title {
+    color: $brand-color;
+    font-size: 1.9rem;
+    font-weight: 600;
+    text-transform: none;
+}
+%box-index {
+    background-color: $grey-50;
+}
+%btn {
+    background-color: transparent;
+    border: 1px solid $brand-color;
+    color: $brand-color;
+    font-weight: 600;
+    min-height: 43px;
+    padding: 10px 25px;
+}
+%btn-active {
+    background-color: $brand-color;
+}
+%btn-danger {
+    background-color: $flat-red;
+    border: 0 none;
+    color: $white;
+}
+%btn-default {
+    background-color: transparent;
+    border: 1px solid $brand-color;
+    color: $brand-color;
+}
+%btn-default-active {
+    background-color: $brand-color;
+    color: $white;
+}
+%btn-disabled {
+    border-color: rgba($black, 0.5);
+    color: rgba($black, 0.5);
+}
+%btn-primary {
+    background-color: $flat-blue;
+    border: 0 none;
+    color: $white;
+}
+%btn-success {
+    background-color: $flat-green;
+    border: 0 none;
+    color: $white;
+}
+%btn-warning {
+    background-color: $warning-color;
+    border: 0 none;
+    color: $black;
+}
+%btn-warning-active {
+    background-color: $warning-active-color;
+    color: $black;
+}
+%btn-small {
+    line-height: 16px;
+    min-height: 32px;
+    padding: 8px 24px;
+}
+%filters-text-before {
+    background-color: $white;
+    border-bottom: 4px solid $terciary-color;
+    color: $terciary-color;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 0 1rem 0.5rem;
+    top: -28px;
+    left: 0;
+    text-transform: none;
+}
+%form-help-text {
+    font-weight: 300;
+    margin-left: 0;
+    width: 100%;
+}
+%form-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-left: 0;
+    text-align: left;
+    width: auto;
+}
+%inputs {
+    border: 1px solid $grey-500;
+    border-radius: 6px;
+    color: $grey-600;
+    padding: 1rem;
+}
+%inputs-focus {
+    box-shadow: 0 0 0 1px $secondary-color;
+}
+%module-alert {
+    border: 0 none !important;
+    color: $white;
+    letter-spacing: $letter-spacing;
+    margin-bottom: 1px;
+    padding: 2rem;
+}
+%module-alert-hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, .15);
+    color: $white;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+%module-info-title {
+    background-color: transparent;
+    color: $grey-600;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: $letter-spacing;
+    padding-bottom: 1rem;
+    padding-left: 0;
+}
+%msg {
+    padding-left: 5rem !important;
+}
+%msg-icon {
+    color: $white;
+    font-size: 1.6rem;
+    top: 20px;
+    left: 2rem;
+}
+%nav-first-level {
+    border-bottom: 1px solid $grey-200;
+    color: $brand-color;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 1.5rem;
+    text-transform: none;
+}
+%nav-first-level-icon {
+    font-size: 1.15rem;
+    margin-top: 3px;
+    margin-right: 10px;
+    opacity: 1;
+}
+%pagination-active {
+    background-color: $terciary-color !important;
+    color: $white;
+}
+%status {
+    border: 0 none;
+    border-radius: $border-radius;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+%status-alert {
+    background-color: $flat-yellow;
+    color: $black;
+}
+%status-error {
+    background-color: $flat-red;
+    color: $white;
+}
+%status-info {
+    background-color: $flat-blue;
+    color: $white;
+}
+%status-inside-container {
+    border-radius: 0;
+}
+%status-success {
+    background-color: $flat-green;
+    color: $white;
+}
+%subtitle {
+    color: $brand-color;
+    font-size: 1.6rem;
+    font-weight: 400;
+    padding-bottom: 1.5rem;
+}
+%table {
+    border: 0 none;
+}
+%table-thead {
+    background-color: $grey-100;
+    border: 0 none;
+    border-bottom: 1px solid $grey-200;
+    border-top: 1px solid $grey-200;
+    color: $brand-color;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 15px;
+}
+%table-tbody {
+    background-color: transparent;
+    border-bottom: 1px solid $grey-200;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-top: 0 none;
+    box-shadow: 0 0 0 transparent;
+    padding: 10px 15px;
+}
+%table-tr-hover {
+    background-color: $bg-hover-color;
+    border-color: $secondary-color;
+    box-shadow: 0 -2px 0 $secondary-color;
+}
+%table-tfoot {
+    border: 0 none;
+}
+%table-action-icon {
+    background-color: $brand-color;
+}
+%table-action-icon-before {
+    color: $white;
+}
+%tabs {
+    background-color: transparent;
+    border: 0 none;
+    border-radius: $border-radius;
+    margin-bottom: 0;
+}
+%tabs-active {
+    border: 0 none;
+    box-shadow: inset 0 -4px 0 0 $terciary-color;
+}
+%tabs-link {
+    color: $black;
+    font-size: 1.6rem;
+    padding: 1.6rem;
+}

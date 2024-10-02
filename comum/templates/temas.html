@@ -1,0 +1,57 @@
+{% extends super_template %}
+
+{% block content %}
+
+<div class="boxes services flex-container linkable no-grow">
+    <a href="/comum/alterar_tema?theme=Alto Contraste" title="Alterar tema para Alto Contraste"
+        class="box-item {% if preferencia.tema == 'Alto Contraste' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'Alto Contraste' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>Alto Contraste</h3>
+        <img src="/static/comum/img/thumbnail-theme-alto-contraste.png" alt="Imagem da página inicial do tema Alto Contraste">
+        <footer>{{ tema_alto_contraste }} usuário{{ tema_alto_contraste|pluralize }} usa{{ tema_alto_contraste|pluralize:"m" }} este tema.</footer>
+    </a>
+    <a href="/comum/alterar_tema?theme=Aurora" title="Alterar tema para Aurora"
+        class="box-item {% if preferencia.tema == 'Aurora' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'Aurora' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>Aurora</h3>
+        <img src="/static/comum/img/thumbnail-theme-aurora.png" alt="Imagem da página inicial do tema Aurora">
+        <footer>{{ tema_aurora }} usuário{{ tema_aurora|pluralize }} usa{{ tema_aurora|pluralize:"m" }} este tema.</footer>
+    </a>
+    <a href="/comum/alterar_tema?theme=Dunas" title="Alterar tema para Dunas"
+        class="box-item {% if preferencia.tema == 'Dunas' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'Dunas' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>Dunas</h3>
+        <img src="/static/comum/img/thumbnail-theme-dunas.png" alt="Imagem da página inicial do tema Dunas">
+        <footer>{{ tema_dunas }} usuário{{ tema_dunas|pluralize }} usa{{ tema_dunas|pluralize:"m" }} este tema.</footer>
+    </a>
+    <a href="/comum/alterar_tema?theme=Gov.br" title="Alterar tema para Gov.br"
+        class="box-item {% if preferencia.tema == 'Gov.br' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'Gov.br' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>Gov.br</h3>
+        <img src="/static/comum/img/thumbnail-theme-govbr.png" alt="Imagem da página inicial do tema Gov.br">
+        <footer>{{ tema_govbr }} usuário{{ tema_govbr|pluralize }} usa{{ tema_govbr|pluralize:"m" }} este tema.</footer>
+    </a>
+    <a href="/comum/alterar_tema?theme=IFs" title="Alterar tema para IFs"
+    class="box-item {% if preferencia.tema == 'IFs' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'IFs' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>IFs</h3>
+        <img src="/static/comum/img/thumbnail-theme-ifs.png" alt="Imagem da página inicial do tema IFs">
+        <footer>{{ tema_ifs }} usuário{{ tema_ifs|pluralize }} usa{{ tema_ifs|pluralize:"m" }} este tema.</footer>
+    </a>
+    <a href="/comum/alterar_tema?theme=Luna" title="Alterar tema para Luna"
+        class="box-item {% if preferencia.tema == 'Luna' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'Luna' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>Luna</h3>
+        <img src="/static/comum/img/thumbnail-theme-luna.png" alt="Imagem da página inicial do tema Luna">
+        <footer>{{ tema_luna }} usuário{{ tema_luna|pluralize }} usa{{ tema_luna|pluralize:"m" }} este tema.</footer>
+    </a>
+    <a href="/comum/alterar_tema?theme=Padrão" title="Alterar tema para Padrão"
+        class="box-item {% if preferencia.tema == 'Padrão' or not preferencia %}success{% endif %}">
+        {% if preferencia.tema == 'Padrão' or not preferencia %}<span class="status status-success">Selecionado</span>{% endif %}
+        <h3>Padrão</h3>
+        <img src="/static/comum/img/thumbnail-theme-padrao.png" alt="Imagem da página inicial do tema Padrão">
+        <footer>{{ tema_padrao }} usuário{{ tema_padrao|pluralize }} usa{{ tema_padrao|pluralize:"m" }} este tema.</footer>
+    </a>
+</div>
+	
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends super_template %}
+{% load centralservicos_templatetags %}
+
+{% block extrahead %}
+    <script>
+        jQuery.getScript('/static/centralservicos/js/AvaliaBaseConhecimento.js');
+    </script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block object-status %}
+    {% if base_conhecimento.necessita_correcao or base_conhecimento.supervisao_pendente %}
+        {% if base_conhecimento.necessita_correcao %}
+            <span class="status status-alert">Pendente de correção</span>
+        {% endif %}
+        {% if base_conhecimento.supervisao_pendente %}
+            <span class="status status-alert">Supervisão pendente</span>
+        {% endif %}
+    {% elif base_conhecimento.ativo %}
+        <span class="status status-success">Ativo</span>
+    {% else %}
+        <span class="status status-error">Inativo</span>
+    {% endif %}
+    {{ base_conhecimento.get_visibilidade_display|status }}    
+{% endblock %}
+
+{% block action-bar %}
+
+    <ul class="action-bar">
+        {% if eh_atendente_desta_area and perms.centralservicos.add_baseconhecimento %}
+            <li><a class="btn primary" href="/admin/centralservicos/baseconhecimento/{{ base_conhecimento.id }}/">Editar</a></li>
+        {% endif %}
+        {% if eh_atendente_desta_area and perms.centralservicos.review_baseconhecimento and not base_conhecimento.estah_disponivel_para_uso %}
+            <li>
+                <form method="POST" action="{% url 'centralservicos_aprovar_baseconhecimento' base_conhecimento.id %}" >
+                    {% csrf_token %}
+                    <div class="submit-row">
+                        <input type="submit" value="Aprovar Alterações" />
+                    </div>
+                </form>
+            </li>
+        {% endif %}
+        {% if eh_atendente_desta_area and perms.centralservicos.change_chamado and not base_conhecimento.necessita_correcao %}
+            <li><a class="btn warning" href="/centralservicos/baseconhecimento/marcar_para_correcao/{{ base_conhecimento.id }}/">Marcar para Correção</a></li>
+        {% endif %}
+        {% if eh_atendente_desta_area %}
+            <li class="has-child">
+                <a href="#" class="btn default">Opções</a>
+                <ul>
+                    {% if perms.centralservicos.add_baseconhecimento %}
+                        <li><a class="default popup" href="/admin/centralservicos/baseconhecimento/{{ base_conhecimento.id }}/history/">Histórico</a></li>
+                    {% endif %}
+                    {% if perms.centralservicos.change_chamado %}
+                        <li><a class="default" href="{% url 'centralservicos_baseconhecimento_chamados_resolvidos' base_conhecimento.id %}">Chamados Resolvidos com este Artigo</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+
+{% endblock %}
+
+{% block content %}
+
+    {% box 'Resumo' %}
+        <p>{{ base_conhecimento.resumo|linebreaksbr }}</p>
+    {% endbox %}
+
+    {% if base_conhecimento.solucao %}
+        {% box 'Solução' %}
+            <div class="richtext">
+                {{ base_conhecimento.solucao|safe }}
+            </div>
+        {% endbox %}
+    {% endif %}
+
+    {% if eh_atendente_desta_area %}
+        <div class="tab-container" data-title="Comentários">
+            {% comentarios base_conhecimento 'Não há comentários para essa base de conhecimento.' %}
+        </div>
+        {% if base_conhecimento.servicos.exists %}
+            <div class="tab-container" data-title="Serviços Vinculados" data-counter="{{ base_conhecimento.servicos.count }}">
+                <ul>
+                    {% for servico in base_conhecimento.servicos.all %}
+                        <li>{{ servico }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if base_conhecimento.grupos_atendimento.exists %}
+            <div class="tab-container" data-title="Grupos de Atendimento" data-counter="{{ base_conhecimento.grupos_atendimento.count }}">
+                <ul>
+                    {% for grupo in base_conhecimento.grupos_atendimento.all %}
+                        <li>{{ grupo }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if base_conhecimento.baseconhecimentoanexo_set.exists %}
+            <div class="tab-container" data-title="Anexos" data-counter="{{ base_conhecimento.baseconhecimentoanexo_set.count }}">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Arquivo</th>
+                        {% if perms.centralservicos.delete_baseconhecimentoanexo %}
+                            <th class="no-print">Ações</th>
+                        {% endif %}
+                    </tr>
+                    {% for base_conhecimento_anexo in base_conhecimento.baseconhecimentoanexo_set.all %}
+                        <tr>
+                            <td><a href="{{ base_conhecimento_anexo.anexo.url }}" target="_blank">{{ base_conhecimento_anexo.nome_arquivo }}</a></td>
+                            {% if perms.centralservicos.delete_baseconhecimentoanexo %}
+                                <td class="no-print">
+                                    <form method="POST" action="{% url 'centralservicos_remover_anexo_baseconhecimento' base_conhecimento.id base_conhecimento_anexo.id %}">
+                                        {% csrf_token %}
+                                        <input class="danger btn large" type="submit" value="Remover" />
+                                    </form>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+{% block asideright %}
+
+<aside class="right">
+
+    <details open="open">
+        <summary>Dados do Artigo</summary>
+        <dl class="details-container">
+            <dt>Área:</dt>
+            <dd>{{ base_conhecimento.area }}</dd>
+            {% if tags %}
+                <dt>Tags:</dt>
+                <dd>
+                    <ul class="tags">
+                        {% for tag in tags %}
+                            <li>{{ tag }}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% endif %}
+        </dl>
+    </details>
+
+    <details open="open">
+        <summary>Avaliação</summary>
+        <div class="details-container">
+            {% avaliar_base_conhecimento base_conhecimento "aside" %}
+        </div>
+    </details>
+
+    <details open="open">
+        <summary>Indicadores</summary>
+        <div class="details-container">
+            <div class="flex-container boxes indicators small">
+                <div class="box-item">
+                    <p class="indicator">{{ base_conhecimento.get_quantidade_utilizacoes|format }}</p>
+                    <p class="description">Chamado{{ base_conhecimento.get_quantidade_utilizacoes|pluralize }} que resolveu</p>
+                </div>
+                <div class="box-item">
+                    <p class="indicator" id="qtd_avaliacoes_{{ base_conhecimento.id }}">{{ base_conhecimento.get_quantidade_avaliacoes|format }}</p>
+                    <p class="description">Avaliações</p>
+                </div>
+                <div class="box-item">
+                    <p class="indicator" id="media_avaliacao_{{ base_conhecimento.id }}">{{ base_conhecimento.get_media_avaliacoes|format }}</p>
+                    <p class="description">Média de avaliações</p>
+                </div>
+            </div>
+        </div>
+    </details>
+
+</aside>
+
+{% endblock %}
+
+{% block action-links %}
+<li>Última Atualização {% if base_conhecimento.atualizado_por %}por {{ base_conhecimento.atualizado_por|format }} {% endif %}em {{ base_conhecimento.atualizado_em|format }}</li>
+{% endblock %}

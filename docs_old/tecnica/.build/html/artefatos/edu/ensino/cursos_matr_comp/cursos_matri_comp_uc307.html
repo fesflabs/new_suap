@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UC 307 - Gerir Configurações de AACCs &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../../index.html"/>
+        <link rel="up" title="UC Cadastros Gerais" href="../index.html"/>
+        <link rel="next" title="UC 308 - Visualizar Configuração de AACCs &lt;v0.1&gt;" href="cursos_matri_comp_uc308.html"/>
+        <link rel="prev" title="UC 306 - Gerir Matrizes Curriculares &lt;v0.1&gt;" href="cursos_matri_comp_uc306.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../adm/index.html">Administração</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Ensino</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../doc_visao.html">Documento de Visão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html">UC Cadastros Gerais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-procedimentos-de-apoio">UC Procedimentos de Apoio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-alunos-e-professores">UC Alunos e Professores</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#uc-cursos-matrizes-e-componentes">UC Cursos, Matrizes e Componentes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc300.html">UC 300 - Manter Estrutura de curso &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc301.html">UC 301 - Manter Componente Curricular &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc302.html">UC 302 - Gerir Matrizes Curriculares &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc303.html">UC 303 - Vincular componente à matriz &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc304.html">UC 304 - Gerir Cursos &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc305.html">UC 305 - Vincular matriz ao curso &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc306.html">UC 306 - Gerir Matrizes Curriculares &lt;v0.1&gt;</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UC 307 - Gerir Configurações de AACCs &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursos_matri_comp_uc308.html">UC 308 - Visualizar Configuração de AACCs &lt;v0.1&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-turmas-e-diarios">UC Turmas e Diários</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-relatorios-e-estatisticas">UC Relatórios e Estatísticas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-diplomas-e-certificados">UC Diplomas e Certificados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-logs">UC Logs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">UC 307 - Gerir Configurações de AACCs &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Ensino</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="uc-307-gerir-configuracoes-de-aaccs-v0-1">
+<span id="suap-artefatos-edu-ensino-cursos-matr-comp-uc307"></span><h1>UC 307 - Gerir Configurações de AACCs &lt;v0.1&gt;<a class="headerlink" href="#uc-307-gerir-configuracoes-de-aaccs-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id4">Histórico da Revisão</a></p></li>
+<li><p><a class="reference internal" href="#objetivo" id="id5">Objetivo</a></p></li>
+<li><p><a class="reference internal" href="#atores" id="id6">Atores</a></p>
+<ul>
+<li><p><a class="reference internal" href="#principais" id="id7">Principais</a></p></li>
+<li><p><a class="reference internal" href="#interessado" id="id8">Interessado</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pre-condicoes" id="id9">Pré-condições</a></p></li>
+<li><p><a class="reference internal" href="#pos-condicoes" id="id10">Pós-condições</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso-impactados" id="id11">Casos de Uso Impactados</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-eventos" id="id12">Fluxo de Eventos</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fluxo-normal" id="id13">Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-alternativo" id="id14">Fluxo Alternativo</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fa1-cadastrar-fn-2" id="id15">FA1 - Cadastrar (FN.2 )</a></p></li>
+<li><p><a class="reference internal" href="#fa2-editar-fn-2" id="id16">FA2 - Editar (FN.2 )</a></p></li>
+<li><p><a class="reference internal" href="#fa3-excluir-fn-2" id="id17">FA3 - Excluir (FN.2 )</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao" id="id18">Fluxo de Exceção</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fe1-exclusao-fere-regra-rn3-fa1-4" id="id19">FE1 – Exclusão fere Regra RN3 (FA1-4)</a></p></li>
+<li><p><a class="reference internal" href="#fe2-exclusao-fere-regra-rn1-fa3-1" id="id20">FE2 – Exclusão fere Regra RN1 (FA3-1)</a></p></li>
+<li><p><a class="reference internal" href="#fe3-exclusao-fere-regra-rn1-fa5-1" id="id21">FE3 – Exclusão fere Regra RN1 (FA5-1)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#especificacao-suplementares" id="id22">Especificação suplementares</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requisitos-nao-funcionais" id="id23">Requisitos Não-Funcionais</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-interface" id="id24">Requisitos de Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ri1-exibicao-de-uma-matriz-curricular" id="id25">RI1 – Exibição de uma matriz curricular</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos-de-informacao" id="id26">Requisitos de Informação</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rin1-campos-para-listagem-de-configuracoes-de-aaccs" id="id27">RIN1 – Campos para listagem de Configurações de AACCs</a></p></li>
+<li><p><a class="reference internal" href="#rin2-campos-para-cadastros" id="id28">RIN2 – Campos para Cadastros</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#regras-de-negocio" id="id29">Regras de Negócio</a></p></li>
+<li><p><a class="reference internal" href="#mensagens" id="id30">Mensagens</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ponto-de-extensao" id="id31">Ponto de Extensão</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id32">Questões em Aberto</a></p></li>
+<li><p><a class="reference internal" href="#esboco-de-prototipo" id="id33">Esboço de Protótipo</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso" id="id34">Diagrama de domínio do caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-fluxo-de-operacao" id="id35">Diagrama de Fluxo de Operação</a></p></li>
+<li><p><a class="reference internal" href="#cenario-de-testes" id="id36">Cenário de Testes</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id4">Histórico da Revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id2" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>28/04/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objetivo">
+<h2><a class="toc-backref" href="#id5">Objetivo</a><a class="headerlink" href="#objetivo" title="Link permanente para este título">¶</a></h2>
+<p>Cadastrar, alterar, remove ou listar Configuração de Atividade Acadêmica Científico Cultural.</p>
+</section>
+<section id="atores">
+<h2><a class="toc-backref" href="#id6">Atores</a><a class="headerlink" href="#atores" title="Link permanente para este título">¶</a></h2>
+<section id="principais">
+<h3><a class="toc-backref" href="#id7">Principais</a><a class="headerlink" href="#principais" title="Link permanente para este título">¶</a></h3>
+<p>Administrador</p>
+</section>
+<section id="interessado">
+<h3><a class="toc-backref" href="#id8">Interessado</a><a class="headerlink" href="#interessado" title="Link permanente para este título">¶</a></h3>
+<p>Não se aplica.</p>
+</section>
+</section>
+<section id="pre-condicoes">
+<h2><a class="toc-backref" href="#id9">Pré-condições</a><a class="headerlink" href="#pre-condicoes" title="Link permanente para este título">¶</a></h2>
+<p>Estar logado no sistema.</p>
+</section>
+<section id="pos-condicoes">
+<h2><a class="toc-backref" href="#id10">Pós-condições</a><a class="headerlink" href="#pos-condicoes" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="casos-de-uso-impactados">
+<h2><a class="toc-backref" href="#id11">Casos de Uso Impactados</a><a class="headerlink" href="#casos-de-uso-impactados" title="Link permanente para este título">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><a class="reference internal" href="cursos_matri_comp_uc305.html#suap-artefatos-edu-ensino-cursos-matr-comp-uc305"><span class="std std-ref">UC 305 - Vincular matriz ao curso &lt;v0.1&gt;</span></a> - Vincular matriz ao curso.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fluxo-de-eventos">
+<h2><a class="toc-backref" href="#id12">Fluxo de Eventos</a><a class="headerlink" href="#fluxo-de-eventos" title="Link permanente para este título">¶</a></h2>
+<section id="fluxo-normal">
+<h3><a class="toc-backref" href="#id13">Fluxo Normal</a><a class="headerlink" href="#fluxo-normal" title="Link permanente para este título">¶</a></h3>
+<blockquote id="fn">
+<div><ol class="arabic simple">
+<li><p>O caso de uso é iniciado acionando a opção  <code class="docutils literal notranslate"><span class="pre">ENSINO</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Cursos,</span> <span class="pre">Matrizes</span> <span class="pre">e</span> <span class="pre">Componentes</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Configurações</span> <span class="pre">de</span> <span class="pre">AACCs</span></code></p></li>
+<li><p>O sistema exibe a lista de configurações de AACCs</p>
+<ol class="arabic simple">
+<li><p>Visualizar configuração AACC (<a class="reference internal" href="#pe">PE</a>.1)</p></li>
+</ol>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fluxo-alternativo">
+<h3><a class="toc-backref" href="#id14">Fluxo Alternativo</a><a class="headerlink" href="#fluxo-alternativo" title="Link permanente para este título">¶</a></h3>
+<section id="fa1-cadastrar-fn-2">
+<span id="fa1"></span><h4>FA1 - Cadastrar (<a class="reference internal" href="#fn">FN</a>.2 )<a class="headerlink" href="#fa1-cadastrar-fn-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O usuário aciona a opção <code class="docutils literal notranslate"><span class="pre">Cadastrar</span> <span class="pre">Configuração</span> <span class="pre">de</span> <span class="pre">AACCs</span></code></p></li>
+<li><p>O sistema exibe um formulário de entrada de dados para cadastro da nova <strong>Configuração de AACCs</strong>:</p>
+<ol class="arabic simple">
+<li><p>Dados Gerais (Descrição do conjunto de atividades )</p></li>
+<li><p>Atividades (Descrição da atividade, Pontuação máxima
+por semestre, Pontuação máxima por curso, Fator de conversão(peso))</p></li>
+</ol>
+</li>
+<li><p>O usuário informa novos valores para os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O usuário finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M1</a>.</p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa2-editar-fn-2">
+<span id="id1"></span><h4>FA2 - Editar (<a class="reference internal" href="#fn">FN</a>.2 )<a class="headerlink" href="#fa2-editar-fn-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O usuário aciona a opção <code class="docutils literal notranslate"><span class="pre">Editar</span></code> de uma das AACCs da listagem de AACCs do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+<li><p>O sistema exibe um formulário já preenchido com os dados de uma <strong>Configuração de AACCs</strong></p></li>
+<li><p>O usuário informa novos valores para os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O usuário finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M2</a>.</p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa3-excluir-fn-2">
+<span id="fa3"></span><h4>FA3 - Excluir (<a class="reference internal" href="#fn">FN</a>.2 )<a class="headerlink" href="#fa3-excluir-fn-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O usuário aciona a opção <code class="docutils literal notranslate"><span class="pre">Editar</span></code> de uma das AACCs da listagem de AACCs do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+<li><p>O sistema exibe um formulário já preenchido com os dados de uma <strong>Configuração de AACCs</strong></p></li>
+<li><p>O usuário finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Apagar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M3</a>.</p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</section>
+</section>
+<section id="fluxo-de-excecao">
+<h3><a class="toc-backref" href="#id18">Fluxo de Exceção</a><a class="headerlink" href="#fluxo-de-excecao" title="Link permanente para este título">¶</a></h3>
+<section id="fe1-exclusao-fere-regra-rn3-fa1-4">
+<h4>FE1 – Exclusão fere Regra RN3 (<a href="#id37"><span class="problematic" id="id38">FA1_</span></a>-4)<a class="headerlink" href="#fe1-exclusao-fere-regra-rn3-fa1-4" title="Link permanente para este título">¶</a></h4>
+</section>
+<section id="fe2-exclusao-fere-regra-rn1-fa3-1">
+<h4>FE2 – Exclusão fere Regra RN1 (<a class="reference internal" href="#fa3">FA3</a>-1)<a class="headerlink" href="#fe2-exclusao-fere-regra-rn1-fa3-1" title="Link permanente para este título">¶</a></h4>
+</section>
+<section id="fe3-exclusao-fere-regra-rn1-fa5-1">
+<h4>FE3 – Exclusão fere Regra RN1 (<a href="#id39"><span class="problematic" id="id40">FA5_</span></a>-1)<a class="headerlink" href="#fe3-exclusao-fere-regra-rn1-fa5-1" title="Link permanente para este título">¶</a></h4>
+</section>
+</section>
+</section>
+<section id="especificacao-suplementares">
+<h2><a class="toc-backref" href="#id22">Especificação suplementares</a><a class="headerlink" href="#especificacao-suplementares" title="Link permanente para este título">¶</a></h2>
+<section id="requisitos-nao-funcionais">
+<h3><a class="toc-backref" href="#id23">Requisitos Não-Funcionais</a><a class="headerlink" href="#requisitos-nao-funcionais" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="requisitos-de-interface">
+<h3><a class="toc-backref" href="#id24">Requisitos de Interface</a><a class="headerlink" href="#requisitos-de-interface" title="Link permanente para este título">¶</a></h3>
+<section id="ri1-exibicao-de-uma-matriz-curricular">
+<h4><a class="toc-backref" href="#id25">RI1 – Exibição de uma matriz curricular</a><a class="headerlink" href="#ri1-exibicao-de-uma-matriz-curricular" title="Link permanente para este título">¶</a></h4>
+</section>
+</section>
+<section id="requisitos-de-informacao">
+<h3><a class="toc-backref" href="#id26">Requisitos de Informação</a><a class="headerlink" href="#requisitos-de-informacao" title="Link permanente para este título">¶</a></h3>
+<section id="rin1-campos-para-listagem-de-configuracoes-de-aaccs">
+<span id="suap-artefatos-edu-ensino-cursos-matri-comp-uc307-rin1"></span><span id="rin1"></span><h4><a class="toc-backref" href="#id27">RIN1 – Campos para listagem de Configurações de AACCs</a><a class="headerlink" href="#rin1-campos-para-listagem-de-configuracoes-de-aaccs" title="Link permanente para este título">¶</a></h4>
+<p>A listagem é exibida dividida em abas conforme especificadas abaixo:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Qualquer</span></code>: exibe todas as AACCs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vinculadas</span> <span class="pre">a</span> <span class="pre">um</span> <span class="pre">curso</span></code>: exibe apenas as AACCs vinculadas a algum curso</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Não</span> <span class="pre">vinculadas</span> <span class="pre">a</span> <span class="pre">um</span> <span class="pre">curso</span></code>: exibe apenas as AACCs desvinculadas a cursos</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>Ações</p></th>
+<th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>Ordenação</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Filtro</p></th>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Busca</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Observações</p></th>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rin2-campos-para-cadastros">
+<span id="rin2"></span><h4><a class="toc-backref" href="#id28">RIN2 – Campos para Cadastros</a><a class="headerlink" href="#rin2-campos-para-cadastros" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio/Máscara</p></th>
+<th class="head"><p>Observação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Descrição da configuração</p></td>
+<td><p>Texto</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>É um nome para a configuração sendo cadastrada</p></td>
+</tr>
+<tr class="row-odd"><td><p>Descrição da AACC</p></td>
+<td><p>Texto</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>É um nome para a AACC sendo cadastrada</p></td>
+</tr>
+<tr class="row-even"><td><p>Pontuação máxima no Período</p></td>
+<td><p>Inteiro</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pontuação máxima no curso</p></td>
+<td><p>Inteiro</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Fator de conversão(Peso)</p></td>
+<td><p>Flutuante</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A <a class="reference internal" href="#figura-1">Figura 1</a> exibe um esboço do formulário de cadastro de uma AACC.</p>
+</section>
+</section>
+<section id="regras-de-negocio">
+<h3><a class="toc-backref" href="#id29">Regras de Negócio</a><a class="headerlink" href="#regras-de-negocio" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN1</p></td>
+<td><div class="line-block">
+<div class="line">O sistema só permite a exclusão de uma Configuração de Atividades se não houver dependência dessas atividades no sistema. Ou seja, aluno que utilizou de alguma dessas atividades.</div>
+<div class="line">mensagem: A remoção da Configuração de Atividades Acadêmica Científico Cultural fere a integridade de relacionamento do sistema, os seguintes objetos teriam que ser excluídos:</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN2</p></td>
+<td><div class="line-block">
+<div class="line">Caso a edição da Configuração de Atividade resulte na exclusão de uma atividade, esta só poderá ser excluída se não houver nenhuma dependência desta atividade no sistema, ou seja,
+aluno que utilizou a referida atividade.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN3</p></td>
+<td><div class="line-block">
+<div class="line">Ao submeter o cadastro ou edição de uma Configuração de Atividade o sistema exige do usuário que os dados obrigatórios sejam preenchidos permitindo que os dados faltantes
+sejam preenchidos.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN4</p></td>
+<td><div class="line-block">
+<div class="line">Qualquer alteração numa das atividades da Configuração de AACC deverá reexecutar o fluxo de situação de matrícula para os alunos atingidos.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mensagens">
+<h3><a class="toc-backref" href="#id30">Mensagens</a><a class="headerlink" href="#mensagens" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="m">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M1</p></td>
+<td><p>Cadastro realizado com sucesso.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M2</p></td>
+<td><p>Atualização realizada com sucesso.</p></td>
+</tr>
+<tr class="row-even"><td><p>M3</p></td>
+<td><p>Você tem certeza que quer remover a configuração de AACC “&lt;descrição da configuração&gt;”? Todos os seguintes itens relacionados serão removidos:</p></td>
+</tr>
+<tr class="row-odd"><td><p>M4</p></td>
+<td><p>Você tem certeza que quer remover o tipo “&lt;descrição do tipo&gt;” de atividade complementar desta configuração de AACCs “&lt;descrição da configuração&gt;”? Todos os seguintes alunos já fizeram uso e passaram a tê-la como atividade extracurricular.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ponto-de-extensao">
+<span id="pe"></span><h2><a class="toc-backref" href="#id31">Ponto de Extensão</a><a class="headerlink" href="#ponto-de-extensao" title="Link permanente para este título">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><a class="reference internal" href="cursos_matri_comp_uc308.html#suap-artefatos-edu-ensino-cursos-matr-comp-uc308"><span class="std std-ref">UC 308 - Visualizar Configuração de AACCs &lt;v0.1&gt;</span></a></p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id32">Questões em Aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+</section>
+<section id="esboco-de-prototipo">
+<h2><a class="toc-backref" href="#id33">Esboço de Protótipo</a><a class="headerlink" href="#esboco-de-prototipo" title="Link permanente para este título">¶</a></h2>
+<blockquote id="figura-1">
+<div><figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../../../../_images/tela_uc307_gerir_configuracao_de_aaccs.png"><img alt="protótipo de tela." src="../../../../_images/tela_uc307_gerir_configuracao_de_aaccs.png" style="width: 1105.0px; height: 911.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 1: Protótipo de tela gestão de configurações de AACCs.</span><a class="headerlink" href="#id3" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</div></blockquote>
+</section>
+<section id="diagrama-de-dominio-do-caso-de-uso">
+<h2><a class="toc-backref" href="#id34">Diagrama de domínio do caso de uso</a><a class="headerlink" href="#diagrama-de-dominio-do-caso-de-uso" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="diagrama-de-fluxo-de-operacao">
+<h2><a class="toc-backref" href="#id35">Diagrama de Fluxo de Operação</a><a class="headerlink" href="#diagrama-de-fluxo-de-operacao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="cenario-de-testes">
+<h2><a class="toc-backref" href="#id36">Cenário de Testes</a><a class="headerlink" href="#cenario-de-testes" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="cursos_matri_comp_uc308.html" class="btn btn-neutral float-right" title="UC 308 - Visualizar Configuração de AACCs &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="cursos_matri_comp_uc306.html" class="btn btn-neutral" title="UC 306 - Gerir Matrizes Curriculares &lt;v0.1&gt;"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

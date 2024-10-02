@@ -1,0 +1,30 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        <li><a href="/erros/areas/" class="btn default">{% icone "list" %} Visualizar Todos os Erros</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    <div class="msg info">
+        <p><strong>Atenção</strong>: este espaço é destinado somente para relatar à equipe de Desenvolvimento erros e/ou problemas relativos às funcionalidades do SUAP.</p>
+        <p>Reiteramos que apenas o setor de Tecnologia da Informação fará o atendimento dos erros reportados, os demais setores da instituição (Ensino, Extensão, Administração etc.) não tem acesso a esta ferramenta.</p>
+    </div>
+    <div class="msg alert">
+        <p>Reportar Erro <strong>NÃO SERVE</strong> para:</p>
+        <ul>
+            <li>Solicitar alterações ou informar problemas com dados presentes no SUAP;</li>
+            <li>Tirar dúvidas sobre as regras de cada módulo;</li>
+            <li>Sugerir melhorias.</li>
+        </ul>
+        <p>Em todos os três casos relatados acima, o erro reportado será <strong>cancelado</strong>.</p>
+    </div>
+    <div class="msg alert">
+        <p>Ao reportar um erro você estará concordando em compartilhar com a equipe de Desenvolvimento do SUAP as informações do seu navegador e o seu IP.</p>
+    </div>
+
+    {% render_form form %}
+
+{% endblock %}

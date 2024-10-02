@@ -1,0 +1,64 @@
+{% extends super_template %}
+
+{% block content %}
+    {% box 'Dados Gerais' %}
+
+        <table class="info">
+            <tr>
+                <td>Diário</td>
+                <td>{{ obj.diario }}</td>
+                <td>Etapa</td>
+                <td>{{ obj.etapa }}</td>
+            </tr>
+            <tr>
+                <td>Forma de Cálculo</td>
+                <td colspan="3">{{ obj.get_forma_calculo_display }}</td>
+            </tr>
+            {% if obj.forma_calculo == obj.FORMA_CALCULO_MEDIA_ARITMETICA or obj.forma_calculo == obj.FORMA_CALCULO_MAIOR_NOTA %}
+                <tr>
+                    <td>Ignorar Menor Nota</td>
+                    <td>{{ obj.menor_nota | format }}</td>
+                    <td>Ignorar Maior Nota</td>
+                    <td>{{ obj.maior_nota | format }}</td>
+                </tr>
+            {% endif %}
+            {% if obj.forma_calculo == obj.FORMA_CALCULO_SOMA_DIVISOR %}
+                <tr>
+                    <td>Divisor</td>
+                    <td colspan="3">{{ obj.divisor | format }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>Autopublicar</td>
+                <td colspan="3">{{ obj.autopublicar|format }}</td>
+            </tr>
+        </table>
+
+    {% endbox %}
+
+    {% box 'Itens da Configuração de Avaliação' %}
+        <table>
+            <thead>
+            <tr>
+                <th>Tipo da Avaliação</th>
+                <th>Sigla</th>
+                <th>Descricao</th>
+                <th>Nota Máxima</th>
+                <th>Peso [0-100]</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item_configuracao_avaliacao in obj.itemconfiguracaoavaliacao_set.all %}
+                <tr>
+                    <td>{{ item_configuracao_avaliacao.get_tipo_display }}</td>
+                    <td>{{ item_configuracao_avaliacao.sigla }}</td>
+                    <td>{{ item_configuracao_avaliacao.descricao|format }}</td>
+                    <td>{{ item_configuracao_avaliacao.nota_maxima | format }}</td>
+                    <td>{{ item_configuracao_avaliacao.peso | format }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+{% endblock %}

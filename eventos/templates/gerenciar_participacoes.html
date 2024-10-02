@@ -1,0 +1,123 @@
+{% extends super_template %}
+{% block extrahead %}
+    <script type="text/javascript">
+        function enviarEmailParticipantesSelecionados(evento){
+            var inputs = $( "input[name='ids']" );
+            var pks = [];
+            for(u=0;u<inputs.length;u++){
+                if ( inputs[u].checked){
+                    pks.push(inputs[u].value);
+                }
+            }
+            pks = pks.join("_");
+            if (pks.length>0){
+                pks = pks + "/";
+            }
+
+            if(pks.length===0){
+                alert('Por favor, selecione o(s) participantes(s) para o qual deseja enviar o Certificado por email.');
+            }
+            else{
+               document.location.href = "/eventos/enviar_certificados/"+evento+"/"+pks;
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>Nome</td>
+                <td colspan="3">{{ evento.nome }}</td>
+            </tr>
+            <tr>
+                <td>Apresentação</td>
+                <td colspan="3">{{ evento.apresentacao }}</td>
+            </tr>
+            <tr>
+                <td>Local</td>
+                <td colspan="3">{{ evento.local }}</td>
+            </tr>
+            <tr>
+                <td>Data de Início</td>
+                <td>{{ evento.data_inicio }}</td>
+                <td>Hora de Início</td>
+                <td>{{ evento.hora_inicio }}</td>
+            </tr>
+            {% if evento.data_fim or evento.hora_fim %}
+                <tr>
+                    <td>Data de Fim</td>
+                    <td>{{ evento.data_fim|default:"-" }}</td>
+                    <td>Hora de Fim</td>
+                    <td>{{ evento.hora_fim|default:"-" }}</td>
+                </tr>
+            {% endif %}
+        </table>
+    {% endbox %}
+
+    {% box "Participantes ({{ evento.participantes.count }})" %}
+        <ul class="action-bar">
+            <li><a class="btn popup success" href="/eventos/adicionar_participante/{{ evento.pk }}/">Adicionar Participante</a></li>
+            <li><a class="btn" href="javascript:void(0);" onclick="enviarEmailParticipantesSelecionados({{ evento.pk }})">Enviar email para os Participantes Selecionados</a></li>
+        </ul>
+        {% if evento.participantes.exists %}
+            <form method="post" action="">
+                {% csrf_token %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked" />
+                            </th>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participante in evento.participantes.all %}
+                        <tr>
+                            <td><input value="{{ participante.id }}" name="ids" type="checkbox" /></td>
+                            <td>{{ participante.nome }}</td>
+                            <td>{{ participante.email }}</td>
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    <li><a href="/eventos/editar_participante/{{ participante.pk }}/" class="btn primary popup">Editar</a></li>
+                                    {% if evento.data_emissao_certificado and participante.codigo_geracao_certificado %}
+                                        <li><a class="btn" href="/eventos/baixar_certificado/?hash={{ participante.codigo_geracao_certificado }}">Imprimir Certificado</a></li>
+                                    {% endif %}
+                                    <li><a href="/comum/excluir/eventos/participante/{{ participante.pk }}/" class="btn danger popup">Remover</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="submit-row">
+                    <input type="button" class="danger no-confirm" id="btn_remover" value="Remover Participantes Selecionados" />
+                </div>
+            </form>
+            <script>
+                jQuery(function(){
+                    if(!$("input[name='ids']").length){
+                        $("#btn_remover").hide();
+                    }
+                });
+                $("#btn_remover").click(function(e) {
+                    ids = $("input[name='ids']:checked").map(function () {return this.value;}).get().join("_");
+                    if(!ids){
+                        alert("Nenhum participante selecionado.");
+                    } else {
+                        $.fancybox.open({
+                            src: '/comum/excluir/eventos/participante/'+ids+'/'
+                        });
+                    }
+                 });
+
+            </script>
+        {% else %}
+            <p class="msg alert">Nenhum participante cadastrado.</p>
+        {% endif %}
+    {% endbox %}
+{% endblock %}

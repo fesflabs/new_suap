@@ -1,0 +1,60 @@
+{% extends super_template %}
+{% load centralservicos_templatetags %}
+
+{% block content %}
+
+    {# Obtem todos os servicos que o usuario tem acesso, da area selecionada #}
+    {% obtem_servicos_disponiveis_usuario_area request.user area as servicos_ao_usuario %}
+    {% if servicos_ao_usuario %}
+
+        <form name="buscarservico_form" id="buscarservico_form" method="POST" class="featured-form">
+            {% csrf_token %}
+            {% render_form form False %}
+        </form>
+
+        {% for categoria in lista_categorias %}
+            {% obtem_grupos_por_categoria categoria servicos_ao_usuario as grupos %}
+            {% if grupos.exists %}
+                <div class="tab-container" data-title="{{ categoria.nome }}" data-tab="{{ categoria.nome|slugify }}">
+                    <ul class="boxes services flex-container">
+                        {% for grupo in grupos %}
+                            {% obtem_servicos_por_grupo request.user area grupo servicos_ao_usuario as servicos %}
+                            {% if servicos.exists %}
+                                <li class="box-item">
+                                    <span class="fas fa-{{ grupo.icone }}" aria-hidden="true"></span>
+                                    <h4>{{ grupo.nome }}</h4>
+                                    {% if grupo.detalhamento %}
+                                        <p class="obs">{{ grupo.detalhamento }}</p>
+                                    {% endif %}
+                                    {% if grupo.categorias.all %}
+                                        <dl class="tags-container">
+                                            <dt>Categorias:</dt>
+                                            <dd>
+                                                <ul class="tags">
+                                                    {% for categoria in grupo.categorias.all %}
+                                                        <li>{{ categoria.nome }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    {% endif %}
+                                    <ol class="numbered-list">
+                                        {% for servico in servicos %}
+                                            <li {% if servico.interno %}class="alert"{% endif %} ><a href="{% url 'centralservicos_visualizar_solucoes' servico.id %}"><span class="fas fa-{% if servico.tipo == 'INC' %}fire{% else %}comment{% endif %}" aria-hidden="true"></span> {{ servico.nome }} {% if servico.interno %} (Interno) {% endif  %}</a></li>
+                                        {% endfor %}
+                                    </ol>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% empty %}
+            <p class="msg alert">Não há categorias cadastradas para esta área.</p>
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Nenhum serviço está disponível nesta área ({{ area.nome }}) para o seu tipo de usuário.</p>
+    {% endif %}
+
+
+{% endblock %}

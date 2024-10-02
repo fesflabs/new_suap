@@ -1,0 +1,42 @@
+ {% if user|in_group:"Administrador de Planejamento Estratégico, Gestor de Projeto" %}
+    <ul class="action-bar">
+        <li><a href="{% url 'pdi_projetoestrategico_add' pdi.pk %}" class="btn success">Incluir Projeto Estratégico</a></li>
+    </ul>
+ {% endif %}
+{% if projetos.exists %}
+    <table>
+        <thead>
+            <tr>
+                {% if user|in_group:"Administrador de Planejamento Estratégico, Gestor de Projeto" %}
+                    <th>#</th>
+                {% endif %}
+                <th>Nome</th>
+                <th>Unidade Gestora</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for projeto in projetos %}
+            <tr>
+                {% if user|in_group:"Administrador de Planejamento Estratégico, Gestor de Projeto" %}
+                        <td>
+                            {% if projeto.pode_editar_projeto is True %}
+                                <a href="{% url 'pdi_projetoestrategico_change' pdi.pk projeto.pk %}" class="icon icon-edit" title="Editar Projeto Estratégico"><span class="sr-only">Editar Projeto Estratégico</span></a>
+                            {% endif %}
+                            {% if projeto.pode_excluir_projeto is True %}
+                                <a href="{% url 'pdi_projetoestrategico_remover' projeto.pk %}" class="icon icon-delete" title="Remover Projeto Estratégico"><span class="sr-only">Remover Projeto Estratégico</span></a>
+                            {% endif %}
+                        </td>
+                {% endif %}
+                <td>{{ projeto.codigo }} - {{ projeto.nome }}</td>
+                <td>{{ projeto.unidade_gestora.setor_equivalente.sigla }}</td>
+                <td>
+                    <a href="{% url 'pdi_projeto_etapas' pdi.pk projeto.pk %}" class="btn default" >Detalhar Projeto estratégico</a>
+                <a class="btn default" href="{{projeto.anexo.url }}"> Arquivo do Projeto</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="msg alert">Não existem projetos estratégicos cadastrados.</p>
+{% endif %}

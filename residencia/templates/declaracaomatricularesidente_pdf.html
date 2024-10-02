@@ -1,0 +1,53 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block content %}
+ <main>
+    <h1 class="title">DECLARAÇÃO</h1>
+    <div class="corpo">
+        <table>
+            <tr>
+                <td width="30px">&nbsp;</td>
+                <td>
+                    <p style='text-align: justify; text-indent: 80px; font-size:16px; line-height:170%; margin: 0px; padding: 0px;'>
+                        Declaramos para os fins que se fizerem necessários, e por nos haver sido solicitado,
+                        que <strong>{{ residente.get_nome_social_composto|normalizar }}</strong>,
+                        CPF <strong>{{ residente.pessoa_fisica.cpf|format }}</strong>,
+                        da categoria <strong>{{residente.categoria | default_if_none:"Médica"}}</strong>, está matriculado no Programa de Residência de Medicina de família e Comunidade da Fundação Estatal de Saúde da Família – FESFSUS, desde
+                        <strong>{{ residente.data_matricula|date:'d' }} de {{ residente.data_matricula|date:'F'|lower }} de {{ residente.data_matricula.year }}</strong>, até a presente data.                    
+                    </p>
+                    <p style='text-align: justify; text-indent: 80px; font-size:16px; line-height:170%; margin: 0px; padding: 0px;'>
+                        Em tempo, informamos que o campo de prática da Residência é nos Serviços de Saúde do município de
+                        <strong>"Município Provisório"</strong>.   
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div align='right' style='font-size:14px'>
+                        Salvador, {{ hoje|date:'d' }} de
+                        {{ hoje|date:'F'|lower }} de {{ hoje.year }}.
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    {% comment %} <p style='text-align: justify; text-indent: 80px; font-size:16px; line-height:170%; margin: 0px; padding: 0px;'>
+                        <strong>Responsável pela
+                            informação:</strong> {{ aluno.curso_campus.diretoria.setor.nome|format|normalizar }} do
+                        {{ aluno.curso_campus.diretoria.setor.uo.nome|format|normalizar }}.
+                    </p> {% endcomment %}
+
+                </td>
+                <td width="30px">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+ </main>
+{% endblock %}
+

@@ -1,0 +1,823 @@
+{% extends super_template %}
+
+{% block content %}
+
+<table class="info">
+    <tr>
+        <td>Situação:</td>
+        <td>{{ obj.resumo_pendencias|format }}</td>
+    </tr>
+    <tr>
+        <td>Estagiário:</td>
+        <td>{{ obj.aluno|format }} (<a href="{{ obj.aluno.get_absolute_url }}">{{ obj.aluno.matricula }}</a>)</td>
+    </tr>
+    <tr>
+        <td>Concedente:</td>
+        <td>{{ obj.empresa|format }}</td>
+    </tr>
+    <tr>
+        <td>Orientador:</td>
+        <td>{{ obj.orientador|format }}</td>
+    </tr>
+</table>
+
+<div class="tab-container ajax-rendered" data-title="Dados Gerais" data-tab="informacoes">
+    {% if request.GET.tab == "informacoes" or not request.GET.tab %}
+
+        {% box 'Dados Gerais' %}
+            <table class="info">
+                <tr>
+                    <td>Obrigatório:</td>
+                    <td>{{ obj.obrigatorio|format }}</td>
+                    <td>Turno:</td>
+                    <td>{{ obj.turno|format }}</td>
+                </tr>
+                <tr>
+                    <td>Convênio:</td>
+                    <td colspan="3">{{ obj.convenio|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box 'Bolsa' %}
+            <table class="info">
+                <tr>
+                    <td>Remunerada</td>
+                    <td colspan="3">{{ obj.remunerada|format }}</td>
+                </tr>
+                <tr>
+                    <td>Tipo de Remuneração</td>
+                    <td>{{ obj.tipo_remuneracao|format }}</td>
+                    <td>Valor (R$)</td>
+                    <td>{{ obj.valor|format }}</td>
+                </tr>
+                <tr>
+                    <td>Auxílio Transporte (R$)</td>
+                    <td colspan="3">{{ obj.auxilio_transporte|format }}</td>
+                </tr>
+                <tr>
+                    <td>Outros Benefícios (R$)</td>
+                    <td>{{ obj.auxilio_alimentacao|format }}</td>
+                    <td>Descrição de Outros Benefícios</td>
+                    <td>{{ obj.descricao_outros_beneficios|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box 'Carga Horária' %}
+            <table class="info">
+                <tr>
+                    <td>Data de Início</td>
+                    <td>{{ obj.data_inicio|format }}</td>
+                    <td>Data Prevista para Encerramento</td>
+                    <td>{{ obj.data_prevista_fim|format }}</td>
+                </tr>
+                <tr>
+                    <td>C.H. Semanal</td>
+                    <td colspan="3">{{ obj.ch_semanal|format }}</td>
+                </tr>
+                {% if obj.data_fim %}
+                    <tr>
+                        <td>Data do Encerramento</td>
+                        <td colspan="3">{{ obj.data_fim|format }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% endbox %}
+
+        {% box 'Seguro' %}
+            <table class="info">
+                <tr>
+                    <td>Nome da Seguradora</td>
+                    <td>{{ obj.nome_da_seguradora|format }}</td>
+                </tr>
+                <tr>
+                    <td>Número da Apólice do Seguro</td>
+                    <td>{{ obj.numero_seguro|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box 'Supervisor' %}
+            <table class="info">
+                <tr>
+                    <td>Nome</td>
+                    <td colspan="3">{{ obj.nome_supervisor|format }}</td>
+                </tr>
+                <tr>
+                    <td>Telefone</td>
+                    <td>{{ obj.telefone_supervisor|format }}</td>
+                    <td>Cargo</td>
+                    <td>{{ obj.cargo_supervisor|format }}</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td colspan="3">{{obj.email_supervisor|format }}</td>
+                </tr>
+                <tr>
+                    <td>Observação</td>
+                    <td colspan="3">{{ obj.observacao|format }}</td>
+                </tr>
+            </table>
+        {% endbox %}
+
+        {% box 'Relação de Atividades do Estágio' %}
+            {% if obj.atividade_set.exists %}
+                <ul>
+                {% for atividade in obj.atividade_set.all %}
+                    <li>{{ atividade.descricao|format }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p class="msg alert">Nenhuma atividade foi definida para essa prática profissional.</p>
+            {% endif %}
+        {% endbox %}
+
+    {% endif %}
+</div>
+
+<div class="tab-container ajax-rendered" data-title="Documentação e Aditivos" data-tab="documentacao">
+    {% if request.GET.tab == "documentacao" %}
+        {% box 'Documentação' %}
+            {% if perms.estagios.add_praticaprofissional and not obj.eh_concluido %}
+                <ul class="action-bar">
+                    <li><a href="/estagios/gerar_termo_compromisso_documentotexto/{{ obj.pk }}/" class="btn success">Gerar Termo de Compromisso/Plano de Atividades - Documento Digital</a></li>
+                    <li><a href="/estagios/gerar_termo_compromisso/{{ obj.pk }}/" class="btn success">Gerar Termo de Compromisso/Plano de Atividades - PDF</a></li>
+                </ul>
+            {% endif %}
+            <table class="info">
+                <tr>
+                    <td>Plano de Atividades</td>
+                    <td>{% if obj.plano_atividades %}<a href="{{ obj.plano_atividades.url }}">{{ obj.plano_atividades.name|format }}</a>{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Termo de Compromisso - Arquivo Digitalizado</td>
+                    <td>{% if obj.termo_compromisso %}<a href="{{ obj.termo_compromisso.url }}">{{ obj.termo_compromisso.name|format }}</a>{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Termo de Compromisso - Documento Eletrônico</td>
+                    <td>{% if obj.termo_compromisso_documentotexto %}<a href="{{ obj.termo_compromisso_documentotexto.get_absolute_url }}">
+                        <strong>{{ obj.termo_compromisso_documentotexto.tipo }}:</strong> {{ obj.termo_compromisso_documentotexto }}</a>{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Relatório de avaliação das Instalações</td>
+                    <td>{% if obj.relatorio_avaliacao_instalacoes %}<a href="{{ obj.relatorio_avaliacao_instalacoes.url }}">{{ obj.relatorio_avaliacao_instalacoes.name|format }}</a>{% else %}-{% endif %}</td>
+                </tr>
+                {% if obj.documentacao_comprobatoria %}
+                    <tr>
+                        <td>Documentação Comprobatória</td>
+                        <td><a href="{{ obj.documentacao_comprobatoria.url }}">{{ obj.documentacao_comprobatoria.name|format }}</a></td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% endbox %}
+
+        {% box 'Aditivos Contratuais' %}
+            {% if perms.estagios.add_praticaprofissional and not obj.eh_concluido %}
+                <ul class="action-bar">
+                    <li><a href="/estagios/adicionar_estagio_aditivo_contratual/{{ obj.pk }}/" class="btn success">Adicionar Aditivo</a></li>
+                </ul>
+            {% endif %}
+
+            {% if obj.estagioaditivocontratual_set.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            {% if perms.estagios.add_praticaprofissional and not obj.eh_concluido %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Descrição</th>
+                            <th>Arquivo</th>
+                            <th>Início da Vigência</th>
+                            <th>Histórico de Mudanças</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aditivo in obj.estagioaditivocontratual_set.all %}
+                            <tr>
+                                {% if perms.estagios.add_praticaprofissional and not obj.eh_concluido %}
+                                    <td class="no-print">
+                                        {% icon "edit" "/estagios/adicionar_estagio_aditivo_contratual/{{ obj.pk }}/{{ aditivo.pk }}/" %}
+                                        {% icon "delete" "/comum/excluir/estagios/estagioaditivocontratual/{{ aditivo.pk }}/" "Remover Aditivo" "no-confirm popup" %}
+                                    </td>
+                                {% endif %}
+                                <td>{{ aditivo.descricao|format }}</td>
+                                <td><a href="{{ aditivo.aditivo.url }}">{{ aditivo.aditivo.name }}</a></td>
+                                <td>{{ aditivo.inicio_vigencia|format }}</td>
+                                <td>{{ aditivo.historico|format_br|safe }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum aditivo cadastrado para este estágio.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+</div>
+
+{% if perms.estagios.add_praticaprofissional %}
+    <div class="tab-container ajax-rendered" data-title="Notificações" data-tab="notificacoes" data-counter="{{ obj.notificacaopendencia_set.count }}">
+        {% if request.GET.tab == "notificacoes" %}
+            {% box 'Notificações' %}
+                {% if not obj.data_fim %}
+                    <ul class="action-bar">
+                        <li><a class="btn" href="/estagios/notificar_pendencias_estagio/{{ obj.pk }}/">Notificar Pendências</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if obj.notificacaopendencia_set.exists %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Notificador</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>E-mail do Destinatário</th>
+                                <th>Mensagem Enviada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for notificacao in obj.notificacaopendencia_set.all %}
+                            <tr>
+                                <td>{{ notificacao.notificador|format }}</td>
+                                <td>{{ notificacao.data }}</td>
+                                <td>{{ notificacao.get_tipo_display|format }}</td>
+                                <td>{{ notificacao.email_destinatario|format }}</td>
+                                <td><div class="format-html">{{ notificacao.mensagem_enviada|safe|linebreaksbr }}</div></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma notificação de pendência foi enviada.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+{% endif %}
+
+<div class="tab-container ajax-rendered" data-title="Visitas do Orientador" data-tab="visitas">
+    {% if request.GET.tab == "visitas" %}
+        {% box 'Visitas do Orientador' %}
+            {% if perms.estagios.add_praticaprofissional or request.user == obj.orientador.vinculo.user %}
+                {% if not obj.data_fim  %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/estagios/cadastrar_visitapraticaprofissional/{{ obj.pk }}/">Adicionar Visita</a></li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            <p class="msg info">
+                <b>Aviso ao orientador:</b> Este estágio tem previsão de duração de {{ obj.get_qtd_dias }} dias,
+                ou {{ obj.get_qtd_trimestres }} trimestres, deve ser feita uma visita para cada trimestre.
+                Segue a discriminação dos períodos trimestrais. Favor estar
+                atento(a) aos calendários de funcionamento tanto da concedente quanto do {% get_valor_por_chave "comum" "instituicao_sigla" %}.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trimestre</th>
+                        <th>Situação da Visita</th>
+                        <th>Situação do Relatório da Visita</th>
+                        {% if perms.estagios.add_praticaprofissional or request.user == obj.orientador.vinculo.user %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for periodo in obj.get_periodos_trimestrais %}
+                        <tr>
+                            <td>
+                                <p>{{ forloop.counter }}º trimestre de {{ periodo.inicio|format }} a {{ periodo.fim|format }}</p>
+                                <dl>
+                                {% for visita in periodo.visitas %}
+                                    <dt>
+                                        {% icon "view" "/estagios/visualizar_dados_visita/{{ visita.pk }}/" "Visualizar Dados da Visita" "popup" %}
+                                        {% if not obj.data_fim %}
+                                            {% if request.user == visita.orientador.vinculo.user or perms.estagios.add_praticaprofissional %}
+                                                {% icon "edit" "/estagios/cadastrar_visitapraticaprofissional/{{ obj.pk }}/{{ visita.pk }}/" "Editar" "popup" %}
+                                            {% endif %}
+                                            {% if perms.estagios.delete_visitapraticaprofissional %}
+                                                {% icon "delete" "/comum/excluir/estagios/visitapraticaprofissional/{{ visita.pk }}/" "Excluir Visita" "no-confirm popup" %}
+                                            {% endif %}
+                                        {% endif %}
+                                    </dt>
+                                    <dd>
+                                        Visita em {{ visita.data_visita }}
+                                    </dd>
+
+                                {% endfor %}
+                                </dl>
+                            </td>
+                            <td>
+                                {% if periodo.visitas.exists %}
+                                    <span class="status status-success">Realizada</span>
+                                {% elif periodo.justificativa.exists %}
+                                    <span class="status status-info">Justificada</span>
+                                {% else %}
+                                    {% if periodo.inicio > obj.data_fim or periodo.inicio < obj.data_fim and periodo.fim > obj.data_fim %}
+                                        <span class="status status-error">Cancelada</span>
+                                    {% elif periodo.fim < hoje %}
+                                        <span class="status status-alert">Não realizada</span>
+                                    {% else %}
+                                        <span class="status status-alert">Período não finalizado</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% for visita in periodo.visitas.all %}
+                                    {% if not visita.relatorio %}
+                                        <span class="status status-alert">Relatório da {{ visita }} pendente.</span>
+                                    {% else %}
+                                        <span class="status status-success">Relatório da {{ visita }} preenchido.</span>
+                                    {% endif %}
+                                {% empty %}
+                                    <span class="status status-alert">Nenhuma visita realizada.</span>
+                                {% endfor %}
+                            </td>
+                            {% if perms.estagios.add_praticaprofissional or request.user == obj.orientador.vinculo.user %}
+                                <td class="no-print">
+                                    <ul class="action-bar">
+                                        {% if periodo.justificativa.exists %}
+                                            <li>
+                                                <a href="/estagios/justificar_visita_estagio/{{ periodo.justificativa.0.pk }}/" class="btn primary">Editar Justificativa de Decurso de Prazo</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn popup default" href="/estagios/ver_justificativa_visita_estagio/{{ periodo.justificativa.0.pk }}/">Ver Justificativa</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if not periodo.visitas.exists and not periodo.justificativa.exists and periodo.fim < hoje %}
+                                            <li>
+                                                <a class="btn" href="/estagios/justificar_visita_estagio/{{ obj.pk }}/?inicio={{ periodo.inicio|format }}&fim={{ periodo.fim|format }}">Justificar Decurso de Prazo</a>
+                                            </li>
+                                        {% endif %}
+                                        {% for visita in periodo.visitas.all %}
+                                            <li>
+                                                <a class="btn" href="/estagios/gerar_relatorio_visita_estagio/{{ visita.pk }}/">Gerar Relatório da Visita no dia {{ visita.data_visita|format }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+
+        {% if obj.visitas_fora_de_periodo_trimestral.exists %}
+            {% box 'Visitas Cadastradas Fora dos Períodos Trimestrais' %}
+                <p class="msg alert">Há visitas cadastradas fora dos períodos trimestrais ou do período do próprio
+                    estágio. Elas são mostradas nessa sessão apenas por não serem agregadas aos períodos trimestrais.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Visita</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for visita in obj.visitas_fora_de_periodo_trimestral %}
+                        <tr>
+                            <td>
+                                <p>
+                                    {% icon "view" "/estagios/visualizar_dados_visita/{{ visita.pk }}/" "Visualizar Dados da Visita" "popup" %}
+                                    {% if not obj.data_fim %}
+                                        {% if request.user == visita.orientador.vinculo.user or perms.estagios.add_praticaprofissional %}
+                                            {% icon "edit" "/estagios/cadastrar_visitapraticaprofissional/{{ obj.pk }}/{{ visita.pk }}/" "Editar" "popup" %}
+                                        {% endif %}
+                                    {% endif %} Visita em {{ visita.data_visita }}
+                                </p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% endif %}
+    {% endif %}
+</div>
+
+<div class="tab-container ajax-rendered" data-title="Atividades de Orientação" data-tab="reunioes" data-counter="{{ obj.orientacaoestagio_set.count }}">
+    {% if request.GET.tab == "reunioes" %}
+        {% box 'Reuniões de Orientação Agendadas' %}
+            <p class="msg info"><b>Aviso ao orientador:</b> As reuniões devem ser mensais.</p>
+
+            {% if request.user == obj.orientador.vinculo.user and not obj.data_fim %}
+                <ul class="action-bar">
+                    <li>
+                        <a class="btn popup" href="/estagios/agendar_orientacao_estagio/{{ obj.pk }}/">Agendar Orientação</a>
+                    </li>
+                </ul>
+            {% endif %}
+
+            {% if obj.orientacaoestagio_set.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            {% if request.user == obj.orientador.vinculo.user %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Mês</th>
+                            <th>Data</th>
+                            <th>Hora de Início</th>
+                            <th>Local</th>
+                            <th>Descrição do Conteúdo da Orientação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for orientacao in obj.orientacaoestagio_set.all %}
+                        <tr>
+                            {% if request.user == orientacao.orientador.vinculo.user %}
+                                <td class="no-print">
+                                    {% icon "edit" "/estagios/agendar_orientacao_estagio/{{ obj.pk }}/{{ orientacao.pk }}/" "Editar" "popup" %}
+                                </td>
+                            {% endif %}
+                            <td>{{ orientacao.data|date:"E" }}</td>
+                            <td>{{ orientacao.data|format }}</td>
+                            <td>{{ orientacao.hora_inicio|time:"H:i" }}</td>
+                            <td>{{ orientacao.local|format }}</td>
+                            <td>{{ orientacao.descricao|format }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma reunião de orientação foi agendada pelo professor orientador para este estágio.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+</div>
+
+<div class="tab-container ajax-rendered" data-title="Relatórios de Atividades – Estagiário" data-tab="relatorios">
+    {% if request.GET.tab == "relatorios" %}
+        {% box 'Relatórios de Atividades – Estagiário' %}
+            {% if not obj.data_fim  %}
+                {% if pode_registrar_relatorio_estagiario %}
+                    <ul class="action-bar">
+                        <li>
+                            <a href="/estagios/submeter_relatorio_semestral/{{ obj.pk }}/" class="btn success">Registrar
+                                Relatório</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            <table class="info">
+                <tr>
+                    <td>Duração do Estágio:</td>
+                    <td>Iniciado em {{ obj.data_inicio }}, previsto para acabar em {{ obj.data_prevista_fim }}</td>
+                </tr>
+                <tr>
+                    <td>Períodos semestrais: </td>
+                    <td>
+                        <ul>
+                            {% for periodo in obj.get_periodos_semestrais %}
+                                <li>
+                                    De {{ periodo.inicio }} até {{ periodo.fim }} (Obs.: Poderá ser cadastrado o relatório deste período a
+                                    partir do dia seguinte ao dia {{ periodo.fim }}.)
+                                    {% if periodo.relatorio_estagiario.exists %}
+                                        <span class="status status-success">Relatório cadastrado</span>
+                                    {% else %}
+                                        {% if periodo.fim < hoje %}
+                                            <span class="status status-alert">Relatório pendente</span>
+                                        {% else %}
+                                            <span class="status status-alert">Período não finalizado</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+            {% if obj.get_relatorios_estagiario.exists %}
+                {% for relatorio in obj.get_relatorios_estagiario %}
+                    {% box '{{ forloop.counter }}º Relatório' %}
+                        <ul class="action-bar">
+                             {% if relatorio|method:"pode_editar"|call:request.user %}
+                                <li>
+                                    <a class="btn primary" href="/estagios/submeter_relatorio_semestral/{{ obj.pk }}/{{ relatorio.pk }}/">Editar {{ forloop.counter }}º Relatório</a>
+                                </li>
+                             {% endif %}
+                             {% if perms.estagios.delete_relatoriosemestralestagio and relatorio.can_delete %}
+                                 <li>
+                                     <a class="btn danger no-confirm popup" href="/comum/excluir/estagios/relatoriosemestralestagio/{{ relatorio.pk }}/">Excluir {{ forloop.counter }}º Relatório</a>
+                                 </li>
+                             {% endif %}
+                        </ul>
+                        <table class="info">
+                            <tbody>
+                                <tr>
+                                    <td>Data do Relatório</td>
+                                    <td>{{ relatorio.data_relatorio|format }}</td>
+                                </tr>
+                                {% if perms.estagios.add_praticaprofissional  %}
+                                    <tr>
+                                        <td>Último Usuário a Editar</td>
+                                        <td>{{ relatorio.ultimo_editor|format }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Período do Relatório</td>
+                                    <td>de {{ relatorio.inicio|format }} até {{ relatorio.fim|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Plano de Atividades</td>
+                                    <td>
+                                        <ul>
+                                            {% for avaliacao_atividade in relatorio.relatoriosemestralestagioatividade_set.all %}
+                                                <li>
+                                                    {{ avaliacao_atividade.atividade.descricao }} -
+                                                    Realizada? {{ avaliacao_atividade.is_realizada|format }}
+                                                    {% if not avaliacao_atividade.is_realizada %}
+                                                        Motivo: {{ avaliacao_atividade.get_nao_realizada_motivo_display|format }}
+                                                        {% if avaliacao_atividade.nao_realizada_motivo_descricao %}
+                                                            ({{ avaliacao_atividade.nao_realizada_motivo_descricao|format }})
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Comentários sobre o Desenvolvimento das Atividades</td>
+                                    <td>{{ relatorio.comentarios_atividades|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Realizou Outras Atividades?</td>
+                                    <td>{{ relatorio.realizou_outras_atividades|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Descrição de Outras Atividades</td>
+                                    <td>{{ relatorio.outras_atividades|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Justificativa de Outras Atividades</td>
+                                    <td>{{ relatorio.outras_atividades_justificativa|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Estágio na Área de Formação</td>
+                                    <td>{{ relatorio.estagio_na_area_formacao|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Estágio Contribuiu na Formação Profissional</td>
+                                    <td>{{ relatorio.estagio_contribuiu|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>O Conhecimento Adquirido foi Aplicado</td>
+                                    <td>{{ relatorio.aplicou_conhecimento|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Avaliação do Estágio no Período</td>
+                                    <td>{{ relatorio.get_avaliacao_conceito_display|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Comentários e Sugestões</td>
+                                    <td>{{ relatorio.avaliacao_comentarios|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Arquivo do Relatório</td>
+                                    <td>
+                                        {% if relatorio.relatorio %}
+                                            <a href="{{ relatorio.relatorio.url }}">Relatório</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Observação</td>
+                                    <td>
+                                        O desenvolvimento de uma atividade de estágio implica em um constante processo de aprendizagem
+                                        e desenvolvimento de competências. O plano de atividades do estagiário, à medida que for avaliado,
+                                        progressivamente, o desempenho do estudante deve ser atualizado e incorporado ao termo de compromisso
+                                        de estágio por meio de aditivos. (Parágrafo único, art. 7º, Lei 11.788/08).
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endbox %}
+                {% endfor %}
+            {% else %}
+                <p class="msg alert mt-2">A prática profissional ainda não foi avaliada pelo estagiário.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+</div>
+
+<div class="tab-container ajax-rendered" data-title="Relatórios de Atividades - Supervisor" data-tab="avaliacaosupervisor">
+    {% if request.GET.tab == "avaliacaosupervisor" %}
+        {% box 'Relatórios de Atividades - Supervisor' %}
+            {% if perms.estagios.add_praticaprofissional and not obj.data_fim %}
+                <ul class="action-bar">
+                    <li>
+                        <a class="btn" href="/estagios/registrar_avaliacao_supervisor_pratica_profissional/{{ obj.pk }}/">Registrar Relatório</a>
+                    </li>
+                </ul>
+            {% endif %}
+
+            <table class="info">
+                <tr>
+                    <td>Duração do Estágio</td>
+                    <td>Iniciado em {{ obj.data_inicio }}, previsto para acabar em {{ obj.data_prevista_fim }}</td>
+                </tr>
+                <tr>
+                    <td>Períodos Semestrais</td>
+                    <td>
+                        <ul>
+                        {% for periodo in obj.get_periodos_semestrais %}
+                            <li>
+                                De {{ periodo.inicio }} até {{ periodo.fim }} (Obs.: Poderá ser cadastrado o relatório deste período a partir do dia seguinte ao dia {{ periodo.fim }}.)
+                                {% if periodo.relatorio_supervisor.exists %}
+                                    <span class="status status-success">Relatório cadastrado</span>
+                                {% else %}
+                                    {% if periodo.fim < hoje %}
+                                        <span class="status status-alert">Relatório pendente</span>
+                                    {% else %}
+                                        <span class="status status-alert">Período não finalizado</span>
+                                    {% endif %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+            {% if obj.get_relatorios_supervisor.exists %}
+                {% for relatorio in obj.get_relatorios_supervisor %}
+                    {% box '{{ forloop.counter }}º Relatório' %}
+                        <ul class="action-bar">
+                            {% if perms.estagios.add_praticaprofissional and not obj.data_fim %}
+                                <li>
+                                    <a class="btn primary" href="/estagios/registrar_avaliacao_supervisor_pratica_profissional/{{ obj.pk }}/{{ relatorio.pk }}/">Editar {{ forloop.counter }}º Relatório</a>
+                                </li>
+                                {% if relatorio.can_delete %}
+                                    <li>
+                                        <a class="btn danger no-confirm popup" href="/comum/excluir/estagios/relatoriosemestralestagio/{{ relatorio.pk }}/">Excluir {{ forloop.counter }}º Relatório</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                        <table class="info">
+                            <tbody>
+                                <tr>
+                                    <td>Data do Relatório</td>
+                                    <td>{{ relatorio.data_relatorio|format }}</td>
+                                </tr>
+                                {% if perms.estagios.add_praticaprofissional  %}
+                                    <tr>
+                                        <td>Último Usuário a Editar</td>
+                                        <td>{{ relatorio.ultimo_editor|format }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Período do Relatório</td>
+                                    <td>de {{ relatorio.inicio|format }} até {{ relatorio.fim|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Plano de Atividades</td>
+                                    <td>
+                                        <ul>
+                                            {% for avaliacao_atividade in relatorio.relatoriosemestralestagioatividade_set.all %}
+                                                <li>
+                                                    {{ avaliacao_atividade.atividade.descricao }} -
+                                                    Realizada? {{ avaliacao_atividade.is_realizada|format }}
+                                                    {% if not avaliacao_atividade.is_realizada %}
+                                                        Motivo: {{ avaliacao_atividade.get_nao_realizada_motivo_display|format }}
+                                                        {% if avaliacao_atividade.nao_realizada_motivo_descricao %}
+                                                            ({{ avaliacao_atividade.nao_realizada_motivo_descricao|format }})
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Comentários sobre o Desenvolvimento das Atividades</td>
+                                    <td>{{ relatorio.comentarios_atividades|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Realizou Outras Atividades?</td>
+                                    <td>{{ relatorio.realizou_outras_atividades|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Descrição de Outras Atividades</td>
+                                    <td>{{ relatorio.outras_atividades|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Justificativa de Outras Atividades</td>
+                                    <td>{{ relatorio.outras_atividades_justificativa|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nota do Estagiário</td>
+                                    <td>{{ relatorio.nota_estagiario|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Arquivo do Relatório</td>
+                                    <td>
+                                        {% if relatorio.relatorio %}
+                                            <a href="{{ relatorio.relatorio.url }}">Relatório</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Observação</td>
+                                    <td>
+                                        O desenvolvimento de uma atividade de estágio implica em um constante processo de aprendizagem
+                                        e desenvolvimento de competências. O plano de atividades do estagiário, à medida que for avaliado,
+                                        progressivamente, o desempenho do estudante deve ser atualizado e incorporado ao termo de compromisso
+                                        de estágio por meio de aditivos. (Parágrafo único, art. 7º, Lei 11.788/08).
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endbox %}
+                {% endfor %}
+            {% else %}
+                <p class="msg alert">A prática profissional ainda não foi avaliada pelo supervisor.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+</div>
+
+<div class="tab-container ajax-rendered" data-title="Dados do Encerramento" data-tab="encerramento">
+    {% if request.GET.tab == "encerramento" %}
+        {% box 'Dados do Encerramento' %}
+            {% if perms.estagios.add_praticaprofissional %}
+                <ul class="action-bar">
+                    {% if obj.data_fim %}
+                        <li>
+                            <a class="btn primary" href="/estagios/encerrar_pratica_profissional/{{ obj.pk }}/">Editar Registro de Encerramento</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="btn" href="/estagios/encerrar_pratica_profissional/{{ obj.pk }}/">Registrar Encerramento</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="/estagios/encerrar_estagio_abandono_matricula_irregular/{{ obj.pk }}/">Registrar Encerramento por Abandono/Matrícula Irregular</a>
+                        </li>
+                    {% endif %}
+                    {% if obj.data_fim %}
+                        {% if is_administrador or is_coordenador %}
+                            <li>
+                                <a class="btn" href="/estagios/solicitar_cancelar_encerramento_estagio/{{ obj.pk }}/">Solicitar Cancelamento do Encerramento</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            <div class="msg info">
+                <p><strong>Em caso de Conclusão do Estágio:</strong> todas as visitas e relatórios devem estar devidamente cadastrados.</p>
+                <p><strong>Em caso de Rescisão:</strong></p>
+                <ul>
+                    <li>Situação 1 - Rescisão com menos de 3 meses de duração do estágio: é possível encerrar sem pre-requisitos. Nesse caso, mantém-se apenas o registro da carga horária.</li>
+                    <li>Situação 2 - Rescisão acima de 3 meses de duração do estágio: todas as visitas e relatórios devem estar devidamente cadastrados.</li>
+                </ul>
+                <p>Em todos os casos deve ser feito o Termo de Realização do Estágio.</p>
+            </div>
+
+            {% if obj.data_fim %}
+                <table class="info">
+                    <tr>
+                        <td>Encerrado por</td>
+                        <td>{{ obj.get_movito_encerramento_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Motivação do Desligamento/ Encerramento</td>
+                        <td>{{ obj.get_motivacao_desligamento_encerramento_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Observações</td>
+                        <td>{{ obj.motivo_rescisao|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Data do Encerramento</td>
+                        <td>{{ obj.data_fim|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>C.H. Final</td>
+                        <td colspan="3">{{ obj.ch_final|format }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Termo de Realização de Estágio</td>
+                        <td>{% if obj.termo_encerramento %}<a href="{{ obj.termo_encerramento.url }}">{{ obj.termo_encerramento.name|format }}</a>{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Ficha de Frequência</td>
+                        <td>{% if obj.ficha_frenquencia %}<a href="{{ obj.ficha_frequencia.url }}">{{ obj.termo_encerramento.name|format }}</a>{% endif %}</td>
+                    </tr>
+                </table>
+            {% else %}
+                <p class="msg alert">O estágio encontra-se em andamento.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+</div>
+
+{% endblock %}

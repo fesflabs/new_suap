@@ -1,0 +1,42 @@
+<table class="borda">
+    <thead>
+    <tr>
+        {% if acesso_total %}
+            <th><input type="checkbox"
+                       onchange="var is = this.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked"/>
+            </th>
+        {% endif %}
+        <th>#</th>
+        <th>Matrícula</th>
+        <th>Aluno</th>
+        <th>CH Cumprida</th>
+        <th>Situação no ENADE</th>
+        <th>Situação da Matrícula</th>
+        <th>Turno</th>
+        <th>Conclusão do Ensino Médio</th>
+        <th>Nome da Mãe</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for convocacao in convocados_por_tipo.list %}
+        <tr>
+            {% if acesso_total %}
+                <td><input value="{{ convocacao.pk }}" name="convocacoes_selecionadas" type="checkbox"/></td>
+            {% endif %}
+            <td>{{ forloop.counter }}</td>
+
+            <td>
+                <a href="/edu/aluno/{{ convocacao.aluno.matricula|format }}/">{{ convocacao.aluno.matricula|format }}</a>
+            </td>
+            <td>{{ convocacao.aluno.get_nome|format }}</td>
+
+            <td align="center">{{ convocacao.percentual_ch_cumprida|format }}%</td>
+            <td>{{ convocacao.get_situacao_display|format }}</td>
+            <td>{{ convocacao.aluno.situacao|format }}</td>
+            <td>{{ convocacao.aluno.turno.descricao|format }}</td>
+            <td>{{ convocacao.aluno.ano_conclusao_estudo_anterior|format }}</td>
+            <td>{{ convocacao.aluno.nome_mae|format }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,250 @@
+<span id="mensagens-1" aria-hidden="true"></span>
+{% box "Mensagens de Alerta" %}
+    <dl class="definition-list guia-estilo">
+        <dt>Exibição</dt>
+        <dd>
+            <p class="msg alert">
+                <strong>Atenção:</strong> Inscrições para fiscais do concurso abertas.
+            </p>
+        </dd>
+        <dd>
+            <p class="msg critical">
+                <strong>Atenção:</strong> Inscrições para fiscais do concurso abertas.
+            </p>
+        </dd>
+        <dd>
+            <div class="msg info">
+                <strong>Informação:</strong> Inscrições para fiscais do concurso abertas.
+                <ul>
+                    <li>Poderão se inscrever servidores e alunos.</li>
+                    <li>As inscrições são até 23/06/2012.</li>
+                </ul>
+            </div>
+        </dd>
+        <dd>
+            <p class="msg help">
+                <strong>Atenção:</strong> Inscrições para fiscais do concurso abertas.
+            </p>
+        </dd>
+
+        <dt>Código HTML (frase simples)</dt>
+        <dd>
+<pre>
+&lt;p class="msg CLASS_PARENT"&gt;&lt;strong&gt;Atenção:&lt;/strong&gt; Inscrições para fiscais do concurso abertas.&lt;/p&gt;
+</pre>
+        </dd>
+
+        <dt>Código HTML (conteúdo complexo)</dt>
+        <dd>
+<pre>
+&lt;div class="msg CLASS_PARENT"&gt;
+    &lt;p&gt;&lt;strong&gt;Atenção:&lt;/strong&gt; Inscrições para fiscais do concurso abertas.&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Poderão se inscrever servidores e alunos.&lt;/li&gt;
+        &lt;li&gt;As inscrições são até 23/06/2012.&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+        </dd>
+
+        <dt>Tabela de Referência</dt>
+        <dd>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parâmetro</th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">CLASS_PARENT</td>
+                        <td><code>.alert</code></td>
+                        <td>Para customizar a barra na cor de alerta: amarela.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.critical</code></td>
+                        <td>Para customizar a barra na cor de erro: vermelha.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.help</code></td>
+                        <td>Para customizar a barra em cor neutra, com ícone de dúvida.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.info</code></td>
+                        <td>Para customizar a barra na cor de informação: azul.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="mensagens-2" aria-hidden="true"></span>
+{% box "Mensagens de Retorno" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <p class="msg success">A ação foi efetuada com <strong>sucesso</strong>. <a href="#">Acesse seu comprovante.</a></p>
+        </dd>
+        <dd>
+            <p class="msg warning">A ação foi efetuada com <strong>sucesso</strong>. <a href="#">Acesse seu comprovante.</a></p>
+        </dd>
+        <dd>
+            <p class="msg error"><strong>Atenção:</strong> Há um erro nessa página.</p>
+            <p class="obs">Para mensagens de erro é possível utilizar as seguintes classes CSS: <code>msg error</code> e <code>errornote</code>.</p>
+        </dd>
+
+        <dt>Código HTML</dt>
+        <dd>
+<pre>
+&lt;p class="msg CLASS_PARENT"&gt;A ação foi efetuada com &lt;strong&gt;sucesso&lt;/strong&gt;.&lt;/p&gt;
+</pre>
+        </dd>
+
+        <dt>Tabela de Referência</dt>
+        <dd>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parâmetro</th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3">CLASS_PARENT</td>
+                        <td><code>.success</code></td>
+                        <td>Para exibir mensagem de sucesso.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.warning</code></td>
+                        <td>Para exibir mensagem de alerta.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Para exibir mensagem de erro.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="mensagens-3" aria-hidden="true"></span>
+{% box "Erros em Formulários" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <form action="">
+                <fieldset>
+                    <div class="form-row errors">
+                        <div class="field-box">
+                            <ul class="errorlist">
+                                <li>Este campo foi preenchido de forma errada.</li>
+                                <li><a href="#">Veja opções de preenchimento</a>.</li>
+                                <li>Não é permitido números neste campo.</li>
+                            </ul>
+                            <label for="id_nome">Nome:</label>
+                            <input type="text" name="nome" id="id_nome" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </dd>
+
+        <dt>Código HTML</dt>
+        <dd>
+<pre>
+&lt;div class="form-row errors"&gt;
+    &lt;ul class="errorlist"&gt;
+        &lt;li&gt;Este campo foi preenchido de forma errada.&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Veja opções de preenchimento&lt;/a&gt;.&lt;/li&gt;
+        &lt;li&gt;Não é permitido números neste campo.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;label for="id_nome"&gt;Nome:&lt;/label&gt;
+    &lt;input type="text" name="nome" id="id_nome" /&gt;
+&lt;/div&gt;
+</pre>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="mensagens-4" aria-hidden="true"></span>
+{% box "Situações" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd><span class="status status-info">Informação</span></dd>
+        <dd><span class="status status-alert">Alerta</span></dd>
+        <dd><span class="status status-success">Sucesso</span></dd>
+        <dd><span class="status status-error">Erro</span></dd>
+        <dd><span class="status status-default" data-hint="Situação: Normal em 15/04/2021">Normal</span></dd>
+        <dd><span class="status status-final">Final</span></dd>
+        <dd><span class="status disabled">Desabilitado</span></dd>
+
+        <dt>Código HTML</dt>
+        <dd>
+<pre>
+&lt;span class="status status-CLASS" ATTR&gt;Situação&lt;/span&gt;
+</pre>
+        </dd>
+
+        <dt>Tabela de Referência</dt>
+        <dd>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parâmetro</th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="7">CLASS</td>
+                        <td><code>.info</code></td>
+                        <td>Para indicar situação inicial ou comum.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert</code></td>
+                        <td>Para indicar situação temporária.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.success</code></td>
+                        <td>Para indicar situação final de sucesso.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Para indicar situação final de insucesso, podendo ser revertido para situação de sucesso.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.default</code></td>
+                        <td>Para indicar situação extra.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.final</code></td>
+                        <td>Para indicar situação final, sem possibilidade de retorno.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.disabled</code></td>
+                        <td>Para exibir a situação de forma desabilitada.</td>
+                    </tr>
+                    <tr>
+                        <td>ATTR</td>
+                        <td><code>[data-hint]</code></td>
+                        <td>Para exibir texto ao passar o mouse por cima.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </dd>
+
+        <dt>Regras</dt>
+        <dd>
+            <ol>
+                <li>É possível utilizar classes já previamente mapeadas no CSS com nomes comuns como: <code>concluido</code>, <code>finalizado</code>, <code>cancelado</code> etc. Podendo ser adicionados via CSS outras nomenclaturas. Esta implementação foi realizada para facilitar a utilização de variável de status dos modelos, bastando hifenizar o resultado para exibir em tela.</li>
+            </ol>
+        </dd>
+    </dl>
+{% endbox %}

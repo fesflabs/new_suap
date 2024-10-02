@@ -1,0 +1,89 @@
+<div class="tab-container" data-tab="linha_tempo" data-title="Linha do Tempo" data-counter="{{ comentarios.count }}">
+    {% if obj.historicocomentarioerro_set.count > 0 %}
+        <ul class="action-bar">
+            <li><a href="#" class="btn default timeline-details">Exibir somente comentários</a></li>
+        </ul>
+    {% endif %}
+    
+    {% autopaginate comentarios 10 %}
+    {% paginate %}
+    <ul class="timeline">
+        {% if pode_comentar %}
+            <li>
+                <div class="timeline-photo">
+                    <img alt="{{ request.user.get_profile.nome_usual }}" src="{{ request.user.get_profile.get_foto_75x100_url }}" />
+                </div>
+                <div class="timeline-content">
+                    <h4>Adicionar Interação:</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        {{ form.descricao.errors }}
+                        {{ form.descricao }}
+                        {{ form.descricao.help_text }}
+                        <div class="submit-row">
+                            <input class="btn success" type="submit" value="Adicionar Interação" id="btn_adicionar_comentario"/>
+                        </div>
+                    </form>
+                </div>
+            </li>
+        {% endif %}
+        {% for comentario in comentarios %}
+            {% if comentario|method:"pode_ver"|call:request.user.get_vinculo %}
+                {% if not comentario.automatico %}
+                    <li>
+                        <div class="timeline-date">{{ comentario.data_alteracao }}</div>
+                        <div class="timeline-photo" title="{{ comentario.vinculo.pessoa.pessoafisica.nome_usual }}">
+                            <img alt="{{ comentario.vinculo.pessoa.pessoafisica.nome_usual }}"
+                                 src="{{ comentario.vinculo.pessoa.pessoafisica.get_foto_75x100_url }}" />
+                        </div>
+                        <div class="timeline-content">
+                            <h4>{{ comentario.vinculo.user|format }} <small>comentou:</small></h4>
+                                {% if not comentario.ativo %}
+                                    <s>{{ comentario.descricao|linebreaks }}</s>
+                                {% else %}
+                                    {{ comentario.descricao|linebreaks }}
+                                {% endif %}
+                        </div>
+                        {% if comentario|method:"pode_desconsiderar_comentario"|call:request.user.get_vinculo %}
+                        <ul class="action-bar">
+                            <li class="has-child">
+                                <a href="#" class="btn icon-cog"><span class="fas fa-cog" aria-hidden="true"></span><span class="sr-only">Opções</span></a>
+                                <ul>
+                                    <li><a href="/erros/desconsiderar_comentario/{{ comentario.pk }}/">Desconsiderar Comentário</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                {% else %}
+                    <li class="obs">
+                        <div class="timeline-date">{{ comentario.data_alteracao }}</div>
+                        {% if comentario.vinculo %}
+                            <div class="timeline-photo" title="{{ comentario.vinculo.pessoa.pessoafisica.nome_usual }}">
+                                <img alt="{{ comentario.vinculo.pessoa.pessoafisica.nome_usual }}"
+                                     src="{{ comentario.vinculo.pessoa.pessoafisica.get_foto_75x100_url }}" />
+                            </div>
+                        {% else %}
+                            <div class="timeline-icon"></div>
+                        {% endif %}
+                        <div class="timeline-content">
+                            {% if comentario.vinculo %}{{ comentario.vinculo.user|format }}{% endif %} {{ comentario.descricao|safe }}
+                        </div>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <li class="obs">
+            <div class="timeline-date">{{ obj.data_criacao|format }}</div>
+            <div class="timeline-photo" title="{{ obj.informante.pessoa.pessoafisica.nome_usual }}">
+                <img alt="{{ obj.informante.pessoa.pessoafisica.nome_usual }}"
+                     src="{{ obj.informante.pessoa.pessoafisica.get_foto_75x100_url }}" />
+            </div>
+            <div class="timeline-content">
+                {{ obj.informante.user|format }} abriu este erro.
+            </div>
+        </li>
+    </ul>
+    {% paginate %}
+</div>

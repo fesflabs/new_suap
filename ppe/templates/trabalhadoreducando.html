@@ -1,0 +1,213 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+
+       <li class='has-child'>
+           <a class="btn" href="#">Ações</a>
+           <ul>
+               {% if tem_permissao_realizar_procedimentos and trabalhadoreducando.pode_matricular_turma %}
+                    <li><a class='popup' href="/ppe/matricular_trabalhador_educando_turma/{{ trabalhadoreducando.pk }}/">Matricular em Turma</a></li>
+               {% endif %}
+           </ul>
+       </li>
+
+        <li class='has-child'>
+            <a href="#" class="btn primary">Editar</a>
+            <ul>
+                {% if pode_alterar_email_trabalhadoreducando %}
+                    <li><a class="popup" href="/ppe/atualizar_email_secundario/{{ trabalhadoreducando.pk }}/">E-mail</a></li>
+                {% endif %}
+                {% if tem_permissao_realizar_procedimentos %}
+                    <li><a class="popup" href="/ppe/alterar_trabalhador_setor_historico/{{ trabalhadoreducando.pk }}/">Alterar Setor</a></li>
+                {% endif %}
+                {% if is_admin %}
+                    <li><a href="/admin/ppe/trabalhadoreducando/{{ trabalhadoreducando.pk }}/change/">Trabalhador(a) Educando(a)</a></li>
+                {% elif tem_permissao_realizar_procedimentos %}
+                    <li><a class="popup" href="/ppe/atualizar_dados_pessoais/{{ trabalhadoreducando.pk }}/">Dados Pessoais</a></li>
+                {% elif is_proprio_trabalhadoreducando %}
+                    <li><a class="popup" href="/ppe/atualizar_meus_dados_pessoais/{{ trabalhadoreducando.matricula }}/">Dados
+                        Pessoais</a></li>
+                {% endif %}
+                {% if perms.ppe.change_foto %}
+                    <li><a href="/ppe/atualizar_foto/{{ trabalhadoreducando.pk }}/">Foto Estudantil</a></li>
+                {% endif %}
+            </ul>
+        </li>
+
+        {% if trabalhadoreducando.pessoa_fisica.username %}
+            {% ldap_actions trabalhadoreducando.pessoa_fisica %}
+        {% endif %}        
+        {% if is_proprio_trabalhadoreducando or is_admin %}
+            {% comment %} {% if trabalhadoreducando.possui_vinculo %} {% endcomment %}
+            
+                {% if not is_responsavel %}
+                    <li class="has-child">
+                        <a class="btn default" href="#">Documentos</a>
+                        <ul>
+                            <li><a class="default" href="/ppe/certconclusaoporcursoppe/{{ trabalhadoreducando.pk }}/">Certificado de Conclusão por Curso</a></li>
+                            <li><a class="default" href="/ppe/certtrezentashorasppe_pdf/{{ trabalhadoreducando.pk }}/">Certificado de Conclusão de 300 horas</a></li>
+                            {% if trabalhadoreducando.is_matriculado %}
+                                {% if trabalhadoreducando.pode_emitir_declaracao and tem_permissao_para_emitir_docs_matricula %}
+                                    <li><a class="default" href="/ppe/declaracaomatriculappe_pdf/{{ trabalhadoreducando.pk }}/">Declaração de Matrícula</a></li>
+                                {% endif %}
+                                    {% comment %} <li><a class="default" href="/edu/atestadofrequencia_pdf/{{ obj.pk }}/">Atestado de Frequência</a></li>
+                                {% endif %}
+                            {% elif obj.is_concluido and tem_permissao_realizar_procedimentos and urls_diploma_historico is None %}
+                                <li><a class="default" href="/edu/emitir_historico_final_pdf/{{ obj.pk }}/">Histórico Final</a></li>
+                            {% endif %}
+                            <li><a class="default" href="/edu/grade_curricular/{{ obj.matriz.pk }}/">Matriz Curricular</a></li>
+                            
+                            {% if urls_diploma_historico %}
+                                <li><a class="default" target="_blank" href="{{ urls_diploma_historico.0 }}">Histórico Final</a></li>
+                                <li><a class="default" target="_blank" href="{{ urls_diploma_historico.1 }}">Diploma</a></li> {% endcomment %}
+                            {% endif %}
+                            {% comment %} {% for certidao in obj.certificadodiploma_set.all %}
+                                <a target="_blank" class="btn" href="/edu/certificado_diploma_pdf/{{ certidao.pk }}/" title="Imprimir">Certificado de Conclusão</a>
+                            {% endfor %} {% endcomment %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
+        {% endif %}
+
+        {% if is_proprio_trabalhadoreducando %}
+            <li><a class="btn default" href="/comum/minha_conta/">{% icone "user" %} Minha Conta</a></li>
+        {% endif %}
+
+        {% help_button %}
+    </ul>
+{% endblock %}
+
+{% block object-status %}
+    {% if obj.situacao.pk == 100 %}
+        <span class="status status-error">{{ trabalhadoreducando.situacao|format }}</span>
+    {% else %}
+        {% if obj.situacao.pk == 6 %}
+            <span class="status status-success">{{ trabalhadoreducando.situacao|format }}</span>
+        {% else %}
+            <span class="status status-info">{{ trabalhadoreducando.situacao|format }}</span>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if not trabalhadoreducando.pessoa_fisica.username %}
+        <p class="msg alert"><strong>Atenção:</strong> o nome de usuário desse aluno ainda não foi definido pelo
+            sistema.</p>
+    {% endif %}
+
+    {% box 'Dados Gerais' %}
+        <div class="photo-circle big">
+            <img src="{{ trabalhadoreducando.get_foto_150x200_url }}" alt="Foto de {{ trabalhadoreducando.get_nome }}">
+        </div>
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-50">
+                <dt>Nome</dt>
+                <dd>{{ trabalhadoreducando.get_nome|normalizar }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Matrícula</dt>
+                <dd>{{ trabalhadoreducando.matricula }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Turma</dt>
+                <dd>
+                    {% if perms.ppe.view_turma and trabalhadoreducando.turma %}
+                        <a href="/ppe/turma/{{ trabalhadoreducando.turma.pk }}/" title="Visualizar a Turma">
+                    {% endif %}
+                    {{ trabalhadoreducando.turma|format }}
+                    {% if perms.ppe.view_turma and trabalhadoreducando.turma %}
+                        </a>
+                    {% endif %}
+                </dd>
+            </div>
+
+            <div class="list-item">
+                <dt>Formação PPE</dt>
+                <dd>
+                    {% if perms.ppe.view_formacaoppe and trabalhadoreducando.formacao %}
+                        <a href="/ppe/formacaoppe/{{ trabalhadoreducando.formacao.pk }}/" title="Visualizar a Formação">
+                    {% endif %}
+                    {{ trabalhadoreducando.formacao|format }}
+                    {% if perms.ppe.view_formacaoppe and trabalhadoreducando.formacao %}
+                        </a>
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>E-mail Acadêmico</dt>
+                <dd>{{ trabalhadoreducando.email_academico|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>E-mail Google Sala de Aula</dt>
+                <dd>
+                    <p>{{ trabalhadoreducando.email_google_classroom|format }}</p>
+                    <p class="obs">O login para este e-mail, e para os recursos do Google for Education, é realizado exclusivamente através de ícone do Google localizado na página inicial do SUAP. O login através de senha <strong>não está habilitado</strong> para os serviços do Google for Education.</p>
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>CPF</dt>
+                <dd>{% if pode_ver_cpf %}{{ trabalhadoreducando.pessoa_fisica.cpf|format }}{% else %}***.****.***-**{% endif %}</dd>
+            </div>
+            {% if trabalhadoreducando.pessoa_fisica.nome_social %}
+                <div class="list-item">
+                    <dt>Nome no Registro</dt>
+                    <dd>{{ trabalhadoreducando.pessoa_fisica.nome_registro|format|normalizar }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Impressão Digital</dt>
+                <dd>{{ trabalhadoreducando.pessoa_fisica.tem_digital|format }}</dd>
+            </div>
+            {% if is_admin %}
+                <div class="list-item">
+                    <dt>Chave Primária</dt>
+                    <dd>{{ trabalhadoreducando.pk }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Acadêmicos" data-tab="dados_academicos">
+        {% if request.GET.tab == "dados_academicos" or not request.GET.tab %}
+            {% include "tabs/trabalhadoreducando_dados_academicos.html" %}
+        {% endif %}
+    </div>
+
+    {% if perms.ppe.view_dados_pessoais or is_proprio_trabalhadoreducando %}
+        <div class="tab-container ajax-rendered" data-title="Dados Pessoais" data-tab="dados_pessoais">
+            {% if request.GET.tab == "dados_pessoais" %}
+                {% include "tabs/trabalhadoreducando_dados_pessoais.html" %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+     {% if pode_ver_dados_academicos or pode_ver_dados_sociais or perms.ppe.emitir_historico %}
+        <div class="tab-container ajax-rendered" data-title="Histórico" data-tab="historico">
+            {% if request.GET.tab == "historico" %}
+                {% include "tabs/trabalhadoreducando_historico.html" %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if pode_ver_dados_academicos or pode_ver_dados_sociais or perms.ppe.emitir_boletim %}
+    <div class="tab-container ajax-rendered" data-title="Boletins" data-tab="boletim">
+        {% if request.GET.tab == "boletim" %}
+            {% include "tabs/trabalhadoreducando_boletins.html" %}
+        {% endif %}
+    </div>
+    {% endif %}
+    <div class="tab-container ajax-rendered" data-title="Histórico nos Setores" data-tab="historico_setores">
+        {% if request.GET.tab == "historico_setores" %}
+            {% include "tabs/trabalhadoreducando_historico_setor.html" %}
+        {% endif %}
+    </div>
+
+{% endblock %}

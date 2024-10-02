@@ -1,0 +1,47 @@
+<div class="tab-container" data-tab="homologacao" data-title="Homologação" data-checked="{% if demanda.ja_foi_homologada %}True{% else %}False{% endif %}">
+    {% box "Homologação" %}
+        <ul class="action-bar">
+            {% if not demanda.homologada %}
+                {% if demanda.em_homologacao and eh_demandante %}
+                    <li><a href="{% url 'homologacao_aprovar' demanda.pk %}" class="btn success">{% icone "thumbs-up" %} Aprovar</a></li>
+                    <li><a href="{% url 'homologacao_reprovar' demanda.pk %}" class="btn danger">{% icone "thumbs-down" %} Reprovar</a></li>
+                {% endif %}
+            {% endif %}
+            {% if demanda.ambiente_homologacao %}
+                {% if not demanda.ambiente_homologacao.ativo %}
+                    <li><a class="btn success" href="/demandas/acessar_ambiente_via_demanda/{{ demanda.ambiente_homologacao.pk }}/{{ demanda.pk }}/">
+                        {% icone "plus" %} Criar e Acessar Ambiente de Homologação
+                    </a></li>
+                {% else %}
+                    <li><a class="btn default" href="{{ demanda.ambiente_homologacao.get_url_homologacao }}">{% icone "sign-in-alt" %} Acessar Ambiente de Homologação</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+
+        <dl>
+            {% if demanda.url_validacao %}
+                <dt>URL de Acesso:</dt>
+                <dd><a href="{{ demanda.url_validacao }}">{{ demanda.url_validacao }}</a></dd>
+            {% endif %}
+            {% if demanda.ambiente_homologacao and demanda.ambiente_homologacao.senha %}
+                <dt>Senha Padrão:</dt>
+                <dd>{{ demanda.ambiente_homologacao.senha|format }}</dd>
+            {% elif demanda.senha_homologacao %}
+                <dt>Senha Padrão:</dt>
+                <dd>{{ demanda.senha_homologacao }}</dd>
+            {% endif %}
+            <dt>Regras do Ambiente de Homologação:</dt>
+            <dd>
+                <ul>
+                    <li>Nenhuma ação realizada neste ambiente afetará o ambiente oficial, seja de inclusão, alteração ou exclusão de dados.</li>
+                    <li>Este ambiente não envia notificações por e-mail.</li>
+                    <li>Este ambiente não possui dados sensíveis dos usuários, como CPF, alguns dados pessoais, algumas respostas a campos de texto longo etc.</li>
+                    <li>Os testes devem ser realizados exaustivamente por todos os usuários envolvidos e interessados.</li>
+                    <li>A qualquer momento é possível reiniciar o banco de dados para uma versão do banco de dados do dia anterior.</li>
+                    <li>Após validação da demanda, os testes serão parados e a funcionalidade será encaminhada para teste interno do setor de Desenvolvimento e posterior implantação.</li>
+                    <li>Todas as alterações de regras e funcionalidades da demanda devem ser solicitados durante este período de homologação. Após implantação da demanda, alterações drásticas podem resultar em perda de informações.</li>
+                </ul>
+            </dd>
+        </dl>
+    {% endbox %}
+</div>

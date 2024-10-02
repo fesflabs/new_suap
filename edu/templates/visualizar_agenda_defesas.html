@@ -1,0 +1,37 @@
+{% extends super_template %}
+
+{% block content %}
+    <h3>Próximas defesas de projetos finais do curso {{ curso_campus.descricao_historico }}</h3>
+    {% if projetos_finais.exists %}
+        <table>
+            <thead>
+            <tr>
+                <th>Visualizar</th>
+                <th>Ano Período Letivo</th>
+                <th>Tipo</th>
+                <th>Título</th>
+                <th>Aluno</th>
+                <th>Orientador</th>
+                <th>Data da Defesa</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for projeto in projetos_finais.all %}
+                <tr>
+                    <td>{% icon "view" "/edu/visualizar_projeto_final/{{ projeto.pk }}/" %}</td>
+                    <td>{{ projeto.get_ano_periodo_letivo|format }}</td>
+                    <td>{{ projeto.tipo|format }}</td>
+                    <td>{{ projeto.titulo|format }}</td>
+                    <td>{{ projeto.aluno|format }}</td>
+                    <td>{{ projeto.orientador|format }}</td>
+                    <td>{{ projeto.data_defesa|format }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhum projeto de tcc encontrado.</p>
+    {% endif %}
+
+
+{% endblock %}

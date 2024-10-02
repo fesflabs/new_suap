@@ -1,0 +1,4 @@
+Tec. da Informação::Usuários::Tarefas Assíncronas:
+  permissions_required:
+  - djtools.view_task
+  url: /admin/djtools/task/

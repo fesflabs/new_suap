@@ -1,0 +1,45 @@
+{{ periodo_letivo_atual.as_widget|safe }}
+
+{% if not matriculas_periodo %}
+    <p class="msg alert">Nenhuma matrícula em diário no ano/período letivo.</p>
+{% else %}
+    {% box "Horários" %}
+        {% include "includes/tabela_horario.html" %}
+    {% endbox %}
+
+    {% box "Diários" %}
+        {% include "includes/tabela_locais.html" %}
+    {% endbox %}
+
+    {% box "Atividades Extras" %}
+    {% if perms.edu.add_horarioatividadeextra %}
+		<ul class="action-bar">
+		    <li>
+		        <a class="btn popup success" href="/edu/adicionar_horario_atividade_extra/{{ obj.pk }}/{{ periodo_letivo_atual.ano }}/{{ periodo_letivo_atual.periodo }}/" class="success">Adicionar Atividade Extra</a>
+		    </li>
+		</ul>
+		{% endif %}
+		{% if atividades %}
+    		<table>
+        		<thead>
+        			<tr>
+			            <th>Atividade</th>
+			            <th>Tipo</th>
+			            <th class="text-center">Horário</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			{% for atividade in atividades %}
+           				<tr>
+                			<td>{{ atividade.descricao_atividade }}</td>
+                			<td>{{ atividade.get_tipo_atividade_display }}</td>
+                			<td class="text-center">{{ atividade.horarios }}</td>
+            			</tr>
+        			{% endfor %}
+        		</tbody>
+    		</table>
+		{% else %}
+    		<p class="msg alert">Nenhuma atividade extra no período letivo selecionado.</p>
+		{% endif %}
+    {% endbox %}
+{% endif %}

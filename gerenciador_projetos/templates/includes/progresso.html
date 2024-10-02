@@ -1,0 +1,22 @@
+<div class="flex-container boxes indicators small">
+    <div class="box-item">
+        <h4 class="title">Progresso em:</h4>
+        <div class="progress">
+            <p>{{ projeto.total_progresso }}%</p>
+        </div>
+    </div>
+    {% if projeto.tarefas_ativas.count > 0 %}
+        <div class="box-item">
+            <h4 class="title">Tarefas Ativas:</h4>
+            <p class="indicator">{{ projeto.tarefas_ativas.count }} <small>de</small> {{ projeto.tarefas.count }}</p>
+        </div>
+    {% endif %}
+    {% if projeto.data_conclusao or projeto.data_conclusao_estimada %}
+        {% with progresso=projeto.previsao_conclusao %}
+            <div class="box-item">
+                <h4 class="title">{{ progresso.titulo }}:</h4>
+                <p class="indicator">{{ progresso.valor|format }}</p>
+            </div>
+        {% endwith %}
+    {% endif %}
+</div>

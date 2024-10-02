@@ -1,0 +1,18 @@
+{% if uos.count > 1 %}
+    <div class="search-and-filters">
+        <form id="changelist-filter-campus-{{ tab }}" method="get">
+            <div class="filter">
+                <input type="hidden" name="tab" value="{{ tab }}">
+                <label for="uo_selecionada">Campus:</label>
+                <select name="uo_selecionada" onchange="$('#changelist-filter-campus-{{ tab }}').submit();">
+                    {% if uos.count > 1 %}
+                        <option value="" {% if not uo_selecionada %} selected="selected" {% endif %}>Todos</option>
+                    {% endif %}
+                    {% for uo in uos %}
+                        <option {% if uo_selecionada == uo.pk %} selected="selected" {% endif %} value="{{ uo.pk }}">{{ uo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+{% endif %}

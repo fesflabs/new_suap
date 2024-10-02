@@ -1,0 +1,45 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        <li><a class="btn default" href="/admin/demandas/sugestaomelhoria/">{% icone "search" %} Visualizar Todas</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if not areas_atuacao %}
+        <p class="msg alert">Nenhuma área de atuação disponível.</p>
+    {% else %}
+        <h3>Seleção de Módulo para Envio de Sugestão de Melhoria:</h3>
+        <ul class="flex-container boxes services">
+            {% for area_atuacao in areas_atuacao %}
+                <li class="box-item">
+                    <span class="fas fa-{{ area_atuacao.area.icone }}" aria-hidden="true"></span>
+                    <h4>{{ area_atuacao.area.nome }}</h4>
+
+                    {% if area_atuacao.tags_relacionadas.all.count %}
+                        <p>Escolha um módulo para sugerir melhorias:</p>
+                        <ol class="numbered-list">
+                            {% for tag_relacionada in area_atuacao.tags_relacionadas.all %}
+                                <li>
+                                    <a href="/demandas/sugestoes_modulo/{{ area_atuacao.pk }}/{{ tag_relacionada.pk }}/">
+                                        {{ tag_relacionada }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ol>
+
+                        <p class="mt-5">Estatísticas:</p>
+                        <p class="note"><strong>{{ area_atuacao.qtd_sugestoes_ativas }}</strong> sugest{{ area_atuacao.qtd_sugestoes_ativas|pluralize:"ão,ões" }} ativa{{ area_atuacao.qtd_sugestoes_ativas|pluralize }}</p>
+                        <p class="note"><strong>{{ area_atuacao.qtd_sugestoes_deferidas }}</strong> sugest{{ area_atuacao.qtd_sugestoes_deferidas|pluralize:"ão,ões" }} deferida{{ area_atuacao.qtd_sugestoes_deferidas|pluralize }}</p>
+                    {% else %}
+                        <p class="msg alert">Nenhum módulo listado. Não é possível sugerir melhorias para esta área de atuação.</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="obs">Se o módulo que você estiver procurando não estiver listado aqui, favor entrar em contato diretamente com o setor responsável.</p>
+    {% endif %}
+
+{% endblock %}

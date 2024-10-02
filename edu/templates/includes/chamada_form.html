@@ -1,0 +1,274 @@
+<form method="post">
+    {% for matriculas in boxes_matriculas %}
+        {% box "{{ matriculas.0.matricula_periodo.aluno.polo|default:'Registro de Faltas'  }}" "marginless box_faltas" %}
+            <script>
+                jQuery(document).ready(function () {
+                    $('input.pq.text-center').each(function (i) {
+                        $(this).attr('tabindex', i + 1);
+                    });
+                    var qtd_dias_aulas = {{ qtd_aulas_passadas }};
+                    var qtd_alunos = {{ matriculas.count }};
+                    $("#chamada-form").keydown(function (e) {
+                        if (e.keyCode == 9 || e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
+                            var tab = parseInt($(document.activeElement).attr("tabindex"));
+                            var linha_atual = parseInt(tab / qtd_dias_aulas);
+                            switch (e.keyCode) {
+                                case 9:
+                                    if (linha_atual < qtd_alunos - 1 || tab == qtd_dias_aulas * (qtd_alunos - 1)) {
+                                        tab += qtd_dias_aulas;
+                                    } else {
+                                        tab = (tab % qtd_dias_aulas) + 1;
+                                    }
+                                    e.preventDefault();
+                                    break;
+                                case 37:
+                                    tab--;
+                                    e.preventDefault();
+                                    break;
+                                case 38:
+                                    tab = tab - qtd_dias_aulas;
+                                    e.preventDefault();
+                                    break;
+                                case 39:
+                                    tab++;
+                                    e.preventDefault();
+                                    break;
+                                case 40:
+                                    tab = tab + qtd_dias_aulas;
+                                    e.preventDefault();
+                                    break;
+                            }
+                            $("#chamada-form").find("[tabindex='" + tab + "']").focus().select();
+                        }
+                    });
+                    $("input[type='text']").click(function () {
+                        $(this).select();
+                    });
+
+                    var tabela = jQuery('.tabela-congelada');
+                    jQuery('tr > th:first-of-type, tr > td:first-of-type', tabela).map(function () {
+                        return {
+                            topo: jQuery(this).position().top,
+                            esq: jQuery(this).position().left
+                        };
+                    });
+                    var largura = maiorLargura = 500;
+                    if ($(window).width() < 1100) {
+                        largura = 100;
+                        maiorLargura = 100;
+                    }
+                    jQuery('table.tabela-congelada').css('margin-left', largura);
+                    jQuery('tr > th:first-of-type, tr > td:first-of-type', tabela).each(function (i) {
+                        jQuery(this).css('position', 'absolute');
+                        jQuery(this).css('margin-left', -largura);
+                        jQuery(this).css('width', maiorLargura);
+                        jQuery(this).css('height', 'auto');
+                    });
+                    jQuery('.tabela-congelada tr > td:nth-child(1), .tabela-congelada tr > th:nth-child(1)').each(function (i) {
+                        var altura = jQuery(this).outerHeight();
+                        if (altura > jQuery(this).next().outerHeight()) {
+                            jQuery(this).next().css('height', altura);
+                        } else {
+                            altura = jQuery(this).next().outerHeight();
+                        }
+                        jQuery(this).css('height', altura);
+                    });
+                });
+            </script>
+
+            {% csrf_token %}
+
+            {% if aulas %}
+                <div class="msg info">
+                    <p>As aulas marcadas com {% icone "list-alt" %} possuem atestado no respectivo período.</p>
+                    <p>Os alunos sem destaque estão com o período letivo fechado.</p>
+                    <p>É possível utilizar as teclas direcionais do teclado para percorrer as caixas de texto.</p>
+                </div>
+                <div class="checkbox">
+                    <input id="chamada_input_ocultar" type="checkbox" onchange="exibirAlunosInativosFaltas(this)">
+                    <label for="chamada_input_ocultar" style="width: auto; margin: 0"><span class="negrito"
+                                                                                            style="padding-left: 5px">Exibir alunos inativos</span></label>
+                </div>
+                <div class="checkbox">
+                    <input id="input_inverter" type="checkbox" onchange="inverterOrdemPorData()">
+                    <label for="input_inverter" style="width: auto; margin: 0"><span class="negrito"
+                                                                                     style="padding-left: 5px">Inverter ordenação por data</span></label>
+                </div>
+                <div class="table-responsive">
+                    <table class="tabela-congelada" id="table_faltas">
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                {% for aula in aulas %}
+                                    {% if aula.data <= data_atual %}
+                                        <th class="text-center">{{ aula.data|format }}
+                                            <small>{{ aula.data|date:"D" }}, {{ aula.quantidade }} aula{% if aula.quantidade > 1 %}s{% endif %}</small>
+                                        </th>
+                                    {% endif %}
+                                {% endfor %}
+                                <th>Situação da Frequência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for matricula_diario in matriculas %}
+                            {% with esteve_reprovado=matricula_diario.esteve_reprovado %}
+                                <tr {% if not matricula_diario.habilitada %} class="disabled"
+                                                                             title="Período letivo deste aluno está fechado"
+                                                                             style="display: none;"{% else %}
+                                                                             {% if esteve_reprovado and matricula_diario.is_em_dependencia %}class="dependencia"
+                                                                             {% endif %}{% endif %}>
+                                    <td>
+                                        <span class="alunoCounter">{{ forloop.counter }}</span> -
+                                        <div class="photo-circle smallest">
+                                            <img src="{{ matricula_diario.matricula_periodo.aluno.get_foto_75x100_url }}" alt="Foto de {{ matricula_diario.matricula_periodo.aluno.get_nome }}" />
+                                        </div>
+                                        <a href="{{ matricula_diario.matricula_periodo.aluno.get_absolute_url }}">{{ matricula_diario.matricula_periodo.aluno.get_nome|normalizar }}</a>
+                                        <div class="hide-sm">
+                                            (<a href="{{ matricula_diario.matricula_periodo.aluno.get_absolute_url }}">{{ matricula_diario.matricula_periodo.aluno.matricula }}</a>)
+                                        </div>
+                                    </td>
+                                    {% for falta in matricula_diario.faltas %}
+                                        {% if falta.pode_ser_registrada %}
+                                            <td class="text-center" style="width:1%">
+                                                {% if falta.pode_ser_registrada and acesso_total and pode_manipular_etapa and matricula_diario.is_cursando and perms.edu.add_falta %}
+                                                    {% if not falta.aula.etapa == 5 or falta.aula.etapa == 5 and matricula_diario.is_em_prova_final %}
+                                                        <div {% if falta.abono_faltas %}style='padding-left:15px'{% endif %}>
+                                                            <input name="{{ matricula_diario.pk }};{{ falta.aula.pk }}"
+                                                                   type="text" class="pq text-center"
+                                                                   value="{{ falta.quantidade }}"
+                                                                    {% if not falta.aula.professor_diario.professor.pk == professor_diario.professor.pk and not pode_manipular_etapa %}
+                                                                   readonly {% endif %}
+                                                                   onfocus="this.oldvalue = this.value;"
+                                                                   onblur="javascript:
+                                                                           if((this.value > {{ falta.aula.quantidade }}) || (this.value < 0) || (this.value != parseInt(this.value, 10))) {
+                                                                           alert('Quantidade de faltas inválida.');
+                                                                           $(this).addClass('errors');
+                                                                           $(this).val({{ falta.quantidade }});
+                                                                           return true;
+                                                                           }
+                                                                           if(this.value != this.oldvalue){
+                                                                           $.ajax({
+                                                                           url: '/edu/registrar_chamada_ajax/{{ matricula_diario.pk }}/{{ falta.aula.pk }}/{{ quantidade }}'+this.value+'/',
+                                                                           method: 'GET',
+                                                                           context: this,
+                                                                           error: function() {$( this ).addClass( 'errors' ); $(this).val({{ falta.quantidade }}); }
+                                                                           }).success(function(data) {
+                                                                           if(data=='OK'){
+                                                                           $( this ).addClass( 'filled' );
+                                                                           }else{
+                                                                           alert(data);
+                                                                           }
+                                                                           });
+                                                                           }
+                                                                           "/>
+                                                            {% if falta.abono_faltas and falta.quantidade > 0 %}
+                                                                <a href='/edu/abonofaltas/{{ falta.abono_faltas.pk }}/' class="fas fa-list-alt popup"><span class="sr-only">Visualizar Faltas</span></a>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% else %}
+                                                        {{ falta.quantidade }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    {{ falta.quantidade }}
+                                                    {% if falta.abono_faltas and falta.quantidade > 0 %}
+                                                        <a href='/edu/abonofaltas/{{ falta.abono_faltas.pk }}/' class="fas fa-list-alt popup"><span class="sr-only">Visualizar Faltas</span></a>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <td class="text-start">
+                                        {% with nfaltas=matricula_diario.get_numero_faltas %}
+                                            {% if matriculas.0.diario.componente_curricular.qtd_avaliacoes == 0 %}
+                                                <span class="status status-{{ matricula_diario.get_situacao_frequencia.status }}">{{ matricula_diario.get_situacao_frequencia.rotulo }}</span>
+                                            {% endif %}
+                                            {% if nfaltas %}
+                                                <span class="status status-info">O aluno possui {{ nfaltas }} falta(s) no diário</span>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhuma aula cadastrada nessa etapa.</p>
+            {% endif %}
+
+        {% endbox %}
+    {% endfor %}
+    {% if acesso_total %}
+        {% if pode_manipular_etapa and perms.edu.add_falta %}
+            <div class="submit-row">
+                <input type="submit" value="Salvar Alterações" />
+            </div>
+        {% endif %}
+    {% endif %}
+</form>
+<script>
+    function exibirAlunosInativosFaltas(e) {
+        if (e.checked) {
+            $('#table_faltas > tbody > tr.disabled').show();
+            recontar_index_linha(true);
+        } else {
+            $('#table_faltas > tbody > tr.disabled').hide();
+            recontar_index_linha(false);
+        }
+    }
+
+    function recontar_index_linha(exibir_alunos_inativos) {
+        if (exibir_alunos_inativos) {
+            $('#table_faltas > tbody > tr').each(function (index) {
+                var target_td = $('td .alunoCounter', this);
+                $(target_td).html(index + 1);
+            });
+        } else {
+            $('#table_faltas > tbody > tr').not('.disabled').each(function (index) {
+                var target_td = $('td .alunoCounter', this);
+                $(target_td).html(index + 1);
+            });
+        }
+    }
+
+    jQuery.moveColumn = function (table, from, to) {
+        var rows = jQuery('tr', table);
+        var cols;
+        rows.each(function () {
+            cols = jQuery(this).children('th, td');
+            cols.eq(from).detach().insertBefore(cols.eq(to));
+        });
+    };
+
+    function inverterOrdemPorData() {
+        var tbl = document.getElementById('table_faltas');
+        colunas = tbl.rows[0].cells.length;
+
+        while (colunas > 2) {
+            colunas--;
+            jQuery.moveColumn(tbl, 1, colunas);
+        }
+    }
+
+    function alterar_largura() {
+        jQuery('.tabela-congelada tr > td:nth-child(1), .tabela-congelada tr > th:nth-child(1)').each(function (i) {
+            var altura = jQuery(this).outerHeight();
+            if (altura > jQuery(this).next().outerHeight()) {
+                jQuery(this).next().css('height', altura);
+            } else {
+                altura = jQuery(this).next().outerHeight();
+            }
+
+            jQuery(this).css('height', altura);
+        });
+    }
+
+    function onChangeTabs() {
+        if (current_tab == 'faltas') {
+            alterar_largura();
+            recontar_index_linha(false);
+        }
+    }
+</script>

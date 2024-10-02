@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1D202363-8138-A6C4-0294-068EB00B9FF3" name="centralservicos_centroatendimento">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:56:03 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<ordsAlias>table_20</ordsAlias>
+<abbreviation>centralservicos_centroatendimento</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="CA705962-9270-EEA4-DBFE-05AC6BE2CA9D">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:57:05 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nome" id="A289D1E5-90F4-E364-3693-5FB56BF835B4">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:57:05 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>80</dataTypeSize>
+<ownDataTypeParameters>80,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="eh_local" id="F84BC9E5-CDE1-7708-AA2B-827A677D6D59">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:57:25 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="area_id" id="83D0FC7B-CB31-0FDE-4085-2827150C8919">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 14:09:35 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5F436CEC-108C-0E53-566C-6B4E5482598E" referredColumn="5FCDF4E5-9B1C-CA15-A085-478BD0BC407A"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B263E415-70CC-C1E7-BE91-909F34B662C5" name="centralservicos_centroatendimento_PK">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 13:57:05 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CA705962-9270-EEA4-DBFE-05AC6BE2CA9D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FC9EF43B-A393-F0A0-E50E-CAB470FF9655" name="centralservicos_centroatendimento_centralservicos_area_FK">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 14:09:35 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="83D0FC7B-CB31-0FDE-4085-2827150C8919"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

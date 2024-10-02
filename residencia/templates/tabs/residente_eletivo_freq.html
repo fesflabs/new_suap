@@ -1,0 +1,31 @@
+<div class="tab-container {% if not obj.get_anexos_freq.exists %}no-print{% endif %}" data-tab="freq" data-title="Frequências" data-counter="{{ obj.get_anexos_freq.count }}">
+    {% box "" %}
+        <ul class="action-bar">
+            {% if pode_anexar and not obj.estah_concluido  %}
+                <li><a class="btn success" href="/residencia/adicionar_anexo_eletivo/{{ obj.pk }}/3/">Adicionar Frequência</a></li>
+            {% endif %}
+        </ul>
+        {% if obj.get_anexos_freq.all %}
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Frequência</th>
+                    <th>Anexado por</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj2 in obj.get_anexos_freq.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{{ obj2.anexo.url }}" target="_blank">{{ obj2.descricao }}</a></td>
+                        <td>{{ obj2.anexado_por.get_profile.nome_usual }} em {{ obj2.anexado_em }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhuma frequência cadastrada.</p>
+        {% endif %}
+    {% endbox %}
+</div>

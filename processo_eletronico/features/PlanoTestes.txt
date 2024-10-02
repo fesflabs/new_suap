@@ -1,0 +1,118 @@
+Plano de testes para o módulo de processos eletrônicos.
+------------------------------------------------------------------------------------------------------------------------
+
+Estrutura administrativa necessária:
+====================================
+
+                          A0
+                +---------+---------+
+
+                A1                  A2              - Nível sistêmico
+                |                   |
+           B1        C1         B2      C2          - Nível campi
+
+
+Descrição dos setores como unidade administrativa:
+==================================================
+
+| Unidade Adm | Setor Equivalente | Tipo         |
+| Unidade_1   | A1                | Pró-Reitoria |
+| Unidade_2   | A2                | Pró-Reitoria |
+| Unidade_3   | B1                | Campus       |
+| Unidade_4   | B2                | Campus       |
+| Unidade_5   | C1                | Campus       |
+| Unidade_6   | C2                | Campus       |
+
+
+Usuários envolvidos:
+====================
+
+| Usuário                | Lotação | Grupo                                      |
+| Gerente                | A0      | Gerente Sistêmico de Processo Eletrônico   |
+| Servidor A             | A1      | Operador de Processo Eletrônico            |
+| Operador de Processo 1 | A1      | Operador de Processo Eletrônico            |
+| Operador de Processo 2 | A1      | Servidores Com Poder de Chefe              |
+| Operador de Processo 3 | A2      | Tramitador de Processos Eletrônicos        |
+
+
+Gerenciamento de permissões do módulo de processos eletrônicos:
+====================
+
+| Usuário                | Lotação | Permissão                                  |
+| Chefe de Setor         | A1      | Pode editar                                |
+| Operador de Processo 1 | A1      | Pode editar processos                      |
+| Operador de Processo 2 | A1      | Poder de chefe (gerencia permissão)        |
+| Operador de Processo 3 | A2      | Somente ler (tramitar)        |
+
+
+Roteiro esperado
+================
+
+1 - Os cadastros básicos devem ser cadastrados automaticamente;
+2 - Os testes devem abranger todas as funcionalidades;
+3 - Deve-se verificar o acesso as funcionalidades nos perfis (dos grupos) tanto a nível de componentes visuais, botões,
+    links, como também o acesso via URL;
+4 - Verificar as etapas estabelecidas no processo;
+
+
+Fluxo das etapas
+================
+
+1 - Cadastros básicos
+    1.1 - No módulo de processos eletrônicos
+    1.2 - Nos demais módulos necessários
+2 - Chefe ou Servidor com poder de chefe - Gerenciar Permissões
+    2.1 - Adicionar e gerenciar permissões
+3 - Cadastro  e Edição do Processo - Operador de Processo
+    2.1 - Ajustar todos os formulários internos
+    2.2 - Alterar Nível de Acesso
+    3.3 - Alterar Interessados
+    3.4 - Adicionar comentário
+    3.5 - Adicionar Documento Interno
+    3.6 - Adicionar Documento Externo (Upload)
+4 - Encaminhar processo
+    - Níveis de acesso: Público e Restrito
+    4.1 - Encaminhar processo sem despacho
+    4.2 - Encaminhar processo com despacho
+    4.3 - Encaminhar processo via barramento (verificar como realizar este teste pois necessita do certificado digital de homologacão)
+    - Níveis de acesso: Privado
+    4.4 - Encaminhar processo para pessoa sem despacho
+    4.4 - Encaminhar processo para pessoa com despacho
+5 - Outras funcionalidades em processos
+    - Solicitações
+        - Ciencia
+        - Juntada (Teste Pendente - Erro ao avaliar juntada)
+        - Despacho
+        - Remover ultimo tramite
+        - Relacionar processos
+        - Anexar (Teste Pendente)
+        - Apensar e desapensar
+        - Remover documento do processo (Teste Pendente)
+    - Adicionar interesse em processo público
+    - Pesquisa Pública de Processos (Teste Pendente)
+
+
+
+Descricão dos cenários
+=======================
+Verifica a visibilidade do menu Documentos/Processos e da adição do Processo
+
+Setor A1
+Gerenciar Permissões do Processo Eletrônico
+	Adiciona permissão para criar processo eletrônico
+Adicionar Processo Eletrônico
+Editar Conteúdo do Processo Eletrônico
+	Alterar nível de acesso
+Encaminhar Processo Eletrônico Sem Despacho
+
+
+Setor A2
+Gerenciar Permissões do Processo Eletrônico
+	Adiciona permissão para operar e criar processo eletrônico
+Receber processo (Encaminhando no cenário acima)
+
+
+
+
+
+

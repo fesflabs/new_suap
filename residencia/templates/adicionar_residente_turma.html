@@ -1,0 +1,48 @@
+{% extends super_template %}
+
+{% block content %}
+    <form method="post" action="" id='form1'>
+        {% csrf_token %}
+        <div class="search-and-filters">
+            <div class="filter">
+
+            </div>
+            
+        </div>
+
+        {% box "Residentes sem Turma" %}
+            {% if matriculas_periodo %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox"
+                                   onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked"/>
+                        </th>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for matricula_periodo in matriculas_periodo %}
+                        <tr>
+                            <td><input value="{{ matricula_periodo.pk }}" name="matriculas_periodo" type="checkbox"/>
+                            </td>
+                            <td>
+                                <a href="{{ matricula_periodo.residente.get_absolute_url }}">{{ matricula_periodo.residente.matricula }}</a>
+                            </td>
+                            <td>{{ matricula_periodo.residente.get_nome_social_composto }}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination">{{ matriculas_periodo.count }} residentes disponíveis.</div>
+                <div class="submit-row">
+                    <input type="submit" value="Matricular Residentes Selecionados"/>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum residentes apto a ser matrículado na turma.</p>
+            {% endif %}
+        {% endbox %}
+    </form>
+
+{% endblock %}

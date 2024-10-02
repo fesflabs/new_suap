@@ -1,0 +1,127 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% if processo.is_a_iniciar %}
+		<span class="status status-error text-nowrap-normal">{{ processo.get_status_display }}</span>
+	{% elif processo.is_em_tramite %}
+		<span class="status status-alert text-nowrap-normal">{{ processo.get_status_display }}</span>
+	{% elif processo.is_finalizado %}
+		<span class="status status-success text-nowrap-normal">{{ processo.get_status_display }}</span>
+	{% endif %}
+
+	{% box 'Informações do Processo' %}
+	    <table class="info">
+	        <tbody>
+	            <tr>
+	                <td>Servidor Avaliado</td>
+	                <td colspan="3">{{ processo.avaliado }}</td>
+	            </tr>
+	            <tr>
+	                <td>Data Início da Contagem</td>
+	                <td>{{ processo.data_inicio_contagem_progressao }}</td>
+	                <td>Data Fim da Contagem</td>
+	                <td>{{ processo.data_fim_contagem_progressao }}</td>
+	            </tr>
+                {% if processo.is_tipo_progressao_merito %}
+                    <tr>
+                        <td>Padrão de Vencimento Atual</td>
+                        <td>{{ processo.padrao_anterior }}</td>
+                        <td>Padrão de Vencimento Novo</td>
+                        <td>{{ processo.padrao_novo }}</td>
+                    </tr>
+                {% endif %}
+	            <tr>
+	                <td>Média do Processo</td>
+					<td>{{ processo.media_processo }}</td>
+                    {% if not app_processo_eletronico_instalada and processo.protocolo %}
+                        <td>Protocolo</td>
+                        <td><a class="popup" href="{{ processo.protocolo.get_absolute_url }}">{{ processo.protocolo }}</a></td>
+                    {% elif app_processo_eletronico_instalada and processo.processo_eletronico %}
+                        <td>Processo Eletrônico</td>
+                        <td><a class="popup" href="{{ processo.processo_eletronico.get_absolute_url }}">{{ processo.processo_eletronico }}</a></td>
+                    {% else %}
+                        <td colspan="2">&nbsp;</td>
+                    {% endif %}
+	            </tr>
+				<tr>
+	                <td>Resultado Final</td>
+					<td colspan="3">
+						{% if processo.is_aprovado %}
+							<span class="status status-aceito text-nowrap-normal">{{ processo.obter_situacao_final_processo_as_text }}</span>
+						{% elif processo.is_reprovado %}
+							<span class="status status-error text-nowrap-normal">{{ processo.obter_situacao_final_processo_as_text }}</span>
+						{% else %}
+							<span class="status status-em-progresso text-nowrap-normal">{{ processo.obter_situacao_final_processo_as_text }}</span>
+						{% endif %}
+					</td>
+	            </tr>
+	    	</tbody>
+	    </table>
+	{% endbox %}
+	
+	{% box 'Períodos de Avaliação' %}
+	    {% if processo.processoprogressaoperiodo_set.all %}
+            {% for periodo in processo.processoprogressaoperiodo_set.all %}
+                <div class="general-box">
+                    <div class="primary-info">
+                        <h4>Período: <strong>{{ periodo.data_inicio }} a {{ periodo.data_fim }}</strong></h4>
+                        <div class="extra-info">
+                            <h5>Avaliadores{% if not processo.status == processo.STATUS_A_INICIAR %}/Avaliações{% endif %}:</h5>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="no-print">Ações</th>
+                                        <th>Avaliador</th>
+                                        {% if not processo.status == processo.STATUS_A_INICIAR %}
+                                            <th>Situação</th>
+                                        {% endif %}
+                                        <th class="no-print">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for avaliacao in periodo.processoprogressaoavaliacao_set.all %}
+                                        <tr>
+                                            <td class="no-print">{% icon "view" "/progressoes/abrir_avaliacao/{{ avaliacao.id_encoded }}/" "Abrir Avaliação" %}</td>
+                                            <td>{{ avaliacao.avaliador }} ({{ avaliacao.get_tipo_avaliador_display }})</td>
+                                            {% if not processo.status == processo.STATUS_A_INICIAR %}
+                                                <td>
+                                                    {% if avaliacao.is_avaliada %}
+                                                        <span class="status status-success text-nowrap-normal">Avaliação realizada</span>
+                                                    {% else %}
+                                                        <span class="status status-alert text-nowrap-normal">Avaliação pendente</span>
+                                                    {% endif %}
+                                                </td>
+                                            {% endif %}
+                                            <td class="no-print">
+                                                <a href="/progressoes/assinar_avaliacao/{{ avaliacao.id_encoded }}/" class="btn">
+                                                    <span class="fas fa-pen-alt" aria-hidden="true"></span> Assinaturas ({{ avaliacao.assinaturas_realizadas_requeridas.0 }}/{{ avaliacao.assinaturas_realizadas_requeridas.1 }})
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <dl class="secondary-info">
+                        <div class="list-item">
+                            <dt>Setor:</dt>
+                            <dd>{{ periodo.setor }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Modelo/Ficha de Avaliação:</dt>
+                            <dd>{{ periodo.avaliacao_modelo }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Média do Período:</dt>
+                            <dd>{{ periodo.media_periodo }}</dd>
+                        </div>
+                    </dl>
+                </div>
+            {% endfor %}
+	    {% else %}
+	        <p class="msg alert">Não há períodos cadastrados.</p>
+	    {% endif %}
+	{% endbox %}
+{% endblock %}

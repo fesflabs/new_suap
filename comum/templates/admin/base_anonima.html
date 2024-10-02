@@ -1,0 +1,142 @@
+{% load pipeline %}
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{{ title }} - {% endblock %}SUAP: Sistema Unificado de Administração Pública</title>
+<meta charset="utf-8">
+<meta name="keywords" content="suap, administração, pública, mec, ifrn">
+<meta content="SUAP: Sistema Unificado de Administração Pública" name="description">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{# Favicon #}
+{% block favicon %}
+	{% if debug %}
+		<link rel="shortcut icon" href="{% static 'comum/img/favicon-debug.png' %}" />
+	{% else %}
+		<link rel="shortcut icon" href="{% static 'comum/img/favicon.png' %}" />
+	{% endif %}
+{% endblock %}
+
+{# CSS SUAP #}
+{% stylesheet 'default' %}
+{% stylesheet 'anonima' %}
+{% block extracss %}{% endblock %}
+
+{% javascript 'jquery' %}
+{% javascript 'login' %}
+{% javascript 'tabs' %}
+
+{# jQuery #}
+<script src="/static/comum/js/jquery.min.js"></script>
+
+{# jQuery UI [Ui Core: All, Interactions: All, Widgets: DatePicker, Effects: All] #}
+<script src="/static/comum/js/jquery.ui.custom.min.js"></script>
+{% javascript 'main' %}
+
+{# nouislider #}
+{% javascript 'nouislider' %}
+
+{# Usado na documentação automática #}
+{% if eh_para_documentar %}
+    {% javascript 'highlight' %}
+{% endif %}
+
+<script>
+jQuery(document).ready(function() {
+    initAll();
+    initMenu();
+
+    /* Menu principal: Para dispositivos moveis */
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        jQuery("body").addClass("hideSidebar");
+    }
+});
+</script>
+{% if id_ %}
+    <script>
+        $(window).on("unload", function(){
+            $.ajax({
+                type: "POST",
+                url: "/apagar_chave_sessao/{{ id_ }}/",
+            });
+        });
+    </script>
+{% endif %}
+
+{# Adição das medias dos forms do contexto #}
+{% if forms_media %}
+    {{ forms_media|safe }}
+{% endif %}
+
+{% block extrahead %}{% endblock %}
+{% block head %}{% endblock %}
+</head>
+
+<body class="anonima{% if debug %} debug{% endif %} {% block bodyclass %}{% endblock %}">
+
+{# mensagens de sucesso #}
+{% render_mensagens messages 'msg' 'feedback_message' %}
+
+{# erros de validação #}
+{% render_mensagens error_message 'errornote' %}
+
+<div class="holder">
+
+    <a href="#" class="toggleSidebar"><span class="fas fa-chevron-left" aria-hidden="true"></span> <span class="sr-only">Mostrar/Esconder barra lateral</span></a>
+    <aside class="nav">
+        <header>
+            <h1><a href="/" title="SUAP: Sistema Unificado de Administração Pública">SUAP</a></h1>
+            <img src="{% get_logo_instituicao_fundo_transparente %}" alt="Logo de {% get_valor_por_chave 'comum' 'instituicao' %}" />
+        </header>
+        <nav>
+            <ul class="_main_menu">
+                {% for servico in servicos_anonimos %}
+                    {% ifchanged servico.categoria %}
+                        {% if not forloop.first %}
+                            </ul>
+                            </li>
+                        {% endif %}
+                        <li class="_menu_group">
+                            <span class="_menu_subtitle">{{ servico.categoria }}</span>
+                            <ul class="_menu_subgroup">
+                    {% endifchanged %}
+                    <li class="_menu_item"><a href="{{ servico.url }}" title="{{ servico.titulo }}" class="_menu_link"><span class="fas fa-{{ servico.icone }}" aria-hidden="true"></span> {{ servico.titulo }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </aside>
+
+    <main id="content">
+
+        {% if category %}<span class="category">{{ category }}</span>{% endif %}
+        {% block content_title %}
+            {% if title %}<h2>{% if icon %}<span class="fas fa-{{ icon }}" aria-hidden="true"></span>{% endif %} {{ title|escape }}</h2>{% endif %}
+        {% endblock %}
+
+        {% block content %}
+            {% block object-tools %}{% endblock %}
+            {{ content }}
+        {% endblock %}
+
+    </main>
+
+    {% block asideright %}{% endblock %}
+    {% now "Y" as current_year %}
+    <footer class="login-footer flex-container">
+        <div class="flex-item">{% icone "copyright" %} {{ current_year }} SUAP</div>
+        <div class="flex-item"><span class="fab fa-python" aria-hidden="true"></span> Desenvolvimento por IFRN/FESFSUS</div>
+        <div class="flex-item">{% icone "server" %} {{ host_name|format }}</div>
+        <div class="flex-item">{% icone "id-badge" %} Licenciado para {% get_valor_por_chave 'comum' 'instituicao_sigla' %}</div>
+    </footer>
+
+</div>
+
+{% if debug %}
+    <div id="debug"><strong>DEBUG</strong> | {% debug_info %}</div>
+{% endif %}
+
+{% javascript 'fancybox' %}
+
+</body>
+</html>

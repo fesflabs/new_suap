@@ -1,0 +1,77 @@
+{% extends super_template %}
+
+{% block content %}
+
+	<h2>Detalhamento de Pessoa Jurídica</h2>
+
+	{% box 'Dados Principais' %}
+        <table class="info">
+            <tr>
+                <td>CNPJ</td>
+                <td>{{ pj.cnpj|format }}</td>
+            </tr>
+            <tr>
+                <td>Razão Social</td>
+                <td>{{ pj.nome|format }}</td>
+            </tr>
+            <tr>
+                <td>Nome Fantasia</td>
+                <td>{{ pj.nome_fantasia|format }}</td>
+            </tr>
+            <tr>
+                <td>Natureza Jurídica</td>
+                <td>{{ pj.get_natureza_juridica_display }}</td>
+            </tr>
+            <tr>
+                <td>Ramo de Atividade</td>
+                <td>{{ pj.ramo_atividade|format }}</td>
+            </tr>
+            <tr>
+                <td>Representante Legal</td>
+                <td>{{ pj.nome_representante_legal|format }}</td>
+            </tr>
+        </table>
+	{% endbox %}
+
+	{% box 'Contatos' %}
+		<table>
+            <tr>
+                <th>Descrição</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+            </tr>
+            {% for contato in pj.pessoajuridicacontato_set.all %}
+            <tr>
+                <td>{{ contato.descricao|format }}</td>
+                <td>{{ contato.telefone|format }}</td>
+                <td>{{ contato.email|format }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+	{% endbox %}
+
+    {% box 'Endereço' %}
+        <table>
+            <tr>
+                <th>Logradouro</th>
+                <th>Número</th>
+                <th>Bairro</th>
+                <th>Município</th>
+                <th>CEP</th>
+                <th>Complemento</th>
+            </tr>
+            {% for endereco in pj.pessoaendereco_set.all %}
+            <tr>
+                <td>{{ endereco.logradouro|format }}</td>
+                <td>{{ endereco.numero|format }}</td>
+                <td>{{ endereco.bairro|format }}</td>
+                <td>{{ endereco.municipio|format }}</td>
+                <td>{{ endereco.cep|format }}</td>
+                <td>{{ endereco.complemento|format }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endbox %}
+
+
+{% endblock %}

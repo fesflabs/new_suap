@@ -1,0 +1,13 @@
+-r ./base.txt
+
+Werkzeug
+ipdb
+lorem
+django-debug-toolbar
+coverage
+ipython
+django_werkzeug
+sphinx
+pre-commit
+pyupgrade
+django-mail-panel

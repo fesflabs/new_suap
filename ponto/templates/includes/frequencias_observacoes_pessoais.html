@@ -1,0 +1,28 @@
+<ul class="comments">
+    {% for o in f.observacoes %}
+        <li>
+            {{ o.descricao|truncatechars:200|linebreaksbr }}
+            {% if o.descricao|length > 200 %}
+                <div class="clear"></div>
+                {% icon "view" "/admin/ponto/observacao/{{ o.id }}/view/" "Visualizar" "popup" %}
+            {% endif %}
+            {% if relatorio.funcionario.pk == request.user.get_profile.funcionario.pk and not f.abono_chefia %}
+                {% if o.descricao|length <= 200 %}
+                    <div class="clear"></div>
+                {% endif %}
+                {% icon "edit" "/ponto/observacao_editar/{{ o.id }}/" "Editar Observação" "popup" %}
+                {% icon "delete" "/ponto/observacao_remover/{{ o.id }}/" %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% if relatorio.funcionario.pk == request.user.get_profile.funcionario.pk and not f.abono_chefia %}
+    {% if not f.abono_chefia %}
+        {% if f.observacoes %}
+            <div class="clear"></div>
+        {% endif %}
+        <a class="btn success popup"
+           href='/ponto/observacao_adicionar/{{ f.dia|date:"dmY" }}/'>{% icone "plus" %}
+            <span class="sr-only">Adicionar</span> Observação</a>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,77 @@
+{% extends super_template %}
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+    {% if form.is_bound %}
+        {% if projetos.exists %}
+            <div class="legenda">
+                <p>Legenda:</p>
+                <ul>
+                    <li class="success">Já realizou avaliação</li>
+                    <li class="alert">Não realizou avaliação</li>
+                    <li class="error">Avaliador rejeitou a indicação</li>
+                    <li class="info">Avaliador aceitou a indicação</li>
+                </ul>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Coordenador</th>
+                        <th>Campus</th>
+                        <th>Área de Conhecimento</th>
+                        <th>Avaliadores</th>
+                        <th>Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for projeto in projetos %}
+
+                        <tr>
+                            <td><a href="/pesquisa/projeto/{{ projeto.id }}/">{{ projeto.titulo }}</a></td>
+                            <td>{{ projeto.vinculo_coordenador.pessoa.nome }}</td>
+                            <td>{{ projeto.uo }}</td>
+                            <td>{{ projeto.area_conhecimento|format }}</td>
+                            <td>
+                                {% for avaliador in projeto.get_avaliadores_indicados  %}
+                                    {% if avaliador.ja_avaliou %}
+                                        <span class="status status-success">
+                                    {% elif avaliador.rejeitado %}
+                                        <span class="status status-error">
+                                    {% elif avaliador.aceito_em %}
+                                        <span class="status status-info">
+                                    {% else %}
+                                        <span class="status status-alert">
+                                    {% endif %}
+                                    {{ avaliador.vinculo.pessoa.nome|linebreaks }}
+                                    {% if avaliador.vinculo.eh_servidor %}
+                                            - {{ avaliador.vinculo.relacionamento.matricula }}
+                                    {% else %}
+                                            (externo)
+                                    {% endif %}
+                                        <small>({{ avaliador.qtd_indicacoes_no_edital }} Indicações Neste Edital)</small>
+                                        {% if avaliador.rejeitado_automaticamente and not avaliador.ja_avaliou %}
+                                            <small>* Rejeitado Automaticamente</small>
+                                        {% endif %}
+                                    </span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <ul class="action-bar">
+                                    <li><a class="btn success" href="/pesquisa/selecionar_avaliadores_do_projeto/{{ projeto.id }}/?url={{ request.get_full_path }}">Selecionar Avaliadores</a></li>
+                                    <li><a class="btn primary" href="/pesquisa/selecionar_avaliadores_do_projeto/{{ projeto.id }}/?sorteio=True&url={{ request.get_full_path }}">Gerar Sorteio dos Avaliadores</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum projeto pré-aprovado.</p>
+        {% endif %}
+    {% else %}
+        <p class="msg alert">Utilize os filtros para exibir os projetos.</p>
+    {% endif %}
+{% endblock %}

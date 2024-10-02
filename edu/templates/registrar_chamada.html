@@ -1,0 +1,117 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% if diario.professordiario_set.exists %}
+
+        {% if perms.edu.add_aula and diario.is_aberto %}
+            <ul class="action-bar">
+                {% if pode_manipular_etapa and diario.professordiario_set.exists %}
+                    <li><a class="btn success popup" href="/edu/adicionar_aula_diario/{{ diario.pk }}/{{ etapa }}/">Adicionar
+                        Aula</a></li>
+                {% endif %}
+                {% help_button %}
+            </ul>
+        {% endif %}
+
+        {% box "Aulas" %}
+            {% if aulas.count %}
+
+                {% include "includes/diario_ch_por_tipo.html" with obj=diario %}
+
+                <p class="msg info">Os registros sem destaque correspodem às aulas que ainda serão ministradas.</p>
+                <div class="checkbox">
+                    <input id="input_ocultar" type="checkbox" onchange="inverterOrdenacao()">
+                    <label for="input_ocultar" style="width: auto; margin: 0"><span class="negrito"
+                                                                                    style="padding-left: 5px">Inverter ordenação</span></label>
+                </div>
+                {% with qtd_professores=diario.professordiario_set.count %}
+                <table id="table_registro_aula">
+                    <thead>
+                    <tr>
+                        {% if acesso_total %}
+                            {% if pode_manipular_etapa  and diario.is_aberto and perms.edu.add_falta %}
+                                <th> -</th>
+                            {% endif %}
+                        {% endif %}
+                        <th>Etapa</th>
+                        {% if diario.componente_curricular.matriz.estrutura.limitar_ch_por_tipo_aula %}
+                        <th>Tipo</th>
+                        {% endif %}
+                        <th>Quantidade</th>
+                        <th>Data</th>
+                        {% if qtd_professores > 1 %}
+                        <th>Professor</th>
+                        {% endif %}
+                        <th>Conteúdo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for aula in aulas %}
+                        {% if aula.is_ministrada %}
+                            <tr>
+                                {% else %}
+                            <tr class="disabled">
+                        {% endif %}
+                    {% if acesso_total %}
+                        {% if pode_manipular_etapa and diario.is_aberto and perms.edu.add_falta %}
+                            <td>
+                                {% icon "edit" "/edu/adicionar_aula_diario/{{ diario.pk }}/{{ etapa }}/{{ aula.pk }}/" "Editar" "popup" %}
+                                {% icon "delete" "/comum/excluir/edu/aula/{{ aula.pk }}/" "Remover" "no-confirm popup" %}
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                    <td class="text-center">{% if aula.etapa == 5 %} Final {% else %}{{ aula.etapa }}{% endif %}</td>
+                    {% if diario.componente_curricular.matriz.estrutura.limitar_ch_por_tipo_aula %}
+                    <td>{{ aula.get_tipo_display }}</td>
+                    {% endif %}
+                    <td>{{ aula.quantidade }} Hora(s)/Aula</td>
+                    <td>{{ aula.data|format }}</td>
+                    {% if qtd_professores > 1 %}
+                        <td>{{ aula.get_professores|format }}</td>
+                    {% endif %}
+                    <td>{{ aula.conteudo|linebreaks }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endwith %}
+            {% else %}
+                <p class="msg alert">Nenhuma aula cadastrada até o momento.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% if aulas %}
+            <div id="chamada-form">{% include "includes/chamada_form.html" %}</div>
+        {% else %}
+            {% box "Registro de Faltas" %}
+            <p class="msg alert">Nenhuma aula cadastrada até o momento.</p>
+            {% endbox %}
+        {% endif %}
+
+    {% else %}
+
+        <p class="msg alert">
+            Não é possível registrar as aulas pois o professor do diário ainda não foi definido.
+        </p>
+
+    {% endif %}
+
+    <script>
+        jQuery.moveRow = function (table, from, to) {
+            var rows = jQuery('tr', table);
+            rows.eq(from).detach().insertAfter(rows.eq(to));
+        }
+
+        function inverterOrdenacao() {
+            var tbl = document.getElementById('table_registro_aula');
+            cont = tbl.rows.length;
+
+            while (cont > 2) {
+                cont--;
+                jQuery.moveRow(tbl, 1, cont);
+            }
+        }
+    </script>
+
+{% endblock %}

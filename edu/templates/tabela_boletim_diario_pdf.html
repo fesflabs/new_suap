@@ -1,0 +1,79 @@
+{% load tags %}
+<table class="borda" repeat="2">
+    <thead>
+    <tr>
+        <th rowspan="2" class="text-center" width="50px">#</th>
+        <th rowspan="2" class="text-center" width="140px">Matrícula</th>
+        <th rowspan="2" width="450px">Nome</th>
+        <th rowspan="2" class="text-center" width="90px">T. Faltas</th>
+        <th rowspan="2" class="text-center" width="90px">% Freq.</th>
+        <th rowspan="2" class="text-center" width="150px">Situação</th>
+        {% if exibe_notas %}
+            <th colspan="2" class="text-center">N1</th>
+            {% if max_qtd_avaliacoes > 1 %}
+                <th colspan="2" class="text-center">N2</th>
+            {% endif %}
+            {% if max_qtd_avaliacoes > 2 %}
+                <th colspan="2" class="text-center">N3</th>
+                <th colspan="2" class="text-center">N4</th>
+            {% endif %}
+            <th rowspan="2" class="text-center" width="50px">MD</th>
+            <th colspan="2" class="text-center" width="50px">NAF</th>
+            <th rowspan="2" class="text-center" width="130px">MFD/<br/>Conceito</th>
+        {% endif %}
+    </tr>
+    <tr>
+        {% if exibe_notas %}
+            <th class="text-center" width="50px">N</th>
+            <th class="text-center" width="50px">F</th>
+            {% if max_qtd_avaliacoes > 1 %}
+                <th class="text-center" width="50px">N</th>
+                <th class="text-center" width="50px">F</th>
+            {% endif %}
+            {% if max_qtd_avaliacoes > 2 %}
+                <th class="text-center" width="50px">N</th>
+                <th class="text-center" width="50px">F</th>
+                <th class="text-center" width="50px">N</th>
+                <th class="text-center" width="50px">F</th>
+            {% endif %}
+            <th class="text-center" width="50px">N</th>
+            <th class="text-center" width="50px">F</th>
+        {% endif %}
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for matricula_diario in matriculas_diario %}
+        <tr>
+            <td class="text-center">{{ forloop.counter }}</td>
+            <td width="15%" class="text-center">{{ matricula_diario.matricula_periodo.aluno.matricula }}</td>
+            <td>{{ matricula_diario.matricula_periodo.aluno.get_nome }}</td>
+            <td class="text-center">{{ matricula_diario.get_numero_faltas }}</td>
+            <td class="text-center">{{ matricula_diario.get_percentual_carga_horaria_frequentada|format }}%</td>
+            <td class="text-center">{{ matricula_diario.get_situacao_diario_boletim.rotulo }}</td>
+
+            {% if max_qtd_avaliacoes > 0 %}
+                <td class="text-center">{{ matricula_diario.get_nota_1_boletim|format }}</td>
+                <td class="text-center">{{ matricula_diario.get_numero_faltas_primeira_etapa }}</td>
+            {% endif %}
+            {% if max_qtd_avaliacoes > 1 %}
+                <td class="text-center">{{ matricula_diario.get_nota_2_boletim|format }}</td>
+                <td class="text-center">{{ matricula_diario.get_numero_faltas_segunda_etapa }}</td>
+            {% endif %}
+            {% if max_qtd_avaliacoes > 2 %}
+                <td class="text-center">{{ matricula_diario.get_nota_3_boletim|format }}</td>
+                <td class="text-center">{{ matricula_diario.get_numero_faltas_terceira_etapa }}</td>
+                <td class="text-center">{{ matricula_diario.get_nota_4_boletim|format }}</td>
+                <td class="text-center">{{ matricula_diario.get_numero_faltas_quarta_etapa }}</td>
+            {% endif %}
+
+            {% if max_qtd_avaliacoes > 0 %}
+                <td class="text-center">{{ matricula_diario.get_media_disciplina_boletim|format }}</td>
+                <td class="text-center">{{ matricula_diario.get_nota_final_boletim|format }}</td>
+                <td class="text-center">0</td>
+                <td class="text-center">{{ matricula_diario.get_media_final_disciplina_boletim|format }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

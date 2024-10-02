@@ -1,0 +1,2279 @@
+
+form {
+    > div {
+        display: inline-block;
+        width: 100%;
+    }
+    fieldset {
+        > {
+            h2,
+            h3,
+            h5 {
+                @extend %fieldset-title;
+            }
+        }
+        &.campos {
+            input[type="checkbox"],
+            label {
+                margin: 0 0 10px;
+            }
+        }
+        &.module {
+            margin: 0 0 10px;
+            fieldset {
+                border: 0 none;
+                margin-bottom: 0;
+            }
+        }
+        &.with-legend {
+            background-color: $grey-100;
+        }
+    }
+    td > ul > li {
+        list-style-type: square;
+        margin: 0 0 7px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    &.errors {
+        box-shadow: 1px 1px 5px $grey-500;
+    }
+    .aligned p.help_marginless {
+        color: $grey-600;
+        padding: 0;
+    }
+    .errornote {
+        border-radius: $border-radius $border-radius 0 0;
+    }
+    .form-table {
+        margin-left: 170px;
+    }
+}
+fieldset {
+    border: 1px solid $grey-200;
+    border-radius: $border-radius;
+    clear: both;
+    .btn {
+        @extend %btn-small;
+    }
+    .coluna {
+        float: left;
+        margin: 20px;
+        label {
+            float: none;
+        }
+    }
+    .field-box {
+        label + input {
+            &[type="email"],
+            &[type="text"],
+            &[type="url"] {
+                max-width: calc(100% - 165px);
+            }
+        }
+    }
+}
+button {
+    background-color: transparent;
+    border: 0 none;
+    cursor: pointer;
+}
+button.btn {
+    @extend %btn;
+    &:active {
+        background-color: $grey-600;
+        color: $white;
+        text-decoration: none;
+    }
+    &[disabled="disabled"] {
+        background-color: $disabled-color !important;
+        color: $grey-600 !important;
+        cursor: not-allowed;
+    }
+}
+input {
+    outline: 0 none;
+    &[type="button"][disabled="disabled"],
+    &[type="reset"][disabled="disabled"],
+    &[type="submit"][disabled="disabled"] {
+        background-color: $grey-100 !important;
+        color: $black !important;
+        cursor: wait;
+    }
+    &[type="checkbox"],
+    &[type="radio"] {
+        accent-color: $brand-color;
+        height: 1.75rem;
+        width: 1.75rem;
+    }
+    &[type="date"],
+    &[type="datetime-local"],
+    &[type="email"],
+    &[type="file"],
+    &[type="number"],
+    &[type="password"],
+    &[type="search"],
+    &[type="text"],
+    &[type="time"],
+    &[type="url"] {
+        @extend %inputs;
+    }
+    &[type="email"],
+    &[type="file"],
+    &[type="search"],
+    &[type="text"],
+    &[type="url"] {
+        max-width: 60%;
+        width: 60%;
+    }
+    &[type="date"],
+    &[type="datetime-local"],
+    &[type="timee"] {
+        font-family: $primary-font-family;
+    }
+    &[type="search"] {
+        -webkit-appearance: textfield; // Safari correction
+    }
+    &.md[type="text"],
+    &[type="number"].integer-widget {
+        max-width: 110px;
+    }
+    &[type="text"] {
+        &.disabled:focus {
+            border: 1px solid $grey-300;
+        }
+        &.error {
+        	background-color: rgba($danger-color, 0.35);
+        }
+    }
+    &[type="number"].pq,
+    &[type="text"].int,
+    &[type="password"].pq,
+    &[type="text"].pq {
+        width: 80px;
+    }
+    &[type="date"]:focus,
+    &[type="email"]:focus,
+    &[type="number"]:focus,
+    &[type="password"]:focus,
+    &[type="search"]:focus,
+    &[type="text"]:focus {
+        @extend %inputs-focus;
+    }
+    &.form-row.several-items,
+    &.ac_filled_hidden {
+        background-color: $input-filled-color;
+    }
+}
+label {
+    + p:not(.help) {
+        line-height: 1.7em;
+    }
+    input[type="checkbox"] {
+        margin-right: 3px;
+    }
+    span {
+        font-size: 1.2rem;
+        font-weight: normal;
+    }
+}
+label,
+form label.labelForm,
+form p.labelForm {
+    @extend %form-label;
+}
+legend {
+    color: $grey-600;
+    font-weight: 600;
+    margin: 15px;
+    padding: 0 5px;
+}
+select {
+    @extend %inputs;
+    @extend %form-select;
+    &[multiple="multiple"] {
+        height: auto;
+    }
+    option {
+        padding: 3px 5px;
+    }
+    &[multiple="multiple"] option {
+        padding: 5px;
+    }
+    + option.filled {
+        background-color: $input-filled-color !important;
+    }
+}
+select:focus,
+textarea:focus {
+    @extend %inputs-focus;
+}
+textarea {
+    @extend %inputs;
+    @extend %form-textarea;
+    &.change_value {
+        border-color: transparent;
+        height: 100px;
+        width: 100%;
+        &:hover {
+            border-color: $grey-300;
+        }
+    }
+    &.pq {
+        height: 40px;
+    }
+}
+select[readonly],
+select[readonly="readonly"],
+textarea[readonly],
+textarea[readonly="readonly"],
+select[disabled="disabled"] {
+    background-color: $grey-400;
+}
+
+// Misc
+body.readonly {
+    label + p {
+        padding: 7px 0 0;
+    }
+    p.help,
+    .ajaxmultiselect_remove,
+    .ajaxmultiselect_field li:last-child {
+        display: none !important;
+    }
+}
+form fieldset > {
+    h2 .inline-deletelink,
+    h3 .inline-deletelink {
+        font-size: 1.2rem;
+    }
+}
+form fieldset div.form-row {
+    background-color: $grey-100;
+    border-bottom: 1px solid $grey-200;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-top: 0 none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+    width: 100%;
+    > div {
+        @extend %form-row-div;
+    }
+    &.data {
+        text-align: left;
+    }
+    &.several-items input {
+        float: left;
+    }
+    input[type="checkbox"] {
+        margin: 5px 5px 0 0;
+    }
+    label {
+        + input {
+            &[type="email"],
+            &[type="text"],
+            &[type="url"] {
+                width: 80%;
+                + span.status {
+                    border-left-width: 0;
+                    border-top-width: 2px;
+                    border-top-style: solid;
+                    border-radius: 1px 1px 5px 5px;
+                    display: inline-block;
+                    margin-left: calc(#{$labels-width} + 15px);
+                    margin-right: 5px;
+                }
+            }
+        }
+        + span {
+            line-height: 25px;
+        }
+        + textarea {
+            max-width: $max-width-inputs;
+            width: 100%;
+        }
+        + ul:not(.ajaxmultiselect_field) {
+            margin-left: 165px;
+            padding-left: 0;
+        }
+        + .clearable_file_input {
+            display: inline-block;
+            max-width: $max-width-inputs;
+            width: 100%;
+        }
+        + .related-widget-wrapper {
+            display: inline-block;
+            max-width: $max-width-inputs;
+            .select2-container {
+                min-width: 100%;
+            }
+        }
+    }
+    ul {
+        li {
+            list-style: none;
+            label {
+                font-weight: normal !important;
+                display: flex;
+                align-items: center;
+                margin-right: 3rem;
+                width: auto;
+                input[type="checkbox"],
+                input[type="radio"] {
+                    margin-right: 6px;
+                }
+                input[type="checkbox"] {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    .help,
+    p.je-form-input-label {
+        @extend %form-help-text;
+    }
+    .field-box-later .help {
+        float: left;
+    }
+    label + ul + .help {
+        margin-top: 10px;
+    }
+    .has-child {
+        position: relative;
+        > a:after {
+            content: "\f107";
+            font-family: $awesome-font-family;
+            font-weight: 900;
+            margin-left: 7px;
+            opacity: .75;
+        }
+        button {
+            background-color: $white;
+            color: $black;
+            &:hover {
+                color: $white;
+
+            }
+        }
+    }
+    .related-widget-wrapper .help {
+        margin: 5px 0 0 !important;
+    }
+}
+form.long-form fieldset div.form-row {
+    border-color: $grey-300;
+    &:last-child {
+        border-bottom: 0 none;
+    }
+    > div {
+        padding: 20px;
+    }
+    > div > label {
+        margin: 0 0 15px;
+        text-align: left;
+        width: 100%;
+        + textarea {
+            max-width: 100%;
+        }
+        + ul:not(.ajaxmultiselect_field),
+        + ul:not(.ajaxmultiselect_field) li {
+            margin-left: 0;
+        }
+    }
+    ul li label {
+        margin: 0 20px 0 0;
+        input {
+            margin-right: 5px;
+        }
+    }
+}
+:not(.search-and-filters) > form fieldset .form-row {
+    label {
+        + input {
+            &[type="email"],
+            &[type="file"],
+            &[type="text"],
+            &[type="url"] {
+                max-width: $max-width-inputs;
+                min-width: $max-width-inputs;
+            }
+            &.password-input {
+                max-width: calc(100% - 37px) !important;
+                min-width: calc(100% - 37px);
+            }
+        }
+        + input[type="number"] {
+            max-width: $max-width-inputs;
+            min-width: 80px;
+        }
+        + input.hasDatepicker,
+        + input.short-time-widget {
+            max-width: 120px;
+            min-width: 80px;
+            width: $max-width-inputs;
+        }
+        + select:not(.select2-hidden-accessible) {
+            max-width: $max-width-inputs;
+            min-width: $max-width-inputs;
+        }
+    }
+}
+form p.labelForm {
+    margin: 5px 0 5px 5px !important;
+}
+form .integer-widget {
+    width: auto;
+}
+div.autocomplete {
+    background-color: $light-filled-color;
+    max-width: 60%;
+    border: 1px solid darkgray;
+    padding: 11px 5px;
+    width: 398px;
+    border-radius: 5px;
+    float: left;
+}
+td label {
+    float: none;
+    width: auto;
+}
+#recaptcha_table #recaptcha_response_field,
+.recaptcha_theme_blackglass #recaptcha_response_field,
+.recaptcha_theme_white #recaptcha_response_field {
+    position: static !important;
+}
+.add-row {
+    float: right;
+    margin: 1rem;
+}
+.aligned .vCheckboxLabel {
+    float: left !important;
+}
+.btn.as_button {
+    border-radius: $border-radius;
+    padding-bottom: 9px;
+    padding-top: 9px;
+}
+.calendarbox,
+.clockbox {
+    background-color: $white;
+    border: 1px solid $grey-400;
+    padding: 10px;
+}
+.change-list .filtered {
+    background-color: transparent !important;
+}
+.checkbox {
+    background-color: $grey-100;
+    border: 1px solid $grey-300;
+    border-radius: $border-radius;
+    display: inline-flex;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    z-index: 2;
+}
+.checkboxes {
+    margin-left: 142px;
+    label {
+        text-align: left !important;
+    }
+    li {
+        float: left;
+        list-style: none;
+        margin-right: 5px;
+        width: 300px;
+    }
+    + .btn.danger {
+        display: block;
+        float: right;
+        margin-top: 1rem;
+    }
+}
+.checkbutton {
+    clear: both;
+    float: left;
+    margin: 15px 0 0 160px;
+}
+input.cke_dialog_ui_input_text {
+    max-width: 100%;
+}
+.cleanValue {
+    background-color: transparent !important;
+    color: $flat-red;
+    cursor: pointer;
+    display: inline;
+    float: right;
+    margin-top: 6px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.clearable-file-input {
+    float: right;
+    margin: 0 50px 0 0;
+}
+.custom-checkbox {
+    position: relative;
+    width: 30px;
+    label {
+        background-color: $white;
+        border: 2px solid $grey-500;
+        border-radius: $border-radius;
+        cursor: pointer;
+        height: 30px;
+        left: 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        width: 30px;
+    }
+    &.disabled label {
+        background-color: $grey-200;
+        cursor: default;
+    }
+    input[type=checkbox]:checked + label:after {
+        opacity: 1;
+    }
+    label:after {
+        background-color: transparent;
+        border: 3px solid $brand-color;
+        border-top: none;
+        border-right: none;
+        content: '';
+        height: 7px;
+        left: 7px;
+        opacity: 0;
+        position: absolute;
+        top: 9px;
+        width: 12px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+}
+.django-ckeditor-widget {
+    width: calc(100% - 170px);
+    > div {
+        width: 100% !important;
+    }
+}
+.empty-form {
+    display: none;
+}
+.field-box .datetimeshortcuts {
+    float: right;
+}
+.field-box > .related-widget-wrapper > input.autocomplete {
+    max-width: 100%;
+    width: 100%;
+}
+.filled {
+    background-color: $grey-200;
+}
+.form-large-labels form fieldset .form-row {
+    label {
+        width: 50%;
+    }
+    ul.errorlist {
+        width: 100%;
+        text-align: center;
+    }
+}
+.form-options {
+    margin: -20px 0 0 150px;
+    label {
+        margin: 0;
+    }
+    li {
+        display: inline-block;
+        margin: 0 0 5px;
+        width: 100%;
+        label {
+            margin: 0 !important;
+            width: auto !important;
+        }
+        input[type="checkbox"] {
+            margin: 0 !important;
+        }
+    }
+}
+.form-row .errorlist {
+    flex-basis: 100%;
+    margin: 0;
+    padding: 1rem 1rem 0 calc(#{$labels-width} + 10px);
+}
+.form-row.width400 {
+    p.labelForm {
+        float: left;
+        width: 400px !important;
+    }
+    textarea {
+        float: left;
+        height: 80px;
+        margin: 10px 5px 0 10px;
+        width: 500px;
+    }
+    ul.checkboxes {
+        float: left;
+        margin: 7px 0 0 5px;
+    }
+}
+.form-row-photo {
+    float: right;
+    padding: 15px;
+    width: 30%;
+    canvas {
+        width: 100%;
+    }
+    video {
+        display: none;
+    }
+    ~ .form-row {
+        float: left;
+        width: 70%;
+    }
+}
+.formQuiz {
+    label {
+        font-size: 1.3rem !important;
+        margin: 0 0 1rem !important;
+        text-align: left !important;
+        width: 100% !important;
+        input[type="radio"] {
+            margin: 0 5px 0 0;
+        }
+        + ul li {
+            display: inline-block;
+            margin: 5px 0;
+        }
+    }
+    li label {
+        margin: 5px 10px 0 0 !important;
+    }
+    .form-row {
+        padding: 15px;
+        .errorlist {
+            padding: 10px 10px 5px 0;
+        }
+        p.help {
+            margin: 5px 0 0 10px !important;
+        }
+    }
+    select,
+    textarea {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    textarea {
+        height: 200px;
+    }
+    input[type="number"] {
+        margin: 10px;
+    }
+    .checkboxes {
+        clear: both;
+        column-width: 230px;
+        column-gap: 2rem;
+        display: inline-block;
+        margin-left: 0 !important;
+        width: 100%;
+        li {
+            break-inside: avoid;
+            width: 100%;
+        }
+    }
+}
+.hiddenfields {
+    display: none;
+}
+.inline-deletelink {
+    float: right;
+    font-weight: normal;
+}
+.inline-group h2 {
+    max-width: 100%;
+}
+.inline-related {
+    clear: both;
+    h3 {
+        background-color: $grey-200;
+        font-weight: normal;
+        margin: 0;
+        padding: 10px 15px;
+    }
+    table {
+        margin: 0.5%;
+        width: 99%;
+    }
+    .datetime {
+        clear: both;
+        padding: 0 0 0 160px;
+    }
+    :not(td).delete {
+        float: right;
+        label.inline {
+            margin: 0 5px 0 0;
+        }
+    }
+}
+.password-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+}
+input.password-input {
+    border-radius: 5px 0 0 5px;
+    width: 50%;
+}
+button.input-group-addon {
+    @extend %inputs;
+    border-left: 0 none;
+    border-radius: 0 5px 5px 0;
+    width: 37px;
+}
+.invalid {
+    background-color: rgba($flat-red, 0.4) !important;
+    border: 1px solid $false-color !important;
+}
+.jstree-default {
+    li a:hover {
+        background-color: $input-filled-color !important;
+        border: 1px solid green !important;
+    }
+    .jstree-clicked {
+        background-color: $light-filled-color !important;
+        border: 1px solid green !important;
+    }
+}
+.multiFileUploaderContainer {
+    margin: 0 0 0 160px;
+    li {
+        background-color: $grey-200;
+        background-image: url("/static/comum/img/close_modal_box.png");
+        background-position: 98% 5px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        float: left;
+        margin: 10px 10px 0 0;
+        min-height: 50px;
+        min-width: 250px;
+        padding: 10px 25px 10px 15px;
+        &:hover {
+            background-color: $white;
+        }
+        &.error {
+            background-color: rgba($flat-red, 0.4);
+        }
+    }
+    ul {
+        padding: 0;
+    }
+    .progress {
+        height: 20px;
+        margin: 0 0 5px;
+        p {
+            font-size: 1.3rem;
+            height: 20px;
+            line-height: 20px !important;
+        }
+    }
+}
+.popup_multiple_choice_container {
+    display: inline-block;
+    min-width: calc(100% - 180px);
+    max-width: calc(100% - 180px);
+    position: relative;
+    width: auto;
+    .popup_multiple_choice_field {
+        background-color: $white;
+        max-width: 100%;
+        padding-left: 25px !important;
+        width: 100%;
+        &::placeholder {
+            color: $grey-500;
+        }
+        &.selected {
+            background-color: rgba($flat-green, 0.2);
+            + .popup_multiple_choice_icon {
+                color: $brand-color;
+            }
+        }
+    }
+    .popup_multiple_choice_icon {
+        color: $grey-400;
+        position: absolute;
+        left: 8px;
+        top: 8px;
+    }
+}
+.radiobuttons {
+    padding: 0;
+    label {
+        float: none;
+        margin-left: 5px;
+    }
+    li {
+        list-style: none;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+.related-widget-wrapper {
+    width: 100%;
+    ul.ajaxmultiselect_field {
+        padding-left: 0;
+    }
+}
+.related-widget-wrapper-link {
+    display: none;
+}
+.solo-radio {
+    display: flex;
+    align-items: center;
+    input[type="radio"] {
+        margin-right: 6px;
+    }
+}
+.tree-container {
+    margin: 0 20px 0 165px;
+    > ul {
+        background-color: $white;
+        border: 1px solid $grey-300;
+        border-radius: $border-radius;
+        padding: 5px 0;
+    }
+}
+.ui-datepicker .ui-datepicker-today a {
+    background-color: $grey-300;
+    color: $black;
+    font-weight: bold;
+}
+
+// Action Bar and Buttons
+.action-bar {
+    background-color: transparent;
+    border: 0 none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: $gap;
+    float: right;
+    padding: 0;
+    width: auto;
+    + p {
+        clear: both;
+    }
+    form {
+        display: flex;
+        .submit-row {
+            margin: 0;
+            input[type="submit"] {
+                margin: 0;
+            }
+        }
+    }
+    li {
+        align-self: flex-end;
+        list-style: none;
+        margin: 0;
+    }
+    > li > ul {
+        background-color: $grey-200;
+        border-radius: $border-radius;
+        box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+        display: none;
+        margin-left: 13px;
+        max-width: 200px;
+        min-width: 120px;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        width: calc(100% - 26px);
+        z-index: 5;
+    }
+    ul a {
+        background-color: transparent;
+        border: 0 none;
+        border-radius: 0;
+        box-shadow: 0 0 0 transparent;
+        color: $black;
+        display: inline-block;
+        height: auto;
+        line-height: 1.1em;
+        min-height: 30px;
+        padding: .75rem 1rem;
+        white-space: inherit;
+        width: 100%;
+        &:hover {
+            background-color: $black;
+            color: $white;
+            text-decoration: none;
+        }
+    }
+    ul li {
+        border-bottom: 1px solid $white;
+        float: none;
+        margin: 0;
+        &:first-child a {
+            border-radius: $border-radius $border-radius 0 0;
+        }
+        &:last-child {
+            border: 0 none;
+            a {
+                border-radius: 0 0 $border-radius $border-radius;
+            }
+        }
+        &:only-child a {
+            border-radius: $border-radius;
+        }
+        &.disabled a {
+            color: $grey-400;
+            &:hover {
+                background-color: $grey-300;
+                cursor: default;
+                color: $white;
+            }
+        }
+    }
+    .checked {
+        font-weight: 700;
+        opacity: 1 !important;
+    }
+    .has-child {
+        position: relative;
+        > a:after {
+            content: "\f107";
+            font-family: $awesome-font-family;
+            font-weight: 900;
+            margin-left: 7px;
+            opacity: .75;
+        }
+        button {
+            background-color: $white;
+            color: $black;
+            &:hover {
+                color: $white;
+            }
+        }
+    }
+    .btn.danger + ul a:hover {
+        background-color: $danger-active-color;
+    }
+    .btn.default + ul a:hover {
+        background-color: $grey-500;
+    }
+    .btn.primary + ul {
+        a:hover,
+        button:hover {
+            background-color: $primary-active-color;
+        }
+    }
+    .btn.success + ul a:hover {
+        background-color: $success-active-color;
+    }
+    .btn.warning + ul a:hover {
+        background-color: $warning-active-color;
+    }
+}
+a.btn,
+button.btn,
+input.btn,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.add-row > a,
+.deletelink,
+.inline-deletelink,
+.selector-chooser a,
+[name="wizard_goto_step"] {
+    @extend %btn;
+    &:active,
+    &:hover {
+        @extend %btn-active;
+    }
+}
+.btn {
+    .fa,
+    .far,
+    .fas {
+        opacity: 0.7;
+        &:only-child {
+            margin-right: 5px;
+        }
+    }
+    &.checked {
+        font-weight: 700;
+        opacity: 1 !important;
+        &::before {
+            content: "✓ ";
+            margin-right: 5px;
+        }
+    }
+    &.unchecked {
+        background-color: $grey-500;
+        padding: 2px 4px;
+    }
+    &.disabled {
+        @extend %btn-disabled;
+        &:hover {
+            @extend %btn-disabled;
+        }
+    }
+}
+.action-bar:not(.search-and-filters) + table {
+    clear: both;
+    margin: 50px 0 0;
+}
+td {
+    .action-bar {
+        float: none;
+        margin: 0;
+    }
+    .btn {
+        @extend %btn-small;
+    }
+}
+table + .action-bar {
+    margin-top: 10px;
+}
+.deletelink,
+.inline-deletelink {
+    @extend %btn-small;
+}
+.several-items {
+    .btn {
+        margin: 0 0 0 5px;
+    }
+    &.form-row .btn {
+        align-self: center;
+        margin-right: 10px;
+    }
+}
+[name="wizard_goto_step"] + [name="wizard_goto_step"] {
+    margin-left: 1rem;
+}
+
+// Button Colors
+.btn.danger,
+.deletelink,
+.inline-deletelink,
+.selector-chooser .selector-remove {
+    @extend %btn-danger;
+    &:hover {
+        @extend %btn-danger-active;
+    }
+}
+.btn.default,
+#changelist-search input[type="submit"],
+.search-and-filters input[type="submit"],
+[name="wizard_goto_step"] {
+    @extend %btn-default;
+    &:hover {
+        @extend %btn-default-active;
+    }
+}
+.btn.primary {
+    @extend %btn-primary;
+    &:active,
+    &:focus,
+    &:hover {
+        @extend %btn-primary-active;
+    }
+}
+.btn.success,
+.add-row > a,
+.pagination input[name="_save"] {
+    @extend %btn-success;
+    &:active,
+    &:focus,
+    &:hover {
+        @extend %btn-success-active;
+    }
+}
+.btn.warning {
+    @extend %btn-warning;
+    &:active,
+    &:focus,
+    &:hover {
+        @extend %btn-warning-active;
+    }
+}
+
+// Submit Row
+.submit-row {
+    background: none transparent;
+    border: 0 none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 0;
+    a.btn {
+        margin-right: 1rem;
+    }
+    button,
+    input {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        &.btn {
+            &.default {
+                @extend %btn-small;
+            }
+        }
+        &:not(.btn) {
+            &[name="_addanother"],
+            &[name="_continue"],
+            &[name="receber_e_encaminhar"],
+            &[name="receber_e_finalizar"],
+            &[name="wizard_goto_step"],
+            &[type="submit"] + button {
+                @extend %btn-small;
+                @extend %btn-default;
+                &:active,
+                &:hover {
+                    @extend %btn-default-active;
+                }
+            }
+            &:only-child:not(.danger),
+            &[name="_save"],
+            &.default,
+            &.danger {
+                @extend %btn-large;
+            }
+            &:only-child:not(.danger),
+            &[name="_save"],
+            &.default {
+                @extend %btn-success;
+                &:active,
+                &:hover {
+                    @extend %btn-success-active;
+                }
+            }
+            &.danger:active,
+            &.danger:hover{
+                @extend %btn-danger-active;
+            }
+        }
+    }
+    p.deletelink-box {
+        flex-grow: 1;
+        order: 10;
+        .deletelink {
+            float: right;
+        }
+    }
+}
+:not(.search-and-filters) > form > .submit-row {
+    button,
+    input {
+        &.btn {
+            &.success {
+                @extend %btn-large;
+            }
+        }
+    }
+}
+.submit-row + table,
+table + .submit-row {
+    margin-top: 10px;
+}
+
+// Component: Select
+.select2-container {
+    min-width: $max-width-inputs;
+    max-width: $max-width-inputs;
+    width: auto !important;
+    &.select2-container--default {
+        .select2-results__option[aria-selected=true] {
+            background-color: $grey-400;
+        }
+        .select2-results__option--highlighted[aria-selected] {
+            background-color: $input-filled-color;
+            color: $black;
+        }
+        .select2-selection--single {
+            background-color: $input-bg-color !important;
+            border: 1px solid $grey-300 !important;
+            border-radius: $border-radius !important;
+            font-size: 1.2rem !important;
+            height: 38px !important;
+            .select2-selection__arrow {
+                height: 36px;
+                left: 9px;
+            }
+            .select2-selection__arrow:before {
+                color: $grey-400;
+                content: "\f002";
+                font-family: $awesome-font-family;
+                font-weight: 900;
+                position: absolute;
+                top: 12px;
+            }
+            .select2-selection__arrow b {
+                display: none;
+            }
+            .select2-selection__clear {
+                margin-left: 10px;
+                margin-top: 5px;
+                padding: .5rem;
+            }
+            .select2-selection__rendered {
+                height: 36px;
+                line-height: 36px;
+                padding-left: 27px;
+                padding-right: 10px;
+                &[title] {
+                    background-color: $input-filled-color;
+                    + .select2-selection__arrow:before {
+                        color: $brand-color;
+                    }
+                }
+            }
+        }
+        .select2-selection--multiple {
+            background-color: $input-bg-color !important;
+            border: 1px solid $grey-300 !important;
+            border-radius: $border-radius !important;
+            font-size: 1.3rem !important;
+            .select2-search--inline:before {
+                color: $grey-400;
+                content: "\f002";
+                font-family: $awesome-font-family;
+                font-weight: 900;
+                position: absolute;
+                top: 11px;
+                left: 10px;
+            }
+            .select2-search__field {
+                height: 24px !important;
+            }
+            .select2-search__field::placeholder {
+                color: $grey-500 !important;
+            }
+            .select2-selection__choice__remove {
+                color: $danger-color;
+                font-size: 1rem;
+                margin-right: 5px;
+                margin-left: 0px;
+                background: none;
+                padding: 0;
+                min-height: 10px;
+            }
+            .select2-selection__clear {
+                margin-top: 0;
+                padding: .5rem;
+            }
+            .select2-selection__rendered {
+                line-height: 38px;
+                padding-left: 27px;
+                padding-right: 2rem;
+                &.option-selected {
+                    .select2-search--inline:before {
+                        color: $brand-color;
+                    }
+                }
+                .select2-selection__choice {
+                    background-color: $input-filled-color;
+                    margin-top: 8px;
+                }
+                .select2-selection__clear {
+                    margin-right: -1rem;
+                }
+                .select2-search__field {
+                    margin-top: 7px;
+                    margin-bottom: 2px;
+                }
+            }
+        }
+    }
+    .select2-dropdown {
+        border: 1px solid $grey-300;
+    }
+    .select2-results__option {
+        border-bottom: 1px solid $grey-300;
+        display: block;
+        line-height: 1.1em;
+        overflow: hidden;
+        padding: 1rem;
+        &:last-child {
+            border-bottom: 0 none;
+        }
+        h3 {
+            font-size: 1.6rem;
+            line-height: 1.2em;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            padding-top: 0;
+        }
+        p:not(:last-of-type) {
+            padding-bottom: 2px;
+        }
+        span.disabled {
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .person {
+            background-color: transparent;
+            border-radius: 0;
+            margin: -1rem;
+        }
+    }
+    .select2-search--dropdown .select2-search__field {
+        max-width: 100%;
+    }
+}
+table .related-widget-wrapper {
+    width: 100%;
+}
+table .select2-container {
+    max-width: 100%;
+    width: 100% !important;
+}
+
+// Search and Filters
+.search-and-filters {
+    background-color: $grey-100;
+    border-radius: $border-radius;
+    clear: both;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    float: none;
+    gap: 1.5rem;
+    margin: 4px 0 1rem;
+    padding: 2rem;
+    position: relative;
+    width: 100%;
+    &::before {
+        content: "Filtros:";
+        @extend %filters-text-before;
+    }
+    form,
+    #search-and-filters-form {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        width: 100%;
+        > div {
+            width: auto;
+        }
+        fieldset {
+            border: 0 none;
+            display: flex;
+            display: inline-flex;
+            display: contents;
+            align-items: end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 0;
+            div.form-row {
+                background-color: transparent;
+                border: 0 none;
+                float: left;
+                width: auto;
+                > div {
+                    padding: 0;
+                }
+                .help {
+                    margin-left: 0;
+                    width: 100%;
+                }
+                label + input[type="text"] {
+                    margin-top: 2px;
+                    width: 100%;
+                }
+                &.data_inicial.data_final { // Para form-row que apresenta 2 input:date
+                    flex-basis: 315px;
+                    max-width: 313px;
+                }
+            }
+        }
+        .submit-row {
+            margin-top: 0;
+            .btn {
+                margin-right: 0;
+                margin-bottom: 0
+            }
+        }
+    }
+    fieldset {
+        border: 0 none;
+        clear: none;
+        margin: 0;
+    }
+    input[type="number"].integer-widget {
+        max-width: 100%;
+    }
+    input[type="submit"] {
+        @extend %btn-default;
+        &:active,
+        &:hover {
+            @extend %btn-default-active;
+        }
+    }
+    input {
+        &.autocomplete {
+            max-width: 200px;
+            width: 200px;
+        }
+        &[type="text"] {
+            max-width: 100%;
+            padding: 4px;
+            width: 100%;
+            &.hasDatepicker,
+            &.short-time-widget {
+                max-width: 210px !important;
+                width: 100%;
+            }
+            &.search-query {
+                width: calc(100% - 44px) !important;
+            }
+        }
+    }
+    label,
+    form div.form-row label {
+        color: $grey-600;
+        display: block;
+        float: none;
+        font-size: 1.2rem;
+        margin: 0;
+        max-width: 158px;
+        text-align: left !important;
+        width: auto;
+    }
+    select {
+        margin-top: 2px;
+        max-width: 100%;
+        width: 100%;
+    }
+    .add-another {
+        background: none;
+        padding: 0;
+    }
+    .field-box {
+        margin: 0;
+        max-width: 50%;
+        input {
+            max-width: 100%;
+        }
+        &.field-box-first {
+            margin-right: 1rem;
+            max-width: calc(50% - 1rem);
+        }
+    }
+    .filter,
+    > form .form-row {
+        flex-basis: 210px;
+        flex-grow: 1;
+        max-width: 210px;
+        min-width: 160px;
+        padding: 0;
+        width: auto;
+        &.data_inicio,
+        &.data_fim,
+        &.data_final,
+        &.final,
+        &.inicio {
+            max-width: 137px;
+            min-width: 137px;
+        }
+    }
+    .filter.active label,
+    .filter.active .select2-container.select2-container--default .select2-selection--single .select2-selection__rendered {
+        font-weight: 700;
+    }
+    .form-row .errorlist {
+        padding: 0 0 5px !important;
+    }
+    .select2-container {
+        margin-top: 2px;
+        min-width: 210px;
+        max-width: 210px;
+    }
+    .submit-button,
+    .submit-row {
+        align-self: flex-end;
+        flex-basis: 50px;
+        button,
+        input[type="submit"],
+        .btn {
+            @extend %btn-default;
+            line-height: 37px;
+            min-height: 37px;
+            padding-top: 0;
+            padding-bottom: 0;
+            &:active,
+            &:hover {
+                @extend %btn-default-active;
+            }
+            &[disabled] {
+                color: $grey-200;
+                opacity: 0.75;
+            }
+        }
+    }
+    &.large-filters {
+        form fieldset .form-row {
+            label {
+                width: auto;
+            }
+            input[type=text] {
+                font-size: 1.5rem;
+                height: 40px;
+                padding: 10px;
+                width: 300px;
+            }
+        }
+        > form .form-row {
+            max-width: 500px;
+        }
+        .select2-container {
+            min-width: 300px;
+            max-width: 500px;
+        }
+    }
+}
+.filter {
+    &.daterangefilter input {
+        float: left;
+        width: 48% !important;
+    }
+    &.large {
+        max-width: 410px;
+        min-width: 360px;
+        &:only-child {
+            max-width: 100%;
+            min-width: 100%;
+        }
+    }
+    &.filter-large-select {
+        label,
+        select {
+            width: 240px;
+        }
+    }
+    &.separator {
+        margin-left: 25px;
+        position: relative;
+        &:before {
+            background-color: $grey-300;
+            content: "";
+            height: 34px;
+            position: absolute;
+            bottom: 0;
+            left: -20px;
+            width: 1px;
+        }
+    }
+    &.show-condition-or {
+        margin-right: 25px;
+        position: relative;
+        &:after {
+            color: $grey-600;
+            content: "ou";
+            font-weight: 300;
+            position: absolute;
+            bottom: 10px;
+            right: -20px;
+        }
+    }
+}
+select.filter-large-select {
+    width: 240px;
+}
+
+// AutoComplete
+.ac_results {
+    border-bottom: 1px solid $grey-300;
+    border-left: 1px solid $grey-300;
+    border-right: 1px solid $grey-300;
+    border-radius: 0 0 5px 5px;
+    box-shadow: $box-shadow;
+    margin-left: 5px;
+    padding: 0 !important;
+    z-index: 500;
+    h3 {
+        font-size: 1.45rem;
+        margin: 0;
+        padding: 0 0 4px;
+    }
+    li {
+        background-color: $grey-200 !important;
+        border-bottom: 1px dashed $grey-400;
+        cursor: pointer !important;
+        font-size: 1.35rem !important;
+        line-height: 1.3em !important;
+        overflow: hidden;
+        padding: 10px !important;
+        width: 100% !important;
+        &:last-child {
+            border-bottom: 0 none;
+        }
+        &.ac_odd {
+            background-color: $grey-100 !important;
+        }
+        &.ac_over {
+            background-color: $grey-300 !important;
+        }
+    }
+    > ul {
+        padding: 0;
+    }
+    .person {
+        background-color: transparent;
+        margin-bottom: 0;
+        padding: 0;
+        p {
+            padding-top: 3px;
+        }
+    }
+}
+
+// Actions (Django)
+.actions {
+    background-color: $grey-100;
+    border: 1px solid $grey-300;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 0.5% 1% 0;
+    width: 100%;
+    button {
+        @extend %btn;
+        @extend %btn-default;
+        border-radius: 3px;
+        height: 38px;
+        margin-left: 2px;
+    }
+    label {
+        margin: 0 0 8px;
+        width: auto;
+    }
+    .action-counter {
+        color: $grey-600;
+        font-size: 1.3rem;
+        padding-left: 2rem;
+    }
+}
+div.actions h4 span {
+    margin: 0 10px;
+}
+.results + .actions {
+    border-radius: 0 0 3px 3px;
+    margin: -4px 0 0;
+}
+
+// Selector (Django)
+.selector {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 185px);
+    h2 {
+        color: $grey-500;
+        font-size: 1.5rem;
+        margin: 0;
+        max-width: 90px;
+        text-transform: capitalize;
+        img.help {
+            margin: 0 !important;
+        }
+    }
+    select {
+        font-size: 1.35rem;
+        height: 160px;
+        width: 100%;
+    }
+    .selector-available,
+    .selector-chosen {
+        background-color: $grey-200;
+        flex-basis: 200px;
+        flex-grow: 5;
+        padding: 1rem;
+    }
+    .selector-available {
+        label + input[type="text"] {
+            max-width: 100% !important; // !important prevents reducing width to -180px
+        }
+        .selector-filter {
+            clear: none;
+            float: right;
+            padding: 0 !important;
+            label {
+                margin-right: 0;
+                width: auto !important;
+                + input[type="text"] {
+                    float: right;
+                }
+            }
+        }
+    }
+    .selector-chooser {
+        align-self: center;
+        padding: 1rem;
+        text-align: center;
+        a {
+            margin: 2px 0;
+        }
+        li {
+            list-style: none;
+            margin: 0 10px;
+        }
+        .selector-add {
+            @extend %btn-success;
+            &:hover {
+                @extend %btn-success-active;
+            }
+        }
+    }
+    .selector-chosen {
+        .selector-filter img {
+            height: 14px;
+        }
+    }
+}
+.selector-chooseall,
+.selector-clearall {
+    display: block;
+    margin: 5px 0 0;
+}
+
+// Required Inputs
+label.required,
+.required > label,
+.required > div > label {
+    font-weight: 600 !important;
+    &::before {
+        color: $false-color;
+        content: "* ";
+    }
+}
+
+// Ajax Multiselect
+ul.ajaxmultiselect_field {
+    padding: 0 0 5px 165px;
+    a {
+        width: auto;
+    }
+    li {
+        background-color: rgba($flat-green, 0.2);
+        color: $brand-color;
+        display: inline-block;
+        float: left;
+        list-style: none;
+        margin: 0 4px 4px 0;
+        padding: 4px 6px;
+        width: auto;
+        &:last-child {
+            background-color: transparent;
+            border: 0 none;
+            clear: left;
+            padding: 0;
+            position: relative;
+            width: 100%;
+            &:before {
+                color: $grey-400;
+                content: "\f002";
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                position: absolute;
+                left: 10px;
+                top: 10px;
+            }
+        }
+        &:only-child {
+            clear: none !important;
+        }
+        &#li_alunos_add {
+            display: table;
+        }
+    }
+    .ajaxmultiselect_add {
+        text-indent: 20px;
+        &.ac_loading {
+            background-image: url("/static/comum/img/loading.gif");
+            background-position: 99% 10px;
+            background-repeat: no-repeat;
+        }
+    }
+    + .help {
+        display: inline-block;
+        width: 100%;
+    }
+}
+img {
+    &.ajaxmultiselect_add,
+    &.ajaxmultiselect_remove {
+        cursor: pointer;
+    }
+}
+input {
+    &.ajaxmultiselect_add {
+        max-width: 100%;
+        width: 100% !important;
+    }
+    &[disabled="disabled"],
+    &[readonly],
+    &[readonly="readonly"] {
+        background-color: $grey-400;
+    }
+}
+.timeline-content ul.ajaxmultiselect_field li {
+    width: 100%;
+}
+
+// Multiuploader
+.qq-progress-bar-container-selector {
+    display: none;
+}
+.qq-upload-button {
+    background-color: $success-color;
+    border-radius: $border-radius;
+    color: $white;
+    display: block;
+    padding: 5px 0;
+    text-align: center;
+    width: 85px;
+    &:hover {
+        background-color: $success-active-color;
+    }
+}
+.qq-upload-cancel {
+    float: right;
+    margin: -22px 0 0;
+    padding: 3px 8px;
+}
+.qq-upload-file {
+    display: block;
+    float: left;
+}
+.qq-upload-list {
+    padding: 0;
+    li {
+        background-color: $grey-200;
+        border-radius: 2px;
+        float: left;
+        list-style: none;
+        margin: 0 0.5% 1%;
+        padding: 10px;
+        width: calc(32.33% - 20px);
+        &.qq-upload-fail {
+            background-color: rgba($flat-red, 0.6);
+        }
+        &.qq-upload-success {
+            background-color: rgba($flat-green, 0.6);
+        }
+    }
+}
+.qq-upload-result {
+    display: block;
+}
+.qq-upload-size {
+    clear: both;
+    color: $grey-600;
+    display: block;
+}
+.qq-upload-spinner {
+    background-image: url("/static/comum/img/loading.gif");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    display: inline-block;
+    float: left;
+    height: 15px;
+    margin: 0 10px 0 0;
+    width: 15px;
+}
+.qq-uploads-wrap {
+    margin: 1% -0.5%;
+}
+
+// Components
+#add_id_user_permissions,
+#add_id_groups {
+    float: left;
+    margin: 5px 0 0;
+}
+.changelist_loader,
+#changelist {
+    clear: both;
+    &.loader::after {
+        border-width: 18px;
+        height: 160px;
+        width: 160px;
+    }
+}
+#changelist-search {
+    float: left;
+    input {
+        &[type="submit"] {
+            background-color: $grey-200;
+            border: 1px solid $grey-300;
+            border-radius: 0;
+            float: left;
+            height: 38px;
+            margin: 0 0 0 2px;
+            padding: 0 10px;
+            width: 34px;
+            &:hover {
+                background-color: $white;
+            }
+        }
+        &[type="text"] {
+            float: left;
+            max-width: 100%;
+            width: auto;
+        }
+    }
+}
+#li_usuarios_add {
+    clear: both;
+    display: inline-block;
+    margin: 0 0 0 145px;
+}
+.ajaxmultiselect_field #li_usuarios_add {
+    margin-left: 0;
+}
+.ac_input {
+    max-width: 60%;
+    &[readonly] {
+        color: $grey-500;
+    }
+}
+.markall-container {
+    background-color: $grey-200;
+    border-radius: $border-radius;
+    float: left;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    label {
+        float: right;
+        margin-left: 1rem;
+        margin-bottom: 0;
+        width: auto;
+    }
+    input[type="checkbox"] {
+        float: left;
+        height: 2.25rem;
+        width: 2.25rem;
+    }
+}
+
+// Stars
+.field-box-first > .star-cb-group {
+    direction: rtl;
+}
+.field-box-first > .star-cb-group > input {
+    display: none;
+}
+.field-box-first > .star-cb-group > input + label {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 3px;
+    width: 21px;
+}
+.field-box-first > .star-cb-group > input + label span.fas {
+    color: $grey-400;
+    font-size: 1.9rem;
+}
+.field-box-first > .star-cb-group > input:hover + label span.fas {
+    color: $grey-500;
+}
+.field-box-first > .star-cb-group > input:checked + label span.fas,
+.field-box-first > .star-cb-group > input + label.clicado span.fas {
+    color: $flat-green;
+}
+
+// jQuery UI
+#ui-datepicker-div {
+    font-family: $primary-font-family;
+    z-index: 400 !important;
+}
+.ui-datepicker-calendar thead th {
+    padding: 1px 3px;
+    span {
+        background: none;
+        border-radius: 0;
+        box-shadow: 0 0 0 transparent;
+        float: none;
+        margin: 0;
+    }
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    background-color: $input-filled-color !important;
+    border: 1px solid $grey-500 !important;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default {
+    background-color: $grey-200;
+    border: 1px solid $grey-300;
+}
+.ui-widget-header {
+    .ui-state-default {
+        background-color: $grey-200;
+        border: 1px solid $grey-300;
+    }
+    background-color: $grey-400;
+    border-radius: 0 !important;
+}
+
+// Switch
+.switch {
+    display: inline-block;
+    float: none;
+    height: 28px;
+    position: relative;
+    width: 54px;
+    input {
+        height: 0;
+        opacity: 0;
+        width: 0;
+        &:checked + .slider {
+            background-color: $success-color;
+            &::before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
+        }
+        &:focus + .slider {
+            box-shadow: 0 0 1px $success-color;
+        }
+    }
+    .slider {
+        background-color: $grey-500;
+        border-radius: 34px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -webkit-transition: .4s;
+        transition: .4s;
+        &::before {
+            background-color: $white;
+            border-radius: 50%;
+            content: "";
+            height: 20px;
+            position: absolute;
+            left: 4px;
+            bottom: 4px;
+            width: 20px;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+    }
+    + .message {
+        clear: both;
+        line-height: 1.2em;
+    }
+}
+
+// Mixes
+form.featured-form div.form-row {
+    > div {
+        padding: 2rem;
+    }
+    label {
+        color: $grey-600;
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 0 0 5px;
+        text-align: left;
+        width: 100%;
+    }
+    .select2-container {
+        max-width: 100%;
+        width: 100% !important;
+    }
+    .select2-container.select2-container--default .select2-selection--single {
+        height: 50px !important;
+        .select2-selection__rendered {
+            line-height: 50px;
+            padding-left: 40px;
+        }
+        .select2-selection__arrow {
+            left: 15px;
+            top: 6px;
+        }
+        .select2-selection__placeholder {
+            font-size: 1.4rem;
+        }
+    }
+}
+form.featured-form.normal-label div.form-row {
+    label {
+        font-size: 1.5rem;
+    }
+    .help {
+        margin-left: 0;
+    }
+}
+.g-recaptcha {
+    display: inline-block;
+}
+.popup-choice-field {
+    height: 50vh;
+    margin: 15px 0;
+    overflow-y: auto;
+}
+
+// SUAP
+#editardocumento_form .cke,
+#editarmodelodocumento_form .cke {
+    width: 100%;
+}
+
+// Medias Queries
+@media screen and (max-width: 940px), only screen and (max-device-width: 480px), only screen and (min-device-width: 481px) and (max-device-width: 991px) and (orientation: portrait), only screen and (min-device-width: 481px) and (max-device-width: 991px) and (orientation: landscape) {
+    :not(.search-and-filters) > form {
+        fieldset .form-row {
+            > div {
+                padding: 10px;
+            }
+            label {
+                display: inline-block;
+                margin: 0 0 5px;
+                text-align: left;
+                width: 100%;
+                + input[type="email"],
+                + input[type="file"],
+                + input[type="text"],
+                + input[type="url"],
+                + textarea,
+                + .related-widget-wrapper {
+                    max-width: 100%;
+                    width: 100%;
+                    + span.status {
+                        margin-left: 15px;
+                    }
+                }
+                + input[type="number"] {
+                    min-width: 100%;
+                }
+                + select {
+                    max-width: 100%;
+                }
+                + ul:not(.ajaxmultiselect_field) {
+                    clear: both;
+                    margin-left: 0;
+                }
+            }
+            .help {
+                margin: 5px 0 0;
+                width: 100%;
+            }
+        }
+        li {
+            margin-left: 0;
+        }
+    }
+    select,
+    textarea {
+        width: 100%;
+    }
+    ul.ajaxmultiselect_field {
+        padding-left: 0;
+    }
+    #changelist-search input[type="text"] {
+        width: 85%;
+    }
+    .action-bar {
+        float: left;
+        margin-bottom: 20px;
+        a {
+            height: auto;
+        }
+        > li {
+            margin: 0 5px 5px 0;
+        }
+    }
+    .form-row .errorlist {
+        padding-left: 10px;
+    }
+    .form-row-photo {
+        width: 100%;
+        ~ .form-row {
+            width: 100%;
+        }
+    }
+    .password-container {
+        width: 100%;
+    }
+    .related-widget-wrapper {
+        width: 100%;
+    }
+    .search-and-filters {
+        padding-bottom: 1rem;
+        form .submit-row {
+            margin: 0;
+        }
+        .filter {
+            margin-right: 0;
+            max-width: 100%;
+            width: 100%;
+        }
+        .filter,
+        .submit-button,
+        .submit-row {
+            margin-bottom: 1rem;
+        }
+        .select2-container {
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    .select2-container {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    .selector {
+        .selector-available,
+        .selector-chooser,
+        .selector-chosen {
+            flex-basis: 100%;
+        }
+    }
+}
+@media only screen and (min-width: 992px) {
+    form .submit-row.floated {
+        background-color: rgba($black, 0.1);
+        border-radius: 2px 0 0 2px;
+        bottom: 124px;
+        padding: 10px 40px 10px 10px;
+        position: fixed;
+        right: 0;
+        width: auto;
+        input:last-child {
+            margin: 0;
+        }
+    }
+}
+@media only screen and (min-height: 480px) {
+    .popup-choice-field {
+        height: calc(100vh - 380px);
+    }
+}
+@media screen and (max-width: 480px) {
+    .selector-available .selector-chooser .selector-chosen {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .selector {
+        width: 100% !important;
+    }
+    .selector select {
+        overflow-x: scroll !important;
+    }
+}

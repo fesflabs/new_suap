@@ -1,0 +1,49 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        <li><a class="btn" href="/progressoes/abrir_avaliacao/{{ avaliacao.id_encoded }}/">Abrir Avaliação</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if avaliacao_avaliada %}
+        {% if avaliacao.periodo.processo_progressao.is_finalizado %}
+            <p class="msg alert">Processo finalizado.</p>
+        {% endif %}
+        {% if avaliacao.periodo.processo_progressao.is_tipo_progressao_merito %}
+            {% box 'Assinatura do Avaliado: {{ form_assinatura_avaliado.get_assinante }}' %}
+                {% if not form_assinatura_avaliado.senha_assinante_field_exibir %}
+                    <form>{% render_form form_assinatura_avaliado render_full=False %}</form>
+                {% else %}
+                    {% render_form form_assinatura_avaliado %}
+                {% endif %}
+            {% endbox %}
+            {% box 'Assinatura do Avaliador: {{ form_assinatura_avaliador.get_assinante }}' %}
+                {% if not form_assinatura_avaliador.senha_assinante_field_exibir %}
+                    <form>{% render_form form_assinatura_avaliador render_full=False %}</form>
+                {% else %}
+                    {% render_form form_assinatura_avaliador %}
+                {% endif %}
+            {% endbox %}
+            {% box 'Assinatura do Chefe Imediato: {{ form_assinatura_chefe.get_assinante }}' %}
+                {% if not form_assinatura_chefe.senha_assinante_field_exibir %}
+                    <form>{% render_form form_assinatura_chefe render_full=False %}</form>
+                {% else %}
+                    {% render_form form_assinatura_chefe %}
+                {% endif %}
+            {% endbox %}
+        {% else %}
+            {% box 'Assinatura do Chefe: {{ form_assinatura_chefe.get_assinante }}' %}
+                {% if not form_assinatura_chefe.senha_assinante_field_exibir %}
+                    <form>{% render_form form_assinatura_chefe render_full=False %}</form>
+                {% else %}
+                    {% render_form form_assinatura_chefe %}
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    {% else %}
+        <p class="msg alert">A avaliação ainda não foi realizada.</p>
+    {% endif %}
+{% endblock %}

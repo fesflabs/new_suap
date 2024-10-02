@@ -1,0 +1,28 @@
+{% if f.anexos %}
+    <ul class="comments">
+        {% for o in f.anexos %}
+            <li>
+                {% media_private o.anexo as url_anexo %}
+                {{ o }}
+                <div class="clear"></div>
+                {% icon "view" "{{ url_anexo }}" "Visualizar Anexo" %}
+                {% if relatorio.funcionario.pk == request.user.get_profile.funcionario.pk and not f.ponto_fechado %}
+                    {% icon "edit" "/ponto/documento_anexar/{{ o.id }}/change/" "Editar Anexo" "popup" %}
+                    {% icon "delete" "/ponto/documento_anexar/{{ o.id }}/delete/" %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if relatorio.funcionario.pk == request.user.get_profile.funcionario.pk and not f.abono_chefia %}
+    {% if not f.abono_chefia %}
+        {% if f.anexos %}
+            <div class="clear"></div>
+        {% endif %}
+        {% if f.dia <= hoje %}
+            <a class="btn popup"
+                href="/ponto/documento_anexar/{{ f.dia|date:'dmY' }}/add/">{% icone "paperclip" %}
+                Anexar <span class="sr-only">Documento</span></a>
+        {% endif %}
+    {% endif %}
+{% endif %}

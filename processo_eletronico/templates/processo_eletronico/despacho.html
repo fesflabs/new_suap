@@ -1,0 +1,57 @@
+{% extends super_template %}
+{% load crispy_forms_tags %}
+
+{% block extrahead %}
+    <script src="/static/documento_eletronico/js/hwcrypto-legacy.js"></script>
+    <script src="/static/documento_eletronico/js/hwcrypto.js"></script>
+    <script src="/static/documento_eletronico/js/hex2base.js"></script>
+    <script src="/static/processo_eletronico/js/hwsign.js" ></script>
+    <script src="/static/djtools/jquery/jquery.autocomplete.js"></script>
+    <script src="/static/djtools/jquery/jquery.bgiframe.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <h2>Adicionar Despacho</h2>
+    <p class="msg info">Passo {{ wizard.steps.step1 }} de {{ wizard.steps.count }}</p>
+    <form id="wizard_form" action name="wizard_form" enctype="multipart/form-data"  method="post">
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        {{ wizard.form.media }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                 {% render_form form %}
+            {% endfor %}
+        {% else %}
+             {% with form=wizard.form %}
+                {% render_form form %}
+            {% endwith %}
+        {% endif %}
+    </form>
+
+    <script>
+        jQuery(document).ready(function() {
+
+            var assinatura_senha = ("{{ tipo_assinatura }}"  == "senha");
+            var form = jQuery("#wizard_form");
+
+            jQuery("#wizard_form").submit(function (event) {
+                if( !assinatura_senha  && jQuery("#id_papel" ).length == 1)
+                {
+                    var btn_txt = jQuery('#wizard_form > div.submit-row > input.default').val();
+                    if (jQuery('#id_papel').val() == "") {
+                        jQuery('#wizard_form > div.submit-row > input.default').prop('disabled', false);
+                        jQuery('#wizard_form > div.submit-row > input.default').val(btn_txt);
+                        jQuery('#wizard_form > div:nth-child(2) > fieldset > div').find('.errorlist').remove();
+                        jQuery('#wizard_form > div:nth-child(2) > fieldset > div').find('div').prepend('<ul class="errorlist"><li>Este campo é obrigatório.</li></ul>');
+                        return false;
+                    }
+                    event.preventDefault();
+                    var role = document.getElementById("id_papel").value;
+                    sign("{{ hash_conteudo }}", role, form, form.context.URL);
+                }
+                return true;
+            });
+        });
+   </script>
+{% endblock %}

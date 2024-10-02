@@ -1,0 +1,50 @@
+<table class="borda" border=1>
+    <thead>
+    <tr>
+        <th rowspan='2' width="60px">Per.</th>
+        <th colspan='6'>Componentes Curriculares</th>
+        <th rowspan='2' width="60px">C.H.</th>
+        <th rowspan='2' width="200px">Có-Requisitos</th>
+        <th rowspan='2' width="200px">Pré-Requisitos</th>
+    </tr>
+    <tr>
+        <th width="140px">Código</th>
+        <th>Descrição</th>
+        <th width="170px">Tipo</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for componente_curricular in componentes_curriculares %}
+        <tr>
+            <td style='text-align: center'> {{ componente_curricular.periodo_letivo|format }} </td>
+            <td style='text-align: center'> {{ componente_curricular.componente.sigla }} </td>
+            <td> {{ componente_curricular.componente.descricao_historico }}</td>
+            <td style='text-align: center'> {{ componente_curricular.get_tipo_display }} </td>
+            <td style='text-align: center'> {{ componente_curricular.componente.ch_hora_relogio }} </td>
+            <td>
+                <ul>
+                    {% for co_requisito in componente_curricular.co_requisitos.all %}
+                        <li>{{ co_requisito.componente.sigla }}</li>
+                        {% empty %}
+                        -
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {% for pre_requisito in componente_curricular.pre_requisitos.all %}
+                        <li>{{ pre_requisito.componente.sigla }}</li>
+                        {% empty %}
+                        -
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="12" style='text-align: center'><p class="msg alert">Nenhum componente curricular
+                encontrado.</p></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

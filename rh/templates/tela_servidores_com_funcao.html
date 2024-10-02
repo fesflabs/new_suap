@@ -1,0 +1,46 @@
+{% extends super_template %}
+
+{% block content %}
+
+<div class="search-and-filters">
+    {% render_form form %}
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Nº</th>
+            <th>Matrícula</th>
+            <th>Nome</th>
+            <th>Função</th>
+            <th>Atividade</th>
+            <th>Data Ocupação</th>
+            <th>UORG</th>
+            <th>Quantidade de Servidores no Setor</th>
+            <th>Quantidade de Servidores nos Setor Descendentes</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for servidor in servidores %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="/rh/servidor/{{ servidor.matricula }}/">{{ servidor.matricula }}</a></td>
+            <td><a href="/rh/servidor/{{ servidor.matricula }}/">{{ servidor.nome }}</a></td>
+            <td title="{{ servidor.funcao.nome }}">{{ servidor.funcao.codigo }}-{{ servidor.funcao_codigo }}</td>
+            <td>{{ servidor.funcao_atividade }}</td>
+            <td>{{ servidor.funcao_data_ocupacao|date:"d/m/Y" }}</td>
+            <td title="{{ set.setor.nome }}">{{ servidor.setor.sigla }}</td>
+            <td>
+                {% if servidor.setor %}
+                    {{ dict_setores|getkey:servidor.setor|getkey:'quantidade_servidores_setor' }}
+                {% endif %}
+            </td>
+            <td>
+                {% if servidor.setor %}
+                    {{ dict_setores|getkey:servidor.setor|getkey:'quantidade_servidores_setor_descendentes' }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

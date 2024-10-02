@@ -1,0 +1,339 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/joint/lodash.js"></script>
+    <script src="/static/djtools/joint/backbone.js"></script>
+    <script src="/static/djtools/joint/joint.js"></script>
+    <script src="/static/residencia/js/Matriz.js"></script>
+{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" type="text/css" href="/static/djtools/joint/joint.css"/>
+    <style>
+        .extra-info {
+            background-color: #f8dac6;
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block object-status %}
+{% if obj.ativo %}<span class="status status-success">Ativa</span>{% else %}<span class="status status-error">Inativa</span>{% endif %}
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if perms.residencia.add_componentecurricular %}
+            <li><a href="/residencia/replicar_matriz/{{ obj.pk }}/" class='btn success'>Replicar Matriz</a></li>
+        {% endif %}
+        {% help_button %}
+        {% if perms.residencia.add_matriz %}
+            <li class="has-child">
+                <a class="btn default" href="#">Impressões</a>
+                <ul>
+                    <li><a href="/residencia/matriz_pdf/{{ obj.pk }}/">Matriz</a></li>
+                    <li><a href="/residencia/grade_curricular/{{ obj.pk }}/">Pré/Co-Requisitos</a></li>
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if not obj.pode_ser_editada and not request.user.is_superuser %}
+        <p class="msg alert">Esta matriz não pode ser editada, pois existem residentes vinculados a ela com a situação
+            "Concluído".</p>
+    {% endif %}
+
+    {% if obj.inconsistente %}
+        <div class="msg alert">
+            <p>Esta matriz está inconsistente:</p>
+            <ul>
+                {% if obj.is_ch_pratica_faltando %}
+                    <li>Falta definir <strong>{{ obj.is_ch_pratica_faltando }} horas</strong> de
+                        Componentes Prática
+                    </li>
+                {% else %}
+                    {% if obj.is_ch_teorico_pratica_faltando %}
+                        <li>Falta definir <strong>{{ obj.is_ch_teorico_pratica_faltando }} horas</strong> de
+                            Componentes Teórico Prática
+                        </li>
+                    {% else %}
+                        {% if not obj.is_ch_pratica_consistente %}
+                            <li>A carga horária de componentes Prática ultrapassa a quantidade prevista para matriz.
+                            </li>
+                        {% else %}
+                            {% if not obj.is_ch_teorico_pratica_consistente %}
+                                <li>A carga horária de componentes Teórico Prática ultrapassa a quantidade prevista para matriz.
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% if obj.is_ch_componentes_teorica_faltando > 0 %}
+                    <li>Falta definir <strong>{{ obj.get_ch_componentes_teorica_faltando }} horas</strong> de
+                        Componentes Teórica
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% box "Dados Gerais" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Descrição</td>
+                <dd>{{ obj.descricao }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Estrutura de Curso</dt>
+                <dd><a href="/residencia/estruturacurso/{{ obj.estrutura.pk }}/">{{ obj.estrutura|format }}</a></dd>
+            </div>
+            <div class="list-item">
+                <dt>Quantidade de Períodos Letivos</dt>
+                <dd>{{ obj.qtd_periodos_letivos }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container" data-title="Atividades" data-counter="{{ obj.componentecurricular_set.count }}"
+         data-tab="componentes">
+        {% if perms.residencia.change_matriz %}
+            {% if request.user.is_superuser or perms.residencia.add_componentecurricular and obj.pode_ser_editada %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/residencia/vincular_componente/{{ obj.pk }}/">Vincular Atividade</a></li>
+                </ul>
+            {% endif %}
+        {% endif %}
+
+        {% if componentes_curriculares.exists %}
+            <div class="table-responsive">
+            <table>
+                <thead>
+                <tr>
+                    {% if request.user.is_superuser or perms.residencia.change_componentecurricular and obj.pode_ser_editada %}
+                        <th class="no-print">Ações</th>
+                    {% endif %}
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'periodo_letivo' %}-{% endif %}periodo_letivo">Período</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'componente__sigla' %}-{% endif %}componente__abreviatura">Abreviatura</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'componente__descricao' %}-{% endif %}componente__descricao">Atividade</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'unidade_aprendizagem__id' %}-{% endif %}unidade_aprendizagem__id">Unidade de Aprendizagem</a>
+                    </th>
+                    <th><a href="?tab=componentes&order={% if request.GET.order == 'tipo' %}-{% endif %}tipo">Tipo</a>
+                    <th>CH Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for componente_curricular in componentes_curriculares.all|order:request %}
+                    <tr>
+                        {% if request.user.is_superuser or perms.residencia.change_componentecurricular and obj.pode_ser_editada %}
+                            <td class="no-print field-get_acoes">
+                                {% if perms.residencia.change_componentecurricular %}
+                                    {% icon "edit" "/residencia/vincular_componente/{{ obj.pk }}/{{ componente_curricular.componente.pk }}/" "Editar Vínculo" %}
+                                {% endif %}
+                                {% if perms.residencia.delete_componentecurricular %}
+                                    {% icon "delete" "/comum/excluir/residencia/componentecurricular/{{ componente_curricular.pk }}/" "Desvincular" "no-confirm popup" %}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        <td class="text-center">{{ componente_curricular.periodo_letivo|format }}</td>
+                        <td>{{ componente_curricular.componente.abreviatura }}</td>
+                        <td>{{ componente_curricular.componente.descricao }}</td>
+                        <td>{{ componente_curricular.unidade_aprendizagem|format }}</td>
+                        <td>{{ componente_curricular.get_tipo_display }}</td>
+                        <td class="text-center">{{ componente_curricular.ch_total|format  }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        {% else %}
+            <p class="msg alert">Nenhum componente vinculado à matriz.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-title="Criação e Carga Horária" data-tab="carga_horaria">
+        {% box "Criação" %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Data de Início</dt>
+                    <dd>{{ obj.data_inicio|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data de Fim</dt>
+                    <dd>{{ obj.data_fim|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>PPP</dt>
+                    <dd><a href="{{ obj.ppp.url }}">{{ obj.ppp.name }}</a></dd>
+                </div>
+            </dl>
+        {% endbox %}
+
+        {% box "Carga Horária ({{ obj.get_carga_horaria_total_prevista }}h)" %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Atividades Prática</dt>
+                    <dd>{{ obj.ch_pratica|format }} horas ({{ obj.get_ch_pratica }}
+                        definidas)
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Atividades Teórica</dt>
+                    <dd>{{ obj.ch_teorica|format }} horas ({{ obj.get_ch_teorica }}
+                        definidas)
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Atividades Teórico-prática</dt>
+                    <dd>{{ obj.ch_teorico_pratica|format }} horas ({{ obj.get_ch_teorico_pratica }}
+                        definidas)
+                    </dd>
+                </div>
+            </dl>
+        {% endbox %}
+
+        {% box 'Trabalho de Conclusão de Curso' %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Exige Apresentação de TCR</dt>
+                    <dd>{{ obj.exige_tcr|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Grade Curricular" data-tab="grade_curricular">
+        {% box "Grade Curricular" %}
+            <div class='msg info'>
+                <ul>
+                    <li><span class='fontSize180'>&#10142;</span> (Setas cheias) são pré-requisitos</li>
+                    <li><span class='fontSize180'>&#8674;</span> (Setas tracejadas) são co-requisitos</li>
+                </ul>
+            </div>
+            <div id="module"></div>
+            <div id="matriz"
+                 {% if not request.user.is_superuser %}{% if not obj.pode_ser_editada or not pode_editar_matriz %}style="pointer-events:none" {% endif %}{% endif %}>
+            </div>
+            <script>
+                draw_rectangle('{{ obj.toJson|safe }}', '{{ obj.get_numero_linhas }}', '{{ obj.get_numero_colunas }}');
+            </script>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Pré/Co-Requisitos" data-tab="pre_requisitos">
+        {% box "Pré/Co-Requisitos" %}
+            {% if componentes_curriculares.exists %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        {% if request.user.is_superuser or perms.residencia.change_componentecurricular and obj.pode_ser_editada %}
+                            <th class="no-print">Ações</th>
+                        {% endif %}
+                        <th class="text-center">
+                            <a href="?tab=componentes&order={% if request.GET.order == 'periodo_letivo' %}-{% endif %}periodo_letivo">Período</a>
+                        </th>
+                        <th>
+                            <a href="?tab=componentes&order={% if request.GET.order == 'componente__sigla' %}-{% endif %}componente__sigla">Sigla</a>
+                        </th>
+                        <th>
+                            <a href="?tab=componentes&order={% if request.GET.order == 'componente__descricao' %}-{% endif %}componente__descricao">Atividade</a>
+                        </th>
+                        <th>Pré-Requisitos</th>
+                        <th>Co-Requisitos</th>
+                        <th>Atividade Associado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for componente_curricular in componentes_curriculares.all|order:request %}
+                        <tr>
+                            {% if request.user.is_superuser or perms.residencia.change_componentecurricular and obj.pode_ser_editada %}
+                                <td class="no-print">
+                                    {% icon "edit" "/residencia/definir_requisitos/{{ componente_curricular.pk }}/" "Editar Vínculo" "popup" %}
+                                </td>
+                            {% endif %}
+                            <td class="text-center">{{ componente_curricular.periodo_letivo|format }}</td>
+                            <td>{{ componente_curricular.componente.sigla }}</td>
+                            <td>
+                                {{ componente_curricular.componente.descricao }}</td>
+                            <td>
+                                {% if componente_curricular.pre_requisitos.exists %}
+                                    <ul>
+                                        {% for pre_requisito in componente_curricular.pre_requisitos.all %}
+                                            <li>{{ pre_requisito.componente.sigla }}
+                                                - {{ pre_requisito.componente.descricao }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if componente_curricular.co_requisitos.exists %}
+                                    <ul>
+                                        {% for co_requisito in componente_curricular.co_requisitos.all %}
+                                            <li>{{ co_requisito.componente.sigla }}
+                                                - {{ co_requisito.componente.descricao }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if componente_curricular.componente_curricular_associado %}
+                                    {{ componente_curricular.componente_curricular_associado.componente.sigla }} -
+                                    {{ componente_curricular.componente_curricular_associado.componente.descricao }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum componente vinculado à matriz.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Cursos e Residentes" data-tab="cursos_alunos">
+        {% box "Cursos" %}
+            {% if obj.matrizcurso_set.exists %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">Ações</th>
+                        <th>Curso</th>
+                        <th class="no-print">Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for matriz_curso in obj.matrizcurso_set.all %}
+                        <tr>
+                            <td class="no-print">{% icon "view" "/residencia/cursoresidencia/{{ matriz_curso.curso_campus.pk }}/" %}</td>
+                            <td>{{ matriz_curso.curso_campus }}</td>
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    <li><a href="/residencia/relatorio/?matriz={{ matriz_curso.matriz.pk }}&curso_campus={{ matriz_curso.curso_campus.pk }}&formatacao=simples&ordenacao=Nome&agrupamento=Campus&exibicao=situacao&quantidade_itens=25"
+                                    class="btn default">Ver Residentes</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum curso vinculado à matriz.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+{% endblock %}

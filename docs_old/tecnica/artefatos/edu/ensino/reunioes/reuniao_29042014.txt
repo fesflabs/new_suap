@@ -1,0 +1,73 @@
+* reunião 29/04/2014
+Presentes: Alessandro, Hugo, Mateus Morim (fornece requisitos e testa funcionalidade), Jailton e Carlos Breno
+
+Emiliano Gurgel (fornece requisitos e testa funcionalidade)
+
+
+Atores
+   Coordenador de curso
+   Pedagogo
+   Diretor acadêmico
+
+
+Documento Organização didática
+
+ - Incluir e remove alunos de turmas
+ - Refazer área do professor, segui padrão das demais telas
+   Alunos e Professores > Professores
+	Caso de Uso Professor Não segue o padrão
+	Histórico de disciplinas ministradas
+- Incluir abas aba "Boletim" em alunos (Alunos e Professores > Alunos)
+  exibe gráficos de desempenho
+
+
+
+
+. Tela de Turmas, já existe no SUAP
+
+** Gerenciar alunos em turmas **
+
+Ao remover vários alunos de uma turma em lote, o sistema irá verificar para cada aluno e em cada diário se existe notas ou 
+frequencias lançadas, na ocasião, irá aparecer um popup pergutando se deseja excluír o diário e todas as notas e frequencias 
+lançadas.
+
+
+Aba Diários e outra Alunos
+
+lista os alunos APTOS (aluno do curso, do período e do turno, apenas alunos matriculados) para a turma. 
+(ano, periodo letivo.codigo curso.turma periodo (manha tarde noite)
+
+- VERIFICAR FECHAMENTO DO PERÍODO COM BRENO???
+--Cursos seriados o sercretário inclue o aluno em turmas
+--Matricula instituicional - aluno é matriculado somente na instituição.
+--Inclusão de aluno em turma ocorre depois da matricula institucional.
+
+> Turmas e Diários > Turmas
+
+Regra para inclusão de alunos em diários
+  - para cada aluno, verificar a situação reprovado
+os alunos com situações aprovados e dispensados estaram descartados
+
+situação do diário hoje no edu (aprovado, cursando, prova final, reprovado e reprovado por falta)
+--situações não implementadas dispensados, aceleração de estudo, aproveitamento de disciplina, cancelado, afastado, trancado, jubilado, removido, aprovado/reprovado módulo (aprovado na disciplina, mas na frequencia global ficou reprovado no módulo), transferencia (curso, turma, externa)
+
+
+. filtros: matricula (aluno apto), turno
+Remove da turma, localiza um aluno e inclue em uma nova turma.
+
+Incluir aluno em turmas, o sistema verifica quais são os diários que os alunos precisam ser alocados.
+
+
+Ao clicar para desmarcar
+
+
+
+Aba Diários da Turma
+
+** Caso de Uso Situação de Disciplina
+
+** caso de uso dispensar aluno **
+situação DISPENSADO - a instituição não teve competência de oferecer a disciplina, por exemplo, falta de professor.
+caso de uso dispensado em cima de componente
+
+

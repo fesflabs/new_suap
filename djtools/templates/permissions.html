@@ -1,0 +1,38 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% comment %}É o template default renderizado pelo @rtr{% endcomment %}
+
+{% load tags %}
+
+{% block extrahead %}
+	{{ form.media }}
+{% endblock %}
+
+{% block content %}
+	
+    <table>
+    	<thead>
+    		<tr>
+    			<th></th>
+    			{% for group in groups %}
+    				<th width="50px">{{ group.name }}</th>			
+    			{% endfor %}
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% for permission in data %}
+    		<tr>
+    			<td><strong>{{ permission.verbose_name }}</strong></td>
+    			{% for has_perm in permission.groups %}
+    				{% if has_perm %}
+    					<td style="background-color: green" align="center"></td>
+    				{% else %}
+    					<td></td>
+    				{% endif %}	
+    			{% endfor %}
+    		</tr>
+    		{% endfor %}
+    	</tbody>
+    </table>
+
+{% endblock %}

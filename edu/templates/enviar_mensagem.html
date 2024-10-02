@@ -1,0 +1,18 @@
+{% extends super_template %}
+{% block extrahead %}
+
+{% endblock %}
+{% load tags %}
+
+{% block content %}
+
+    {% render_form form %}
+
+    <script>
+        var hidden = $("#id_alunos[type='hidden']");
+        if (hidden.length) {
+            hidden.after("<p class='msg alert' style='margin:20px;max-width:600px'>A mensagem será enviada para {{ form.qs.count }} destinatários. Caso deseje visualizar cada um deles, refine sua a pesquisa com mais informações de modo que o tal de destinatários não ultrapasse 100 alunos.</p>");
+        }
+    </script>
+
+{% endblock %}

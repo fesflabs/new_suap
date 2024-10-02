@@ -1,0 +1,33 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+
+    <div class="msg info">
+        <p>
+        Um processo só pode ser visualizado nas seguintes hipóteses: se ele for público e o seu tipo permitir ou estiver vinculado a contrato.
+        </p>
+    </div>
+    {% render_form form %}
+    <script>
+        $('#id_todas_situacoes').change(function () {
+            var selected_situacao = $('#id_todas_situacoes:checked').val();
+            if (selected_situacao == "on"){
+                $('#id_status').val(undefined);
+                $('#id_status').prop("disabled", true);
+            }
+            else{
+                $('#id_status').prop("disabled", false);
+            }
+        });
+        //
+        $(document).ready(function() {
+            var selected_status = $('#id_status').val();
+            console.log(selected_status)
+            if (selected_status){
+                $('#id_todas_situacoes').prop( "checked", false );;
+            }
+
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends super_template %}
+{% load pipeline %}
+
+{% block extrahead %}
+{% javascript 'highcharts' %}
+{% javascript 'exporting' %}
+<script>
+$(function() {
+    $(".coluna").sortable({
+        connectWith: ".coluna",
+        handle: ".portlet-header",
+        cancel: ".portlet-toggle",
+        placeholder: "portlet-placeholder ui-corner-all",
+        beforeStop: function( event, ui ) {
+            item = ui.item[0];
+            coluna = '3';
+            cont_item = $(item).prevAll().length;
+
+            if ($(item.parentElement).hasClass('coluna-esquerda')) {
+                coluna = '1';
+            } else {
+                if ($(item.parentElement).hasClass('coluna-centro')) {
+                    coluna = '2';
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/comum/index/layout/",
+                data: {titulo: $(item).find('.portlet-header').find('.titulo')[0].getAttribute("data-quadro"), coluna: coluna, ordem: cont_item}
+            });
+        }
+    });
+    $(".esconder-quadro").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/comum/index/esconder_quadro/",
+            data: {titulo: $(this).data('quadro')}
+        });
+        $(this).parent().parent().hide();
+    });
+});
+</script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideLeft index{% endblock %}
+
+{% block buscar_menu %} autofocus{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block before_holder %}
+{% if manutencao %}
+    <div id="manutencao_programada">
+        <b>Atenção:</b> Um procedimento de {{ manutencao.get_tipo_display|lower }} será realizado no SUAP <b>{{ data_manutencao }}</b> das
+        <b>{{ manutencao.data_hora_atualizacao|date:"H:i:s" }}</b> até aproximadamente às <b>{{ previsao_horario_fim_manutencao|date:"H:i:s" }}</b>.
+        Por favor, programe suas atividades com antecedência e evite o acesso durante este horário.
+        <a href="?esconder_manutencao=1" title="Esconder esta mensagem">
+            <span class="sr-only">Esconder</span>
+        </a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block asideleft %}
+<div class="alertas">
+    {% render_alert 'Pendências' 'exclamation-circle' 'error' alertas %}
+    {% render_alert 'Fique atento!' 'exclamation-circle' 'alert' inscricoes %}
+    {% render_alert 'Avisos' 'info-circle' 'info' infos %}
+    {% render_alert 'Atualizações do Sistema' 'info-circle' 'success' atualizacoes %}
+    {% render_rss %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+    {% if quadros %}
+        <div class="grid-container">
+            {% for col_nome, col_quadros in quadros.items %}
+                <div class="coluna coluna-{{ col_nome }}">
+                    {% for quadro in col_quadros %}
+                        {% render_quadro quadro %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if is_secretario_edu %}
+        <div class="flex-container coluna coluna100">
+            {% include "edu/templates/contexto_painel_controle.html" with periodo_letivo_atual=painel_controle.periodo_letivo_atual diretorias_com_pendencia=painel_controle.diretorias_com_pendencia painel=painel_controle.painel %}
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block action-links %}
+    {% if tem_quadro_escondido %}
+        <li><a href="/comum/index/exibir_quadro/" class="popup float-end"><span class="fas fa-th" aria-hidden="true"></span> Quadros</a></li>
+    {% endif %}
+{% endblock %}

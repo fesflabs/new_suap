@@ -1,0 +1,30 @@
+{% extends super_template %}
+
+{% block content %}
+
+<table class="info">
+    <tbody>
+        <tr>
+            <td>Aprendizagem</td>
+            <td>{{ obj.modulo.aprendizagem }}</td>
+        </tr>
+        <tr>
+            <td>Módulo</td>
+            <td>{{ obj.modulo|format }}</td>
+        </tr>
+        <tr>
+            <td>Justificativa</td>
+            <td>{{ obj.motivos }}</td>
+        </tr>
+        <tr>
+            <td>Outras Formas de Acompanhamento</td>
+            <td>{{ obj.outros_acompanhamentos }}</td>
+        </tr>
+        <tr>
+            <td>Formulário de Justificativa</td>
+            <td><a href="{{ obj.formulario_justificativa.url }}">{{ obj.formulario_justificativa.name|format }}</a></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

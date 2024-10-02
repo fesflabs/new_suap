@@ -1,0 +1,33 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if perms.compras.add_evento %}
+        <ul class="action-bar">
+            <li><a class="btn success" href="/admin/compras/evento/add/">Adicionar Evento</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <table class="info">
+        <tr>
+            <td>Calendário</td>
+            <td>{{ fase.processo.tipo_processo.tipo_calendario }}</td>
+        </tr>
+        <tr>
+            <td>Tipo do Processo</td>
+            <td>{{ fase.processo.tipo_processo }}</td>
+        </tr>
+         <tr>
+            <td>Período</td>
+            <td>{{ fase.data_inicio }} - {{ fase.data_fim }}</td>
+        </tr>
+    </table>
+    <form action="." method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Solicitar Participação" class="btn success" name="_save">
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Padrões de código &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../index.html"/>
+        <link rel="up" title="Desenvolvedor" href="index.html"/>
+        <link rel="next" title="Fluxo de trabalho no Gitlab / git" href="fluxo_trabalho_gitlab.html"/>
+        <link rel="prev" title="Desenvolvedor" href="index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../suap.html">SUAP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Desenvolvedor</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Padrões de código</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fluxo_trabalho_gitlab.html">Fluxo de trabalho no Gitlab / git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="git_dicas.html">Git - Dicas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="material_estudo.html">Material de Estudo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instalacao_debian764bits.html">Instalação no Debian 7 64 bits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuracao_uso.html">Preparando o ambiente de produção</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configucacao_mac_os_HOMEBREW.html">Configurando o Ambiente de Desenvolvimento Mac OS (HomeBrew)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#links-externos">Links externos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Padrões de código</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <section id="padroes-de-codigo">
+<h1>Padrões de código<a class="headerlink" href="#padroes-de-codigo" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#padroes-externos" id="id1">Padrões externos</a></p></li>
+<li><p><a class="reference internal" href="#imports" id="id2">Imports</a></p></li>
+<li><p><a class="reference internal" href="#models" id="id3">Models</a></p>
+<ul>
+<li><p><a class="reference internal" href="#usar-choices-ou-uma-nova-tabela" id="id4">Usar choices ou uma nova tabela?</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#forms" id="id5">Forms</a></p></li>
+<li><p><a class="reference internal" href="#views" id="id6">Views</a></p></li>
+<li><p><a class="reference internal" href="#templates" id="id7">Templates</a></p></li>
+<li><p><a class="reference internal" href="#admin" id="id8">Admin</a></p></li>
+<li><p><a class="reference internal" href="#exemplos" id="id9">Exemplos</a></p>
+<ul>
+<li><p><a class="reference internal" href="#exemplo-funcionalidade-de-visualizacao-de-objeto-da-classe-classe" id="id10">Exemplo: Funcionalidade de <strong>visualização</strong> de objeto da classe <strong>Classe</strong>:</a></p></li>
+<li><p><a class="reference internal" href="#exemplo-acao-acao-um-sobre-um-objeto-da-classe-classe" id="id11">Exemplo: Ação <strong>acao_um</strong> sobre um objeto da classe <strong>Classe</strong></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#misc" id="id12">Misc</a></p></li>
+</ul>
+</div>
+<section id="padroes-externos">
+<h2><a class="toc-backref" href="#id1">Padrões externos</a><a class="headerlink" href="#padroes-externos" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a></p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/">Django coding style</a></p></li>
+</ul>
+</section>
+<section id="imports">
+<h2><a class="toc-backref" href="#id2">Imports</a><a class="headerlink" href="#imports" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Usar preferencialmente o <strong>Aptana</strong>, organizar imports com <code class="docutils literal notranslate"><span class="pre">ctrl+shift+o</span></code> e remover imports desnecessários. Algumas regras sobre imports:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modulo</span> <span class="kn">import</span> <span class="o">*</span> <span class="c1"># não use import *</span>
+<span class="kn">from</span> <span class="nn">modulo</span> <span class="kn">import</span> <span class="n">utils</span> <span class="c1"># indique o que você vai usar</span>
+
+<span class="kn">from</span> <span class="nn">suap.app.models</span> <span class="kn">import</span> <span class="n">Classe</span> <span class="c1"># não use from suap</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">Classe</span> <span class="c1"># indique a app que você vai usar</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span> <span class="c1"># se for importar o settings do suap, use de django.conf</span>
+</pre></div>
+</div>
+</section>
+<section id="models">
+<h2><a class="toc-backref" href="#id3">Models</a><a class="headerlink" href="#models" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Usar <strong>id</strong> como chave primária (padrão do django - não especificar a chave primária na declaração da classe de modelo)</p></li>
+<li><p>Preferir usar ORM a sql puro, mas quando for o jeito formatar sql com <a class="reference external" href="http://sqlformat.org/">http://sqlformat.org/</a></p></li>
+<li><p>Campos <code class="docutils literal notranslate"><span class="pre">CharField</span></code> e <code class="docutils literal notranslate"><span class="pre">TextField</span></code> não devem ser <code class="docutils literal notranslate"><span class="pre">null=True</span></code> (<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.null">https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.null</a>)</p></li>
+<li><p>Uma classe que trata “ocorrências de servidor” (e tem ForeignKey para classe Servidor) deve se chamar <strong>ServidorOcorrencia</strong>, e não OcorrenciaServidor.</p></li>
+<li><p>Validações sobre instância do modelo devem ser feitas no método <a class="reference external" href="https://docs.djangoproject.com/en/1.5/ref/models/instances/#django.db.models.Model.clean">clean</a> , e não em forms.</p></li>
+<li><p>Padrão para referenciar classes em campos <code class="docutils literal notranslate"><span class="pre">`ForeignKey`</span></code>:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chave_estrangeira</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;app.ClasseTal&#39;</span><span class="p">)</span> <span class="c1"># evita erro de import circular; evita importar a classe de modelo</span>
+</pre></div>
+</div>
+<section id="usar-choices-ou-uma-nova-tabela">
+<h3><a class="toc-backref" href="#id4">Usar choices ou uma nova tabela?</a><a class="headerlink" href="#usar-choices-ou-uma-nova-tabela" title="Link permanente para este título">¶</a></h3>
+<ul class="simple">
+<li><p><strong>choices</strong>: usar quando são dados de sistema e que o usuário não poderia cadastrar um novo dado. Ex: status de inventário, tipo de entrada etc. Nota: prefira usar choices com campo do tipo PositiveIntegerField para que seja mais fácil mudar o “label” quando for preciso; exceções são tipos bem conhecidos ou pré-determinados, como sexo (‘F’ e ‘M’) e estados brasileiros (‘RN’, ‘RJ’, ‘RS’…).</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># retirado de https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/</span>
+    <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+        <span class="n">DIRECTION_UP</span> <span class="o">=</span> <span class="s1">&#39;U&#39;</span>
+        <span class="n">DIRECTION_DOWN</span> <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
+        <span class="n">DIRECTION_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">DIRECTION_UP</span><span class="p">,</span> <span class="s1">&#39;Up&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">DIRECTION_DOWN</span><span class="p">,</span> <span class="s1">&#39;Down&#39;</span><span class="p">),</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>nova tabela</strong>: usar quando são dados de usuário e que podem ser livremente editados. Ex: categoria de material, área de cursos acadêmicos etc</p></li>
+</ul>
+</section>
+</section>
+<section id="forms">
+<h2><a class="toc-backref" href="#id5">Forms</a><a class="headerlink" href="#forms" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Usar django.forms sempre que possível (evitar escrever &lt;form&gt; no braço)</p></li>
+<li><p>Todo form deve estar no arquivo forms.py</p></li>
+<li><p>Todo form deve acabar com “Form” ou “FormFactory”: <code class="docutils literal notranslate"><span class="pre">`AlgumaCoisaForm`</span></code> ou <code class="docutils literal notranslate"><span class="pre">`AlgumaCoisaFormFactory`</span></code></p></li>
+<li><p>Preferir usar atributo <cite>fields</cite> a <cite>exclude</cite>.</p></li>
+</ul>
+</section>
+<section id="views">
+<h2><a class="toc-backref" href="#id6">Views</a><a class="headerlink" href="#views" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Usar <code class="docutils literal notranslate"><span class="pre">`&#64;rtr`</span></code> sempre que possível, Só criar template quando precisar (forms simples são renderizados pelo djtools/form.html)</p></li>
+<li><p>Preferir <code class="docutils literal notranslate"><span class="pre">`&#64;permission_required`</span></code> a <code class="docutils literal notranslate"><span class="pre">`&#64;group_required`</span></code></p></li>
+</ul>
+</section>
+<section id="templates">
+<h2><a class="toc-backref" href="#id7">Templates</a><a class="headerlink" href="#templates" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Não referenciar URLs no braço, usar o templatetag <a class="reference external" href="https://docs.djangoproject.com/en/1.3/ref/templates/builtins/#url">url</a></p></li>
+<li><p>Tratar permissões com uso da variável <a class="reference external" href="https://docs.djangoproject.com/en/1.5/topics/auth/default/#permissions">perms</a></p></li>
+<li><p>Preferir usar template filter <code class="docutils literal notranslate"><span class="pre">format</span></code> para exibir informações</p></li>
+</ul>
+</section>
+<section id="admin">
+<h2><a class="toc-backref" href="#id8">Admin</a><a class="headerlink" href="#admin" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Usar admin sempre que possível (especialmente para CRUDs)</p></li>
+<li><p>Todo ModelAdmin deve estar em admin.py e deve herdar de <code class="docutils literal notranslate"><span class="pre">ModelAdminPlus</span></code> (não de django.contrib.ModelAdmin)</p></li>
+<li><p>Todo admin deve se chamar AlgumaCoisaAdmin</p></li>
+<li><p>Faça uso das <a class="reference external" href="https://docs.djangoproject.com/en/1.5/topics/auth/default/#default-permissions">permissões default</a> do Django (add, change e delete).</p></li>
+</ul>
+</section>
+<section id="exemplos">
+<h2><a class="toc-backref" href="#id9">Exemplos</a><a class="headerlink" href="#exemplos" title="Link permanente para este título">¶</a></h2>
+<section id="exemplo-funcionalidade-de-visualizacao-de-objeto-da-classe-classe">
+<h3><a class="toc-backref" href="#id10">Exemplo: Funcionalidade de <strong>visualização</strong> de objeto da classe <strong>Classe</strong>:</a><a class="headerlink" href="#exemplo-funcionalidade-de-visualizacao-de-objeto-da-classe-classe" title="Link permanente para este título">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## models.py</span>
+
+    <span class="k">class</span> <span class="nc">Classe</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;/app/classe/</span><span class="si">%d</span><span class="s1">/&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span> <span class="c1"># apontar para a URL de visualização do objeto</span>
+
+    <span class="c1">## urls.py</span>
+
+
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^classe/(?P&lt;pk&gt;\d+)/$&#39;</span><span class="p">,</span> <span class="s1">&#39;classe&#39;</span><span class="p">),</span>
+
+    <span class="c1">## views.py</span>
+
+
+    <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;app.change_classe&#39;</span><span class="p">)</span>
+    <span class="nd">@rtr</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">classe</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Classe</span><span class="p">,</span> <span class="n">pk</span><span class="p">)</span> <span class="c1"># evita exceção DoesNotExist</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">unicode</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c1"># o ``title`` é utilizado no breadcrumbs</span>
+        <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+
+    <span class="c1">## template</span>
+
+    <span class="c1"># deve se chamar `classe.html` (se houver)</span>
+</pre></div>
+</div>
+</section>
+<section id="exemplo-acao-acao-um-sobre-um-objeto-da-classe-classe">
+<h3><a class="toc-backref" href="#id11">Exemplo: Ação <strong>acao_um</strong> sobre um objeto da classe <strong>Classe</strong></a><a class="headerlink" href="#exemplo-acao-acao-um-sobre-um-objeto-da-classe-classe" title="Link permanente para este título">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## models.py</span>
+
+    <span class="k">class</span> <span class="nc">Classe</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">def</span> <span class="nf">acao_um</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="o">...</span>
+
+    <span class="c1">## urls.py</span>
+
+
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^classe_acao_um/(?P&lt;pk&gt;\d+)/$&#39;</span><span class="p">,</span> <span class="s1">&#39;classe_acao_um&#39;</span><span class="p">),</span>
+
+    <span class="c1">## views.py</span>
+
+
+    <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;app.change_classe&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">classe_acao_um</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Classe</span><span class="p">,</span> <span class="n">pk</span><span class="p">)</span> <span class="c1"># evita exceção DoesNotExist</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">acao_um</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">httprr</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">(),</span> <span class="s1">&#39;Operação realizada com sucesso!&#39;</span><span class="p">)</span>
+
+    <span class="c1">## template</span>
+
+
+    <span class="c1"># deve se chamar `classe_acao_um.html` (se houver)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="misc">
+<h2><a class="toc-backref" href="#id12">Misc</a><a class="headerlink" href="#misc" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Não usar palavras reservadas ou nomes de funções globais do python como vars, dir, id</p></li>
+<li><p>Nomes de variáveis e métodos devem estar em português: não usar <strong>is</strong>, usar <strong>eh</strong> ou <strong>estah</strong>; não usar <strong>has</strong>, usar <strong>tem</strong>.</p></li>
+<li><p>Formatação de dicionários ou parâmetros nomeados (alinhar o sinal de “=”):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">atributo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="n">at2</span>       <span class="o">=</span> <span class="mi">23</span><span class="p">,</span>
+     <span class="n">atsds1</span>    <span class="o">=</span> <span class="mi">766</span><span class="p">)</span>
+
+<span class="n">MinhaClasse</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">atributo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                           <span class="n">at2</span>       <span class="o">=</span> <span class="mi">23</span><span class="p">,</span>
+                           <span class="n">atsds1</span>    <span class="o">=</span> <span class="mi">766</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Cabeçalho de arquivos python:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.python.org/dev/peps/pep-0008/#other-recommendations">http://www.python.org/dev/peps/pep-0008/#other-recommendations</a></p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/1.5/ref/models/options/#ordering">https://docs.djangoproject.com/en/1.5/ref/models/options/#ordering</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="fluxo_trabalho_gitlab.html" class="btn btn-neutral float-right" title="Fluxo de trabalho no Gitlab / git"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Desenvolvedor"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

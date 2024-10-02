@@ -1,0 +1,73 @@
+{% extends super_template %}
+
+{% block content %}
+
+{% if not form.is_valid %}
+	{% render_form form %}
+{% else %}
+<p class="msg alert">Na reunião do CODIR, realizada no dia 20/09/13, como resultado do debate sobre a equivalência dos setores visando à adequação e atendimento ao Acórdão nº 5847/2013, nossos dirigentes deliberaram pela aplicação das 40 horas semanais a partir do dia 04/11/2013, data-limite imposta pelo referido Acórdão.</p>
+<h3> {{ setor }} </h3>
+
+{% for funcionario in funcionarios %}
+    {% box "Servidor: {{ funcionario.servidor.nome }} ({{ funcionario.servidor.matricula|format }})" %}
+	    <table id="frequencias_pessoa">
+		    <thead>
+			    <tr>
+				    <th>Data</th>
+				    <th>Registros Ponto</th>
+				    <th>Informações Registro</th>
+				    <th>Observações Funcionário</th>
+				    <th>Abono Chefia</th>
+				    <th>Opções</th>
+			    </tr>
+		    </thead>
+		    <tbody>
+		    {% for f in funcionario.frequencias %}
+			    <tr>
+				    <td>{{ f.dia|date:"d/m/Y" }} ({{ f.dia|date:"l" }})</td>
+				    <td>
+				    	<dl>
+						    {% for h in f.horarios %}
+							    <dt>{{ h.acao }}:</dt>
+							    <dd>{{ h.horario|date:"H:i:s" }} ({{ h.maquina }})</dd>
+						    {% endfor %}
+						</dl>
+				    </td>
+				     <td><span class="status status-error text-nowrap-normal">{{ f.informacoes_registro|format }}</span></td>
+				     <td>	
+				     		{% for o in f.observacoes %}
+					    	<p class="observacao">
+							 {{ o }}
+						    </p>
+					    {% endfor %}
+				    </td>
+				    <td>
+				    	{% if f.abono_chefia %}
+					    		<span class="status status-{{f.abono_chefia.get_acao_abono_display_css}} text-nowrap-normal">{{f.abono_chefia.get_acao_abono_display}}: {{ f.abono_chefia.descricao }}</span>
+				    	{% endif %}
+				    </td>
+				    <td>
+					    {% if relatorio.pode_abonar_falta %}
+					    	{% if not funcionario.servidor.eh_liberado_controle_frequencia %}
+					    		{% if servidor != funcionario.servidor%}
+							    	{% if f.abono_chefia %}
+							    		<a class="btn primary" href="/ponto/adicionar_abono_inconsistencia_frequencia/{{ funcionario.servidor.matricula }}/{{ f.dia|date:"dmY" }}/">Editar Avaliação de Inconsitência {{ funcionario.funcionario.servidor.matricula }}</a> 
+							    	{% else %}
+							    		<a class="btn" href="/ponto/adicionar_abono_inconsistencia_frequencia/{{ funcionario.servidor.matricula }}/{{ f.dia|date:"dmY" }}/">Avaliar Inconsistência {{ funcionario.funcionario.servidor.matricula }}</a>
+							    	{% endif %}
+						    	{% endif %}
+					    	{% endif %}
+						{% endif %}
+					</td>
+			    </tr>
+		    {% endfor %}
+		    
+		    </tbody>
+	    </table>
+    {% endbox %}
+{% empty %}
+<p class="msg alert">Não há frequências inconsistentes no período passado.</p>
+{% endfor %}
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,462 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <style type="text/css">
+        .primary-info {
+            width: 100% !important;
+        }
+        .extra-info {
+            width: 100%;
+            display: none;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("a.btn-detalhar-dia").click(function () {
+                var a_btn = this;
+                var dia_id = $(a_btn).attr("data-dia-id");
+                var extra_info = $(".extra-info.dia-id-"+dia_id);
+                if ($(extra_info).is(":visible")){
+                    $(a_btn).html("Exibir Detalhes");
+                    $(a_btn).attr("href", "#" + $(a_btn).attr("data-dia-id"));
+                    $(extra_info).hide();
+                } else {
+                    $(a_btn).html("Ocultar Detalhes do dia " + $(a_btn).attr("data-dia-label"));
+                    $(a_btn).attr("href", "#!");
+                    $(extra_info).fadeIn("fast");
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% if not servidor.eh_docente %}
+        {% box "Selecione o Período" %}
+            {% render_form form %}
+        {% endbox %}
+
+        {% if form.is_valid %}
+            {% box "Relatório de Horas" %}
+                <div class="legenda">
+                    <p>Legenda:</p>
+                    <ul>
+                        <li class="success">Saldo</li>
+                        <li class="error">Débito</li>
+                    </ul>
+                </div>
+
+                {% for dia in contexto.dias.values %}
+                    <div class="general-box info-dia">
+                        <div class="primary-info">
+                            <h4 id="{{ dia.dia|date:'dmY' }}"><strong>{{ dia.dia }}</strong> ({{ dia.dia|date:"l" }})</h4>
+                            <ul class="action-bar">
+                                <li>
+                                    <a href="#!"
+                                       data-dia-id="{{ dia.dia|date:'dmY' }}"
+                                       data-dia-label="{{ dia.dia|date:'d/m/Y' }}"
+                                       class="btn default btn-detalhar-dia">Exibir Detalhes
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="extra-info dia-id-{{ dia.dia|date:'dmY' }}">
+                                <h5>Frequência</h5>
+                                {% if dia.relatorio_ponto_do_dia_as_relatorio_frequencias %}
+                                    {% with dia.relatorio_ponto_do_dia_as_relatorio_frequencias as relatorio %}
+                                        {% include "includes/frequencias_funcionario.html" %}
+                                    {% endwith %}
+                                {% else %}
+                                    <p class="msg alert">Nenhuma informação a exibir.</p>
+                                {% endif %}
+
+                                {% if dia.is_debito or dia.is_saldo %}
+                                    <h5>Carga Horária Desconsiderada</h5>
+                                    {% if dia.get_log_ch_desconsiderada %}
+                                        {{ dia.get_log_ch_desconsiderada }}
+                                    {% else %}
+                                        <p class="msg alert">Nenhuma informação a exibir.</p>
+                                    {% endif %}
+
+                                    <h5>Compensação</h5>
+                                    {% if dia.is_debito or dia.is_saldo %}
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 50%;">Dias dos {% if dia.is_debito %}Saldos (Período de Reposição do Débito){% else %}Débitos (Período de Utilização do Saldo){% endif %}</th>
+                                                    <th>{% if dia.is_debito %}Reposição do Débito{% else %}Utilização do Saldo{% endif %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if dia.is_debito %}
+                                                    {% for data_saldo, ch_reposta, ch_reposta_compensacoes in dia.debito_reposicao_distribuicao %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if ch_reposta %}
+                                                                    <strong>{{ forloop.counter }}º) {{ data_saldo }}</strong>
+                                                                {% else %}
+                                                                    {{ forloop.counter }}º) {{ data_saldo }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {% if ch_reposta %}
+                                                                    <strong>{{ ch_reposta|format_time }}</strong>
+
+                                                                    {% if ch_reposta_compensacoes %}
+                                                                        <a class="btn popup default no-print" href="/ponto/abrir_compensacao_horario/{{ ch_reposta_compensacoes.0.id }}/">Mais Detalhes</a>
+
+                                                                        {% if ch_reposta_compensacoes|length > 1 %}
+                                                                            <span class="status status-error inline">
+                                                                                Verifique possível duplicidade nos informes compensações.
+                                                                            </span>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                                {% if dia.is_saldo %}
+                                                    {% for data_debito, ch_utilizada, ch_utilizada_compensacoes, debito_especifico_acompanhamentos in dia.saldo_utilizacao_distribuicao %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if ch_utilizada %}
+                                                                    <strong>{{ forloop.counter }}º) {{ data_debito }}</strong>
+                                                                {% else %}
+                                                                    {{ forloop.counter }}º) {{ data_debito }}
+                                                                {% endif %}
+
+                                                                {% for debito_especifico_acompanhamento in debito_especifico_acompanhamentos %}
+                                                                    <span class="status status-em-tramite inline">
+                                                                        {{ debito_especifico_acompanhamento.recesso_opcao }}
+                                                                    </span>
+                                                                {% endfor %}
+                                                            </td>
+                                                            <td>
+                                                                {% if ch_utilizada %}
+                                                                    <strong>{{ ch_utilizada|format_time }}</strong>
+
+                                                                    {% if ch_utilizada_compensacoes %}
+                                                                        <a class="btn popup default no-print" href="/ponto/abrir_compensacao_horario/{{ ch_utilizada_compensacoes.0.id }}/">Mais Detalhes</a>
+                                                                        &nbsp;
+                                                                        {% if ch_utilizada_compensacoes|length > 1 %}
+                                                                            <span class="status status-error inline">
+                                                                                Verifique possível duplicidade nos informes compensações.
+                                                                            </span>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p class="msg alert">Nenhuma informação a exibir.</p>
+                                    {% endif %}
+
+                                    <h5>Cálculos</h5>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Informação</th>
+                                                <th>Cálculo</th>
+                                                <th>Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Valor Inicial do{% if dia.is_debito %} Débito{% elif dia.is_saldo %} Saldo{% endif %}
+                                                </td>
+                                                <td>
+                                                    <code>Trabalhado - Exigido</code>
+                                                    →
+                                                    <code>{{ dia.carga_horaria_trabalhada_qtd|format_time }} - {{ dia.carga_horaria_qtd|format_time }}</code>
+                                                </td>
+                                                <td>
+                                                    <strong>
+                                                        {% if dia.is_debito %}
+                                                            <span class="status status-error inline">
+                                                                {{ dia.debito_qtd_inicial|format_time }}
+                                                            </span>
+                                                        {% else %}
+                                                            <span class="status status-success inline">
+                                                                {{ dia.saldo_qtd_inicial|format_time }}
+                                                            </span>
+                                                        {% endif %}
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Valor Considerado do{% if dia.is_debito %} Débito{% elif dia.is_saldo %} Saldo{% endif %}
+                                                </td>
+                                                <td>
+                                                    <code>Valor Inicial - Valor Desconsiderado</code>
+                                                    →
+                                                    <code>
+                                                        {% if dia.is_debito %}
+                                                            {{ dia.debito_qtd_inicial|format_time }} - {{ dia.debito_qtd_desconsiderado|format_time }}
+                                                        {% else %}
+                                                            {{ dia.saldo_qtd_inicial|format_time }} - {{ dia.saldo_qtd_desconsiderado|format_time }}
+                                                        {% endif %}
+                                                    </code>
+                                                </td>
+                                                <td>
+                                                    {% if dia.is_debito %}
+                                                        <span class="status status-error inline">
+                                                            {{ dia.debito_qtd_considerado|format_time }}
+                                                        </span>
+                                                    {% else %}
+                                                        <span class="status status-success inline">
+                                                            {{ dia.saldo_qtd_considerado|format_time }}
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Valor Restante do{% if dia.is_debito %} Débito{% elif dia.is_saldo %} Saldo{% endif %}
+                                                </td>
+                                                <td>
+                                                    <code>Valor Considerado - Valor{% if dia.is_debito %} Reposto{% elif dia.is_saldo %} Utilizado{% endif %}</code>
+                                                    →
+                                                    <code>
+                                                        {% if dia.is_debito %}
+                                                            {{ dia.debito_qtd_considerado|format_time }} - {{ dia.debito_qtd_reposto|format_time }}
+                                                        {% else %}
+                                                            {{ dia.saldo_qtd_considerado|format_time }} - {{ dia.saldo_qtd_utilizado|format_time }}
+                                                        {% endif %}
+                                                    </code>
+                                                </td>
+                                                <td>
+                                                    {% if dia.is_debito %}
+                                                        <span class="status status-error inline">
+                                                            {{ dia.debito_qtd_restante|format_time }}
+                                                        </span>
+                                                    {% else %}
+                                                        <span class="status status-success inline">
+                                                            {{ dia.saldo_qtd_restante|format_time }}
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if dia.is_debito or dia.is_saldo %}
+                            <dl class="secondary-info">
+                                <div class="list-item">
+                                    <dt>C.H. Exigida:</dt>
+                                    <dd>{{ dia.carga_horaria_qtd|format_time }}</dd>
+                                </div>
+                                <div class="list-item">
+                                    <dt>C.H. Trabalhada:</dt>
+                                    <dd>{{ dia.carga_horaria_trabalhada_qtd|format_time }}</dd>
+                                </div>
+                                {% if dia.is_debito %}
+                                    <div class="list-item">
+                                        <dt>Débito Inicial:</dt>
+                                        <dd>
+                                            <span class="status status-info text-nowrap-normal">
+                                                {{ dia.debito_qtd_inicial|format_time }}
+                                            </span>
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Débito Desconsiderado:</dt>
+                                        <dd>
+                                            {% if dia.debito_qtd_desconsiderado %}
+                                                <span class="status status-alert text-nowrap-normal">
+                                                {{ dia.debito_qtd_desconsiderado|format_time }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Débito Considerado:</dt>
+                                        <dd>
+                                            {% if dia.debito_qtd_considerado %}
+                                                <span class="status status-success text-nowrap-normal">
+                                                {{ dia.debito_qtd_considerado|format_time }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Débito Reposto:</dt>
+                                        <dd>
+                                            {% if dia.debito_qtd_reposto %}
+                                                {{ dia.debito_qtd_reposto|format_time }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Débito Restante:</dt>
+                                        <dd>
+                                            {% if dia.debito_qtd_restante %}
+                                                <span class="status status-error text-nowrap-normal">
+                                                {{ dia.debito_qtd_restante|format_time }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                {% elif dia.is_saldo %}
+                                    <div class="list-item">
+                                        <dt>Saldo Inicial:</dt>
+                                        <dd>
+                                            <span class="status status-info text-nowrap-normal">
+                                                {{ dia.saldo_qtd_inicial|format_time }}
+                                            </span>
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Saldo Desconsiderado:</dt>
+                                        <dd>
+                                            {% if dia.saldo_qtd_desconsiderado %}
+                                                <span class="status status-alert text-nowrap-normal">
+                                                {{ dia.saldo_qtd_desconsiderado|format_time }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Saldo Considerado:</dt>
+                                        <dd>
+                                            {% if dia.saldo_qtd_considerado %}
+                                                <span class="status status-success text-nowrap-normal">
+                                                {{ dia.saldo_qtd_considerado|format_time }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Saldo Compensado:</dt>
+                                        <dd>
+                                            {% if dia.saldo_qtd_utilizado %}
+                                                {{ dia.saldo_qtd_utilizado|format_time }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Saldo Restante:</dt>
+                                        <dd>
+                                            {% if dia.saldo_qtd_restante %}
+                                                <span class="status status-error text-nowrap-normal">
+                                                {{ dia.saldo_qtd_restante|format_time }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                {% endif %}
+                            </dl>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endbox %}
+
+            {% box "Resumo" %}
+                <div class="mt-2">
+                    <table class="info large">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h4>Carga Horária Exigida</h4>
+                                    <p class="obs">Total de carga horária exigida para o período.</p>
+                                </td>
+                                <td>{{ total_exigido|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total de Horas Trabalhadas</h4>
+                                    <p class="obs">Total de horas efetivamente trabalhadas.</p>
+                                </td>
+                                <td>{{ total_trabalhado|format_time_hms }}</td>
+                            </tr>
+
+                            <tr>
+                                <td><h4>Total Débito Inicial</h4></td>
+                                <td class="false">{{ total_situacao_inicial_debito|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total Débito Desconsiderado</h4>
+                                    <p class="obs">Total de débito que desconsiderado no período.</p>
+                                </td>
+                                <td class="false">{{ total_desconsiderado_debito|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td><h4>Total Débito Considerado</h4></td>
+                                <td class="false">{{ total_considerado_debito|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total Débito Reposto</h4>
+                                    <p class="obs">Total de débito com reposição informada do período.</p>
+                                </td>
+                                <td class="false">{{ total_reposto_do_debito|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td><h4>Total Débito Restante</h4></td>
+                                <td class="false">{{ total_restante_debito|format_time_hms }}</td>
+                            </tr>
+
+                            <tr>
+                                <td><h4>Total Saldo Inicial</h4></td>
+                                <td class="true">{{ total_situacao_inicial_saldo|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total Saldo Desconsiderado</h4>
+                                    <p class="obs">Total de saldo desconsiderado no período.</p>
+                                </td>
+                                <td class="true">{{ total_desconsiderado_saldo|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td><h4>Total Saldo Considerado</h4></td>
+                                <td class="true">{{ total_considerado_saldo|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total Saldo Utilizado</h4>
+                                    <p class="obs">Total de saldo utilizado em compensações (no mesmo período e/ou fora dele).</p>
+                                </td>
+                                <td class="true">{{ total_utilizado_do_saldo|format_time_hms }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total Saldo Restante</h4>
+                                    <p class="obs">Total de saldo restante a ser utilizado para informar compensação.</p>
+                                </td>
+                                <td class="true">{{ total_restante_saldo|format_time_hms }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+    {% else %}
+        <p class="msg alert">Não aplicável para docentes.</p>
+    {% endif %}
+{% endblock %}

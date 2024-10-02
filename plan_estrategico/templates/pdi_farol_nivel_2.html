@@ -1,0 +1,154 @@
+{% extends super_template %}
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form filter_form %}
+    </div>
+
+    {% box 'O que compõe o Indicador?' 'collapsed' 'text' %}
+        <p>Esta tela apresenta, para cada indicador, três valores:</p>
+        <dl>
+            <dt>Meta Anual:</dt>
+            <dd>o valor estabelecido como objetivo a ser alcançado para o ano em questão;</dd>
+
+            <dt>Meta Trimestral:</dt>
+            <dd>
+                <p>é uma parte da meta anual, calculada automaticamente pelo sistema para propor a evolução gradual da meta ao longo do ano, permitindo se tenham objetivos intermediários a serem alcançados. As datas previstas de atualização dos dados trimestrais são:</p>
+                <ul>
+                    <li><strong>1º trimestre: </strong>31/março</li>
+                    <li><strong>2º trimestre: </strong>30/junho</li>
+                    <li><strong>3º trimestre: </strong>30/setembro </li>
+                    <li><strong>4º trimestre: </strong>31/dezembro</li>
+                </ul>
+            </dd>
+            <dt>Hoje:</dt>
+            <dd>valor real do indicador, medido ao final do trimestre em questão.</dd>
+        </dl>
+        <p>A análise dos indicadores consiste em se comparar o valor Hoje ao valor Meta Trimestral, e identificar a diferença entre os dois. A cor do Farol demonstra se a Meta Trimestral foi alcançada (verde), parcialmente alcançada (amarelo) ou não alcançada (vermelho).</p>
+        <p>Para auxiliar na análise dos indicadores, também é apresentado o sentido da melhoria, podendo ser "Quanto mais melhor" e "Quanto menos melhor".</p>
+    {% endbox %}
+
+    {% box 'Legenda dos Indicadores' %}
+        <div class="legenda">
+            <p><strong>Legenda:</strong></p>
+            <ul>
+                <li class="error">{% icone "circle" %} Não alcançado</li>
+                <li class="alert">{% icone "circle" %} Parcialmente alcançado</li>
+                <li class="success">{% icone "circle" %} Alcançado</li>
+                <li class="default">{% icone "circle" %} Não informado/Não se aplica</li>
+            </ul>
+        </div>
+    {% endbox %}
+
+    {% box 'Indicadores' %}
+        {% if lista_inds %}
+            <p class="obs">{{ lista_inds|length }} indicadores.</p>
+            <div class="flex-container boxes services flex-basis-400 no-background">
+                {% for obj in lista_inds %}
+                    <div class='box-item {% if obj.status == "Alcançado" %} success {% elif obj.status == "Parcialmente" %} warning {% elif obj.status == "Não Alcançado" %} error {% endif %}'>
+                        {% icone "circle" %}
+                        <h4><a href="{% url 'ver_detalhamento' objetivo.objetivo_estrategico.id obj.indicador.id %}" class="popup">{% if indicador_selecionado %} {{ obj.uo }} {% else %} {{ obj.indicador }} {% endif %} {% icone "info-circle" %}</a></h4>
+                        <dl>
+                            <dt>Situação:</dt>
+                            <dd>
+                                {% if obj.status == "Alcançado" %}
+                                    <span class="status inline status-success">Alcançado</span>
+                                {% elif obj.status == "Não Alcançado" %}
+                                    <span class="status inline status-error">{{ obj.status }}</span>
+                                {% elif obj.status == "Parcialmente" %}
+                                    <span class="status inline status-parcialmente">Parcialmente alcançado</span>
+                                {% else %}
+                                    <span class="status status-default">{{ obj.status }}</span>
+                                {% endif %}
+                            </dd>
+                        </dl>
+                        <div class="flex-container indicators">
+                            <div class="flex-item">
+                                <dl>
+                                    <dt>Meta Anual:</dt>
+                                    {%  if obj.meta_anual == "Aguardando Valor" %}
+                                        <dd>{{ obj.meta_anual }}</dd>
+                                    {% else %}
+                                        <dd>{{ obj.meta_anual|floatformat:obj.indicador.indicador.casas_decimais|default:'-' }}{%  if obj.indicador.indicador.tipo == "Percentual" %}<small> %</small>{% endif %}</dd>
+                                    {% endif %}
+                                </dl>
+                            </div>
+                            <div class="flex-item">
+                                <dl>
+                                    <dt>Meta Trimestral:</dt>
+                                    {%  if obj.meta == "Aguardando Valor" %}
+                                        <dd>{{ obj.meta }}</dd>
+                                    {% else %}
+                                        <dd>{{ obj.meta|floatformat:obj.indicador.indicador.casas_decimais|default:'-' }}{%  if obj.indicador.indicador.tipo == "Percentual" %}<small> %</small>{% endif %}</dd>
+                                    {% endif %}
+                                </dl>
+                            </div>
+                            {% if obj.indicador.indicador.indicador_acompanhamento is False %}
+                                <div class="flex-item">
+
+                                        <dl>
+                                            <dt>Hoje:</dt>
+                                            {% if obj.valor_formula == "Aguardando Valor" %}
+                                                <dd>{{ obj.valor_formula }} <small class="block"> {{ obj.indicador.indicador.tendencia }}</small></dd>
+                                            {% else %}
+                                                <dd>{{ obj.valor_formula|floatformat:obj.indicador.indicador.casas_decimais|default:'-' }} {%  if obj.indicador.indicador.tipo == "Percentual" %}<small> %</small>{% endif %} <small class="block">{{ obj.indicador.indicador.tendencia }}</small></dd>
+                                            {% endif %}
+                                        </dl>
+                                </div>
+                            {% endif %}
+                            {% if obj.indicador.indicador.indicador_acompanhamento %}
+                                <div class="flex-item">
+                                    <dl>
+                                        <dt>Hoje:</dt>
+                                        <dd>
+                                            {% if uo %}
+                                                <a href="/plan_estrategico/ver_faixas_valores_indicador/{{ obj.indicador.pk }}/{{ ano_base }}/{{ uo.pk }}/" class="popup icon-colored">
+                                                    <div class="fontSize300">{% icone "chart-bar" %}</div>
+                                                    <span class="sr-only">Hoje</span>
+                                                </a>
+                                            {% else %}
+                                                <a href="/plan_estrategico/ver_faixas_valores_indicador/{{ obj.indicador.pk }}/{{ ano_base }}/" class="popup icon-colored">
+                                                    <div class="fontSize300">{% icone "chart-bar" %}</div>
+                                                    <span class="sr-only">Hoje</span>
+                                                </a>
+                                            {% endif %}
+                                        </dd>
+                                    </dl>
+                                </div>
+                            {% else %}
+                                 <div class="flex-item">
+                                    <dl>
+                                        <dt>Gráfico do Indicador:</dt>
+                                        <dd>
+                                            {% if indicador_selecionado %}
+                                                <a href="/plan_estrategico/ver_grafico_indicadores/{{ obj.indicador.pk }}/{{ ano_base }}/{{ obj.uo.pk }}/" class="popup icon-colored">
+                                                        <div class="fontSize300">{% icone "chart-bar" %}</div>
+                                                        <span class="sr-only">Gráfico de Indicadores</span>
+                                                    </a>
+                                            {% else %}
+                                                {% if uo %}
+                                                    <a href="/plan_estrategico/ver_grafico_indicadores/{{ obj.indicador.pk }}/{{ ano_base }}/{{ uo.pk }}/" class="popup icon-colored">
+                                                        <div class="fontSize300">{% icone "chart-bar" %}</div>
+                                                        <span class="sr-only">Gráfico de Indicadores</span>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="/plan_estrategico/ver_grafico_indicadores/{{ obj.indicador.pk }}/{{ ano_base }}/" class="popup icon-colored">
+                                                        <div class="fontSize300">{% icone "chart-bar" %}</div>
+                                                        <span class="sr-only">Gráfico de Indicadores</span>
+                                                    </a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </dd>
+                                    </dl>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="msg alert">Nenhum Indicador associado ao Objetivo Estratégico.</p>
+        {% endif %}
+    {% endbox %}
+{% endblock %}
+

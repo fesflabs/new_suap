@@ -1,0 +1,64 @@
+{% extends super_template %}
+
+
+
+{% block content %}
+
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% if existe_registro %}
+        {% for viatura in viaturas %}
+            {% if viatura.viagens %}
+                {% box "{{ viatura }}" %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="no-print">Ações</th>
+                                <th>#</th>
+                                <th>Saída</th>
+                                <th>Chegada</th>
+                                <th>Motoristas</th>
+                                <th>Passageiros</th>
+                                <th>Objetivo</th>
+                                <th>Quilometragem Inicial</th>
+                                <th>Quilometragem Final</th>
+                                <th>Descontinuidade</th>
+                                <th>Distância Percorrida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for viagem in viatura.viagens %}
+                                <tr>
+                                    <td class="no-print">{% if viagem.chegada_odometro != 0 and viagem.descontinuidade != 0 %}{% icon "edit" "/admin/frota/viagem/{{ viagem.id }}/" %}{% else %}-{% endif %}</td>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ viagem.saida_data|date:"d/m/Y" }} às {{ viagem.saida_data|date:"H:i" }}</td>
+                                    <td>{{ viagem.chegada_data|date:"d/m/Y" }} às {{ viagem.chegada_data|date:"H:i" }}</td>
+                                    <td>{{ viagem.motoristas }}</td>
+                                    <td>{{ viagem.passageiros|safe }}</td>
+                                    <td>{{ viagem.agendamento_resposta__agendamento__objetivo }}</td>
+                                    <td>{{ viagem.saida_odometro }}</td>
+                                    <td>{{ viagem.chegada_odometro }}</td>
+                                    <td>{{ viagem.descontinuidade }}</td>
+                                    <td>{{ viagem.distancia }} Km</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="10">Total</td>
+                                <td>{{ viatura.total }} Km</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                {% endbox %}
+            {% endif %}
+        {% endfor %}
+    {% elif form.is_bound %}
+          <p class="msg alert">Nenhum registro encontrado.</p>
+    {% else %}
+        <p class="msg alert">Selecione o <strong>período</strong>, o <strong>campus</strong> e o <strong>grupo de viaturas</strong> para visualizar o relatório.</p>
+    {% endif %}
+
+{% endblock %}

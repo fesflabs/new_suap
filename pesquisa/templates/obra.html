@@ -1,0 +1,983 @@
+{% extends super_template %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    {% if eh_autor and obra.situacao_conselho_editorial == obra.FAVORAVEL_COM_RESSALVAS %}
+        <li><a class="btn success" href="/pesquisa/reenviar_obra/{{ obra.pk }}/">Reenviar Obra</a></li>
+    {% endif %}
+    {% if eh_sistemico and obra.eh_ativa %}
+        <li><a class="btn primary" href="/pesquisa/alterar_situacao_obra/{{ obra.pk }}/">Editar Situação</a></li>
+        {% if obra.situacao == obra.ACEITA %}
+            <li><a class="btn primary" href="/pesquisa/classificar_obra/{{ obra.pk }}/">Classificar Obra</a></li>
+        {% endif %}
+    {% endif %}
+    {% if eh_sistemico and obra.eh_ativa and not obra.situacao == obra.CONCLUIDA %}
+        <li><a class="btn danger" href="/pesquisa/cancelar_obra/{{ obra.pk }}/">Cancelar Obra</a></li>
+    {% elif eh_sistemico and not obra.situacao == obra.CONCLUIDA and not obra.eh_ativa %}
+        <li><a class="btn warning danger" href="/pesquisa/cancelar_obra/{{ obra.pk }}/">Reverter Cancelamento</a></li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% block object-status %}
+    {% if obra.situacao == obra.CONCLUIDA %}
+        <span class="status status-success">{{ obra.situacao }}</span>
+    {% elif obra.situacao == obra.CANCELADA %}
+        <span class="status status-error">{{ obra.situacao }}</span>
+    {% else %}
+        <span class="status status-alert">{{ obra.situacao }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if eh_autor or eh_sistemico %}
+        <div class="tab-container" data-title="Submissão" data-tab="dados_submissao" data-checked="True">
+            {% box 'Dados da Obra' %}
+                <table class="info">
+                    <tr>
+                        <td>Edital</td>
+                        <td>{{ obra.edital.titulo|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Título</td>
+                        <td>{{ obra.titulo|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Sinopse para Catálogo</td>
+                        <td>{{ obra.sinopse|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Sinopse para Quarta Capa</td>
+                        <td>{{ obra.sinopse_quarta_capa|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Linha Editorial</td>
+                        <td>{{ obra.linha_editorial|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Área de Publicação</td>
+                        <td>{{ obra.area|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Núcleos de Pesquisa</td>
+                        <td>{{ obra.nucleos_pesquisa|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tipo de Submissão</td>
+                        <td>{{ obra.tipo_submissao|format }}</td>
+                    </tr>
+                    {% if obra.recurso_impressao %}
+                        <tr>
+                            <td>Recurso de Impressão</td>
+                            <td>{{ obra.recurso_impressao|format }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Obra Completa</td>
+
+                        <td><a href="{% media_private obra.arquivo %}" class="btn default">Ver Arquivo</a></td>
+                    </tr>
+                    <tr>
+                        <td>Obra sem Identificação</td>
+                        <td><a href="{% media_private obra.obra_sem_identificacao_autor %}" class="btn default">Ver Arquivo</a></td>
+                    </tr>
+                    {% if obra.obra_corrigida %}
+                        <tr>
+                            <td>Obra Ressubmetida</td>
+                            <td><a href="{% media_private obra.obra_corrigida %}" class="btn default">Ver Arquivo</a></td>
+                        </tr>
+                    {% endif %}
+                </table>
+
+                <p class="obs">Submetido em {{ obra.submetido_em }} {% if obra.submetido_por_vinculo %} por {{ obra.submetido_por_vinculo.pessoa.nome }}{% endif %}</p>
+                {% if obra.cancelada_por_vinculo %}<p class="obs"> Cancelada em {{ obra.cancelada_em }} por {{ obra.cancelada_por_vinculo.pessoa.nome }}. {% if obra.justificativa_cancelamento %}Justificativa: {{ obra.justificativa_cancelamento }}{% endif %}</p>{% endif %}
+            {% endbox %}
+
+            {% box 'Dados do {{ obra.tipo_autor }}' %}
+                <ul class="action-bar">
+                    {% if eh_autor and obra.pode_cadastrar_autores and obra.eh_ativa %}
+                        <li><a class="btn success" href="/pesquisa/adicionar_autor_obra/{{ obra.pk }}/1/">Adicionar Autor</a></li>
+                        <li><a class="btn success" href="/pesquisa/adicionar_autor_obra/{{ obra.pk }}/2/">Adicionar Organizador</a></li>
+                        <li><a class="btn success" href="/pesquisa/adicionar_autor_obra/{{ obra.pk }}/3/">Adicionar Coautor</a></li>
+                    {% endif %}
+                    {% if eh_sistemico %}
+                        <li><a class="btn primary" href="/pesquisa/alterar_autor/{{ obra.pk }}/">Editar {{ obra.tipo_autor }}</a></li>
+                    {% endif %}
+                </ul>
+
+                <table class="info">
+                    <tr>
+                        <td>{{ obra.tipo_autor }}</td>
+                        <td>{{ obra.submetido_por_vinculo.user|format }}</td>
+                    </tr>
+                    {% if obra.telefone %}
+                        <tr>
+                            <td>Telefone do {{ obra.tipo_autor }}</td>
+                            <td>{{ obra.telefone }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if obra.biografia_autor_organizador %}
+                        <tr>
+                            <td>Biografia do {{ obra.tipo_autor }}</td>
+                            <td>{{ obra.biografia_autor_organizador }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if obra.foto_autor_organizador %}
+                        <tr>
+                            <td>Foto do {{ obra.tipo_autor }}</td>
+                            <td><a href="{% media_private obra.foto_autor_organizador %}">Ver Foto</a></td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Termo de Compromisso do {{ obra.tipo_autor }} com a Editora</td>
+                        <td><a href="{% media_private obra.termo_compromisso_autor_editora %}" class="btn default">Ver Arquivo</a></td>
+                    </tr>
+                </table>
+
+                {% if autores.exists %}
+                    <h4>Autores/Coautores/Organizadores</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Vínculo</th>
+                                <th>Dados Pessoais</th>
+                                <th>Contatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for autor in autores %}
+                                <tr>
+                                    <td>{{ autor.nome|format }}</td>
+                                    <td>{{ autor.tipo_autor|format }}</td>
+                                    <td>
+                                         <dl>
+                                             <dt>CPF:</dt>
+                                             <dd>{{ autor.cpf|format }}</dd>
+                                             <dt>RG:</dt>
+                                             <dd>{{ autor.rg|format }} - {{ autor.rg_orgao_emissor }}</dd>
+                                             <dt>Sexo:</dt>
+                                             <dd>{{ autor.sexo|format }}</dd>
+                                             <dt>Estado Civil:</dt>
+                                             <dd>{{ autor.estado_civil|format }}</dd>
+                                             <dt>Profissão: </dt>
+                                             <dd>{{ autor.profissao|format }}</dd>
+                                             <dt>Endereço: </dt>
+                                             <dd>{{ autor.endereco|format }}, {{ autor.complemento|format }}. {{ autor.bairro|format }}, {{ autor.cidade|format }}, {{ autor.cep|format }}</dd>
+                                         </dl>
+                                    </td>
+                                    <td>
+                                        <dl>
+                                            <dt>Email: </dt>
+                                            <dd>{{ autor.email|format }}</dd>
+                                            <dt>Telefone: </dt>
+                                            <dd>{{ autor.telefone|format }}</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_sistemico %}
+        <div class="tab-container" data-title="Verificação Antiplágio" data-tab="verificacao_autenticidade" data-checked="{% if obra.autenticidade_verificada_por_vinculo %}True{% else %}False{% endif %}">
+            {% box "Verificação Antiplágio" %}
+                {% if obra.autenticidade_verificada_por_vinculo %}
+                    <table class="info">
+                        <tr>
+                            <td>Autêntica</td>
+                            <td>{{ obra.autentica }}</td>
+                        </tr>
+                        <tr>
+                            <td>Observações</td>
+                            <td>{{ obra.autenticidade_obs|format }}</td>
+                        </tr>
+                    </table>
+                {% elif not obra.autenticidade_verificada_por_vinculo and obra.eh_ativa and obra.dentro_prazo_verifica_plagio %}
+                    {% render_form form %}
+                {% else %}
+                    <p class="msg alert">Fora do prazo para Verificação da Autenticidade da Obra.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+
+        <div class="tab-container" data-title="Análise Preliminar" data-tab="aceite" data-checked="{% if obra.eh_autentica and obra.aceita_editora_realizada_por_vinculo %}True{% else %}False{% endif %}">
+            {% if obra.eh_autentica %}
+                {% if obra.aceita_editora_realizada_por_vinculo %}
+                    <table class="info">
+                        <tr>
+                            <td>Aceita pela Editora</td>
+                            <td>{{ obra.status_obra|format }}</td>
+                        </tr>
+                    </table>
+                {% elif obra.dentro_prazo_aceite %}
+                    {% render_form aceiteform %}
+                {% else %}
+                    <p class="msg alert">Fora do prazo para Aceite da Obra.</p>
+                {% endif %}
+            {% else %}
+                <p class="msg alert">Aguardando Verificação Antiplágio.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if pode_ver_aba_conselho %}
+        <div class="tab-container" data-title="Conselho Editorial" data-tab="validacao_conselho" data-checked="{% if obra.foi_aceita and obra.julgamento_conselho_realizado_por_vinculo %}True{% else %}False{% endif %}">
+            {% box "Conselho Editorial" %}
+                {% if obra.foi_aceita %}
+                    <ul class="action-bar">
+                        {% if obra.dentro_prazo_validacao %}
+                            {%  if not obra.julgamento_conselho_realizado_por_vinculo and eh_sistemico %}
+                                <li><a class="btn success" href="/pesquisa/indicar_conselheiro_obra/{{ obra.pk }}/">Indicar Conselheiro</a></li>
+                            {% elif obra.julgamento_conselho_realizado_por_vinculo and eh_sistemico %}
+                                <li><a class="btn primary" href="/pesquisa/indicar_conselheiro_obra/{{ obra.pk }}/">Editar Conselheiro</a></li>
+                            {% endif %}
+                            {% if not obra.situacao_conselho_editorial and eh_conselheiro and obra.tem_parecer or eh_sistemico %}
+                                <li><a class="btn success" href="/pesquisa/registrar_posicao_conselho_obra/{{ obra.pk }}/">Emitir Parecer</a></li>
+                            {% endif %}
+                        {% endif %}
+                        {% if eh_sistemico %}
+                            <li><a class="btn warning confirm" href="/pesquisa/desfazer_validacao_conselho/{{ obra.pk }}/">Desfazer Validação</a></li>
+                        {% endif %}
+                    </ul>
+
+                    {% if obra.julgamento_conselho_realizado_por_vinculo %}
+                        {% box 'Validação do Conselho' %}
+                            <table class="info">
+                                <tr>
+                                    <td>Obra Completa Sem Identificação</td>
+                                    <td><a href="{% media_private obra.obra_sem_identificacao_autor %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.obra_corrigida %}
+                                    <tr>
+                                        <td>Obra Ressubmetida</td>
+                                        <td><a href="{% media_private obra.obra_corrigida %}" class="btn default">Ver Arquivo</a></td>
+                                    </tr>
+                                {% endif %}
+                                {% if not eh_autor %}
+                                    <tr>
+                                        <td>Conselheiro Indicado</td>
+                                        <td>{{ obra.julgamento_conselho_realizado_por_vinculo.user|format }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Parecer do Conselheiro</td>
+                                    <td>{{ obra.get_avaliacao_conselho_editorial|safe|format  }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Observações</td>
+                                    <td>{{ obra.obs_conselho_editorial|format|safe }}</td>
+                                </tr>
+                                {% if obra.julgamento_conselho_realizado_em %}
+                                    <tr>
+                                        <td>Avaliado Em</td>
+                                        <td>{{ obra.julgamento_conselho_realizado_em|format }} por {{ obra.julgamento_conselho_realizado_por_vinculo.pessoa.nome }}</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        {% endbox %}
+
+                        {% if not eh_autor %}
+                            {% box 'Verificação do Conselho' %}
+                                {% if obra.situacao == obra.CATALOGADA %}
+                                    {% render_form analiseliberacaoform %}
+                                {% elif obra.aprovacao_liberacao_publicacao %}
+                                    <table class="info">
+                                        <tr>
+                                            <td>Parecer</td>
+                                            <td>{{ obra.aprovacao_liberacao_publicacao|format }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Observações</td>
+                                            <td>{{ obra.obs_liberacao_publicacao|format }}</td>
+                                        </tr>
+                                    </table>
+                                {% else %}
+                                    <p class="msg alert">Aguardando análise do conselheiro editorial.</p>
+                                {% endif %}
+                            {% endbox %}
+                        {% endif %}
+                    {% else %}
+                        <p class="msg alert">Aguardando Indicação do Conselheiro Editorial.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="msg alert">Aguardando Análise Preliminar.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_parecerista or eh_sistemico or eh_conselheiro %}
+        <div class="tab-container" data-title="Análise de Parecerista" data-tab="analise_parecerista" data-checked="{% if obra.tem_conselheiro_indicado and obra.parecer_obra.exists %}True{% else %}False{% endif %}">
+            <p class="msg info">Período para emissão dos pareceres: {{ edital.data_inicio_analise_especialista }} - {{ edital.data_termino_analise_especialista }}</p>
+            {% box "Análise de Parecerista" %}
+                {% if obra.tem_conselheiro_indicado %}
+                    {% if obra.dentro_prazo_avaliar_obra %}
+                        <ul class="action-bar">
+                            {% if not obra.julgamento_conselho_realizado_em and eh_conselheiro or eh_sistemico %}
+                                <li><a class="btn success" href="/pesquisa/indicar_parecerista_obra/{{ obra.pk }}/">Indicar Parecerista</a></li>
+                            {% endif %}
+                            {% if eh_parecerista and not obra.julgamento_conselho_realizado_em %}
+                                <li><a class="btn success" href="/pesquisa/parecerista_avaliar_obra/{{ obra.pk }}/">Avaliar Obra</a></li>
+                                <li><a class="btn danger" href="/pesquisa/rejeitar_indicacao_parecerista_obra/{{ obra.pk }}/">Rejeitar Indicação</a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+                    <table class="info">
+                        <tr>
+                            <td>Obra Completa Sem Identificação</td>
+                            <td><a href="{% media_private obra.obra_sem_identificacao_autor %}" class="btn default">Ver Arquivo</a></td>
+                        </tr>
+                        {% if obra.edital.questionario_parecerista %}
+                            <tr>
+                                <td>Ficha de Avaliação para Parecerista</td>
+                                <td><a href="{% media_private obra.edital.questionario_parecerista %}" class="btn default">Ver Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                    </table>
+
+                    {% if obra.parecer_obra.exists %}
+                        <h4>Pareceres</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="no-print">Ações</th>
+                                    <th>Parecerista</th>
+                                    <th>Indicado em</th>
+                                    <th>Avaliou em</th>
+                                    <th>Situação</th>
+                                    <th>Nota</th>
+                                    <th>Observações Complementares</th>
+                                    <th>Arquivo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for parecer in obra.parecer_obra.all %}
+                                    {% if eh_conselheiro or eh_sistemico or parecer.parecer_realizado_por_vinculo == request.user.get_vinculo %}
+                                        <tr>
+                                            <td class="no-print">
+                                                {% if eh_conselheiro or eh_sistemico %}
+                                                    {% if eh_sistemico and not parecer.recusou_indicacao %}
+                                                        {% icon "edit" "/pesquisa/editar_parecer/{{ parecer.id }}/" %}
+                                                    {% endif %}
+                                                    {% if not obra.julgamento_conselho_realizado_em and eh_conselheiro %}
+                                                        {% icon "delete" "/pesquisa/remover_parecerista/{{ parecer.id }}/" %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ parecer.parecer_realizado_por_vinculo.user|format }}</td>
+                                            <td>{{ parecer.indicado_em|format }}</td>
+                                            {% if parecer.recusou_indicacao %}
+                                                <td colspan="5"><span class="status status-error">O parecerista rejeitou a indicação.</span></td>
+                                            {% else %}
+                                                <td>{{ parecer.parecer_realizado_em|format }}</td>
+                                                <td>{{ parecer.situacao }}</td>
+                                                <td>{{ parecer.nota|format }}</td>
+                                                <td>{{ parecer.comentario|format|safe }}</td>
+                                                <td>
+                                                    {% if parecer.arquivo_parecer_area %}
+                                                        <a href="{{ parecer.arquivo_parecer_area.url }}" class="btn default">Ver Arquivo</a>
+                                                    {% endif %}
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% elif obra.tem_parecerista %}
+                        <p class="msg alert">Aguardando Parecer.</p>
+                    {% else %}
+                        <p class="msg alert">Aguardando Indicação do Parecerista.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="msg alert">Aguardando Indicação do Conselheiro Editorial.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_autor %}
+        <div class="tab-container" data-title="Análise" data-tab="analise" data-checked="{% if obra.situacao_conselho_editorial %}True{% else %}False{% endif %}">
+            {% box "Análise" %}
+                <p class="msg alert">Está etapa se refere ao atendimento às exigências/normas estabelecidas no edital, assim como pela análise do formulário de avaliação constante no anexo do mesmo.</p>
+                <table class="info">
+                    <tr>
+                        <td>Preliminar</td>
+                        <td>{{ obra.status_obra|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>De Mérito</td>
+                        <td>{{ obra.get_avaliacao_conselho_editorial|safe|format }}</td>
+                    </tr>
+                    {% if obra.obs_conselho_editorial %}
+                        <tr>
+                            <td>Observações</td>
+                            <td>{{ obra.obs_conselho_editorial|format|safe }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_sistemico or eh_autor %}
+        <div class="tab-container" data-title="Termos de Autorização" data-tab="termos" data-checked="{% if obra.foi_validada %}True{% else %}False{% endif %}">
+            <p class="msg info">Todos os autores e coautores devem assinar os termos de Autorização de Publicação e de cessão de Direitos Autorais​ e o responsável pela submissão deve enviar os arquivos compactados no formato .ZIP ou .RAR. O​s demais termos também podem ser compactados no caso das assinaturas gerarem mais de um arquivo.</p>
+            {% if obra.foi_validada %}
+                {% if obra.dentro_prazo_envio_termos %}
+                    {% if eh_sistemico %}
+                        <ul class="action-bar">
+                            <li><a class="btn success" href="/pesquisa/validar_termos/{{ obra.pk }}/">Validar Termos de Autorização</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if pode_gerenciar_termos %}
+                        {% box 'Cadastrar Termos de Autorização' %}
+                            {% render_form uploadtermosform %}
+                        {% endbox %}
+                    {% endif %}
+                {% endif %}
+                {% if not obra.termos_assinados and obra.termo_autorizacao_publicacao %}
+                    {% if not obra.dentro_prazo_envio_termos %}
+                        <p class="msg alert">Fora do prazo para envio dos Termos de Autorização.</p>
+                    {% endif %}
+                {% elif not obra.termo_autorizacao_publicacao and not obra.termo_autorizacao_publicacao_assinado %}
+                    <p class="msg alert">Aguardando o cadastro dos Termos de Autorização.</p>
+                {% endif %}
+                {% box 'Termos de Autorização' %}
+                    <table class="info">
+                        {% if obra.termo_autorizacao_publicacao %}
+                            <tr>
+                                <td>Termos de Autorização de Publicação {% if obra.termo_autorizacao_publicacao_assinado == obra.SIM %}<span class="status status-success">Assinado</span>{% else %} <span class="status status-error">Não assinado</span>{% endif %}</td>
+                                <td><a href="{% media_private obra.termo_autorizacao_publicacao %}" class="btn default">Baixar Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.termo_cessao_direitos_autorais %}
+                            <tr>
+                                <td>Termo de cessão de Direitos Autorais {% if obra.termo_cessao_direitos_autorais_assinado == obra.SIM %}<span class="status status-success">Assinado</span>{% else %} <span class="status status-error">Não assinado</span>{% endif %}</td>
+                                <td><a href="{% media_private obra.termo_cessao_direitos_autorais %}" class="btn default">Baixar Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.termo_uso_imagem %}
+                            <tr>
+                                <td>Termos de Uso de Imagem, Voz e Texto {% if obra.termo_uso_imagem_assinado == obra.SIM %}<span class="status status-success">Assinado</span>{% else %} <span class="status status-error">Não assinado</span>{% endif %}</td>
+                                <td><a href="{% media_private obra.termo_uso_imagem %}" class="btn default">Baixar Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.termo_nome_menor %}
+                            <tr>
+                                <td>Termo de Autorização para uso de Nome de Menor {% if obra.termo_nome_menor_assinado == obra.SIM %}<span class="status status-success">Assinado</span>{% else %} <span class="status status-error">Não assinado</span>{% endif %}</td>
+                                <td><a href="{% media_private obra.termo_nome_menor %}" class="btn default">Baixar Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.contrato_cessao_direitos %}
+                            <tr>
+                                <td>Contrato de Cessão e Transferência de Direitos Patrimoniais de Autor {% if obra.contrato_cessao_direitos_assinado == obra.SIM %}<span class="status status-success">Assinado</span>{% else %} <span class="status status-error">Não assinado</span>{% endif %}</td>
+                                <td><a href="{% media_private obra.contrato_cessao_direitos %}" class="btn default">Baixar Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.termo_autorizacao_uso_imagem %}
+                            <tr>
+                                <td>Termo de Autorização para uso de Imagem e Fotografia {% if obra.termo_autorizacao_uso_imagem_assinado == obra.SIM %}<span class="status status-success">Assinado</span>{% else %} <span class="status status-error">Não assinado</span>{% endif %}</td>
+                                <td><a href="{% media_private obra.termo_autorizacao_uso_imagem %}" class="btn default">Baixar Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.termos_assinados %}
+                            <tr>
+                                <td>Termos Assinados</td>
+                                <td>{{ obra.termos_assinados }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.termo_autorizacao_publicacao_assinado == obra.SIM and not obra.termo_autorizacao_publicacao %}
+                            <p class="msg alert">Os termos de autorização não se aplicam a este edital.</p>
+                        {% endif %}
+                    </table>
+                {% endbox %}
+            {% else %}
+                <p class="msg alert">Aguardando Validação do Conselho Editorial.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if eh_sistemico or eh_revisor or eh_autor %}
+        <div class="tab-container" data-title="Revisão Linguística, Textual e Normalização" data-tab="revisao_textual" data-checked="{% if obra.foi_assinada and obra.arquivo_obra_revisada %}True{% else %}False{% endif %}">
+            {% box "Revisão Linguística, Textual e Normalização" %}
+                {% if obra.foi_assinada %}
+                    {% if obra.dentro_prazo_revisao %}
+                        <ul class="action-bar">
+                            {% if not obra.revisao_realizada_por_vinculo and eh_sistemico %}
+                                <li><a class="btn success" href="/pesquisa/indicar_revisor_obra/{{ obra.pk }}/">Indicar Revisor</a></li>
+                            {% elif obra.revisao_realizada_por_vinculo and not obra.arquivo_obra_revisada and eh_sistemico %}
+                                <li><a class="btn primary" href="/pesquisa/indicar_revisor_obra/{{ obra.pk }}/">Editar Revisor</a></li>
+                            {% endif %}
+                            {% if eh_revisor and not obra.arquivo_obra_revisada %}
+                                <li><a class="btn success" href="/pesquisa/revisar_obra/{{ obra.pk }}/">Revisar Obra</a></li>
+                            {% elif eh_revisor and not obra.parecer_revisor and obra.correcoes_enviadas_em %}
+                                <li><a class="btn success" href="/pesquisa/revisor_emitir_parecer/{{ obra.pk }}/">Emitir Parecer</a></li>
+                            {% elif eh_autor and obra.arquivo_obra_revisada and not obra.parecer_revisor %}
+                                <li><a class="btn success" href="/pesquisa/enviar_arquivo_corrigido/{{ obra.pk }}/">Enviar Correção</a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+                    {% if not obra.arquivo_obra_revisada %}
+                        <p class="msg alert">Aguardando revisão.</p>
+                    {% endif %}
+
+                    <table class="info">
+                        <tr>
+                            <td>Obra Completa</td>
+                            <td><a href="{% media_private obra.arquivo %}" class="btn default">Ver Arquivo</a></td>
+                        </tr>
+                        {% if obra.obra_corrigida %}
+                            <tr>
+                                <td>Obra Ressubmetida</td>
+                                <td><a href="{% media_private obra.obra_corrigida %}" class="btn default">Ver Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Revisor Indicado</td>
+                            <td>{{ obra.revisao_realizada_por_vinculo.user|format }}</td>
+                        </tr>
+                        {% if obra.arquivo_obra_revisada %}
+                            {% if obra.revisao_realizada_em %}
+                                <tr>
+                                    <td>Obra Revisada</td>
+                                    <td><a href="{{ obra.arquivo_obra_revisada.url }}" class="btn default">Ver Arquivo</a><small>em {{ obra.revisao_realizada_em }}</small></td>
+                                </tr>
+                                {% if obra.link_obra_revisada %}
+                                    <tr>
+                                        <td>Link da Obra Revisada</td>
+                                        <td><a href="{{ obra.link_obra_revisada }}">{{ obra.link_obra_revisada }}</a></td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Observações do Revisor</td>
+                                    <td>{{ obra.obs_revisor }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.revisada_pelo_autor %}
+                                <tr>
+                                    <td>Obra Revisada pelo Autor </td>
+                                    <td><a href="{{ obra.revisada_pelo_autor.url }}" class="btn default">Ver Arquivo</a><small>em {{ obra.correcoes_enviadas_em }}</small></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.parecer_revisor %}
+                                <tr>
+                                    <td>Parecer do Revisor</td>
+                                    <td>{{ obra.parecer_revisor|format }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Versão Final da Revisão</td>
+                                    <td><a href="{{ obra.versao_final_revisao.url }}" class="btn default">Ver Arquivo</a><small>em {{ obra.versao_final_revisao_em }}</small></td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    </table>
+                {% else %}
+                    <p class="msg alert">A obra ainda não está disponível para revisão.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_sistemico or eh_autor or eh_diagramador %}
+        <div class="tab-container" data-title="Diagramação" data-tab="diagramacao" data-checked="{% if obra.foi_validada and obra.tem_diagramacao %}True{% else %}False{% endif %}">
+            {% box "Diagramação" %}
+                {% if obra.foi_validada %}
+                    <ul class="action-bar">
+                        {% if obra.dentro_prazo_diagramacao %}
+                            {% if not obra.diagramacao_realizada_por_vinculo and eh_sistemico %}
+                                <li><a class="btn success" href="/pesquisa/indicar_diagramador_obra/{{ obra.pk }}/">Indicar Diagramador</a></li>
+                            {% elif obra.diagramacao_realizada_por_vinculo and not obra.tem_diagramacao or eh_sistemico %}
+                                <li><a class="btn primary" href="/pesquisa/indicar_diagramador_obra/{{ obra.pk }}/">Editar Diagramador</a></li>
+                            {% endif %}
+                            {% if eh_autor and obra.tem_diagramacao and not obra.diagramacao_avaliada_em %}
+                                <li><a class="btn success" href="/pesquisa/avaliar_diagramacao/{{ obra.pk }}/">Avaliar Diagramação</a></li>
+                            {% elif eh_diagramador %}
+                                {% if not obra.tem_diagramacao %}
+                                    <li><a class="btn success" href="/pesquisa/cadastrar_diagramacao/{{ obra.pk }}/">Cadastrar Diagramação</a></li>
+                                {% elif obra.tem_diagramacao and obra.diagramacao_avaliada_em and not obra.diagramacao_concluida %}
+                                    <li><a class="btn success" href="/pesquisa/cadastrar_diagramacao/{{ obra.pk }}/">Confirmar Diagramação</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if eh_diagramador or eh_sistemico %}
+                            {% if not obra.foi_concluida %}
+                                <li><a class="btn" href="/pesquisa/checklist_obra_diagramador/{{ obra.pk }}/">Checklist</a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+
+                    {% if not obra.tem_diagramacao %}
+                        <p class="msg alert">Aguardando Envio da Diagramação.</p>
+                    {% endif %}
+
+                    <table class="info">
+                        <tr>
+                            <td>Obra Completa</td>
+                            <td><a href="{% media_private obra.arquivo %}" class="btn default">Ver Arquivo</a></td>
+                        </tr>
+                        {% if obra.obra_corrigida %}
+                            <tr>
+                                <td>Obra Ressubmetida</td>
+                                <td><a href="{% media_private obra.obra_corrigida %}" class="btn default">Ver Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.arquivo_obra_revisada %}
+                            <tr>
+                                <td>Obra Revisada</td>
+                                <td><a href="{% media_private obra.arquivo_obra_revisada %}" class="btn default">Ver Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        {% if obra.versao_final_revisao %}
+                            <tr>
+                                <td>Versão Final da Revisão</td>
+                                <td><a href="{% media_private obra.versao_final_revisao %}" class="btn default">Ver Arquivo</a></td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Diagramador Indicado</td>
+                            <td>{{ obra.diagramacao_realizada_por_vinculo.user|format }}</td>
+                        </tr>
+                        {% if obra.tem_diagramacao %}
+                            {% if not obra.tipo_submissao == obra.IMPRESSO %}
+                                <tr>
+                                    <td>{% if obra.diagramacao_concluida %}Versão Final{% else %}Obra Diagramada{% endif %} - Capa ({{ obra.tipo_submissao }}){% if obra.diagramacao_capa_aprovada == obra.SIM %}<span class="status status-success">Aprovado</span>{% elif obra.diagramacao_capa_aprovada == obra.NAO %}<span class="status status-error">Reprovado</span>{% else %}<span class="status status-alert">Aguardando Avaliação</span>{% endif %}</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_capa.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.diagramacao_capa_aprovada == obra.NAO %}
+                                    <tr><td>Justificativa</td><td>{{ obra.justificativa_capa }}</td></tr>
+                                {% endif %}
+                                <tr>
+                                    <td>{% if obra.diagramacao_concluida %}Versão Final{% else %}Obra Diagramada{% endif %} - Miolo ({{ obra.tipo_submissao }}){% if obra.diagramacao_miolo_aprovada == obra.SIM %}<span class="status status-success">Aprovado</span>{% elif obra.diagramacao_miolo_aprovada == obra.NAO %}<span class="status status-error">Reprovado</span>{% else %}<span class="status status-alert">Aguardando Avaliação</span>{% endif %}</td>
+                                    <td><a href="{% media_private obra.arquivo_diagramacao_miolo %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.diagramacao_miolo_aprovada == obra.NAO %}
+                                    <tr><td>Justificativa</td><td>{{ obra.justificativa_miolo }}</td></tr>
+                                {% endif %}
+                            {% else %}
+                                 <tr>
+                                    <td>{% if obra.diagramacao_concluida %}Versão Final{% else %}Obra Diagramada{% endif %} - Capa (Ebook){% if obra.diagramacao_capa_aprovada == obra.SIM %}<span class="status status-success">Aprovado</span>{% elif obra.diagramacao_capa_aprovada == obra.NAO %} <span class="status status-error">Reprovado</span>{% else %}<span class="status status-alert">Aguardando Avaliação</span>{% endif %}</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_capa.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.diagramacao_capa_aprovada == obra.NAO %}
+                                    <tr><td>Justificativa</td><td>{{ obra.justificativa_capa }}</td></tr>
+                                {% endif %}
+                                <tr>
+                                    <td>{% if obra.diagramacao_concluida %}Versão Final{% else %}Obra Diagramada{% endif %} - Miolo (Ebook){% if obra.diagramacao_miolo_aprovada == obra.SIM %}<span class="status status-success">Aprovado</span>{% elif obra.diagramacao_miolo_aprovada == obra.NAO %} <span class="status status-error">Reprovado</span>{% else %}<span class="status status-alert">Aguardando Avaliação</span>{% endif %}</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_miolo.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.diagramacao_miolo_aprovada == obra.NAO %}
+                                    <tr>
+                                        <td>Justificativa</td>
+                                        <td>{{ obra.justificativa_miolo }}</td>
+                                    </tr>
+                                {% endif %}
+                                 <tr>
+                                    <td>{% if obra.diagramacao_concluida %}Versão Final{% else %}Obra Diagramada{% endif %} - Capa (Impresso){% if obra.diagramacao_capa_aprovada_impresso == obra.SIM %}<span class="status status-success">Aprovado</span>{% elif obra.diagramacao_capa_aprovada_impresso == obra.NAO %} <span class="status status-error">Reprovado</span>{% else %}<span class="status status-alert">Aguardando Avaliação</span>{% endif %}</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_capa_impresso.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.diagramacao_capa_aprovada_impresso == obra.NAO %}
+                                    <tr>
+                                        <td>Justificativa</td>
+                                        <td>{{ obra.justificativa_capa_impresso }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>{% if obra.diagramacao_concluida %}Versão Final{% else %}Obra Diagramada{% endif %} - Miolo (Impresso){% if obra.diagramacao_miolo_aprovada_impresso == obra.SIM %}<span class="status status-success">Aprovado</span>{% elif obra.diagramacao_miolo_aprovada_impresso == obra.NAO %} <span class="status status-error">Reprovado</span>{% else %}<span class="status status-alert">Aguardando Avaliação</span>{% endif %}</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_miolo_impresso.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                {% if obra.diagramacao_miolo_aprovada_impresso == obra.NAO %}
+                                    <tr>
+                                        <td>Justificativa</td>
+                                        <td>{{ obra.justificativa_miolo_impresso }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                            <tr>
+                                <td>Observações do Diagramador</td>
+                                <td>{{ obra.obs_diagramador|format}}</td>
+                            </tr>
+                            {% if obra.obs_sobre_diagramacao %}
+                                <tr>
+                                    <td>Observações do Autor/Organizador</td>
+                                    <td>{{ obra.obs_sobre_diagramacao|format }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.arquivo_diagramacao_versao_final %}
+                                <tr>
+                                    <td>Versão Final da Diagramação</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_versao_final.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.arquivo_diagramacao_versao_final_ebook %}
+                                <tr>
+                                    <td>Versão Final (E-book)</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_versao_final_ebook.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.diagramacao_link %}
+                                <tr>
+                                    <td>Link</td>
+                                    <td><a href="{{ obra.diagramacao_link }}">{{ obra.diagramacao_link }}</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    </table>
+                {% else %}
+                    <p class="msg alert">Aguardando validação da obra.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_diagramador or eh_bibliotecario or eh_sistemico %}
+        <div class="tab-container" data-title="Cadastro ISBN" data-tab="cadastro_isbn" data-checked="{% if obra.foi_revisada and obra.isbn %}True{% else %}False{% endif %}">
+            {% box "Cadastro ISBN" %}
+                {% if obra.foi_revisada %}
+                    {% if obra.eh_periodo_pedido_isbn and not obra.foi_concluida and eh_sistemico %}
+                        <ul class="action-bar">
+                            <li><a class="btn success" href="/pesquisa/cadastrar_isbn/{{ obra.pk }}/">Cadastrar ISBN</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if obra.isbn %}
+                        <table class="info">
+                            {% if obra.arquivo_obra_revisada %}
+                                <tr>
+                                    <td>Versão Final da Revisão</td>
+                                    <td><a href="{% media_private obra.arquivo_obra_revisada %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.arquivo_diagramacao_versao_final %}
+                                <tr>
+                                    <td>Versão Final da Diagramação</td>
+                                    <td><a href="{{ obra.arquivo_diagramacao_versao_final.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.tipo_submissao == obra.IMPRESSO %}
+                                 <tr>
+                                    <td>ISBN (Ebook)</td>
+                                    <td>{{ obra.isbn|format }}</td>
+                                </tr>
+                                 <tr>
+                                    <td>ISBN (Impresso)</td>
+                                    <td>{{ obra.isbn_impresso|format }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>ISBN ({{ obra.tipo_submissao }})</td>
+                                    <td>{{ obra.isbn|format }}</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    {% else %}
+                        <p class="msg alert">Aguardando Registro do ISBN.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="msg alert">Aguardando Diagramação da Obra.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_diagramador or eh_sistemico or eh_bibliotecario %}
+        <div class="tab-container" data-title="Ficha Catalográfica" data-tab="ficha_catalografica" data-checked="{% if obra.foi_revisada and obra.ficha_catalografica %}True{% else %}False{% endif %}">
+            {% box "Ficha Catalográfica" %}
+                {% if obra.foi_revisada %}
+                    {% if eh_bibliotecario and obra.eh_ativa %}
+                        <ul class="action-bar">
+                            <li><a class="btn success" href="/pesquisa/cadastrar_ficha_catalografica/{{ obra.pk }}/">Cadastrar Ficha Catalográfica</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if obra.ficha_catalografica %}
+                        <table class="info">
+                            <tr>
+                                <td>Obra Completa</td>
+                                <td><a href="{% media_private obra.arquivo %}" class="btn default">Ver Arquivo</a></td>
+                            </tr>
+                            {% if obra.obra_corrigida %}
+                                <tr>
+                                    <td>Obra Ressubmetida</td>
+                                    <td><a href="{% media_private obra.obra_corrigida %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.arquivo_obra_revisada %}
+                                <tr>
+                                    <td>Obra Revisada</td>
+                                    <td><a href="{% media_private obra.arquivo_obra_revisada %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.arquivo_diagramacao_versao_final %}
+                                <tr>
+                                    <td>Versão Final da Diagramação</td>
+                                    <td><a href="{% media_private obra.arquivo_diagramacao_versao_final %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if obra.tipo_submissao == obra.IMPRESSO %}
+                                 <tr>
+                                    <td>Ficha Catalográfica (Ebook)</td>
+                                    <td><a href="{% media_private obra.ficha_catalografica %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                                 <tr>
+                                    <td>Ficha Catalográfica (Impresso)</td>
+                                    <td><a href="{{ obra.ficha_catalografica_impresso.url }}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>Ficha Catalográfica ({{ obra.tipo_submissao }})</td>
+                                    <td><a href="{% media_private obra.ficha_catalografica %}" class="btn default">Ver Arquivo</a></td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    {% else %}
+                        <p class="msg alert">Aguardando cadastro da Ficha Catalográfica.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="msg alert">Aguardando Registro do ISBN.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_autor %}
+        <div class="tab-container" data-title="Boneco" data-tab="boneco" data-checked="{% if obra.isbn %}True{% else %}False{% endif %}">
+            {% box "Boneco" %}
+                <table class="info">
+                    <tr>
+                        <td>Solicitação ISBN</td>
+                        <td>
+                            {% if obra.isbn %}
+                                <span class="status status-success">Concluída</span>
+                            {% else %}
+                                <span class="status status-alert">Em andamento</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Data de Revisão de Layout</td>
+                        <td>{{ obra.edital.data_revisao_layout|format }}</td>
+                    </tr>
+                </table>
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if eh_sistemico or eh_autor %}
+        <div class="tab-container" data-title="Publicação" data-tab="publicacao" data-checked="{% if obra.ficha_catalografica %}True{% else %}False{% endif %}">
+            {% if obra.ficha_catalografica %}
+                {% if not obra.foi_concluida %}
+                    {% render_form publicacaoform %}
+                {% endif %}
+
+                {% box 'Publicação' %}
+                    <table class="info">
+                        {% if obra.num_copias %}
+                            <tr>
+                                <td>Situação da Publicação</td>
+                                <td>{{ obra.situacao_publicacao|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>Número de Cópias</td>
+                                <td>{{ obra.num_copias|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>Data de Envio para Impressão</td>
+                                <td>{{ obra.data_envio_impressao|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>Link do Repositório Virtual</td>
+                                <td><a href="{{ obra.link_repositorio_virtual }}">{{ obra.link_repositorio_virtual }}</a></td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Fase de Revisão de Layout</td>
+                            <td>{{ obra.edital.data_inicio_correcao_final }} - {{ obra.edital.data_termino_correcao_final }}</td>
+                        </tr>
+                        <tr>
+                            <td>Fase de Análise de Liberação</td>
+                            <td>{{ obra.edital.data_inicio_analise_liberacao }} - {{ obra.edital.data_termino_analise_liberacao }}</td>
+                        </tr>
+                        <tr>
+                            <td>Data de Liberação para Repositório Virtual</td>
+                            <td>{{ obra.data_liberacao_repositorio_virtual|format }}</td>
+                        </tr>
+                    </table>
+                {% endbox %}
+
+                {% if obra.bibliotecas_campi %}
+                    {% box 'Distribuição' %}
+                        <table class="info">
+                            <tr>
+                                <td>Bibliotecas dos Campi</td>
+                                <td colspan="3">{{ obra.bibliotecas_campi|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>​Acervo Físico da Editora</td>
+                                <td colspan="3">{{ obra.acervo_fisico|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>Biblioteca Nacional</td>
+                                <td colspan="3">{{ obra.biblioteca_nacional|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>Autor/Organizador</td>
+                                <td>{{ obra.publicacao_autor|format }}</td>
+                                <td>Coautor</td>
+                                <td>{{ obra.publicacao_coautor|format }}</td>
+                            </tr>
+                        </table>
+                    {% endbox %}
+                {% endif %}
+            {% else %}
+                <p class="msg alert">Aguardando cadastro da Ficha Catalográfica.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if eh_sistemico or eh_autor %}
+        <div class="tab-container" data-title="Conclusão" data-tab="conclusao" data-checked="{% if obra.obra_concluida %}True{% else %}False{% endif %}">
+            {% box 'Conclusão' %}
+                {% if eh_sistemico %}
+                    <ul class="action-bar">
+                        {% if obra.situacao == obra.LIBERADA %}
+                            <li><a class="btn success" href="/pesquisa/concluir_obra/{{ obra.pk }}/">Concluir Obra</a></li>
+                        {% endif %}
+                        {% if obra.eh_ativa %}
+                            <li><a class="btn" href="/pesquisa/checklist_obra/{{ obra.pk }}/">Checklist</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+                <table class="info">
+                    <tr>
+                        <td>Data/Hora do Lançamento</td>
+                        <td>{{ obra.edital.data_lancamento|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Local do Lançamento</td>
+                        <td>{{ obra.edital.local_lancamento|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Observações</td>
+                        <td>{{ obra.edital.observacoes_lancamento|format }}</td>
+                    </tr>
+                    {% if obra.obra_concluida %}
+                        <tr>
+                            <td>Obra Concluída</td>
+                            <td><a href="{% media_private obra.obra_concluida %}" class="btn default">Ver Arquivo</a></td>
+                        </tr>
+                    {% endif %}
+                </table>
+                {% if obra.obra_concluida %}
+                    <p class="obs">Concluída em {{ obra.obra_concluida_em }}.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+{% endblock %}

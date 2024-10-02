@@ -1,0 +1,25 @@
+
+// Extends
+%box {
+    background-color: transparent !important;
+    border: 1px solid $black;
+}
+%btn {
+    background-color: $white;
+    color: $color;
+}
+%inputs {
+    background-color: $black;
+    border: 1px solid $white;
+    color: $white;
+}
+%pagination-active {
+    background-color: $color;
+    color: $white !important;
+}
+%scrollbar-thumb {
+    background-color: $black;
+}
+%scrollbar-thumb-hover {
+    background-color: $black;
+}

@@ -1,0 +1,107 @@
+{% extends super_template %}
+
+{% block content %}
+{% box 'Informações Gerais {{ competicao_desportiva }}' %}
+<table class="info">
+    <tbody>
+        <tr>
+            <td>Nome</td>
+            <td>{{ competicao_desportiva.nome }}</td>
+        </tr>
+        <tr>
+            <td>Descrição</td>
+            <td>{{ competicao_desportiva.descricao }}</td>
+        </tr>
+    </tbody>
+</table>
+<table class="info">
+    <tbody>
+        <tr>
+            <td>Servidor</td>
+            <td colspan="3">{{ inscricao_desportiva.servidor }}</td>
+        </tr>
+        <tr>
+            <td>Competição</td>
+            <td>{{ inscricao_desportiva.competicao_desportiva }}</td>
+            <td>Status da Inscrição</td>
+            <td>{{ inscricao_desportiva.get_situacao_display|status }}</td>
+        </tr>
+        <tr>
+            <td>Campus Inscrito</td>
+            <td>{{ inscricao_desportiva.uo }}</td>
+            <td>Campus Atual do Servidor</td>
+            <td>{{ inscricao_desportiva.servidor.setor.uo }}</td>
+        </tr>
+        {% if inscricao_desportiva.validado_em and inscricao_desportiva.validado_por %}
+        <tr>
+            <td>Data da Validação</td>
+            <td>{{ inscricao_desportiva.validado_em|default:'' | format }}</td>
+            <td>Validado por</td>
+            <td>{{ inscricao_desportiva.validado_por.get_profile.nome }}</td>
+        </tr>
+        {% endif %}
+        {% if inscricao_desportiva.homologado_em and inscricao_desportiva.homologado_por %}
+        <tr>
+            <td>Data da Homologação</td>
+            <td>{{ inscricao_desportiva.homologado_em | default:'' | format }}</td>
+            <td>Homologa por</td>
+            <td>{{ inscricao_desportiva.homologado_por.get_profile.nome }}</td>
+        </tr>
+        {% endif %}
+        {% if inscricao_desportiva.rejeitado_em and inscricao_desportiva.rejeitado_por %}
+        <tr>
+            <td>Data da Rejeição</td>
+            <td>{{ inscricao_desportiva.rejeitado_em|default:''|format }}</td>
+            <td>Rejeitado por</td>
+            <td>{{ inscricao_desportiva.rejeitado_por.get_profile.nome }}</td>
+        </tr>
+        {% endif %}
+        {% if inscricao_desportiva.observacao_rejeicao %}
+        <tr>
+            <td>Observação Rejeição</td>
+            <td colspan="3">{{ inscricao_desportiva.observacao_rejeicao | default:'' |format }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>Modalidades Inscritas</td>
+            <td colspan="3">
+            <ul>
+                {%for modalidade in inscricao_desportiva.modalidades.all %}
+                <li>
+                    {{ modalidade }}
+                </li>
+                {% endfor %}
+            </ul></td>
+        </tr>
+        {% if inscricao_desportiva.provas_atletismo.all.exists %}
+        <tr>
+            <td>Provas Atletismo</td>
+            <td colspan="3">
+	            <ul>
+	                {%for prova_atletismo in inscricao_desportiva.provas_atletismo.all %}
+	                <li>
+	                    {{ prova_atletismo }}
+	                </li>
+	                {% endfor %}
+	            </ul>
+            </td>
+        </tr>
+        {% endif %}
+        {% if inscricao_desportiva.provas_natacao.all.exists %}
+        <tr>
+            <td>Provas Natação</td>
+            <td colspan="3">
+	            <ul>
+	                {%for prova_natacao in inscricao_desportiva.provas_natacao.all %}
+	                <li>
+	                    {{ prova_natacao }}
+	                </li>
+	                {% endfor %}
+	            </ul>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endbox %}
+{% endblock %}

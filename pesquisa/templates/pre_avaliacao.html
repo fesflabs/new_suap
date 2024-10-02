@@ -1,0 +1,34 @@
+{% extends super_template %}
+
+{% block content %}
+
+{%  if editais.exists %}
+	<table>
+        <thead>
+			<tr>
+				<th class="no-print">#</th>
+				<th>Título</th>
+            	<th>Descrição</th>
+        	</tr>
+		</thead>
+        <tbody>
+            {%  for edital in editais %}
+                <tr>
+					<td class="no-print">
+						{% if selecionar_avaliadores %}
+							{% icon "view" "/pesquisa/selecionar_avaliadores/{{ edital.id }}/" %}
+						{% else %}
+							{% icon "view" "/pesquisa/projetos_nao_avaliados/{{ edital.id }}/" %}
+						{% endif %}
+					</td>
+					<td>{{ edital.titulo }}</td>
+					<td>{{ edital.descricao }}</td>		
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+	<p class="msg alert">Nenhum edital disponível no momento.</p>
+{% endif %}
+
+{% endblock %}

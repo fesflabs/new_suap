@@ -1,0 +1,138 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if pode_atender_solicitacao %}
+        <ul class="action-bar">
+            <li><a class="btn success confirm" href="/comum/marcar_solicitacao_atendida/{{ solicitacao.pk }}/">Marcar Solicitação como Atendida</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% box "Histórico da Solicitação" %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Justificativa</th>
+                    <th>Responsável pela Solicitação</th>
+                    <th>Data</th>
+                    <th>Situação da Solicitação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in historico %}
+                    <tr>
+                        <td>{{ registro.motivo }}</td>
+                        <td>{{ registro.responsavel_vinculo|format }}</td>
+                        <td>{{ registro.data_historico|format }}</td>
+                        <td><span class="status status-{{ registro.get_classe_css }}">{{ registro.get_situacao_historico_display }}</span></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% box "Dados do Solicitante" %}
+        <div class="photo-circle big">
+            <img src="{{ servidor.get_foto_150x200_url }}" alt="Foto de {{ servidor.nome_usual }}"/>
+        </div>
+        <div>
+            <table class="info">
+                <tr>
+                    <td>Nome Usual</td>
+                    <td>{{ servidor.nome_usual }}</td>
+                    <td>Excluído</td>
+                    <td colspan="5">{{ servidor.excluido|yesno|capfirst }}</td>
+                </tr>
+                {% if verificacao_propria or is_rh %}
+                    <tr>
+                        <td>CPF</td>
+                        <td colspan="7">{{ servidor.cpf|format }}</td>
+                    </tr>
+                {% endif %}
+                {% if verificacao_propria or is_rh %}
+                    <tr>
+                        <td>Nascimento</td>
+                        <td>{{ servidor.nascimento_data|format }} ({{ servidor.nascimento_data|timesince }})</td>
+                        <td>Estado Civil</td>
+                        <td>{{ servidor.estado_civil|format }}</td>
+                        <td>Naturalidade</td>
+                        <td colspan="3">{{ servidor.nascimento_municipio|format }}
+                        {% if endereco_irregular %} <span class="status status-alert">Para atualizar a naturalidade, atualize o endereço.</span> {% endif %} </td>
+                    </tr>
+                    <tr>
+                        <td>Sexo</td>
+                        <td>{{ servidor.get_sexo_display|format }}</td>
+                        <td>G. Sanguíneo/RH</td>
+                        <td>{{ servidor.grupo_sanguineo }}{{ servidor.fator_rh }}</td>
+                        <td>Dependentes IR</td>
+                        <td colspan="3">{{ servidor.servidor.qtde_depend_ir }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nome do Pai</td>
+                        <td colspan="7"> {{ servidor.nome_pai|format }}
+                        {% if endereco_irregular %} <span class="status status-alert">Para atualizar o nome do pai, atualize o endereço.</span> {% endif %} </td>
+                    </tr>
+                    <tr>
+                        <td>Nome da Mãe</td>
+                        <td colspan="7">{{ servidor.nome_mae|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>PIS/PASEP</td>
+                        <td colspan="7">{{ servidor.pis_pasep|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Identidade</td>
+                        <td>{{ servidor.rg|format }}</td>
+                        <td>Órgão Expedidor</td>
+                        <td>{{ servidor.rg_orgao|format }}</td>
+                        <td>UF</td>
+                        <td>{{ servidor.rg_uf|format }}</td>
+                        <td>Data Expedição</td>
+                        <td>{{ servidor.rg_data|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Título de Eleitor</td>
+                        <td>{{ servidor.titulo_numero|format }}</td>
+                        <td>Zona</td>
+                        <td>{{ servidor.titulo_zona|format }}</td>
+                        <td>Seção</td>
+                        <td>{{ servidor.titulo_secao|format }}</td>
+                        <td>UF</td>
+                        <td>{{ servidor.titulo_uf|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Endereço</td>
+                        <td colspan="7">{{ servidor.endereco|format }}
+                        {% if endereco_irregular %} <div class="false">(Atualize no
+                            {% if servidor.identificacao_unica_siape and verificacao_propria %}
+                            <form id="frm_siapnet" method="post" target="_blank" action="http://www.siapenet.gov.br/Portal/Servidor/login/ControleServidor.asp">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ servidor.identificacao_unica_siape }}" name="idUnica" />
+                                <input type="submit" id="btn_link" value="SIAPEnet" />
+                            </form> {% else %} <a target="_blank" href="https://www.siapenet.gov.br/Portal/Servidor.asp">SIAPEnet</a> {% endif %}
+                            )</div> {% endif %} </td>
+                    </tr>
+                    {% if servidor.cnh_carteira %}
+                        <tr>
+                            <td>CNH Carteira</td>
+                            <td>{{ servidor.cnh_carteira|format }}</td>
+                            <td>Registro</td>
+                            <td>{{ servidor.cnh_registro|format }}</td>
+                            <td>Categoria</td>
+                            <td colspan="3">{{ servidor.cnh_categoria|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Emissão</td>
+                            <td>{{ servidor.cnh_emissao|format }}</td>
+                            <td>Validade</td>
+                            <td colspan="5">{{ servidor.cnh_validade|format }}</td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+            </table>
+        </div>
+    {% endbox %}
+    
+{% endblock %}

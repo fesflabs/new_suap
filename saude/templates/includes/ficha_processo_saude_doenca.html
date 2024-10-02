@@ -1,0 +1,178 @@
+
+{% if atendimento.is_aberto %}
+    {% if atendimento.is_atendimento_avaliacao_biomedica or atendimento.is_atendimento_multidisciplinar %}
+        {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem or especialidade.is_odontologo or especialidade.is_fisioterapeuta or especialidade.is_nutricionista %}
+            <ul class="action-bar">
+                {% if atendimento.processosaudedoenca_set.exists %}
+                    <li><a class="btn primary" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                {% else %}
+                    <li><a class="btn success" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% elif atendimento.is_atendimento_enfermagem_medico %}
+        {% if is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem %}
+            <ul class="action-bar">
+                {% if atendimento.processosaudedoenca_set.exists %}
+                    <li><a class="btn primary" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                {% else %}
+                    <li><a class="btn success" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% elif atendimento.is_atendimento_odontologico %}
+        {% if is_odontologo %}
+            <ul class="action-bar">
+                {% if atendimento.processosaudedoenca_set.exists %}
+                    <li><a class="btn primary" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                {% else %}
+                    <li><a class="btn success" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% elif atendimento.is_atendimento_nutricional %}
+        {% if especialidade.is_nutricionista %}
+            <ul class="action-bar">
+                {% if atendimento.processosaudedoenca_set.exists %}
+                    <li><a class="btn primary" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                {% else %}
+                    <li><a class="btn success" href="/saude/adicionar_processosaudedoenca/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% if processosaudedoenca %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Cirurgias</dt>
+            <dd>{{ processosaudedoenca.fez_cirurgia|format }}</dd>
+        </div>
+        {% if processosaudedoenca.fez_cirurgia %}
+            <div class="list-item">
+                <dt>Quais cirurgias</dt>
+                <dd>{{ processosaudedoenca.que_cirurgia|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Há quanto tempo</dd>
+                <dd>{{ processosaudedoenca.tempo_cirurgia|format }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Histórico de hemorragias</dt>
+            <dd>{{ processosaudedoenca.hemorragia|format }}</dd>
+        </div>
+        {% if processosaudedoenca.hemorragia %}
+            <div class="list-item">
+                <dt>Há quanto tempo ocorreu</dt>
+                <dd>{{ processosaudedoenca.tempo_hemorragia|format }}</dd>
+            </div>
+        {% endif %}
+
+        <div class="list-item">
+            <dt>Alergias a alimentos</dt>
+            <dd>{{ processosaudedoenca.alergia_alimentos|format }}</dd>
+        </div>
+        {% if processosaudedoenca.alergia_alimentos %}
+            <div class="list-item">
+                <dt>Quais alimentos</dt>
+                <dd>{{ processosaudedoenca.que_alimentos|format }}</dd>
+            </div>
+        {% endif %}
+
+        <div class="list-item">
+            <dt>Alergias a medicamentos</dt>
+            <dd>{{ processosaudedoenca.alergia_medicamentos|format }}</dd>
+        </div>
+        {% if processosaudedoenca.alergia_medicamentos %}
+            <div class="list-item">
+                <dt>Quais medicamentos</dt>
+                <dd>{{ processosaudedoenca.que_medicamentos|format }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Uso de medicamentos rotineiramente</dt>
+            <dd>{{ processosaudedoenca.usa_medicamentos|format }}</dd>
+        </div>
+        {% if processosaudedoenca.usa_medicamentos %}
+            <div class="list-item">
+                <dt>Quais medicamentos</dt>
+                <dd>{{ processosaudedoenca.usa_que_medicamentos|format }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Tem plano de saúde</dt>
+            <dd>{{ processosaudedoenca.tem_plano_saude|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tem plano odontológico</dt>
+            <dd>{{ processosaudedoenca.tem_plano_odontologico|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Teve lesões ortopédicas</dt>
+            <dd>{{ processosaudedoenca.lesoes_ortopedicas|format }}</dd>
+        </div>
+        {% if processosaudedoenca.lesoes_ortopedicas %}
+            <div class="list-item">
+                <dt>Qual lesão ortopédica</dt>
+                <dd>{{ processosaudedoenca.quais_lesoes_ortopedicas|format }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Já teve transtorno psiquiátrico?</dt>
+            <dd>{{ processosaudedoenca.transtorno_psiquiatrico|format }}</dd>
+        </div>
+        {% if processosaudedoenca.transtorno_psiquiatrico %}
+            <div class="list-item">
+                <dt>Qual transtorno psiquiátrico?</dt>
+                <dd>{{ processosaudedoenca.qual_transtorno_psiquiatrico|format }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Já procurou algum psiquiatra</dt>
+            <dd>{{ processosaudedoenca.psiquiatra|format }}</dd>
+        </div>
+        {% if processosaudedoenca.psiquiatra %}
+            <div class="list-item">
+                <dt>Duração do tratamento psiquiátrico</dt>
+                <dd>{{ processosaudedoenca.get_duracao_psiquiatria_display }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Há quanto tempo foi tratado por psiquiatra</dt>
+                <dd>{{ processosaudedoenca.get_tempo_psiquiatria_display }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item flex-basis-100">
+            <dt>Doenças crônicas</dt>
+            <dd>{{ processosaudedoenca.doencas_cronicas.all|join:", "|default:"-" }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tem Doenças Prévias</dt>
+            <dd>{{ processosaudedoenca.doencas_previas|format }}</dd>
+        </div>
+        {% if processosaudedoenca.doencas_previas %}
+            <div class="list-item">
+                <dt>Quais Doenças Prévias</dt>
+                <dd>{{ processosaudedoenca.que_doencas_previas|format }}</dd>
+            </div>
+        {% endif %}
+        {% if processosaudedoenca.atendimento.prontuario.vinculo.pessoa.pessoafisica.sexo == "F" %}
+            <div class="list-item flex-basis-100">
+                <dt>Gestante</dt>
+                <dd>{{ processosaudedoenca.gestante|format }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Possui problemas auditivos</dt>
+            <dd>{{ processosaudedoenca.problema_auditivo|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Qual problema auditivo</dt>
+            <dd>{{ processosaudedoenca.qual_problema|format }}</dd>
+        </div>
+    </dl>
+    <p class="obs">{{ processosaudedoenca_responsavel }}</p>
+{% else %}
+    <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+{% endif %}

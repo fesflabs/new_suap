@@ -1,0 +1,47 @@
+{% box 'Atividades Curriculares de Extensão' %}
+
+    {% if perms.edu.add_atividadecurricularextensao %}
+        <ul class="action-bar">
+            <li><a class="btn success popup" href="/edu/adicionar_atividade_curricular_extensao/{{ obj.pk }}/">Registrar Atividade</a></li>
+        </ul>
+    {% endif %}
+    
+    {% with atividades=obj.get_atividades_extensao %}
+    {% if atividades.exists %}
+        <table>
+            <thead>
+            <tr>
+                {% if perms.edu.add_atividadecurricularextensao %}
+                <th class="no-print">Ações</th>
+                {% endif %}
+                <th>Ano Letivo</th>
+                <th>Período Letivo</th>
+                <th>Carga Horária</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+                <th>Concluída</th>
+                <th>Deferida</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for atividade in atividades%}
+                <tr>
+                    {% if perms.edu.add_atividadecurricularextensao %}
+                    <td class="no-print">{% icon "edit popup" "/edu/adicionar_atividade_curricular_extensao/{{ obj.pk }}/{{ atividade.pk }}/" %}</td>
+                    {% endif %}
+                    <td>{{ atividade.matricula_periodo.ano_letivo }}</td>
+                    <td>{{ atividade.matricula_periodo.periodo_letivo }}</td>
+                    <td>{{ atividade.carga_horaria }} hora(s)</td>
+                    <th>{{ atividade.tipo_referencia|format }}</th>
+                    <td>{{ atividade.descricao }}</td>
+                    <td>{{ atividade.concluida|format }}</td>
+                    <td>{{ atividade.aprovada|format }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhuma atividade curricular de extensão cadastrada até o momento.</p>
+    {% endif %}
+    {% endwith %}
+{% endbox %}

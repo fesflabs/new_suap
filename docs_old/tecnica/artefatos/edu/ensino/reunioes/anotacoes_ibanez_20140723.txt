@@ -1,0 +1,53 @@
+tela de admin do cursocampus: resolver desalinhamento.
+
+telas do professor:
+1. inserir relação do professor com a diretoria de ensino, com finalidade de mostrar em relatorio os professores docentes que estão em sala e os que estão em função.
+
+2. horario organizar por horariocampus ex:
+
+horario fic 1: 
+livre
+matutino
+verpertino
+noturno
+
+horario fic 2:
+livre
+matutino
+verpertino
+noturno
+
+horario cursos regulares:
+livre
+matutino
+vespertino
+noturno
+
+Exibir os horariocampus minimizados.
+Exibir apenas os codigos das disciplinas.
+Inserir inicio do exercicio
+Inserir tempo de serviço.
+Inserir situação.
+
+No cadastro da matriz caso as Atividades complementares sejam diferentes de 0 obrigar o usuário escolher uma configuração de AACCs.
+
+
+Na visualização da configuração de AACC inserir um aba para visualizar os cursos-matrizes que já estão vinculadas a esta configuração e adicionar novos cursos-matrizes através de um autocompletar. O autocompletar so exibe os curso-matriz desviculados de configuração de AACC.
+
+No autocomplete do Matriz/Curso mudar o texto exibido para:
+curso: cod - curso
+matriz: cod - matriz
+campus: cod - campus
+
+No cadastro da estrutura do curso
+Percentual de frenquencia não reprovar no periodo:
+Percentual de frenquencia não reprovar na disciplina:
+
+
+Apuração de Frequência ( os dois criterios sao nao obrigatorios)
+
+Criterios de jubilamento
+Qtd Max de Períodos* obrigatorio
+Qtd Max de Reprovações no mesmo Período* nao obrigatorio
+Qtd Max de Reprovações na mesma Disciplina* nao obrigatorio
+

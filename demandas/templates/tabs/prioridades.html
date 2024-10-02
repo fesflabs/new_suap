@@ -1,0 +1,24 @@
+<div class="tab-container" data-title="Histórico de Prioridades" data-counter="{{ demanda.historicoprioridade_set.count }}">
+    {% box "Histórico de Prioridades" %}
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data/Hora</th>
+                        <th>Prioridade</th>
+                        <th>Usuário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for historicoetapa in demanda.historicoprioridade_set.all %}
+                        <tr>
+                            <td>{{ historicoetapa.data_hora|format }}</td>
+                            <td>{{ historicoetapa.prioridade }}</td>
+                            <td>{{ historicoetapa.usuario.get_profile.nome_usual }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endbox %}
+</div>

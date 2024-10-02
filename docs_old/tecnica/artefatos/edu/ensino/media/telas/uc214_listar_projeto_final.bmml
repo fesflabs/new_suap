@@ -1,0 +1,121 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1134" measuredH="795" mockupW="1088" mockupH="770">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="46" y="25" w="1088" h="380" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="81" y="112" w="-1" h="-1" measuredW="233" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Aluno%2C%20Aluno%202013108426092</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TabBar" x="81" y="179" w="1012" h="177" measuredW="573" measuredH="100" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>4</selectedIndex>
+        <text>Dados%20Pessoais%2C%20Dados%20Acad%EAmicos%2C%20Diplomas%20e%20Certificados%2C%20Hist%F3rico%2C%20Projeto%20Final</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="81" y="136" w="-1" h="-1" measuredW="171" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Aluno%202013108426092</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::DataGrid" x="109" y="254" w="969" h="80" measuredW="1083" measuredH="67" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%23%2C%20Data/Hora%20%5Cnapresenta%E7%E3o%2C%20Di%E1rio%2C%20Tipo%2C%20T%EDtulo%2C%20Orientador%2C%20Situa%E7%E3o%2C%20Nota%2C%20Data%20da%20%5Cndefesa%2C%20A%E7%E3o%0A%5BVisualizar%5D%20%5BEditar%5D%2C%2011/07/2014%2010%3A00%2C%20%5B1344%5D%2CMonografia%2C%20SUAP-EDU%3A%20Sistema%20de%20gest%E3o%20acad%EAmicas%2C%20Alessandro%20Jose%20de%20Souza%2C%2C%2C%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="150" controlTypeID="com.balsamiq.mockups::Button" x="917" y="216" w="-1" h="-1" measuredW="154" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Adicionar%20Projeto%20Final</text>
+      </controlProperties>
+    </control>
+    <control controlID="151" controlTypeID="com.balsamiq.mockups::Button" x="980" y="291" w="-1" h="-1" measuredW="82" measuredH="37" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Registrar%5CnResultado</text>
+      </controlProperties>
+    </control>
+    <control controlID="152" controlTypeID="com.balsamiq.mockups::StickyNote" x="794" y="110" w="299" h="76" measuredW="109" measuredH="123" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%E7%E3o%20%22Registrar%20Resultado%22%20estar%E1%20dispon%EDvel%20somente%20se%20a%20nota%20n%E3o%20tiver%20sido%20informada.</text>
+      </controlProperties>
+    </control>
+    <control controlID="153" controlTypeID="__group__" x="504" y="461" w="413" h="334" measuredW="413" measuredH="334" zOrder="8" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="413" h="334" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="153">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="34" y="118" w="357" h="98" measuredW="357" measuredH="98" zOrder="1" locked="false" isInGroup="153">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="__group__" x="0" y="65" w="357" h="33" measuredW="357" measuredH="33" zOrder="0" locked="false" isInGroup="1">
+              <groupChildrenDescriptors>
+                <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="5" w="70" h="-1" measuredW="70" measuredH="21" zOrder="0" locked="false" isInGroup="0">
+                  <controlProperties>
+                    <text>Documento%3A</text>
+                  </controlProperties>
+                </control>
+                <control controlID="1" controlTypeID="__group__" x="72" y="0" w="285" h="33" measuredW="285" measuredH="33" zOrder="1" locked="false" isInGroup="0">
+                  <groupChildrenDescriptors>
+                    <control controlID="0" controlTypeID="com.balsamiq.mockups::TextArea" x="0" y="0" w="285" h="33" measuredW="200" measuredH="140" zOrder="0" locked="false" isInGroup="1">
+                      <controlProperties>
+                        <text>%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Nenhum%20arquivo%20sele</text>
+                      </controlProperties>
+                    </control>
+                    <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="6" y="3" w="133" h="27" measuredW="133" measuredH="27" zOrder="1" locked="false" isInGroup="1">
+                      <controlProperties>
+                        <text>Selecionar%20Arquivo</text>
+                      </controlProperties>
+                    </control>
+                  </groupChildrenDescriptors>
+                </control>
+              </groupChildrenDescriptors>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::TextInput" x="92" y="28" w="79" h="-1" measuredW="79" measuredH="26" zOrder="1" locked="false" isInGroup="1">
+              <controlProperties>
+                <text/>
+              </controlProperties>
+            </control>
+            <control controlID="2" controlTypeID="com.balsamiq.mockups::DateChooser" x="92" y="0" w="90" h="-1" measuredW="90" measuredH="25" zOrder="2" locked="false" isInGroup="1">
+              <controlProperties>
+                <text>%20%20/%20%20/%20%20%20%20</text>
+              </controlProperties>
+            </control>
+            <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="58" y="2" w="31" h="-1" measuredW="31" measuredH="21" zOrder="3" locked="false" isInGroup="1">
+              <controlProperties>
+                <text>Data%3A</text>
+              </controlProperties>
+            </control>
+            <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="0" y="31" w="89" h="-1" measuredW="89" measuredH="21" zOrder="4" locked="false" isInGroup="1">
+              <controlProperties>
+                <text>Nota/Conceito%3A</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="34" y="49" w="-1" h="-1" measuredW="254" measuredH="36" zOrder="2" locked="false" isInGroup="153">
+          <controlProperties>
+            <size>28</size>
+            <text>Registrar%20Resultado</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="34" y="260" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="3" locked="false" isInGroup="153">
+          <controlProperties>
+            <text>Salvar</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="154" controlTypeID="com.balsamiq.mockups::Arrow" x="615" y="305" w="378" h="169" measuredW="150" measuredH="100" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

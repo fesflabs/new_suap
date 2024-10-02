@@ -1,0 +1,226 @@
+{% box 'Dados Gerais' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nascimento</dt>
+            <dd>{{ trabalhadoreducando.pessoa_fisica.nascimento_data|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Estado Civil</dt>
+            <dd>{{ trabalhadoreducando.get_estado_civil_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Naturalidade</dt>
+            <dd>{{ trabalhadoreducando.naturalidade|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Nacionalidade</dt>
+            <dd>{{ trabalhadoreducando.get_nacionalidade_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Portador(a) de Necessidades Especiais</dt>
+            <dd>{{ trabalhadoreducando.eh_pne|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo de Necessidade Especial</dt>
+            <dd>{{ trabalhadoreducando.get_tipo_necessidade_especial_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Sexo</dt>
+            <dd>{{ trabalhadoreducando.pessoa_fisica.get_sexo_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Etnia</dt>
+            <dd>{{ trabalhadoreducando.pessoa_fisica.raca|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo Sanguíneo</dt>
+            <dd>{{ trabalhadoreducando.get_tipo_sanguineo_display|format }}</dd>
+        </div>
+        <div class="list-item flex-basis-50">
+            <dt>Nome do Pai</dt>
+            <dd>{{ trabalhadoreducando.nome_pai|format }}</dd>
+        </div>
+        <div class="list-item flex-basis-50">
+            <dt>Nome da Mãe</dt>
+            <dd>{{ trabalhadoreducando.nome_mae|format }}</dd>
+        </div>
+        {% comment %} <div class="list-item">
+            <dt>Nome do(a) Responsável</dt>
+            <dd>{{ trabalhadoreducando.responsavel|format }}</dd>
+        </div> {% endcomment %}
+        {% if perms.ppe.pode_ver_chave_acesso_pais or is_proprio_trabalhadoreducando %}
+            <div class="list-item">
+                <dt>Chave de Acesso</dt>
+                <dd>{{ trabalhadoreducando.get_chave_responsavel|format }}</dd>
+            </div>
+        {% endif %}
+    </dl>
+{% endbox %}
+
+{% box 'Dados Escolares' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nível de Ensino Anterior</dt>
+            <dd>{{ trabalhadoreducando.nivel_ensino_anterior|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo de Instituição</dt>
+            <dd>{{ trabalhadoreducando.tipo_instituicao_origem|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Ano de Conclusão</dt>
+            <dd>{{ trabalhadoreducando.ano_conclusao_estudo_anterior|format }}</dd>
+        </div>
+        {% if trabalhadoreducando.nome_instituicao_anterior %}
+            <div class="list-item">
+                <dt>Nome da Instituição</dt>
+                <dd>{{ trabalhadoreducando.nome_instituicao_anterior|format }}</dd>
+            </div>
+        {% endif %}
+    </dl>
+{% endbox %}
+
+{% if pode_ver_dados_academicos %}
+    {% box 'Documentos' %}
+        <h4>Conselho de Fiscalização Profissional</h4>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Número de Registro</dt>
+                <dd>{{ trabalhadoreducando.numero_registro|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Conselho</dt>
+                <dd>{{ trabalhadoreducando.conselho|format }}</dd>
+            </div>
+        </dl>
+        <h4>RG</h4>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Identidade</dt>
+                <dd>{{ trabalhadoreducando.numero_rg|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Órgão Expedidor</dt>
+                <dd>{{ trabalhadoreducando.orgao_emissao_rg|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>UF</dt>
+                <dd>{{ trabalhadoreducando.uf_emissao_rg|format|normalizar }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Data Expedição</dt>
+                <dd>{{ trabalhadoreducando.data_emissao_rg|format }}</dd>
+            </div>
+        </dl>
+        {% if pode_ver_dados_academicos %}
+            <h4>Título de Eleitor</h4>
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Título de Eleitor</dt>
+                    <dd>{{ trabalhadoreducando.numero_titulo_eleitor|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Zona</dt>
+                    <dd>{{ trabalhadoreducando.zona_titulo_eleitor|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Seção</dt>
+                    <dd>{{ trabalhadoreducando.secao|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>UF</dt>
+                    <dd>{{ trabalhadoreducando.uf_emissao_titulo_eleitor|format|normalizar }}</dd>
+                </div>
+            </dl>
+
+            {% if trabalhadoreducando.pessoa_fisica.sexo == 'M' and trabalhadoreducando.numero_carteira_reservista %}
+                <h4>Carteira de Reservista</h4>
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'numero_carteira_reservista' }}</dt>
+                        <dd>{{ trabalhadoreducando.numero_carteira_reservista|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'regiao_carteira_reservista' }}</dt>
+                        <dd>{{ trabalhadoreducando.regiao_carteira_reservista|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'serie_carteira_reservista' }}</dt>
+                        <dd>{{ trabalhadoreducando.serie_carteira_reservista|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'estado_emissao_carteira_reservista' }}</dt>
+                        <dd>{{ trabalhadoreducando.estado_emissao_carteira_reservista|format|normalizar }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'ano_carteira_reservista' }}</dt>
+                        <dd>{{ trabalhadoreducando.ano_carteira_reservista|format }}</dd>
+                    </div>
+                </dl>
+            {% endif %}
+
+            {% if trabalhadoreducando.tipo_certidao %}
+                <h4>Certidão</h4>
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'tipo_certidao' }}</dt>
+                        <dd>{{ trabalhadoreducando.get_tipo_certidao_display|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'cartorio' }}</dt>
+                        <dd>{{ trabalhadoreducando.cartorio|format|normalizar }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'numero_certidao' }}</dt>
+                        <dd>{{ trabalhadoreducando.numero_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'folha_certidao' }}</dt>
+                        <dd>{{ trabalhadoreducando.folha_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'livro_certidao' }}</dt>
+                        <dd>{{ trabalhadoreducando.livro_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'data_emissao_certidao' }}</dt>
+                        <dd>{{ trabalhadoreducando.data_emissao_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ trabalhadoreducando|verbose:'matricula_certidao' }}</dt>
+                        <dd>{{ trabalhadoreducando.matricula_certidao|format }}</dd>
+                    </div>
+                </dl>
+            {% endif %}
+        {% endif %}
+    {% endbox %}
+{% endif %}
+
+{% box 'Informações para Contato' %}
+    <dl class="definition-list flex">
+        <div class="list-item flex-basis-50">
+            <dt>Endereço Residencial</dt>
+            <dd>{{ trabalhadoreducando.get_endereco|format|normalizar }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>E-mail Pessoal</dt>
+            <dd>{{ trabalhadoreducando.pessoa_fisica.email_secundario|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Telefone Principal</dt>
+            <dd>{{ trabalhadoreducando.telefone_principal|format|format_phone }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Celular</dt>
+            <dd>{{ trabalhadoreducando.telefone_secundario|format|format_phone }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Telefone do Responsável</dt>
+            <dd>{{ trabalhadoreducando.telefone_adicional_1|format|format_phone }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Telefone Adicional do Responsável</dt>
+            <dd>{{ trabalhadoreducando.telefone_adicional_2|format|format_phone }}</dd>
+        </div>
+    </dl>
+{% endbox %}

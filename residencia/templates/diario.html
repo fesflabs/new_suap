@@ -1,0 +1,276 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>jQuery.getScript('/static/residencia/js/TransferirDiario.js');</script>
+{% endblock %}
+
+{% block action-bar %}
+    {% if perms.residencia.emitir_boletins %}
+        <ul class="action-bar">
+            {% if obj.matriculas_diarios_diario_residencia_set.exists %}
+                <li class="has-child">
+                    <a class="btn default" href="#">Impressões</a>
+                    <ul>
+                        <li><a href="/residencia/diario_pdf/{{ obj.pk }}/0/">Diário (Todas Etapas) </a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% help_button %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% box "Dados do Diário" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Código</dt>
+                <dd>{{ obj.pk }}</dd>
+            </div>
+{#            <div class="list-item">#}
+{#                <dt>Entregue Fisicamente</dt>#}
+{#                <dd>{{ obj.entregue_fisicamente|format }}</dd>#}
+{#            </div>#}
+            <div class="list-item flex-basis-50">
+                <dt>Componente</dt>
+                <dd><a
+                        href="{{ obj.componente_curricular.componente.get_absolute_url }}">{{ obj.componente_curricular.componente }}</a>
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Tipo</dt>
+                <dd>{{ obj.componente_curricular.get_tipo_display|format }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Gerais" data-tab="dados_gerais">
+        {% if request.GET.tab == "dados_gerais" or not request.GET.tab %}
+            {% box "Dados Complementares" %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Turma</dt>
+                        <dd><a href="{{ obj.turma.get_absolute_url }}">{{ obj.turma }}</a></dd>
+                    </div>
+                    <div class="list-item flex-basis-100">
+                        <dt>Curso</dt>
+                        <dd><a
+                                href="{{ obj.turma.curso_campus.get_absolute_url }}">{{ obj.turma.curso_campus }}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Matriz</dt>
+                        <dd><a
+                                href="{{ obj.componente_curricular.matriz.get_absolute_url }}">{{ obj.componente_curricular.matriz }}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Estrutura</dt>
+                        <dd><a
+                                href="/residencia/estruturacurso/{{ obj.estrutura_curso.pk }}/">{{ obj.estrutura_curso }}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Segundo Ano</dt>
+                        <dd>{{ obj.segundo_ano|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Quantidade de Vagas</dt>
+                        <dd>{{ obj.quantidade_vagas }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Quantidade de Matriculados</dt>
+                        <dd>{{ obj.matriculas_diarios_diario_residencia_set.count }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Percentual Mínimo (CH)</dt>
+                        <dd>{{ obj.percentual_minimo_ch }}%</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Ano/Período Letivo</dt>
+                        <dd>{{ obj.ano_letivo }}.{{ obj.get_periodo_letivo }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Calendário</dt>
+                        <dd>
+                            <a class="popup"
+                               href="/residencia/calendarioacademico/{{ obj.calendario_academico.pk }}/">{{ obj.calendario_academico }}</a>
+                        </dd>
+                    </div>
+                </dl>
+            {% endbox %}
+
+            {% if perms.residencia.view_observacaodiario %}
+                {% box 'Observações Gerais' %}
+                    {% if perms.residencia.add_observacaodiario %}
+                    <ul class="action-bar">
+                        <li>
+                            <a href="/residencia/adicionar_observacaodiario/{{ obj.pk }}/" class="btn popup success">Adicionar Observação</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                    {% if obj.observacao_diarios_residencia_set.exists %}
+                    <table>
+                        <thead>
+                            <tr>
+                                {% if perms.residencia.change_observacaodiario %}
+                                    <th class="text-center no-print">Ações</th>
+                                {% endif %}
+                                <th class="text-center">Observação</th>
+                                <th class="text-center">Inserido por</th>
+                                <th class="text-center">Última alteração</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for observacao in obj.observacao_diarios_residencia_set.all %}
+                            <tr>
+                                {% if perms.residencia.change_observacaodiario %}
+                                    <td class="text-center no-print">
+                                        {% if request.user == observacao.usuario %}
+                                            {% icon "edit" "/residencia/editar_observacaodiario/{{ observacao.pk }}/" "Editar" "popup" %}
+                                        {% endif %}
+                                        {% if perms.residencia.adm_delete_observacaodiario or request.user == observacao.usuario and perms.residencia.delete_observacao %}
+                                            {% icon "delete" "/comum/excluir/residencia/observacaodiario/{{ observacao.pk }}/" "Remover" "no-confirm popup" %}
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td class="text-center">{{observacao.observacao}}</td>
+                                <td class="text-center">{{observacao.usuario}}</td>
+                                <td class="text-center">{{observacao.data}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <p class="msg alert">Nenhuma observação cadastrada.</p>
+                    {% endif %}
+                {% endbox %}
+			{% endif %}
+
+            {% box "Preceptores" %}
+                {% if acesso_total and perms.residencia.add_preceptordiario and obj.is_aberto %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/residencia/adicionar_preceptor_diario/{{ obj.pk }}/">Adicionar Preceptor(a)</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if obj.preceptordiario_set.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            {% if acesso_total and perms.residencia.add_preceptordiario and obj.is_aberto  %}
+                                <th>Ações</th>
+                            {% endif %}
+                            <th>Matrícula</th>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Carga Horária</th>
+                            <th>Ativo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for preceptordiario in obj.preceptordiario_set.all %}
+                            <tr>
+                                {% if acesso_total and perms.residencia.add_preceptordiario and obj.is_aberto %}
+                                    <td>
+                                        {% icon "edit" "/residencia/adicionar_preceptor_diario/{{ obj.pk }}/{{ preceptordiario.pk }}/" "Editar" "popup" %}
+                                        {% if request.user.is_superuser or preceptordiario.can_delete %}
+                                            {% icon "delete" "/comum/excluir/residencia/preceptordiario/{{ preceptordiario.pk }}/" "Remover" "no-confirm popup" %}
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td>{{ preceptordiario.preceptor.matricula|format }}</td>
+                                <td>{{ preceptordiario.preceptor.nome|format }}</td>
+                                <td>{{ preceptordiario.tipo }}</td>
+                                <td>
+                                    <strong>Percentual Atribuído</strong>: {{ preceptordiario.get_percentual_ch|format }}%<br>
+                                </td>
+                                <td>{{ preceptordiario.ativo|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum preceptor(a) cadastrado(a).</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+{#    {% if obj.componente_curricular.tipo == 1 %}#}
+{#        <div class="tab-container ajax-rendered"#}
+{#             data-title="Registro de Notas"#}
+{#             data-tab="notas_faltas"#}
+{#             data-counter="{{ obj.get_quantidade_alunos_ativos }}">#}
+{#            {% if request.GET.tab == "notas_faltas" %}#}
+{##}
+    {#            {% if obj.componente_curricular.avaliacao_por_conceito %}#}
+    {#                {% if obj.estrutura_curso.get_representacoesconceituais %}#}
+    {#                    <div class="msg info">#}
+    {#                        <p>Esta disciplina é avaliada por conceito. Para lançamento das notas se baseie nas faixas a#}
+    {#                            seguir:</p>#}
+    {#                        <ul>#}
+    {#                            {% for conceito in obj.estrutura_curso.get_representacoesconceituais %}#}
+    {#                                <li><strong>{{ conceito.descricao }}</strong>: {{ conceito.valor_minimo }}#}
+    {#                                    à {{ conceito.valor_maximo }} </li>#}
+    {#                            {% endfor %}#}
+    {#                        </ul>#}
+    {#                    </div>#}
+    {#                {% else %}#}
+    {#                    <p class="msg alert">Solicite o cadastro das representações conceituais para estrutura deste curso.</p>#}
+    {#                {% endif %}#}
+    {#            {% endif %}#}
+{##}
+{#                {% if acesso_total and perms.edu.change_turma %}#}
+{#                    <ul class="action-bar">#}
+{#                        <li><a class="btn success popup" href="/edu/adicionar_alunos_diario/{{ obj.pk }}/">Adicionar Alunos da Turma</a></li>#}
+{#                    </ul>#}
+{#                {% endif %}#}
+{##}
+{#                {% include "includes/notas_residente_form.html" %}#}
+{#            {% endif %}#}
+{#        </div>#}
+
+        <div class="tab-container ajax-rendered" data-title="Frequências" data-tab="frequencias">
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-center">Residente</th>
+                    <th class="text-center">Hora Entrada</th>
+                    <th class="text-center">Hora Saida</th>
+                    <th class="text-center">Confirmada</th>
+                    <th class="text-center">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for matricula_diario in obj.matriculas_diarios_diario_residencia_set.all %}
+                {%for frequencia in matricula_diario.matriculadiario_frequencia_residente_set.all %}
+                    <tr>
+                        <td class="text-center">{{frequencia.residente}}</td>
+                        <td class="text-center">{{frequencia.data_hora_entrada}}</td>
+                        <td class="text-center">{{frequencia.data_hora_saida}}</td>
+                        {% if frequencia.confirmacao %}
+                            <td class="no-print" >{% icon "check" %}</td>
+                            {#<td class="text-center no-print">#}
+                                {#<a href="" class="btn popup warning">Confirmado</a>#}                              
+                            {#</td>#}
+                        {% else %}
+                            <td class="no-print">{% icon "ban" %}</td>
+                        {% endif %}
+                        {% if frequencia.confirmacao %}
+                            <td class="no-print">-</td>
+                        {% else %}
+                            <td class="text-center no-print">
+                                <a href="/residencia/confirmar_frequencia_residente/{{ frequencia.pk }}/" class="btn success">Confirmar</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>                
+        </div>
+    {% comment %} {%endif%} {% endcomment %}
+
+{% endblock %}

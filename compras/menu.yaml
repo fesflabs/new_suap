@@ -1,0 +1,36 @@
+Administração::Compras::Cadastros::Tipos de Calendários:
+  permissions_required:
+  - compras.view_calendario
+  url: /admin/compras/calendario/
+Administração::Compras::Cadastros::Tipos de Eventos:
+  permissions_required:
+  - compras.view_tipoevento
+  url: /admin/compras/tipoevento/
+Administração::Compras::Cadastros::Tipos de Processos:
+  permissions_required:
+  - compras.add_tipoprocesso
+  url: /admin/compras/tipoprocesso/
+Administração::Compras::Calendários de Compras e Contratações:
+  permissions_required:
+  - compras.view_fase
+  url: /compras/calendarios_compra/
+Administração::Compras::Calendários de Referências:
+  permissions_required:
+  - compras.view_fase
+  url: /compras/calendarios_referencia/
+Administração::Compras::Compras:
+  permissions_required:
+  - compras.view_processocompra
+  url: /admin/compras/processocompra/
+Administração::Compras::Eventos:
+  permissions_required:
+  - compras.add_evento
+  url: /admin/compras/evento/
+Administração::Compras::Núcleos:
+  permissions_required:
+  - compras.add_nucleo
+  url: /admin/compras/nucleo/
+Administração::Compras::Processos:
+  permissions_required:
+  - compras.add_processo
+  url: /admin/compras/processo/

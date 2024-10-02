@@ -1,0 +1,51 @@
+{% extends super_template %}
+
+{% block content %}
+
+<h2>Requisição #{{ requisicao.pk }}</h2>
+
+{% if requisicao.pode_avaliar %}
+    <ul class="action-bar">
+        <li><a class="btn" href="/materiais/requisicao/{{ requisicao.pk }}/avaliar/">Avaliar requisição</a></li>
+        {% if requisicao.pode_remover_pendente %}
+        	<li><a href="/materiais/requisicao_pendente/{{ requisicao.pk }}/remover/" class="btn danger">Remover Requisição</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+<table class="info">
+    <tr>
+        <td>Situação</td>
+        <td>{{ requisicao.get_status_display }}</td>
+    </tr>
+    <tr>
+        <td>Cadastrada em</td>
+        <td>{{ requisicao.cadastrada_em|format }}</td>
+    </tr>
+    <tr>
+        <td>Solicitante</td>
+        <td>{{ requisicao.usuario_solicitante.get_profile.nome_usual }}</td>
+    </tr>
+    <tr>
+        <td>Requerimento</td>
+        <td>{{ requisicao.requerimento }}</td>
+    </tr>
+    <tr>
+        <td>Respondida em</td>
+        <td>{{ requisicao.respondida_em|format|format }}</td>
+    </tr>
+    <tr>
+        <td>Usuário que respondeu</td>
+        <td>{{ requisicao.usuario_resposta.get_profile.nome_usual|format }}</td>
+    </tr>
+    <tr>
+        <td>Resposta</td>
+        <td>{{ requisicao.resposta|format }}</td>
+    </tr>
+    <tr>
+        <td>Material da resposta</td>
+        <td>{{ requisicao.material.get_ext_combo_template|safe|format }}</td>
+    </tr>
+</table>
+
+{% endblock %}

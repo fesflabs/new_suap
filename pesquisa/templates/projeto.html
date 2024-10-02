@@ -1,0 +1,1382 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        function mudar_url(url, aba){
+            if(aba != ""){
+                window.location.href=url+"?tab="+aba;
+            } else {
+                window.location.href=url
+            };
+        };
+    </script>
+{% endblock %}
+
+{% block object-status %}
+
+<!-- O status "Selecionado" não pode ser revelado antes da data de divulgação. -->
+{% if status == projeto.STATUS_SELECIONADO %}
+    <span class="status status-alert">Pré-selecionado</span>
+{% else %}
+    {{ status|format|status }}
+{% endif %}
+
+{% endblock %}
+
+{% block action-bar %}
+
+<ul class="action-bar">
+    {% if projeto.pode_enviar_projeto %}
+         <li><a class="btn confirm success" data-confirm="Deseja enviar o projeto agora? Após o envio, não será mais possível alterá-lo." href="/pesquisa/concluir_planejamento/{{ projeto.pk }}/">Enviar Projeto</a></li>
+    {% endif %}
+    {% if projeto.pode_reabrir_projeto %}
+        <li><a class="btn primary confirm" data-confirm="Deseja reabrir o projeto agora?" href="/pesquisa/reabrir_projeto/{{ projeto.pk }}/">Reabrir Projeto</a></li>
+    {% endif %}
+    {% if projeto.pode_exibir_botao_finalizar_relatorios or projeto.pode_finalizar_conclusao %}
+        <li><a class="btn confirm" data-confirm="Deseja mesmo finalizar a conclusão? Após finalizar, não será mais possível alterá-la." href="/pesquisa/finalizar_conclusao/{{ projeto.pk }}/">Finalizar Conclusão</a></li>
+    {% endif %}
+    {% if projeto.pode_cancelar_projeto %}
+        <li><a class="btn danger" data-confirm="Deseja cancelar o projeto?" href="/pesquisa/cancelar_projeto/{{ projeto.pk }}/">Cancelar Projeto</a></li>
+    {% endif %}
+    {% if not projeto.inativado and pode_inativar_projeto %}
+        <li><a class="btn danger" href="/pesquisa/inativar_projeto/{{ projeto.pk }}/">Inativar Projeto</a></li>
+    {% elif projeto.inativado and pode_inativar_projeto %}
+        <li><a class="btn success confirm" href="/pesquisa/reativar_projeto/{{ projeto.pk }}/">Reativar Projeto</a></li>
+    {% endif %}
+    {% if pode_avaliar_projeto %}
+        <li><a class="btn success" href="/pesquisa/avaliar/{{ projeto.pk }}/">Avaliar Projeto</a></li>
+    {% endif %}
+    {% if projeto.pode_enviar_recurso %}
+        <li><a class="btn" href="/pesquisa/enviar_recurso/{{ projeto.pk }}/">Interpor Recurso</a></li>
+    {% endif %}
+    {% if is_coordenador_pesquisa and edital_exige_anuencia and pode_alterar_responsavel_anuencia %}
+        <li><a href="/pesquisa/alterar_chefia_imediata/{{ projeto.pk }}/" class="btn success">Alterar Responsável pela Anuência</a></li>
+    {% endif %}
+    {% if not tem_formato_completo and not projeto.aprovado and not projeto.data_avaliacao and projeto.data_conclusao_planejamento and eh_supervisor %}
+            <li><a class="btn confirm success" href="/pesquisa/validar_projeto_fluxo_simplificado/{{ projeto.pk }}/1/">Deferir Registro</a></li>
+            <li><a class="btn danger" href="/pesquisa/validar_projeto_fluxo_simplificado/{{ projeto.pk }}/2/">Indeferir Registro</a></li>
+            <li><a class="btn" href="/pesquisa/gerenciar_historico_projeto/{{ projeto.pk }}/">Devolver Projeto</a></li>
+        {% endif %}
+    {% if is_coordenador or is_pre_avaliador or avaliador_pode_imprimir or is_gerente_sistemico or eh_visualizador %}
+        <li class="has-child">
+            <a href="#" class="btn default">Visualizar</a>
+            <ul>
+                <li><a href="/pesquisa/imprimir_projeto/{{ projeto.pk }}/">Impressão</a></li>
+                {% if status == projeto.STATUS_EM_EXECUCAO or status == projeto.STATUS_CONCLUIDO %}
+                    <li><a href="/pesquisa/relatorio_projeto/{{ projeto.pk }}/">Relatório</a></li>
+                {% endif %}
+                {% if is_pre_avaliador and projeto.aprovado and periodo == projeto.PERIODO_EXECUCAO %}
+                    <li><a href="/pesquisa/validar_execucao_etapa/{{ projeto.pk }}/">Monitoramento</a></li>
+                {% endif %}
+                {% if tem_movimentacao %}
+                    {% if is_coordenador or is_pre_avaliador or is_gerente_sistemico %}
+                        <li><a href="/pesquisa/gerenciar_historico_projeto/{{ projeto.pk }}/">Movimentação</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </li>
+    {% endif %}
+</ul>
+
+{% endblock %}
+
+{% block content %}
+
+{% if devolucao %}
+    <div class="msg critical">
+        <p><b>Atenção: Projeto Devolvido.</b></p>
+        <p><b>Justificativa:</b> {{ devolucao.parecer_devolucao }}</p>
+        <p><b>Parecer:</b> {{ devolucao.operador }}</p>
+    </div>
+{% endif %}
+
+{% if projeto.get_status == projeto.STATUS_EM_INSCRICAO and is_coordenador %}
+    <div class="msg alert">
+        <p>Este projeto está em modo de edição. Quando o preenchimento for concluído, clique no botão 'Enviar Projeto'.</p>
+        <p>Lembre-se de que o prazo final para submissão (envio) é {{ edital_projeto.fim_inscricoes }}.</p>
+    </div>
+{% elif projeto.get_status == projeto.STATUS_EM_INSCRICAO and is_coordenador_pesquisa %}
+    <div class="msg alert">
+        <p>Este projeto ainda não foi enviado. Entre em contato com o coordenador do projeto e solicite o envio.</p>
+        <p>Lembre-se de que o prazo final para submissão (envio) é {{ edital_projeto.fim_inscricoes }}.</p>
+    </div>
+{% endif %}
+
+{% if projeto.tem_atividade_com_prazo_expirado and not projeto.inativado %}
+    <p class="msg alert">Este projeto possui atividade em atraso.</p>
+{% endif %}
+
+{% if not projeto.grupo_pesquisa and edital_projeto.exige_grupo_pesquisa and not projeto.inativado %}
+    <p class="msg info">Este projeto não está vinculado a nenhum grupo de pesquisa.</p>
+{% endif %}
+{% if projeto.tem_registro_anexos_pendente and edital_projeto.impedir_projeto_sem_anexo and projeto.pode_anexar_arquivo_do_membro and not projeto.inativado %}
+    <div class="msg critical"><p><b>Atenção! Um ou mais anexos obrigatórios não foram anexados. Sem os anexos, o projeto não poderá ser pré-avaliado. Prazo final: {{ edital_projeto.inicio_pre_selecao }}.</b></p></div>
+{% endif %}
+{% if edital_exige_anuencia and not anuencia_em and not projeto.inativado and not projeto.data_avaliacao and not projeto.data_pre_avaliacao %}
+    <div class="msg critical">
+        <p><b>Atenção! Este projeto precisa da anuência da chefia imediata.</b></p>
+        {% if projeto.responsavel_anuencia %}
+            <p><b>Chefia Imediata:</b> {{ projeto.responsavel_anuencia|format }}</p>
+        {% else %}
+            <p><strong>O responsável pela anuência do projeto não foi indicado.</strong></p>
+        {% endif %}
+        <p><b>Prazo final para registro da anuência:</b> {{ edital_projeto.get_data_limite_anuencia }}</p>
+    </div>
+{% endif %}
+{% if projeto.tem_aceite_pendente %}
+    <div class="msg critical">
+        <p><b>Atenção! Este projeto possui aceite de termo de compromisso pendente.</b></p>
+    </div>
+{% endif %}
+{% if projeto.pode_finalizar_conclusao and not projeto.inativado %}
+    <p class="msg info">Aguardando a finalização do projeto para que o supervisor possa emitir o parecer.</p>
+{% endif %}
+{% if projeto.aprovado and registro_conclusao and projeto.tem_pendencias and not status == projeto.STATUS_CONCLUIDO and not projeto.inativado %}
+    <div class="msg critical"><p><b>Atenção! Este projeto possui pendências e não pode ser finalizado. Consulte a aba 'Pendências' para mais detalhes.</b></p></div>
+{% endif %}
+{% if projeto.aprovado and not tem_pendencias and not projeto.data_finalizacao_conclusao and not projeto.inativado %}
+    <div class="msg critical"><p><b>Atenção! Este projeto ainda não foi finalizado. Acesse a aba 'Conclusão' para mais detalhes.</b></p></div>
+{% endif %}
+
+{% box "Dados Gerais" %}
+    <dl class="definition-list flex">
+        <div class="list-item flex-basis-100">
+            <dt>Título do Projeto</dt>
+            <dd>{{ projeto.titulo }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Período do Edital</dt>
+            <dd>{{ periodo|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Campus do Projeto</dt>
+            <dd>{{ projeto.uo }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Supervisor do Projeto</dt>
+            <dd>{{ projeto.vinculo_supervisor.user|format }}</dd>
+        </div>
+    </dl>
+{% endbox %}
+
+<div class="tab-container" data-title="Dados do Projeto" data-tab="dados_projeto" data-checked="True">
+    {% box "Dados do Projeto" %}
+        <ul class="action-bar">
+            {% if projeto.pode_editar_projeto and not eh_somente_leitura %}
+                <li><a class="btn primary" href="/pesquisa/editar_projeto/{{ projeto.pk }}/">Editar</a></li>
+            {% endif %}
+            {% if projeto.pode_remover_projeto and not eh_somente_leitura %}
+                <li><a class="btn danger" href="/admin/pesquisa/projeto/{{ projeto.pk }}/delete/">Remover</a></li>
+            {% endif %}
+            {% if projeto.pode_devolver_projeto %}
+                <li><a href="/pesquisa/gerenciar_historico_projeto/{{ projeto.pk }}/" class="btn warning">Devolver</a></li>
+            {% endif %}
+        </ul>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Início da Execução</dt>
+                <dd>{{ projeto.inicio_execucao|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Término da Execução</dt>
+                <dd>{{ projeto.fim_execucao|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Área do Conhecimento</dt>
+                <dd>{{ projeto.area_conhecimento|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Grupo de Pesquisa</dt>
+                <dd>{{ projeto.grupo_pesquisa|format }}</dd>
+            </div>
+            {% if projeto.ppg %}
+                <div class="list-item">
+                    <dt>Programa de Pós-Graduação Vinculado</dt>
+                    <dd>{{ projeto.ppg|format }}</dd>
+                </div>
+            {% endif %}
+            {% if projeto.parceria_externa %}
+                <div class="list-item">
+                    <dt>Parceria Externa</dt>
+                    <dd>{{ projeto.parceria_externa|format }}</dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Enviado em</dt>
+                <dd>{{ projeto.data_conclusao_planejamento|format }}</dd>
+            </div>
+            {% if edital_exige_anuencia %}
+                <div class="list-item">
+                    <dt>Anuência da Chefia</dt>
+                    <dd>
+                        {% if anuencia_em %}
+                            {{ projeto.anuencia|format }} <small>em {{ anuencia_em }} por {{ projeto.responsavel_anuencia }}</small>
+                        {% else %}
+                            <span class="status status-alert">Não avaliado</span>
+                        {% endif %}
+                    </dd>
+                </div>
+            {% endif %}
+            {% if tem_formato_completo %}
+                <div class="list-item">
+                    <dt>Pré-seleção</dt>
+                    <dd>{{ status_pre_selecao|safe }}</dd>
+                </div>
+                {% if projeto.data_pre_avaliacao %}
+                    <div class="list-item">
+                        <dt>Data da Pré-seleção</dt>
+                        <dd>{{ projeto.data_pre_avaliacao|format }} por {{ projeto.vinculo_autor_pre_avaliacao.user|format }}</dd>
+                    </div>
+                    <div class="list-item flex-basis-100">
+                        <dt>Justificativa da Pré-seleção</dt>
+                        <dd>{{ projeto.obs_reprovacao|format }}</dd>
+                    </div>
+                {% endif %}
+                <div class="list-item">
+                    <dt>Seleção</dt>
+                    <dd>{{ status_selecao|safe }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data da Seleção</dt>
+                    <dd>
+                        {% if not edital_projeto.tipo_edital == edital_projeto.PESQUISA_INOVACAO_CONTINUO %}
+                            {% if projeto.divulgacao_avaliacao_liberada %}
+                                {{ projeto.data_avaliacao|format }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% else %}
+                            {{ projeto.data_avaliacao|format }}
+                        {% endif %}
+                    </dd>
+                </div>
+                {% if projeto.foi_selecionado_fora_do_prazo %}
+                    <div class="list-item">
+                        <dt>Observação</dt>
+                        <dd><span class="status status-info">Este projeto foi selecionado em {{ projeto.get_data_selecao_fora_do_prazo }} em função do cancelamento do projeto '{{ projeto.get_projeto_desistencia }}'</span></dd>
+                    </div>
+                {% endif %}
+                {% if projeto.selecao_ja_divulgada %}
+                    {% if edital_projeto.peso_avaliacao_projeto > 0 %}
+                        <div class="list-item">
+                            <dt>Pontuação da Avaliação</dt>
+                            <dd>{{ projeto.pontuacao|format }}</dd>
+                        </div>
+                    {% endif %}
+                    <div class="list-item">
+                        <dt>Pontuação do Currículo</dt>
+                        <dd>{{ projeto.pontuacao_curriculo }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Pontuação Total</dt>
+                        <dd>{{ projeto.pontuacao_total }}</dd>
+                    </div>
+                {% endif %}
+                <div class="list-item">
+                    <dt>Data da Divulgação</dt>
+                    <dd>
+                        {% if edital_projeto.tipo_edital == edital_projeto.PESQUISA_INOVACAO_CONTINUO %}
+                            {{ projeto.data_pre_avaliacao|format }}
+                        {% else %}
+                            {{ edital_projeto.divulgacao_selecao|format }}
+                        {% endif %}
+                    </dd>
+                </div>
+                {% if projeto.inativado %}
+                    <div class="list-item">
+                        <dt>Motivo da Inativação</dt>
+                        <dd>{{ projeto.motivo_inativacao }}<small>Inativado em {{ projeto.inativado_em }} por {{ projeto.inativado_por }}</small></dd>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    {% box "Discriminação do Projeto" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Resumo</dt>
+                <dd class="richtext">{{ projeto.resumo|format|safe }}</dd>
+            </div>
+            {% if projeto.palavras_chaves %}
+            <div class="list-item flex-basis-100">
+                <dt>Palavras-Chaves</dt>
+                <dd>{{ projeto.palavras_chaves|format }}</dd>
+            </div>
+            {% endif %}
+            <div class="list-item flex-basis-100">
+                <dt>Introdução</dt>
+                <dd class="richtext">{{ projeto.introducao|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Justificativa</dt>
+                <dd class="richtext">{{ projeto.justificativa|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Fundamentação Teórica</dt>
+                <dd class="richtext">{{ projeto.fundamentacao_teorica|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Objetivo Geral</dt>
+                <dd class="richtext">{{ projeto.objetivo_geral|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Metodologia da Execução do Projeto</dt>
+                <dd class="richtext">{{ projeto.metodologia|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Acompanhamento e Avaliação do Projeto Durante a Execução</dt>
+                <dd class="richtext">{{ projeto.acompanhamento_e_avaliacao|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Resultados esperados</dt>
+                <dd class="richtext">{{ projeto.resultados_esperados|format|safe }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Referências Bibliográficas</dt>
+                <dd class="richtext">{{ projeto.referencias_bibliograficas|format|safe }}</dd>
+            </div>
+            {% if projeto.publico_alvo %}
+                <div class="list-item flex-basis-100">
+                    <dt>Público Alvo</dt>
+                    <dd>{{ projeto.get_publico_alvo_display|format }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+</div>
+
+<div class="tab-container" data-title="Dados do Edital" data-checked="True">
+    {% box "{{ edital_projeto.titulo }}" %}
+        <table class="info">
+            <tr>
+                <td>Período de Inscrição:</td>
+                <td>
+                    {% if projeto.get_status == projeto.STATUS_EM_INSCRICAO %}
+                        <span class="msg alert">{{ edital_projeto.inicio_inscricoes }} - {{ edital_projeto.fim_inscricoes }}</span>
+                    {% else %}
+                        {{ edital_projeto.inicio_inscricoes }} - {{ edital_projeto.fim_inscricoes }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% if tem_formato_completo %}
+                <tr>
+                    <td>Período de Pré-seleção:</td>
+                    <td>{{ edital_projeto.inicio_pre_selecao }} - {{ edital_projeto.inicio_selecao }}</td>
+                </tr>
+                <tr>
+                    <td>Período de Seleção:</td>
+                    <td>{{ edital_projeto.inicio_selecao }} - {{ edital_projeto.fim_selecao }}</td>
+                </tr>
+
+                {% if edital_projeto.data_recurso %}
+                    <tr>
+                        <td>Período de Recurso:</td>
+                        <td>{{ edital_projeto.inicio_pre_selecao }} - {{ edital_projeto.data_recurso }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>Divulgação do Resultado:</td>
+                    <td>{{ edital_projeto.divulgacao_selecao }}</td>
+                </tr>
+            {% endif %}
+        </table>
+
+        {% if edital_projeto.arquivo %}
+            <h4>Arquivo Digitalizado</h4>
+            <ul>
+                <li><a href="/pesquisa/visualizar_arquivo/{{ edital_projeto.arquivo.id }}/">{{ edital_projeto.arquivo.nome }}</a></li>
+            </ul>
+        {% endif %}
+
+        <h4>Anexos</h4>
+        {% if edital_projeto.editalanexoauxiliar_set.all %}
+            <ul>
+                {% for anexo in edital_projeto.editalanexoauxiliar_set.all %}
+                    {% if anexo.arquivo %}
+                       <li><a href="/pesquisa/visualizar_arquivo/{{ anexo.arquivo.id }}/">{{ anexo.arquivo.nome }}</a> - {{ anexo.descricao }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="msg alert">Aguardando submissão de arquivos.</p>
+        {% endif %}
+    {% endbox %}
+</div>
+
+{% if projeto.avaliador_pode_visualizar %}
+    <div class="tab-container" data-title="Equipe" data-tab="equipe" data-checked="True">
+        {% box "Equipe" %}
+            {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura and pode_editar_equipe_propi %}
+                <ul class="action-bar">
+                    <li><a class="btn success popup" href="/pesquisa/adicionar_participante_aluno/{{ projeto.pk }}/">Adicionar Aluno</a></li>
+                    <li><a class="btn success popup" href="/pesquisa/adicionar_participante_servidor/{{ projeto.pk }}/">Adicionar Servidor</a></li>
+                    {% if edital_projeto.permite_colaborador_externo %}
+                        <li><a class="btn success popup" href="/pesquisa/adicionar_participante_colaborador/{{ projeto.pk }}/">Adicionar Colaborador Externo</a></li>
+                    {% endif %}
+                    <li><a class="btn" href="/pesquisa/solicitar_alteracao_equipe/{{ projeto.pk }}/">Solicitações de Alteração da Equipe</a></li>
+                </ul>
+            {% elif projeto.pode_editar_inscricao_execucao and not eh_somente_leitura and is_coordenador %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/pesquisa/solicitar_alteracao_equipe/{{ projeto.pk }}/">Solicitar Alteração da Equipe</a></li>
+                </ul>
+            {% endif %}
+            {% if not pode_editar_equipe_propi %}
+                <p class="msg alert">Apenas o Coordenador de Pesquisa do Campus pode fazer alterações na equipe do projeto.</p>
+            {% endif %}
+            {%  if participantes.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Membro</th>
+                            <th>Situação</th>
+                            <th>Categoria/Titulação</th>
+                            <th>Bolsista</th>
+                            <th>Coordenador</th>
+                            <th>Carga Horária</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participacao in projeto.get_equipe_projeto %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "/pesquisa/historico_equipe/{{ participacao.id }}/" "Visualizar" "popup" %}
+                                    {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura and pode_editar_equipe_propi %}
+                                        {% if participacao.is_servidor %}
+                                            {% icon "edit" "/pesquisa/editar_participante_servidor/{{ projeto.pk }}/{{ participacao.id }}/" "Editar" "popup" %}
+                                        {% elif participacao.eh_aluno %}
+                                            {% icon "edit" "/pesquisa/editar_participante_aluno/{{ projeto.pk }}/{{ participacao.id }}/" "Editar" "popup" %}
+                                        {% else %}
+                                            {% icon "edit" "/pesquisa/editar_participante_colaborador/{{ projeto.pk }}/{{ participacao.id }}/" "Editar" "popup" %}
+                                        {% endif %}
+                                        {% if participacao.pode_remover_participacao %}
+                                            {% icon "delete" "/pesquisa/deletar_participante/{{ participacao.id }}/" %}
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <dl>
+                                        <dt>Nome:</dt>
+                                        <dd>{{ participacao.get_nome }}
+                                        (<a href="{{ participacao.get_participante.get_absolute_url }}">{{ participacao.get_identificador }}</a>)</dd>
+                                        {% if participacao.eh_aluno %}
+                                            <dt>Coeficiente de Rendimento Escolar:</dt><dd>{{ participacao.get_participante.get_ira }}</dd>
+                                            <dt>Curso:</dt><dd>{{ participacao.get_participante.curso_campus|format }}</dd>
+                                            {% if participacao.get_participante.pessoa_fisica.lattes %}
+                                                <dt>Lattes:</dt><dd><a href="{{ participacao.get_participante.pessoa_fisica.lattes }}">{{ participacao.get_participante.pessoa_fisica.lattes }}</a></dd>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if participacao.is_servidor and edital_projeto.termo_compromisso_servidor and not participacao.responsavel %}
+                                            <dt>Termo de Compromisso:</dt> <dd>{% if participacao.termo_aceito_em %}<span class="status status-success">Assinado em: {{ participacao.termo_aceito_em }}</span>{% else %}<span class="status status-error">Não assinado</span>{% endif %}</dd>
+                                        {% elif participacao.eh_aluno and edital_projeto.termo_compromisso_aluno  %}
+                                            <dt>Termo de Compromisso:</dt> <dd>{% if participacao.termo_aceito_em %}<span class="status status-success">Assinado em: {{ participacao.termo_aceito_em }}</span>{% else %}<span class="status status-error">Não assinado</span>{% endif %}</dd>
+                                        {% elif edital_projeto.termo_compromisso_colaborador_externo and not participacao.responsavel  %}
+                                            <dt>Termo de Compromisso:</dt> <dd>{% if participacao.termo_aceito_em %}<span class="status status-success">Assinado em: {{ participacao.termo_aceito_em }}</span>{% else %}<span class="status status-error">Não assinado</span>{% endif %}</dd>
+                                        {% endif %}
+                                    </dl>
+                                </td>
+                                <td>{% if participacao.ativo %} <span class="status status-success">Ativo</span> {% else %} <span class="status status-error">Inativo</span> {% endif %}</td>
+                                <td>{{ participacao.get_titulacao }}</td>
+                                <td>
+                                    {% if participacao.vinculo == "Bolsista"  and participacao.bolsa_concedida == True %}
+                                        <span class="status status-success">Sim</span>
+                                    {% elif participacao.vinculo == "Bolsista"  and participacao.bolsa_concedida == False %}
+                                        <span class="status status-error">Não Concedida </span>
+                                    {% else %}
+                                    <span class="status status-error">Não</span>
+                                    {% endif %}
+                                </td>
+                                <td>{% if participacao.responsavel %} <span class="status status-success">Sim</span> {% else %} <span class="status status-error">Não</span> {% endif %}</td>
+                                <td>{{ participacao.carga_horaria }} h/s</td>
+                                <td class="no-print">
+                                    <ul class="action-bar">
+                                        {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura %}
+                                            {% if participacao.responsavel and pode_editar_equipe_propi %}
+                                                <li><a class="btn primary popup" href="/pesquisa/alterar_coordenador/{{ projeto.pk }}/">Substituir Coordenador</a></li>
+                                            {% elif pode_editar_equipe_propi and projeto.pode_gerenciar_participacao %}
+                                                {% if participacao.ativo  %}
+                                                    <li><a href="/pesquisa/remover_participante/{{ participacao.id }}/" class="btn danger">Encerrar Participação</a></li>
+                                                {% else %}
+                                                    <li><a href="/pesquisa/ativar_participante/{{ participacao.id }}/" class="btn success">Ativar Participante</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if is_coordenador or is_gerente_sistemico %}
+                                            <li><a class="btn" href="/pesquisa/adicionar_anexo_do_projeto/{{ participacao.id }}/">Gerenciar Anexos</a></li>
+                                        {% endif %}
+                                        {% if participacao.pode_emitir_plano_de_trabalho %}
+                                            <li><a href="/pesquisa/plano_trabalho_participante/{{ projeto.id }}/{{ participacao.id }}/" class="btn default">Ver Plano de Trabalho</a></li>
+                                        {% endif %}
+                                        {% if participacao.pode_emitir_declaracao_de_participacao %}
+                                            <li><a href="/pesquisa/emitir_declaracao_participacao_pdf/{{ participacao.id }}/" class="btn default">Declaração de Participação</a></li>
+                                        {% endif %}
+                                        {% if participacao.pode_emitir_certificado_de_participacao %}
+                                            <li><a href="/pesquisa/emitir_certificado_pdf/{{ participacao.pk }}/" class="btn default">Certificado de Participação</a></li>
+                                        {% endif %}
+                                        {% if participacao.pode_emitir_declaracao_orientacao and participacao.responsavel %}
+                                            <li><a href="/pesquisa/emitir_declaracao_orientacao_pdf/{{ participacao.pk }}/" class="btn default">Declaração de Orientação</a></li>
+                                        {% endif %}
+                                        {% if participacao.is_servidor and not is_coordenador and participacao.vinculo_pessoa == vinculo and edital_projeto.termo_compromisso_servidor and not participacao.termo_aceito_em %}
+                                            <li><a href="/pesquisa/aceitar_termo_compromisso/{{ participacao.pk }}/" class="btn success">Aceitar Termo de Compromisso</a></li>
+                                        {% elif participacao.eh_aluno and participacao.vinculo_pessoa == vinculo and edital_projeto.termo_compromisso_aluno and not participacao.termo_aceito_em %}
+                                            <li><a href="/pesquisa/aceitar_termo_compromisso/{{ participacao.pk }}/" class="btn success">Aceitar Termo de Compromisso</a></li>
+                                        {% elif participacao.vinculo_pessoa == vinculo and edital_projeto.termo_compromisso_colaborador_externo and not participacao.termo_aceito_em %}
+                                            <li><a href="/pesquisa/aceitar_termo_compromisso/{{ participacao.pk }}/" class="btn success">Aceitar Termo de Compromisso</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum participante cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+{% endif %}
+
+<div class="tab-container" data-title="Objetivos Específicos" data-tab="metas" data-counter="{{ projeto.meta_set.all.count }}">
+    {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura %}
+        <ul class="action-bar">
+            <li><a class="btn success popup" href="/pesquisa/adicionar_meta/{{ projeto.pk }}/">Adicionar Meta</a></li>
+        </ul>
+    {% endif %}
+
+    {% if projeto.meta_set.all.count %}
+        {% for meta in projeto.get_metas %}
+            {% box "Meta {{ meta.ordem }} <span class='italico'> {{ meta.get_periodo_meta }} </span>" %}
+                {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura %}
+                    <ul class="action-bar">
+                        <li><a href="/pesquisa/adicionar_etapa/{{ meta.pk }}/" class="btn success popup">Adicionar Atividade</a></li>
+                        {% if tem_atividades_cadastradas %}
+                            <li><a href="/pesquisa/clonar_etapa/{{ meta.pk }}/" class="btn popup">Clonar Atividade</a></li>
+                        {% endif %}
+                        {% if meta.pode_editar_e_remover_meta and not eh_somente_leitura %}
+                            <li><a href="/pesquisa/editar_meta/{{ meta.id }}/" class="btn primary popup">Editar meta</a></li>
+                            <li><a href="/pesquisa/remover_meta/{{ meta.id }}/" class="btn danger">Remover meta</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+
+                <h4>Descrição da Meta</h4>
+                <p>{{ meta.descricao|linebreaks|nbsp }}</p>
+
+                <h5>Atividades</h5>
+                {% if meta.etapa_set.all.count %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="no-print">Ações</th>
+                                <th rowspan="2">Ordem</th>
+                                <th colspan="3">Planejado</th>
+                                <th colspan="5">Executado</th>
+                            </tr>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Período</th>
+                                <th>Resultados Esperados</th>
+                                <th>Validação</th>
+                                <th>Resultados Obtidos</th>
+                                <th>Observação</th>
+                                <th>Período</th>
+                                <th>Comprovante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for etapa in meta.get_etapas %}
+                                <tr>
+                                    {% if etapa.pode_editar_e_remover_atividade and not eh_somente_leitura %}
+                                        <td class="no-print">
+                                            {% icon "edit" "/pesquisa/editar_etapa/{{ etapa.id }}/" "Editar" "popup" %}
+                                            {% icon "delete" "/pesquisa/remover_etapa/{{ etapa.id }}/" %}
+                                        </td>
+                                    {% else %}
+                                        <td class="no-print">
+                                            {% if is_coordenador and not eh_somente_leitura %}
+                                                {% icon "edit" "/pesquisa/editar_equipe_etapa/{{ etapa.id }}/" "Editar Equipe" "popup" %}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+                                    <td>{{ etapa.ordem }}</td>
+                                    <td>
+                                        {{ etapa.descricao }}
+                                        {% if etapa.get_registro_execucao.obs %}
+                                            <p>Obs: {{ etapa.get_registro_execucao.obs }}</p>
+                                        {% endif %}
+                                        {% if  etapa.responsavel and  projeto.avaliador_pode_visualizar %}
+                                            <p><strong>Responsável:</strong> {{ etapa.responsavel }}</p>
+                                        {% endif %}
+                                    </td>
+                                    <td>De {{ etapa.inicio_execucao|date:"d/m/Y" }} até {{ etapa.fim_execucao|date:"d/m/Y" }}</td>
+                                    <td>{{ etapa.indicadores_qualitativos }}
+                                    <td>
+                                        {{ etapa.get_registro_execucao.get_mensagem_avaliacao|safe }}
+
+                                        {% if etapa.get_status_execucao == 2 %}
+                                            {% if projeto.pode_registrar_execucao and not eh_somente_leitura  %}
+                                                <a href="/pesquisa/registro_execucao_etapa/{{ etapa.id }}/" class="btn popup" title="Editar Execução">Editar Execução</a>
+                                            {% else %}
+                                                <span class="status status-pendente">Aguardando avaliação</span>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if etapa.get_status_execucao == 4 %}
+                                            {% if projeto.pode_registrar_execucao and not eh_somente_leitura %}
+                                                <a href="/pesquisa/registro_execucao_etapa/{{ etapa.id }}/" class="btn popup" title="Registrar Execução">Registrar Execução</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if etapa.get_registro_execucao %}
+                                            <strong>{{ etapa.get_registro_execucao.get_tipo_indicador_qualitativo_display }}</strong>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ etapa.get_registro_execucao.obs }}
+                                    </td>
+                                    {% if etapa.get_registro_execucao %}
+                                        <td>
+                                            De {{ etapa.get_registro_execucao.inicio_execucao|date:"d/m/Y" }} até {{ etapa.get_registro_execucao.fim_execucao|date:"d/m/Y" }}
+                                        </td>
+                                    {% else %}
+                                        <td class="text-center">-</td>
+                                    {% endif %}
+                                    <td>
+                                        {% if etapa.get_registro_execucao.arquivo %}
+                                            <a href='{{ etapa.get_registro_execucao.arquivo.url }}' class='btn'> Visualizar Arquivo </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Você precisa adicionar, no mínimo, uma atividade para esta meta.</p>
+                {% endif %}
+            {% endbox %}
+        {% endfor %}
+    {% else %}
+        {% box "Metas" %}
+            <p class="msg alert">Nenhuma meta cadastrada.</p>
+        {% endbox %}
+    {% endif %}
+</div>
+
+{% if tem_formato_completo %}
+    {% if edital_projeto.tem_fonte_recurso %}
+        <div class="tab-container" data-title="Plano de Aplicação" data-tab="plano_aplicacao" data-checked="{% if resumo_recursos or projeto.itemmemoriacalculo_set.all.count %}True{% else %}False{% endif %}">
+            {% if resumo_recursos %}
+                {% box "Demonstrativo do Plano de Aplicação/Memória de Cálculo e Desembolso" %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Elemento de Despesa</th>
+                                <th rowspan="2">Valor Reservado <span>Edital</span></th>
+                                <th class="text-center" colspan="3">Previsão</th>
+                                <th class="text-center" colspan="2">Execução</th>
+                            </tr>
+                            <tr>
+                                <th>Valor Planejado <span>Memória de Cálculo (A)</span></th>
+                                <th>Valor Distribuído <span>Plano de Desembolso (B)</span></th>
+                                <th>Valor Disponível <span>Planejamento (A-B)</span></th>
+                                <th>Valor Executado <span>Desembolso (C)</span></th>
+                                <th>Valor Disponível <span>Execução (B-C)</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for resumo_recurso in resumo_recursos %}
+                                <tr>
+                                    <td>{{ resumo_recurso.despesa }}</td>
+                                    <td class="text-end">{{ resumo_recurso.valor_reservado|format }}</td>
+                                    {% if resumo_recurso.valor_reservado == 0 %}
+                                        <td class="text-end">{{ resumo_recurso.valor_distribuido|format }}</td>
+                                    {% else %}
+                                        <td class="text-end {{ resumo_recurso.cor_valor_distribuido }}">{{ resumo_recurso.valor_distribuido|format }}</td>
+                                    {% endif %}
+                                    <td class="text-end">{{ resumo_recurso.valor_planejado|format }}</td>
+                                    <td class="text-end {{ resumo_recurso.cor_valor_disponivel_orcamento }}">{{ resumo_recurso.valor_disponivel_orcamento|format }}</td>
+                                    <td class="text-end">{{ resumo_recurso.valor_executado|format }}</td>
+                                    <td class="text-end">{{ resumo_recurso.valor_disponivel_execucao|format }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endbox %}
+            {% endif %}
+
+            {% box 'Memória de Cálculo' %}
+                {% if projeto.pode_adicionar_memoria_calculo and not eh_somente_leitura %}
+                    <ul class="action-bar">
+                        <li><a class="btn popup success" href="/pesquisa/memoria_calculo/{{ projeto.pk }}/">Adicionar Memória de Cálculo</a></li>
+                    </ul>
+                {% endif %}
+                {% if projeto.itemmemoriacalculo_set.all.count %}
+                    {% if not projeto.data_conclusao_planejamento %}
+                        <div class="legenda">
+                            <p>Legenda:</p>
+                            <ul>
+                                 <li class="error">Memória de Cálculo sem Desembolso cadastrado.</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="no-print">Ações</th>
+                                <th>Despesa</th>
+                                <th>Descrição</th>
+                                <th>Unidade de Medida</th>
+                                <th>Quantidade</th>
+                                <th>Valor Unitário (R$)</th>
+                                <th>Total Orçado (R$)</th>
+                                <th>Total Executado (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in projeto.itemmemoriacalculo_set.all %}
+                                <tr>
+                                    <td class="no-print">
+                                        {% if item.pode_editar_e_remover_memoria_calculo  and not eh_somente_leitura %}
+                                            {% icon "edit" "/pesquisa/memoria_calculo/{{ projeto.id }}/?edit_id={{ item.id }}" %}
+                                            {% icon "delete" "/pesquisa/memoria_calculo/{{ projeto.id }}/?del_id={{ item.id }}" %}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.tem_desembolso_registrado %}
+                                            {{ item.despesa }}
+                                        {% else %}
+                                            <span class="false">{{ item.despesa }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ item.descricao }}</td>
+                                    <td>{{ item.unidade_medida }}</td>
+                                    <td>{{ item.qtd }}</td>
+                                    <td class="text-end">{{ item.valor_unitario|format }}</td>
+                                    <td class="text-end">{{ item.get_subtotal|format }}</td>
+                                    <td class="text-end">{{ item.get_total_executado|format }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum item cadastrado.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+
+        <div class="tab-container" data-title="Plano de Desembolso" data-tab="plano_desembolso" data-counter="{{ projeto.desembolso_set.all.count }}">
+            {% box "Plano de Desembolso" %}
+
+                {% if is_coordenador and not eh_somente_leitura or is_gerente_sistemico %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/pesquisa/adicionar_desembolso/{{ projeto.pk }}/">Adicionar Item</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if projeto.desembolso_set.all.count %}
+                    {% if projeto.aprovado %}
+                        <div class="legenda">
+                            <p>Legenda:</p>
+                            <ul>
+                                 <li class="error">Desembolso sem gasto registrado.</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <form method="POST" id="desembolsos_form" action="/pesquisa/excluir_desembolsos/{{ projeto.id }}/">
+                        {% csrf_token %}
+                        {% if projeto.is_coordenador %}
+                            <div class="actions">
+                                <label>Ação:
+                                    <select name="action">
+                                        <option selected="selected">Remover</option>
+                                    </select>
+                                </label>
+                                <button value="0" name="index" title="Executar ação selecionada" class="button" type="submit">Aplicar</button>
+                            </div>
+                        {% endif %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="no-print">Seleção <input type="checkbox" onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++){ is[i].checked = this.checked;}" /></th>
+                                    <th class="no-print">Ações</th>
+                                    <th>Memória de Cálculo</th>
+                                    <th>Ano</th>
+                                    <th>Mês</th>
+                                    <th>Valor</th>
+                                    <th>Valor Executado</th>
+                                    <th>Valor Disponível</th>
+                                    {% if projeto.is_coordenador or projeto.is_avaliador or projeto.is_coordenador_pesquisa_campus_projeto and not projeto.data_finalizacao_conclusao or is_gerente_sistemico %}
+                                        <th class="no-print">Opções</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for desembolso in projeto.get_cronograma_desembolso %}
+                                    <tr>
+
+                                        <td class="no-print">
+                                            {% if desembolso.pode_editar_e_remover_desembolso and not eh_somente_leitura %}
+                                                <INPUT TYPE="checkbox" NAME="registros" value="{{ desembolso.id }}" />
+                                            {% endif %}
+                                        </td>
+                                        <td class="no-print">
+                                            {% if desembolso.pode_editar_e_remover_desembolso and not eh_somente_leitura %}
+                                                {% icon "edit" "/pesquisa/editar_desembolso/{{ desembolso.id }}/" "Editar Desembolso" "popup" %}
+                                                {% icon "delete" "/pesquisa/remover_desembolso/{{ desembolso.id }}/" %}
+                                            {% else %}
+                                                 -
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if desembolso.tem_gasto_registrado %}
+                                                {{ desembolso.item }}
+                                            {% else %}
+                                                <span class="false">{{ desembolso.item }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ desembolso.ano }}</td>
+                                        <td>{{ desembolso.mes }}</td>
+                                        <td class="text-end">{{ desembolso.valor|format }}</td>
+                                        <td class="text-end">{{ desembolso.get_valor_executado|format }}</td>
+                                        <td class="text-end">{{ desembolso.get_valor_disponivel|format }}</td>
+                                        {% if projeto.is_coordenador or projeto.is_avaliador or projeto.is_coordenador_pesquisa_campus_projeto and not projeto.data_finalizacao_conclusao or is_gerente_sistemico %}
+                                            <td class="no-print">
+                                                <ul class="action-bar">
+                                                    {% if projeto.pode_editar_gasto and not eh_somente_leitura or is_gerente_sistemico %}
+                                                        <li><a href="/pesquisa/registro_gasto/{{ desembolso.id }}/" class="btn primary">Gerenciar Gasto</a></li>
+                                                    {% elif projeto.is_avaliador %}
+                                                        <li><a href="/pesquisa/registro_gasto/{{ desembolso.id }}/" class="btn default">Visualizar Gasto</a></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                {% else %}
+                    <p class="msg alert">Nenhum desembolso cadastrado.</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if projeto.avaliador_pode_visualizar %}
+    <div class="tab-container" data-title="Anexos" data-tab="anexos" data-counter="{{ projeto.projetoanexo_set.all.count }}">
+        {% box 'Anexos da Equipe' %}
+            {% if projeto.tem_anexos_equipe %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Participante</th>
+                            <th>Nome e Descrição do Arquivo</th>
+                            <th>Arquivo Digitalizado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anexo in projeto.projetoanexo_set.all %}
+                            {% if not anexo.descricao %}
+                                {% if anexo.vinculo_membro_equipe and anexo.anexo_edital.vinculo or not anexo.anexo_edital.vinculo %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ anexo.vinculo_membro_equipe.pessoa.nome }}</td>
+                                        <td>
+                                            <p>{{ anexo.anexo_edital.nome }}</p>
+                                            <p>{{ anexo.anexo_edital.descricao }}</p>
+                                        </td>
+                                        <td>
+                                            {% if anexo.arquivo %}
+                                                <a href="/pesquisa/visualizar_arquivo/{{ anexo.arquivo.id }}/">{{ anexo.arquivo.nome }}</a>
+                                            {% else %}
+                                                {% if projeto.pode_anexar_arquivo_do_membro %}
+                                                    <a href="/pesquisa/upload_anexo/{{ anexo.id }}/?origem=2" class="btn success">Adicionar Anexo</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% elif not edital_projeto.editalanexo_set.all %}
+                <p class="msg alert">Nenhum anexo vinculado à equipe foi exigido pelo edital.</p>
+            {% else %}
+                <p class="msg alert">Nenhum anexo vinculado à equipe foi cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+        {% box 'Outros Anexos' %}
+            {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura or is_gerente_sistemico %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/pesquisa/adicionar_anexo_diverso_projeto/{{ projeto.pk }}/">Adicionar Anexo</a></li>
+                </ul>
+            {% endif %}
+            {% if projeto.tem_outros_anexos %}
+                <table>
+                    <thead>
+                        <tr>
+                            {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura or is_gerente_sistemico %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Participante</th>
+                            <th>Descrição do Arquivo</th>
+                            <th>Mês / Ano</th>
+                            <th>Cadastrado em</th>
+                            <th>Arquivo Digitalizado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anexo in projeto.projetoanexo_set.all %}
+                            {% if not anexo.anexo_edital %}
+                                <tr>
+                                    {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura or is_gerente_sistemico %}
+                                        <td class="no-print">{% icon "delete" "/pesquisa/excluir_outro_anexo/{{ anexo.id }}/" %}</td>
+                                    {% endif %}
+                                    <td>{% if anexo.vinculo_membro_equipe %}
+                                            {{ anexo.vinculo_membro_equipe.pessoa.nome }}
+                                        {% else %}
+                                            Nenhum membro do projeto relacionado ao anexo.
+                                        {% endif %}
+                                    </td>
+                                    <td><p>{{ anexo.descricao }}</p></td>
+                                    <td>{% if anexo.ano and anexo.mes %}{{ anexo.get_mes }} / {{ anexo.ano }}{% elif anexo.ano %}{{ anexo.ano }}{% else %}-{% endif %}</td>
+                                    <td>{{ anexo.cadastrado_em|format }}</td>
+                                    <td><a href="/pesquisa/visualizar_arquivo/{{ anexo.arquivo.id }}/">{{ anexo.arquivo.nome }}</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">O projeto não possui anexos adicionais.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+{% endif %}
+
+{% if projeto.exibir_aba_calculo_da_pontuacao and tem_formato_completo %}
+    <div class="tab-container" data-title="Cálculo da Pontuação" data-tab="calculo_pontuacao" data-counter="{{ edital_projeto.parametroedital_set.all.count }}">
+        {% box "Pontuação de Qualificação do Coordenador" %}
+            {% if edital_projeto.is_periodo_antes_pre_selecao and not projeto.data_avaliacao %}
+                <ul class="action-bar">
+                    <li><a class="btn primary" href="/pesquisa/atualizar_pontuacao/{{ projeto.pk }}/">Atualizar Pontuação</a></li>
+                </ul>
+            {% endif %}
+            {% if parametros_pontuacao.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th class="text-end">Quantidade</th>
+                            <th class="text-end">Pontuação</th>
+                            <th class="text-end">Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in parametros_pontuacao %}
+                            <tr>
+                                <td>{{ item.parametro_edital.parametro.codigo }} - {{ item.parametro_edital.parametro.descricao }}</td>
+                                <td class="text-end">{{ item.quantidade }}</td>
+                                <td class="text-end">{{ item.parametro_edital.valor_parametro }}</td>
+                                <td class="text-end">{{ item.get_pontuacao_parametro }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end">Pontuação Total:</td>
+                            <td>{{ projeto.pontuacao_curriculo }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            {% else %}
+                <p class="msg alert">Critérios de Edital ainda não foram cadastrados.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+{% endif %}
+
+{% if projeto.aprovado %}
+    <div class="tab-container" data-title="Fotos" data-tab="fotos" data-counter="{{ projeto.fotoprojeto_set.count }}">
+        {% box "Fotos" %}
+            {% if projeto.pode_adicionar_fotos_e_anexos %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/pesquisa/adicionar_foto/{{ projeto.pk }}/">Adicionar Foto</a></li>
+                </ul>
+            {% endif %}
+
+            {% if projeto.fotoprojeto_set.count %}
+                <ul class="flex-container gallery">
+                {% for foto in projeto.fotoprojeto_set.all %}
+                    <li class="gallery-item">
+                        <h4 class="title">Foto {{ forloop.counter }}</h4>
+                        {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura or is_gerente_sistemico %}
+                            <div class="float-end">
+                                <a href="/pesquisa/editar_foto/{{ foto.id }}/" class="btn primary">Editar</a>
+                                <a href="/pesquisa/remover_foto/{{ foto.id }}/" class="btn danger">Remover</a>
+                            </div>
+                        {% endif %}
+                        <p class="description">{{ foto.legenda }}</p>
+                        <img class="image" src="{{ foto.imagem.url }}" alt="{{ foto.legenda }}">
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p class="msg alert">Nenhuma foto foi enviada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+    <div class="tab-container" data-title="Registros de Frequência/Atividade" data-tab="registro_frequencia" data-counter="{{ projeto.registrofrequencia_set.count }}">
+        {% box "Registros de Frequência/Atividade" %}
+
+            <ul class="action-bar">
+                {% if eh_participante and not eh_somente_leitura %}
+                    <li><a class="btn success" href="/pesquisa/cadastrar_frequencia/{{ projeto.pk }}/">Cadastrar Frequência/Atividade</a></li>
+                {% endif %}
+                <li><a class="btn" href="/pesquisa/gerar_lista_frequencia/{{ projeto.pk }}/">Gerar Lista de Frequência</a></li>
+            </ul>
+
+            <div class="search-and-filters">
+                {% render_form form_frequencias %}
+            </div>
+            {% if registros_frequencia.exists %}
+                <form method="POST" id="frequencias_form" action="/pesquisa/validar_registros_frequencia/{{ projeto.id }}/">
+                    {% csrf_token %}
+                    {% if eh_participante %}
+                        <div class="actions">
+                            <label>Ação:
+                                <select name="action">
+                                    {% if is_coordenador %}
+                                        <option selected="selected">Validar</option>
+                                        <option>Cancelar Validação</option>
+                                    {% endif %}
+                                    <option>Excluir Registros</option>
+                                </select>
+                            </label>
+                            <button value="0" name="index" title="Executar ação selecionada" class="button" type="submit">Aplicar</button>
+                        </div>
+                    {% endif %}
+                    <table>
+                        <thead>
+                            <tr>
+                                {% if eh_participante %}
+                                    <th class="no-print">Seleção <input type="checkbox" onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++){ is[i].checked = this.checked;}" /></th>
+                                {% endif %}
+                                <th>Participante</th>
+                                <th>Descrição</th>
+                                <th>Data</th>
+                                <th>Situação</th>
+                                <th class="no-print">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for registro in registros_frequencia.all %}
+                                <tr>
+                                    {% if eh_participante %}
+                                        <td class="no-print">
+                                            {% if eh_participante and not registro.validada_em or is_coordenador %}
+                                                <INPUT TYPE="checkbox" NAME="registros" value="{{ registro.id }}" />
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+                                    <td>{{ registro.cadastrada_por.user|format }}</td>
+                                    <td>{{ registro.descricao }}</td>
+                                    <td>{{ registro.data }}</td>
+                                    <td>{% if registro.validada_em %}<span class="status status-success">Validada em {{ registro.validada_em }}<small>por {{ registro.validada_por.user|format }}</small></span>{% else %}<span class="status status-alert">Aguardando Validação</span>{% endif %}</td>
+                                    <td class="no-print">
+                                        <ul class="action-bar">
+                                            {% if not registro.validada_em %}
+                                                {% if is_coordenador %}
+                                                    <li><a class="btn confirm success" href="/pesquisa/validar_frequencia/{{ registro.pk }}/">Validar Frequência/Atividade</a></li>
+                                                {% endif %}
+                                                {% if registro.cadastrada_por == request.user.get_vinculo %}
+                                                    <li><a class="btn primary" href="/pesquisa/editar_frequencia/{{ registro.pk }}/">Editar</a></li>
+                                                    <li><a class="btn confirm danger" href="/pesquisa/excluir_frequencia/{{ registro.pk }}/">Excluir</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            {% else %}
+                <p class="msg alert">Nenhuma frequência ou atividade cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+    <div class="tab-container" data-title="Relatórios" data-tab="relatorios" data-counter="{{ projeto.relatorioprojeto_set.count }}">
+        {% box "Relatórios" %}
+            {% if projeto.pode_adicionar_fotos_e_anexos %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/pesquisa/adicionar_relatorio/{{ projeto.pk }}/">Adicionar Relatório</a></li>
+                </ul>
+            {% endif %}
+
+            {% if projeto.relatorioprojeto_set.exists %}
+                 <table>
+                    <thead>
+                        <tr>
+                            {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura or is_gerente_sistemico %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Observações</th>
+                            <th>Data de Cadastro</th>
+                            <th>Arquivo</th>
+                            <th>Validação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for relatorio in projeto.relatorioprojeto_set.all %}
+                            <tr>
+                                {% if projeto.pode_editar_inscricao_execucao and not eh_somente_leitura or is_gerente_sistemico %}
+                                    <td class="no-print">
+                                        {% if not relatorio.avaliado_em %}
+                                            {% icon "edit" "/pesquisa/editar_relatorio/{{ relatorio.id }}/" %}
+                                            {% icon "delete" "/pesquisa/excluir_relatorio/{{ relatorio.id }}/" %}
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td>{{ relatorio.descricao }}</td>
+                                <td>{{ relatorio.tipo }}</td>
+                                <td>{{ relatorio.obs }}</td>
+                                <td>{{ relatorio.cadastrado_em }}</td>
+                                <td><a href='{{ relatorio.arquivo.url }}' class='btn'>Visualizar Arquivo</a></td>
+                                <td>
+                                {% if relatorio.avaliado_em %}
+                                    {{ relatorio.get_mensagem_avaliacao|safe }}
+                                {% else %}
+                                    <span class="status status-pendente">Aguardando avaliação</span>
+                                {% endif %}
+                            </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma relatório cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+    <div class="tab-container" data-title="Pendências" data-tab="pendencias" data-checked="{% if tem_pendencias %}False{% else %}True{% endif %}">
+        {% if projeto.tem_pendencias %}
+            {% if projeto.edital.tem_monitoramento_por_atividades %}
+                {% if projeto.tem_registro_execucao_etapa_pendente %}
+                    <p class="msg alert">
+                        Projeto não pode ser finalizado, pois <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','metas')">existe(m) atividade(s) sem registro(s) de execução</a> ou <a href="javascript:mudar_url('/pesquisa/validar_execucao_etapa/{{ projeto.id }}/','metas')">existe(m) registro(s) não avaliado(s) pelo(a) supervisor(a) do projeto</a>.
+                    </p>
+                {% endif %}
+                {% if projeto.tem_registro_gasto_pendente %}
+                    <p class="msg alert">
+                        Projeto não pode ser finalizado, pois <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','plano_desembolso')">existe(m) desembolso(s) sem o(s) registro(s) da(s) despesa(s) realizada(s)</a> ou <a href="javascript:mudar_url('/pesquisa/validar_execucao_etapa/{{ projeto.id }}/','gastos')">existe despesa(s) não avaliada(s) pelo(a) supervisor(a) do projeto</a>.
+                    </p>
+                {% endif %}
+                {% if projeto.tem_registro_foto_pendente %}
+                    <p class="msg alert">
+                        Projeto não pode ser finalizado, pois <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','fotos')">não há registro das fotos do projeto</a>.
+                    </p>
+                {% endif %}
+                {% if projeto.tem_registro_anexos_pendente %}
+                    <p class="msg alert">
+                        Projeto não pode ser finalizado, pois <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','anexos')">não há registro dos anexos do projeto</a>.
+                    </p>
+                {% endif %}
+            {% else %}
+                <p class="msg alert">
+                    Projeto não pode ser finalizado, pois <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','relatorios')">não há registro de relatório final ou o relatório final não foi avaliado pelo supervisor do projeto</a>.
+                </p>
+            {% endif %}
+        {% elif projeto.edital.tem_monitoramento_por_atividades and not registro_conclusao %}
+            <p class="msg alert">
+                Projeto <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','conclusao')">pendente de registro de conclusão por parte do coordenador</a>.
+            </p>
+        {% elif projeto.edital.tem_monitoramento_por_atividades and registro_conclusao and not projeto.data_finalizacao_conclusao and tem_formato_completo %}
+            <p class="msg alert">
+               Projeto <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','conclusao')">pendente de registro de finalização da conclusão por parte do coordenador</a>.
+            </p>
+        {% elif projeto.edital.tem_monitoramento_por_atividades and registro_conclusao and not projeto.data_finalizacao_conclusao and not tem_formato_completo %}
+            <p class="msg alert">
+               Projeto <a href="javascript:mudar_url('/pesquisa/projeto/{{projeto.id }}/','conclusao')">pendente de registro de finalização do projeto por parte do supervisor</a>.
+            </p>
+        {% elif projeto.edital.tem_monitoramento_por_atividades and registro_conclusao and projeto.data_finalizacao_conclusao and not registro_conclusao.dt_avaliacao %}
+            <p class="msg alert">
+               Projeto <a href="javascript:mudar_url('/pesquisa/validar_execucao_etapa/{{ projeto.id }}/','conclusao')">pendente do parecer do supervisor</a>.
+            </p>
+        {% else %}
+            <p class="msg info">Este projeto não possui pendências.</p>
+        {% endif %}
+    </div>
+    {% if projeto.edital.tem_monitoramento_por_atividades %}
+        <div class="tab-container" data-title="Conclusão" data-tab="conclusao" data-checked="{% if registro_conclusao and projeto.data_finalizacao_conclusao %}True{% else %}False{% endif %}">
+            <ul class="action-bar">
+                {% if projeto.pode_registrar_conclusao %}
+                    <li><a class="btn popup" href="/pesquisa/registro_conclusao/{{ projeto.pk }}/">Registrar/Editar Conclusão</a></li>
+                {% endif %}
+                {% if projeto.pode_finalizar_conclusao %}
+                    <li><a class="btn confirm" data-confirm="Deseja mesmo finalizar a conclusão? Após finalizar, não será mais possível alterá-la." href="/pesquisa/finalizar_conclusao/{{ projeto.pk }}/">Finalizar Conclusão</a></li>
+                {% endif %}
+            </ul>
+            {% if registro_conclusao %}
+                {% box "Conclusão do Projeto" %}
+                    <table class="info">
+                        <tr>
+                            <td>Resultados Alcançados</td>
+                            <td>{{ registro_conclusao.resultados_alcancados }}</td>
+                        </tr>
+                        <tr>
+                            <td>Resultados esperados / Disseminação de resultados</td>
+                            <td>{{ registro_conclusao.disseminacao_resultados|format|safe }}</td>
+                        </tr>
+                        <tr>
+                            <td>Observação</td>
+                            <td>{{ registro_conclusao.obs }}</td>
+                        </tr>
+                        <tr>
+                            <td>Avaliação</td>
+                            <td>
+                            {% if not registro_conclusao.dt_avaliacao %}
+                                <span class="status status-info">Aguardando avaliação</span>
+                            {% else %}
+                                <p>Avaliado em {{ registro_conclusao.dt_avaliacao }} por {{ registro_conclusao.avaliador }}</p>
+                                <p><strong>{{ registro_conclusao.obs_avaliador }}</strong></p>
+                            {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                {% endbox %}
+            {% else %}
+                <p class="msg alert">Nenhum registro de conclusão cadastrado até o momento.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if projeto.avaliacao_set.exists and edital_projeto.is_periodo_pos_fim_selecao and tem_formato_completo or is_gerente_sistemico %}
+    <div class="tab-container" data-title="Dados da Seleção" data-tab="dados_selecao" data-counter="{{ projeto.avaliacao_set.all.count }}">
+        {% box "Dados da Seleção" %}
+            {% if projeto.avaliacao_set.all %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pontuação</th>
+                            <th>Data da Avaliação</th>
+                            {% if is_gerente_sistemico %}
+                                <th>Avaliador</th>
+                            {% endif %}
+                            <th>Ficha de Avaliação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for avaliacao in projeto.avaliacao_set.all %}
+                        <tr>
+                            <td>{{ avaliacao.pontuacao|format }}</td>
+                            <td>{{ avaliacao.data }}</td>
+                            {% if is_gerente_sistemico %}
+                                <td>{{ avaliacao.vinculo.pessoa.nome }}</td>
+                            {% endif %}
+                            <td><a href="/pesquisa/visualizar_ficha_avaliacao/{{ avaliacao.id}}/" class="btn default popup">Ver Ficha</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+{% endif %}
+
+{% if projeto.recursoprojeto_set.exists %}
+	<div class="tab-container" data-title="Recursos Interpostos" data-tab="recursos" data-checked="True">
+        {% box "Recursos Interpostos" %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Recurso</th>
+                        <th>Parecer do Coordenador de Pesquisa</th>
+                        <th>Parecer da PROPI</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recurso in projeto.recursoprojeto_set.all %}
+                        <tr>
+                            <td>{{ recurso.data_solicitacao }}</td>
+                            <td>{{ recurso.justificativa }}</td>
+                            <td>{{ recurso.parecer }}</td>
+                            <td>{{ recurso.parecer_validacao|format }}</td>
+                            <td>{% if recurso.aceito %} <span class="status status-info">Sim</span>{% elif recurso.data_validacao %} <span class="status status-error">Não</span>{% elif not recurso.data_validacao and recurso.parecer_favoravel %} <span class="status status-alert">Aguardando Avaliação</span>{% else %}<span class="status status-error">Não Aceito</span>{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    </div>
+{% endif %}
+
+{% if tem_cancelamento.exists %}
+	<div class="tab-container" data-title="Cancelamento" data-tab="cancelamento" data-checked="True">
+        {% box "Cancelamento" %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Justificativa</th>
+                        <th>Arquivo de Comprovação</th>
+                        <th>Parecer do Coordenador de Pesquisa</th>
+                        <th>Parecer da PROPI</th>
+                        <th>Situação</th>
+                        {% if is_gerente_sistemico %}
+                            <th>Projeto Aprovado</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in tem_cancelamento %}
+                        <tr>
+                            <td>{{ pedido.data_solicitacao }}</td>
+                            <td>{{ pedido.justificativa_cancelamento }}</td>
+                            <td>
+                                {% if pedido.arquivo_comprovacao %}
+                                    <a href="{{ pedido.arquivo_comprovacao.url }}" class="btn">Ver arquivo</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>{{ pedido.obs_avaliacao|format }}</td>
+                            <td>{{ pedido.parecer_validacao|format }}</td>
+                            <td>{{ pedido.get_situacao|safe }}</td>
+                            {% if is_gerente_sistemico %}
+                                <td>
+                                    {% if pedido.proximo_projeto %}
+                                        <a href="/pesquisa/projeto/{{ pedido.proximo_projeto.id }}">{{ pedido.proximo_projeto.titulo|format }}</a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,179 @@
+PPE::Trabalhadores Educandos e Tutores:
+  order: 1
+PPE::Trabalhadores Educandos:
+  permissions_required:
+  - ppe.view_trabalhadoreducando
+  url: /admin/ppe/trabalhadoreducando
+PPE::Dados do Trabalhador Educando:
+  groups_required:
+  - Trabalhador(a) Educando(a)
+  order: 10
+  url: /ppe/meus_dados/
+PPE::Anamnese do Trabalhador Educando:
+  groups_required:
+  - Trabalhador(a) Educando(a)
+  order: 10
+  url: /ppe/anamnese/
+PPE::Cursos e Formação:
+  order: 9
+PPE::Cursos e Formação::Formação PPE:
+  permissions_required:
+  - ppe.view_formacaoppe
+  order: 1
+  url: /admin/ppe/formacaoppe/correntes/
+PPE::Cursos e Formação::Estruturas de Cursos:
+  permissions_required:
+  - ppe.view_estruturacurso
+  order: 1
+  url: /admin/ppe/estruturacurso/
+PPE::Cursos e Formação::Cursos:
+  permissions_required:
+  - ppe.view_curso
+  order: 1
+  url: /admin/ppe/curso/
+PPE::Cadastros:
+  order: 3
+PPE::Cadastros::Coordenador(a) PPE:
+  groups_required:
+  - Coordenador(a) PPE
+  - RH
+  order: 1
+  url: /ppe/coordenadores_ppe/
+PPE::Cadastros::Supervisor(a) Campo PPE:
+  groups_required:
+  - Coordenador(a) PPE
+  - RH
+  order: 1
+  url: /ppe/supervisores_campo_ppe/
+PPE::Cadastros::Gestor(a) PPE:
+  groups_required:
+  - RH
+  order: 1
+  url: /ppe/gestores_ppe/
+PPE::Cadastros::Apoiador(a) Administrativo PPE:
+  groups_required:
+  - RH
+  order: 1
+  url: /ppe/apoiadores_administrativos_ppe/
+PPE::Cadastros::Apoiador(a) Pedagógico PPE:
+  groups_required:
+  - Coordenador(a) PPE
+  - Supervisor(a) Pedagógico(a)
+  order: 1
+  url: /ppe/apoiadores_pedagogicos_ppe/
+PPE::Cadastros::Supervisor(a) Pedagógico PPE:
+  groups_required:
+  - RH
+  order: 1
+  url: /ppe/supervisores_pedagogicos_ppe/
+PPE::Cadastros::Supervisor(a) Psicossocial PPE:
+  groups_required:
+  - RH
+  order: 1
+  url: /ppe/supervisores_psicossociais_ppe/
+PPE::Cadastros::Chefia imediata:
+  groups_required:
+  - Coordenador(a) PPE
+  url: /admin/ppe/chefiappe/
+PPE::Cadastros::Tutor:
+  groups_required:
+  - Coordenador(a) PPE
+  - Supervisor(a) Pedagógico(a)
+  url: /ppe/tutores_ppe/
+PPE::Turmas::Turmas:
+  permissions_required:
+  - ppe.view_turma
+  url: /admin/ppe/turma/
+
+PPE::Procedimentos de Apoio::Efetuar Matrícula:
+  permissions_required:
+  - ppe.efetuar_matricula
+  url: /ppe/efetuarmatriculatrabalhadoreducando/
+PPE::Procedimentos de Apoio::Solicitações de Usuários:
+  permissions_required:
+  - ppe.change_solicitacaousuario
+  url: /admin/ppe/solicitacaousuario/?tab=tab_pendentes
+PPE::Solicitações::Solicitação de Desligamentos:
+  permissions_required:
+  - ppe.add_solicitacaousuario
+  url: /ppe/solicitar_desligamento/
+PPE::Solicitações::Solicitação de Atendimento pelo Núcleo de Atenção Psicossocial:
+  permissions_required:
+  - ppe.add_solicitacaousuario
+  url: /ppe/solicitar_atendimentopsicossocial/
+PPE::Solicitações::Solicitação de continuidade no Aperfeiçoamento Profissional:
+  permissions_required:
+  - ppe.add_solicitacaousuario
+  url: /ppe/solicitar_continuidadeaperfeicoamentoprofissional/
+PPE::Solicitações::Solicitação de ampliação de prazo para execução de curso:
+  permissions_required:
+  - ppe.add_solicitacaousuario
+  url: /ppe/solicitar_ampliacaoprazocurso/
+PPE::Solicitações::Solicitação de Realocação:
+  permissions_required:
+  - ppe.add_solicitacaousuario
+  url: /ppe/solicitar_realocacao/
+PPE::Solicitações::Solicitação de visita técnica na unidade:
+  permissions_required:
+  - ppe.add_solicitacaousuario
+  url: /ppe/solicitar_visitatecnicaunidade/
+PPE::Relatórios::Relatório de Faltas:
+  permissions_required:
+  - ppe.gerar_relatorio
+  url: /ppe/relatorio_faltas/
+PPE::Relatórios::Relatório PPE:
+  permissions_required:
+  - ppe.gerar_relatorio
+  url: /ppe/relatorio_ppe/
+PPE::Relatórios::Relatório Aprovados PPE:
+  permissions_required:
+  - ppe.gerar_relatorio
+  url: /ppe/relatorio_aprovados_ppe/
+PPE::Acompanhamento de Avaliação::Cadastro::Tipos de Avaliação:
+  permissions_required:
+  - ppe.change_tipoavaliacao
+  url: /admin/ppe/tipoavaliacao/
+PPE::Acompanhamento de Avaliação::Cadastro::Perguntas da Avaliação:
+  permissions_required:
+  - ppe.change_perguntaavaliacao
+  url: /admin/ppe/perguntaavaliacao/
+PPE::Acompanhamento de Avaliação::Cadastro::Opções de Respostas das Avaliações:
+  permissions_required:
+  - ppe.change_opcaorespostaavaliacao
+  url: /admin/ppe/opcaorespostaavaliacao/
+PPE::Acompanhamento de Avaliação::Cadastro::Configuração Monitoramento:
+  permissions_required:
+  - ppe.change_configuracaomonitoramento
+  url: /admin/ppe/configuracaomonitoramento/
+PPE::Acompanhamento de Avaliação::Avaliações Chefia:
+  groups_required:
+  - Chefia imediata PPE
+  url: /ppe/avaliacoes_chefia/
+PPE::Acompanhamento de Avaliação::Avaliações:
+  groups_required:
+  - Coordenador(a) PPE
+  url: /admin/ppe/avaliacao/
+PPE::Cadastros::Formação Técnica:
+  permissions_required:
+  - ppe.change_formacaotecnica
+  url: /admin/ppe/formacaotecnica/
+PPE::Cadastros::Unidade:
+  permissions_required:
+  - ppe.change_unidade
+  url: /admin/ppe/unidade/
+PPE::Cadastros::Setor:
+  permissions_required:
+  - ppe.change_setor
+  url: /admin/ppe/setor/
+PPE::Cadastros::Chefia do Setor:
+  permissions_required:
+  - ppe.change_chefiasetorhistorico
+  url: /admin/ppe/chefiasetorhistorico/
+ADMINISTRAÇÃO::Cadastros::Municípios:
+  permissions_required:
+  - comum.change_municipio
+  url: /admin/comum/municipio
+ADMINISTRAÇÃO::Cadastros::Ano:
+  permissions_required:
+  - comum.change_ano
+  url: /admin/comum/ano

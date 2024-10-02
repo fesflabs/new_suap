@@ -1,0 +1,49 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% load tags %}
+
+{% block content %}
+    <ul class="action-bar">
+        {% help_button %}
+    </ul>
+    {% if h1 or form.TITLE %}
+        <h2>{{ h1 }}{{ form.TITLE }}</h2>
+    {% endif %}
+
+    {% if form %}
+        {% render_form form %}
+    {% endif %}
+
+    {% if cursos.exists %}
+        <h3>Cursos</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Código</th>
+                <th>Curso</th>
+                <th>Ativo</th>
+                <th>Diretoria</th>
+                <th>Modalidade</th>
+                <th>Coordenador do Curso</th>
+                <th>Portaria de Nomeação do Coordenador</th>
+                <th>Tipo de Função Gratificada</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for curso_campus in cursos %}
+            <tr>
+                <td>{{ curso_campus.codigo }}</td>
+                <td>{{ curso_campus.descricao_historico }}</td>
+                <td>{{ curso_campus.ativo|format }}</td>
+                <td>{{ curso_campus.diretoria }}</td>
+                <td>{{ curso_campus.modalidade }}</td>
+                <td>{{ curso_campus.coordenador|format }}</td>
+                <td>{{ curso_campus.numero_portaria_coordenador|format }}</td>
+                <td>{{ curso_campus.get_funcao_coordenador|format }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

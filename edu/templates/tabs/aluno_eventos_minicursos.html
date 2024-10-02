@@ -1,0 +1,61 @@
+{% box 'Eventos e Palestras' %}
+    {% if obj.get_participacoes_em_eventos.exists %}
+        <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Certificado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for participacao in obj.get_participacoes_em_eventos %}
+                <tr>
+                    <td>{{ participacao.evento.titulo }}</td>
+                    <td>{{ participacao.evento.descricao }}</td>
+                    <td><a href="/edu/imprimir_certificado_participacao_evento/{{ participacao.token }}/" class="btn">Imprimir
+                        Certificado</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    {% else %}
+        <p class="msg alert">Aluno(a) não possui participações em eventos/palestras cadastradas.</p>
+    {% endif %}
+{% endbox %}
+
+{% box 'Minicursos' %}
+    {% if obj.get_participacoes_em_minicursos.exists %}
+        <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Ano/Período Letivo</th>
+                <th>Situação</th>
+                <th>Certificado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for aluno in obj.get_participacoes_em_minicursos %}
+                <tr>
+                    <td>{{ aluno.turmaminicurso_set.all.0.minicurso.descricao }}</td>
+                    <td>{{ aluno.turmaminicurso_set.all.0.ano_letivo.ano }}.{{ aluno.turmaminicurso_set.all.0.periodo_letivo }}</td>
+                    <td>{{ aluno.situacao|status }}</td>
+                    <td>{% if aluno.is_concluido %}
+                        <a href="/edu/autenticar_certificado_minicurso/?cpf={{ aluno.pessoa_fisica.cpf }}&data_conclusao={{ aluno.turmaminicurso_set.all.0.data_fim|format }}&codigo_turma={{ aluno.turmaminicurso_set.all.0.pk }}"
+                           class="btn">Imprimir Certificado</a>
+                        <a href="/edu/enviar_certificado_participacao_minicurso/{{ aluno.turmaminicurso_set.all.0.pk }}/{{ obj.pk }}/"
+                           class="btn primary">Enviar Certificado por E-mail</a>
+                        {% else %}-{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    {% else %}
+        <p class="msg alert">Aluno(a) não possui participações em minicursos cadastradas.</p>
+    {% endif %}
+{% endbox %}

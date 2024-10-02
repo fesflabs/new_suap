@@ -1,0 +1,116 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% block extracss %}
+<link rel="stylesheet" href="/static/planejamento/css/planejamento.css" />
+<link rel="stylesheet" href="/static/comum/deprecated/css/ui-lightness/jquery-ui-1.8.4.custom.css" />
+{% endblock %}
+
+{% block content %}
+
+<h2>Requisição #{{ req.id }}</h2>
+
+{% if req.pode_remover %}
+	<ul class="action-bar">
+		<li>{{ req.get_url_remover|safe }}</li>
+	</ul>
+{% endif %}
+
+{% box 'Informações Gerais' %}
+	<table class="info">
+		<tr>
+			<td>Data</td>
+			<td>{{ req.data|date:"d/m/Y H:i:s" }}</td>
+			<td>Operador</td>
+			<td>{{ req.usuario_requisicao.get_full_name }}</td>
+		</tr>
+		<tr>
+			<td>Pessoa Origem</td>
+			<td>{{ req.vinculo_origem.relacionamento }}</td>
+			<td>Campus Origem</td>
+			<td>{{ req.vinculo_origem.setor.uo|default:"<span class='false'>Servidor está sem setor</span>" }}</td>
+		</tr>
+		<tr>
+			<td>Pessoa Destino</td>
+			<td>{{ req.vinculo_destino.relacionamento }}</td>
+			<td>Campus Destino</td>
+			<td>{{ req.vinculo_destino.setor.uo|default:"<span class='false'>Servidor está sem setor</span>" }}</td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td colspan="3">
+				{% if req.status == "Pendente" %}
+					{% with req.get_tipo as tipo_requisicao %}
+						{% if tipo_requisicao == None %}
+							<span>Pendente</span>
+						{% else %}
+							{% if tipo_requisicao == req.REQUISICAO_SAIDA %}
+								{% if campus_destino %}
+									Aguardando resposta do operador do campus {{ campus_destino }}
+								{% else %}
+									Pendente
+								{% endif %}								
+							{% endif %}
+							{% if tipo_requisicao == req.REQUISICAO_ENTRADA %}
+								{% if campus_origem %}
+									Aguardando resposta do operador do campus {{ campus_origem }}
+								{% else %}
+									Pendente
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					{% endwith %}
+				{% else %}
+					{{ req.status }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Texto</td>
+			<td colspan="3">{{ req.texto_requisicao }}</td>
+		</tr>
+		<tr>
+			<td>Motivo</td>
+			<td colspan="3">{{ req.texto_resposta }}</td>
+		</tr>
+   	</table>
+{% endbox %}
+
+{% box 'Inventários' %}
+	{% if req_itens %}
+		<table>
+			<thead>
+				<tr>
+					<th>Opções</th>
+					<th>Número</th>
+					<th>Descrição</th>
+					<th>ED</th>
+					<th>Valor</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="4">Total:</td>
+					<td>{{ valor_total|mascara_dinheiro }}</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				{% for req_item in req_itens %}
+				<tr>
+					<td>{% icon "view" "{{ req_item.inventario.get_absolute_url }}" %}</td>
+					<td>{{ req_item.inventario.numero }}</td>
+					<td>{{ req_item.inventario.get_descricao }}</td>
+					<td>{{ req_item.inventario.entrada_permanente.categoria }}</td>
+					<td>{{ req_item.inventario.entrada_permanente.valor|mascara_dinheiro }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% if form %}
+			{% render_form form %}
+		{% endif %}
+	{% else %}
+		<p class="msg alert">Não existem inventários cadastrados para a requisição escolhida.</p>
+	{% endif %}
+{% endbox %}
+
+{% endblock %}

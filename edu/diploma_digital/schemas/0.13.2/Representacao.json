@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/RepresentacaoVisual.schema.json",
+  "title": "Esquema JSON de Representação Visual de Diploma",
+  "description": "Esquema JSON para Validação de Representações Visuais de Diplomas",
+  "type": "object",
+  "required": [
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "meta": {
+      "description": "Metadados da representação visual do diploma",
+      "type": "object",
+      "required": [
+        "clientId",
+        "clientSignature",
+        "docType",
+        "groupId",
+        "mimeType",
+        "yourNumber",
+        "dltId",
+        "isDocSigned"
+      ],
+      "properties": {
+        "clientId": {
+          "description": "Identificador único universal do cliente do RAP",
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"
+        },
+        "clientSignature": {
+          "$comment": "Atributo ainda não tem funcionalidade, será usado em versões futuras",
+          "description": "Assinatura do cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "docType": {
+          "description": "Identificador do tipo Representação Visual no RAP",
+          "type": "string",
+          "const": "visual_rep_degree"
+        },
+        "groupId": {
+          "description": "Identificador único do grupo de documentos ao qual o documento faz parte",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "mimeType": {
+          "description": "Tipo da mídia do documento visual",
+          "type": "string",
+          "const": "application/pdf"
+        },
+        "yourNumber": {
+          "description": "Identificador único gerado pelo cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "attachment": {
+          "description": "Nome do arquivo PDF/A da representação visual",
+          "type": "string",
+          "pattern": "^.*\\.pdf$"
+        },
+        "dltId": {
+          "description": "Nome da DLT em que o documento será registrado",
+          "type": "string",
+          "const": "ethereum"
+        },
+        "isDocSigned": {
+          "description": "Flag para indicar se o documento a ser registrado conterá assinaturas",
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      }
+    },
+    "data": {
+      "description": "Dados da representação visual do diploma",
+      "type": "object",
+      "required": [
+        "ReferenciaDiploma"
+      ],
+      "properties": {
+        "ReferenciaDiploma": {
+          "description": "Código de validação do diploma",
+          "type": "string",
+          "pattern": "^[0-9]{1,}\\.[0-9]{1,}\\.[a-f0-9]{12,}$"
+        }
+      }
+    }
+  }
+}

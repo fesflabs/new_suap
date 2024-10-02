@@ -1,0 +1,305 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    {% box 'Informações Gerais' %}
+
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'descricao' }}:</td>
+                <td>{{ obj.descricao|format }}</td>
+            </tr>
+            <tr>
+                <td>Endereço:</td>
+                <td>{{ obj.get_endereco|format|normalizar }}</td>
+            </tr>
+            <tr>
+                <td>Telefones:</td>
+                <td>{{ obj.telefone_principal|format }} / {{ obj.telefone_secundario|format }}</td>
+            </tr>
+
+            <tr>
+                <td>Coordenador:</td>
+                <td>
+                    {% if coordenador_titular %}
+                        {{ coordenador_titular.funcionario.username|format }} -
+                        {{ coordenador_titular.funcionario.nome|format }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+
+        </table>
+    {% endbox %}
+    <div class="tab-container ajax-rendered" data-title="Dados do Polo" data-tab="dados_específicos">
+        {% if request.GET.tab == "dados_específicos" or not request.GET.tab %}
+            {% box 'Dados do Polo' %}
+                <table class="info">
+                    <tr>
+                        <td>{{ obj|verbose:'sigla' }}:</td>
+                        <td>{{ obj.sigla|format }}</td>
+                        <td>{{ obj|verbose:'codigo_academico' }}:</td>
+                        <td>{{ obj.codigo_academico|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ obj|verbose:'diretoria' }}</td>
+                        <td>{{ obj.diretoria|format }}</td>
+                        <td>{{ obj|verbose:'do_municipio' }}</td>
+                        <td>{{ obj.do_municipio|format }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Qtd. Alunos:</td>
+                        {% if perms.edu.efetuar_matricula %}
+                            <td colspan="3"><a
+                                    href='/edu/relatorio/?polo={{ obj.id }}&formatacao=simples&ordenacao=Nome&agrupamento=Campus'>{{ obj.aluno_set.count|format }}</a>
+                            </td>
+                        {% else %}
+                            <td colspan="3">{{ obj.aluno_set.count|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Qtd. Cursos Ofertados</td>
+                        <td>{{ cursos.count }}</td>
+                        <td>Qtd. Turmas</td>
+                        <td>{{ obj.turma_set.count }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ obj|verbose:'estrutura_disponivel' }}</td>
+                        <td colspan="3">{{ obj.estrutura_disponivel|format }}</td>
+                    </tr>
+                </table>
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Cursos Ofertados<span>{{ cursos.count }}</span>" data-tab="cursos">
+        {% if request.GET.tab == "cursos" %}
+            {% box 'Cursos' %}
+                {% if cursos.exists %}
+                    <table>
+
+                        <thead>
+                        <tr>
+                            {% if perms.edu.view_cursocampus %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Curso</th>
+                            <th>Modalidade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for curso in cursos %}
+                            <tr>
+                                {% if perms.edu.view_cursocampus %}
+                                    <td class="no-print">{% icon "view" "{{ curso.get_absolute_url }}" %}</td>
+                                {% endif %}
+                                <td>{{ curso.descricao|format }}</td>
+                                <td>{{ curso.modalidade|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum curso ofertado nesse polo.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Turmas <span>{{ turmas.count }}</span>" data-tab="turmas">
+        {% if request.GET.tab == "turmas" %}
+            {% box 'Turmas' %}
+                {{ periodo_letivo_atual.as_widget|safe }}
+                {% if turmas.exists %}
+                    <table>
+
+                        <thead>
+                        <tr>
+                            {% if perms.edu.efetuar_matricula %}
+                                <th>Ações</th>
+                            {% endif %}
+                            <th>Turma</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for turma in turmas.all %}
+                            <tr>
+                                {% if perms.edu.efetuar_matricula %}
+                                    <td>{% icon "view" "{{ turma.get_absolute_url }}" %}</td>
+                                {% endif %}
+                                <td>{{ turma.descricao|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma turma cadastrada para esse polo.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Horário de Atendimento" data-tab="horario_funcionamento">
+        {% if request.GET.tab == "horario_funcionamento" %}
+            {% box 'Horário de Atendimento' %}
+                {% if perms.edu.change_polo %}
+                    <ul class='action-bar'>
+                        <li><a class="popup" href="/edu/definir_horario_polo/{{ obj.pk }}/">Definir Horário</a></li>
+                    </ul>
+                {% endif %}
+                {% include  "horario_polo.html" %}
+            {% endbox %}
+        {% endif %}
+    </div>
+    <div class="tab-container ajax-rendered" data-title="Membros" data-tab="usuarios">
+        {% if request.GET.tab == "usuarios" %}
+
+            {% box "Coordenadores" %}
+
+                {% if perms.edu.change_polo and obj.diretoria %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/edu/adicionar_coordenador_polo/{{ obj.pk }}/">Adicionar
+                            Coordenador</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if coordenadores %}
+                    {% if not obj.horariofuncionamentopolo_set.exists %}
+                        <p class="msg alert">O horário de funcionamento do polo ainda não foi definido. Portanto, não é
+                            possível definir os horários dos Coordenadores.</p>
+                    {% endif %}
+                    <div class="card-container">
+                        {% for coordenador in coordenadores %}
+                            <div class="card">
+                                <div class="photo"><img src="{{ coordenador.funcionario.user.get_profile.get_foto_75x100_url }}"
+                                          alt="Foto do {{ coordenador.funcionario.user.get_profile.nome }}"/></div>
+                                <h4>{{ coordenador.funcionario.user.get_profile.nome }}</h4>
+                                <dl>
+                                    <dt>Matrícula:</dt>
+                                    <dd>
+                                        <a href="/rh/servidor/{{ coordenador.funcionario.user.username }}/">{{ coordenador.funcionario.user.username }}</a>
+                                    </dd>
+                                    <dt>Setor de Lotação:</dt>
+                                    <dd>{{ coordenador.funcionario.user.get_profile.funcionario.setor|format }}</dd>
+                                    {% if coordenador.funcionario.user.get_profile.funcionario.email %}
+                                        <dt>Email:</dt>
+                                        <dd>{{ coordenador.funcionario.user.get_profile.funcionario.email|format }}</dd>
+                                    {% endif %}
+                                    <dt>Horário:</dt>
+                                    <dd>{{ coordenador.get_horario|format }}</dd>
+                                </dl>
+                                <div class="content">
+                                    <ul class="action-bar">
+                                        {% if perms.edu.change_polo %}
+                                            {% if obj.horariofuncionamentopolo_set.exists %}
+                                                <li><a class="btn popup"
+                                                    href="/edu/definir_horario_coordenador_polo/{{ coordenador.pk }}/">Definir
+                                                    Horário</a></li>
+                                            {% endif %}
+                                            {% if not coordenador_titular or not coordenador.funcionario.user.username == coordenador_titular.funcionario.user.username %}
+                                                <li><a class="btn success"
+                                                    href="/edu/polo/{{ obj.pk }}/?coordenador_titular_polo_id={{ coordenador.pk }}">Definir
+                                                    como Titular</a></li>
+                                            {% endif %}
+                                            <li><a class="btn danger no-confirm popup"
+                                                href="/comum/excluir/edu/coordenadorpolo/{{ coordenador.pk }}/">Remover</a>
+                                            </li>
+                                        {% else %}
+                                            <li><a class="btn popup"
+                                                href="/edu/definir_horario_coordenador_polo/{{ coordenador.pk }}/">Visualizar
+                                                Horário</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="msg alert">Nenhum funcionário cadastrado como coordenador do polo.</p>
+                {% endif %}
+
+            {% endbox %}
+
+            {% box "Tutores Presenciais" %}
+
+                {% if obj.diretoria and perms.edu.change_polo %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/edu/adicionar_tutor_polo/{{ obj.pk }}/">Adicionar Tutor
+                            Presencial</a></li>
+                    </ul>
+                {% endif %}
+                {% if tutores %}
+                    {% if not obj.horariofuncionamentopolo_set.exists %}
+                        <p class="msg alert">O horário de funcionamento do polo ainda não foi definido. Portanto, não é
+                            possível definir os horários dos Tutores.</p>
+                    {% endif %}
+
+                    <div class="card-container">
+                        {% for tutor in tutores %}
+                            <div class="card">
+                                <div class="photo"><img src="{{ tutor.funcionario.user.get_profile.get_foto_75x100_url }}"
+                                          alt="Foto do {{ tutor.funcionario.user.get_profile.nome }}"/></div>
+                                <h4>{{ tutor.funcionario.user.get_profile.nome }}</h4>
+                                <dl>
+                                    <dt>Matrícula:</dt>
+                                    <dd>{{ tutor.funcionario.user.username }}</dd>
+                                    <dt>Setor de Lotação:</dt>
+                                    <dd>{{ tutor.funcionario.user.get_profile.funcionario.setor|format }}</dd>
+                                    {% if tutor.funcionario.user.get_profile.funcionario.email %}
+                                        <dt>Email:</dt>
+                                        <dd>{{ tutor.funcionario.user.get_profile.funcionario.email|format }}</dd>
+                                    {% endif %}
+                                    <dt>Cursos:</dt>
+                                    <dd>
+                                        <ul>
+                                            {% for curso_campus in tutor.cursos.all %}
+                                                <li>{{ curso_campus.descricao_historico }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </dd>
+                                    <dt>Horário:</dt>
+                                    <dd>{{ tutor.get_horario|format }}</dd>
+                                </dl>
+                                <div class="content">
+                                    <ul class="action-bar">
+                                        {% if usuario_coordenador or perms.edu.change_polo %}
+                                            {% if obj.horariofuncionamentopolo_set.exists %}
+                                                <li><a class="btn popup" href="/edu/definir_horario_tutor_polo/{{ tutor.pk }}/">Definir
+                                                    Horário</a></li>
+                                                <li><a class="btn popup primary" href="/edu/adicionar_tutor_polo/{{ obj.pk }}/{{ tutor.pk }}/">Editar</a></li>
+                                            {% endif %}
+                                            <li><a class="btn danger no-confirm popup"
+                                                href="/comum/excluir/edu/tutorpolo/{{ tutor.pk }}/">Remover</a></li>
+                                        {% else %}
+                                            <li><a class="btn popup" href="/edu/definir_horario_tutor_polo/{{ tutor.pk }}/">Visualizar
+                                                Horário</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="msg alert">Nenhum funcionário cadastrado como tutor presencial.</p>
+                {% endif %}
+            {% endbox %}
+
+        {% endif %}
+    </div>
+    <div class="tab-container ajax-rendered" data-title="Próximas Atividades <span>{{ atividades.count }}</span>"
+         data-tab="atividades">
+        {% if request.GET.tab == "atividades" %}
+            {% include "atividades_polo.html" %}
+        {% endif %}
+    </div>
+
+
+{% endblock %}

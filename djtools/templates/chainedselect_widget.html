@@ -1,0 +1,76 @@
+<script>
+    if(!window['options']){
+        options = {};
+    }
+    options["{{ id }}"] = {{ options|safe }};
+    options["{{ id }}"]["control"] = '{{ control }}';
+    options["{{ id }}"]["label"] = "{{ obj_label }}";
+    
+    $(document).ready(function() {
+        var selected_value = $('#{{ id }}').val();
+        if(!selected_value){
+            selected_value = '{{ initial }}'
+        }
+        if(options["{{ id }}"]["form_parameter_names"] != undefined){
+            vetor = options["{{ id }}"]["form_parameter_names"].split(",");
+            vetor_pks = [];
+            for ( i in vetor ){
+                var chained_field = $('#id_'+vetor[i].toString());
+                populate_chained_select_{{ id }}(chained_field, selected_value);
+                chained_field.on('change', function(){
+                    populate_chained_select_{{ id }}(this);
+                });
+            }
+            options["{{ id }}"]["filter_pks"] = vetor_pks.toString();
+        }
+    });
+
+    function set_options_values_{{ id }}(input, selected) {
+        if(options["{{ id }}"]["form_parameter_names"] != undefined){
+            vetor = options["{{ id }}"]["form_parameter_names"].split(",");
+            vetor_pks = [];
+            for ( i in vetor ){
+                if($("input[name="+vetor[i].toString()+"]").length==2){
+                    vetor_pks[i] = $("#hidden_"+vetor[i].toString()).val(); 
+                }
+                if($("input[name="+vetor[i].toString()+"]").length==1){
+                    vetor_pks[i] = $("input[name="+vetor[i].toString()+"]").val().toString();
+                }
+                if($("select[name="+vetor[i].toString()+"]").length==1){
+                    vetor_pks[i] = $("select[name="+vetor[i].toString()+"]").val().toString();
+                }
+            }
+            options["{{ id }}"]["filter_pks"] = vetor_pks.toString();
+        }
+    }
+
+    function populate_chained_select_{{ id }}(chained_element, selected_value){
+        set_options_values_{{ id }}();
+        var id = $(chained_element).val();
+        $('#{{ id }}').html("");
+        $('#{{ id }}').append($("<option />").attr("value", '').text('{{ empty_label }}'));
+        $.ajax({
+            type: "POST",
+            url: "{{ url }}",
+            data: options["{{id}}"],
+            async: false,
+        }).done(function(data) {
+            if(data) {
+                $('#{{ id }}').html("");
+                is_required = (options["{{ id }}"]['is_required'] == 'true')
+                if (!is_required) {
+                    $('#{{ id }}').append($("<option />").attr("value", '').text('---------'));
+                }
+                $.each(data, function(key, value) {
+                    if(selected_value==value.{{ obj_value }}){
+                        $('#{{ id }}').append($("<option />").attr("selected", "selected")
+                            .attr("value", value.{{ obj_value }}).text(value.{{ obj_label }}));
+                    } else {
+                        $('#{{ id }}').append($("<option />")
+                            .attr("value", value.{{ obj_value }}).text(value.{{ obj_label }}));
+                    }
+                });
+            }
+        });
+    }
+</script>

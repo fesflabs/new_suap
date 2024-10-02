@@ -1,0 +1,39 @@
+{% extends super_template %}
+
+{% block content %}
+
+{% box 'Grupos' %}
+<div class="table-responsive">
+    <table>
+        <thead>
+            <tr>
+                <th>Módulo</th>
+                <th>Grupo(s)</th>
+                <th class="no-print">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app, grupos in apps.items %}
+                <tr>
+                    <td class="negrito" rowspan="{{ grupos|length }}">{{ app }}</td>
+                    {% for grupo in grupos %}
+                        {% if not forloop.first %}<tr>{% endif %}
+                        <td>{{ grupo.0.group.name }}</td>
+                        <td class="no-print">
+                        {% if grupo.1 and grupo.2 %}
+                            <a href="/comum/remover_usuario_grupo/{{ grupo.0.id }}/" class="btn danger">Remover do Grupo</a>
+                        {% elif grupo.1 and not grupo.2 and grupo.0.user.get_vinculo.setor.uo == request.user.get_vinculo.setor.uo %}
+                            <a href="/comum/remover_usuario_grupo/{{ grupo.0.id }}/" class="btn danger">Remover do Grupo</a>
+                        {% else %}
+                            -
+                        {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                {% if forloop.last %}</tr>{% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endbox %}
+
+{% endblock %}

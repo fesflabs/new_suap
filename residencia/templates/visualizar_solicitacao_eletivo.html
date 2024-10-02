@@ -1,0 +1,111 @@
+{% extends super_template %}
+
+{% block content %}
+    {% if alerta %}
+        <div class="msg alert">
+            {{ alerta }}
+        </div>
+    {% endif %}
+
+    {% box "Dados Residente" %}
+        <div class="photo-circle big">
+            <img src="{{ obj.residente.get_foto_150x200_url }}" alt="Foto de {{ obj.residente.get_nome }}">
+        </div>
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-50">
+                <dt>Nome</dt>
+                <dd>{{ obj.residente.get_nome|normalizar }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Categoria Profissional</dt>
+                <dd>{{ obj.residente.categoria|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Endereço Residencial</dt>
+                <dd>{{ obj.residente.get_endereco|format|normalizar }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>E-mail Pessoal</dt>
+                <dd>{{ obj.residente.email_secundario|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Telefone Principal</dt>
+                <dd>{{ obj.residente.telefone_principal|format|format_phone }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Celular</dt>
+                <dd>{{ obj.residente.telefone_secundario|format|format_phone }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Telefone do Responsável</dt>
+                <dd>{{ obj.residente.telefone_adicional_1|format|format_phone }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Telefone Adicional do Responsável</dt>
+                <dd>{{ obj.residente.telefone_adicional_2|format|format_phone }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% box "Dados da Solicitação" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>{{ obj|verbose:'numero_seguro' }}</dt>
+                <dd>{{ obj.numero_seguro|normalizar }}</dd>
+            </div>
+        </dl>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>{{ obj|verbose:'nome_servico' }}</dt>
+                <dd>{{ obj.nome_servico|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'cidade_servico' }}</dt>
+                <dd>{{ obj.cidade_servico|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'data_inicio' }}</dt>
+                <dd>{{ obj.data_inicio|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'data_fim' }}</dt>
+                <dd>{{ obj.data_fim|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'local_estagio' }}</dt>
+                <dd>{{ obj.local_estagio|linebreaks }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'justificativa_estagio' }}</dt>
+                <dd>{{ obj.justificativa_estagio|linebreaks }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'solicitado_em' }}</dt>
+                <dd>{{ obj.solicitado_em|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'alterado_em' }}</dt>
+                <dd>{{ obj.alterado_em|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{{ obj|verbose:'situacao' }}</dt>
+                <dd>{{ obj.get_situacao_display|format }}</dd>
+            </div>
+            {% if obj.parecer %}
+                <div class="list-item">
+                    <dt>{{ obj|verbose:'parecer' }}</dt>
+                    <dd>{{ obj.parecer|linebreaks }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{{ obj|verbose:'parecer_autor_vinculo' }}</dt>
+                    <dd>{{ obj.parecer_autor_vinculo|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{{ obj|verbose:'parecer_data' }}</dt>
+                    <dd>{{ obj.parecer_data|format }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+{% endblock %}

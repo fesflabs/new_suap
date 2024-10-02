@@ -1,0 +1,154 @@
+
+// Brand Colors
+$brand-color:     #347b3e;
+$secondary-color: #75ad0a;
+
+$primary-50:      #a3d8aa;
+$primary-100:     #73c47e;
+$primary-200:     #5bba68;
+$primary-300:     #48ab56;
+$primary-400:     #3e934a;
+$primary-500:     $brand-color;
+$primary-600:     #2a6332;
+$primary-700:     #204b26;
+$primary-800:     #16331a;
+$primary-900:     #0c1c0e;
+
+// Color Scale
+$white:           #fff;
+$grey-50:         #fefefe;
+$grey-100:        #f6f6f6;
+$grey-200:        #eee;
+$grey-300:        #ddd;
+$grey-400:        #ccc;
+$grey-500:        #999;
+$grey-600:        #666;
+$grey-700:        #555;
+$grey-800:        #444;
+$grey-900:        #333;
+$black:           #292929;
+
+// Form Colors
+$input-bg-color:       $white;
+$input-filled-color:   #d5f6da;
+$light-filled-color:   #effbe7;
+
+// Extra Colors
+$flat-green:           #25a25a;     $flat-dark-green:      #1c7943;     $flat-light-green:     #2ecc71;
+$flat-blue:            #3498db;     $flat-dark-blue:       #217dbb;
+$flat-yellow:          #c29d0b;     $flat-dark-yellow:     #927608;     $flat-darker-yellow:   #614f06;         $flat-light-yellow:     #f1c40f;
+$flat-red:             #e74c3c;     $flat-dark-red:        #d62c1a;     $flat-darker-red:      #a82315;
+$flat-orange:          #e98b39;
+$flat-purple:          #9b59b6;
+$flat-lemon:           #8bc34a;
+$flat-ocean:           #16a085;
+
+// Layout Colors
+$body-bg-color:        $black;
+$alertas-bg-color:     $grey-200;
+$aside-bg-color:       $black;
+$aside-right-bg-color: $grey-100;
+$breadcrumbs-color:    $grey-500;
+$button-active-color:  $black;
+$debug-color:          #800;
+$disabled-color:       #e6e6e6;
+$false-color:          $flat-red;
+$hover-color:          $black;
+$link-color:           $brand-color;
+$main-bg-color:        $white;
+$main-index-bg-color:  $grey-100;
+$status-default-color: $black;
+$usertools-bg-color:   $grey-900;
+$usertools-text-color: $grey-500;
+
+// Status Colors
+$success-color:        $flat-green;
+$success-active-color: $flat-dark-green;
+$primary-color:        $flat-blue;
+$primary-active-color: $flat-dark-blue;
+$warning-color:        $flat-yellow;
+$warning-active-color: $flat-dark-yellow;
+$warning-border-color: $flat-darker-yellow;
+$danger-color:         $flat-red;
+$danger-active-color:  $flat-dark-red;
+$danger-border-color:  $flat-darker-red;
+$default-color:        $grey-300;
+$default-active-color: $grey-400;
+
+// Menu Colors
+$menu-3-level-color:   $grey-300;
+$menu-4-level-color:   $grey-400;
+$menu-5-level-color:   $grey-500;
+$menu-6-level-color:   $grey-600;
+
+// Components Colors
+$ancoras-bg-color:               $aside-right-bg-color;
+$calendario-referencia-bg-color: $grey-200;
+$step-bg-color:                  $grey-200;
+$step-gap-color:                 $white;
+$timeline-text-color:            $black;
+$timeline-alert-text-color:      $black;
+$timeline-alert-title-color:     $warning-border-color;
+$timeline-default-text-color:    $black;
+$timeline-default-title-color:   $black;
+$timeline-error-text-color:      $black;
+$timeline-error-title-color:     $flat-red;
+$timeline-extra-text-color:      $black;
+$timeline-extra-title-color:     $flat-orange;
+$timeline-info-text-color:       $black;
+$timeline-info-title-color:      $flat-blue;
+$timeline-success-text-color:    $black;
+$timeline-success-title-color:   $flat-green;
+
+// Fonts
+$primary-font-family:      "Open Sans", "Lato", sans-serif;
+$monospace-font-family:    Monaco, monospace;
+$awesome-font-family:      "Font Awesome 5 Free";
+
+// Layout
+$basis-nav:                246px;
+$basis-nav-collapsed:      60px;
+$basis-aside:              280px;
+$grid-area-end-row-2:      "asidenav footer";
+$grid-area-end-row-3:      "asidenav footer footer";
+
+// Margins and gaps
+$main-p:                   4rem;
+$main-pt:                  $main-p;
+$main-pr:                  $main-p;
+$main-pb:                  8rem;
+$main-pl:                  5rem;
+$main-p-sm:                2rem;
+$main-pt-sm:               $main-p-sm;
+$main-pr-sm:               $main-p-sm;
+$main-pb-sm:               3rem;
+$main-pl-sm:               3rem;
+$card-padding:             2.5rem;
+$gap:                      1rem;
+$regular-gap:              $main-p;
+$regular-margin:           1.5rem;
+$regular-padding:          4rem;
+$menu-margin:              $regular-margin;
+
+// Forms
+$labels-margin-right:      10px;
+$labels-width:             150px;
+$max-width-inputs:         calc(100% - 160px);
+
+// Opacity
+$opacity-bg-alertas:        0.15;
+$opacity-bg-legenda:        0.4;
+$opacity-bg-msg:            0.2;
+$opacity-bg-status:         0.2;
+$timeline-bg-opacity:       0.1;
+$timeline-bg-inner-opacity: $opacity-bg-legenda;
+$timeline-details-opacity:  $timeline-bg-opacity;
+
+// Styling
+$title-container-color:    $black;
+$title-container-size:     2.5rem;
+$title-container-weight:   700;
+
+// Functional
+$border-radius:            5px;
+$box-shadow:               10px 10px 35px 0 rgba(0, 0, 0, 0.05);

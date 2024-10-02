@@ -1,0 +1,25 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+    <div class="card-container">
+        {% for vinculo in vinculos %}
+            <div class="card">
+                <div class="photo">
+                    <img src="{{ vinculo.relacionamento.get_foto_150x200_url }}" alt="Foto de {{ vinculo.relacionamento.nome|format }}">
+                </div>
+                <h4>{{ vinculo.relacionamento }}</h4>
+                <dl>
+                    <dt>Vínculo:</dt>
+                    <dd>{{ vinculo.relacionamento|classname }}</dd>
+                </dl>
+                <div class="content">
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="?vinculo_id={{ vinculo.id }}">Entrar</a></li>
+                    </ul>
+                </div>
+                {% if vinculo.user.last_login %}<footer>Último login em {{ vinculo.user.last_login }}</footer>{% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

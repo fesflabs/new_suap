@@ -1,0 +1,490 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/joint/lodash.js"></script>
+    <script src="/static/djtools/joint/backbone.js"></script>
+    <script src="/static/djtools/joint/joint.js"></script>
+    <script src="/static/edu/js/Matriz.js"></script>
+{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" type="text/css" href="/static/djtools/joint/joint.css"/>
+    <style>
+        .extra-info {
+            background-color: #f8dac6;
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block object-status %}
+{% if obj.ativo %}<span class="status status-success">Ativa</span>{% else %}<span class="status status-error">Inativa</span>{% endif %}
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if perms.edu.add_componentecurricular %}
+            <li><a href="/edu/replicar_matriz/{{ obj.pk }}/" class='btn success'>Replicar Matriz</a></li>
+            <li><a class="btn" href="/edu/importar_componentes_matriz/{{ obj.pk }}/">Importar Componentes</a></li>
+        {% endif %}
+        <li><a class="btn" href="/edu/matriz/{{ obj.pk }}/?xls=1">Exportar para XLS</a></li>
+        {% help_button %}
+        {% if perms.edu.add_matriz %}
+            <li class="has-child">
+                <a class="btn default" href="#">Impressões</a>
+                <ul>
+                    <li><a href="/edu/matriz_pdf/{{ obj.pk }}/">Matriz</a></li>
+                    <li><a href="/edu/matriz_nucleo_pdf/{{ obj.pk }}/">Carga Horária da Matriz</a></li>
+                    <li><a href="/edu/grade_curricular/{{ obj.pk }}/">Pré/Co-Requisitos</a></li>
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if not obj.pode_ser_editada and not request.user.is_superuser %}
+        <p class="msg alert">Esta matriz não pode ser editada, pois existem alunos vinculados a ela com a situação
+            "Concluído".</p>
+    {% endif %}
+
+    {% if obj.inconsistente %}
+        <div class="msg alert">
+            <p>Esta matriz está inconsistente:</p>
+            <ul>
+                {% if obj.is_ch_componentes_obrigatorios_faltando %}
+                    <li>Falta definir <strong>{{ obj.get_ch_componentes_obrigatorios_faltando }} horas</strong> de
+                        Componentes Obrigatórios
+                    </li>
+                {% else %}
+                    {% if not obj.is_ch_componentes_obrigatorios_consistente %}
+                        <li>A carga horária de componentes obrigatórios ultrapassa a quantidade prevista para matriz.
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% if obj.is_ch_componentes_optativos_faltando > 0 %}
+                    <li>Falta definir <strong>{{ obj.get_ch_componentes_optativos_faltando }} horas</strong> de
+                        Componentes Optativos
+                    </li>
+                {% endif %}
+                {% if obj.is_ch_componentes_seminario_faltando %}
+                    <li>Falta definir <strong>{{ obj.get_ch_componentes_seminario_faltando }} horas</strong> de
+                        Componentes Seminários
+                    </li>
+                {% endif %}
+                {% if obj.is_ch_componentes_pratica_profissional_faltando %}
+                    <li>Falta definir <strong>{{ obj.get_ch_componentes_pratica_profissional_faltando }} horas</strong>
+                        de Prática Profissional
+                    </li>
+                {% endif %}
+                {% if obj.is_ch_componentes_tcc_faltando %}
+                    <li>Falta definir <strong>{{ obj.get_ch_componentes_tcc_faltando }} horas</strong> de Componentes de
+                        TCC
+                    </li>
+                {% endif %}
+                {% if obj.is_configuracao_atividade_academica_faltando %}
+                    <li>Falta definir <strong>Configuração de Atividade Complementar</strong></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% box "Dados Gerais" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Descrição</td>
+                <dd>{{ obj.descricao }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Estrutura de Curso</dt>
+                <dd><a href="/edu/estruturacurso/{{ obj.estrutura.pk }}/">{{ obj.estrutura|format }}</a></dd>
+            </div>
+            <div class="list-item">
+                <dt>Campi</dt>
+                {% for uo in obj.get_uos %}
+                    <dd>{{ uo.nome }}</dd>
+                {% endfor %}
+            </div>
+            <div class="list-item">
+                <dt>Quantidade de Períodos Letivos</dt>
+                <dd>{{ obj.qtd_periodos_letivos }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Configuração ACC</dt>
+                <dd>
+                    {% if obj.configuracao_atividade_academica %}
+                        <a href="/edu/configuracaoatividadecomplementar/{{ obj.configuracao_atividade_academica.pk }}/">{{ obj.configuracao_atividade_academica }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Configuração de Créditos Especiais</dt>
+                <dd>
+                    {% if obj.configuracao_creditos_especiais %}
+                        <a href="/edu/configuracaocreditosespeciais/{{ obj.configuracao_creditos_especiais.pk }}/">{{ obj.configuracao_creditos_especiais }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Configuração ATPA</dt>
+                <dd>
+                    {% if obj.configuracao_atividade_aprofundamento %}
+                        <a href="/edu/configuracaoatividadeaprofundamento/{{ obj.configuracao_atividade_aprofundamento.pk }}/">{{ obj.configuracao_atividade_aprofundamento }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container" data-title="Componentes Curriculares" data-counter="{{ obj.componentecurricular_set.count }}"
+         data-tab="componentes">
+        {% if perms.edu.change_matriz %}
+            {% if request.user.is_superuser or perms.edu.add_componentecurricular and obj.pode_ser_editada %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/edu/vincular_componente/{{ obj.pk }}/">Vincular Componente</a></li>
+                </ul>
+            {% endif %}
+        {% endif %}
+
+        {% if componentes_curriculares.exists %}
+            <div class="table-responsive">
+            <table>
+                <thead>
+                <tr>
+                    {% if request.user.is_superuser or perms.edu.change_componentecurricular and obj.pode_ser_editada %}
+                        <th class="no-print">Ações</th>
+                    {% endif %}
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'periodo_letivo' %}-{% endif %}periodo_letivo">Período</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'componente__sigla' %}-{% endif %}componente__sigla">Sigla</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'componente__descricao' %}-{% endif %}componente__descricao">Componente</a>
+                    </th>
+                    <th><a href="?tab=componentes&order={% if request.GET.order == 'tipo' %}-{% endif %}tipo">Tipo</a>
+                    </th>
+                    <th><a href="?tab=componentes&order={% if request.GET.order == 'optativo' %}-{% endif %}optativo">Optativo</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'pode_fechar_pendencia' %}-{% endif %}pode_fechar_pendencia">Fecha
+                            com Pendência</a></th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'qtd_avaliacoes' %}-{% endif %}qtd_avaliacoes">Avaliações</a>
+                    </th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'nucleo' %}-{% endif %}nucleo">Núcleo</a>
+                    </th>
+                    {% if exibir_classificacao_complementar %}
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'classificacao_complementar' %}-{% endif %}classificacao_complementar">Classificação Complementar</a>
+                    </th>
+                    {% endif %}
+                    {% if obj.estrutura.tipo_avaliacao == 4 %}
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'tipo_modulo' %}-{% endif %}tipo_modulo">Módulo</a>
+                    </th>
+                    {% endif %}
+                    <th>CH Componente</th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'ch_presencial' %}-{% endif %}ch_presencial">CH
+                            Teórica</a></th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'ch_pratica' %}-{% endif %}ch_pratica">CH
+                            Prática</a></th>
+                    <th>
+                        <a href="?tab=componentes&order={% if request.GET.order == 'componente__ch_qtd_creditos' %}-{% endif %}componente__ch_qtd_creditos">Créditos</a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for componente_curricular in componentes_curriculares.all|order:request %}
+                    <tr>
+                        {% if request.user.is_superuser or perms.edu.change_componentecurricular and obj.pode_ser_editada %}
+                            <td class="no-print field-get_acoes">
+                                {% if perms.edu.change_componentecurricular %}
+                                    {% icon "edit" "/edu/vincular_componente/{{ obj.pk }}/{{ componente_curricular.componente.pk }}/" "Editar Vínculo" %}
+                                {% endif %}
+                                {% if perms.edu.delete_componentecurricular %}
+                                    {% icon "delete" "/comum/excluir/edu/componentecurricular/{{ componente_curricular.pk }}/" "Desvincular" "no-confirm popup" %}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        <td class="text-center">{{ componente_curricular.periodo_letivo|format }}</td>
+                        <td>{{ componente_curricular.componente.sigla }}</td>
+                        <td>{{ componente_curricular.componente.descricao }}</td>
+                        <td>{{ componente_curricular.get_tipo_display }}</td>
+                        <td class="text-center">{{ componente_curricular.optativo|format }}</td>
+                        <td class="text-center">{{ componente_curricular.pode_fechar_pendencia|format }}</td>
+                        <td class="text-center">{{ componente_curricular.qtd_avaliacoes }}</td>
+                        <td>{{ componente_curricular.nucleo }}</td>
+                        {% if exibir_classificacao_complementar %}
+                            <td class="text-center">{{ componente_curricular.classificacao_complementar|format }}</td>
+                        {% endif %}
+                        {% if obj.estrutura.tipo_avaliacao == 4 %}
+                        	<td>{{ componente_curricular.get_tipo_modulo_display|format }}</td>
+                        {% endif %}
+                        <td>
+                            <p>Relógio: <strong>{{ componente_curricular.componente.ch_hora_relogio }}</strong></p>
+                            <p>Aula: <strong>{{ componente_curricular.componente.ch_hora_aula }}</strong></p>
+                        </td>
+                        <td class="text-center">{{ componente_curricular.ch_presencial }}</td>
+                        <td class="text-center">{{ componente_curricular.ch_pratica }}</td>
+                        <td class="text-center">{{ componente_curricular.componente.ch_qtd_creditos }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        {% else %}
+            <p class="msg alert">Nenhum componente vinculado à matriz.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-title="Criação e Carga Horária" data-tab="carga_horaria">
+        {% box "Criação" %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Ano de Criação</dt>
+                    <dd>{{ obj.ano_criacao|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Período de Criação</dt>
+                    <dd>{{ obj.periodo_criacao|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data de Início</dt>
+                    <dd>{{ obj.data_inicio|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data de Fim</dt>
+                    <dd>{{ obj.data_fim|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>PPP</dt>
+                    <dd><a href="{{ obj.ppp.url }}">{{ obj.ppp.name }}</a></dd>
+                </div>
+            </dl>
+        {% endbox %}
+
+        {% box "Carga Horária ({{ obj.get_carga_horaria_total_prevista }}h)" %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Componentes Regulares Obrigatórios</dt>
+                    <dd>{{ obj.ch_componentes_obrigatorios }} horas ({{ obj.get_ch_componentes_obrigatorios }}
+                        definidas)
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Componentes Regulares Optativos</dt>
+                    <dd>{{ obj.ch_componentes_optativos|format }} horas ({{ obj.get_ch_componentes_optativos }}
+                        definidas)
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Componentes Eletivos</dt>
+                    <dd>{{ obj.ch_componentes_eletivos }} horas</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Componentes de Seminários</dt>
+                    <dd>{{ obj.ch_seminarios }} horas ({{ obj.get_ch_componentes_seminario }} definidas)</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Componentes de Prática Profissional</td>
+                    <dd>{{ obj.ch_pratica_profissional }} horas ({{ obj.get_ch_componentes_pratica_profissional }}
+                        definidas)
+                    </dd>
+                </div>
+                <div class="list-item">
+                    <dt>Componentes de TCC</dt>
+                    <dd>{{ obj.ch_componentes_tcc }} horas ({{ obj.get_ch_componentes_tcc }} definidas)</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Atividades Complementares</dt>
+                    <dd>{{ obj.ch_atividades_complementares }} horas</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Atividades Teórico-Práticas de Aprofundamento</dt>
+                    <dd>{{ obj.ch_atividades_aprofundamento }} horas</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Atividades de Extensão</dt>
+                    <dd>{{ obj.ch_atividades_extensao }} horas</dd>
+                </div>
+            </dl>
+        {% endbox %}
+
+        {% box 'Trabalho de Conclusão de Curso' %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Exige Apresentação de TCC</dt>
+                    <dd>{{ obj.exige_tcc|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+
+        {% box 'Estágio' %}
+            <dl class="definition-list flex">
+                {% if obj.exige_estagio %}
+                    <div class="list-item">
+                        <dt>Exige Estágio e Afins</dt>
+                        <dd>{{ obj.exige_estagio|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Carga Horária Mínima</dt>
+                        <dd>{{ obj.ch_minima_estagio|format }}</dd>
+                    </div>
+                {% endif %}
+                <div class="list-item">
+                    <dt>Período Mínimo para Estágio Obrigatório</dt>
+                    <dd>{{ obj.periodo_minimo_estagio_obrigatorio|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Período Mínimo para Estágio Não Obrigatório</dt>
+                    <dd>{{ obj.periodo_minimo_estagio_nao_obrigatorio|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Grade Curricular" data-tab="grade_curricular">
+        {% box "Grade Curricular" %}
+            <div class='msg info'>
+                <ul>
+                    <li><span class='fontSize180'>&#10142;</span> (Setas cheias) são pré-requisitos</li>
+                    <li><span class='fontSize180'>&#8674;</span> (Setas tracejadas) são co-requisitos</li>
+                </ul>
+            </div>
+            <div id="module"></div>
+            <div id="matriz"
+                 {% if not request.user.is_superuser %}{% if not obj.pode_ser_editada or not pode_editar_matriz %}style="pointer-events:none" {% endif %}{% endif %}>
+            </div>
+            <script>
+                draw_rectangle('{{ obj.toJson|safe }}', '{{ obj.get_numero_linhas }}', '{{ obj.get_numero_colunas }}');
+            </script>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Pré/Co-Requisitos" data-tab="pre_requisitos">
+        {% box "Pré/Co-Requisitos" %}
+            {% if componentes_curriculares.exists %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        {% if request.user.is_superuser or perms.edu.change_componentecurricular and obj.pode_ser_editada %}
+                            <th class="no-print">Ações</th>
+                        {% endif %}
+                        <th class="text-center">
+                            <a href="?tab=componentes&order={% if request.GET.order == 'periodo_letivo' %}-{% endif %}periodo_letivo">Período</a>
+                        </th>
+                        <th>
+                            <a href="?tab=componentes&order={% if request.GET.order == 'componente__sigla' %}-{% endif %}componente__sigla">Sigla</a>
+                        </th>
+                        <th>
+                            <a href="?tab=componentes&order={% if request.GET.order == 'componente__descricao' %}-{% endif %}componente__descricao">Componente</a>
+                        </th>
+                        <th>Pré-Requisitos</th>
+                        <th>Co-Requisitos</th>
+                        <th>Componente Associado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for componente_curricular in componentes_curriculares.all|order:request %}
+                        <tr>
+                            {% if request.user.is_superuser or perms.edu.change_componentecurricular and obj.pode_ser_editada %}
+                                <td class="no-print">
+                                    {% icon "edit" "/edu/definir_requisitos/{{ componente_curricular.pk }}/" "Editar Vínculo" "popup" %}
+                                </td>
+                            {% endif %}
+                            <td class="text-center">{{ componente_curricular.periodo_letivo|format }}</td>
+                            <td>{{ componente_curricular.componente.sigla }}</td>
+                            <td>
+                                {{ componente_curricular.componente.descricao }}</td>
+                            <td>
+                                {% if componente_curricular.pre_requisitos.exists %}
+                                    <ul>
+                                        {% for pre_requisito in componente_curricular.pre_requisitos.all %}
+                                            <li>{{ pre_requisito.componente.sigla }}
+                                                - {{ pre_requisito.componente.descricao }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if componente_curricular.co_requisitos.exists %}
+                                    <ul>
+                                        {% for co_requisito in componente_curricular.co_requisitos.all %}
+                                            <li>{{ co_requisito.componente.sigla }}
+                                                - {{ co_requisito.componente.descricao }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if componente_curricular.componente_curricular_associado %}
+                                    {{ componente_curricular.componente_curricular_associado.componente.sigla }} -
+                                    {{ componente_curricular.componente_curricular_associado.componente.descricao }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum componente vinculado à matriz.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Cursos e Alunos" data-tab="cursos_alunos">
+        {% box "Cursos" %}
+            {% if obj.matrizcurso_set.exists %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">Ações</th>
+                        <th>Curso</th>
+                        <th>Autorização</th>
+                        <th>Reconhecimento</th>
+                        <th class="no-print">Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for matriz_curso in obj.matrizcurso_set.all %}
+                        <tr>
+                            <td class="no-print">{% icon "view" "/edu/cursocampus/{{ matriz_curso.curso_campus.pk }}/" %}</td>
+                            <td>{{ matriz_curso.curso_campus }}</td>
+                            <td>{% if matriz_curso.resolucao_data %}{{ matriz_curso.resolucao_data|format }} - {% endif %}{{ matriz_curso.resolucao_criacao|format }}</td>
+                            <td>{% if matriz_curso.reconhecimento_data %}{{ matriz_curso.reconhecimento_data|format }} - {% endif %}{{ matriz_curso.reconhecimento_texto|format }}</td>
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    {% if is_avaliador_regulador %}
+                                        <li><a href="/edu/editar_legislacao_matriz/{{ matriz_curso.pk }}/" class="btn primary popup">Editar Legislação</a></li>
+                                    {% endif %}
+                                    <li><a href="/edu/relatorio/?matriz={{ matriz_curso.matriz.pk }}&curso_campus={{ matriz_curso.curso_campus.pk }}&formatacao=simples&ordenacao=Nome&agrupamento=Campus&exibicao=situacao&quantidade_itens=25"
+                                    class="btn default">Ver Alunos</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum curso vinculado à matriz.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+{% endblock %}

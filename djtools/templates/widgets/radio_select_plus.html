@@ -1,0 +1,11 @@
+{% with id=widget.attrs.id %}
+    <ul{% if id %} id="{{ id }}"{% endif %} class="checkboxes">
+        {% for group, options, index in widget.optgroups %}
+            {% for option in options %}
+                <li>{% include option.template_name with widget=option %}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+    <button class="btn danger no-confirm" onclick="$(this).parent().find(':checked').prop('checked', false);" type="button">Limpar
+        Seleção</button>
+{% endwith %}

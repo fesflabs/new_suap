@@ -1,0 +1,33 @@
+<script src='/static/djtools/jquery/jquery.maskedinput.js'></script>
+<script src='/static/djtools/jquery/widgets-core.js'></script>
+<script src='/static/comum/js/controlurlparams.js'></script>
+<script>
+    function checkValidDate(lookup){
+        var date = $(lookup).val();
+        try{
+            if(date.length!=10) return $(lookup).val("");
+            $.datepicker.parseDate("dd/mm/yy",date);
+        }
+        catch(e){
+            $(lookup).val("")
+        }
+    }
+    $( document ).ready(function() {
+        $("#id_drf__{{ choices.0.field_path }}__gte").datepicker();
+        $("#id_drf__{{ choices.1.field_path }}__lte").datepicker();
+        $("#id_drf__{{ choices.0.field_path }}__gte").focusout(function() {checkValidDate(this);});
+        $("#id_drf__{{ choices.1.field_path }}__lte").focusout(function() {checkValidDate(this);});
+    });
+</script>
+
+<div class="filter daterangefilter">
+    <label>{{ title }}:</label>
+
+    <input id="id_drf__{{ choices.0.field_path }}__gte"
+           class="br-data-widget" name="drf__{{ choices.0.field_path }}__gte" type="text"
+           placeholder="A partir de" size="10" value="{{ choices.0.value }}" />
+
+    <input id="id_drf__{{ choices.1.field_path }}__lte"
+           class="br-data-widget" name="drf__{{ choices.1.field_path }}__lte" type="text"
+           placeholder="Até" size="10" value="{{ choices.1.value }}" />
+</div>

@@ -1,0 +1,33 @@
+{% extends "admin/base.html" %}
+
+
+
+{% block extrahead %}
+{% media_filter_box %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+    <script>
+        {% for graf in graficos %}
+            {{ graf|safe }}
+        {% endfor %}
+    </script>
+{% endblock %}
+
+{% block content %}
+{#    <ul class="action-bar">#}
+{#        <li><a href="/cnpq/?{{ request.META.QUERY_STRING }}&xls=1">Exportar para XLS</a></li>#}
+{#    </ul>#}
+
+    <div class="search-and-filters">
+        <form id="filtro" method="get">
+            {% render_form form False %}
+        </form>
+    </div>
+
+    {% box "{{ titulo_box }}" %}
+        <div id="grafico1" class="grafico100"></div>
+    {% endbox %}
+
+
+	
+{% endblock %}

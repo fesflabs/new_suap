@@ -1,0 +1,50 @@
+{% extends super_template %}
+
+
+{% block content %}
+	<div class="box">
+		<h3 title="Esconder informações">
+	        Relação de Candidatos - ({{ obj.lista }}) {% if obj.linha_pesquisa %} - {{ obj.linha_pesquisa }} {% endif %}
+	    </h3>
+	    <div>
+	    	{% if candidatos.exists %}
+                {% autopaginate candidatos 50 %}
+
+				<table>
+					<thead>
+						<tr>
+							<th>Classificação</th>
+							<th>Aprovado</th>
+							<th>Eliminado</th>
+							<th>CPF</th>
+							<th>Nome</th>
+							<th>Telefone</th>
+							<th>E-mail</th>
+							<th>Endereço</th>
+							<th>Pontuação</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for candidatovaga in candidatos %}
+						<tr>
+							<td>{% if candidatovaga.classificacao %}{{ candidatovaga.classificacao|format }}º Lugar{% else %}Não-classificado{% endif %}</td>
+							<td>{{ candidatovaga.aprovado|format }}</td>
+							<td>{{ candidatovaga.eliminado|format }}</td>
+							<td>{{ candidatovaga.candidato.cpf|format }}</td>
+							<td>{{ candidatovaga.candidato.nome|format }}</td>
+							<td>{{ candidatovaga.candidato.telefone|format }}</td>
+							<td>{{ candidatovaga.candidato.email|format }}</td>
+                            <td> </td>
+							<td> </td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+                {% paginate %}
+	    	{% else %}
+	    		<p class="msg alert">Nenhum candidato para esta oferta de vaga.</p>
+	    	{% endif %}
+	    </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends super_template %} 
+
+
+{% block content %}
+
+    {% if acesso_total %}
+        <ul class="action-bar">
+            {% if not obj.data_prova %}
+                <li class="has-child">
+                    <a href="#" class="btn success">Processar Lista de Convocados</a>
+                    <ul>
+                        <li><a href="/edu/atualizar_lista_convocados_enade/{{ obj.pk }}/">Somente um Curso</a></li>
+                        <li><a href="/edu/atualizar_lista_convocados_enade/{{ obj.pk }}/?curso_campus=">Todos os Cursos</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            <li><a class="btn" href="/edu/imprimir_lista_convocados_enade_pdf/{{ obj.pk }}/">Exportar PDF</a></li>
+            <li><a class="btn" href="?xls=1">Exportar XLS</a></li>
+        </ul>
+    {% endif %}
+
+    {% if obj.data_prova %}
+        <p class="msg alert">A lista de convocados não poderá ser atualizada devido a definição da Data de Realização da Prova.</p>
+    {% endif %}
+
+    {% box "Dados da Convocação" %}
+        <table class="info">
+            <tbody>
+            <tr>
+                <td>Ano Letivo:</td>
+                <td>{{ obj.ano_letivo }}</td>
+
+                <td>Data da Realização da Prova:</td>
+                <td>{{ obj.data_prova|format }}</td>
+            </tr>
+            <tr>
+                <td>Descrição:</td>
+                <td colspan="3">{{ obj.descricao|format }}</td>
+            </tr>
+            <tr>
+                <td>Portaria:</td>
+                <td>
+                    {% if obj.portaria %}
+                        <a href="{{ obj.portaria.url }}">{{ obj.portaria|filename }}</a>
+                    {% else %}-
+                    {% endif %}
+                </td>
+                <td>Edital:</td>
+                <td>
+                    {% if obj.edital %}
+                        <a href="{{ obj.edital.url }}">{{ obj.edital|filename }}</a>
+                    {% else %}-
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>C.H - Alunos Ingressantes:</td>
+                <td>{{ obj.percentual_minimo_ingressantes }}% a {{ obj.percentual_maximo_ingressantes }}%</td>
+                <td>C.H - Alunos Concluintes:</td>
+                <td>{{ obj.percentual_minimo_concluintes }}% a {{ obj.percentual_maximo_concluintes }}%</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% box "Quadro de Convocados" %}
+        {% if tabela %}
+            <table>
+                <thead>
+                <tr>
+                    <th class="no-print">Ações</th>
+                    <th>Curso</th>
+                    <th>Campus</th>
+                    <th class="text-center">Alunos Ingressantes</th>
+                    <th class="text-center">Alunos Concluintes</th>
+                    <th class="text-center">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for registro in tabela %}
+                    <tr>
+                        <td class="no-print">{% icon "view" "/edu/convocados_enade/{{ obj.pk }}/{{ registro.curso_campus.pk }}/" %}</td>
+                        <td><strong>{{ registro.curso_campus.codigo }}</strong>
+                            - {{ registro.curso_campus.descricao_historico }}</td>
+                        <td>{{ registro.curso_campus.diretoria.setor.uo }}</td>
+                        <td class="text-center">{{ registro.total_ingressantes }}</td>
+                        <td class="text-center">{{ registro.total_concluintes }}</td>
+                        <td class="text-center">{{ registro.total_alunos }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Não há convocados.</p>
+        {% endif %}
+    {% endbox %}
+
+    {% box "Quadro de Não-Convocados" %}
+        {% if tabela_nao_convocados %}
+            <table>
+                <thead>
+                <tr>
+                    <th class="no-print">Ações</th>
+                    <th>Curso</th>
+                    <th>Campus</th>
+                    <th class="text-center">Alunos Ingressantes</th>
+                    <th class="text-center">Alunos Concluintes</th>
+                    <th class="text-center">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for registro in tabela_nao_convocados %}
+                    <tr>
+                        <td class="no-print">{% icon "view" "/edu/convocados_enade/{{ obj.pk }}/{{ registro.curso_campus.pk }}/" %}</td>
+                        <td><strong>{{ registro.curso_campus.codigo }}</strong>
+                            - {{ registro.curso_campus.descricao_historico }}</td>
+                        <td>{{ registro.curso_campus.diretoria.setor.uo }}</td>
+                        <td class="text-center">{{ registro.total_ingressantes }}</td>
+                        <td class="text-center">{{ registro.total_concluintes }}</td>
+                        <td class="text-center">{{ registro.total_alunos }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum registro encontrado.</p>
+        {% endif %}
+    {% endbox %}
+
+
+{% endblock %}

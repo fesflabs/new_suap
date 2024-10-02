@@ -1,0 +1,91 @@
+
+
+    {% if atendimento.is_aberto %}
+        {% if atendimento.is_atendimento_avaliacao_biomedica or atendimento.is_atendimento_multidisciplinar %}
+            {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_odontologo or especialidade.is_fisioterapeuta or especialidade.is_nutricionista or especialidade.is_auxiliar_enfermagem %}
+                <ul class="action-bar">
+                    {% if atendimento.antecedentesfamiliares_set.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% elif atendimento.is_atendimento_enfermagem_medico %}
+            {% if is_medico %}
+                <ul class="action-bar">
+                    {% if atendimento.antecedentesfamiliares_set.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% elif atendimento.is_atendimento_odontologico %}
+            {% if is_odontologo %}
+                <ul class="action-bar">
+                    {% if atendimento.antecedentesfamiliares_set.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% elif atendimento.is_atendimento_nutricional %}
+            {% if especialidade.is_nutricionista %}
+                <ul class="action-bar">
+                    {% if atendimento.antecedentesfamiliares_set.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% elif atendimento.is_atendimento_fisioterapia %}
+            {% if especialidade.is_fisioterapeuta %}
+                <ul class="action-bar">
+                    {% if atendimento.antecedentesfamiliares_set.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success" href="/saude/adicionar_antecedentesfamiliares/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% if antecedentesfamiliares %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Agravos à saúde com parentesco de 1º grau</dt>
+                <dd>
+                    {% if antecedentesfamiliares.agravos_primeiro_grau.all %}
+                        <ul>
+                            {% for doenca in antecedentesfamiliares.agravos_primeiro_grau.all %}
+                                <li>{{ doenca }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        -
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Agravos à saúde com parentesco de 2º grau</dt>
+                <dd>
+                    {% if antecedentesfamiliares.agravos_segundo_grau.all %}
+                        <ul>
+                            {% for doenca in antecedentesfamiliares.agravos_segundo_grau.all %}
+                                <li>{{ doenca }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        -
+                    {% endif %}
+                    </dd>
+            </div>
+        </dl>
+        <p class="obs">{{ antecedentesfamiliares_responsavel }}</p>
+    {% else %}
+        <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+    {% endif %}

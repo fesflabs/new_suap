@@ -1,0 +1,62 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+    <script>
+        {{ grafico_demandas_por_situacao|safe }}
+        {{ grafico_demandas_por_tags|safe }}
+        {{ grafico_situacoes_por_tags|safe }}
+        {{ dados_grafico_analistas|safe }}
+        {{ dados_grafico_desenvolvedores|safe }}
+        {{ grafico_tags|safe }}
+        {{ grafico_tipos|safe }}
+        {{ grafico_tipo_funcionalidade|safe }}
+        {{ grafico_tipo_manutencao|safe }}
+        {{ grafico_tipo_bug|safe }}
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% box 'Demandas' %}
+        {% if grafico_demandas_por_situacao %}
+            <div id="grafico_demandas_por_situacao" class="grafico50"></div>
+        {% endif %}
+
+        {% if grafico_demandas_por_tags %}
+            <div id="grafico_demandas_por_tags" class="grafico50"></div>
+        {% endif %}
+
+        {% if grafico_situacoes_por_tags %}
+            <div id="grafico_situacoes_por_tags" class="grafico100"></div>
+        {% endif %}
+
+    {% endbox %}
+
+    {% box 'Analistas/Desenvolvedores' %}
+        {% if dados_grafico_analistas %}
+            <div id="div_grafico_analistas" class="grafico100"></div>
+        {% endif %}
+
+        {% if dados_grafico_desenvolvedores %}
+            <div id="div_grafico_desenvolvedores" class="grafico100"></div>
+        {% endif %}
+    {% endbox %}
+
+    {% box 'Atualizações' %}
+        <div id="grafico_tags" class="grafico100"></div>
+        <div id="grafico_tipos" class="grafico100"></div>
+        {% if not form_tag %}
+            <div id="grafico_tipo_funcionalidade" class="grafico50"></div>
+            <div id="grafico_tipo_manutencao" class="grafico50"></div>
+            <div id="grafico_tipo_bug" class="grafico50"></div>
+        {% endif %}
+    {% endbox %}
+
+{% endblock %}

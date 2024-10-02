@@ -1,0 +1,15 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% if periodo.descricao %}
+        <div class="msg info">{{ periodo.descricao|striptags|safe|linebreaksbr }}</div>
+    {% endif %}
+
+    {% if form %}
+        {% box 'Informações' %}
+    	    {% render_form form %}
+        {% endbox %}
+    {% endif %}
+
+{% endblock %}

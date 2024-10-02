@@ -1,0 +1,222 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <script>
+jQuery(document).ready(function() {
+    $("input[name=inventarios]").each(function() {
+        if($(this).is(':checked')){
+            $(this).parent().parent().addClass('highlight');
+        }
+    });
+    $("input[name=inventarios]").click(function(){
+        $(this).parent().parent().toggleClass('highlight');
+    });
+});
+function marcar_todos() {
+    var todos = $('#inventarios_form input:checkbox');
+    todos.prop('checked', true);
+    todos.parent().parent().addClass('highlight');
+}
+function desmarcar_todos() {
+    var todos = $('#inventarios_form input:checkbox');
+    todos.prop('checked', false);
+    todos.parent().parent().removeClass('highlight');
+}
+</script>
+
+{% box 'Dados Gerais' %}
+    <table class="info">
+        <tr>
+            <td>Sala</td>
+            <td>{{ conferencia.sala }}</td>
+        </tr>
+        <tr>
+            <td>Responsável</td>
+            <td>{{ conferencia.responsavel }}</td>
+        </tr>
+        <tr>
+            <td>Criado em</td>
+            <td>{{ conferencia.dh_criacao|format }}</td>
+        </tr>
+    </table>
+{% endbox %}
+
+{% box 'Dados da Conferência' %}
+    <h4>Adicionar Requisição de Transferência</h4>
+    <form id="inventarios_form" action="" method="POST">
+    <fieldset>
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="field-box">
+            {{ form_requisicao.servidor_destino.errors }}
+            <label>{{ form_requisicao.servidor_destino.label }}:</label>
+            {{ form_requisicao.servidor_destino }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="field-box">
+            <label>{{ form_requisicao.descricao.label }}:</label>
+            {{ form_requisicao.descricao }}
+        </div>
+    </div>
+
+    </fieldset>
+
+    {% if conferencia.conferenciaitem_set.exists %}
+        <h4>{{ conferencia_total.qtd }} Inventários Coletados</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        {{ form_requisicao.inventarios.errors }}
+                        <a href="#" id="marcar_todos" onclick="marcar_todos(); return false;">Todos</a> -
+                        <a href="#" id="desmarcar_todos" onclick="desmarcar_todos(); return false;">Nenhum</a>
+                    </th>
+                    <th>Inventário</th>
+                    <th>Descrição</th>
+                    <th>Estado de Conservação</th>
+                    <th>Última Transferência</th>
+                    <th>Sala Atual</th>
+                    <th>Rótulos</th>
+                    <th>Carga Atual</th>
+                    <th>Data/Hora da Coleta</th>
+                    <th>Valor</th>
+                    <th class="no-print">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in conferencia.conferenciaitem_set.all %}
+                <tr>
+                    <td align="center">
+			                <input type="checkbox" name="inventarios" value="{{ i.inventario.id }}" {% if i.inventario.id in i.inventarios_ids %}checked="checked"{% endif %}>
+                    </td>
+                    <td><a href="/patrimonio/inventario/{{ i.inventario.numero }}/">{{ i.inventario.numero }}</a></td>
+                    <td>{{ i.inventario.get_descricao }}</td>
+                    <td>{{ i.inventario.estado_conservacao }}</td>
+                    <td>
+                        {% if i.inventario.get_ultima_requisicao %}
+                            {{ i.inventario.get_ultima_requisicao.get_status|safe }}
+                             <ul>
+                                <li>{{ i.inventario.get_ultima_requisicao.vinculo_destino|format }}</li>
+                                <li><a href="/patrimonio/detalhar_requisicao/{{ i.inventario.get_ultima_requisicao.id }}/">Requisição {{ i.inventario.get_ultima_requisicao.id }}</a></li>
+
+                             </ul>
+                        {% endif %}
+                    </td>
+                    <td {% if i.inventario.sala.pk != conferencia.sala.pk %} class="false"{% endif %}>{{ i.inventario.sala|format }}</td>
+                    <td>{% if i.inventario.rotulos.exists %}
+        			        {% for rotulo in i.inventario.rotulos.all %}
+                            <ul>
+                                <li>{{ rotulo.nome }}</li>
+                            </ul>
+                            {% endfor %}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td>{{ i.inventario.responsavel_vinculo|format }}</td>
+                    <td>{{ i.dh_coleta|format }}</td>
+                    <td>{{ i.inventario.get_valor|format }}</td>
+                    <td class="no-print">
+                        <ul class="action-bar">
+                            <li><a class="btn primary popup" href="/patrimonio/inventario_editar/{{ i.inventario.id }}/">Editar</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7"></td>
+                    <td>{{ conferencia_total.total|format }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    {% endif %}
+
+    {% if inventarios_nao_coletados %}
+        <h4>Inventários Lotados na Sala e Não Coletados</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        {{ form_requisicao.inventarios.errors }}
+                        <a href="#" id="marcar_todos" onclick="marcar_todos(); return false;">Todos</a> -
+                        <a href="#" id="desmarcar_todos" onclick="desmarcar_todos(); return false;">Nenhum</a>
+                    </th>
+                    <th>#</th>
+                    <th>Inventário</th>
+                    <th>Descrição</th>
+                    <th>Estado de Conservação</th>
+                    <th>Carga Atual</th>
+                    <th>Última Requisição</th>
+                    <th class="no-print">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in inventarios_nao_coletados %}
+                <tr>
+                    <td align="center">
+			                <input type="checkbox" name="inventarios" value="{{ i.id }}" {% if i.id in i.inventarios_ids %}checked="checked"{% endif %}>
+                    </td>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="/patrimonio/inventario/{{ i.numero }}/">{{ i.numero }}</a></td>
+                    <td>{{ i.get_descricao }}</td>
+                    <td>{{ i.estado_conservacao }}</td>
+                    <td>{{ i.responsavel_vinculo|format }}</td>
+                    <td>
+                        {% if i.get_ultima_requisicao %}
+                            {{ i.get_ultima_requisicao.get_status|sanitize }}
+                             <ul>
+                                <li>{{ i.get_ultima_requisicao.vinculo_destino|format }}</li>
+                                <li><a href="/patrimonio/detalhar_requisicao/{{ i.get_ultima_requisicao.id }}/">Requisição {{ i.get_ultima_requisicao.id }}</a></li>
+
+                             </ul>
+                        {% endif %}
+                    </td>
+                    <td class="no-print">
+                        <ul class="action-bar">
+                            <li><a class="btn primary popup" href="/patrimonio/inventario_editar/{{ i.id }}/">Editar</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="submit-row">
+        <input type="submit" />
+    </div>
+</form>
+{% endbox %}
+
+{% if conferencia.conferenciaitemerro_set.exists %}
+    {% box "Inventários Não Encontrados" %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Inventário</th>
+                    <th>Carga Atual</th>
+                    <th>Data/Hora da Coleta</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in conferencia.conferenciaitemerro_set.all %}
+                <tr>
+                    <td>{{ i.inventario }}</td>
+                    <td>{{ i.responsavel_vinculo }}</td>
+                    <td>{{ i.dh_coleta|format }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+{% endif %}
+
+
+{% endblock %}

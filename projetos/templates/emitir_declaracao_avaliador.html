@@ -1,0 +1,24 @@
+{% extends super_template %}
+
+{% block content %}
+
+
+    {% if projetos_avaliados %}
+        <table>
+            <tr>
+                <td>Edital</td>
+                <td>Declaração</td>
+            </tr>
+
+        {% for projeto in projetos_avaliados %}
+            <tr>
+                <td>{{ projeto.projeto__edital__titulo }}</td>
+                <td><a href="/projetos/emitir_declaracao_avaliador_pdf/{{ projeto.projeto__edital }}/" class="btn">Declaração</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhuma declaração disponível.</p>
+    {% endif %}
+
+{% endblock %}

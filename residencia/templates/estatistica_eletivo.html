@@ -1,0 +1,51 @@
+{% extends super_template %}
+
+
+
+{% block extrahead %}
+    <script src='/static/comum/js/controlurlparams.js'></script>
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    {% box 'Filtros' %}
+        {% render_form form %}
+    {% endbox %}
+
+    {% if form.is_valid %}
+
+        {% box '' %}
+
+
+            <div class="tab-container" data-title="Evolução Anual" data-tab="evolucao_anual">
+                <script>
+                    {{ grafico_ano | safe }}
+                </script>
+                <div id="{{ grafico_ano.id }}"></div>
+                {% box "Resumo" %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ano/Período</th>
+                            <th>Residentes em Estágios Eletivos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for registro in grafico_ano.tabela_resumo %}
+                            <tr>
+                                <td>{{ registro.0 }}</td>
+                                <td>{{ registro.1 }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endbox %}
+            </div>
+        {% endbox %}
+
+
+    {% endif %}
+
+{% endblock %}

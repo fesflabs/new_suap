@@ -1,0 +1,8 @@
+IT-IN-OPERACAO                          A 001 
+IT-CO-USUARIO                           A 011 
+IT-DA-OPERACAO                          A 0008
+GR-PROGRAMA-TRABALHO                    A 017 
+IT-IN-PRESIDENCIA                       N 0001
+IT-CO-MUNICIPIO-IBGE                    A 007 
+IT-CO-UF                                A 002 
+IT-CO-REGIAO                            A 002 

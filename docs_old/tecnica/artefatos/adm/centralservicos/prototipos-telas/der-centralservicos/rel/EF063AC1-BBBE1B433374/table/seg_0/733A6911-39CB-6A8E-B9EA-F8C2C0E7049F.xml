@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="733A6911-39CB-6A8E-B9EA-F8C2C0E7049F" name="centralservicos_gruposervico">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 17:27:08 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>gruposervico</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="FAFBF594-7927-F387-B70E-1966A3F07E18">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 17:29:27 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nome" id="4C8898FB-78B6-C42B-F64B-3C8AC2D09665">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 17:29:27 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="detalhamento" id="96199E32-9B62-9106-581E-2E2392D22EDF">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 17:29:27 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C2E0A9EC-1D80-2642-F832-BC3D8F0BA910" name="centralservicos_gruposervico_PK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 17:29:27 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FAFBF594-7927-F387-B70E-1966A3F07E18"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

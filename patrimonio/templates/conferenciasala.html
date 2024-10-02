@@ -1,0 +1,155 @@
+{% extends super_template %}
+
+{% block content %}
+
+<form>
+{% box 'Dados Gerais' %}
+    <table class="info">
+        <tr>
+            <td>Sala</td>
+            <td>{{ conferencia.sala }}</td>
+        </tr>
+        <tr>
+            <td>Responsável</td>
+            <td>{{ conferencia.responsavel }}</td>
+        </tr>
+        <tr>
+            <td>Criado em</td>
+            <td>{{ conferencia.dh_criacao|format }}</td>
+        </tr>
+    </table>
+{% endbox %}
+{% if conferencias_itens.exists %}
+    {% box "{{ conferencia_total.qtd }} Inventários Coletados" %}
+    <input type="text" name="q_conferencias_itens" value="{{ q_conferencias }}">
+    <input type="submit">
+    {% autopaginate conferencias_itens 20 'conferencias_itens' %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Inventário</th>
+                <th>Descrição</th>
+                <th>Última Transferência</th>
+                <th>Sala Atual</th>
+                <th>Rótulos</th>
+                <th>Carga Atual</th>
+                <th>Data/Hora da Coleta</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in conferencias_itens %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="/patrimonio/inventario/{{ i.inventario.numero }}/">{{ i.inventario.numero }}</a></td>
+                <td>{{ i.inventario.get_descricao }}</td>
+                <td>
+                    {% if i.inventario.get_ultima_requisicao %}
+                        {{ i.inventario.get_ultima_requisicao.requisicao.get_status|safe }}
+                         <ul>
+                            <li>{{ i.inventario.get_ultima_requisicao.requisicao.vinculo_destino|format }}</li>
+                            <li><a href="/patrimonio/detalhar_requisicao/{{ i.inventario.get_ultima_requisicao.requisicao.id }}/">Requisição {{ i.inventario.get_ultima_requisicao.requisicao.id }}</a></li>
+
+                         </ul>
+                    {% endif %}
+                </td>
+                <td {% if i.inventario.sala.pk != conferencia.sala.pk %} class="false"{% endif %}>{{ i.inventario.sala|format }}</td>
+                <td>{% if i.inventario.rotulos.exists %}
+                        {% for rotulo in i.inventario.rotulos.all %}
+                        <ul>
+                            <li>{{ rotulo.nome }}</li>
+                        </ul>
+                        {% endfor %}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>{{ i.inventario.responsavel_vinculo|format }}</td>
+                <td>{{ i.dh_coleta|format }}</td>
+                <td>{{ i.inventario.get_valor|format }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7"></td>
+                <td>{{ conferencia_total.total|format }}</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    {% paginate %}
+    {% endbox %}
+{% endif %}
+
+{% if inventarios_nao_coletados %}
+    {% box "Inventários Lotados na Sala e Não Coletados" %}
+    {% autopaginate inventarios_nao_coletados 20 'inventarios_nao_coletados' %}
+    <input type="text" name="q_inventarios_nao_coletados" value="{{ q_inventarios_nao_coletados }}">
+    <input type="submit">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Inventário</th>
+                <th>Descrição</th>
+                <th>Carga Atual</th>
+                <th>Última Requisição</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in inventarios_nao_coletados %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="/patrimonio/inventario/{{ i.numero }}/">{{ i.numero }}</a></td>
+                <td>{{ i.get_descricao }}</td>
+                <td>{{ i.responsavel_vinculo|format }}</td>
+                <td>
+                    {% if i.get_ultima_requisicao %}
+                        {{ i.get_ultima_requisicao.requisicao.get_status|safe }}
+                         <ul>
+                            <li>{{ i.get_ultima_requisicao.requisicao.vinculo_destino|format }}</li>
+                            <li><a href="/patrimonio/detalhar_requisicao/{{ i.get_ultima_requisicao.requisicao.id }}/">Requisição {{ i.get_ultima_requisicao.requisicao.id }}</a></li>
+
+                         </ul>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% paginate %}
+    {% endbox %}
+{% endif %}
+
+{% if inventarios_erros.exists %}
+    {% box "Inventários Não Encontrados" %}
+        <input type="text" name="q_inventarios_erros" value="{{ q_inventarios_erros }}">
+        <input type="submit">
+        {% autopaginate inventarios_erros 20 'inventarios_erros' %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Inventário</th>
+                    <th>Descrição</th>
+                    <th>Carga Atual</th>
+                    <th>Data/Hora da Coleta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in inventarios_erros %}
+                <tr>
+                    <td>{{ i.inventario }}</td>
+                    <td>{{ i.get_descricao }}</td>
+                    <td>{{ i.responsavel_vinculo }}</td>
+                    <td>{{ i.dh_coleta|format }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% paginate %}
+    {% endbox %}
+{% endif %}
+</form>
+{% endblock %}

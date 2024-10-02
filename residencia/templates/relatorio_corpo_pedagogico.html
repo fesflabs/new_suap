@@ -1,0 +1,112 @@
+{% extends super_template %}
+{% block extrahead %}
+    <script src='/static/comum/js/controlurlparams.js'></script>
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="formbox">
+
+        {% render_form form %}
+
+</div>
+<div id="resultadobox">
+    {% if turma or ano_letivo or matriz %}
+
+        {% box "Resultado da Pesquisa " %}
+	        {% autopaginate qs_matriculas_periodo 25 %}
+            
+            <script>
+                $('#formbox').hide();
+            </script>
+
+            <ul class="action-bar">
+                <li><a class="primary" href="#" onclick="javascript:$('#formbox').toggle();javascript:$('#resultadobox').toggle();">Alterar Filtros</a></li>
+                <li><a class="default" href="/residencia/relatorio_corpo_pedagogico/">Limpar Filtros</a></li>
+                <li><a onclick="javascript:$('#result').submit();">Exportar para XLS</a></li>
+            </ul>
+            {% if qs_matriculas_periodo %}
+            <div>
+            <form name="result" id="result" action="/residencia/relatorio_corpo_pedagogico/?exportar=1&{{ request.META.QUERY_STRING }}" method="post">
+                {% csrf_token %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Residente</th>
+                            <th>Situação</th>
+                            <th>Férias</th>
+                            <th>Licenças</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for m in qs_matriculas_periodo %}
+                        <tr>
+                            <td><a href="{{ m.residente.get_absolute_url }}">{{ m.residente.matricula }}</a></td>
+                            <td>
+                            	{{ m.residente.get_nome_social_composto|normalizar }}
+                            </td>
+                             <td>
+                            	{{ m.residente.situacao }}
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for ferias in m.residente.get_solicitacoes_ferias_aprovadas %}
+                                        <li>{{ ferias.data_inicio|format}} - {{ ferias.data_fim|format}} </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for licenca in m.residente.get_solicitacoes_licencas_aprovadas %}
+                                        <li>({{ licenca.get_tipo_display }}) {{ licenca.data_inicio|format}} - {{ licenca.data_fim|format}} </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% paginate %}
+
+                </table>
+            </form>
+            </div>
+            {% else %}
+                <p class="msg alert">Nenhuma residente encontrado.</p>
+            {% endif %}
+        {% endbox %}
+        <div class="tab-container" data-title="Quantitativo" data-tab="tab_quantitativo">
+        {% box 'Resumo' %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Total de Residentes Ativos</th>
+                            <th>Total de Residentes Desligados</th>
+                            <th>Total de Residentes em Férias (Hoje)</th>
+                            <th>Total de Residentes em Licenças (Hoje)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ total_residentes_ativos }}</td>
+                            <td>{{ total_residentes_desligados }}</td>
+                            <td>{{ total_residentes_ferias }}</td>
+                            <td>{{ total_residentes_licencas }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% box 'Licenças' %}
+
+                <script>
+                    {{ grafico_licenca | safe }}
+                </script>
+                <div id="{{ grafico_licenca.id }}"></div>
+
+        {% endbox %}
+
+    {% endif %}
+</div>
+{% endblock %}

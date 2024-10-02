@@ -1,0 +1,18 @@
+Auditor:
+  app_manager: rh
+  cnpq:
+    curriculovittaelattes:
+    - pode_ver_relatorios
+    - pode_ver_producao_servidor
+Coordenador de Pesquisa:
+  app_manager: pesquisa
+  cnpq:
+    curriculovittaelattes:
+    - pode_ver_producao_servidor
+Gestor CNPQ:
+  cnpq:
+    curriculovittaelattes:
+    - pode_ver_relatorios
+    - pode_ver_producao_servidor
+    - pode_cadastrar_periodicos
+    - pode_importar_planilha_periodicos

@@ -1,0 +1,4 @@
+Diagrama desenvolvido no site https://www.draw.io/.
+Ao gerar nova versão, salvar os fontes, exportar imagem em PNG e atualizar no branch do suap.
+Ao exportar pra PNG, antes selecione todos os itens do diagrama (CMD + A), defina o Zoom 300% e marque a opção
+Selection Only (Crop).

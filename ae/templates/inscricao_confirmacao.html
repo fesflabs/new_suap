@@ -1,0 +1,86 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% include "includes/inscricao_steps.html" with active="confirmacao" %}
+
+    {% include "includes/inscricao_dados.html" %}
+
+    {% box "Dados da Inscrição" %}
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Aluno</td>
+                    <td>{{ inscricao.aluno }}</td>
+                </tr>
+                <tr>
+                    <td>Programa</td>
+                    <td>{{ inscricao.programa }}</td>
+                </tr>
+                <tr>
+                    <td>Motivo da Solicitação</td>
+                    <td>{{ inscricao.motivo }}</td>
+                </tr>
+
+                {% if tipo_programa == inscricao.programa.TIPO_ALIMENTACAO %}
+                    <tr>
+                        <td>Café da Manhã</td>
+                        <td>{{ inscricao.solicitacao_cafe }}</td>
+                    </tr>
+                    <tr>
+                        <td>Almoço</td>
+                        <td>{{ inscricao.solicitacao_almoco }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jantar</td>
+                        <td>{{ inscricao.solicitacao_janta }}</td>
+                    </tr>
+                {% endif %}
+                {% if tipo_programa == inscricao.programa.TIPO_IDIOMA %}
+                    <tr>
+                        <td>Primeira Opção</td>
+                        <td>{{ inscricao.primeira_opcao }}</td>
+                    </tr>
+                    <tr>
+                        <td>Segunda Opção</td>
+                        <td>{{ inscricao.segunda_opcao }}</td>
+                    </tr>
+                {% endif %}
+                {% if tipo_programa == inscricao.programa.TIPO_TRABALHO %}
+                    <tr>
+                        <td>Setor Preferêncial</td>
+                        <td>{{ inscricao.setor_preferencia.nome }}</td>
+                    </tr>
+                    <tr>
+                        <td>Turno</td>
+                        <td>{{ inscricao.get_turno_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>Habilidades</td>
+                        <td>{{ inscricao.habilidades }}</td>
+                    </tr>
+                {% endif %}
+                {% if tipo_programa == inscricao.programa.TIPO_TRANSPORTE %}
+                    <tr>
+                        <td>Tipo do Passe</td>
+                        <td>{{ inscricao.get_tipo_passe_display }}</td>
+                    </tr>
+                {% endif %}
+                {% if tipo_programa == inscricao.programa.TIPO_GENERICO %}
+                    {% for resposta in respostas %}
+                        <tr>
+                            <td>{{ resposta.pergunta }}</td>
+                            <td>{{ resposta.get_resposta }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+
+            </tbody>
+        </table>
+    {% endbox %}
+
+{% endblock %}
+
+{% block action-links %}
+	<li><a href="/">Voltar para página principal</a></li>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "djtools/templates/adminutils/change_form.html" %}
+
+{% block content %}
+    <p class="msg alert">
+        <strong>Aviso: </strong>Não é possível esta alteração para o servidor que já está com a jornada de trabalho flexibilizada e os
+        ocupantes de cargo de direção e função gratificada.
+    </p>
+	{{ block.super }}
+{% endblock %}

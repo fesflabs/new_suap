@@ -1,0 +1,31 @@
+<div class="tab-container {% if not chamado.chamadoanexo_set.exists %}no-print{% endif %}" data-tab="anexos" data-title="Anexos" data-counter="{{ chamado.chamadoanexo_set.count }}">
+    {% box "Anexos" %}
+        <ul class="action-bar">
+            {% if chamado.servico.permite_anexos and not chamado.estah_resolvido and not chamado.estah_fechado and not chamado.estah_cancelado  %}
+                <li><a class="btn success" href="/centralservicos/adicionar_anexo/{{ chamado.pk }}/">Adicionar Anexo</a></li>
+            {% endif %}
+        </ul>
+        {% if chamado.chamadoanexo_set.all %}
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Anexo</th>
+                    <th>Anexado por</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for chamadoanexo in chamado.chamadoanexo_set.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{{ chamadoanexo.anexo.url }}" target="_blank">{{ chamadoanexo.descricao }}</a></td>
+                        <td>{{ chamadoanexo.anexado_por.get_profile.nome_usual }} em {{ chamadoanexo.anexado_em }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhuma anexo cadastrado.</p>
+        {% endif %}
+    {% endbox %}
+</div>

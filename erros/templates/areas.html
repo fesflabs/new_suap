@@ -1,0 +1,21 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        <li><a href="/erros/erros/" class="btn default">{% icone "search" %} Visualizar Todos</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% box "Escolher Área" %}
+        <div class="flex-container boxes links">
+            {% for key, area in lista_areas.items %}
+                <a href="/erros/modulos/{{ key }}/" class="box-item">
+                    <span class="fas fa-{{ area.icone }}" aria-hidden="true"></span>
+                    <h4>{{ area.area }}</h4>
+                </a>
+            {% endfor %}
+        </div>
+    {% endbox %}
+
+{% endblock %}

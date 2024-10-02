@@ -1,0 +1,106 @@
+{% load centralservicos_templatetags %}
+
+<div class="tab-container no-print" id="artigos_relacionados" data-tab="bases" data-title="Artigos Relacionados" data-counter="{{ bases_de_conhecimento|length }}">
+    {% box "Artigos Relacionados" %}
+        {% if perms.centralservicos.add_baseconhecimento %}
+            <ul class="action-bar">
+                <li>
+                    <a class="btn success"
+                    href="/admin/centralservicos/baseconhecimento/add/?servico={{ chamado.servico.id }}&grupo_atendimento={{ chamado.get_atendimento_atribuicao_atual.grupo_atendimento.id }}">
+                        Adicionar Artigo
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+        <div class="msg info no-print">
+            <p>Para <strong>resolver um chamado</strong>, você deve:</p>
+            <ol>
+                <li>marcar, no mínimo, um dos artigos da base de conhecimentos listados abaixo;</li>
+                <li>ter avaliado todas as perguntas (se existentes) para cada artigo marcado;</li>
+                <li>preencher a Observação ao final da listagem de artigos.</li>
+            </ol>
+        </div>
+        {% if bases_de_conhecimento %}
+            <form method="POST" id="resolverchamado_form" name="resolverchamado_form" action="/centralservicos/resolver_chamado/{{ chamado.pk }}/">
+                {% csrf_token %}
+
+                {% for base_conhecimento in bases_de_conhecimento %}
+                    {% tem_avaliacao_pendente base_conhecimento as avaliacao_pendente %}
+                    <div class="general-box{% if avaliacao_pendente or not base_conhecimento.estah_disponivel_para_uso %} error{% endif %}" id="general_box_{{ base_conhecimento.id }}">
+                        {% if base_conhecimento.estah_disponivel_para_uso %}
+                            <div class="custom-checkbox {% if avaliacao_pendente %}disabled{% endif %}">
+                                <input id="id_artigo_relacionado_{{ forloop.counter }}" name="bases_conhecimento" type="checkbox" value="{{ base_conhecimento.id }}" {% if avaliacao_pendente %}disabled="disabled"{% endif %} />
+                                <label for="id_artigo_relacionado_{{ forloop.counter }}"></label>
+                            </div>
+                        {% endif %}
+                        <div class="primary-info">
+                            {% if base_conhecimento.estah_disponivel_para_uso %}
+                                {% if avaliacao_pendente %}
+                                    <span class="status status-alert">Você precisa avaliar este artigo.</span>
+                                {% endif %}
+                            {% else %}
+                                {% if base_conhecimento.necessita_correcao %}<span data-hint="Este artigo não poderá ser utilizado, pois necessita de correção." class="status status-error hint--top-right hint--large">Necessita correção</span>{% endif %}
+                                {% if base_conhecimento.supervisao_pendente %}<span data-hint="Este artigo não poderá ser utilizado, pois necessita de aprovação do supervisor." class="status status-error hint--top-right hint--large">Pendente de supervisão</span>{% endif %}
+                            {% endif %}
+                            {% if base_conhecimento.visibilidade == 'publica' %}
+                                <span class="status status-info">Artigo público</span>
+                            {% endif %}
+                            <h4>
+                                <a href="{% url 'centralservicos_visualizar_baseconhecimento_publica' base_conhecimento.id %}" class="popup"><strong>{{ base_conhecimento.titulo }}</strong></a>
+                            </h4>
+                            <ul class="action-bar">
+                                <li><a href="{% url 'centralservicos_visualizar_baseconhecimento' base_conhecimento.id %}" class="btn default"><i class="fas fa-search" aria-hidden="true"></i> Artigo Completo</a></li>
+                                {% if perms.centralservicos.change_chamado and not base_conhecimento.necessita_correcao %}
+                                    <li><a class="btn popup warning" href="/centralservicos/baseconhecimento/marcar_para_correcao/{{ base_conhecimento.id }}/"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> Solicitar Correção</a></li>
+                                {% endif %}
+                            </ul>
+                            <div class="extra-info">
+                                {{ base_conhecimento.resumo|truncatewords:100|safe }}
+                            </div>
+                        </div>
+                        <dl class="secondary-info">
+                            {% avaliar_base_conhecimento base_conhecimento "inner" %}
+                            <div class="list-item">
+                                <dt><span class="fas fa-hourglass-end" aria-hidden="true"></span> Esta solução já foi utilizada para resolver:</dt>
+                                <dd>{{ base_conhecimento.get_quantidade_utilizacoes|format }} chamados</dd>
+                            </div>
+                            <div class="list-item">
+                                <dt><span class="fas fa-circle" aria-hidden="true"></span> Média de avaliações desta solução:</dt>
+                                <dd id="media_avaliacao_{{ base_conhecimento.id }}">{{ base_conhecimento.get_media_avaliacoes|format }}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                {% endfor %}
+
+                <h3 class="mt-2 no-print">Resolver Chamado</h3>
+                <fieldset class="module no-print">
+                    {% if respostas_padrao.exists %}
+                        <div class="form-row">
+                            <div class="field-box">
+                                <label for="id_respostapadrao">Resposta Padrão:</label>
+                                <select name="respostapadrao" id="id_respostapadrao">
+                                    <option value="">-</option>
+                                    {% for item in respostas_padrao %}
+                                        <option value="{{ item.texto }}">{{ item.texto|truncatewords:10 }}</option>
+                                    {% endfor %}
+                                </select>
+                                <p class="help">O texto selecionado será adicionado ao campo abaixo.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row">
+                        <div class="field-box">
+                            <label for="id_observacao" title="Preenchimento obrigatório">Comentário:</label>
+                            <textarea id="id_observacao" name="observacao"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="submit-row">
+                    <input type="submit" name="_save" class="success dontdisable" value="Alterar para Resolvido">
+                </div>
+            </form>
+        {% else %}
+            <p class="msg alert">Nenhuma base de conhecimento cadastrada para este serviço.</p>
+        {% endif %}
+    {% endbox %}
+</div>

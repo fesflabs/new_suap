@@ -1,0 +1,43 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% box 'Dados Gerais' %}
+        <table class="info">
+		    <tbody>
+                <tr>
+		            <td>Paciente</td>
+		            <td>{{ exame.prontuario.vinculo }}</td>
+		        </tr>
+		        <tr>
+		            <td>Categoria</td>
+		            <td>{{ exame.categoria }}</td>
+		        </tr>
+		        <tr>
+		            <td>Data</td>
+		            <td>{{ exame.data_realizado }}</td>
+		        </tr>
+                <tr>
+		            <td>Sigiloso</td>
+		            <td>{{ exame.sigiloso|format }}</td>
+		        </tr>
+		        <tr>
+		            <td>Observações</td>
+		            <td>{{ exame.observacao }}</td>
+		        </tr>
+		        <tr>
+		            <td>Cadastrado em</td>
+		            <td>{{ exame.data_cadastro }} por {{ exame.profissional }}</td>
+		        </tr>
+			</tbody>
+	    </table>
+
+
+	{% endbox %}
+    {% box 'Resultados' %}
+
+        {% render_form form %}
+    {% endbox %}
+
+
+{% endblock %}

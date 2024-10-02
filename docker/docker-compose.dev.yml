@@ -1,0 +1,115 @@
+version: '3.9'
+services:
+  web-dev:
+    restart: always
+    stdin_open: true
+    tty: true
+    user: "33:33"
+    env_file:
+      - ../.env
+    image: "${DEV_IMAGE}"
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: suap-dev
+    command: python manage.py runserver 0.0.0.0:8000
+    profiles:
+      - dev
+    ports:
+      - "8000:8000"
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - type: bind
+        source: ../
+        target: /opt/suap
+    healthcheck:
+      test: curl --fail -s http://web-dev:8000/accounts/login/
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - suap
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  celery-dev:
+    restart: always
+    stdin_open: true
+    tty: true
+    user: "33:33"
+    env_file:
+      - ../.env
+    image: "${DEV_IMAGE}"
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: suap-dev
+    command: ./bin/celery.sh $CELERY_QUEUE
+    profiles:
+      - dev
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - type: bind
+        source: ../
+        target: /opt/suap
+    networks:
+      - suap
+    healthcheck:
+      test: celery -A suap inspect ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # não utilizado em produção
+  redis:
+    restart: always
+    env_file:
+      - ../.env
+    networks:
+      - suap
+    profiles:
+      - redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # não utilizado em produção
+  db:
+    restart: always
+    env_file:
+      - ../.env
+    networks:
+      - suap
+    image: postgres:13
+    profiles:
+      - db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+      - /opt/pgdata:/data/postgres
+
+networks:
+  suap:
+    driver: bridge
+
+volumes:
+    postgres:

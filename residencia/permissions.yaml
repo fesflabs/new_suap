@@ -1,0 +1,278 @@
+Coordenadores(as) Residência:
+  description: Usuários deste grupo possuem visão sistêmica dos módulos de Residência.
+  residencia:
+    residente:
+      - pode_sincronizar_dados
+      - emitir_diploma
+      - view_residente
+      - view_dados_academicos
+      - view_dados_pessoais
+      - view_dados_bancarios
+      - pode_ver_chave_acesso_pais
+      - emitir_boletim
+      - add_residente
+      - change_residente
+      - delete_residente
+      - emitir_historico
+      - efetuar_matricula
+      - change_foto
+      - gerar_relatorio
+    observacao:
+      - adm_delete_observacao
+      - add_observacao
+      - view_observacao
+      - change_observacao
+      - delete_observacao
+    matriz:
+      - add_matriz
+      - view_matriz
+      - change_matriz
+    calendarioacademico:
+      - view_calendarioacademico
+      - add_calendarioacademico
+      - change_calendarioacademico
+    diario:
+      - view_diario
+      - emitir_boletins
+    unidadeaprendizagemturma:
+      - add_unidadeaprendizagemturma
+      - change_unidadeaprendizagemturma
+      - delete_unidadeaprendizagemturma
+      - view_unidadeaprendizagemturma
+      - reabrir_unidadeaprendizagemturma
+      - lancar_nota_unidadeaprendizagemturma
+      - mudar_posse_unidadeaprendizagemturma
+    tipopreceptordiario:
+      - add_tipopreceptordiario
+      - change_tipopreceptordiario
+      - delete_tipopreceptordiario
+      - view_tipopreceptordiario
+    observacaodiario:
+      - adm_delete_observacaodiario
+      - add_observacaodiario
+      - view_observacaodiario
+      - change_observacaodiario
+      - delete_observacaodiario
+    preceptordiario:
+      - add_preceptordiario
+      - view_preceptordiario
+      - change_preceptordiario
+      - delete_preceptordiario
+    matriculadiario:
+      - view_matriculadiario
+      - add_matriculadiario
+      - change_matriculadiario
+      - delete_matriculadiario
+    matriculaperiodo:
+      - view_matriculaperiodo
+      - add_matriculaperiodo
+      - change_matriculaperiodo
+      - delete_matriculaperiodo
+    componente:
+      - add_componente
+      - view_componente
+      - change_componente
+      - delete_componente
+    componentecurricular:
+      - add_componentecurricular
+      - view_componentecurricular
+      - change_componentecurricular
+      - delete_componentecurricular
+    estruturacurso:
+      - add_estruturacurso
+      - view_estruturacurso
+      - change_estruturacurso
+      - delete_estruturacurso
+    unidadeaprendizagem:
+      - add_unidadeaprendizagem
+      - view_unidadeaprendizagem
+      - change_unidadeaprendizagem
+    cursoresidencia:
+      - add_cursoresidencia
+      - view_cursoresidencia
+      - change_cursoresidencia
+      - delete_cursoresidencia
+    representacaoconceitual:
+      - add_representacaoconceitual
+      - view_representacaoconceitual
+      - change_representacaoconceitual
+      - delete_representacaoconceitual
+    turma:
+      - delete_turma
+      - view_turma
+      - change_turma
+      - gerar_turmas
+    solicitacaoresidente:
+      - delete_solicitacaoresidente
+      - view_solicitacaoresidente
+      - change_solicitacaoresidente
+    solicitacaousuario:
+      - view_solicitacaousuario
+      - change_solicitacaousuario
+    solicitacaoeletivo:
+      - delete_solicitacaoeletivo
+      - view_solicitacaoeletivo
+      - change_solicitacaoeletivo
+    estagioeletivo:
+      - delete_estagioeletivo
+      - view_estagioeletivo
+      - change_estagioeletivo
+  rh:
+    dadosbancariospf:
+      - change_dados_bancarios
+  comum:
+    bolsista:
+      - change_bolsista
+      - add_bolsista
+      - view_bolsista
+    ano:
+      - change_ano
+      - view_ano
+      - add_ano
+Secretário(a) Residência:
+  description: Usuários deste grupo possuem visão sistêmica dos módulos de Residência.
+  residencia:
+    residente:
+      - add_residente
+      - pode_sincronizar_dados
+      - emitir_diploma
+      - view_residente
+      - view_dados_academicos
+      - view_dados_pessoais
+      - view_dados_bancarios
+      - pode_ver_chave_acesso_pais
+      - emitir_boletim
+      - change_residente
+      - delete_residente
+      - emitir_historico
+      - efetuar_matricula
+      - change_foto
+      - gerar_relatorio
+    observacao:
+      - adm_delete_observacao
+      - add_observacao
+      - view_observacao
+      - change_observacao
+      - delete_observacao
+    matriz:
+      - add_matriz
+      - view_matriz
+      - change_matriz
+    calendarioacademico:
+      - view_calendarioacademico
+      - add_calendarioacademico
+      - change_calendarioacademico
+    diario:
+      - view_diario
+      - lancar_nota_diario
+      - emitir_boletins
+    tipopreceptordiario:
+      - add_tipopreceptordiario
+      - change_tipopreceptordiario
+      - delete_tipopreceptordiario
+      - view_tipopreceptordiario
+    observacaodiario:
+      - adm_delete_observacaodiario
+      - add_observacaodiario
+      - view_observacaodiario
+      - change_observacaodiario
+      - delete_observacaodiario
+    preceptordiario:
+      - add_preceptordiario
+      - view_preceptordiario
+      - change_preceptordiario
+      - delete_preceptordiario
+    matriculadiario:
+      - view_matriculadiario
+      - add_matriculadiario
+      - change_matriculadiario
+      - delete_matriculadiario
+    unidadeaprendizagemturma:
+      - add_unidadeaprendizagemturma
+      - change_unidadeaprendizagemturma
+      - delete_unidadeaprendizagemturma
+      - view_unidadeaprendizagemturma
+      - reabrir_unidadeaprendizagemturma
+      - lancar_nota_unidadeaprendizagemturma
+      - mudar_posse_unidadeaprendizagemturma
+    matriculaperiodo:
+      - view_matriculaperiodo
+      - add_matriculaperiodo
+      - change_matriculaperiodo
+      - delete_matriculaperiodo
+    componente:
+      - add_componente
+      - view_componente
+      - change_componente
+      - delete_componente
+    componentecurricular:
+      - add_componentecurricular
+      - view_componentecurricular
+      - change_componentecurricular
+      - delete_componentecurricular
+    estruturacurso:
+      - add_estruturacurso
+      - view_estruturacurso
+      - change_estruturacurso
+    cursoresidencia:
+      - add_cursoresidencia
+      - view_cursoresidencia
+      - change_cursoresidencia
+    unidadeaprendizagem:
+      - add_unidadeaprendizagem
+      - view_unidadeaprendizagem
+      - change_unidadeaprendizagem
+    representacaoconceitual:
+      - add_representacaoconceitual
+      - view_representacaoconceitual
+      - change_representacaoconceitual
+      - delete_representacaoconceitual
+    turma:
+      - delete_turma
+      - view_turma
+      - change_turma
+      - gerar_turmas
+    solicitacaoresidente:
+      - delete_solicitacaoresidente
+      - view_solicitacaoresidente
+      - change_solicitacaoresidente
+    solicitacaoeletivo:
+      - delete_solicitacaoeletivo
+      - view_solicitacaoeletivo
+      - change_solicitacaoeletivo
+    estagioeletivo:
+      - delete_estagioeletivo
+      - view_estagioeletivo
+      - change_estagioeletivo
+    solicitacaousuario:
+      - view_solicitacaousuario
+      - change_solicitacaousuario
+  rh:
+    dadosbancariospf:
+      - change_dados_bancarios
+  comum:
+    bolsista:
+      - change_bolsista
+      - add_bolsista
+      - view_bolsista
+    ano:
+      - change_ano
+      - view_ano
+      - add_ano
+Residente:
+  description: Usuários deste grupo tem acesso aos dados relacionados à sua vida acadêmica no SUAP.
+  residencia:
+    residente:
+    - pode_atualizar_caracterizacao
+    solicitacaousuario:
+    - view_solicitacaousuario
+    - add_solicitacaousuario
+
+Preceptor(a):
+  description: Usuários deste grupo tem acesso aos dados relacionados à sua vida acadêmica no SUAP.
+  residencia:
+    diario:
+      - emitir_boletins
+      - lancar_nota_diario
+Apoiador(a) Pedagógico Residência:
+  description: Usuários deste grupo tem acesso aos dados relacionados à sua vida acadêmica no SUAP.última semana

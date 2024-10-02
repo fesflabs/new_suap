@@ -1,0 +1,46 @@
+<ul class="action-bar">
+    {% if user|in_group:"Administrador de Planejamento Estratégico" %}
+        <li><a href="{% url 'pdi_unidadegestora_add' pdi.pk %}" class="btn success popup">Incluir Unidade Gestora</a></li>
+    {% endif %}
+</ul>
+
+{% if ugs.exists %}
+    <table>
+        <thead>
+            <tr>
+                {% if user|in_group:"Administrador de Planejamento Estratégico" %}
+                    <th>#</th>
+                {% endif %}
+                <th>Tipo</th>
+                <th>Setor</th>
+                {% if user|in_group:"Administrador de Planejamento Estratégico" %}
+                    <th>Código para Projeto Estratégico</th>
+                    <th>Pode Alocar 100% do Recurso na Etapa Especial?</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for ug in ugs %}
+            <tr>
+                 {% if user|in_group:"Administrador de Planejamento Estratégico" %}
+                     {% if not ug.participa_planoatividade %}
+                        <td>
+                            <a href="{% url 'pdi_unidadegestora_change' pdi.pk ug.pk %}" class="popup icon icon-edit" title="Editar Unidade Gestora"><span class="sr-only">Editar Unidade Gestora</span></a>
+                        </td>
+                     {% else %}
+                         <td></td>
+                     {% endif %}
+                {% endif %}
+                <td>{{ ug.tipo }}</td>
+                <td>{{ ug.setor_equivalente }}</td>
+                {% if user|in_group:"Administrador de Planejamento Estratégico" %}
+                    <td>{{ ug.codigo_projeto|format }}</td>
+                    <td>{{ ug.recurso_total|format }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="msg alert">Não existem unidades gestoras cadastradas.</p>
+{% endif %}

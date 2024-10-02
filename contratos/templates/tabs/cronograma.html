@@ -1,0 +1,221 @@
+{% load tags %}
+
+{% box "Cronograma" %}
+    {% if pode_gerar_cronograma %}
+        <ul class="action-bar">
+            {% if contrato.get_cronograma.numero and not contrato.cancelado %}
+                <li><a class="btn success popup" href="/contratos/adicionar_parcela/{{ contrato.pk }}/">{% icone "plus" %} Adicionar
+                    Parcela</a></li>
+                <li><a class="btn success" href="/contratos/gerar_parcelas/{{ contrato.pk }}/">{% icone "plus" %} Gerar Várias Parcelas</a></li>
+            {% else %}
+                {% if not contrato.cancelado %}
+                    <li><a class="btn success popup" href="/contratos/definir_cronograma/{{ contrato.pk }}/">{% icone "calendar" %} Criar
+                        Cronograma</a></li>
+                {% endif %}
+            {% endif %}
+            {% if request.user|in_group:"Gerente de Contrato" %}
+                <li><a class="btn" href="/contratos/configurar_medicao/{{ contrato.pk }}/">{% icone "cog" %} Configurar Documentos Comprobatórios</a></li>
+
+            {% endif %}
+            <li><a href="/contratos/relatorio_valores_executados/{{ contrato.id }}/" class="btn">Demonstrativo de Valores Executados por Campus</a></li>
+        </ul>
+    {% endif %}
+
+    {% if pode_gerar_cronograma and not contrato.get_cronograma.numero and not contrato.cancelado %}
+        <div class="msg alert">
+            <strong>Atenção:</strong> Para que o cronograma seja gerado ou novas parcelas sejam adicionadas, o número do
+            cronograma deve estar definido através do botão Criar Cronograma.
+        </div>
+    {% endif %}
+    
+    {% include "includes/filter_campus.html" with tab="cronograma" %}
+
+    {% if contrato.get_cronograma %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Nº</dt>
+                <dd>{{ contrato.get_cronograma.numero|default:"" }}</dd>
+            </div>
+            {% if contrato.get_cronograma.nl %}
+                <div class="list-item">
+                    <dt>NL</dt>
+                    <dd>{{ contrato.get_cronograma.nl|default:"" }}</dd>
+                </div>
+            {% endif %}
+            {% if contrato.get_cronograma.rc %}
+                <div class="list-item">
+                    <dt>RC</dt>
+                    <dd>{{ contrato.get_cronograma.rc|default:"" }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endif %}
+
+    {% if parcelas %}
+        {% for parcela in parcelas %}
+            <div class="general-box">
+                <div class="primary-info">
+                    {% if parcela.sem_medicao %}
+                        <span class="status status-info">Sem medição</span>
+                    {% elif not parcela.medicoes_set.exists %}
+                        <span class="status status-alert">Aguardando medição</span>
+                    {% endif %}
+
+                    <h4 id="parcela_{{ parcela.id }}"><small>{{ forloop.counter }}</small> <strong>{{ parcela.data_prevista_inicio|format }} à {{ parcela.data_prevista_fim|format }}</strong></h4>
+
+                    {% if not contrato.cancelado and pode_gerar_cronograma or pode_efetuar_medicao and not contrato.cancelado %}
+                        <ul class="action-bar">
+                            {% if pode_efetuar_medicao %}
+                                {% if not parcela.sem_medicao %}
+                                    <li><a class="btn success popup"
+                                            href="/contratos/efetuar_medicao/{{ parcela.id }}/{{ contrato.id }}/">{% icone "plus" %} Efetuar
+                                        Medição</a></li>
+                                    {% if not parcela.medicoes_set.exists %}
+                                        <li><a class="btn primary confirm"
+                                                href="/contratos/sem_medicao/{{ parcela.id }}/{{ contrato.id }}/">{% icone "minus" %} Sem
+                                            Medição</a></li>
+                                    {% endif %}
+                                {% else %}
+                                    <li><a class="btn warning"
+                                            href="/contratos/sem_medicao/{{ parcela.id }}/{{ contrato.id }}/">{% icone "undo" %} Desfazer
+                                        'Sem Medição'</a></li>
+                                {% endif %}
+                            {% endif %}
+                            {% if pode_gerar_cronograma %}
+                                <li><a class="btn primary"
+                                    href="/contratos/atualizar_parcela/{{ parcela.id }}/{{ contrato.id }}/" title="Editar Parcela">{% icone "edit" %} <span class="sr-only">Editar
+                                Parcela</span></a></li>
+                        {% endif %}
+                            {% if pode_gerar_cronograma and not parcela.medicoes_set.all.exists %}
+                                <li><a class="btn danger"
+                                        href="/contratos/excluir_parcela/{{ parcela.id }}/{{ contrato.id }}/" title="Remover Parcela">{% icone "trash" %} <span class="sr-only">Remover
+                                    Parcela</span></a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+                    {% if parcela|method:"get_medicoes"|call:campus_filtro %}
+                        <div class="extra-info table-responsive">
+                            <h5>Medições:</h5>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nº da Nota/Documento Fiscal</th>
+                                        <th>Fiscal da Medição</th>
+                                        <th>Campus</th>
+                                        <th>Período Executado</th>
+                                        <th>Valor Executado</th>
+                                        <th>Dados Gerais</th>
+                                        <th class="no-print">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for medicao in parcela|method:"get_medicoes"|call:campus_filtro %}
+                                    <tr>
+                                        <td>{{ medicao.numero_documento }}</td>
+                                        <td>{{ medicao.fiscal }}</td>
+                                        <td>{{ medicao.campus|format }}</td>
+                                        <td>{{ medicao.data_inicio|format }} à {{ medicao.data_fim|format }}</td>
+                                        <td>R$ {{ medicao.valor_executado|format }}</td>
+                                        <td>
+                                            <dl>
+                                            {% if medicao.processo %}
+                                                <dt>Processo:</dt>
+                                                <dd><a href="{{ medicao.processo.get_absolute_url }}">{{ medicao.processo.numero_processo }}</a></dd>
+                                            {% endif %}
+                                            {% if medicao.despacho_documentotexto %}
+                                                {% if medicao.despacho_documentotexto.estah_assinado or medicao.despacho_documentotexto.estah_finalizado %}
+                                                    <dt>Relatório de Recebimento Provisório:</dt>
+                                                    <dd><a
+                                                            href="{% url 'visualizar_documento' medicao.despacho_documentotexto.id %}"
+                                                            class="btn default">Visualizar</a></dd>
+                                                    {% endif %}
+                                            {% endif %}
+                                            {% if medicao.termo_definitivo_documentotexto %}
+                                                {% if medicao.termo_definitivo_documentotexto.estah_assinado or medicao.termo_definitivo_documentotexto.estah_finalizado %}
+                                                    <dt>Termo de Recebimento Definitivo:</dt>
+                                                    <dd><a
+                                                            href="{% url 'visualizar_documento' medicao.termo_definitivo_documentotexto.id %}"
+                                                            class="btn default">Visualizar</a></dd>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if medicao.ocorrencia %}
+                                                <dt>Ocorrências:</dt>
+                                                <dd>{{ medicao.ocorrencia }}</dd>
+                                            {% endif %}
+                                            {% if medicao.providencia %}
+                                                <dt>Providências:</dt>
+                                                <dd>{{ medicao.providencia }}</dd>
+                                            {% endif %}
+                                            </dl>
+                                        </td>
+                                        <td class="no-print">
+                                            <ul class="action-bar">
+                                                {% if pode_efetuar_medicao and not contrato.cancelado and not parcela.sem_medicao %}
+                                                    {% if fiscal.servidor == medicao.fiscal.servidor or pode_gerenciar_todas_medicoes %}
+                                                        <li>
+                                                            <a href="/contratos/atualizar_medicao/{{ medicao.id }}/{{ contrato.id }}/"
+                                                                class="btn primary">{% icone "edit" %} Editar Medição</a></li>
+                                                        <li>
+                                                            <a href="/contratos/adicionar_ocorrencia_medicao/{{ medicao.id }}/{{ contrato.id }}/"
+                                                                class="btn">{% icone "plus" %} Informar Ocorrência/Providência</a></li>
+                                                        {% if not medicao.despacho_documentotexto or not medicao.despacho_documentotexto.estah_finalizado %}
+                                                            <li>
+                                                                <a href="/contratos/gerar_despacho_eletronico/{{ medicao.id }}/{{ contrato.id }}/"
+                                                                    class="btn">{% icone "file" %} Gerar Relatório de Recebimento Provisório</a>
+                                                            </li>
+                                                        {% endif %}
+                                                        <li>
+                                                            <a href="/contratos/excluir_medicao/{{ medicao.id }}/{{ contrato.id }}/"
+                                                                class="btn danger">{% icone "trash" %} Remover Medição</a></li>
+                                                    {% endif %}
+                                                {% endif %}
+                                                {% if medicao.arquivo %}
+                                                    <li><a href="/contratos/visualizar_arquivo/{{ medicao.arquivo.id }}/" class="btn default">{% icone "download" %} Arquivo da Medição</a></li>
+                                                {% endif %}
+                                                <li><a href="/contratos/conferencia_documentos/{{ medicao.id }}/{{ contrato.id }}/" class="btn default popup">{% icone "search" %} Conferência de Documentos</a></li>
+                                            </ul>
+
+                                            {% if request.user|in_group:"Gerente de Contrato" or eh_gestor_contrato %}
+                                                <h6 class="clear">Ações do Gerente de Contrato:</h6>
+                                                <ul class="action-bar">
+                                                    {% if medicao.pode_ser_recebida_definitivamente %}
+                                                        <li>
+                                                            <a href="/contratos/receber_definitivamente_medicao/{{ medicao.id }}/"
+                                                                class="btn">{% icone "circle" %} Receber Definitivamente</a></li>
+                                                    {% endif %}
+                                                    {% if medicao.foi_recebida_definitivamente and not medicao.termo_definitivo_documentotexto.estah_finalizado %}
+                                                        <li>
+                                                            <a href="/contratos/gerar_termo_definitivo_documentotexto/{{ medicao.id }}/{{ contrato.id }}/"
+                                                                class="btn">{% icone "file" %} Gerar Termo de Recebimento Definitivo - Documento
+                                                                Eletrônico</a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+                <dl class="secondary-info">
+                    <div class="list-item">
+                        <dt>{% icone "dollar-sign" %} Valor Previsto:</dt>
+                        <dd>R$ {{ parcela.valor_previsto|mascara_dinheiro }}</dd>
+                    </div>
+                    {% if parcela.valor_executado_parcela %}
+                        <div class="list-item">
+                            <dt>{% icone "dollar-sign" %} Valor Executado:</dt>
+                            <dd>R$ {{ parcela.valor_executado_parcela|mascara_dinheiro }}</dd>
+                        </div>
+                    {% endif %}
+                </dl>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Nenhuma parcela para o filtro aplicado.</p>
+    {% endif %}
+{% endbox %}

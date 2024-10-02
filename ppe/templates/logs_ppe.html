@@ -1,0 +1,48 @@
+{% extends super_template %}
+
+
+{% block content %}
+
+    {% if form %}
+        {% box "Formulário" %}
+            {% render_form form %}
+        {% endbox %}
+    {% endif %}
+
+    {% if logs %}
+        {% autopaginate logs 200 %}
+        {% box "Registros de Log" %}
+        	{% if pode_exportar_log %}
+	        <ul class="action-bar">
+	        	<li><a class="btn" href="/ppe/realizar_auditoria/?exportar=1&{{ request.META.QUERY_STRING }}">Exportar</a></li>
+	        </ul>
+	        {% endif %}
+            <table>
+                <thead>
+                <tr>
+                    <th class="no-print">Ações</th>
+                    <th>Usuário</th>
+                    <th>Data</th>
+                    <th>Alteração</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td class="no-print">{% if log.pk %}{% icon "view" "/ppe/log/{{ log.pk }}/" "Visualizar" "popup" %}{% else %}-{% endif %}</td>
+                        <td>{{ log.user|format }}</td>
+                        <td>{{ log.dt|format }}</td>
+                        <td>{{ log.descricao|format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% paginate %}
+        {% endbox %}
+    {% else %}
+        {% box "Registros de Log" %}
+            <p class="msg alert">Nenhuma alteração cadastrada.</p>
+        {% endbox %}
+    {% endif %}
+
+{% endblock %}

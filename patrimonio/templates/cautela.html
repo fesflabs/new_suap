@@ -1,0 +1,78 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% block extracss %}
+<link rel="stylesheet" href="/static/planejamento/css/planejamento.css" />
+{% endblock %}
+
+{% block content %}
+	
+<h2>Cautela #{{ cautela.id }}</h2>
+
+<ul class="action-bar">
+	<li><a class="btn success" href="#" onclick="$('div#novo-item').toggle();">Adicionar Novo Item</a></li>
+	<li><a class="btn primary" href="{{ link_editar }}">Editar</a></li>
+    <li><a class="btn" href="/patrimonio/relatorio/termo_cautela_PDF/{{ cautela.id }}">Gerar PDF</a></li>
+</ul>
+
+<div id="novo-item" {% if not form.is_bound %}style="display: none"{% endif %}>
+	{% box "Adicionar Novo Item" %}
+		{% render_form form %}
+	{% endbox %}
+</div>
+
+{% box "Dados Gerais" %}
+	<table class="info">
+		<tr>
+	        <td>Responsável</td>
+	        <td colspan="3">{{ cautela.responsavel|format }}</td>
+	    </tr>
+		<tr>
+	        <td>Data Início</td>
+	        <td>{{ cautela.get_data_inicio }}</td>
+	        <td>Data Final</td>
+	        <td>{{ cautela.get_data_fim }}</td>
+	    </tr>
+	</table>
+{% endbox %}
+
+{% box "Itens sob Cautela" %}
+	{% with cautela.get_itens as itens %}
+		{% if itens %}
+			<table>
+			    <thead>
+			        <tr>
+						<th class="no-print">Ações</th>
+			        	<th>Número</th>
+			            <th>Situação</th>
+						<th>Rótulos</th>
+			        </tr>
+			    </thead>
+				<tbody> 
+			    	{% for item in itens %}       
+				        <tr>
+							<td class="no-print">
+								{% icon "edit" "{{ item.get_absolute_url }}" %}
+								{% icon "delete" "{{ item.get_delete_url }}" %}
+							</td>
+				        	<td>{{ item.inventario.numero }} - {{ item.inventario.get_descricao }}</td>
+				            <td>{{ item.inventario.status|status }}</td>
+							<td>
+								{% with item.inventario.rotulos.all as rotulos %}
+									{% for rotulo in rotulos %}
+										<ul>
+				    						<li>{{ rotulo.nome }}</li>
+										</ul>
+					    			{% endfor %}	 
+								{% endwith %}
+				    		</td>
+				        </tr>
+			        {% endfor %}
+			    </tbody>
+			</table>
+		{% else %}
+			<p class="msg alert">Nenhum item encontrado.</p>
+		{% endif %}
+	{% endwith %}
+{% endbox %}
+
+{% endblock %}

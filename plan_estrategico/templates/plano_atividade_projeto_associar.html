@@ -1,0 +1,10 @@
+{% extends super_template %}
+
+{% block content %}
+
+ {% if qs_projetos.exists %}
+    {% render_form form %}
+ {% else %}
+     <p class="msg alert">Nenhum projeto estratégico disponível para associar a este plano de atividades.</p>
+ {% endif %}
+{% endblock %}

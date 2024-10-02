@@ -1,0 +1,58 @@
+{% box 'Convocações ENADE' %}
+
+    {% if pode_realizar_dispensa_enade %}
+        <ul class="action-bar">
+            <li><a class="btn warning popup" href="/edu/dispensar_participacao_enade/{{ obj.matricula }}/">Dispensar Participação</a></li>
+        </ul>
+    {% endif %}
+
+    {% if convocacoes_enade %}
+        <table>
+            <thead>
+            <tr>
+                <th>Ano</th>
+                <th>Data da Prova</th>
+                <th>Situação</th>
+                <th>Tipo</th>
+                {% if pode_realizar_procedimentos_enade %}
+                    <th class="no-print">Opções</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for aluno_convocacao in convocacoes_enade %}
+                <tr>
+                    <td>{{ aluno_convocacao.convocacao_enade.ano_letivo|format }}</td>
+                    <td>{{ aluno_convocacao.convocacao_enade.data_prova|format }}</td>
+                    <td>
+                        {{ aluno_convocacao.get_situacao_display|format }}
+                        {% if aluno_convocacao.justificativa_dispensa %}
+                            / {{ aluno_convocacao.justificativa_dispensa|format }}
+                        {% endif %}
+                    </td>
+                    <td>{{ aluno_convocacao.get_tipo_convocacao_display|format }}</td>
+                    {% if pode_realizar_procedimentos_enade %}
+                        <td>
+                            <ul class="action-bar">
+                                {% if not aluno_convocacao.situacao %}
+                                    <li><a class="btn success" href="/edu/lancar_situacao_enade/{{ aluno_convocacao.pk }}/">Lançar Situação</a></li>
+                                {% else %}
+                                    <li><a class="btn primary" href="/edu/lancar_situacao_enade/{{ aluno_convocacao.pk }}/">Editar Situação</a></li>
+                                    <li><a class="btn danger" href="/edu/remover_situacao_enade/{{ aluno_convocacao.pk }}/">Remover Situação</a></li>
+                                {% endif %}
+                                <li><a class="btn default popup" href="/edu/log_situacao_enade/{{ aluno_convocacao.pk }}/">Log de Alterações</a></li>
+                                {% if perms.edu.delete_registroconvocacaoenade %}
+            						<li><a class="btn danger" href="/comum/excluir/edu/registroconvocacaoenade/{{ aluno_convocacao.pk }}/">Remover Convocação</a></li>
+            					{% endif %}
+                            </ul>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Não há convocações para o ENADE.</p>
+    {% endif %}
+
+{% endbox %}

@@ -1,0 +1,55 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% box 'Dados do Candidato' %}
+		<table class="info">
+		    <tr>
+		        <td>Edital:</td>
+		        <td><a href='/processo_seletivo/edital/{{ obj.edital.pk }}/'>{{ obj.edital }}</a></td>
+		    </tr>
+		    <tr>
+		        <td>Nº da Inscrição:</td>
+		        <td>{{ obj.inscricao }}</td>
+		    </tr>
+		    <tr>
+		        <td>CPF:</td>
+		        <td>{{ obj.cpf }}</td>
+		    </tr>
+		    <tr>
+		        <td>Nome:</td>
+		        <td>{{ obj.nome }}</td>
+            </tr>
+            <tr>
+                <td>E-mail:</td>
+                <td>{{ obj.email }}</td>
+            </tr>
+            <tr>
+                <td>Telefone:</td>
+                <td>{{ obj.telefone }}</td>
+            </tr>
+		</table> 
+	{% endbox %}
+
+	{% box 'Classificações' %}
+		<table>
+			<thead>
+				<tr>
+					<th>Lista</th>
+					<th>Curso</th>
+					<th>Classificação</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for candidato_vaga in obj.candidatovaga_set.all %}
+				<tr>
+					<td>{{ candidato_vaga.oferta_vaga.lista }}</td>
+					<td>{{ candidato_vaga.oferta_vaga.curso_campus }}</td>
+					<td>{{ candidato_vaga.classificacao }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endbox %}
+
+{% endblock %}

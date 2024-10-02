@@ -1,0 +1,111 @@
+
+%badge {
+    background-color: $grey-400;
+    border-radius: $border-radius;
+    color: $white;
+}
+%box {
+    border: 0 none;
+    @extend %transitions;
+}
+%box-hover {
+    background-color: $grey-50;
+}
+%box-collapse-icon {
+    background-color: $brand-color;
+    border-radius: $border-radius;
+    color: $white;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 1px;
+    margin-right: 1rem;
+    text-align: center;
+}
+%box-title {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: none;
+}
+%btn {
+    background-color: $grey-900;
+    border-radius: $border-radius;
+}
+%btn-default {
+    color: $white;
+}
+%btn-default-active {
+    color: $white;
+}
+%filters-text-before {
+    font-weight: 900;
+    text-transform: none;
+}
+%inputs {
+    border: 0 none;
+}
+%module-alert {
+    border: 0 none;
+    border-radius: $border-radius;
+}
+%module-info-title {
+    background-color: transparent;
+    color: $secondary-color;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 5px 0;
+    text-transform: none;
+}
+%nav-first-level {
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: none;
+}
+%nav-first-level-icon {
+    margin-right: 1.1rem;
+    opacity: .25;
+}
+%status {
+    border: 0 none;
+    border-radius: $border-radius;
+    padding: 3px 16px;
+    text-align: center;
+}
+%status-default {
+    background-color: $grey-100;
+}
+%status-inside-container {
+    border-top-width: 0;
+}
+%subtitle {
+    font-weight: 700;
+}
+%table {
+    border: 0 none;
+}
+%table-thead {
+    border: 0 none;
+    box-shadow: 3px 3px 0 $white inset;
+}
+%table-tbody {
+    background-color: $grey-50;
+    border: 0 none;
+    box-shadow: 3px 3px 0 $white inset;
+    padding: 10px;
+}
+%table-action-icon {
+    background-color: $brand-color;
+    border-radius: $border-radius;
+}
+%table-action-icon-before {
+    color: $white;
+}
+%tabs {
+    background-color: $grey-50;
+}
+%tabs-active {
+    background-color: $white;
+}
+%tabs-link {
+    color: $grey-800;
+}

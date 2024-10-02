@@ -1,0 +1,34 @@
+{% extends super_template %}
+
+{% block content %}
+    {% for unidade in campi %}
+    {% box "{{ unidade }} - R$ {{ unidade.somatorios|format }}" "collapsed" "bordered" %}
+            <h4>Projetos Estratégicos</h4>
+            {% if unidade.lista_projetos %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código do Projeto</th>
+                            <th>Valor Compatibilizado</th>
+                            <th>Valor Complementado</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for projeto in unidade.lista_projetos %}
+                             <tr>
+                                 <td>{{ projeto.codigo}}</td>
+                                 <td align="right">{{ projeto.valor|format_money }}</td>
+                                 <td align="right">{{ projeto.valor_reserva_tecnica|format_money }}</td>
+                                 <td align="right">{{ projeto.total|format_money }}</td>
+                             </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum recurso da reserva técnica foi alocado em projetos.</p>
+            {% endif %}
+    {% endbox %}
+
+    {% endfor %}
+{% endblock %}

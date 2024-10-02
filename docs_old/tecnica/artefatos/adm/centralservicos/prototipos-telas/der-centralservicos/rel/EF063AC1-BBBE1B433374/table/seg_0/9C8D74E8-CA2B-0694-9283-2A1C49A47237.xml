@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9C8D74E8-CA2B-0694-9283-2A1C49A47237" name="centralservicos_baseconhecimento">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:36:32 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>baseconhecimento</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="AEDB9E3B-E672-374B-4FFD-DCFA5AC31AAC">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:42:03 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tipo" id="FC9183C2-2FDF-B2CD-8C5D-BAAD24B7AF06">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:44:18 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="titulo" id="C431D938-08AB-566F-7D98-CA621BD02F25">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:45:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>120</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="resumo" id="AC089168-BEA1-3E11-7BFC-A3CDD46BB09C">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:45:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tags" id="FA83E79A-FD7E-37A8-4ED8-38ED152339D8">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:45:37 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="solucao" id="BACBB193-8DBF-F52C-A942-BC5921B5CCA9">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:46:28 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="servico_id" id="329C2E79-2651-9477-0DA7-20984BBA22C4">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:12:39 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>DEDAD316-ACFB-A1F3-8A74-8336ACD90A82</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3AF00C31-60BB-CF68-2A6F-6EDD994DE245" referredColumn="DEDAD316-ACFB-A1F3-8A74-8336ACD90A82"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AC1A229F-46F6-A58D-A73E-ED679E15143F" name="centralservicos_baseconhecimento_PK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 18:43:56 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AEDB9E3B-E672-374B-4FFD-DCFA5AC31AAC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2628280E-6204-D2B1-1B47-DFB074ED50E5" name="centralservicos_baseconhecimento_centralservicos_servico_FK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:12:39 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="329C2E79-2651-9477-0DA7-20984BBA22C4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

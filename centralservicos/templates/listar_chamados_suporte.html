@@ -1,0 +1,44 @@
+{% extends super_template %}
+
+{% block extrahead %}
+<script>
+jQuery(document).ready(function() {
+    function exibe_atendente(){
+        var filtro_atribuicoes = $('input[name=atribuicoes]:checked', '#buscarchamadosuporte_form').val();
+        if (filtro_atribuicoes == '2') {
+            $('div.atendente').show();
+        } else {
+            $('div.atendente').hide();
+        }
+    }
+    exibe_atendente();
+
+    $('#buscarchamadosuporte_form input[name=atribuicoes]').on('change', function() {
+        exibe_atendente();
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<p class="msg alert"><strong>Aviso:</strong> Chamados com situação "Fechado", "Resolvido" ou "Cancelado" não serão exibidos na consulta geral.</p>
+
+{% box 'Filtros' 'collapsed' %}
+    {% render_form form %}
+{% endbox %}
+
+{% if lista_chamados.exists %}
+    {% box "Chamados" %}
+        {% autopaginate lista_chamados 20 %}
+        {% paginate %}
+        {% for chamado in lista_chamados %}
+            {% include "includes/box_chamado.html" %}
+        {% endfor %}
+        {% paginate %}
+    {% endbox %}
+{% else %}
+	<p class="msg alert">Nenhum chamado encontrado.</p>
+{% endif %}
+
+{% endblock %}

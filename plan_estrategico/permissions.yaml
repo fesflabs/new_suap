@@ -1,0 +1,202 @@
+Administrador de Planejamento Estratégico:
+  financeiro:
+    acao:
+    - add_acao
+    - view_acao
+    - change_acao
+    - delete_acao
+    acaoano:
+    - add_acaoano
+    - view_acaoano
+    - change_acaoano
+    - delete_acaoano
+    elementodespesa:
+    - add_elementodespesa
+    - view_elementodespesa
+    - change_elementodespesa
+    - delete_elementodespesa
+    gruponaturezadespesa:
+    - add_gruponaturezadespesa
+    - view_gruponaturezadespesa
+    - change_gruponaturezadespesa
+    - delete_gruponaturezadespesa
+    naturezadespesa:
+    - add_naturezadespesa
+    - view_naturezadespesa
+    - change_naturezadespesa
+    - delete_naturezadespesa
+    programa:
+    - add_programa
+    - view_programa
+    - delete_programa
+    programatrabalho:
+    - add_programatrabalho
+    - view_programatrabalho
+    - delete_programatrabalho
+    programatrabalhoresumido:
+    - add_programatrabalhoresumido
+    - view_programatrabalhoresumido
+    - delete_programatrabalhoresumido
+  plan_estrategico:
+    arquivometa:
+    - add_arquivometa
+    - view_arquivometa
+    - change_arquivometa
+    atividadeetapa:
+    - view_atividadeetapa
+    etapaprojeto:
+    - add_etapaprojeto
+    - change_etapaprojeto
+    - view_etapaprojeto
+    - delete_etapaprojeto
+    indicador:
+    - add_indicador
+    - change_indicador
+    - view_indicador
+    - delete_indicador
+    naturezadespesaplanoatividade:
+    - add_naturezadespesaplanoatividade
+    - change_naturezadespesaplanoatividade
+    - view_naturezadespesaplanoatividade
+    - delete_naturezadespesaplanoatividade
+    objetivoestrategico:
+    - add_objetivoestrategico
+    - change_objetivoestrategico
+    - view_objetivoestrategico
+    - delete_objetivoestrategico
+    origemrecurso:
+    - add_origemrecurso
+    - change_origemrecurso
+    - view_origemrecurso
+    - delete_origemrecurso
+    pdi:
+    - add_pdi
+    - change_pdi
+    - view_pdi
+    - view_pdi
+    periodopreenchimentovariavel:
+    - add_periodopreenchimentovariavel
+    - view_periodopreenchimentovariavel
+    - change_periodopreenchimentovariavel
+    - delete_periodopreenchimentovariavel
+    perspectiva:
+    - add_perspectiva
+    - change_perspectiva
+    - view_perspectiva
+    - delete_perspectiva
+    planoatividade:
+    - add_planoatividade
+    - change_planoatividade
+    - view_planoatividade
+    - delete_planoatividade
+    - view_planoatividade
+    projetoestrategico:
+    - add_projetoestrategico
+    - change_projetoestrategico
+    - view_projetoestrategico
+    - delete_projetoestrategico
+    tematicavariavel:
+    - add_tematicavariavel
+    - change_tematicavariavel
+    - view_tematicavariavel
+    variavel:
+    - add_variavel
+    - view_variavel
+    - change_variavel
+    - delete_variavel
+    variavelcampus:
+    - add_variavelcampus
+    - view_variavelcampus
+    - delete_variavelcampus
+Auditor:
+  app_manager: rh
+  plan_estrategico:
+    arquivometa:
+    - view_arquivometa
+    etapaprojeto:
+    - view_etapaprojeto
+    indicador:
+    - view_indicador
+    naturezadespesaplanoatividade:
+    - view_naturezadespesaplanoatividade
+    objetivoestrategico:
+    - view_objetivoestrategico
+    origemrecurso:
+    - view_origemrecurso
+    pdi:
+    - view_pdi
+    periodopreenchimentovariavel:
+    - view_periodopreenchimentovariavel
+    perspectiva:
+    - view_perspectiva
+    planoatividade:
+    - view_planoatividade
+    projetoestrategico:
+    - view_projetoestrategico
+    tematicavariavel:
+    - view_tematicavariavel
+    variavel:
+    - view_variavel
+    variavelcampus:
+    - view_variavelcampus
+Coordenador de UA:
+  plan_estrategico:
+    atividadeetapa:
+    - view_atividadeetapa
+    - add_atividadeetapa
+    - change_atividadeetapa
+    - view_atividadeetapa
+    - delete_atividadeetapa
+    pdi:
+    - view_pdi
+    planoatividade:
+    - view_planoatividade
+Gestor Estratégico Local:
+  plan_estrategico:
+    pdi:
+    - view_pdi
+    variavelcampus:
+    - view_variavelcampus
+Gestor Estratégico Sistêmico:
+  plan_estrategico:
+    variavelcampus:
+    - view_variavelcampus
+Gestor de Projeto:
+  plan_estrategico:
+    atividadeetapa:
+    - view_atividadeetapa
+    compartilhamentopoderdegestorua:
+    - pode_gerenciar_permissoes_da_ua
+    etapaprojeto:
+    - add_etapaprojeto
+    - change_etapaprojeto
+    - view_etapaprojeto
+    - delete_etapaprojeto
+    pdi:
+    - view_pdi
+    planoatividade:
+    - view_planoatividade
+    projetoestrategico:
+    - add_projetoestrategico
+    - change_projetoestrategico
+    - view_projetoestrategico
+    - delete_projetoestrategico
+    projetoplanoatividade:
+    - add_projetoplanoatividade
+    - change_projetoplanoatividade
+    - view_projetoplanoatividade
+    - delete_projetoplanoatividade
+Gestor de UA:
+  plan_estrategico:
+    atividadeetapa:
+    - view_atividadeetapa
+    - add_atividadeetapa
+    - change_atividadeetapa
+    - view_atividadeetapa
+    - delete_atividadeetapa
+    compartilhamentopoderdegestorua:
+    - pode_gerenciar_permissoes_da_ua
+    pdi:
+    - view_pdi
+    planoatividade:
+    - view_planoatividade

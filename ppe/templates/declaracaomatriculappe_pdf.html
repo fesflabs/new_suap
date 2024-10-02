@@ -1,0 +1,53 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block content %}
+ <main>
+    <h1 class="title">DECLARAÇÃO</h1>
+    <div class="corpo">
+        <table>
+            <tr>
+                <td width="30px">&nbsp;</td>
+                <td>
+                    <p style='text-align: justify; text-indent: 80px; font-size:16px; line-height:170%; margin: 0px; padding: 0px;'>
+                        Declaramos para os fins que se fizerem necessários, e por nos haver sido solicitado, que 
+                        <strong>{{ trabalhador_educando.get_nome_social_composto|normalizar }}</strong>,
+                        matrícula <strong>{{ trabalhador_educando.matricula }}</strong>, 
+                        é {{ eh_masculino|yesno:"trabalhador educando,trabalhadora educanda" }} do 
+                        <strong>{{ trabalhador_educando.formacao}}</strong>, 
+                        com carga horária total de<strong>00hh</strong>, 
+                        nesta Fundação Estatal de Saúde da Família – FESFSUS. O referido curso será ministrado de 
+                        <strong>{{ trabalhador_educando.formacao.data_inicio|format }} a 
+                        {{ trabalhador_educando.formacao.data_inicio|format }}</strong>.
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div align='right' style='font-size:14px'>
+                        Salvador, {{ hoje|date:'d' }} de
+                        {{ hoje|date:'F'|lower }} de {{ hoje.year }}.
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    {% comment %} <p style='text-align: justify; text-indent: 80px; font-size:16px; line-height:170%; margin: 0px; padding: 0px;'>
+                        <strong>Responsável pela
+                            informação:</strong> {{ aluno.curso_campus.diretoria.setor.nome|format|normalizar }} do
+                        {{ aluno.curso_campus.diretoria.setor.uo.nome|format|normalizar }}.
+                    </p> {% endcomment %}
+
+                </td>
+                <td width="30px">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+ </main>
+{% endblock %}
+

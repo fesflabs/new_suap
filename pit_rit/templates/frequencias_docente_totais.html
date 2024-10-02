@@ -1,0 +1,84 @@
+<table class="info large">
+    <tbody>
+        <tr>
+            <td>
+                <h4>Total de Relógio Exigido</h4>
+                <p class="obs">Total de frequência exigida para o período.</p>
+            </td>
+            <td class="text-nowrap">{{ relatorio.total_relogio_exigido }}</td>
+        </tr>
+        <tr>
+            <td>
+                <h4>Total de Frequência</h4>
+                <p class="obs">Total de frequência registrada no período.</p>
+            </td>
+            <td class="text-nowrap">{{ relatorio.total_frequencia }}</td>
+        </tr>
+
+        {% if relatorio.total_abonado_sem_compensacao or relatorio.total_trabalho_remoto or relatorio.total_abonado_para_compensacao or relatorio.total_nao_abonado %}
+            <tr>
+                <td>
+                    <h4>Avaliações da Chefia</h4>
+                </td>
+                <td>
+                    <p><strong>{{ relatorio.total_abonado_sem_compensacao }}</strong> abonadas sem necessidade de compensação.</p>
+                    <p><strong>{{ relatorio.total_trabalho_remoto }}</strong> de trabalho remoto.</p>
+                    <p><strong>{{ relatorio.total_abonado_para_compensacao }}</strong> abonadas com necessidade de compensação.</p>
+                    <p><strong>{{ relatorio.total_nao_abonado }}</strong> não abonadas.</p>
+                </td>
+            </tr>
+        {% endif %}
+        {% if relatorio.total_hora_extra_para_compensacao_carga_horaria or relatorio.total_hora_extra_justificada or relatorio.total_hora_extra_nao_justificada %}
+           <tr>
+                <td>
+                    <h4>Horas Extras</h4>
+                </td>
+                <td>
+                    <p><strong>{{ relatorio.total_hora_extra_para_compensacao_carga_horaria }}</strong> para compensação de carga horária.</p>
+                    <p><strong>{{ relatorio.total_hora_extra_justificada }}</strong> justificadas/autorizadas.</p>
+                    <p><strong>{{ relatorio.total_hora_extra_nao_justificada }}</strong> não justificadas/Autorizadas.</p>
+               </td>
+            </tr>
+        {% endif %}
+        {% if relatorio.total_trabalho_fds_permitido_para_compensacao_carga_horaria or relatorio.total_trabalho_fds_permitido_como_hora_extra or relatorio.total_trabalho_fds_nao_permitido %}
+            <tr>
+                <td>
+                    <h4>Trabalho no Fim de Semana</h4>
+                </td>
+                <td>
+                    <p><strong>{{ relatorio.total_trabalho_fds_permitido_para_compensacao_carga_horaria }}</strong> para compensação de carga horária.</p>
+                    <p><strong>{{ relatorio.total_trabalho_fds_permitido_como_hora_extra }}</strong> como hora extra.</p>
+                    <p><strong>{{ relatorio.total_trabalho_fds_nao_permitido }}</strong> não justificado/autorizado.</p>
+                </td>
+            </tr>
+        {% endif %}
+        {% if relatorio.total_hora_extra_noturna %}
+            <tr>
+                <td>
+                    <h4>Horário Noturno</h4>
+                    <p class="obs">Horas trabalhadas após as 22h.</p>
+                </td>
+                <td>{{ relatorio.total_hora_extra_noturna }}</td>
+            </tr>
+        {% endif %}
+
+        <tr>
+            <td>
+                <h4>Total de Horas Válidas</h4>
+                <p class="obs">
+                    Total de horas válidas para composição da jornada de trabalho do docente.
+                    Exclui horas extras e trabalhos no fim de semana não justificados/autorizados.
+                </p>
+            </td>
+            <td class="text-nowrap">{{ relatorio.total_valido }}</td>
+        </tr>
+
+        <tr>
+            <td>
+                <h4>Total PIT (h/r)</h4>
+                <p class="obs">Total de horas/relógio planejadas para o período (apenas a título de informação).</p>
+            </td>
+            <td class="text-nowrap">{{ relatorio.total_pit_hora_relogio }}</td>
+        </tr>
+	</tbody>
+</table>

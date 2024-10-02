@@ -1,0 +1,151 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <h2>Trabalho de Conclusão de Curso / Relatório</h2>
+
+    {% box 'Dados Gerais' %}
+
+        <table class="info">
+            <tr>
+                <td>Aluno</td>
+                <td><a href="/edu/aluno/{{ obj.matricula_periodo.aluno.matricula }}/"
+                           target="_blank">{{ obj.matricula_periodo.aluno }}</a></td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'titulo' }}:</td>
+                <td>{{ obj.titulo|format|normalizar }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'tipo' }}:</td>
+                <td>{{ obj.tipo|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj.matricula_periodo|verbose:'ano_letivo' }}:</td>
+                <td>{{ obj.matricula_periodo.ano_letivo|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj.matricula_periodo|verbose:'periodo_letivo' }}:</td>
+                <td>{{ obj.matricula_periodo.periodo_letivo|format }}</td>
+            </tr>
+        </table>
+
+    {% endbox %}
+    {% box 'Dados da Orientação' %}
+
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'orientador' }}:</td>
+                <td>
+                    {% if perms.edu.view_professor %}
+                        <a href="/edu/professor/{{ obj.orientador.pk }}/"
+                           target="_blank">{{ obj.orientador|format }}</a>
+                    {% else %}
+                        {{ obj.orientador|format }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Co-orientadores:</td>
+                <td>
+                    <ul>
+                        {% for cooridentador in obj.coorientadores.all %}
+                            <li>{{ cooridentador }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+    {% endbox %}
+    {% box 'Dados da Defesa' %}
+
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'data_defesa' }}:</td>
+                <td>{{ obj.data_defesa|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'data_deposito' }}:</td>
+                <td>{{ obj.data_deposito|format }}</td>
+            </tr>
+            <tr>
+                <td>Nota:</td>
+                <td>{{ obj.nota|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'situacao' }}:</td>
+                <td>{{ obj.get_situacao_display|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'presidente' }}:</td>
+                <td>
+                    {% if perms.edu.view_professor %}
+                        <a href="/edu/professor/{{ obj.presidente.pk }}/"
+                           target="_blank">{{ obj.presidente|format }}</a>
+                    {% else %}
+                        {{ obj.presidente|format }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'examinador_interno' }}:</td>
+                <td>{{ obj.examinador_interno|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'examinador_externo' }}:</td>
+                <td>{{ obj.examinador_externo|format }} {% if obj.examinador_externo %}(
+                    {% if obj.is_examinador_externo %}externo{% else %}interno{% endif %}){% endif %}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'terceiro_examinador' }}:</td>
+                <td>{{ obj.terceiro_examinador|format }} {% if obj.terceiro_examinador %}(
+                    {% if obj.is_terceiro_examinador_externo %}externo{% else %}interno{% endif %}){% endif %}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'suplente_interno' }}:</td>
+                <td>{{ obj.suplente_interno|format }}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'suplente_externo' }}:</td>
+                <td>{{ obj.suplente_externo|format }} {% if obj.suplente_externo %}({% if obj.is_suplente_externo %}
+                    externo{% else %}interno{% endif %}){% endif %}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'terceiro_suplente' }}:</td>
+                <td>{{ obj.terceiro_suplente|format }} {% if obj.terceiro_suplente %}(
+                    {% if obj.is_terceiro_suplente_externo %}externo{% else %}interno{% endif %}){% endif %}</td>
+            </tr>
+            <tr>
+                <td>{{ obj|verbose:'ata' }}:</td>
+                <td><a href="{{ obj.ata.url }}">{{ obj.get_nome_ata }}</a></td>
+            </tr>
+        </table>
+
+    {% endbox %}
+    {% box 'Outras Informações' %}
+
+        <table class="info">
+            <tr>
+                <td>{{ obj|verbose:'informacao_complementar'}}:</td>
+                <td>{{ obj.informacao_complementar|format }}</td>
+            </tr>
+            <tr>
+                <td>{% if obj.documento_url %}
+                        {{ obj|verbose:'documento_url' }}
+                    {% else %}
+                        {{ obj|verbose:'documento' }}
+                    {% endif %}:
+                </td>
+                <td>
+                    {% if obj.documento_url %}
+                        <a href="{{ obj.documento_url }}" target="_blank">{{ obj.documento_url }}</a>
+                    {% else %}
+                        <a href="{{ obj.documento.url }}" target="_blank">{{ obj.get_nome_documento|format }}</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+    {% endbox %}
+{% endblock %}

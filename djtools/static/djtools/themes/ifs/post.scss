@@ -1,0 +1,142 @@
+body.theme-ifs {
+    header h1 a {
+        background-image: url("/static/comum/img/logo-white.svg");
+        background-size: contain;
+    }
+    #mainmenu {
+        a:hover {
+            color: $white;
+        }
+        li.active > a {
+            color: $contrast-color;
+        }
+        > ul > li.menu-logout > a span.fas {
+            opacity: 1;
+        }
+    }
+    aside input[type="search"] {
+        border-color: $grey-400;
+    }
+    aside input[type="search"],
+    aside .buscar_menu::before {
+        color: $contrast-color;
+        -webkit-text-fill-color: $contrast-color;
+    }
+    fieldset {
+        border: 0 none;
+    }
+    form fieldset div.form-row {
+        border-bottom: 1px solid $white;
+    }
+    main {
+        border-radius: 50px 0 0 50px;
+    }
+    #footer ul li a:hover {
+        color: $contrast-color;
+    }
+    .alertas {
+        border-radius: 50px 0 0 50px;
+        + main {
+            border-radius: 0;
+        }
+    }
+    .box > div {
+        padding-left: 0;
+    }
+    .card:hover,
+    .form-busca-rapida input[type="search"],
+    .general-box:hover {
+        background-color: $grey-50;
+    }
+    .card footer {
+        background-color: $grey-200;
+        color: $black;
+    }
+    a.checklist {
+        color: $black;
+    }
+    .definition-list.flex .list-item {
+        border-bottom: 1px solid $grey-50;
+    }
+    .modulo-alertas {
+        h3 {
+            @extend %module-info-title;
+        }
+        .extra-info {
+            color: $grey-900;
+        }
+        .btn {
+            background-color: $white;
+        }
+    }
+    .modulo-indicador h4 {
+        color: $secondary-color;
+    }
+    .modulo-info h3 {
+        background-color: $white;
+        border-radius: $border-radius $border-radius 0 0;
+        border-bottom: 0 none;
+        padding: $card-padding $card-padding 0;
+        > span.titulo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6rem;
+            gap: .5rem;
+            line-height: 1.2em;
+            max-width: 60%;
+            .fas {
+                background-color: $brand-color;
+                border-radius: $border-radius;
+                color: $white;
+                flex-basis: 45px;
+                flex-shrink: 0;
+                font-size: 1.75rem;
+                height: 45px;
+                line-height: 45px;
+                margin-right: 1rem  ;
+                opacity: 1;
+                text-align: center;
+                width: 45px;
+            }
+        }
+    }
+    .notifications a {
+        background-color: $brand-color;
+        border-color: $brand-color;
+        border-radius: $border-radius;
+        &:hover {
+            background-color: $grey-800;
+            border-color: $grey-800;
+            .fas {
+                color: $white;
+            }
+        }
+    }
+    .search-and-filters form fieldset div.form-row {
+        border-bottom: 0 none;
+    }
+    .switch {
+        input:checked + .slider {
+            background-color: $flat-light-green;
+        }
+        .slider {
+            background-color: $grey-700;
+        }
+    }
+    .tabs li.active .badge {
+        background-color: $brand-color;
+    }
+    .toggleSidebar {
+        background: none;
+        opacity: 1;
+        &:hover {
+            background: none;
+            span.fas {
+                color: $grey-600;
+            }
+        }
+        span.fas {
+            color: $grey-800;
+        }
+    }
+}

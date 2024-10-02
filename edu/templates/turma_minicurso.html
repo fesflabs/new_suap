@@ -1,0 +1,233 @@
+{% extends super_template %}
+{% block extrahead %}
+    <script type="text/javascript">
+        function enviarEmailParticipantesSelecionados(minicurso) {
+            var inputs = $("input[name='cpfs']");
+            var pks = [];
+            for (u = 0; u < inputs.length; u++) {
+                if (inputs[u].checked) {
+                    pks.push(inputs[u].value);
+                }
+            }
+
+            pks = pks.join("_");
+            if (pks.length > 0) {
+                pks = pks + "/";
+            }
+
+            if (pks.length == 0) {
+                alert('Por favor, selecione o(s) participantes(s) para o qual deseja enviar o Certificado por email.');
+            }
+            else {
+                document.location.href = "/edu/enviar_certificado_participacao_minicurso/" + minicurso + "/" + pks;
+            }
+        }
+    </script>
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% box "Informações" %}
+        <table class="info">
+            <tr>
+                <td>Descrição</td>
+                <td>{{ obj.descricao }}</td>
+            </tr>
+            <tr>
+                <td>Curso FIC < 160h</td>
+                <td><a href="/edu/minicurso/{{ obj.minicurso.pk }}">{{ obj.minicurso.descricao }}</a></td>
+            </tr>
+            <tr>
+                <td>Ano/Período Letivo</td>
+                <td>{{ obj.ano_letivo }}.{{ obj.periodo_letivo }}</td>
+            </tr>
+            <tr>
+                <td>Gerar Matrícula?</td>
+                <td>{{ obj.gerar_matricula|format }}</td>
+            </tr>
+            <tr>
+                <td>Início/Fim</td>
+                <td>De {{ obj.data_inicio }} até {{ obj.data_fim }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Equipe" data-tab="equipe">
+    {% box "Professores ({{ obj.professorminicurso_set.all.count }}) " %}
+        {% if obj.professorminicurso_set.exists %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Carga Horária em h/r</th>
+                    <th>Carga Horária em h/a</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for professor_minicurso in obj.professorminicurso_set.all %}
+                    <tr>
+                        <td>
+                            <a href="/edu/professor/{{ professor_minicurso.professor.pk }}/">{{ professor_minicurso.professor.get_matricula }}</a>
+                        </td>
+                        <td>{{ professor_minicurso.professor.vinculo.pessoa.nome }}</td>
+                        <td>{{ professor_minicurso.carga_horaria|format }}</td>
+                        <td>{{ professor_minicurso.get_carga_horaria_ha|format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum professor vinculado à turma.</p>
+        {% endif %}
+    {% endbox %}
+
+    {% box "Monitores ({{ obj.monitorminicurso_set.all.count }}) " %}
+        {% if obj.monitorminicurso_set.exists %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Carga Horária</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for monitor_minicurso in obj.monitorminicurso_set.all %}
+                    <tr>
+                        <td>
+                            <a href="/edu/aluno/{{ monitor_minicurso.aluno.matricula }}/">{{ monitor_minicurso.aluno.matricula }}</a>
+                        </td>
+                        <td>{{ monitor_minicurso.aluno.vinculo.pessoa.nome }}</td>
+                        <td>{{ monitor_minicurso.carga_horaria|format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum monitor vinculado à turma.</p>
+        {% endif %}
+    {% endbox %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Participantes" data-counter="{{ obj.participantes.count }}" data-tab="participantes">
+    {% box "Participantes" %}
+    {% if perms.edu.change_turmaminicurso %}
+        <ul class="action-bar">
+            <li><a class="btn popup success" href="/edu/adicionar_participante_turma_minicurso/{{ obj.pk }}/">Adicionar Participante</a></li>
+            <li><a class="btn popup success" href="/edu/importar_participantes_turma_minicurso/{{ obj.pk }}/">Importar Participantes</a></li>
+            {% if obj.data_fim <= hoje %}
+                <li><a href="javascript:void(0);" onclick="enviarEmailParticipantesSelecionados({{ obj.pk }});" class="btn primary">Enviar Certificado para Participantes Selecionados</a></li>
+            {% endif %}
+        </ul>
+    	{% endif %}
+        {% if obj.participantes.exists %}
+            <form method="post" action="">
+                {% csrf_token %}
+                <table>
+                    <thead>
+                    <tr>
+                      	{% if perms.edu.change_turmaminicurso %}
+                        <th>
+                            <input type="checkbox" onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked"/>
+                        </th>
+                        {% endif %}
+                        <th></th>
+                        <th>CPF</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Situação</th>
+                        {% if perms.edu.change_turmaminicurso %}
+                        <th class="no-print">Opções</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for aluno in obj.participantes.all %}
+                        <tr>
+                        	{% if perms.edu.change_turmaminicurso %}
+                            <td><input value="{{ aluno.pk }}" name="cpfs" type="checkbox"/></td>
+                            {% endif %}
+                            <td>
+                                {% icon "edit" "/edu/editar_participante_turma_minicurso/{{ aluno.pessoa_fisica.pk }}/" "Editar" "popup" %}
+                            </td>
+                            <td>{{ aluno.pessoa_fisica.cpf }}</td>
+                            <td>{{ aluno.get_nome }} {% if obj.gerar_matricula %}({{ aluno.matricula }}){% endif %}</td>
+                            <td>{{ aluno.pessoa_fisica.email }}</td>
+                            <td>{{ aluno.situacao|format }}</td>
+                            {% if perms.edu.change_turmaminicurso %}
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    {% if aluno.is_concluido %}
+                                    	<li class="has-child">
+        									<a class="btn" href="#"> Imprimir Certificado</a>
+        									<ul>
+                                            	<li><a href="/edu/autenticar_certificado_minicurso/?cpf={{ aluno.pessoa_fisica.cpf }}&data_conclusao={{ obj.data_fim|format }}&codigo_turma={{ obj.pk }}&com_timbre=0" class="btn">Papel Comum</a></li>
+            									<li><a href="/edu/autenticar_certificado_minicurso/?cpf={{ aluno.pessoa_fisica.cpf }}&data_conclusao={{ obj.data_fim|format }}&codigo_turma={{ obj.pk }}&com_timbre=1" class="btn">Papel Timbrado</a></li>
+        									</ul>
+    									</li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if perms.edu.change_turmaminicurso %}
+                <div class="submit-row">
+                    <input type="button" class="danger no-confirm" id="btn_remover" value="Remover Participantes Selecionados"/>
+                    <input type="button" class="default" id="btn_aprovar" value="Aprovar Participantes Selecionados"/>
+                    <input type="button" class="btn primary" id="btn_reprovar" value="Reprovar Participantes Selecionados"/>
+                </div>
+                {% endif %}
+            </form>
+            <script>
+                jQuery(function () {
+                    if (!$("input[name='cpfs']").length) {
+                        $("#btn_remover").hide();
+                        $("#btn_aprovar").hide();
+                    }
+                });
+                $("#btn_remover").click(function (e) {
+                    ids = $("input[name='cpfs']:checked").map(function () {
+                        return this.value;
+                    }).get().join("_");
+                    if (!ids) {
+                        alert("Nenhum aluno selecionado.");
+                    } else {
+                        $.fancybox.open({
+                            src  : '/comum/excluir/edu/aluno/' + ids + '/?_popup=1',
+                            type : 'iframe'
+                        });
+                    }
+                });
+                $("#btn_aprovar").click(function (e) {
+                    ids = $("input[name='cpfs']:checked").map(function () {
+                        return this.value;
+                    }).get().join("_");
+                    if (!ids) {
+                        alert("Nenhum aluno selecionado.");
+                    } else {
+                        document.location.href = '/edu/aprovar_aluno_turma_minicurso/' + ids + '/';
+                    }
+                });
+                $("#btn_reprovar").click(function (e) {
+                    ids = $("input[name='cpfs']:checked").map(function () {
+                        return this.value;
+                    }).get().join("_");
+                    if (!ids) {
+                        alert("Nenhum aluno selecionado.");
+                    } else {
+                        document.location.href = '/edu/reprovar_aluno_turma_minicurso/' + ids + '/';
+                    }
+                });
+
+            </script>
+        {% else %}
+            <p class="msg alert">Nenhum participante cadastrado.</p>
+        {% endif %}
+    {% endbox %}
+    </div>
+{% endblock %}

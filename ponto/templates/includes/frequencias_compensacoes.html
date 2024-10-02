@@ -1,0 +1,25 @@
+{% if f.compensacao.is_debito %}
+    <div class="progress debito {% if f.compensacao.ch_paga_percentual < 100 %}debito-a-pagar{% endif %}">
+        <p>{{ f.compensacao.ch_paga_percentual }}%</p>
+    </div>
+    {% if f.compensacao.ch_restante_a_pagar_is_maior_que_zero %}
+        <span class="status status-{% if f.compensacao.ch_restante_a_pagar_is_menor_que_15min %}alert{% else %}error{% endif %} text-nowrap-normal"
+                title="Carga horária pendente{% if f.compensacao.ch_restante_a_pagar_is_menor_que_15min %} (menor ou igual a 15min){% endif %}">
+            {{ f.compensacao.ch_restante_a_pagar }}
+        </span>
+    {% endif %}
+    {% if relatorio.funcionario.pk == request.user.get_profile.funcionario.pk %}
+        <div class="clear"></div>
+        <a href="/ponto/detalhar_compensacao/{{ relatorio.funcionario.servidor.matricula }}/{{ f.dia|date:'dmY' }}/" class="btn default popup">
+            {% icone "search" %} Detalhamento
+        </a>
+    {% endif %}
+{% elif f.compensacao.is_saldo %}
+    {% if relatorio.funcionario.pk == request.user.get_profile.funcionario.pk %}
+        <a href="/ponto/detalhar_compensacao/{{ relatorio.funcionario.servidor.matricula }}/{{ f.dia|date:'dmY' }}/" class="btn default popup">
+            {% icone "search" %}  Detalhamento
+        </a>
+    {% endif %}
+{% else %}
+    -
+{% endif %}

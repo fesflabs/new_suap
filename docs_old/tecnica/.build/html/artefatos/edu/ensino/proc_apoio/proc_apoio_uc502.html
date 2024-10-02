@@ -1,0 +1,732 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UC 502 - Fechar Período Letivo &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../../index.html"/>
+        <link rel="up" title="UC Cadastros Gerais" href="../index.html"/>
+        <link rel="next" title="UC 503 - Manter Calendários Acadêmicos &lt;v0.1&gt;" href="proc_apoio_uc503.html"/>
+        <link rel="prev" title="UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt;" href="proc_apoio_uc501.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../adm/index.html">Administração</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Ensino</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../doc_visao.html">Documento de Visão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html">UC Cadastros Gerais</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#uc-procedimentos-de-apoio">UC Procedimentos de Apoio</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc500.html">UC 500 - Configurar Horário do Campus &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc501.html">UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt;</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UC 502 - Fechar Período Letivo &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc503.html">UC 503 - Manter Calendários Acadêmicos &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc504.html">UC 504 - Manter e Configurar Períodos de Matrícula &lt;v0.1&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-alunos-e-professores">UC Alunos e Professores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-cursos-matrizes-e-componentes">UC Cursos, Matrizes e Componentes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-turmas-e-diarios">UC Turmas e Diários</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-relatorios-e-estatisticas">UC Relatórios e Estatísticas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-diplomas-e-certificados">UC Diplomas e Certificados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-logs">UC Logs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">UC 502 - Fechar Período Letivo &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Ensino</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="uc-502-fechar-periodo-letivo-v0-1">
+<span id="suap-artefatos-edu-ensino-proc-apoio-uc502"></span><h1>UC 502 - Fechar Período Letivo &lt;v0.1&gt;<a class="headerlink" href="#uc-502-fechar-periodo-letivo-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id11">Histórico da Revisão</a></p></li>
+<li><p><a class="reference internal" href="#objetivo" id="id12">Objetivo</a></p></li>
+<li><p><a class="reference internal" href="#atores" id="id13">Atores</a></p>
+<ul>
+<li><p><a class="reference internal" href="#principais" id="id14">Principais</a></p></li>
+<li><p><a class="reference internal" href="#interessado" id="id15">Interessado</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pre-condicoes" id="id16">Pré-condições</a></p></li>
+<li><p><a class="reference internal" href="#pos-condicoes" id="id17">Pós-condições</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso-impactados" id="id18">Casos de Uso Impactados</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-eventos" id="id19">Fluxo de Eventos</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fluxo-normal" id="id20">Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-alternativo" id="id21">Fluxo Alternativo</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao" id="id22">Fluxo de Exceção</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#especificacao-suplementares" id="id23">Especificação suplementares</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requisitos-de-interface" id="id24">Requisitos de Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ri1-exibicao-da-relacao-de-alunos" id="id25">RI1 – Exibição da Relação de alunos</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos-de-informacao" id="id26">Requisitos de Informação</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rin1-campos-para-cadastros-do-passo-1-de-2" id="id27">RIN1 – Campos para cadastros do passo 1 de 2</a></p></li>
+<li><p><a class="reference internal" href="#rin2-campos-para-cadastros-do-passo-2-de-2" id="id28">RIN2 – Campos para Cadastros do passo 2 de 2</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#regras-de-negocio" id="id29">Regras de Negócio</a></p></li>
+<li><p><a class="reference internal" href="#mensagens" id="id30">Mensagens</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ponto-de-extensao" id="id31">Ponto de Extensão</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id32">Questões em Aberto</a></p></li>
+<li><p><a class="reference internal" href="#esboco-de-prototipo" id="id33">Esboço de Protótipo</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso" id="id34">Diagrama de domínio do caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-fluxo-de-operacao" id="id35">Diagrama de Fluxo de Operação</a></p></li>
+<li><p><a class="reference internal" href="#cenario-de-testes" id="id36">Cenário de Testes</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id11">Histórico da Revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>06/05/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p>Jailton Carlos</p></td>
+</tr>
+<tr class="row-odd"><td><p>19/07/2014</p></td>
+<td><p>0.2</p></td>
+<td><p>Inclusão do fluxograma regime seriado e regime de crédido</p></td>
+<td><p>Jailton Carlos</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objetivo">
+<h2><a class="toc-backref" href="#id12">Objetivo</a><a class="headerlink" href="#objetivo" title="Link permanente para este título">¶</a></h2>
+<p>Está funcionalidade permitira ao usuário realizar o fechamento de um período letivo.</p>
+</section>
+<section id="atores">
+<h2><a class="toc-backref" href="#id13">Atores</a><a class="headerlink" href="#atores" title="Link permanente para este título">¶</a></h2>
+<section id="principais">
+<h3><a class="toc-backref" href="#id14">Principais</a><a class="headerlink" href="#principais" title="Link permanente para este título">¶</a></h3>
+<p>Administradores do sistema, Diretores Acadêmicos e Secretários.</p>
+</section>
+<section id="interessado">
+<h3><a class="toc-backref" href="#id15">Interessado</a><a class="headerlink" href="#interessado" title="Link permanente para este título">¶</a></h3>
+<p>Não se aplica.</p>
+</section>
+</section>
+<section id="pre-condicoes">
+<h2><a class="toc-backref" href="#id16">Pré-condições</a><a class="headerlink" href="#pre-condicoes" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Turmas e diários criados;</p></li>
+<li><p>Alunos inseridos nos diários.</p></li>
+</ul>
+</section>
+<section id="pos-condicoes">
+<h2><a class="toc-backref" href="#id17">Pós-condições</a><a class="headerlink" href="#pos-condicoes" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Coeficiente de rendimento do aluno atualizado (art. 248 OD/2012);</p></li>
+<li><p>Situalização do aluno no período atualizada.</p></li>
+</ul>
+</section>
+<section id="casos-de-uso-impactados">
+<h2><a class="toc-backref" href="#id18">Casos de Uso Impactados</a><a class="headerlink" href="#casos-de-uso-impactados" title="Link permanente para este título">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><ol class="arabic simple">
+<li><p><a class="reference internal" href="../cursos_matr_comp/cursos_matri_comp_uc300.html#suap-artefatos-edu-ensino-cursos-matr-comp-uc300"><span class="std std-ref">UC 300 - Manter Estrutura de curso &lt;v0.1&gt;</span></a>: criar os campos abaixo:</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p>Caixa <cite>Representação Conceitual</cite></p>
+<ul>
+<li><p>Representar faixas de notas para conceitos, informar o conceito e a faixa inicial e final, exemplo.: Conceito A (8-10), B (7-8).</p></li>
+</ul>
+</li>
+<li><p>Caixa <cite>Apuração por frequência</cite></p>
+<ul>
+<li><p>Acrescentar o percentual de freq. mínima p não reprovar na disciplina. hoje é 75 %.</p></li>
+</ul>
+</li>
+<li><p>Caixa <cite>Critério para jubiliamento</cite></p>
+<ul>
+<li><p>quant. máxima de períodos. Ex. o curso possui 4 período, mas o aluno tem direito a 8.</p></li>
+<li><p>quant. reprov. no mesmo período. Ex. reprovar duas vezes o período 1.</p></li>
+<li><p>quant. reprov. na mesma disciplina. Ex. reprovado 3 vezes na disciplina matetemática.</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="fluxo-de-eventos">
+<h2><a class="toc-backref" href="#id19">Fluxo de Eventos</a><a class="headerlink" href="#fluxo-de-eventos" title="Link permanente para este título">¶</a></h2>
+<section id="fluxo-normal">
+<h3><a class="toc-backref" href="#id20">Fluxo Normal</a><a class="headerlink" href="#fluxo-normal" title="Link permanente para este título">¶</a></h3>
+<blockquote id="fn">
+<div><ol class="arabic simple">
+<li><p>O caso de uso é iniciado acionando a opção  <code class="docutils literal notranslate"><span class="pre">ENSINO</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Procedimentos</span> <span class="pre">de</span> <span class="pre">Apoio</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Fechar</span> <span class="pre">Período</span></code></p></li>
+<li><p>O secretário informa os dados (<a class="reference internal" href="#rin1">RIN1</a>)</p></li>
+<li><p>O secretário aciona a opção “Continuar”</p></li>
+<li><p>O sistema exibe a relação de alunos (<a class="reference internal" href="#ri1">RI1</a>)</p></li>
+<li><p>O secretário informa os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O secretário finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Finalizar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M3</a></p></li>
+<li><p>O secretário confirma o processamento para fechamento do período</p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M1</a></p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fluxo-alternativo">
+<h3><a class="toc-backref" href="#id21">Fluxo Alternativo</a><a class="headerlink" href="#fluxo-alternativo" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="fluxo-de-excecao">
+<h3><a class="toc-backref" href="#id22">Fluxo de Exceção</a><a class="headerlink" href="#fluxo-de-excecao" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+</section>
+<section id="especificacao-suplementares">
+<h2><a class="toc-backref" href="#id23">Especificação suplementares</a><a class="headerlink" href="#especificacao-suplementares" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+<section id="requisitos-de-interface">
+<h3><a class="toc-backref" href="#id24">Requisitos de Interface</a><a class="headerlink" href="#requisitos-de-interface" title="Link permanente para este título">¶</a></h3>
+<section id="ri1-exibicao-da-relacao-de-alunos">
+<span id="ri1"></span><h4><a class="toc-backref" href="#id25">RI1 – Exibição da Relação de alunos</a><a class="headerlink" href="#ri1-exibicao-da-relacao-de-alunos" title="Link permanente para este título">¶</a></h4>
+<p>É exibido os diários e a situação de cada um, conforme representado na <a class="reference internal" href="#figura-1">Figura 1</a>.</p>
+</section>
+</section>
+<section id="requisitos-de-informacao">
+<h3><a class="toc-backref" href="#id26">Requisitos de Informação</a><a class="headerlink" href="#requisitos-de-informacao" title="Link permanente para este título">¶</a></h3>
+<section id="rin1-campos-para-cadastros-do-passo-1-de-2">
+<span id="rin1"></span><h4><a class="toc-backref" href="#id27">RIN1 – Campos para cadastros do passo 1 de 2</a><a class="headerlink" href="#rin1-campos-para-cadastros-do-passo-1-de-2" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio/Máscara</p></th>
+<th class="head"><p>Observação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ano Letivo*</p></td>
+<td><p>Seleção</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Período Letivo*</p></td>
+<td><p>Seleção</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Tipo*</p></td>
+<td><p>Seleção mutualmente exclusiva</p></td>
+<td></td>
+<td></td>
+<td><p>Por Matricula, Por Turma, Por Curso</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>Texto autocompletar simples</p></td>
+<td></td>
+<td></td>
+<td><p><a class="reference internal" href="#regras-de-negocio">RN1</a></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A <a class="reference internal" href="#figura-2">Figura 2</a> exibe um esboço do formulário de cadastro.</p>
+</section>
+<section id="rin2-campos-para-cadastros-do-passo-2-de-2">
+<span id="rin2"></span><h4><a class="toc-backref" href="#id28">RIN2 – Campos para Cadastros do passo 2 de 2</a><a class="headerlink" href="#rin2-campos-para-cadastros-do-passo-2-de-2" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio/Máscara</p></th>
+<th class="head"><p>Observação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fechar com pendência*</p></td>
+<td><p>Caixa de checagem</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A <a class="reference internal" href="#figura-2">Figura 2</a> exibe um esboço do formulário de cadastro.</p>
+</section>
+</section>
+<section id="regras-de-negocio">
+<h3><a class="toc-backref" href="#id29">Regras de Negócio</a><a class="headerlink" href="#regras-de-negocio" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Regras gerais</span><a class="headerlink" href="#id2" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN1</p></td>
+<td><div class="line-block">
+<div class="line">Critério para busca do campo do tipo texto autocompletar simples: a busca depende do tipo selecionado:</div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>Por Matricuala</cite>:</p></li>
+<li><p><cite>Por Turma</cite>:</p></li>
+<li><p><cite>Por Curso</cite>:</p></li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN2</p></td>
+<td><div class="line-block">
+<div class="line">Calcular coeficiente de rendimento escolar de cada aluno conforme equação definida no art. 278 da Organização Didática do IFRN.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN3</p></td>
+<td><div class="line-block">
+<div class="line">O sistema deve fechar os diários conforme fluxograma de operação definido abaixo:</div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li><p>Regime FIC: ver diagrama de atividade exibida na <a class="reference internal" href="#figura-3">Figura 3</a></p></li>
+<li><p>Regime Seriado: ver diagrama de atividade exibida na <a class="reference internal" href="#figura-4">Figura 4</a></p></li>
+<li><p>Regime de Crédito: ver diagrama de atividade exibida na <a class="reference internal" href="#figura-5">Figura 5</a></p></li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN4</p></td>
+<td><div class="line-block">
+<div class="line">O sistema deve registrar em log a operação de fechamento de período.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN5</p></td>
+<td><div class="line-block">
+<div class="line">O sistema deve exibir o percentual de execução da rotina de fechamento de período.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Regras para o curso do regime seriado</span><a class="headerlink" href="#id3" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN6</p></td>
+<td><div class="line-block">
+<div class="line">O processo de reabertura deve desfazer todo o procedimento.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN7</p></td>
+<td><div class="line-block">
+<div class="line">Para o aluno reprovado o sistema deve criar um novo período (em aberto) com o último período cursado.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN8</p></td>
+<td><div class="line-block">
+<div class="line">Para o aluno Aprovado e em dependecia, o sistema deve criar um novo período letivo (em aberto) com o próxiom período a cursar</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN9</p></td>
+<td><div class="line-block">
+<div class="line">O aluno que for reprovado por falta deverá ter as disciplinas com situação de aprovadas trocadas para <cite>Aprovado/Reprovado no Módulo</cite>.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN10</p></td>
+<td><div class="line-block">
+<div class="line">Na ação de atualizar situação de matrícula (ver fluxo na <a class="reference internal" href="#figura-6">Figura 6</a>), o sistema deve aplicar as regras de jubilamento existentes na estrutura de curso.
+Criar um novo período letivo (jubilado) com o próximo período a cursar.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Regras para o curso do regime de crédito</span><a class="headerlink" href="#id4" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN11</p></td>
+<td><div class="line-block">
+<div class="line">O processo de reabertura deve desfazer todo o procedimento.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN12</p></td>
+<td><div class="line-block">
+<div class="line">Para o aluno reprovado por falta, o sistema deve criar um novo período letivo (em aberto) apenas incrementando a quantidade de períodos do aluno.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN13</p></td>
+<td><div class="line-block">
+<div class="line">Período de referência é caracterizado pelo menor período do curso no qual o estudante estiver com disciplina(s) não integralizada(s).</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN14</p></td>
+<td><div class="line-block">
+<div class="line">Na ação de atualizar situação de matrícula (ver fluxo na <a class="reference internal" href="#figura-6">Figura 6</a>), o sistema deve aplicar as regras de jubilamento existentes na estrutura de curso.
+Criar um novo período letivo (jubilado) com o próximo período a cursar.</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>RN15</p></td>
+<td><div class="line-block">
+<div class="line">O coeficiente de progressão é o índice que mede a quantidade de disciplinas cumpridas pelo aluno em relação ao total de disciplinas exigidas.
+O índice varia de 0 a 10.</div>
+</div>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>NÃO EXISTE ISSO NA ORGANIZAÇÃO DIDÁTICA.</p>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RN16</p></td>
+<td><div class="line-block">
+<div class="line">No sistema de crédito não existe situação aprovado/reprovado no período, mas sim período fechado</div>
+<div class="line">mensagem: não há.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mensagens">
+<h3><a class="toc-backref" href="#id30">Mensagens</a><a class="headerlink" href="#mensagens" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="m">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M1</p></td>
+<td><p>Cadastro realizado com sucesso.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M2</p></td>
+<td><p>Nenhuma matricula a ser processada.</p></td>
+</tr>
+<tr class="row-even"><td><p>M3</p></td>
+<td><p>Confirmar o processamento do peŕiodo para os diários listados?</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ponto-de-extensao">
+<span id="pe"></span><h2><a class="toc-backref" href="#id31">Ponto de Extensão</a><a class="headerlink" href="#ponto-de-extensao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id32">Questões em Aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="esboco-de-prototipo">
+<h2><a class="toc-backref" href="#id33">Esboço de Protótipo</a><a class="headerlink" href="#esboco-de-prototipo" title="Link permanente para este título">¶</a></h2>
+<figure class="align-center" id="id5">
+<span id="figura-1"></span><a class="reference internal image-reference" href="../../../../_images/uc502_dados_alunos.png"><img alt="protótipo de tela." src="../../../../_images/uc502_dados_alunos.png" style="width: 1272.0px; height: 497.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 1: Protótipo de tela para exibição dos dados do aluno.</span><a class="headerlink" href="#id5" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id6">
+<span id="figura-2"></span><a class="reference internal image-reference" href="../../../../_images/uc502_fechar_periodo.png"><img alt="protótipo de tela." src="../../../../_images/uc502_fechar_periodo.png" style="width: 564.1999999999999px; height: 553.6999999999999px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 2: Protótipo de tela para cadastro de Fechar Período.</span><a class="headerlink" href="#id6" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<span id="figura-3"></span><a class="reference internal image-reference" href="../../../../_images/uc502_fluxo_fechar_perido_fic.png"><img alt="protótipo de tela." src="../../../../_images/uc502_fluxo_fechar_perido_fic.png" style="width: 1162.6999999999998px; height: 963.9px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 3: Fluxo de atividade para fechamento de período regime FIC.</span><a class="headerlink" href="#id7" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id8">
+<span id="figura-4"></span><a class="reference internal image-reference" href="../../../../_images/uc502_fluxo_fechar_perido_seriado.png"><img alt="protótipo de tela." src="../../../../_images/uc502_fluxo_fechar_perido_seriado.png" style="width: 1505.0px; height: 843.5px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 4: Fluxo de atividade para fechamento de período regime seriado.</span><a class="headerlink" href="#id8" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id9">
+<span id="figura-5"></span><a class="reference internal image-reference" href="../../../../_images/uc502_fluxo_fechar_perido_credito.png"><img alt="protótipo de tela." src="../../../../_images/uc502_fluxo_fechar_perido_credito.png" style="width: 1192.8px; height: 968.8px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 5: Fluxo de atividade para fechamento de período regime de crédito.</span><a class="headerlink" href="#id9" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id10">
+<span id="figura-6"></span><a class="reference internal image-reference" href="../../../../_images/fluxo_atualiza_situacao_matricula_aluno.png"><img alt="protótipo de tela." src="../../../../_images/fluxo_atualiza_situacao_matricula_aluno.png" style="width: 1031.8px; height: 1334.8999999999999px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 6: Fluxo para atualização da matricula do aluno.</span><a class="headerlink" href="#id10" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagrama-de-dominio-do-caso-de-uso">
+<h2><a class="toc-backref" href="#id34">Diagrama de domínio do caso de uso</a><a class="headerlink" href="#diagrama-de-dominio-do-caso-de-uso" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="diagrama-de-fluxo-de-operacao">
+<h2><a class="toc-backref" href="#id35">Diagrama de Fluxo de Operação</a><a class="headerlink" href="#diagrama-de-fluxo-de-operacao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="cenario-de-testes">
+<h2><a class="toc-backref" href="#id36">Cenário de Testes</a><a class="headerlink" href="#cenario-de-testes" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="proc_apoio_uc503.html" class="btn btn-neutral float-right" title="UC 503 - Manter Calendários Acadêmicos &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="proc_apoio_uc501.html" class="btn btn-neutral" title="UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt;"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

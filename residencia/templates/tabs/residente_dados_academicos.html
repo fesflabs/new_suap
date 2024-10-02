@@ -1,0 +1,119 @@
+{% box 'Matrículas em Períodos' %}
+    <br/>
+    <br/>
+    <table>
+        <thead>
+        <tr>
+            {% if pode_desfazer_migracao %}
+                <th class="text-center no-print">Ações</th>
+            {% endif %}
+            {% if obj.matriz.estrutura.tipo_avaliacao != obj.matriz.estrutura.TIPO_AVALIACAO_CREDITO %}
+                <th class="text-center">Período</th>
+            {% endif %}
+            <th class="text-center">Ano/Período Letivo</th>
+            <th class="text-center">Turma</th>
+            {% if obj.codigo_educacenso %}
+                <th class="text-center">EDUCACENSO</th>
+            {% endif %}
+            <th class="text-center">Situação no Período</th>
+            {% if request.GET.exibir_frequencia %}
+                <th class="text-center">Frequência (%)</th>
+                {% if obj.matriz %}
+                	<th class="text-center">I.R.A.</th>
+                {% endif %}
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for matricula_periodo in residente.get_matriculas_periodo %}
+            <tr>
+                {% if obj.matriz.estrutura.tipo_avaliacao != obj.matriz.estrutura.TIPO_AVALIACAO_CREDITO %}
+                    <td class="text-center">{{ matricula_periodo.periodo_matriz|format }}</td>
+                {% endif %}
+                <td class="text-center">{{ matricula_periodo.ano_letivo }}/{{ matricula_periodo.periodo_letivo }}</td>
+                <td class="text-center">{% if matricula_periodo.turma and perms.residencia.view_turma %}
+                    <a href="/residencia/turma/{{ matricula_periodo.turma.pk }}">{{ matricula_periodo.turma.codigo|format }}</a>{% else %}
+                    {{ matricula_periodo.turma.codigo|format }}{% endif %}
+                </td>
+                <td class="text-center">
+                    {{ matricula_periodo.situacao|format }}
+                </td>
+                {% if request.GET.exibir_frequencia %}
+                    <td class="text-center">{{ matricula_periodo.get_percentual_carga_horaria_frequentada|format }}%</td>
+                    {% if obj.matriz %}
+                    	<td class="text-center">{{ matricula_periodo.get_ira|format }}</td>
+                    {% endif %}
+                {% endif %}
+                {% comment %}
+                    <td>
+                        {% for historico in matricula_periodo.historicosituacaomatriculaperiodo_set.all %}
+                            <dl>
+                                <dt>{{ historico.situacao }}</dt>
+                                <dd>- {{ historico.data|format }}</dd>
+                            </dl>
+                        {% endfor %}
+                    </td>
+                {% endcomment %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endbox %}
+
+{% box 'Observações Gerais' %}
+	{% if perms.residencia.add_observacao %}
+	<ul class="action-bar">
+    	<li>
+        	<a href="/residencia/adicionar_observacao/{{ residente.pk }}/" class="btn popup success">Adicionar Observação</a>
+       	</li>
+   	</ul>
+   	{% endif %}
+   	{% if residente.observacao_set.exists %}
+	<table>
+        <thead>
+	        <tr>
+	        	{% if perms.residencia.change_observacao %}
+        		<th class="text-center no-print">Ações</th>
+        		{% endif %}
+        		<th class="text-center">Observação</th>
+        		<th class="text-center">Inserido por</th>
+        		<th class="text-center">Última alteração</th>
+			</tr>
+        </thead>
+        <tbody>
+        {% for observacao in residente.observacao_set.all %}
+            <tr>
+            	{% if perms.residencia.change_observacao %}
+				<td class="text-center no-print">
+					{% if request.user == observacao.usuario %}
+                        {% icon "edit" "/residencia/editar_observacao/{{ observacao.pk }}/" "Editar" "popup" %}
+					{% endif %}
+					{% if perms.residencia.adm_delete_observacao or request.user == observacao.usuario and perms.residencia.delete_observacao %}
+                        {% icon "delete" "/comum/excluir/residencia/observacao/{{ observacao.pk }}/" "Remover" "no-confirm popup" %}
+                    {% endif %}
+				</td>
+				{% endif %}
+				<td class="text-center">{{observacao.observacao}}</td>
+				<td class="text-center">{{observacao.usuario}}</td>
+				<td class="text-center">{{observacao.data}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="msg alert">Nenhuma observação cadastrada.</p>
+    {% endif %}
+{% endbox %}
+
+{% box 'Dados Acadêmicos' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Matrícula</dt>
+            <dd>{{ residente.matricula }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data da Matrícula</dt>
+            <dd>{{ residente.data_matricula|format }}</dd>
+        </div>
+    </dl>
+{% endbox %}

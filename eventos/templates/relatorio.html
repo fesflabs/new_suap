@@ -1,0 +1,35 @@
+{% extends super_template %}
+
+{% block extrahead %}
+<script src="/static/djtools/graficos/highcharts.js"></script>
+<script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% if eventos %}
+        {% if campus != "" %}
+            <script>{{ grafico_campus|safe }}</script>
+            <div id="grafico_campus" class="grafico100"></div>
+        {% endif %}
+        {% if not dimensao %}
+            <script>{{ grafico_dimensao|safe }}</script>
+            <div id="grafico_dimensao" class="grafico100"></div>
+        {% endif %}
+        <script>{{ grafico_natureza|safe }}</script>
+        <div id="grafico_natureza" class="grafico50"></div>
+        <script>{{ grafico_tipo|safe }}</script>
+        <div id="grafico_tipo" class="grafico50"></div>
+        <script>{{ grafico_classificacao|safe }}</script>
+        <div id="grafico_classificacao" class="grafico50"></div>
+        <script>{{ grafico_publico_alvo|safe }}</script>
+        <div id="grafico_publico_alvo" class="grafico50"></div>
+    {% elif form.is_bound %}
+        <p class="msg alert">Não foi encontrando nenhum resultado para essa busca.</p>
+    {% else %}
+        <p class="msg alert">Informe os parâmetros da busca.</p>
+    {% endif %}
+{% endblock %}

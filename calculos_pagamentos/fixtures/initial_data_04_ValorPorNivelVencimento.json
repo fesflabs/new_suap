@@ -1,0 +1,7492 @@
+[
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 1,
+    "fields": {
+        "nivel": 1,
+        "valor": "1326.72",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 2,
+    "fields": {
+        "nivel": 2,
+        "valor": "1378.46",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 3,
+    "fields": {
+        "nivel": 3,
+        "valor": "1432.22",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 4,
+    "fields": {
+        "nivel": 4,
+        "valor": "1488.08",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 5,
+    "fields": {
+        "nivel": 5,
+        "valor": "1546.11",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 6,
+    "fields": {
+        "nivel": 6,
+        "valor": "1606.41",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 7,
+    "fields": {
+        "nivel": 7,
+        "valor": "1669.06",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 8,
+    "fields": {
+        "nivel": 8,
+        "valor": "1734.15",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 9,
+    "fields": {
+        "nivel": 9,
+        "valor": "1801.79",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 10,
+    "fields": {
+        "nivel": 10,
+        "valor": "1872.06",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 11,
+    "fields": {
+        "nivel": 11,
+        "valor": "1945.07",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 12,
+    "fields": {
+        "nivel": 12,
+        "valor": "2020.92",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 13,
+    "fields": {
+        "nivel": 13,
+        "valor": "2099.74",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 14,
+    "fields": {
+        "nivel": 14,
+        "valor": "2181.63",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 15,
+    "fields": {
+        "nivel": 15,
+        "valor": "2266.71",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 16,
+    "fields": {
+        "nivel": 16,
+        "valor": "2355.12",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 17,
+    "fields": {
+        "nivel": 17,
+        "valor": "2446.96",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 18,
+    "fields": {
+        "nivel": 18,
+        "valor": "2542.40",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 19,
+    "fields": {
+        "nivel": 19,
+        "valor": "2641.55",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 20,
+    "fields": {
+        "nivel": 20,
+        "valor": "2744.57",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 21,
+    "fields": {
+        "nivel": 21,
+        "valor": "2851.61",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 22,
+    "fields": {
+        "nivel": 22,
+        "valor": "2962.82",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 23,
+    "fields": {
+        "nivel": 23,
+        "valor": "3078.37",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 24,
+    "fields": {
+        "nivel": 24,
+        "valor": "3198.43",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 25,
+    "fields": {
+        "nivel": 25,
+        "valor": "3323.17",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 26,
+    "fields": {
+        "nivel": 26,
+        "valor": "3452.77",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 27,
+    "fields": {
+        "nivel": 27,
+        "valor": "3587.43",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 28,
+    "fields": {
+        "nivel": 28,
+        "valor": "3727.34",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 29,
+    "fields": {
+        "nivel": 29,
+        "valor": "3872.70",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 30,
+    "fields": {
+        "nivel": 30,
+        "valor": "4023.74",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 31,
+    "fields": {
+        "nivel": 31,
+        "valor": "4180.66",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 32,
+    "fields": {
+        "nivel": 32,
+        "valor": "4343.71",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 33,
+    "fields": {
+        "nivel": 33,
+        "valor": "4513.12",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 34,
+    "fields": {
+        "nivel": 34,
+        "valor": "4689.13",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 35,
+    "fields": {
+        "nivel": 35,
+        "valor": "4872.00",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 36,
+    "fields": {
+        "nivel": 36,
+        "valor": "5062.01",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 37,
+    "fields": {
+        "nivel": 37,
+        "valor": "5259.43",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 38,
+    "fields": {
+        "nivel": 38,
+        "valor": "5464.55",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 39,
+    "fields": {
+        "nivel": 39,
+        "valor": "5677.66",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 40,
+    "fields": {
+        "nivel": 40,
+        "valor": "5899.09",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 41,
+    "fields": {
+        "nivel": 41,
+        "valor": "6129.16",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 42,
+    "fields": {
+        "nivel": 42,
+        "valor": "6368.20",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 43,
+    "fields": {
+        "nivel": 43,
+        "valor": "6616.56",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 44,
+    "fields": {
+        "nivel": 44,
+        "valor": "6874.60",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 45,
+    "fields": {
+        "nivel": 45,
+        "valor": "7142.71",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 46,
+    "fields": {
+        "nivel": 46,
+        "valor": "7421.28",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 47,
+    "fields": {
+        "nivel": 47,
+        "valor": "7710.71",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 48,
+    "fields": {
+        "nivel": 48,
+        "valor": "8011.42",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 49,
+    "fields": {
+        "nivel": 49,
+        "valor": "8323.87",
+        "data_inicio": "2017-01-01",
+        "data_fim": null
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 50,
+    "fields": {
+        "nivel": 50,
+        "valor": "2236.30",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 51,
+    "fields": {
+        "nivel": 50,
+        "valor": "3121.76",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 52,
+    "fields": {
+        "nivel": 50,
+        "valor": "4455.22",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 53,
+    "fields": {
+        "nivel": 51,
+        "valor": "2304.66",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 54,
+    "fields": {
+        "nivel": 51,
+        "valor": "3242.68",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 55,
+    "fields": {
+        "nivel": 51,
+        "valor": "4559.41",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 56,
+    "fields": {
+        "nivel": 52,
+        "valor": "2432.88",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 57,
+    "fields": {
+        "nivel": 52,
+        "valor": "3421.40",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 58,
+    "fields": {
+        "nivel": 52,
+        "valor": "4944.90",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 59,
+    "fields": {
+        "nivel": 53,
+        "valor": "2490.24",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 60,
+    "fields": {
+        "nivel": 53,
+        "valor": "3549.08",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 61,
+    "fields": {
+        "nivel": 53,
+        "valor": "5060.42",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 62,
+    "fields": {
+        "nivel": 54,
+        "valor": "2648.55",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 63,
+    "fields": {
+        "nivel": 54,
+        "valor": "3701.41",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 64,
+    "fields": {
+        "nivel": 54,
+        "valor": "5488.42",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 65,
+    "fields": {
+        "nivel": 55,
+        "valor": "2754.69",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 66,
+    "fields": {
+        "nivel": 55,
+        "valor": "3873.81",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 67,
+    "fields": {
+        "nivel": 55,
+        "valor": "5598.19",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 68,
+    "fields": {
+        "nivel": 56,
+        "valor": "2810.78",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 69,
+    "fields": {
+        "nivel": 56,
+        "valor": "3989.43",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 70,
+    "fields": {
+        "nivel": 56,
+        "valor": "5711.25",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 71,
+    "fields": {
+        "nivel": 57,
+        "valor": "2868.57",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 72,
+    "fields": {
+        "nivel": 57,
+        "valor": "4070.51",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 73,
+    "fields": {
+        "nivel": 57,
+        "valor": "5827.73",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 74,
+    "fields": {
+        "nivel": 58,
+        "valor": "3302.25",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 75,
+    "fields": {
+        "nivel": 58,
+        "valor": "4795.93",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 76,
+    "fields": {
+        "nivel": 58,
+        "valor": "7167.78",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 77,
+    "fields": {
+        "nivel": 59,
+        "valor": "3394.90",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 78,
+    "fields": {
+        "nivel": 59,
+        "valor": "4873.56",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 79,
+    "fields": {
+        "nivel": 59,
+        "valor": "7277.73",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 80,
+    "fields": {
+        "nivel": 60,
+        "valor": "3490.45",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 81,
+    "fields": {
+        "nivel": 60,
+        "valor": "5000.47",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 82,
+    "fields": {
+        "nivel": 60,
+        "valor": "7466.31",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 83,
+    "fields": {
+        "nivel": 61,
+        "valor": "3588.96",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 84,
+    "fields": {
+        "nivel": 61,
+        "valor": "5131.92",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 85,
+    "fields": {
+        "nivel": 61,
+        "valor": "7660.25",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 86,
+    "fields": {
+        "nivel": 62,
+        "valor": "3821.10",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 87,
+    "fields": {
+        "nivel": 62,
+        "valor": "5444.81",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 88,
+    "fields": {
+        "nivel": 62,
+        "valor": "8119.08",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 89,
+    "fields": {
+        "nivel": 63,
+        "valor": "2236.30",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 90,
+    "fields": {
+        "nivel": 63,
+        "valor": "3121.76",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 91,
+    "fields": {
+        "nivel": 63,
+        "valor": "4455.22",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 92,
+    "fields": {
+        "nivel": 64,
+        "valor": "2304.66",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 93,
+    "fields": {
+        "nivel": 64,
+        "valor": "3242.68",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 94,
+    "fields": {
+        "nivel": 64,
+        "valor": "4559.41",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 95,
+    "fields": {
+        "nivel": 65,
+        "valor": "2432.88",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 96,
+    "fields": {
+        "nivel": 65,
+        "valor": "3421.40",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 97,
+    "fields": {
+        "nivel": 65,
+        "valor": "4944.90",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 98,
+    "fields": {
+        "nivel": 66,
+        "valor": "2490.24",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 99,
+    "fields": {
+        "nivel": 66,
+        "valor": "3549.08",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 100,
+    "fields": {
+        "nivel": 66,
+        "valor": "5060.42",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 101,
+    "fields": {
+        "nivel": 67,
+        "valor": "2648.55",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 102,
+    "fields": {
+        "nivel": 67,
+        "valor": "3701.41",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 103,
+    "fields": {
+        "nivel": 67,
+        "valor": "5488.42",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 104,
+    "fields": {
+        "nivel": 68,
+        "valor": "2754.69",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 105,
+    "fields": {
+        "nivel": 68,
+        "valor": "3873.81",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 106,
+    "fields": {
+        "nivel": 68,
+        "valor": "5598.19",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 107,
+    "fields": {
+        "nivel": 69,
+        "valor": "2810.78",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 108,
+    "fields": {
+        "nivel": 69,
+        "valor": "3989.43",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 109,
+    "fields": {
+        "nivel": 69,
+        "valor": "5711.25",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 110,
+    "fields": {
+        "nivel": 70,
+        "valor": "2868.57",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 111,
+    "fields": {
+        "nivel": 70,
+        "valor": "4070.51",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 112,
+    "fields": {
+        "nivel": 70,
+        "valor": "5827.73",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 113,
+    "fields": {
+        "nivel": 71,
+        "valor": "3302.25",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 114,
+    "fields": {
+        "nivel": 71,
+        "valor": "4795.93",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 115,
+    "fields": {
+        "nivel": 71,
+        "valor": "7167.78",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 116,
+    "fields": {
+        "nivel": 72,
+        "valor": "3394.90",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 117,
+    "fields": {
+        "nivel": 72,
+        "valor": "4873.56",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 118,
+    "fields": {
+        "nivel": 72,
+        "valor": "7277.73",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 119,
+    "fields": {
+        "nivel": 73,
+        "valor": "3490.45",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 120,
+    "fields": {
+        "nivel": 73,
+        "valor": "5000.47",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 121,
+    "fields": {
+        "nivel": 73,
+        "valor": "7466.31",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 122,
+    "fields": {
+        "nivel": 74,
+        "valor": "3588.96",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 123,
+    "fields": {
+        "nivel": 74,
+        "valor": "5131.92",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 124,
+    "fields": {
+        "nivel": 74,
+        "valor": "7660.25",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 125,
+    "fields": {
+        "nivel": 75,
+        "valor": "3821.10",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 126,
+    "fields": {
+        "nivel": 75,
+        "valor": "5444.81",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 127,
+    "fields": {
+        "nivel": 75,
+        "valor": "8119.08",
+        "data_inicio": "2017-08-01",
+        "data_fim": "2018-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 128,
+    "fields": {
+        "nivel": 62,
+        "valor": "6042.34",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 129,
+    "fields": {
+        "nivel": 61,
+        "valor": "5834.89",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 130,
+    "fields": {
+        "nivel": 60,
+        "valor": "5733.71",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 131,
+    "fields": {
+        "nivel": 59,
+        "valor": "5635.45",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 132,
+    "fields": {
+        "nivel": 58,
+        "valor": "5625.24",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 133,
+    "fields": {
+        "nivel": 57,
+        "valor": "4304.72",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 134,
+    "fields": {
+        "nivel": 56,
+        "valor": "4205.81",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 135,
+    "fields": {
+        "nivel": 55,
+        "valor": "4109.39",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 136,
+    "fields": {
+        "nivel": 54,
+        "valor": "4015.41",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 137,
+    "fields": {
+        "nivel": 53,
+        "valor": "3849.74",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 138,
+    "fields": {
+        "nivel": 52,
+        "valor": "3762.54",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 139,
+    "fields": {
+        "nivel": 51,
+        "valor": "3677.52",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 140,
+    "fields": {
+        "nivel": 50,
+        "valor": "3594.57",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 141,
+    "fields": {
+        "nivel": 62,
+        "valor": "7404.20",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 142,
+    "fields": {
+        "nivel": 61,
+        "valor": "7149.99",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 143,
+    "fields": {
+        "nivel": 60,
+        "valor": "7026.02",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 144,
+    "fields": {
+        "nivel": 59,
+        "valor": "6903.66",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 145,
+    "fields": {
+        "nivel": 58,
+        "valor": "6893.09",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 146,
+    "fields": {
+        "nivel": 57,
+        "valor": "5654.72",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 147,
+    "fields": {
+        "nivel": 56,
+        "valor": "5598.73",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 148,
+    "fields": {
+        "nivel": 55,
+        "valor": "5543.30",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 149,
+    "fields": {
+        "nivel": 54,
+        "valor": "5488.41",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 150,
+    "fields": {
+        "nivel": 53,
+        "valor": "4989.47",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 151,
+    "fields": {
+        "nivel": 52,
+        "valor": "4940.07",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 152,
+    "fields": {
+        "nivel": 51,
+        "valor": "4490.97",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 153,
+    "fields": {
+        "nivel": 50,
+        "valor": "4446.51",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 154,
+    "fields": {
+        "nivel": 62,
+        "valor": "7051.62",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 155,
+    "fields": {
+        "nivel": 61,
+        "valor": "6809.52",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 156,
+    "fields": {
+        "nivel": 60,
+        "valor": "6691.44",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 157,
+    "fields": {
+        "nivel": 59,
+        "valor": "6574.92",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 158,
+    "fields": {
+        "nivel": 58,
+        "valor": "6564.84",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 159,
+    "fields": {
+        "nivel": 57,
+        "valor": "5385.45",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 160,
+    "fields": {
+        "nivel": 56,
+        "valor": "5332.13",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 161,
+    "fields": {
+        "nivel": 55,
+        "valor": "5279.34",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 162,
+    "fields": {
+        "nivel": 54,
+        "valor": "5227.06",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 163,
+    "fields": {
+        "nivel": 53,
+        "valor": "4751.88",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 164,
+    "fields": {
+        "nivel": 52,
+        "valor": "4704.83",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 165,
+    "fields": {
+        "nivel": 51,
+        "valor": "4277.12",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 166,
+    "fields": {
+        "nivel": 50,
+        "valor": "4234.77",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 167,
+    "fields": {
+        "nivel": 62,
+        "valor": "4825.13",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 168,
+    "fields": {
+        "nivel": 61,
+        "valor": "4659.61",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 169,
+    "fields": {
+        "nivel": 60,
+        "valor": "4579.29",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 170,
+    "fields": {
+        "nivel": 59,
+        "valor": "4501.29",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 171,
+    "fields": {
+        "nivel": 58,
+        "valor": "4492.89",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 172,
+    "fields": {
+        "nivel": 57,
+        "valor": "3944.96",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 173,
+    "fields": {
+        "nivel": 56,
+        "valor": "3906.45",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 174,
+    "fields": {
+        "nivel": 55,
+        "valor": "3812.93",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 175,
+    "fields": {
+        "nivel": 54,
+        "valor": "3631.17",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 176,
+    "fields": {
+        "nivel": 53,
+        "valor": "3502.82",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 177,
+    "fields": {
+        "nivel": 52,
+        "valor": "3398.00",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 178,
+    "fields": {
+        "nivel": 51,
+        "valor": "3220.32",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 179,
+    "fields": {
+        "nivel": 50,
+        "valor": "3117.22",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 180,
+    "fields": {
+        "nivel": 62,
+        "valor": "3344.44",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 181,
+    "fields": {
+        "nivel": 61,
+        "valor": "3213.25",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 182,
+    "fields": {
+        "nivel": 60,
+        "valor": "3148.95",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 183,
+    "fields": {
+        "nivel": 59,
+        "valor": "3085.89",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 184,
+    "fields": {
+        "nivel": 58,
+        "valor": "3024.08",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 185,
+    "fields": {
+        "nivel": 57,
+        "valor": "2759.42",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 186,
+    "fields": {
+        "nivel": 56,
+        "valor": "2732.10",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 187,
+    "fields": {
+        "nivel": 55,
+        "valor": "2705.05",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 188,
+    "fields": {
+        "nivel": 54,
+        "valor": "2600.72",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 189,
+    "fields": {
+        "nivel": 53,
+        "valor": "2434.79",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 190,
+    "fields": {
+        "nivel": 52,
+        "valor": "2410.67",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 191,
+    "fields": {
+        "nivel": 51,
+        "valor": "2282.92",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 192,
+    "fields": {
+        "nivel": 50,
+        "valor": "2236.29",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 193,
+    "fields": {
+        "nivel": 62,
+        "valor": "4595.36",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 194,
+    "fields": {
+        "nivel": 61,
+        "valor": "4437.72",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 195,
+    "fields": {
+        "nivel": 60,
+        "valor": "4361.23",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 196,
+    "fields": {
+        "nivel": 59,
+        "valor": "4286.94",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 197,
+    "fields": {
+        "nivel": 58,
+        "valor": "4278.94",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 198,
+    "fields": {
+        "nivel": 57,
+        "valor": "3757.11",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 199,
+    "fields": {
+        "nivel": 56,
+        "valor": "3720.43",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 200,
+    "fields": {
+        "nivel": 55,
+        "valor": "3631.36",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 201,
+    "fields": {
+        "nivel": 54,
+        "valor": "3458.26",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 202,
+    "fields": {
+        "nivel": 53,
+        "valor": "3336.02",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 203,
+    "fields": {
+        "nivel": 52,
+        "valor": "3236.19",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 204,
+    "fields": {
+        "nivel": 51,
+        "valor": "3066.97",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 205,
+    "fields": {
+        "nivel": 50,
+        "valor": "2968.78",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 206,
+    "fields": {
+        "nivel": 62,
+        "valor": "6684.00",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 207,
+    "fields": {
+        "nivel": 61,
+        "valor": "6454.52",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 208,
+    "fields": {
+        "nivel": 60,
+        "valor": "6342.60",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 209,
+    "fields": {
+        "nivel": 59,
+        "valor": "6232.15",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 210,
+    "fields": {
+        "nivel": 58,
+        "valor": "6222.60",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 211,
+    "fields": {
+        "nivel": 57,
+        "valor": "5104.69",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 212,
+    "fields": {
+        "nivel": 56,
+        "valor": "5054.15",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 213,
+    "fields": {
+        "nivel": 55,
+        "valor": "5004.11",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 214,
+    "fields": {
+        "nivel": 54,
+        "valor": "4954.56",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 215,
+    "fields": {
+        "nivel": 53,
+        "valor": "4504.15",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 216,
+    "fields": {
+        "nivel": 52,
+        "valor": "4459.55",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 217,
+    "fields": {
+        "nivel": 51,
+        "valor": "4054.14",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 218,
+    "fields": {
+        "nivel": 50,
+        "valor": "4014.00",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 219,
+    "fields": {
+        "nivel": 62,
+        "valor": "3185.18",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 220,
+    "fields": {
+        "nivel": 61,
+        "valor": "3060.24",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 221,
+    "fields": {
+        "nivel": 60,
+        "valor": "2999.00",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 222,
+    "fields": {
+        "nivel": 59,
+        "valor": "2938.95",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 223,
+    "fields": {
+        "nivel": 58,
+        "valor": "2880.08",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 224,
+    "fields": {
+        "nivel": 57,
+        "valor": "2628.02",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 225,
+    "fields": {
+        "nivel": 56,
+        "valor": "2602.00",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 226,
+    "fields": {
+        "nivel": 55,
+        "valor": "2576.24",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 227,
+    "fields": {
+        "nivel": 54,
+        "valor": "2476.88",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 228,
+    "fields": {
+        "nivel": 53,
+        "valor": "2318.85",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 229,
+    "fields": {
+        "nivel": 52,
+        "valor": "2295.88",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 230,
+    "fields": {
+        "nivel": 51,
+        "valor": "2174.21",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 231,
+    "fields": {
+        "nivel": 50,
+        "valor": "2129.80",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 232,
+    "fields": {
+        "nivel": 62,
+        "valor": "4355.79",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 233,
+    "fields": {
+        "nivel": 61,
+        "valor": "4206.37",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 234,
+    "fields": {
+        "nivel": 60,
+        "valor": "4133.87",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 235,
+    "fields": {
+        "nivel": 59,
+        "valor": "4063.45",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 236,
+    "fields": {
+        "nivel": 58,
+        "valor": "4055.87",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 237,
+    "fields": {
+        "nivel": 57,
+        "valor": "3561.24",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 238,
+    "fields": {
+        "nivel": 56,
+        "valor": "3526.47",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 239,
+    "fields": {
+        "nivel": 55,
+        "valor": "3442.05",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 240,
+    "fields": {
+        "nivel": 54,
+        "valor": "3277.97",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 241,
+    "fields": {
+        "nivel": 53,
+        "valor": "3162.10",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 242,
+    "fields": {
+        "nivel": 52,
+        "valor": "3067.48",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 243,
+    "fields": {
+        "nivel": 51,
+        "valor": "2907.08",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 244,
+    "fields": {
+        "nivel": 50,
+        "valor": "2814.01",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 245,
+    "fields": {
+        "nivel": 62,
+        "valor": "3019.13",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 246,
+    "fields": {
+        "nivel": 61,
+        "valor": "2900.70",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 247,
+    "fields": {
+        "nivel": 60,
+        "valor": "2842.65",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 248,
+    "fields": {
+        "nivel": 59,
+        "valor": "2785.73",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 249,
+    "fields": {
+        "nivel": 58,
+        "valor": "2729.93",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 250,
+    "fields": {
+        "nivel": 57,
+        "valor": "2491.01",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 251,
+    "fields": {
+        "nivel": 56,
+        "valor": "2466.35",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 252,
+    "fields": {
+        "nivel": 55,
+        "valor": "2441.93",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 253,
+    "fields": {
+        "nivel": 54,
+        "valor": "2347.75",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 254,
+    "fields": {
+        "nivel": 53,
+        "valor": "2197.96",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 255,
+    "fields": {
+        "nivel": 52,
+        "valor": "2176.19",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 256,
+    "fields": {
+        "nivel": 51,
+        "valor": "2060.86",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 257,
+    "fields": {
+        "nivel": 50,
+        "valor": "2018.77",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 258,
+    "fields": {
+        "nivel": 62,
+        "valor": "6363.17",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 259,
+    "fields": {
+        "nivel": 61,
+        "valor": "6144.71",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 260,
+    "fields": {
+        "nivel": 60,
+        "valor": "6038.15",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 261,
+    "fields": {
+        "nivel": 59,
+        "valor": "5933.80",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 262,
+    "fields": {
+        "nivel": 58,
+        "valor": "5923.92",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 263,
+    "fields": {
+        "nivel": 57,
+        "valor": "4704.71",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 264,
+    "fields": {
+        "nivel": 56,
+        "valor": "4629.98",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 265,
+    "fields": {
+        "nivel": 55,
+        "valor": "4556.75",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 266,
+    "fields": {
+        "nivel": 54,
+        "valor": "4484.99",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 267,
+    "fields": {
+        "nivel": 53,
+        "valor": "4176.95",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 268,
+    "fields": {
+        "nivel": 52,
+        "valor": "4111.05",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 269,
+    "fields": {
+        "nivel": 51,
+        "valor": "3865.83",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 270,
+    "fields": {
+        "nivel": 50,
+        "valor": "3804.29",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 271,
+    "fields": {
+        "nivel": 62,
+        "valor": "4146.71",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 272,
+    "fields": {
+        "nivel": 61,
+        "valor": "4004.47",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 273,
+    "fields": {
+        "nivel": 60,
+        "valor": "3935.45",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 274,
+    "fields": {
+        "nivel": 59,
+        "valor": "3868.40",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 275,
+    "fields": {
+        "nivel": 58,
+        "valor": "3861.19",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 276,
+    "fields": {
+        "nivel": 57,
+        "valor": "3392.96",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 277,
+    "fields": {
+        "nivel": 56,
+        "valor": "3343.15",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 278,
+    "fields": {
+        "nivel": 55,
+        "valor": "3269.38",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 279,
+    "fields": {
+        "nivel": 54,
+        "valor": "3118.50",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 280,
+    "fields": {
+        "nivel": 53,
+        "valor": "3010.32",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 281,
+    "fields": {
+        "nivel": 52,
+        "valor": "2938.37",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 282,
+    "fields": {
+        "nivel": 51,
+        "valor": "2834.24",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 283,
+    "fields": {
+        "nivel": 50,
+        "valor": "2764.45",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 284,
+    "fields": {
+        "nivel": 62,
+        "valor": "2801.70",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 285,
+    "fields": {
+        "nivel": 61,
+        "valor": "2708.47",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 286,
+    "fields": {
+        "nivel": 60,
+        "valor": "2662.87",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 287,
+    "fields": {
+        "nivel": 59,
+        "valor": "2618.31",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 288,
+    "fields": {
+        "nivel": 58,
+        "valor": "2588.51",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 289,
+    "fields": {
+        "nivel": 57,
+        "valor": "2357.53",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 290,
+    "fields": {
+        "nivel": 56,
+        "valor": "2326.77",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 291,
+    "fields": {
+        "nivel": 55,
+        "valor": "2296.57",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 292,
+    "fields": {
+        "nivel": 54,
+        "valor": "2193.83",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 293,
+    "fields": {
+        "nivel": 53,
+        "valor": "2093.40",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 294,
+    "fields": {
+        "nivel": 52,
+        "valor": "2069.79",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 295,
+    "fields": {
+        "nivel": 51,
+        "valor": "1999.75",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 296,
+    "fields": {
+        "nivel": 50,
+        "valor": "1966.67",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 297,
+    "fields": {
+        "nivel": 62,
+        "valor": "3937.63",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 298,
+    "fields": {
+        "nivel": 61,
+        "valor": "3802.56",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 299,
+    "fields": {
+        "nivel": 60,
+        "valor": "3737.02",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 300,
+    "fields": {
+        "nivel": 59,
+        "valor": "3673.36",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 301,
+    "fields": {
+        "nivel": 58,
+        "valor": "3666.51",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 302,
+    "fields": {
+        "nivel": 57,
+        "valor": "3224.68",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 303,
+    "fields": {
+        "nivel": 56,
+        "valor": "3159.83",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 304,
+    "fields": {
+        "nivel": 55,
+        "valor": "3096.70",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 305,
+    "fields": {
+        "nivel": 54,
+        "valor": "2959.02",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 306,
+    "fields": {
+        "nivel": 53,
+        "valor": "2858.53",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 307,
+    "fields": {
+        "nivel": 52,
+        "valor": "2809.26",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 308,
+    "fields": {
+        "nivel": 51,
+        "valor": "2761.39",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 309,
+    "fields": {
+        "nivel": 50,
+        "valor": "2714.89",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 310,
+    "fields": {
+        "nivel": 62,
+        "valor": "2584.28",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 311,
+    "fields": {
+        "nivel": 61,
+        "valor": "2516.23",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 312,
+    "fields": {
+        "nivel": 60,
+        "valor": "2483.09",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 313,
+    "fields": {
+        "nivel": 59,
+        "valor": "2450.89",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 314,
+    "fields": {
+        "nivel": 58,
+        "valor": "2447.10",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 315,
+    "fields": {
+        "nivel": 57,
+        "valor": "2224.05",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 316,
+    "fields": {
+        "nivel": 56,
+        "valor": "2187.19",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 317,
+    "fields": {
+        "nivel": 55,
+        "valor": "2151.22",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 318,
+    "fields": {
+        "nivel": 54,
+        "valor": "2039.91",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 319,
+    "fields": {
+        "nivel": 53,
+        "valor": "1988.85",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 320,
+    "fields": {
+        "nivel": 52,
+        "valor": "1963.39",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 321,
+    "fields": {
+        "nivel": 51,
+        "valor": "1938.65",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 322,
+    "fields": {
+        "nivel": 50,
+        "valor": "1914.58",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 323,
+    "fields": {
+        "nivel": 75,
+        "valor": "4297.76",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 324,
+    "fields": {
+        "nivel": 74,
+        "valor": "3964.67",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 325,
+    "fields": {
+        "nivel": 73,
+        "valor": "3831.94",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 326,
+    "fields": {
+        "nivel": 72,
+        "valor": "3703.92",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 327,
+    "fields": {
+        "nivel": 71,
+        "valor": "3580.42",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 328,
+    "fields": {
+        "nivel": 70,
+        "valor": "2977.72",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 329,
+    "fields": {
+        "nivel": 69,
+        "valor": "2889.46",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 330,
+    "fields": {
+        "nivel": 68,
+        "valor": "2804.34",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 331,
+    "fields": {
+        "nivel": 67,
+        "valor": "2696.38",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 332,
+    "fields": {
+        "nivel": 66,
+        "valor": "2545.70",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 333,
+    "fields": {
+        "nivel": 65,
+        "valor": "2455.08",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 334,
+    "fields": {
+        "nivel": 64,
+        "valor": "2326.40",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 335,
+    "fields": {
+        "nivel": 63,
+        "valor": "2236.31",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 336,
+    "fields": {
+        "nivel": 75,
+        "valor": "8833.96",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 337,
+    "fields": {
+        "nivel": 74,
+        "valor": "8170.51",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 338,
+    "fields": {
+        "nivel": 73,
+        "valor": "7906.60",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 339,
+    "fields": {
+        "nivel": 72,
+        "valor": "7651.79",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 340,
+    "fields": {
+        "nivel": 71,
+        "valor": "7442.47",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 341,
+    "fields": {
+        "nivel": 70,
+        "valor": "6000.73",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 342,
+    "fields": {
+        "nivel": 69,
+        "valor": "5823.77",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 343,
+    "fields": {
+        "nivel": 68,
+        "valor": "5653.08",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 344,
+    "fields": {
+        "nivel": 67,
+        "valor": "5488.42",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 345,
+    "fields": {
+        "nivel": 66,
+        "valor": "5131.36",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 346,
+    "fields": {
+        "nivel": 65,
+        "valor": "4949.74",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 347,
+    "fields": {
+        "nivel": 64,
+        "valor": "4627.84",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 348,
+    "fields": {
+        "nivel": 63,
+        "valor": "4463.93",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 349,
+    "fields": {
+        "nivel": 75,
+        "valor": "6064.50",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 350,
+    "fields": {
+        "nivel": 74,
+        "valor": "5604.23",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 351,
+    "fields": {
+        "nivel": 73,
+        "valor": "5421.65",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 352,
+    "fields": {
+        "nivel": 72,
+        "valor": "5245.83",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 353,
+    "fields": {
+        "nivel": 71,
+        "valor": "5098.98",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 354,
+    "fields": {
+        "nivel": 70,
+        "valor": "4196.06",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 355,
+    "fields": {
+        "nivel": 69,
+        "valor": "4072.41",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 356,
+    "fields": {
+        "nivel": 68,
+        "valor": "3934.69",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 357,
+    "fields": {
+        "nivel": 67,
+        "valor": "3771.66",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 358,
+    "fields": {
+        "nivel": 66,
+        "valor": "3595.35",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 359,
+    "fields": {
+        "nivel": 65,
+        "valor": "3444.80",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 360,
+    "fields": {
+        "nivel": 64,
+        "valor": "3265.04",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 361,
+    "fields": {
+        "nivel": 63,
+        "valor": "3126.31",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 362,
+    "fields": {
+        "nivel": 62,
+        "valor": "4297.76",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 363,
+    "fields": {
+        "nivel": 61,
+        "valor": "3964.67",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 364,
+    "fields": {
+        "nivel": 60,
+        "valor": "3831.94",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 365,
+    "fields": {
+        "nivel": 59,
+        "valor": "3703.92",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 366,
+    "fields": {
+        "nivel": 58,
+        "valor": "3580.42",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 367,
+    "fields": {
+        "nivel": 57,
+        "valor": "2977.72",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 368,
+    "fields": {
+        "nivel": 56,
+        "valor": "2889.46",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 369,
+    "fields": {
+        "nivel": 55,
+        "valor": "2804.34",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 370,
+    "fields": {
+        "nivel": 54,
+        "valor": "2696.38",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 371,
+    "fields": {
+        "nivel": 53,
+        "valor": "2545.70",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 372,
+    "fields": {
+        "nivel": 52,
+        "valor": "2455.08",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 373,
+    "fields": {
+        "nivel": 51,
+        "valor": "2326.40",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 374,
+    "fields": {
+        "nivel": 50,
+        "valor": "2236.31",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 375,
+    "fields": {
+        "nivel": 62,
+        "valor": "6064.50",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 376,
+    "fields": {
+        "nivel": 61,
+        "valor": "5604.23",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 377,
+    "fields": {
+        "nivel": 60,
+        "valor": "5421.65",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 378,
+    "fields": {
+        "nivel": 59,
+        "valor": "5245.83",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 379,
+    "fields": {
+        "nivel": 58,
+        "valor": "5098.98",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 380,
+    "fields": {
+        "nivel": 57,
+        "valor": "4196.06",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 381,
+    "fields": {
+        "nivel": 56,
+        "valor": "4072.41",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 382,
+    "fields": {
+        "nivel": 55,
+        "valor": "3934.69",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 383,
+    "fields": {
+        "nivel": 54,
+        "valor": "3771.66",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 384,
+    "fields": {
+        "nivel": 53,
+        "valor": "3595.35",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 385,
+    "fields": {
+        "nivel": 52,
+        "valor": "3444.80",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 386,
+    "fields": {
+        "nivel": 51,
+        "valor": "3265.04",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 387,
+    "fields": {
+        "nivel": 50,
+        "valor": "3126.31",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 388,
+    "fields": {
+        "nivel": 62,
+        "valor": "8833.96",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 389,
+    "fields": {
+        "nivel": 61,
+        "valor": "8170.51",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 390,
+    "fields": {
+        "nivel": 60,
+        "valor": "7906.60",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 391,
+    "fields": {
+        "nivel": 59,
+        "valor": "7651.79",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 392,
+    "fields": {
+        "nivel": 58,
+        "valor": "7442.47",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 393,
+    "fields": {
+        "nivel": 57,
+        "valor": "6000.73",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 394,
+    "fields": {
+        "nivel": 56,
+        "valor": "5823.77",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 395,
+    "fields": {
+        "nivel": 55,
+        "valor": "5653.08",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 396,
+    "fields": {
+        "nivel": 54,
+        "valor": "5488.42",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 397,
+    "fields": {
+        "nivel": 53,
+        "valor": "5131.36",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 398,
+    "fields": {
+        "nivel": 52,
+        "valor": "4949.74",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 399,
+    "fields": {
+        "nivel": 51,
+        "valor": "4627.84",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 400,
+    "fields": {
+        "nivel": 50,
+        "valor": "4463.93",
+        "data_inicio": "2018-08-01",
+        "data_fim": "2019-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 401,
+    "fields": {
+        "nivel": 75,
+        "valor": "7404.20",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 402,
+    "fields": {
+        "nivel": 74,
+        "valor": "7149.99",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 403,
+    "fields": {
+        "nivel": 73,
+        "valor": "7026.02",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 404,
+    "fields": {
+        "nivel": 72,
+        "valor": "6903.66",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 405,
+    "fields": {
+        "nivel": 71,
+        "valor": "6893.09",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 406,
+    "fields": {
+        "nivel": 70,
+        "valor": "5654.72",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 407,
+    "fields": {
+        "nivel": 69,
+        "valor": "5598.73",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 408,
+    "fields": {
+        "nivel": 68,
+        "valor": "5543.30",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 409,
+    "fields": {
+        "nivel": 67,
+        "valor": "5488.41",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 410,
+    "fields": {
+        "nivel": 66,
+        "valor": "4989.47",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 411,
+    "fields": {
+        "nivel": 65,
+        "valor": "4940.07",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 412,
+    "fields": {
+        "nivel": 64,
+        "valor": "4490.97",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 413,
+    "fields": {
+        "nivel": 63,
+        "valor": "4446.51",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 414,
+    "fields": {
+        "nivel": 75,
+        "valor": "4825.13",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 415,
+    "fields": {
+        "nivel": 74,
+        "valor": "4659.61",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 416,
+    "fields": {
+        "nivel": 73,
+        "valor": "4579.29",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 417,
+    "fields": {
+        "nivel": 72,
+        "valor": "4501.29",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 418,
+    "fields": {
+        "nivel": 71,
+        "valor": "4492.89",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 419,
+    "fields": {
+        "nivel": 70,
+        "valor": "3944.96",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 420,
+    "fields": {
+        "nivel": 69,
+        "valor": "3906.45",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 421,
+    "fields": {
+        "nivel": 68,
+        "valor": "3812.93",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 422,
+    "fields": {
+        "nivel": 67,
+        "valor": "3631.17",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 423,
+    "fields": {
+        "nivel": 66,
+        "valor": "3502.82",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 424,
+    "fields": {
+        "nivel": 65,
+        "valor": "3398.00",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 425,
+    "fields": {
+        "nivel": 64,
+        "valor": "3220.32",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 426,
+    "fields": {
+        "nivel": 63,
+        "valor": "3117.22",
+        "data_inicio": "2017-01-01",
+        "data_fim": "2017-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 427,
+    "fields": {
+        "nivel": 75,
+        "valor": "7051.62",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 428,
+    "fields": {
+        "nivel": 74,
+        "valor": "6809.52",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 429,
+    "fields": {
+        "nivel": 73,
+        "valor": "6691.44",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 430,
+    "fields": {
+        "nivel": 72,
+        "valor": "6574.92",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 431,
+    "fields": {
+        "nivel": 71,
+        "valor": "6564.84",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 432,
+    "fields": {
+        "nivel": 70,
+        "valor": "5385.45",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 433,
+    "fields": {
+        "nivel": 69,
+        "valor": "5332.13",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 434,
+    "fields": {
+        "nivel": 68,
+        "valor": "5279.34",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 435,
+    "fields": {
+        "nivel": 67,
+        "valor": "5227.06",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 436,
+    "fields": {
+        "nivel": 66,
+        "valor": "4751.88",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 437,
+    "fields": {
+        "nivel": 65,
+        "valor": "4704.83",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 438,
+    "fields": {
+        "nivel": 64,
+        "valor": "4277.12",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 439,
+    "fields": {
+        "nivel": 63,
+        "valor": "4234.77",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 440,
+    "fields": {
+        "nivel": 75,
+        "valor": "4595.36",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 441,
+    "fields": {
+        "nivel": 74,
+        "valor": "4437.72",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 442,
+    "fields": {
+        "nivel": 73,
+        "valor": "4361.23",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 443,
+    "fields": {
+        "nivel": 72,
+        "valor": "4286.94",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 444,
+    "fields": {
+        "nivel": 71,
+        "valor": "4278.94",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 445,
+    "fields": {
+        "nivel": 70,
+        "valor": "3757.11",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 446,
+    "fields": {
+        "nivel": 69,
+        "valor": "3720.43",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 447,
+    "fields": {
+        "nivel": 68,
+        "valor": "3631.36",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 448,
+    "fields": {
+        "nivel": 67,
+        "valor": "3458.26",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 449,
+    "fields": {
+        "nivel": 66,
+        "valor": "3336.02",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 450,
+    "fields": {
+        "nivel": 65,
+        "valor": "3236.19",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 451,
+    "fields": {
+        "nivel": 64,
+        "valor": "3066.97",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 452,
+    "fields": {
+        "nivel": 63,
+        "valor": "2968.78",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 453,
+    "fields": {
+        "nivel": 75,
+        "valor": "6684.00",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 454,
+    "fields": {
+        "nivel": 74,
+        "valor": "6454.52",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 455,
+    "fields": {
+        "nivel": 73,
+        "valor": "6342.60",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 456,
+    "fields": {
+        "nivel": 72,
+        "valor": "6232.15",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 457,
+    "fields": {
+        "nivel": 71,
+        "valor": "6222.60",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 458,
+    "fields": {
+        "nivel": 70,
+        "valor": "5104.69",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 459,
+    "fields": {
+        "nivel": 69,
+        "valor": "5054.15",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 460,
+    "fields": {
+        "nivel": 68,
+        "valor": "5004.11",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 461,
+    "fields": {
+        "nivel": 67,
+        "valor": "4954.56",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 462,
+    "fields": {
+        "nivel": 66,
+        "valor": "4504.15",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 463,
+    "fields": {
+        "nivel": 65,
+        "valor": "4459.55",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 464,
+    "fields": {
+        "nivel": 64,
+        "valor": "4054.14",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 465,
+    "fields": {
+        "nivel": 63,
+        "valor": "4014.00",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 466,
+    "fields": {
+        "nivel": 75,
+        "valor": "4355.79",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 467,
+    "fields": {
+        "nivel": 74,
+        "valor": "4206.37",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 468,
+    "fields": {
+        "nivel": 73,
+        "valor": "4133.87",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 469,
+    "fields": {
+        "nivel": 72,
+        "valor": "4063.45",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 470,
+    "fields": {
+        "nivel": 71,
+        "valor": "4055.87",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 471,
+    "fields": {
+        "nivel": 70,
+        "valor": "3561.24",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 472,
+    "fields": {
+        "nivel": 69,
+        "valor": "3526.47",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 473,
+    "fields": {
+        "nivel": 68,
+        "valor": "3442.05",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 474,
+    "fields": {
+        "nivel": 67,
+        "valor": "3277.97",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 475,
+    "fields": {
+        "nivel": 66,
+        "valor": "3162.10",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 476,
+    "fields": {
+        "nivel": 65,
+        "valor": "3067.48",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 477,
+    "fields": {
+        "nivel": 64,
+        "valor": "2907.08",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 478,
+    "fields": {
+        "nivel": 63,
+        "valor": "2814.01",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 479,
+    "fields": {
+        "nivel": 75,
+        "valor": "6042.34",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 480,
+    "fields": {
+        "nivel": 74,
+        "valor": "5834.89",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 481,
+    "fields": {
+        "nivel": 73,
+        "valor": "5733.71",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 482,
+    "fields": {
+        "nivel": 72,
+        "valor": "5635.45",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 483,
+    "fields": {
+        "nivel": 71,
+        "valor": "5625.24",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 484,
+    "fields": {
+        "nivel": 70,
+        "valor": "4304.72",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 485,
+    "fields": {
+        "nivel": 69,
+        "valor": "4205.81",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 486,
+    "fields": {
+        "nivel": 68,
+        "valor": "4109.39",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 487,
+    "fields": {
+        "nivel": 67,
+        "valor": "4015.41",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 488,
+    "fields": {
+        "nivel": 66,
+        "valor": "3849.74",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 489,
+    "fields": {
+        "nivel": 65,
+        "valor": "3762.54",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 490,
+    "fields": {
+        "nivel": 64,
+        "valor": "3677.52",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 491,
+    "fields": {
+        "nivel": 63,
+        "valor": "3594.57",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 492,
+    "fields": {
+        "nivel": 75,
+        "valor": "6042.34",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 493,
+    "fields": {
+        "nivel": 74,
+        "valor": "5834.89",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 494,
+    "fields": {
+        "nivel": 73,
+        "valor": "5733.71",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 495,
+    "fields": {
+        "nivel": 72,
+        "valor": "5635.45",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 496,
+    "fields": {
+        "nivel": 71,
+        "valor": "5625.24",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 497,
+    "fields": {
+        "nivel": 70,
+        "valor": "4304.72",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 498,
+    "fields": {
+        "nivel": 69,
+        "valor": "4205.81",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 499,
+    "fields": {
+        "nivel": 68,
+        "valor": "4109.39",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 500,
+    "fields": {
+        "nivel": 67,
+        "valor": "4015.41",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 501,
+    "fields": {
+        "nivel": 66,
+        "valor": "3849.74",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 502,
+    "fields": {
+        "nivel": 65,
+        "valor": "3762.54",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 503,
+    "fields": {
+        "nivel": 64,
+        "valor": "3677.52",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 504,
+    "fields": {
+        "nivel": 63,
+        "valor": "3594.57",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 505,
+    "fields": {
+        "nivel": 1,
+        "valor": "1263.54",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 506,
+    "fields": {
+        "nivel": 2,
+        "valor": "1311.56",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 507,
+    "fields": {
+        "nivel": 3,
+        "valor": "1361.40",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 508,
+    "fields": {
+        "nivel": 4,
+        "valor": "1413.13",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 509,
+    "fields": {
+        "nivel": 5,
+        "valor": "1466.83",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 510,
+    "fields": {
+        "nivel": 6,
+        "valor": "1522.57",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 511,
+    "fields": {
+        "nivel": 7,
+        "valor": "1580.42",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 512,
+    "fields": {
+        "nivel": 8,
+        "valor": "1640.48",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 513,
+    "fields": {
+        "nivel": 9,
+        "valor": "1702.82",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 514,
+    "fields": {
+        "nivel": 10,
+        "valor": "1767.53",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 515,
+    "fields": {
+        "nivel": 11,
+        "valor": "1834.69",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 516,
+    "fields": {
+        "nivel": 12,
+        "valor": "1904.41",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 517,
+    "fields": {
+        "nivel": 13,
+        "valor": "1976.78",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 518,
+    "fields": {
+        "nivel": 14,
+        "valor": "2051.90",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 519,
+    "fields": {
+        "nivel": 15,
+        "valor": "2129.87",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 520,
+    "fields": {
+        "nivel": 16,
+        "valor": "2210.80",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 521,
+    "fields": {
+        "nivel": 17,
+        "valor": "2294.81",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 522,
+    "fields": {
+        "nivel": 18,
+        "valor": "2382.02",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 523,
+    "fields": {
+        "nivel": 19,
+        "valor": "2472.53",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 524,
+    "fields": {
+        "nivel": 20,
+        "valor": "2566.49",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 525,
+    "fields": {
+        "nivel": 21,
+        "valor": "2664.02",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 526,
+    "fields": {
+        "nivel": 22,
+        "valor": "2765.25",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 527,
+    "fields": {
+        "nivel": 23,
+        "valor": "2870.33",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 528,
+    "fields": {
+        "nivel": 24,
+        "valor": "2979.40",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 529,
+    "fields": {
+        "nivel": 25,
+        "valor": "3092.62",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 530,
+    "fields": {
+        "nivel": 26,
+        "valor": "3210.14",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 531,
+    "fields": {
+        "nivel": 27,
+        "valor": "3332.12",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 532,
+    "fields": {
+        "nivel": 28,
+        "valor": "3458.74",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 533,
+    "fields": {
+        "nivel": 29,
+        "valor": "3590.17",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 534,
+    "fields": {
+        "nivel": 30,
+        "valor": "3726.60",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 535,
+    "fields": {
+        "nivel": 31,
+        "valor": "3868.21",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 536,
+    "fields": {
+        "nivel": 32,
+        "valor": "4015.20",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 537,
+    "fields": {
+        "nivel": 33,
+        "valor": "4167.78",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 538,
+    "fields": {
+        "nivel": 34,
+        "valor": "4326.16",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 539,
+    "fields": {
+        "nivel": 35,
+        "valor": "4490.55",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 540,
+    "fields": {
+        "nivel": 36,
+        "valor": "4661.19",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 541,
+    "fields": {
+        "nivel": 37,
+        "valor": "4838.32",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 542,
+    "fields": {
+        "nivel": 38,
+        "valor": "5022.17",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 543,
+    "fields": {
+        "nivel": 39,
+        "valor": "5213.02",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 544,
+    "fields": {
+        "nivel": 40,
+        "valor": "5411.11",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 545,
+    "fields": {
+        "nivel": 41,
+        "valor": "5616.73",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 546,
+    "fields": {
+        "nivel": 42,
+        "valor": "5830.17",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 547,
+    "fields": {
+        "nivel": 43,
+        "valor": "6051.72",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 548,
+    "fields": {
+        "nivel": 44,
+        "valor": "6281.68",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 549,
+    "fields": {
+        "nivel": 45,
+        "valor": "6520.38",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 550,
+    "fields": {
+        "nivel": 46,
+        "valor": "6768.16",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 551,
+    "fields": {
+        "nivel": 47,
+        "valor": "7025.35",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 552,
+    "fields": {
+        "nivel": 48,
+        "valor": "7292.31",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 553,
+    "fields": {
+        "nivel": 49,
+        "valor": "7569.42",
+        "data_inicio": "2016-08-01",
+        "data_fim": "2016-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 554,
+    "fields": {
+        "nivel": 1,
+        "valor": "1197.67",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 555,
+    "fields": {
+        "nivel": 2,
+        "valor": "1243.18",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 556,
+    "fields": {
+        "nivel": 3,
+        "valor": "1290.42",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 557,
+    "fields": {
+        "nivel": 4,
+        "valor": "1339.46",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 558,
+    "fields": {
+        "nivel": 5,
+        "valor": "1390.35",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 559,
+    "fields": {
+        "nivel": 6,
+        "valor": "1443.19",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 560,
+    "fields": {
+        "nivel": 7,
+        "valor": "1498.03",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 561,
+    "fields": {
+        "nivel": 8,
+        "valor": "1554.95",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 562,
+    "fields": {
+        "nivel": 9,
+        "valor": "1614.04",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 563,
+    "fields": {
+        "nivel": 10,
+        "valor": "1675.38",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 564,
+    "fields": {
+        "nivel": 11,
+        "valor": "1739.04",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 565,
+    "fields": {
+        "nivel": 12,
+        "valor": "1805.12",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 566,
+    "fields": {
+        "nivel": 13,
+        "valor": "1873.72",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 567,
+    "fields": {
+        "nivel": 14,
+        "valor": "1944.92",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 568,
+    "fields": {
+        "nivel": 15,
+        "valor": "2018.83",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 569,
+    "fields": {
+        "nivel": 16,
+        "valor": "2095.54",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 570,
+    "fields": {
+        "nivel": 17,
+        "valor": "2175.17",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 571,
+    "fields": {
+        "nivel": 18,
+        "valor": "2257.83",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 572,
+    "fields": {
+        "nivel": 19,
+        "valor": "2343.63",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 573,
+    "fields": {
+        "nivel": 20,
+        "valor": "2432.69",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 574,
+    "fields": {
+        "nivel": 21,
+        "valor": "2525.13",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 575,
+    "fields": {
+        "nivel": 22,
+        "valor": "2621.08",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 576,
+    "fields": {
+        "nivel": 23,
+        "valor": "2720.68",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 577,
+    "fields": {
+        "nivel": 24,
+        "valor": "2824.07",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 578,
+    "fields": {
+        "nivel": 25,
+        "valor": "2931.38",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 579,
+    "fields": {
+        "nivel": 26,
+        "valor": "3042.78",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 580,
+    "fields": {
+        "nivel": 27,
+        "valor": "3158.40",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 581,
+    "fields": {
+        "nivel": 28,
+        "valor": "3278.42",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 582,
+    "fields": {
+        "nivel": 29,
+        "valor": "3403.00",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 583,
+    "fields": {
+        "nivel": 30,
+        "valor": "3532.31",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 584,
+    "fields": {
+        "nivel": 31,
+        "valor": "3666.54",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 585,
+    "fields": {
+        "nivel": 32,
+        "valor": "3805.87",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 586,
+    "fields": {
+        "nivel": 33,
+        "valor": "3950.49",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 587,
+    "fields": {
+        "nivel": 34,
+        "valor": "4100.61",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 588,
+    "fields": {
+        "nivel": 35,
+        "valor": "4256.44",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 589,
+    "fields": {
+        "nivel": 36,
+        "valor": "4418.18",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 590,
+    "fields": {
+        "nivel": 37,
+        "valor": "4586.07",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 591,
+    "fields": {
+        "nivel": 38,
+        "valor": "4760.34",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 592,
+    "fields": {
+        "nivel": 39,
+        "valor": "4941.24",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 593,
+    "fields": {
+        "nivel": 40,
+        "valor": "5129.00",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 594,
+    "fields": {
+        "nivel": 41,
+        "valor": "5323.91",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 595,
+    "fields": {
+        "nivel": 42,
+        "valor": "5526.21",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 596,
+    "fields": {
+        "nivel": 43,
+        "valor": "5736.21",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 597,
+    "fields": {
+        "nivel": 44,
+        "valor": "5954.19",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 598,
+    "fields": {
+        "nivel": 45,
+        "valor": "6180.44",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 599,
+    "fields": {
+        "nivel": 46,
+        "valor": "6415.30",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 600,
+    "fields": {
+        "nivel": 47,
+        "valor": "6659.08",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 601,
+    "fields": {
+        "nivel": 48,
+        "valor": "6912.13",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 602,
+    "fields": {
+        "nivel": 49,
+        "valor": "7174.79",
+        "data_inicio": "2015-03-01",
+        "data_fim": "2016-07-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 603,
+    "fields": {
+        "nivel": 1,
+        "valor": "1140.64",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 604,
+    "fields": {
+        "nivel": 2,
+        "valor": "1182.84",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 605,
+    "fields": {
+        "nivel": 3,
+        "valor": "1226.60",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 606,
+    "fields": {
+        "nivel": 4,
+        "valor": "1271.99",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 607,
+    "fields": {
+        "nivel": 5,
+        "valor": "1319.05",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 608,
+    "fields": {
+        "nivel": 6,
+        "valor": "1367.86",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 609,
+    "fields": {
+        "nivel": 7,
+        "valor": "1418.47",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 610,
+    "fields": {
+        "nivel": 8,
+        "valor": "1470.95",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 611,
+    "fields": {
+        "nivel": 9,
+        "valor": "1525.38",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 612,
+    "fields": {
+        "nivel": 10,
+        "valor": "1581.81",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 613,
+    "fields": {
+        "nivel": 11,
+        "valor": "1640.34",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 614,
+    "fields": {
+        "nivel": 12,
+        "valor": "1701.03",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 615,
+    "fields": {
+        "nivel": 13,
+        "valor": "1763.97",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 616,
+    "fields": {
+        "nivel": 14,
+        "valor": "1829.24",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 617,
+    "fields": {
+        "nivel": 15,
+        "valor": "1896.92",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 618,
+    "fields": {
+        "nivel": 16,
+        "valor": "1967.11",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 619,
+    "fields": {
+        "nivel": 17,
+        "valor": "2039.89",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 620,
+    "fields": {
+        "nivel": 18,
+        "valor": "2115.37",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 621,
+    "fields": {
+        "nivel": 19,
+        "valor": "2193.64",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 622,
+    "fields": {
+        "nivel": 20,
+        "valor": "2274.80",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 623,
+    "fields": {
+        "nivel": 21,
+        "valor": "2358.97",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 624,
+    "fields": {
+        "nivel": 22,
+        "valor": "2446.25",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 625,
+    "fields": {
+        "nivel": 23,
+        "valor": "2536.76",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 626,
+    "fields": {
+        "nivel": 24,
+        "valor": "2630.62",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 627,
+    "fields": {
+        "nivel": 25,
+        "valor": "2727.95",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 628,
+    "fields": {
+        "nivel": 26,
+        "valor": "2828.89",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 629,
+    "fields": {
+        "nivel": 27,
+        "valor": "2933.56",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 630,
+    "fields": {
+        "nivel": 28,
+        "valor": "3042.10",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 631,
+    "fields": {
+        "nivel": 29,
+        "valor": "3154.66",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 632,
+    "fields": {
+        "nivel": 30,
+        "valor": "3271.38",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 633,
+    "fields": {
+        "nivel": 31,
+        "valor": "3392.42",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 634,
+    "fields": {
+        "nivel": 32,
+        "valor": "3517.94",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 635,
+    "fields": {
+        "nivel": 33,
+        "valor": "3648.10",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 636,
+    "fields": {
+        "nivel": 34,
+        "valor": "3783.08",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 637,
+    "fields": {
+        "nivel": 35,
+        "valor": "3923.06",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 638,
+    "fields": {
+        "nivel": 36,
+        "valor": "4068.21",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 639,
+    "fields": {
+        "nivel": 37,
+        "valor": "4218.73",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 640,
+    "fields": {
+        "nivel": 38,
+        "valor": "4374.83",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 641,
+    "fields": {
+        "nivel": 39,
+        "valor": "4536.70",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 642,
+    "fields": {
+        "nivel": 40,
+        "valor": "4704.55",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 643,
+    "fields": {
+        "nivel": 41,
+        "valor": "4878.62",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 644,
+    "fields": {
+        "nivel": 42,
+        "valor": "5059.13",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 645,
+    "fields": {
+        "nivel": 43,
+        "valor": "5246.32",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 646,
+    "fields": {
+        "nivel": 44,
+        "valor": "5440.43",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 647,
+    "fields": {
+        "nivel": 45,
+        "valor": "5641.73",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 648,
+    "fields": {
+        "nivel": 46,
+        "valor": "5850.47",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 649,
+    "fields": {
+        "nivel": 47,
+        "valor": "6066.94",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 650,
+    "fields": {
+        "nivel": 48,
+        "valor": "6291.42",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 651,
+    "fields": {
+        "nivel": 49,
+        "valor": "6524.20",
+        "data_inicio": "2014-03-01",
+        "data_fim": "2015-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 652,
+    "fields": {
+        "nivel": 1,
+        "valor": "1086.32",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 653,
+    "fields": {
+        "nivel": 2,
+        "valor": "1126.51",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 654,
+    "fields": {
+        "nivel": 3,
+        "valor": "1168.19",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 655,
+    "fields": {
+        "nivel": 4,
+        "valor": "1211.42",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 656,
+    "fields": {
+        "nivel": 5,
+        "valor": "1256.24",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 657,
+    "fields": {
+        "nivel": 6,
+        "valor": "1302.72",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 658,
+    "fields": {
+        "nivel": 7,
+        "valor": "1350.92",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 659,
+    "fields": {
+        "nivel": 8,
+        "valor": "1400.91",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 660,
+    "fields": {
+        "nivel": 9,
+        "valor": "1452.74",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 661,
+    "fields": {
+        "nivel": 10,
+        "valor": "1506.49",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 662,
+    "fields": {
+        "nivel": 11,
+        "valor": "1562.23",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 663,
+    "fields": {
+        "nivel": 12,
+        "valor": "1620.03",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 664,
+    "fields": {
+        "nivel": 13,
+        "valor": "1679.97",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 665,
+    "fields": {
+        "nivel": 14,
+        "valor": "1742.13",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 666,
+    "fields": {
+        "nivel": 15,
+        "valor": "1806.59",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 667,
+    "fields": {
+        "nivel": 16,
+        "valor": "1873.44",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 668,
+    "fields": {
+        "nivel": 17,
+        "valor": "1942.75",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 669,
+    "fields": {
+        "nivel": 18,
+        "valor": "2014.64",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 670,
+    "fields": {
+        "nivel": 19,
+        "valor": "2089.18",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 671,
+    "fields": {
+        "nivel": 20,
+        "valor": "2166.48",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 672,
+    "fields": {
+        "nivel": 21,
+        "valor": "2246.64",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 673,
+    "fields": {
+        "nivel": 22,
+        "valor": "2329.76",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 674,
+    "fields": {
+        "nivel": 23,
+        "valor": "2415.96",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 675,
+    "fields": {
+        "nivel": 24,
+        "valor": "2505.35",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 676,
+    "fields": {
+        "nivel": 25,
+        "valor": "2598.05",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 677,
+    "fields": {
+        "nivel": 26,
+        "valor": "2694.18",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 678,
+    "fields": {
+        "nivel": 27,
+        "valor": "2793.86",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 679,
+    "fields": {
+        "nivel": 28,
+        "valor": "2897.24",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 680,
+    "fields": {
+        "nivel": 29,
+        "valor": "3004.43",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 681,
+    "fields": {
+        "nivel": 30,
+        "valor": "3115.60",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 682,
+    "fields": {
+        "nivel": 31,
+        "valor": "3230.88",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 683,
+    "fields": {
+        "nivel": 32,
+        "valor": "3350.42",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 684,
+    "fields": {
+        "nivel": 33,
+        "valor": "3474.38",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 685,
+    "fields": {
+        "nivel": 34,
+        "valor": "3602.94",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 686,
+    "fields": {
+        "nivel": 35,
+        "valor": "3736.24",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 687,
+    "fields": {
+        "nivel": 36,
+        "valor": "3874.49",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 688,
+    "fields": {
+        "nivel": 37,
+        "valor": "4017.84",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 689,
+    "fields": {
+        "nivel": 38,
+        "valor": "4166.50",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 690,
+    "fields": {
+        "nivel": 39,
+        "valor": "4320.66",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 691,
+    "fields": {
+        "nivel": 40,
+        "valor": "4480.53",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 692,
+    "fields": {
+        "nivel": 41,
+        "valor": "4646.31",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 693,
+    "fields": {
+        "nivel": 42,
+        "valor": "4818.22",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 694,
+    "fields": {
+        "nivel": 43,
+        "valor": "4996.49",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 695,
+    "fields": {
+        "nivel": 44,
+        "valor": "5181.36",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 696,
+    "fields": {
+        "nivel": 45,
+        "valor": "5373.07",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 697,
+    "fields": {
+        "nivel": 46,
+        "valor": "5571.88",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 698,
+    "fields": {
+        "nivel": 47,
+        "valor": "5778.04",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 699,
+    "fields": {
+        "nivel": 48,
+        "valor": "5991.83",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 700,
+    "fields": {
+        "nivel": 49,
+        "valor": "6213.52",
+        "data_inicio": "2014-01-01",
+        "data_fim": "2014-02-28"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 701,
+    "fields": {
+        "nivel": 1,
+        "valor": "1086.32",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 702,
+    "fields": {
+        "nivel": 2,
+        "valor": "1125.43",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 703,
+    "fields": {
+        "nivel": 3,
+        "valor": "1165.94",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 704,
+    "fields": {
+        "nivel": 4,
+        "valor": "1207.92",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 705,
+    "fields": {
+        "nivel": 5,
+        "valor": "1251.40",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 706,
+    "fields": {
+        "nivel": 6,
+        "valor": "1296.45",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 707,
+    "fields": {
+        "nivel": 7,
+        "valor": "1343.12",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 708,
+    "fields": {
+        "nivel": 8,
+        "valor": "1391.48",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 709,
+    "fields": {
+        "nivel": 9,
+        "valor": "1441.57",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 710,
+    "fields": {
+        "nivel": 10,
+        "valor": "1493.47",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 711,
+    "fields": {
+        "nivel": 11,
+        "valor": "1547.23",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 712,
+    "fields": {
+        "nivel": 12,
+        "valor": "1602.93",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 713,
+    "fields": {
+        "nivel": 13,
+        "valor": "1660.64",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 714,
+    "fields": {
+        "nivel": 14,
+        "valor": "1720.42",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 715,
+    "fields": {
+        "nivel": 15,
+        "valor": "1782.35",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 716,
+    "fields": {
+        "nivel": 16,
+        "valor": "1846.52",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 717,
+    "fields": {
+        "nivel": 17,
+        "valor": "1912.99",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 718,
+    "fields": {
+        "nivel": 18,
+        "valor": "1981.86",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 719,
+    "fields": {
+        "nivel": 19,
+        "valor": "2053.21",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 720,
+    "fields": {
+        "nivel": 20,
+        "valor": "2127.12",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 721,
+    "fields": {
+        "nivel": 21,
+        "valor": "2203.70",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 722,
+    "fields": {
+        "nivel": 22,
+        "valor": "2283.03",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 723,
+    "fields": {
+        "nivel": 23,
+        "valor": "2365.22",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 724,
+    "fields": {
+        "nivel": 24,
+        "valor": "2450.37",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 725,
+    "fields": {
+        "nivel": 25,
+        "valor": "2538.58",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 726,
+    "fields": {
+        "nivel": 26,
+        "valor": "2629.97",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 727,
+    "fields": {
+        "nivel": 27,
+        "valor": "2724.65",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 728,
+    "fields": {
+        "nivel": 28,
+        "valor": "2822.74",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 729,
+    "fields": {
+        "nivel": 29,
+        "valor": "2924.36",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 730,
+    "fields": {
+        "nivel": 30,
+        "valor": "3029.64",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 731,
+    "fields": {
+        "nivel": 31,
+        "valor": "3138.70",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 732,
+    "fields": {
+        "nivel": 32,
+        "valor": "3251.70",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 733,
+    "fields": {
+        "nivel": 33,
+        "valor": "3368.76",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 734,
+    "fields": {
+        "nivel": 34,
+        "valor": "3490.03",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 735,
+    "fields": {
+        "nivel": 35,
+        "valor": "3615.67",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 736,
+    "fields": {
+        "nivel": 36,
+        "valor": "3745.84",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 737,
+    "fields": {
+        "nivel": 37,
+        "valor": "3880.69",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 738,
+    "fields": {
+        "nivel": 38,
+        "valor": "4020.39",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 739,
+    "fields": {
+        "nivel": 39,
+        "valor": "4165.13",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 740,
+    "fields": {
+        "nivel": 40,
+        "valor": "4315.07",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 741,
+    "fields": {
+        "nivel": 41,
+        "valor": "4470.41",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 742,
+    "fields": {
+        "nivel": 42,
+        "valor": "4631.35",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 743,
+    "fields": {
+        "nivel": 43,
+        "valor": "4798.08",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 744,
+    "fields": {
+        "nivel": 44,
+        "valor": "4970.81",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 745,
+    "fields": {
+        "nivel": 45,
+        "valor": "5149.76",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 746,
+    "fields": {
+        "nivel": 46,
+        "valor": "5335.15",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 747,
+    "fields": {
+        "nivel": 47,
+        "valor": "5527.21",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 748,
+    "fields": {
+        "nivel": 48,
+        "valor": "5726.19",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+},
+{
+    "model": "calculos_pagamentos.valorpornivelvencimento",
+    "pk": 749,
+    "fields": {
+        "nivel": 49,
+        "valor": "5932.34",
+        "data_inicio": "2013-03-01",
+        "data_fim": "2013-12-31"
+    }
+}
+]

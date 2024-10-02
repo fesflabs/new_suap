@@ -1,0 +1,148 @@
+{% extends super_template %}
+
+{% block extracss %}
+    <style>
+        @media only screen and (min-width: 992px) {
+            .msg.floating {
+                position: fixed;
+                top: 2%;
+                right: 0%;
+                width: 30%;
+                border-radius: 10px 0 0 10px;
+                padding: 15px !important;
+                background-color: #bedcf0 !important;
+            }
+        }
+        form fieldset .form-row label {
+            width: 250px;
+        }
+        form li {
+            margin-left: 250px;
+        }
+        .checkbutton.btn {
+            margin-left: 290px !important;
+            display: none !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <p class="msg info">{{ respondente.avaliacao.descricao|linebreaksbr }}</p>
+
+    <dl>
+        <dt>Percentual Respondido:</dt>
+        <dd>
+            <div class="progress">
+                <p>{{ percentual }}%</p>
+            </div>
+        </dd>
+    </dl>
+
+    {% if tem_escala_padrao %}
+        {% box 'Tabela de Referência' %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Padrão</th>
+                    <th>Definição</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Desconheço</td>
+                    <td>Quando o respondente NÃO CONHECE o aspecto avaliado e, portanto, não considera pertinente opinar.
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Quando o aspecto avaliado NÃO EXISTE (embora devesse existir) na percepção do respondente.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Quando o aspecto avaliado existe mas é INSUFICIENTE na percepção do respondente.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Quando o aspecto avaliado existe e é SUFICIENTE/REGULAR na percepção do respondente.</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Quando o aspecto avaliado é existe e é MUITO BOM na percepção do respondente.</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Quando o aspecto avaliado existe e é EXCELENTE na percepção do respondente.</td>
+                </tr>
+                <tr>
+                    <td>Não se aplica</td>
+                    <td>Quando o aspecto avaliado NÃO SE APLICA ao respondente e, portanto, não deve opinar.</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endbox %}
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST" action="" class="long-form">
+        {% csrf_token %}
+        {% for objeto, eixos in iteracoes.items %}
+            {% if eixos %}
+                {% for eixo, dimensoes in eixos.items %}
+                    <div class="tab-container" data-title='{{ forloop.counter }}. {{ eixo }}'>
+                        {% for dimensao, macroprocessos in dimensoes.items %}
+                            <h4>{{ forloop.parentloop.counter }}.{{ forloop.counter }}. {{ dimensao }}</h4>
+                            {% for macroprocesso, listas in macroprocessos.items %}
+                                <fieldset class="module aligned">
+                                    <h5>{{ forloop.parentloop.parentloop.counter }}.{{ forloop.parentloop.counter }}.{{ forloop.counter }}. {{ macroprocesso }}</h5>
+                                    {% for fields in listas %}
+                                        {% for field in fields %}
+                                            {% if forloop.first and field.aspecto %}
+                                                <strong>{{ field.aspecto }} - {{ field }}</strong>
+                                            {% endif %}
+                                            {% with form_field=form|getval:field.name %}
+                                                <div class="form-row {% if form_field.errors %}errors{% endif %}">
+                                                    <div class="field-box">
+                                                        {% if form_field.errors %}
+                                                            <ul class="errorlist">
+                                                                {% for error in form_field.errors %}
+                                                                    <li>{{ error }}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                        <label {% if field.texto_ajuda %}data-hint="{{ field.texto_ajuda }}"{% endif %} {% if form_field.field.required %}class="required"{% endif %}
+                                                               for="{{ form_field.id_for_label }}"
+                                                               title="Preenchimento obrigatório">{{ form_field.label }}:</label>
+                                                        {{ form_field }}
+                                                    </div>
+                                                </div>
+                                            {% endwith %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </fieldset>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% if not token and not eh_previsualizacao %}
+            <div class="submit-row floated">
+                <input type="submit" value="Salvar e Continuar" class="default" name="_save">
+            </div>
+        {% endif %}
+
+        {% if token %}
+            <div class="submit-row">
+                <input type="submit" value="Salvar e Finalizar" class="default" name="_save_and_finalize">
+            </div>
+        {% endif %}
+    </form>
+{% endblock %}

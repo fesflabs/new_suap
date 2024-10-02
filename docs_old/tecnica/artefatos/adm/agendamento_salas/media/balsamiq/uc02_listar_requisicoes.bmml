@@ -1,0 +1,39 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="899" measuredH="399" mockupW="861" mockupH="383">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="16" w="861" h="383" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="53" y="102" w="-1" h="-1" measuredW="301" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Minhas%20Requisi%E7%F5es%20de%20Reservas%20de%20Salas</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TabBar" x="53" y="141" w="829" h="208" measuredW="507" measuredH="100" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Qualquer%2C%20Minhas%20Requisi%E7%F5es%20Pendentes%2C%20Mihas%20Requisi%E7%F5es%20Atendidas</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::DataGrid" x="76" y="223" w="-1" h="-1" measuredW="783" measuredH="113" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%23%2C%20Sala%20solicitada%20%5Ev%2C%20Per%EDodo%20solicitado%20%5Ev%2C%20Deferido%0AVisualizar%5CnExcluir%2C%20Sala%20de%20ATOS%20do%202%BA%20andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29%2C%2026/05/2014%2007%3A00%20a%2029/05/2014%2008%3A00%2C%20%3F%0AVisualizar%2C%20Estudo%20em%20Grupo%20-%20Biblioteca%20-%20Pr%E9dio%20Principal%20%28CM%29%2C%2023/05/2014%2010%3A00%20a%2023/05/2014%2011%3A30%2C%20Sim%0AVisualizar%2C%20Audit%F3rio%20Geral%20-%202%BA%20andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29%2C%2022/05/2014%2008%3A00%20a%2022/05/2014%2009%3A00%2C%20N%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="76" y="187" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrar%20por%20Sala%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::ComboBox" x="174" y="185" w="-1" h="-1" measuredW="66" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Todos</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="745" y="114" w="-1" h="-1" measuredW="137" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Requisitar%20Reserva</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

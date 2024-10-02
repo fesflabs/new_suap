@@ -1,0 +1,67 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <style>
+        #sortable .box-item {
+            cursor: move;
+        }
+        #sortable .box-item.ui-sortable-helper {
+            box-shadow: 0 15px 50px 15px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+    <script>
+        $( function() {
+            $("#sortable").sortable({
+                cursor: "move",
+                items: "> .box-item",
+                placeholder: "ui-state-highlight",
+                helper: 'clone',
+                preventOnFilter: true,
+                stop: function(e, ui) {
+                    var area = $("#sortable").data('area');
+                    var demandas = [];
+                    $(".box-item").each(function (i) {
+                        demandas.push($(this).data("demanda"));
+                        $(this).find("h4 small").html(i+1);
+                    });
+
+                    $.ajax({
+                        url: '/demandas/atualizar_prioridade/' + area + '/?demandas=' + demandas,
+                        type: "GET",
+                        success: function(data) {
+                        }
+                    });
+                },
+            }).disableSelection();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    {% if demandas %}
+        <div class="msg info">
+            <p>As <strong>{{ demandas.count }}</strong> demandas estão ordenadas por odem de <strong>Prioridade</strong>.</p>
+            <p>Você pode arrastar uma demanda para alterar imediatamente a ordem de prioridade da mesma.</p>
+            <p>Somente as demandas de prioridade até 5 serão iniciadas pela equipe de desenvolvimento.</p>
+        </div>
+        <div id="sortable" data-area="{{ area.pk }}" class="flex-container boxes services">
+            {% for demanda in demandas %}
+                <li class="box-item {% if demanda.prioridade < 6 %}success{% endif %}" data-demanda="{{ demanda.pk }}">
+                    {{ demanda.situacao|status }}
+                    <h4>
+                        <small>{{ demanda.prioridade }}</small>
+                        <a href="{% url 'demanda_visualizar' demanda.pk %}">
+                            <strong>#{{ demanda.pk }}</strong>: {{ demanda.titulo }}
+                        </a>
+                    </h4>
+                    <a href="{% url 'atualizar_prioridade_manualmente' demanda.pk %}"
+                       class="btn popup">Definir Prioridade</a>
+                </li>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="msg alert">Não há demandas cadastradas para esta área.</p>
+    {% endif %}
+
+{% endblock %}

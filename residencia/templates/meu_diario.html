@@ -1,0 +1,149 @@
+{% extends super_template %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    <li><a class="btn" href="?xls=1">{% icone "file-excel" %} Exportar para XLS</a></li>
+    <li class="has-child">
+        <a class="btn" href="#">{% icone "print" %} Imprimir</a>
+    </li>
+    {% help_button %}
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    {% box "Dados do Diário" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Preceptores</dt>
+                <dd>
+                    {% for p in preceptor_diario.diario.preceptordiario_set.all %}
+                        <p>{{ p.preceptor.nome }} ({{ preceptor_diario.tipo }})</p>
+                    {% endfor %}
+                </dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Curso</dt>
+                <dd>{{ preceptor_diario.diario.turma.curso_campus }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Turma</dt>
+                <dd>{{ preceptor_diario.diario.turma }}</dd>
+            </div>
+            {% if request.user.is_superuser %}
+                <div class="list-item flex-basis-50">
+                    <dt>Quantidade de Alunos</dt>
+                    <dd>{{ preceptor_diario.diario.matriculas_diarios_diario_residencia_set.count }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+
+{#        <span id="etapas"></span>#}
+{##}
+{#        <h4>Etapas</h4>#}
+{#        <div class="table-responsive">#}
+{#            <table>#}
+{#                <thead>#}
+{#                <tr>#}
+{#                    <th>Etapa</th>#}
+{#                    <th>Período do Calendário</th>#}
+{#                    <th>Entregue</th>#}
+{#                </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                {% for numero_etapa, dados in etapas.items %}#}
+{#                    <tr>#}
+{#                        <td>{{ dados.numero_etapa_exibicao }}</td>#}
+{#                        <td><a class="popup"#}
+{#                            href="/residencia/calendarioacademico/{{ obj.calendario_academico.pk }}/">{{ dados.inicio_etapa|format }}#}
+{#                            a {{ dados.fim_etapa|format }}</a>#}
+{#                        </td>#}
+{#                        <td>{{ dados.posse|format }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
+    {% endbox %}
+
+    <span id="etapa"></span>
+
+    {% box "{{ descricao_etapa }}" %}
+
+{#        <ul class="action-bar">#}
+{#            {% if pode_manipular_etapa and etapas_anteriores_entegues %}#}
+{#                <li><a class="btn success popup" href="/residencia/entregar_etapa/{{ obj.pk }}/{{ etapa }}/">{% icone "share" %} Entregar Etapa {{ etapa_str }}</a></li>#}
+{#            {% else %}#}
+{#                {% if not possui_solicitacao_pendente and em_posse_do_registro %}#}
+{#                    <li><a class="btn popup"#}
+{#                            href="/residencia/solicitar_relancamento_etapa/{{ preceptor_diario.pk }}/{{ etapa }}/">{% icone "share" %} Solicitar#}
+{#                            Relançamento da Etapa {{ etapa_str }}</a></li>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#        {% if preceptor_diario.diario.componente_curricular.tipo == 1 %}#}
+{#            <div class="tab-container ajax-rendered" data-title="Registro de Notas"#}
+{#                 data-counter="{{ obj.get_quantidade_alunos_ativos }}" data-tab="notas">#}
+{#                {% if request.GET.tab == "notas" %}#}
+    {#                {% if obj.componente_curricular.avaliacao_por_conceito %}#}
+    {#                    {% if obj.estrutura_curso.get_representacoesconceituais %}#}
+    {#                        <div class="msg info">#}
+    {#                            <p>Esta disciplina é avaliada por conceito. Para lançamento das notas se baseie nas faixas a#}
+    {#                                seguir:</p>#}
+    {#                            <ul>#}
+    {#                                {% for conceito in obj.estrutura_curso.get_representacoesconceituais %}#}
+    {#                                    <li><strong>{{ conceito.descricao }}</strong>: {{ conceito.valor_minimo }}#}
+    {#                                        à {{ conceito.valor_maximo }} </li>#}
+    {#                                {% endfor %}#}
+    {#                            </ul>#}
+    {#                        </div>#}
+    {#                    {% else %}#}
+    {#                        <p class="msg alert">Solicite o cadastro das representações conceituais para estrutura deste#}
+    {#                            curso.</p>#}
+    {#                    {% endif %}#}
+    {#                {% endif %}#}
+{#                    {% include "includes/notas_residente_form.html" %}#}
+{#                {% endif %}#}
+{#            </div>#}
+            <div class="tab-container ajax-rendered" data-title="Frequencias" data-tab="frequencias">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Residente</th>
+                        <th class="text-center">Hora Entrada</th>
+                        <th class="text-center">Hora Saida</th>
+                        <th class="text-center">Confirmada</th>
+                        <th class="text-center">Confirmação</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                {% for matricula_diario in preceptor_diario.diario.matriculas_diarios_diario_residencia_set.all %}
+                {{matricula_diario}}
+                    {%for frequencia in matricula_diario.matriculadiario_frequencia_residente_set.all %}
+                        <tr>
+                            <td class="text-center">{{frequencia.residente}}</td>
+                            <td class="text-center">{{frequencia.data_hora_entrada}}</td>
+                            <td class="text-center">{{frequencia.data_hora_saida}}</td>
+                            {% if frequencia.confirmacao %}
+                                <td class="no-print" >{% icon "check" %}</td>
+                                {#<td class="text-center no-print">#}
+                                    {#<a href="" class="btn popup warning">Confirmado</a>#}                              
+                               {#</td>#}
+                            {% else %}
+                                <td class="no-print">{% icon "ban" %}</td>
+                                <td class="text-center no-print">
+                                    <a href="/residencia/confirmar_frequencia_residente/{{ frequencia.pk }}/" class="btn success">Confirmar</a>
+                                </td>
+                            {% endif %}
+                            {#<td class="text-center">{{frequencia.confirmacao|yesno:"Confirmada,Não Confirmada" }}</td>#}                            
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>                
+            </div>
+        {% comment %} {%endif%} {% endcomment %}
+
+    {% endbox %}
+
+{% endblock %}

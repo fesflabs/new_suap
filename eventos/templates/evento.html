@@ -1,0 +1,759 @@
+{% extends super_template %}
+
+{% load eventos_tags %}
+
+{% block extrahead %}
+    <script>
+        $(document).ready(function(){
+            $("[data-markall]").on("click", function () {
+                let total = $(this).data("markall-total");
+                let checked = $(this).is(':checked');
+                $(this).parent().next("form").find(".custom-checkbox").find(':checkbox').prop('checked', checked);
+                $(this).prev("label").html(checked ? 'Desmarcar os ' + total + ' participantes' : 'Marcar os ' + total + ' participantes');
+            });
+        });
+        function executarAcao(msg, url){
+            var inputs = $( "input[name='ids']" );
+            var pks = [];
+            for(u=0;u<inputs.length;u++){
+                if ( inputs[u].checked) pks.push(inputs[u].value);
+            }
+            pks = pks.join("_");
+            if(pks.length>0) pks = pks + "/";
+            if(pks.length===0) alert(msg);
+            else document.location.href = url+pks;
+        }
+        function enviarLinkPresencaParticipantesSelecionados(tipo_participante){
+            var msg = "Selecione o(s) participantes(s) para o(s) qual(is) deseja enviar link para registro de presença.";
+            var url = "/eventos/enviar_link_registro_presenca/{{ evento.pk }}/"+tipo_participante+"/"
+            executarAcao(msg, url);
+        }
+        function enviarEmailParticipantesSelecionados(tipo_participante){
+            var msg = "Selecione o(s) participantes(s) para o(s) qual(is) deseja enviar o certificado.";
+            var url = "/eventos/enviar_certificados/{{ evento.pk }}/"+tipo_participante+"/"
+            executarAcao(msg, url);
+        }
+        function confirmarInscricaoParticipantesSelecionados(tipo_participante){
+            var msg = "Selecione o(s) participantes(s) para o(s) qual(is) deseja confirmar inscrição.";
+            var url = "/eventos/confirmar_inscricao/{{ evento.pk }}/"+tipo_participante+"/"
+            executarAcao(msg, url);
+        }
+        function confirmarPresencaParticipantesSelecionados(tipo_participante){
+            var msg = "Selecione o(s) participantes(s) para o(s) qual(is) deseja confirmar presença.";
+            var url = "/eventos/confirmar_presenca/{{ evento.pk }}/"+tipo_participante+"/";
+            executarAcao(msg, url);
+        }
+    </script>
+{% endblock %}
+
+{% block object-status %}{{ evento.get_situacao|status }}{% endblock %}
+
+{% block action-bar %}
+    {% if pode_avaliar or pode_gerenciar %}
+        <ul class="action-bar">
+            {% if not evento.submetido %}
+                {% if evento.coordenador and request.user.get_vinculo == evento.coordenador.get_vinculo %}
+                    <li><a href="/eventos/submeter/{{ evento.pk }}/" class="btn success">{% icone "share" %} Submeter</a></li>
+                {% endif %}
+            {% endif %}
+            {% if pode_finalizar %}
+                <li><a class="btn success" href="/eventos/finalizar/{{ evento.pk }}/">{% icone "times" %} Finalizar</a></li>
+            {% endif %}
+            {% if pode_avaliar %}
+                {% if evento.submetido and evento.deferido and not evento.ativo %}
+                    <li><a href="/eventos/ativar/{{ evento.pk }}/" class="btn success popup">{% icone "check" %} Ativar</a></li>
+                {% endif %}
+            {% endif %}
+            {% if pode_gerenciar %}
+                <li><a href="/admin/eventos/evento/{{ evento.pk }}/" class="btn primary">{% icone "edit" %} Editar</a></li>
+            {% endif %}
+            {% if pode_avaliar %}
+                {% if evento.submetido %}
+                    {% if evento.deferido == None %}
+                        <li class="has-child">
+                            <a href="#" class="btn primary">{% icone "check" %} Avaliar</a>
+                            <ul>
+                                <li><a href="/eventos/deferir/{{ evento.pk }}/">Deferir</a></li>
+                                <li><a href="/eventos/indeferir/{{ evento.pk }}/" class="no-confirm popup">Indeferir</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/eventos/devolver/{{ evento.pk }}/" class="btn warning no-confirm popup">{% icone "undo" %} Devolver</a></li>
+                    {% else %}
+                        <li><a href="/eventos/cancelar_avaliacao/{{ evento.pk }}/" class="btn warning">{% icone "times" %} Cancelar Avaliação</a></li>
+                    {% endif %}
+                    {% if evento.deferido and evento.ativo %}
+                        <li><a href="/eventos/desativar/{{ evento.pk }}/" class="btn warning popup">{% icone "ban" %} Inativar</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            {% if evento.finalizado and pode_gerenciar %}
+                <li><a class="btn warning" href="/eventos/desfazer_finalizacao/{{ evento.pk }}/">{% icone "times" %} Desfazer Finalização</a></li>
+            {% endif %}
+            {% if user|in_group:"Coordenador de Comunicação Sistêmico" %}
+                {% if evento.cancelado %}
+                    <li><a href="/eventos/desfazer_cancelamento/{{ evento.pk }}/" class="btn danger">{% icone "times" %} Desfazer Cancelamento</a></li>
+                {% else %}
+                    <li><a href="/eventos/cancelar/{{ evento.pk }}/" class="btn danger">{% icone "times" %} Cancelar</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if evento.deferido == False %}
+        <p class="msg alert"><strong>Motivo do Indeferimento:</strong> {{ evento.motivo_indeferimento }}</p>
+    {% endif %}
+
+    {% box "Dados Gerais" %}
+        {% if evento.imagem %}
+            <a href="{{ evento.imagem.url }}" class="img-large"><img src="{{ evento.imagem.url }}" alt="Foto de {{ evento.nome }}"></a>
+        {% endif %}
+
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Nome</dt>
+                <dd>{{ evento.nome }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>Apresentação</dt>
+                <dd>{{ evento.apresentacao }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Carga Horária</dt>
+                <dd>{{ evento.get_carga_horaria|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Dimensões</dt>
+                <dd>{{ evento.dimensoes|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Local</dt>
+                <dd>{{ evento.local|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Início do Evento</dt>
+                <dd>{{ evento.data_inicio }} {{ evento.hora_inicio|time:"H:i" }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Fim do Evento</dt>
+                <dd>{{ evento.data_fim|default:"-" }} {{ evento.hora_fim|time:"H:i"|default:"" }}</dd>
+            </div>
+            {% if evento.site %}
+                <div class="list-item">
+                    <dt>Site</dt>
+                    <dd><a href="{{ evento.site|format }}">{{ evento.site|format }}</a></dd>
+                </div>
+            {% endif %}
+            {% if evento.servidores_envolvidos %}
+                <div class="list-item">
+                    <dt>Servidores Envolvidos</dt>
+                    <dd>{{ evento.servidores_envolvidos|format }}</dd>
+                </div>
+            {% endif %}
+            {% if evento.recursos %}
+                <div class="list-item">
+                    <dt>Recursos Envolvidos</dt>
+                    <dd>R$ {{ evento.recursos|format }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+
+        <h4>Inscrições</h4>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Início das Inscrições</dt>
+                <dd>{{ evento.data_inicio_inscricoes|format }} {{ evento.hora_inicio_inscricoes|time:"H:i"|default:"" }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Fim das Inscrições</dt>
+                <dd>{{ evento.data_fim_inscricoes|format }} {{ evento.hora_fim_inscricoes|time:"H:i"|default:"" }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>URL para Inscrição</dt>
+                <dd><a href="{{ evento.get_url_inscricao|format }}">{{ evento.get_url_inscricao|format }}</a></dd>
+            </div>
+        </dl>
+
+        <h4>Classificação</h4>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Abrangência</dt>
+                <dd>{{ evento.classificacao|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Classificação</dt>
+                <dd>{{ evento.tipo|format }}
+                    {% if evento.subtipo %}
+                        - {{ evento.subtipo|format }}
+                    {% else %}
+                        - {{ evento.natureza|format }}
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="list-item">
+                <dt>Público Alvo</dt>
+                <dd>{{ evento.publico_alvo|format }}</dd>
+            </div>
+        </dl>
+
+        <h4>Configuração</h4>
+        <dl class="definition-list flex small-items">
+            <div class="list-item">
+                <dt>Inscrição Online</dt>
+                <dd>{{ evento.inscricao_publica|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Registra Presença Online</dt>
+                <dd>{{ evento.registrar_presenca_online|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Gera Certificado</dt>
+                <dd>{{ evento.gera_certificado|format }}</dd>
+            </div>
+        </dl>
+
+        <h4>Situação</h4>
+        <dl class="definition-list flex small-items">
+            <div class="list-item">
+                <dt>Submetido</dt>
+                <dd>{{ evento.submetido|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Deferido</dt>
+                <dd>{{ evento.deferido|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Ativo</dt>
+                <dd>{{ evento.ativo|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Finalizado</dt>
+                <dd>{{ evento.finalizado|format }}</dd>
+            </div>
+        </dl>
+    {% endbox %}
+
+    {% if pode_gerenciar or pode_avaliar %}
+        <div class="tab-container ajax-rendered" data-title="Detalhamento" data-tab="detalhamento">
+            {% box "Coordenação" %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Coordenador</dt>
+                        <dd>{{ evento.coordenador|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Campus do Coordenador</dt>
+                        <dd>{{ evento.campus|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Setor do Coordenador</dt>
+                        <dd>{{ evento.setor|format }}</dd>
+                    </div>
+                </dl>
+            {% endbox %}
+
+            {% box "Tipos de Participantes" %}
+                {% if evento.tipos_participante.exists %}
+                    <div class="msg info">
+                        <p><strong>Pré-visualização dos certificados:</strong></p>
+                        <ul>
+                            <li>Verifique se os marcadores foram substituídos corretamente.</li>
+                            <li>Caso haja alguma inconsistência, lembre-se de formatar o marcador todo incluindo os "#".</li>
+                        </ul>
+                    </div>
+                    <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Participação</th>
+                                <th>Limite de Inscrições</th>
+                                <th>Modelo do Certificado</th>
+                                <th class="no-print">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tipo_participante in evento.tipos_participante.all %}
+                            <tr>
+                                <td>{{ tipo_participante.tipo_participacao }}</td>
+                                <td>{{ tipo_participante.limite_inscricoes|format }}</td>
+                                <td>
+                                    <a href="{{ tipo_participante.get_modelo_certificado.url }}">
+                                    {% if tipo_participante.modelo_certificado %}
+                                        {{ tipo_participante.get_modelo_certificado }}
+                                    {% else %}
+                                        Padrão
+                                    {% endif %}
+                                    </a>
+                                </td>
+                                <td class="no-print">
+                                    <a href="/eventos/baixar_certificado/{{evento.id}}/?tipo-participante={{tipo_participante.id}}" class="btn default">{% icone "file-download" %} Pré-visualizar Certificado</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                {% else %}
+                    <div class="msg alert">Nenhum tipo de participante foi informado.</div>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    <div id="participantes">
+        {% if pode_gerenciar or pode_avaliar %}
+            {% for tipo_participante, participantes in tipos_participantes %}
+                <div class="tab-container ajax-rendered" data-title="{{ tipo_participante.tipo_participacao.descricao }}" data-counter="{{ participantes.count }}" data-tab="{{ tipo_participante.tipo_participacao.descricao|slugify }}{{ tipo_participante.pk }}">
+                    {% box "{{ tipo_participante.tipo_participacao.descricao }}" %}
+                        {% if pode_gerenciar and evento.deferido and evento.ativo %}
+                            {% with tipo_id=tipo_participante.id %}
+                                <ul class="action-bar">
+                                    <li><a class="btn popup success" href="/eventos/adicionar_participante/{{ evento.pk }}/{{ tipo_id }}/">Adicionar</a></li>
+                                    <li><a class="btn popup" href="/eventos/importar_participantes_evento/{{ evento.pk }}/{{ tipo_id }}/">Importar</a></li>
+                                    <li><a class="btn" href="/eventos/exportar_participantes_evento/{{ evento.pk }}/{{ tipo_id }}/">Exportar</a></li>
+                                    <li><a class="btn popup" href="/eventos/importar_lista_presenca/{{ evento.pk }}/{{ tipo_id }}/">Importar Lista de Presença</a></li>
+                                    <li><a class="btn popup" href="/eventos/enviar_mensagem/{{ evento.pk }}/">Enviar Mensagem</a></li>
+                                </ul>
+                            {% endwith %}
+                        {% endif %}
+                        {% if participantes.exists %}
+                            {% with tipo_id=tipo_participante.id %}
+                                <div class="search-and-filters">
+                                    <div class="filter">
+                                        <label for="q{{ tipo_id }}">Nome/CPF:</label>
+                                        <input type="text" id="q{{ tipo_id }}" name="q{{ tipo_id }}" value="{{ queries|getval:tipo_id|default:"" }}">
+                                    </div>
+                                    <div class="submit-button">
+                                        <a class="btn default"
+                                        onclick="document.location.href='?tab={{ tipo_participante.tipo_participacao.descricao|slugify }}{{ tipo_id }}&q{{ tipo_id }}='+$('#q{{ tipo_id }}').val()+'#q{{ tipo_id }}';">Buscar</a>
+                                    </div>
+                                </div>
+                            {% endwith %}
+
+                            {% if evento.pode_enviar_certificado %}
+                                <p class="msg alert">Os certificados serão enviados apenas para os participantes que possuírem a <strong>carga horária cumprida maior do que 0h</strong> e estiverem com <strong>presença confirmada</strong> no evento.</p>
+                            {% endif %}
+
+                            {% autopaginate participantes %}
+
+                            {% if participantes.exists and pode_gerenciar and evento.ativo and evento.deferido %}
+                                <div class="markall-container">
+                                    <label for="markall-{{ tipo_participante.tipo_participacao.descricao|slugify }}">Marcar os {{ participantes|length }} participantes</label>
+                                    <input type="checkbox" id="markall-{{ tipo_participante.tipo_participacao.descricao|slugify }}" data-markall="true" data-markall-total="{{ participantes|length }}">
+                                </div>
+                            {% endif %}
+
+                            <form method="post" action="">
+                            {% csrf_token %}
+                            {% paginate %}
+                            {% for participante in participantes %}
+                                <div class="general-box">
+                                    {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                        <div class="custom-checkbox">
+                                            <input id="id_participante_{{ participante.pk }}" name="ids" type="checkbox" value="{{ participante.id }}" onchange="$(this).closest('table').find('thead input:checkbox').prop('checked', false);">
+                                            <label for="id_participante_{{ participante.pk }}"></label>
+                                        </div>
+                                    {% endif %}
+                                    <div class="primary-info">
+                                        {% if participante.inscricao_validada %}
+                                            <span class="status status-success">Inscrição confirmada</span>
+                                        {% else %}
+                                            <span class="status status-error">Inscrição não confirmada</span>
+                                        {% endif %}
+                                        {% if participante.presenca_confirmada %}
+                                            <span class="status status-success">Presença confirmada</span>
+                                        {% else %}
+                                            <span class="status status-error">Presença não confirmada</span>
+                                        {% endif %}
+                                        {% if evento.gera_certificado %}
+                                            {% if participante.certificado_enviado %}
+                                                <span class="status status-success">Certificado enviado</span>
+                                            {% else %}
+                                                <span class="status status-error">Certificado não enviado</span>
+                                            {% endif %}
+                                        {% endif %}
+                                        <h4>{{ participante.nome|format }}</h4>
+                                        <ul class="action-bar">
+                                            {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                                <li><a href="/eventos/editar_participante/{{ participante.pk }}/" class="btn primary" title="Editar">{% icone "edit" %}<span class="sr-only">Editar</span></a></li>
+                                            {% endif %}
+                                            {% if evento.gera_certificado %}
+                                                {% if evento.subtipo.multiplas_atividades %}
+                                                    <li>
+                                                        <a class="btn primary popup" href="/eventos/informar_atividades/{{ participante.id }}/">
+                                                        {% icone "table" %} Atividades
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if participante.certificado_enviado and evento.ativo %}
+                                                    {% with url_download_certificado=participante.get_url_download_certificado %}
+                                                        {% if url_download_certificado %}
+                                                            <li><a class="btn default" href="{{ url_download_certificado }}">{% icone "print" %} Imprimir Certificado</a></li>
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                                <li><a href="/comum/excluir/eventos/participante/{{ participante.pk }}/"class="btn danger" title="Remover">{% icone "trash" %}<span class="sr-only">Remover</span></a></li>
+                                            {% endif %}
+                                        </ul>
+                                        {% if evento.subtipo.multiplas_atividades and not tipo_participante.tipo_participacao.ch_organizacao %}
+                                            <div class="extra-info">
+                                                <h4>Atividades:</h4>
+                                                <div class="table-responsive">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Tipo</th>
+                                                                <th>Descrição</th>
+                                                                <th>Confirmada</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for atividade in participante.atividades.all %}
+                                                            <tr>
+                                                                <td>{{ atividade.tipo }}</td>
+                                                                <td>{{ atividade }}</td>
+                                                                <td>{% atividade_confirmada participante atividade %}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <dl class="secondary-info">
+                                        <div class="list-item">
+                                            <dt>Categoria:</dt>
+                                            <dd>{{ tipo_participante }}</dd>
+                                        </div>
+                                        <div class="list-item">
+                                            <dt>E-mail:</dt>
+                                            <dd>{{ participante.email|format }}</dd>
+                                        </div>
+                                        <div class="list-item">
+                                            <dt>CPF:</dt>
+                                            <dd>{{ participante.cpf|format }}</dd>
+                                        </div>
+                                        {% if participante.vinculo %}
+                                            <div class="list-item">
+                                                <dt>Vínculo:</dt>
+                                                <dd>{{ participante.vinculo.user|format }}</dd>
+                                            </div>
+                                        {% endif %}
+                                        <div class="list-item">
+                                            <dt>Perfil:</dt>
+                                            <dd>{{ participante.publico_alvo|format }}</dd>
+                                        </div>
+                                        {% if evento.subtipo.multiplas_atividades and not tipo_participante.tipo_participacao.ch_organizacao %}
+                                            <div class="list-item">
+                                                <dt>C.H. Total:</dt>
+                                                <dd>{{ participante.get_ch_inscrita }}h</dd>
+                                            </div>
+                                            {% if participante.get_ch_total %}
+                                                <div class="list-item">
+                                                    <dt>C.H. Cumprida:</dt>
+                                                    <dd>{{ participante.get_ch_total }}h</dd>
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="list-item">
+                                                <dt>C.H. Total:</dt>
+                                                <dd>{{ participante.get_ch_total }}h</dd>
+                                            </div>
+                                        {% endif %}
+                                        <div class="list-item">
+                                            <dt>Inscrito em:</dt>
+                                            <dd>{{ participante.data_cadastro|format }}</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            {% endfor %}
+                            {% paginate %}
+                            </form>
+                        {% else %}
+                            <div class="msg alert">Nenhum registro encontrado.</div>
+                        {% endif %}
+
+                        {% if participantes.exists and pode_gerenciar and evento.ativo and evento.deferido %}
+                            <h4>Para Participantes marcados:</h4>
+                            <div class="submit-row">
+                                <button class="btn success" onclick="confirmarInscricaoParticipantesSelecionados({{ tipo_participante.pk }})">Confirmar Inscrição</button>
+                                <button class="btn success" onclick="confirmarPresencaParticipantesSelecionados({{ tipo_participante.pk }})">Confirmar Presença</button>
+                                {% if evento.pode_enviar_certificado %}
+                                    <button class="btn" onclick="enviarEmailParticipantesSelecionados({{ tipo_participante.pk }})">Enviar Certificado</button>
+                                {% endif %}
+                                {% if evento.estah_em_periodo_realizacao and evento.registrar_presenca_online %}
+                                    <button class="btn" onclick="enviarLinkPresencaParticipantesSelecionados({{ tipo_participante.pk }})">Enviar Link para Registro de Presença</button>
+                                {% endif %}
+                                <input type="button" class="btn danger no-confirm" id="btn_remover_{{ tipo_participante.pk }}" value="Remover" />
+                            </div>
+                        {% endif %}
+                        <script>
+                            jQuery(function(){
+                                if(!$("input[name='ids']").length){
+                                    $("#btn_remover_{{ tipo_participante.pk }}").hide();
+                                }
+                            });
+                            $("#btn_remover_{{ tipo_participante.pk }}").click(function(e) {
+                                ids = $("input[name='ids']:checked").map(function () {return this.value;}).get().join("_");
+                                if(!ids){
+                                    alert("Nenhum participante selecionado.");
+                                } else {
+                                    $.fancybox.open({
+                                        src  : '/comum/excluir/eventos/participante/' + ids + '/?_popup=1',
+                                        type : 'iframe'
+                                    });
+                                }
+                            });
+                        </script>
+                    {% endbox %}
+                </div>
+            {% endfor %}
+
+            {% if evento.subtipo.multiplas_atividades %}
+            <div class="tab-container ajax-rendered" data-title="Atividades" data-tab="atividades" data-counter="{{ evento.atividadeevento_set.count }}">
+                {% box "Atividades" %}
+                    {% if evento.atividadeevento_set.exists %}
+                    <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Atividade</th>
+                                <th>Carga Horária</th>
+                                <th>Vagas</th>
+                                <th>Inscritos</th>
+                                <th>Presentes</th>
+                                <th class="no-print">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for atividade in evento.atividadeevento_set.all %}
+                            <tr>
+                                <td>{{ atividade.tipo }}</td>
+                                <td><b>{{ atividade.descricao }}</b></td>
+                                <td class="text-center">{{ atividade.get_ch }}h</td>
+                                <td class="text-center">
+                                    {% if atividade.limite_inscricoes is None %}
+                                        Ilimitadas
+                                    {% else %}
+                                        {{ atividade.limite_inscricoes }}
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">{{ atividade.get_inscritos.count }}</td>
+                                <td class="text-center">{{ atividade.participantes.count }}</td>
+                                <td class="no-print">
+                                    <ul class="action-bar">
+                                        <li>
+                                            <a class="btn popup" href="/eventos/informar_participantes/{{ evento.pk }}/{{ atividade.pk }}/">
+                                                {% icone "user" %} Vincular Participantes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn default popup" data-reload-on-close="true" href="/eventos/lista_participantes/{{ evento.pk }}/{{ atividade.pk }}/">
+                                                {% icone "check" %} Lista de Presença
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    {% else %}
+                        <div class="msg alert">Nenhuma atividade foi informada.</div>
+                    {% endif %}
+                {% endbox %}
+            </div>
+
+            <div class="tab-container ajax-rendered" data-title="Programação" data-tab="programacao">
+                {% include "programacao_evento.html" %}
+            </div>
+            {% endif %}
+
+            <div class="tab-container ajax-rendered" data-title="Histórico" data-tab="historico" data-counter="{{ evento.historicoevento_set.count }}">
+                {% if request.GET.tab == "historico" or not request.GET.tab %}
+                    {% box 'Histórico' %}
+                        {% if evento.historicoevento_set.exists %}
+                            <ul class="timeline">
+                                {% for registro in evento.historicoevento_set.all %}
+                                    <li>
+                                        <div class="timeline-date">{{ registro.data }}</div>
+                                        <div class="timeline-icon"></div>
+                                        <div class="timeline-content">
+                                            <h4>{{ registro.user|format }}</h4>
+                                            <p>{{ registro.descricao }}</p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="msg alert">Nenhum registro encontrado.</p>
+                        {% endif %}
+                    {% endbox %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    {% if pode_gerenciar or pode_avaliar or evento.fotoevento_set.exists %}
+        <div class="tab-container ajax-rendered" data-title="Fotos" data-tab="fotos" data-counter="{{ evento.fotoevento_set.count }}">
+            {% if request.GET.tab == "fotos" or not request.GET.tab %}
+                {% box 'Fotos' %}
+                    {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                        <ul class="action-bar">
+                            <li><a class="btn popup success" href="/eventos/adicionar_foto_evento/{{ evento.pk }}/">Adicionar Foto</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if evento.fotoevento_set.exists %}
+                        <ul class="flex-container gallery">
+                            {% for foto in evento.fotoevento_set.all %}
+                                <li class="gallery-item">
+                                    <h4 class="title">Foto {{ forloop.counter }}</h4>
+                                    {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                        <a href="?excluir_foto={{ foto.pk }}" class="btn danger float-end">Remover</a>
+                                    {% endif %}
+                                    {% if foto.descricao %}<p class="description">{{ foto.descricao }}</p>{% endif %}
+                                    <a class="image" href="{{ foto.imagem.url }}"><img src="{{ foto.imagem.url }}" {% if foto.descricao %}alt="{{ foto.descricao }}"{% endif %}></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="msg alert">Nenhuma foto cadastrada.</div>
+                    {% endif %}
+                {% endbox %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if pode_gerenciar or pode_avaliar or evento.anexoevento_set.exists %}
+        <div class="tab-container ajax-rendered" data-title="Anexos" data-tab="anexos" data-counter="{{ evento.anexoevento_set.count }}">
+            {% if request.GET.tab == "anexos" or not request.GET.tab %}
+                {% box 'Anexos' %}
+                    {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                        <ul class="action-bar">
+                            <li><a class="btn popup success" href="/eventos/adicionar_anexo_evento/{{ evento.pk }}/">Adicionar Anexo</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if evento.anexoevento_set.exists %}
+                        <ul>
+                            {% for anexo in evento.anexoevento_set.all %}
+                                <li>
+                                    {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                        {% icon "delete" "?excluir_anexo={{ anexo.pk }}" "Excluir" %}&nbsp;&nbsp;&nbsp;
+                                    {% endif %}
+                                    <a href="{{ anexo.arquivo.url }}">{{ anexo.descricao }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="msg alert">Nenhum anexo cadastrado.</div>
+                    {% endif %}
+                {% endbox %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if participacoes_inconsistentes.exists %}
+        <div class="tab-container ajax-rendered" data-title="Participações Inconsistentes" data-counter="{{ participacoes_inconsistentes.count }}" data-tab="inconsistentes">
+            {% if request.GET.tab == "inconsistentes" or not request.GET.tab %}
+                {% box 'Participações Inconsistentes' %}
+                    <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                    <th><input type="checkbox" name="ids" value="0" onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked" /></th>
+                                    <th class="text-center no-print">Ações</th>
+                                {% endif %}
+                                <th>Participante</th>
+                                <th>Dados da Inscrição</th>
+                                <th>Inscrição Confirmada</th>
+                                <th>Presença Confirmada</th>
+                                {% if evento.gera_certificado %}
+                                    <th>Certificado Enviado</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for participante in participacoes_inconsistentes %}
+                                <tr>
+                                    {% if pode_gerenciar and evento.ativo and evento.deferido %}
+                                        <td>
+                                            <input value="{{ participante.id }}" name="ids" type="checkbox">
+                                        </td>
+                                        <td class="no-print">
+                                            {% icon "delete" "/comum/excluir/eventos/participante/{{ participante.pk }}/" "Excluir" "popup" %}
+                                        </td>
+                                    {% endif %}
+                                    <td>
+                                        <dl>
+                                            <dt>Nome:</dt>
+                                            <dd>{{ participante.nome|format }}</dd>
+                                            <dt>E-mail:</dt>
+                                            <dd>{{ participante.email|format }}</dd>
+                                            <dt>CPF:</dt>
+                                            <dd>{{ participante.cpf|format }}</dd>
+                                            {% if participante.vinculo %}
+                                                <dt>Vínculo:</dt>
+                                                <dd>{{ participante.vinculo.user|format }}</dd>
+                                            {% endif %}
+                                        </dl>
+                                    </td>
+                                    <td>
+                                        <dl>
+                                            <dt>Data da Inscrição:</dt>
+                                            <dd>{{ participante.data_cadastro|format }}</dd>
+                                            <dt>Perfil:</dt>
+                                            <dd>{{ participante.publico_alvo|format }}</dd>
+                                        </dl>
+                                    </td>
+                                    <td>{{ participante.inscricao_validada|format }}</td>
+                                    <td>{{ participante.presenca_confirmada|format }}</td>
+                                    {% if evento.gera_certificado %}
+                                        <td>{{ participante.certificado_enviado|format }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                {% endbox %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if pode_gerenciar or pode_avaliar %}
+        <div class="tab-container" data-title="Divulgação" data-tab="divulgacao">
+            <h4>Seu Evento foi deferido, parabéns!</h4>
+            <p>Existem alguns procedimentos que você pode adotar para ajudar no planejamento e/ou facilitar o processo de divulgação do evento.</p>
+            <ol>
+                <li>
+                    <p>Se seu evento não possui identidade visual ou você precisa de ajuda para adaptação/criação da peça gráfica, basta abrir um chamado para o Núcleo de Design da Reitoria ou o atendimento de Design do seu <em>Campus</em>.
+                        Isso pode ser feito através do link <a href="/centralservicos/selecionar_servico_abertura/comunicacao-social-e-eventos/?tab=2-design">Abrir Chamado para Design – SUAP.</a>
+                            Se o evento for sistêmico e você precisar do apoio do Núcleo de Design, lembre-se de marcar <em>RE</em> no espaço <em>Campus</em>;
+                    </p>
+                </li>
+                <li>
+                    <p>Se você deseja solicitar uma matéria ou cobertura jornalística para o seu evento, poderá fazê-lo através do link
+                        <a href="/centralservicos/abrir_chamado/174/">Abrir Chamado para Comunicação Social – SUAP</a>.
+                        Lembre-se de colocar todas as informações que já possuir sobre o evento e um contato caso a equipe precise obter mais dados.
+                    </p>
+                </li>
+                <li>
+                    <p>Se você necessita de alguma ajuda para o planejamento do seu evento, para a realização do cerimonial ou desejar solicitar a transmissão ao vivo ou gravação, poderá fazê-lo através do link
+                        <a href="/centralservicos/selecionar_servico_abertura/comunicacao-social-e-eventos/?tab=3-eventos">Abrir Chamado para Eventos</a>.
+                    </p>
+                </li>
+            </ol>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block action-links %}<li>Última atualização por {{ evento.ultima_atualizacao_por }} em {{ evento.ultima_atualizacao_em }}</li>{% endblock %}

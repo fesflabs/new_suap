@@ -1,0 +1,85 @@
+{% extends super_template %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    <li><a class="btn" href='/eleicao/resultado_pdf/{{ eleicao.pk }}'>Exportar para PDF</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+    {% if candidatos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dados Principais</th>
+                    <th>Dados Auxiliares</th>
+                    <th>Campus do Candidato no Momento da Inscrição</th>
+                    <th>Tempo na Instituição</th>
+                    <th>Idade</th>
+                    <th>Quantidade de Votos</th>
+                    <th>Percentual de Votos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidato in candidatos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ candidato.get_info_principal|safe }}</td>
+                        <td>{{ candidato.get_info_auxilar|safe }}</td>
+                        <td>{{ candidato.campus }}</td>
+                        <td>{{ candidato.get_tempo_na_instituicao|format }}</td>
+                        <td>{{ candidato.get_idade|format }}</td>
+                        <td>{{ candidato.qtd_votos }}</td>
+                        <td>
+                            <div class="progress">
+                                <p>{{ candidato.percentual_votos_label }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif campi.exists %}
+        {% for campus in campi %}
+            {% box '{{ campus }}' %}
+                {% if campus.candidatos %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Dados Principais</th>
+                                <th>Dados Auxiliares</th>
+                                <th>Tempo na Instituição</th>
+                                <th>Idade</th>
+                                <th>Quantidade de Votos</th>
+                                <th>Percentual de Votos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidato in campus.candidatos %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ candidato.get_info_principal|safe }}</td>
+                                    <td>{{ candidato.get_info_auxilar|safe }}</td>
+                                    <td>{{ candidato.get_tempo_na_instituicao|format }}</td>
+                                    <td>{{ candidato.get_idade|format }}</td>
+                                    <td>{{ candidato.qtd_votos }}</td>
+                                    <td>
+                                        <div class="progress">
+                                            <p>{{ candidato.percentual_votos_label }}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não houve candidatos para esse campus.</p>
+                {% endif %}
+            {% endbox %}
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Não há resultado para esta eleição.</p>
+    {% endif %}
+{% endblock %}

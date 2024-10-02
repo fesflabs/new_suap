@@ -1,0 +1,184 @@
+<span id="caixas_secoes-1" aria-hidden="true"></span>
+{% box "Board" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <div class="boards flex-container">
+                <div class="board-container">
+                    <h4 class="title">Board #1</h4>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título A</h5>
+                        </div>
+                    </div>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título B</h5>
+                        </div>
+                    </div>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título C</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="board-container">
+                    <h4 class="title">Board #2</h4>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título A</h5>
+                        </div>
+                    </div>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título B</h5>
+                        </div>
+                    </div>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título C</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="board-container warning">
+                    <h4 class="title">Board #3</h4>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título A</h5>
+                        </div>
+                    </div>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título B</h5>
+                        </div>
+                    </div>
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h5>Título C</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dd>
+
+        <dt>Código</dt>
+        <dd>
+<pre>
+&lt;div class="boards flex-container OPTIONAL_CLASS_PARENT"&gt;
+    &lt;div class="board-container OPTIONAL_CLASS_CHILD"&gt;
+        &lt;h4&gt;Board #1&lt;/h4&gt;
+        CONTENT
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+        </dd>
+
+        <dt>Tabela de Referência</dt>
+        <dd>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parâmetro</th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OPTIONAL_CLASS_PARENT</td>
+                        <td><code>.compact</code></td>
+                        <td>Para exibir os boards em formato compacto.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">OPTIONAL_CLASS_CHILD</td>
+                        <td><code>.error</code></td>
+                        <td>Para exibir a caixa com destaque de Erro.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.info</code></td>
+                        <td>Para exibir a caixa com destaque de Informação.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.success</code></td>
+                        <td>Para exibir a caixa com destaque de Sucesso.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.warning</code></td>
+                        <td>Para exibir a caixa com destaque de Alerta.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="caixas_secoes-2" aria-hidden="true"></span>
+{% box "Box" %}
+    {% include "includes/guia_caixa_retratil.html" %}
+{% endbox %}
+
+{% include "includes/guia_caixas.html" %}
+
+<span id="caixas_secoes-8" aria-hidden="true"></span>
+{% box "Card" %}
+    {% include "includes/guia_caixa_informacoes_pessoa.html" %}
+{% endbox %}
+
+<span id="caixas_secoes-9" aria-hidden="true"></span>
+{% box "Fotos" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <div class="gallery flex-container">
+                <div class="gallery-item">
+                    <h4 class="title">Foto 1</h4>
+                    <div class="float-end">
+                        <a href="#" class="btn danger">Remover</a>
+                    </div>
+                    <p class="description">Descrição da foto</p>
+                    <a class="image" href="/static/comum/img/placeholder.png"><img src="/static/comum/img/placeholder.png" alt="Descrição da foto"></a>
+                </div>
+                <div class="gallery-item">
+                    <h4 class="title">Foto 2</h4>
+                    <div class="float-end">
+                        <a href="#" class="btn danger">Remover</a>
+                    </div>
+                    <p class="description">Descrição da foto</p>
+                    <a class="image" href="/static/comum/img/placeholder.png"><img src="/static/comum/img/placeholder.png" alt="Descrição da foto"></a>
+                </div>
+                <div class="gallery-item">
+                    <h4 class="title">Foto 3</h4>
+                    <div class="float-end">
+                        <a href="#" class="btn danger">Remover</a>
+                    </div>
+                    <p class="description">Descrição da foto</p>
+                    <a class="image" href="/static/comum/img/placeholder.png"><img src="/static/comum/img/placeholder.png" alt="Descrição da foto"></a>
+                </div>
+            </div>
+        </dd>
+
+        <dt>Código</dt>
+        <dd>
+<pre>
+&lt;div class="galery flex-container"&gt;
+    &lt;div class="gallery-item"&gt;
+        &lt;h4 class="title"&gt;Foto #1&lt;/h4&gt;
+        &lt;a href="#" class="btn danger float-end"&gt;Remover&lt;/a&gt;
+        &lt;p class="description"&gt;Descrição da foto&lt;/p&gt;
+        &lt;a class="image" href=""&gt;&lt;img src="/static/demandas/images/analista.png" alt="Descrição da foto"&gt;&lt;/a&gt
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="caixas_secoes-10" aria-hidden="true"></span>
+{% box "General Box" %}
+    {% include "includes/guia_caixa_informacoes_gerais.html" %}
+{% endbox %}
+
+<span id="caixas_secoes-11" aria-hidden="true"></span>
+{% box "Totalizadores" %}
+    {% include "includes/guia_caixas_totalizadores.html" %}
+{% endbox %}

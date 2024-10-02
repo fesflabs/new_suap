@@ -1,0 +1,26 @@
+{% extends super_template %}
+
+{% block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Situação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for aluno in obj.participantes.all %}
+            <tr>
+                <td>{{ aluno.pessoa_fisica.cpf }}</td>
+                <td>{{ aluno.get_nome }} {% if obj.gerar_matricula %}({{ aluno.matricula }}){% endif %}</td>
+                <td>{{ aluno.pessoa_fisica.email }}</td>
+                <td>{{ aluno.situacao|format }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

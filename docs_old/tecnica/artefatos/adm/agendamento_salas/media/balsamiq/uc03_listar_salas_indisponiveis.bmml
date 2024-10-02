@@ -1,0 +1,39 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="846" measuredH="351" mockupW="808" mockupH="335">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="16" w="808" h="335" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="53" y="102" w="-1" h="-1" measuredW="261" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Registros%20de%20Manuten%E7%F5es%20de%20salas</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TabBar" x="53" y="141" w="762" h="162" measuredW="282" measuredH="100" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Qualquer%2C%20Salas%20em%20Manuten%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::DataGrid" x="76" y="223" w="-1" h="-1" measuredW="717" measuredH="53" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%23%2C%20Sala%20%5Ev%2C%20Per%EDodo%20%5Ev%0AVisualizar%5CnExcluir%2C%20Sala%20de%20ATOS%20do%202%BA%20andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29%2C%2019/05/2014%2007%3A00%20a%2022/05/2014%2008%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="76" y="187" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrar%20por%20Sala%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::ComboBox" x="174" y="185" w="-1" h="-1" measuredW="66" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Todos</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="673" y="114" w="-1" h="-1" measuredW="142" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Indisponibilizar%20Sala</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

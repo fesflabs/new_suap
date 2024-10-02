@@ -1,0 +1,345 @@
+[
+  {
+    "fields": {
+      "nome": "SSP"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "nome": "Carteira de Identidade Classista"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Administra\u00e7\u00e3o"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Assist. Social"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Biblioteconomia"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Biologia"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Biomedicina"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Contabilidade"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Corretores Im\u00f3veis"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Educ\u00e7\u00e3o Físsica"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Enfermagem"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Engenharia, Arquitetura e Agronomia"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Estat\u00edstica"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Farm\u00e1cia"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Fisioterapia e Terapia Ocupacional"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Medicina"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Medicina Veterin\u00e1ria"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Nutri\u00e7\u00e3o"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Odontologia"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Profissionais de Rela\u00e7ões Públicas"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Psicologia"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Qu\u00edmica"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "nome": "Conselho Regional de Representantes Comerciais"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "nome": "DETRAN - Departamento Nacional de Trânsito"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "nome": "Documento Estrangeiro"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "nome": "MD"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "nome": "Minist\u00e9rios Militares"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "nome": "Minist\u00e9rio da Aeron\u00e1utica"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "nome": "Minist\u00e9rio do Ex\u00e9rcito"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "nome": "Minist\u00e9rio da Marinha"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "nome": "Ordem dos Advogados do Brasil"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "nome": "Ordem dos Musicos do Brasil"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "nome": "PC"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "nome": "PCE"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "nome": "Pol\u00edcia Federal"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "nome": "SCJDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "nome": "SDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "nome": "SECC"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "nome": "SEDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "nome": "SESC"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "nome": "SESP"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "nome": "SESPDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "nome": "SJDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "nome": "SJS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "nome": "SPTC"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "nome": "SSDC"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "nome": "SSDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "nome": "SSPDS"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "nome": "Outros Emissores"
+    },
+    "model": "comum.OrgaoEmissorRg",
+    "pk": 49
+  }
+]

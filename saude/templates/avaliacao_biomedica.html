@@ -1,0 +1,856 @@
+{% extends super_template %}
+
+
+
+{% block extrahead %}
+    <script src="/static/saude/js/odontograma.js"></script>
+{% endblock %}
+
+{% block action-bar %}
+    {% include "includes/actionbar_atendimento.html" %}
+{% endblock %}
+
+{% block object-status %}
+    {% include "includes/status_atendimento.html" %}
+{% endblock %}
+
+{% block content %}
+
+    {% include "includes/cabecalho_atendimento.html" %}
+
+    <div class="tab-container" data-tab="aba_sinais_vitais" data-title="{{ sinaisvitais_titulo }}" data-checked="{% if sinaisvitais_count > 0 %}True{% else %}False{% endif %}">
+        {% box "{{ sinaisvitais_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+            </ul>
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem %}
+                        <li><a class="btn success" href="/saude/adicionar_sinaisvitais/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if sinaisvitais_count > 1 %}
+                    <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/1/">Histórico</a></li>
+                {% endif %}
+            </ul>
+
+            {% if sinaisvitais %}
+                <table class="info">
+                    <tr>
+                        <td>Pressão Arterial</td>
+                        <td>{{ sinaisvitais.get_pressao_display|format }}</td>
+                        <td>Pulsação</td>
+                        <td>{{ sinaisvitais.get_pulsacao_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Respiração</td>
+                        <td>{{ sinaisvitais.get_respiracao_categoria_display|format }}</td>
+                        <td>Temperatura</td>
+                        <td>{{ sinaisvitais.get_temperatura_categoria_display|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ sinaisvitais_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_antropometria" data-title="{{ antropometria_titulo }}" data-checked="{% if antropometria_count > 0 %}True{% else %}False{% endif %}">
+        {% box "{{ antropometria_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+                <li>Nutricionista</li>
+            </ul>
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem or especialidade.is_nutricionista %}
+                        <li><a class="btn success" href="/saude/adicionar_antropometria/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                <li><a href="/saude/antropometria_valores_referencia/" class="btn default popup">Valores de Referência</a></li>
+                {% if antropometria_count > 1 %}
+                    <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/2/">Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if antropometria %}
+                <table class="info">
+                    <tr>
+                        <td>Estatura</td>
+                        <td>{{ antropometria.get_estatura_display|format }}</td>
+                        <td>Peso</td>
+                        <td colspan="3">{{ antropometria.get_peso_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Circunferência da cintura</td>
+                        <td>{{ antropometria.get_cintura_display|format }}</td>
+                        <td>Circunferência da quadril</td>
+                        <td>{{ antropometria.get_quadril_display|format }}</td>
+                        <td>Circunferência do braço</td>
+                        <td>{{ antropometria.get_circunferencia_braco_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Razão cintura-quadril</td>
+                        <td>{{ antropometria.get_RCQ|format }}</td>
+                        <td>Índice de massa corporal</td>
+                        <td>{{ antropometria.get_IMC|format }} {% if antropometria.get_classificacao_IMC %}- {{ antropometria.get_classificacao_IMC }}{% endif %}</td>
+                        <td>Índice de adiposidade corporal</td>
+                        <td>{{ antropometria.get_IAC|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Percentual de gordura</td>
+                        <td colspan="5">{{ antropometria.get_percentual_gordura_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Perda de peso</td>
+                        <td {% if not antropometria.perda_peso %}colspan="5"{% endif %}>{{ antropometria.perda_peso|format }}</td>
+                        {% if antropometria.perda_peso %}
+                            <td>Quanto de perda</td>
+                            <td>{{ antropometria.get_quanto_perdeu_display|format }}</td>
+                            <td>Há quanto tempo vem perdendo peso?</td>
+                            <td>{{ antropometria.get_tempo_perda_display|format }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Ganho de peso</td>
+                        <td {% if not antropometria.ganho_peso %}colspan="5"{% endif %}>{{ antropometria.ganho_peso|format }}</td>
+                        {% if antropometria.ganho_peso %}
+                            <td>Quanto de ganho</td>
+                            <td>{{ antropometria.get_quanto_ganhou_display|format }}</td>
+                            <td>Há quanto tempo vem ganhando peso?</td>
+                            <td>{{ antropometria.get_tempo_ganho_display|format }}</td>
+                        {% endif %}
+                    </tr>
+                </table>
+                <h4>Dobras cutâneas</h4>
+                <table class="info">
+                    <tr>
+                        <td>Dobras cutânea triciptal</td>
+                        <td>{{ antropometria.get_pc_triciptal_display|format }}</td>
+                        <td>Dobras cutânea biciptal</td>
+                        <td>{{ antropometria.get_pc_biciptal_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dobras cutânea subescapular</td>
+                        <td>{{ antropometria.get_pc_subescapular_display|format }}</td>
+                        <td>Dobras cutânea suprailíaca</td>
+                        <td>{{ antropometria.get_pc_suprailiaca_display|format }}</td>
+                    </tr>
+                </table>
+                <h4>Dobras cutâneas</h4>
+                <table class="info">
+                    <tr>
+                        <td>Dobra cutânea abdominal</td>
+                        <td>{{ antropometria.get_dobra_cutanea_abdominal_display|format }}</td>
+                        <td>Dobra cutânea supraespinhal</td>
+                        <td>{{ antropometria.get_dobra_cutanea_supraespinhal_display|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dobra cutânea coxa média</td>
+                        <td>{{ antropometria.get_dobra_cutanea_coxa_media_display|format }}</td>
+                        <td>Dobra cutânea panturrilha medial</td>
+                        <td>{{ antropometria.get_dobra_cutanea_panturrilha_medial_display|format }}</td>
+                    </tr>
+                </table>
+                <h4>Marcadores de Práticas e de Consumo Alimentar</h4>
+                <table class="info">
+                    <tr>
+                        <td>Como você se sente em relação ao seu corpo?</td>
+                        <td>{{ antropometria.sentimento_relacao_corpo|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>NOS ÚLTIMOS 30 DIAS, com que frequência você ficou com fome por não ter comida suficiente em sua casa?</td>
+                        <td>{{ antropometria.periodo_sem_comida|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ antropometria_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+
+    </div>
+
+    <div class="tab-container" data-tab="aba_acuidade_visual" data-title="{{ acuidadevisual_titulo }}" data-checked="{% if acuidadevisual_count > 0 %}True{% endif %}">
+        {% box "{{ acuidadevisual_titulo }}" %}
+
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+            </ul>
+
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem %}
+                        <li><a class="btn success" href="/saude/adicionar_acuidadevisual/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                    {% if acuidadevisual_count > 1 %}
+                        <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/3/">Histórico</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            {% if acuidadevisual %}
+                <table class="info">
+                    <tr>
+                        <td>Com correção</td>
+                        <td>{{ acuidadevisual.com_correcao|format }}</td>
+                        <td>Olho esquerdo</td>
+                        <td>{{ acuidadevisual.olho_esquerdo|format }}</td>
+                        <td>Olho direito</td>
+                        <td>{{ acuidadevisual.olho_direito|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ acuidadevisual_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_antecedentes" data-title="{{ antecedentesfamiliares_titulo }}" data-checked="{% if aba_antecedentes_preenchida %}True{% else %}False{% endif %}">
+        {% box 'Antecedentes' %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Odontólogo</li>
+                <li>Fisioterapeuta</li>
+                <li>Nutricionista</li>
+            </ul>
+            {% include "includes/ficha_antecedentes_familiares.html" %}
+        {% endbox %}
+
+        {% box 'Processo Saúde-Doença' %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+                <li>Odontólogo</li>
+                <li>Fisioterapeuta</li>
+                <li>Nutricionista</li>
+            </ul>
+            {% include "includes/ficha_processo_saude_doenca.html" %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_habitosdevida" data-title="{{ habitosdevida_titulo }}" data-checked="{% if habitosdevida_count > 0 %}True{% else %}False{% endif %}">
+        {% box "{{ habitosdevida_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+                <li>Odontólogo</li>
+                <li>Fisioterapeuta</li>
+                <li>Nutricionista</li>
+            </ul>
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem or especialidade.is_odontologo or especialidade.is_fisioterapeuta or especialidade.is_nutricionista %}
+                        <li><a class="btn success" href="/saude/adicionar_habitosdevida/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if habitosdevida_count > 1 %}
+                    <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/4/">Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if habitosdevida %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Pratica atividade física</dt>
+                        <dd>{{ habitosdevida.atividade_fisica|format }}</dd>
+                    </div>
+                    {% if habitosdevida.atividade_fisica %}
+                        <div class="list-item">
+                            <dt>Quais atividades</dt>
+                            <dd>{{ habitosdevida.qual_atividade|format }}</dd>
+                        </div>
+                    {% endif %}
+                    <div class="list-item">
+                        <dt>Frequência da atividade física</dt>
+                        <dd>{{ habitosdevida.get_frequencia_atividade|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Duração da atividade física</dt>
+                        <dd>{{ habitosdevida.get_duracao_atividade|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Fumante</dt>
+                        <dd>{{ habitosdevida.fuma|format }}</dd>
+                    </div>
+                    {% if habitosdevida.fuma %}
+                        <div class="list-item">
+                            <dt>Frequência mínima de uso do fumo</dt>
+                            <dd>{{ habitosdevida.frequencia_fumo|format }}</dd>
+                        </div>
+                    {% endif %}
+                    <div class="list-item">
+                        <dt>Ingere bebidas alcoólicas</dt>
+                        <dd>{{ habitosdevida.bebe|format }}</dd>
+                    </div>
+                    {% if habitosdevida.bebe %}
+                        <div class="list-item">
+                            <dt>Frequência mínima de ingestão de bebidas alcoólicas</dt>
+                            <dd>{{ habitosdevida.get_frequencia_bebida|format }}</dd>
+                        </div>
+                    {% endif %}
+                    <div class="list-item">
+                        <dt>Faz uso ou já usou drogas ilícitas</dt>
+                        <dd>{{ habitosdevida.usa_drogas|format }}</dd>
+                    </div>
+                    {% if habitosdevida.usa_drogas %}
+                        <div class="list-item">
+                            <dt>Quais drogas</dt>
+                            <dd>
+                                {% if habitosdevida.que_drogas or habitosdevida.outras_drogas %}
+                                    <ul>
+                                        {% for droga in habitosdevida.que_drogas.all %}
+                                            <li>{{ droga }}</li>
+                                        {% endfor %}
+                                        {% if habitosdevida.outras_drogas %}
+                                            <li>{{ habitosdevida.outras_drogas|format }}</li>
+                                        {% endif %}
+                                    </ul>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </dd>
+                        </div>
+                    {% endif %}
+                    <div class="list-item">
+                        <dt>Tem dificuldade para dormir</dt>
+                        <dd>{{ habitosdevida.dificuldade_dormir|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Horas de sono diárias</dt>
+                        <dd>{{ habitosdevida.get_horas_sono|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Refeições por dia</dt>
+                        <dd>{{ habitosdevida.get_refeicoes|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Tem vida sexual ativa</dt>
+                        <dd>{{ habitosdevida.vida_sexual_ativa|format }}</dd>
+                    </div>
+                    {% if habitosdevida.vida_sexual_ativa %}
+                        <div class="list-item">
+                            <dt>Faz uso de algum método contraceptivo</dt>
+                            <dd>{{ habitosdevida.metodo_contraceptivo|format }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Qual método contraceptivo</dt>
+                            <dd>{{ habitosdevida.qual_metodo_contraceptivo.all|join:", "|default:"-" }}</dd>
+                        </div>
+                    {% endif %}
+                    <div class="list-item">
+                        <dt>Faz uso da internet?</dt>
+                        <dd>{{ habitosdevida.uso_internet|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Qual o tempo de uso</dt>
+                        <dd>{{ habitosdevida.get_tempo_uso_internet|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Objetivo do uso</dt>
+                        <dd>
+                            {% if habitosdevida.objetivo_uso_internet %}
+                                <ul>
+                                    {% for objetivo in habitosdevida.get_objetivo_uso_internet %}
+                                        <li>{{ objetivo }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </dd>
+                    </div>
+                </dl>
+                <p class="obs">{{ habitosdevida_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_desenvolvimentopessoal" data-title="{{ desenvolvimentopessoal_titulo }}" data-checked="{% if desenvolvimentopessoal_count > 0 %}True{% else %}False{% endif %}">
+        {% box "{{ desenvolvimentopessoal_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+                <li>Odontólogo</li>
+                <li>Fisioterapeuta</li>
+                <li>Nutricionista</li>
+            </ul>
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.is_medico or especialidade.is_enfermeiro or especialidade.is_tecnico_enfermagem or especialidade.is_auxiliar_enfermagem or especialidade.is_odontologo or especialidade.is_fisioterapeuta or especialidade.is_nutricionista %}
+                        <li><a class="btn success" href="/saude/adicionar_desenvolvimentopessoal/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if desenvolvimentopessoal_count > 1 %}
+                    <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/5/">Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if desenvolvimentopessoal %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Já teve ou tem algum problema de aprendizado</dt>
+                        <dd>{{ desenvolvimentopessoal.problema_aprendizado|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Qual problema de aprendizado</dt>
+                        <dd>{{ desenvolvimentopessoal.qual_problema_aprendizado|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Origem do Problema</dt>
+                        <dd>{{ desenvolvimentopessoal.origem_problema|format }}</dd>
+                    </div>
+                </dl>
+                <p class="obs">{{ desenvolvimentopessoal_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_examefisico" data-title="{{ examefisico_titulo }}" data-checked="{% if examefisico_count > 0 %}True{% else %}False{% endif %}">
+        {% box "{{ examefisico_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+            </ul>
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.is_medico %}
+                        <li><a class="btn success" href="/saude/adicionar_examefisico/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if examefisico_count > 1 %}
+                    <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/6/">Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if examefisico %}
+                <table class="info">
+                    <tr>
+                        <td>Ectoscopia alterada</td>
+                        <td>{{ examefisico.ectoscopia_alterada|format }}</td>
+                        <td>Alteração (Ectoscopia)</td>
+                        <td>{{ examefisico.alteracao_ectoscopia|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aparelho cardiovascular alterado</td>
+                        <td>{{ examefisico.acv_alterado|format }}</td>
+                        <td>Alteração (ACV)</td>
+                        <td>{{ examefisico.alteracao_acv|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aparelho respiratório alterado</td>
+                        <td>{{ examefisico.ar_alterado|format }}</td>
+                        <td>Alteração (AR)</td>
+                        <td>{{ examefisico.alteracao_ar|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Abdome alterado</td>
+                        <td>{{ examefisico.abdome_alterado|format }}</td>
+                        <td>Alteração (Ab)</td>
+                        <td>{{ examefisico.alteracao_abdome|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Membros inferiores alterados</td>
+                        <td>{{ examefisico.mmi_alterados|format }}</td>
+                        <td>Alteração (MMI)</td>
+                        <td>{{ examefisico.alteracao_mmi|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Membros superiores alterados</td>
+                        <td>{{ examefisico.mms_alterados|format }}</td>
+                        <td>Alteração (MMS)</td>
+                        <td>{{ examefisico.alteracao_mms|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Outras Alterações</td>
+                        <td>{{ examefisico.outras_alteracoes|format }}</td>
+                        <td>Descrição</td>
+                        <td>{{ examefisico.outras_alteracoes_descricao|format }}</td>
+                    </tr>
+                </table>
+                <p class="obs">{{ examefisico_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_percepcaosaudebucal" data-title="{{ percepcaosaudebucal_titulo }}" data-checked="{% if percepcaosaudebucal_count > 0 %}True{% else %}False{% endif %}">
+        {% box "{{ percepcaosaudebucal_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+                <li>Odontólogo</li>
+                <li>Técnico em Saúde Bucal</li>
+                <li>Fisioterapeuta</li>
+                <li>Nutricionista</li>
+                <li>Psicólogo</li>
+            </ul>
+            <ul class="action-bar">
+                {% if atendimento.is_aberto %}
+                    {% if especialidade.eh_profissional_saude %}
+                        <li><a class="btn success" href="/saude/adicionar_percepcaosaudebucal/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if percepcaosaudebucal_count > 1 %}
+                    <li><a class="btn default popup" href="/saude/historico_ficha/{{ atendimento.id }}/7/">Histórico</a></li>
+                {% endif %}
+            </ul>
+            {% if percepcaosaudebucal %}
+                <table class="info">
+                    <tr>
+                        <td>Já foi a um dentista anteriormente</td>
+                        <td>{{ percepcaosaudebucal.foi_dentista_anteriormente|format }}</td>
+                        <td>Quanto tempo faz que foi a última vez ao dentista</td>
+                        <td>{{ percepcaosaudebucal.get_tempo_ultima_vez_dentista_display|default:"Não informado" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantidade de vezes que usou fio dental na última semana</td>
+                        <td>{{ percepcaosaudebucal.qtd_vezes_fio_dental_ultima_semana|format }}</td>
+                        <td>Quantidade de dias que consumiu doces, balas, bolos ou refrigerantes na última semana</td>
+                        <td>{{ percepcaosaudebucal.qtd_dias_consumiu_doce_ultima_semana|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Usa prótese</td>
+                        <td>{{ percepcaosaudebucal.usa_protese|format }}</td>
+                        <td>Usa aparelho ortodôntico</td>
+                        <td>{{ percepcaosaudebucal.usa_aparelho_ortodontico|format }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nos últimos 6 meses teve alguma dificuldade relacionada à boca, dente, prótese ou aparelho
+                            ortodôntico que lhe causou alguma dificuldade
+                        </td>
+                        <td colspan="3">{{ percepcaosaudebucal.dificuldades|format }}</td>
+                    </tr>
+                    {% if percepcaosaudebucal.dificuldades %}
+                        <tr>
+                            <td>Grau de dificuldade em sorrir</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_sorrir_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_sorrir|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em falar</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_falar_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_falar|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em comer</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_comer_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_comer|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em relacionar-se socialmente</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_relacionar_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_relacionar|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em manter humor habitual</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_manter_humor_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_manter_humor|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em estudar</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_estudar_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_estudar|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em trabalhar</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_trabalhar_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_trabalhar|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em higienizar a boca</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_higienizar_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_higienizar|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Grau de dificuldade em dormir</td>
+                            <td>{{ percepcaosaudebucal.get_grau_dificuldade_dormir_display|default:"-"|status }}</td>
+                            <td>Qual motivo você atribui como responsável</td>
+                            <td>{{ percepcaosaudebucal.motivo_dificuldade_dormir|format }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+                <p class="obs">{{ percepcaosaudebucal_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhuma avaliação cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_odontograma" data-title="{{ odontograma_titulo }}" data-checked="{% if alteracoes or exames_periodontais or avaliacoes_tecidos %}True{% elif not odontograma %}False{% endif %}">
+        {% box "{{ odontograma_titulo }}" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Odontólogo</li>
+            </ul>
+            {% if atendimento.is_aberto and especialidade.is_odontologo %}
+                <ul class="action-bar">
+                    {% if atendimento.odontograma_set.exists %}
+                        <li><a class="btn primary" href="/saude/adicionar_odontograma/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success" href="/saude/adicionar_odontograma/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            {% if odontograma %}
+                {% if situacoes %}
+                    <div class="legenda flat">
+                        <p>Legenda:</p>
+                        <ul>
+                            {% for situacao in situacoes %}
+                                <li class="{{ situacao.categoria }}">
+                                    <input type="hidden" name="situacao_clinica_object" value="{{ situacao.id }}/{{ situacao.preenchimento }}-{{ situacao.categoria }}" />{{ situacao.descricao }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <input type="hidden"  id="faces_alteradas" value="{{ odontograma.dentes_alterados }}" />
+                <div id="odontograma" class="visualizacao">
+                    <script>
+                        desenhar_odontograma_visualizacao();
+                        carregar_categorias();
+                        restaurar_odontograma();
+                    </script>
+                </div>
+
+                {% if alteracoes %}
+                    <h4>Situações Clínicas</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dente</th>
+                                <th>Face</th>
+                                <th>Situação Clínica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in alteracoes %}
+                                <tr>
+                                    <td>{{ item.dente }}</td>
+                                    <td>{{ item.face }}</td>
+                                    <td>{{ item.situacao }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                <p class="obs">{{ odontograma_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum odontograma cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Exame Periodontal' %}
+
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Odontólogo</li>
+            </ul>
+
+            {% if atendimento.is_aberto %}
+                {% if atendimento.is_aberto and especialidade.is_odontologo %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/saude/adicionar_exame_periodontal/{{ atendimento.id }}/?origem=1"">{% icone "plus" %} Adicionar</a></li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            {% if exames_periodontais.exists %}
+                <div class="grid">
+                    <div class="grid9">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ocorrência</th>
+                                    <th>Sextante</th>
+                                    <th>Atualizado por</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for exame in exames_periodontais %}
+                                <tr>
+                                    <td>{{ exame.get_ocorrencia|format }}</td>
+                                    <td>{{ exame.sextante|format }}</td>
+                                    <td>{{ exame.profissional|format }} em {{ exame.data_cadastro }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <p class="obs">{{ exames_periodontais_responsavel }}</p>
+                    </div>
+                    <div class="grid3">
+                        <img src="/static/saude/imagens/sextantes.gif" alt="Sextantes ou Regiões" />
+                    </div>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Exame Estomatológico' %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Odontólogo</li>
+            </ul>
+
+            <ul class="action-bar">
+                {% if atendimento.is_aberto and especialidade.is_odontologo %}
+                    {% if avaliacoes_tecidos %}
+                        <li><a class="btn primary popup" href="/saude/adicionar_exame_estomatologico/{{ atendimento.id }}/">{% icone "edit" %} Editar</a></li>
+                    {% else %}
+                        <li><a class="btn success popup" href="/saude/adicionar_exame_estomatologico/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            {% if avaliacoes_tecidos %}
+                <table class="info">
+                    {% if avaliacoes_tecidos.labios %}
+                        <tr>
+                            <td>Alteração no Lábio</td>
+                            <td>{{ avaliacoes_tecidos.labios|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.lingua %}
+                        <tr>
+                            <td>Alteração na Língua</td>
+                            <td>{{ avaliacoes_tecidos.lingua|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.assoalho %}
+                        <tr>
+                            <td>Alteração no Assoalho</td>
+                            <td>{{ avaliacoes_tecidos.assoalho|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.mucosa_jugal %}
+                        <tr>
+                            <td>Alteração na Mucosa Jugal</td>
+                            <td>{{ avaliacoes_tecidos.mucosa_jugal|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.palato_duro %}
+                        <tr>
+                            <td>Alteração no Palato Duro</td>
+                            <td>{{ avaliacoes_tecidos.palato_duro|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.palato_mole %}
+                        <tr>
+                            <td>Alteração no Palato Mole</td>
+                            <td>{{ avaliacoes_tecidos.palato_mole|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.rebordo %}
+                        <tr>
+                            <td>Alteração no Rebordo</td>
+                            <td>{{ avaliacoes_tecidos.rebordo|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.cadeia_ganglionar %}
+                        <tr>
+                            <td>Alteração na Cadeia Ganglionar</td>
+                            <td>{{ avaliacoes_tecidos.cadeia_ganglionar|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.tonsilas_palatinas %}
+                        <tr>
+                            <td>Alteração nas Tonsilas Palatinas</td>
+                            <td>{{ avaliacoes_tecidos.tonsilas_palatinas|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.atm %}
+                        <tr>
+                            <td>Alteração na ATM</td>
+                            <td>{{ avaliacoes_tecidos.atm|format }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if avaliacoes_tecidos.oclusao %}
+                        <tr>
+                            <td>Alteração na Oclusão</td>
+                            <td>{{ avaliacoes_tecidos.oclusao|format }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+                <p class="obs">{{ avaliacoes_tecidos_responsavel }}</p>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_informacaoadicional" data-title="Informações Adicionais" data-checked="{% if informacoesadicionais_count > 0 %}True{% endif %}">
+        {% box "Informações Adicionais" %}
+            <ul class="tags" title="Categorias Responsáveis">
+                <li>Médico</li>
+                <li>Enfermeiro</li>
+                <li>Técnico em Enfermagem</li>
+                <li>Auxiliar de Enfermagem</li>
+                <li>Odontólogo</li>
+                <li>Técnico em Saúde Bucal</li>
+                <li>Fisioterapeuta</li>
+                <li>Nutricionista</li>
+                <li>Psicólogo</li>
+            </ul>
+
+            {% if atendimento.is_aberto %}
+                {% if especialidade.eh_profissional_saude %}
+                    <ul class="action-bar">
+                        <li><a class="btn success" href="/saude/adicionar_informacao_adicional/{{ atendimento.id }}/">{% icone "plus" %} Adicionar</a></li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            {% if informacoes_adicionais.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Informação</th>
+                            <th>Data</th>
+                            <th>Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for informacao in informacoes_adicionais %}
+                            <tr>
+                                <td>{{ informacao.informacao }}</td>
+                                <td>{{ informacao.data_cadastro }}</td>
+                                <td>{{ informacao.profissional }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma informação adicional cadastrada.</p>
+            {% endif %}
+        {% endbox %}
+
+    </div>
+{% endblock %}

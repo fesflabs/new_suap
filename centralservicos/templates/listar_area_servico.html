@@ -1,0 +1,20 @@
+{% extends super_template %}
+{% load centralservicos_templatetags %}
+
+{% block content %}
+
+{% box "{{ title_box }}" %}
+    <div class="boxes links flex-container">
+        {% for area in lista_areas %}
+            {% obtem_servicos_disponiveis_usuario_area request.user area as servicos_ao_usuario %}
+            {% if servicos_ao_usuario %}
+                <a href="{{ link_prefix }}{{ area.slug }}/" class="box-item">
+                    <span class="fas fa-{{ area.icone }}" aria-hidden="true"></span>
+                    <h4>{{ area.nome }}</h4>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endbox %}
+
+{% endblock %}

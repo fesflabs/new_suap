@@ -1,0 +1,58 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% box 'Dados do Exame' %}
+        <dl class="definition-list flex">
+			<div class="list-item flex-basis-50">
+				<dt>Paciente</dt>
+				<dd>{{ exame.prontuario.vinculo }}</dd>
+			</div>
+			<div class="list-item">
+				<dt>Categoria</dt>
+				<dd>{{ exame.categoria }}</dd>
+			</div>
+			<div class="list-item">
+				<dt>Data</dt>
+				<dd>{{ exame.data_realizado }}</dd>
+			</div>
+			<div class="list-item">
+				<dt>Sigiloso</dt>
+				<dd>{{ exame.sigiloso|format }}</dd>
+			</div>
+			{% if exame.observacao %}
+				<div class="list-item flex-basis-100">
+					<dt>Observações</dt>
+					<dd>{{ exame.observacao }}</dd>
+				</div>
+			{% endif %}
+			<div class="list-item">
+				<dt>Cadastrado por</dt>
+				<dd>{{ exame.profissional }} em {{ exame.data_cadastro }}</dd>
+			</div>
+		</dl>
+
+        {% if valores.exists %}
+            {% box 'Valores do Exame' %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for valor in valores %}
+                            <tr>
+                                <td>{{ valor.tipo }} ({{ valor.tipo.unidade }})</td>
+                                <td>{{ valor.valor }} {{ valor.tipo.unidade }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% endif %}
+	{% endbox %}
+
+
+{% endblock %}

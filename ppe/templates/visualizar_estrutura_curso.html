@@ -1,0 +1,133 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if perms.ppe.add_estruturacurso %}
+        <ul class="action-bar">
+            <li><a class="btn success" href="?replicar=estrutura">Replicar Estrutura</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Gerais" data-tab="dados_gerais">
+        {% if request.GET.tab == "dados_gerais" or not request.GET.tab %}
+            {% box 'Dados Gerais' %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>{{ obj|verbose:'descricao' }}</dt>
+                        <dd>{{ obj.descricao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ obj|verbose:'ativo' }}</dt>
+                        <dd>{{ obj.ativo|format }}</dd>
+                    </div>
+                </dl>
+            {% endbox %}
+
+
+            {% box 'Representações Conceituais' %}
+                {% if obj.get_representacoesconceituais %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Descrição</th>
+                                <th class="text-center">Valor Mínimo</th>
+                                <th class="text-center">Valor Máximo</th>
+                            </tr>
+                        </thead>
+                        {% for representacao in obj.get_representacoesconceituais %}
+                            <tr>
+                                <td class="text-center">{{ representacao.descricao }}</td>
+                                <td class="text-center">{{ representacao.valor_minimo }}</td>
+                                <td class="text-center">{{ representacao.valor_maximo }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhuma representação conceitual cadastrada.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Critérios" data-tab="criterios">
+
+
+            {% box 'Critérios de Avaliação por Disciplinas' %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>{{ obj|verbose:'criterio_avaliacao' }}</dt>
+                        <dd>{{ obj.get_criterio_avaliacao_display|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ obj|verbose:'media_aprovacao_sem_prova_final' }}</dt>
+                        <dd>{{ obj.media_aprovacao_sem_prova_final|formatar_nota }}</dd>
+                    </div>
+                </dl>
+            {% endbox %}
+
+
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Formações PPE Ativas" data-counter="{{ formacoes_ativas.count }}"
+         data-tab="formacoes_ativas">
+        {% if request.GET.tab == "formacoes_ativas" or not request.GET.tab %}
+            {% if formacoes_ativas.exists %}
+                {% autopaginate formacoes_ativas 25 %}
+                {% box 'Cursos Ativos desta Estrutura' %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                        </tr>
+                        </thead>
+                        {% for formacao in formacoes_ativas.all %}
+                            <tr>
+                                <td class="no-print">{% icon "view" "/ppe/formacaoppe/{{ formacao.pk }}/" %}</td>
+                                <td>{{ formacao.pk }}</td>
+                                <td>{{ formacao.descricao }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% paginate %}
+                {% endbox %}
+            {% else %}
+                <p class="msg alert">Nenhuma Formação ativa está vinculado a esta Estrutura de Curso.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Formações PPE Inativas" data-counter="{{ formacoes_inativas.count }}"
+         data-tab="formacoes_inativas">
+        {% if request.GET.tab == "formacoes_inativas" or not request.GET.tab %}
+            {% if formacoes_inativas.exists %}
+                {% autopaginate formacoes_inativas 25 %}
+                {% box 'Cursos Inativos desta Estrutura' %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                        </tr>
+                        </thead>
+                        {% for formacao in formacoes_inativas %}
+                            <tr>
+                                <td class="no-print">{% icon "view" "/ppe/formacaoppe/{{ formacao.pk }}/" %}</td>
+                                <td>{{ formacao.pk }}</td>
+                                <td>{{ formacao.descricao }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% paginate %}
+                {% endbox %}
+            {% else %}
+                <p class="msg alert">Nenhuma Formação inativa está vinculado a esta Estrutura de Curso.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+{% endblock %}

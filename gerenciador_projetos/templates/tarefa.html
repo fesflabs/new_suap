@@ -1,0 +1,279 @@
+{% extends super_template %}
+{% load gerenciador_projetos_templatetags %}
+
+{% block extrahead %}
+    <script>
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        $(document).ready(function () {
+            $(".change_value").blur(function () {
+                var value = $(this).val();
+                var field = $(this).attr("id");
+                $.ajax({
+                    type: 'POST',
+                    url: '/gerenciador_projetos/tarefa/{{ tarefa.id }}/editar_tarefa/',
+                    data: {field, value},
+                    success: function (response) {
+                        $('#tabs-historico').replaceWith($(response).find('#tabs-historico'));
+                        $(".change_value").after("<p class='tmp-msg true'>Descrição atualizada com sucesso.</p>");
+                    },
+                    fail: function (error) {
+                        $(".change_value").after("<p class='tmp-msg true'>Não foi possível atualizar esta descrição.</p>");
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block action-bar %}
+
+    {% if not '_popup' in request.GET %}
+        <ul class="action-bar">
+            {% if pode_editar_tarefas %}
+                <li><a class="btn primary"
+                    href="{% url 'alterar_tarefa' tarefa.projeto.id tarefa.id %}">{% icone "edit" %} Editar</a>
+                </li>
+            {% endif %}
+            <li class="has-child">
+                <a class="btn" href="#">{% icone "cogs" %} Outras Opções</a>
+                <ul>
+                    {% if pode_editar_tarefas %}
+                        <li><a href="{% url 'clonar_tarefa' tarefa.id %}">Clonar Tarefa</a></li>
+                        {% if not tarefa.projeto.concluida and tarefa.concluida %}
+                            <li>
+                                <a class="confirm" href="{% url 'reabrir_tarefa' tarefa.id %}">Reabrir Tarefa</a>
+                            </li>
+                        {% endif %}
+                        <li><a href="{% url 'recorrencia_tarefa' tarefa.id %}" class="popup">Recorrência da
+                            Tarefa</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="has-child">
+                <a class="btn default" href="#">{% icone "cogs" %} Ir para</a>
+                <ul>
+                    <li><a href="{% url 'projeto' tarefa.projeto.id %}">Projeto</a></li>
+                    {% if pode_editar_tarefas %}
+                        <li><a href="{% url 'dashboard' tarefa.projeto.id %}">Dashboard</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'minhas_tarefas' %}">Minhas Tarefas</a>
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}
+
+{% block object-status %}
+    {{ tarefa.get_situacao|status }}
+{% endblock %}
+
+{% block content %}
+
+    {% box 'Descrição' %}
+        <textarea class="change_value" id="descricao">{{ tarefa.descricao }}</textarea>
+    {% endbox %}
+
+    {% if tarefa.get_subtarefas.count > 0 %}
+        <div class="flex-container boxes indicators small">
+            <div class="box-item">
+                <h4 class="title">Progresso em:</h4>
+                <div class="progress">
+                    <p>{{ tarefa.total_progresso }}%</p>
+                </div>
+            </div>
+            <div class="box-item">
+                <h4 class="title">Tarefas:</h4>
+                <p class="indicator">{{ tarefa.get_subtarefas_concluidas.count }} <small>de</small>
+                    {{ tarefa.get_subtarefas.count }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="tab-container" id="tabs-historico" data-tab="historico" data-title="Histórico">
+        {% if perms.gerenciador_projetos.change_historicoevolucao and pode_registrar_evolucao %}
+            <ul class="action-bar">
+                <li><a class="btn success popup"
+                       href="{% url 'gerenciar_historicoevolucao' tarefa.id %}">{% icone "pen" %}
+                    Registrar Evolução</a></li>
+            </ul>
+        {% endif %}
+
+        {% if tarefa.get_historicoevolucao.exists %}
+            <ul class="timeline with-photos">
+                {% for historico in tarefa.get_historicoevolucao %}
+                    <li>
+                        <div class="timeline-date">{{ historico.data_hora }}</div>
+                        <div class="timeline-photo" title="{{ historico.registrado_por.get_profile.nome_usual }}">
+                            <img alt="{{ historico.registrado_por.get_profile.nome_usual }}"
+                                 src="{{ historico.registrado_por.get_profile.get_foto_75x100_url }}"/>
+                        </div>
+                        <div class="timeline-content">
+                            {% if historico.mensagem_automatica %}
+                                <h4>{{ historico.registrado_por|format }}</h4>
+                                <p>{{ historico.comentario|safe|linebreaks }}</p>
+                            {% else %}
+                                <h4>{{ historico.registrado_por|format }} <small>comentou:</small></h4>
+                                <p>{{ historico.comentario|linebreaks }}</p>
+                            {% endif %}
+                            {% if historico.anexo %}
+                                <p><a href="{% media_private historico.anexo %}">{{ historico.nomeanexo }}</a></p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="msg alert">Nenhum registro cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" id="tabs-subtarefas" data-tab="subtarefas" data-title="Subtarefas" data-counter="
+    {{ tarefa.gerenciador_tarefa_pai_set.count }}">
+        {% if pode_editar_tarefas and not '_popup' in request.GET %}
+            <ul class="action-bar">
+                <li><a class="btn success"
+                       href="{% url 'adicionar_tarefa' tarefa.projeto.id %}?tarefa_pai={{ tarefa.id }}">
+                    {% icone "plus" %} Adicionar Subtarefa</a></li>
+            </ul>
+        {% endif %}
+        {% if tarefa.gerenciador_tarefa_pai_set.all %}
+            {% montar_arvore_tarefas tarefa.gerenciador_tarefa_pai_set.all %}
+        {% else %}
+            <p class="msg alert">Nenhuma subtarefa cadastrada.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" id="tabs-anexos" data-tab="anexos" data-title="Anexos" data-counter="
+    {{ tarefa.get_anexos.count }}">
+        {% if tarefa.get_anexos.exists %}
+            <ul class="timeline">
+                {% for historico in tarefa.get_anexos %}
+                    <li>
+                        <div class="timeline-date">{{ historico.data_hora }}</div>
+                        <div class="timeline-photo" title="{{ historico.registrado_por.get_profile.nome_usual }}">
+                            <img alt="{{ historico.registrado_por.get_profile.nome_usual }}"
+                                 src="{{ historico.registrado_por.get_profile.get_foto_75x100_url }}"/>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>{{ historico.registrado_por|format }}</h4>
+                            {% if historico.mensagem_automatica %}
+                                <p>{{ historico.comentario|safe|linebreaks }}</p>
+                            {% else %}
+                                <p>{{ historico.comentario|linebreaks }}</p>
+                            {% endif %}
+                            <p><a href="{% media_private historico.anexo %}">{{ historico.nomeanexo }}</a></p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="msg alert">Nenhum anexo cadastrado nas evoluções desta tarefa.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block asideright %}
+
+    <aside class="right">
+        <details open="open">
+            <summary>Dados da Tarefa</summary>
+            <dl class="details-container">
+                <dt>Aberto em:</dt>
+                <dd>{{ tarefa.aberto_em }}</dd>
+                <dt>Prioridade:</dt>
+                <dd>{{ tarefa.get_prioridade_display|status }}</dd>
+                {% if tarefa.data_inicio %}
+                    <dt>Início em:</dt>
+                    <dd>{{ tarefa.data_inicio|date }}</dd>
+                {% endif %}
+                {% if tarefa.data_conclusao_estimada %}
+                    <dt>Data Conclusão Estimada:</dt>
+                    <dd>{{ tarefa.data_conclusao_estimada|date }} </dd>
+                {% endif %}
+                {% if tarefa.data_conclusao %}
+                    <dt>Data Conclusão Efetiva:</dt>
+                    <dd>{{ tarefa.data_conclusao|date }} </dd>
+                {% endif %}
+                <dt>Tipo de Atividade:</dt>
+                <dd>{{ tarefa.tipo_atividade }} </dd>
+                {% if tarefa.tarefa_pai %}
+                    <dt>Tarefa Pai:</dt>
+                    <dd><a href="{% url 'tarefa' tarefa.tarefa_pai.id %}">{{ tarefa.tarefa_pai.titulo }}</a></dd>
+                {% endif %}
+                {% if tarefa.tags.exists %}
+                    <dt>Tags:</dt>
+                    <dd>
+                        <ul class="tags">
+                            {% for tag in tarefa.tags.all %}
+                                <li>{{ tag.nome }}</li>
+                            {% endfor %}
+                        </ul>
+                    </dd>
+                {% endif %}
+                {% if tarefa.lista %}
+                    <dt>Lista:</dt>
+                    <dd>{{ tarefa.lista }}</dd>
+                {% endif %}
+            </dl>
+            {% box_usuario "Criada Por" tarefa.criado_por %}
+        </details>
+
+        {% if tarefa.recorrenciatarefa_set.exists %}
+            <details open="open">
+                <summary>Recorrência</summary>
+                <div class="details-container">
+                    <ul class="action-bar">
+                        {% for recorrencia in tarefa.recorrenciatarefa_set.all %}
+                            <li>
+                                {{ recorrencia }}
+                                {% if perms.gerenciador_projetos.change_tarefa %}
+                                    <form method="POST"
+                                          action="{% url 'remover_recorrencia_tarefa' recorrencia.id %}"
+                                          class="float-end">
+                                        {% csrf_token %}
+                                        <button class="btn danger" type="submit"><span class="fas fa-trash-alt"
+                                                                                       aria-hidden="true"></span><span
+                                                class="sr-only">Remover</span></button>
+                                    </form>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </details>
+        {% endif %}
+
+        {% if tarefa.atribuido_a.exists %}
+            <details open="open">
+                {% box_usuarios "Atribuído Para" tarefa.atribuido_a.all %}
+            </details>
+        {% endif %}
+
+        {% if tarefa.observadores.exists %}
+            <details open="open">
+                {% box_usuarios "Observadores" tarefa.observadores.all %}
+            </details>
+        {% endif %}
+    </aside>
+
+{% endblock %}

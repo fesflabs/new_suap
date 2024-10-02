@@ -1,0 +1,129 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <div class="card-container">
+
+        {% if curso_suap_ativo %}
+            <div class="card">
+            <h5>{{ curso_suap.denominacao }}</h5>
+            <dl>
+                <dt>Período de inscrição:</dt>
+                <dd>
+                    {{ curso_suap.data_inicio_periodo_inscricoes|format }}
+                    Até
+                    {{ curso_suap.data_fim_periodo_inscricoes|format }}
+                </dd>
+            </dl>
+            <dl>
+                <dt>Realização do Curso:</dt>
+                <dd>
+                    22/04/2019 até 24/04/2019
+                </dd>
+            </dl>
+            <dl>
+                <dt>Modalidade:</dt>
+                <dd>
+                    Presencial
+                </dd>
+            </dl>
+            <dl>
+                <dt>Local:</dt>
+                <dd>
+                    Campus Natal-Central
+                </dd>
+            </dl>
+            <dl>
+                <dt>CH:</dt>
+                <dd>
+                    24 horas
+                </dd>
+            </dl>
+            <dl>
+                <dt>Descrição:</dt>
+                <dd>
+                    {{ curso_suap.sobre|linebreaksbr }}
+                </dd>
+            </dl>
+            {% if existe_inscricao_curso_suap %}
+                <div class="status status-success">
+                    <p><strong>Você se inscreveu neste curso em {{ inscricao_curso_suap.data|format }}</p></strong>
+                </div>
+            {% endif  %}
+            {% if curso_suap_inscricao_aberta %}
+                <ul class="action-bar">
+                    {% if existe_inscricao_curso_suap %}
+                        <li><a href="/temp_rh2/cancelar_inscricao_em_curso_suap/" class="btn danger no-confirm">Cancelar inscrição</a></li>
+                    {% else %}
+                        <li><a href="/temp_rh2/efetivar_inscricao_em_curso_suap/" class="btn success">Inscrever</a></li>
+                    {% endif  %}
+                </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if curso_procdoc_ativo %}
+            <div class="card">
+            <h5>{{ curso_proc_doc.denominacao }}</h5>
+            <dl>
+                <dt>Período de inscrição:</dt>
+                <dd>
+                    {{ curso_proc_doc.data_inicio_periodo_inscricoes|format }}
+                    Até
+                    {{ curso_proc_doc.data_fim_periodo_inscricoes|format }}
+                </dd>
+            </dl>
+            <dl>
+                <dt>Realização do Curso:</dt>
+                <dd>
+                    25/04/2019 até 26/04/2019
+                </dd>
+            </dl>
+            <dl>
+                <dt>Modalidade:</dt>
+                <dd>
+                    Presencial
+                </dd>
+            </dl>
+            <dl>
+                <dt>Local:</dt>
+                <dd>
+                    Campus Natal-Central
+                </dd>
+            </dl>
+            <dl>
+                <dt>CH:</dt>
+                <dd>
+                    16 horas
+                </dd>
+            </dl>
+            <dl>
+                <dt>Descrição:</dt>
+                <dd>
+                    {{ curso_proc_doc.sobre|linebreaksbr }}
+                </dd>
+            </dl>
+            {% if existe_inscricao_curso_proc_doc %}
+                <div class="status status-success"><p><strong>Você se inscreveu neste curso em {{ inscricao_curso_proc_doc.data|format }}</p></strong></div>
+            {% endif  %}
+            {% if curso_proc_doc_inscricao_aberta %}
+                <ul class="action-bar">
+                    {% if existe_inscricao_curso_proc_doc %}
+                        <li><a href="/temp_rh2/cancelar_inscricao_em_curso_procdoc/" class="btn danger no-confirm">Cancelar inscrição</a></li>
+                    {% else %}
+                        <li><a href="/temp_rh2/efetivar_inscricao_em_curso_procdoc/" class="btn success">Inscrever</a></li>
+                    {% endif  %}
+                </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

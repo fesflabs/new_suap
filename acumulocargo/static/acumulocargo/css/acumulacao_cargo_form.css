@@ -1,0 +1,22 @@
+/* Ajustes no formulário de Acumulaç!ao de Cargos */
+
+.form-row .checkbox-row input[type="checkbox"] {
+    float: left !important;
+    margin: 5px !important;
+}
+
+.form-row .checkbox-row label {
+    text-align: left !important;
+    width: 95% !important;
+}
+
+.inline-group h2 {
+    float: none !important;
+}
+
+.errorlist li {
+    background-color: #cc0000;
+    border-radius: 5px;
+    color: #fff;
+    padding: 3px 10px;
+}

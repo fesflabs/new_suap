@@ -1,0 +1,57 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if form.is_bound and demandas_concluidas or demandas_prioritarias %}
+    <ul class="action-bar">
+        <li><a class="btn" href="/demandas/acompanhamento_demandas_pdf/?area={% if area %}{{ area.pk }}{% else %}{{ area }}{% endif %}&inicio={{ inicio|date:'Ymd' }}&final={{ final|date:'Ymd' }}">Gerar em PDF</a></li>
+    </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% if form.is_bound %}
+
+        {% box 'Demandas Concluídas no Período ({{ demandas_concluidas.count }})' %}
+
+                {% for demanda in demandas_concluidas %}
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <span class="status status-success">Concluída em {{ demanda.get_ultimo_historico_situacao.data_hora }}</span>
+                            <h4>
+                                <small>{{ forloop.counter }}</small>
+                                <a href="{{ demanda.get_absolute_url }}">#{{ demanda.pk }}: <strong>{{ demanda.titulo }}</strong></a>
+                            </h4>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="msg alert">Não há demandas concluídas no período.</p>
+                {% endfor %}
+
+        {% endbox %}
+        {% if demandas_prioritarias %}
+            {% box 'Demandas Prioritárias' %}
+                {% for demanda in demandas_prioritarias %}
+                    <div class="general-box">
+                        <div class="primary-info">
+                            {{ demanda.get_situacao_acompanhamento|safe }}
+                            <h4>
+                                <small>{{ forloop.counter }}</small>
+                                <a href="{{ demanda.get_absolute_url }}">#{{ demanda.pk }}:
+                                    <strong>{{ demanda.titulo }}</strong></a>
+                            </h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endbox %}
+        {% endif %}
+
+    {% else %}
+        <p class="msg alert">Você precisa selecionar a partir do filtro acima.</p>
+    {% endif %}
+
+{% endblock %}

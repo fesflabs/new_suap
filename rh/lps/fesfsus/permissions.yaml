@@ -1,0 +1,73 @@
+RH:
+  rh:
+    banco:
+      - add_banco
+      - change_banco
+      - view_banco
+    cargoemprego:
+      - add_cargoempre
+      - view_cargoemprego
+      - change_cargoemprego
+    funcao:
+    - view_funcao
+    - change_funcao
+    padraovencimento:
+    - view_padraovencimento
+    papel:
+    - add_papel
+    - view_papel
+    - change_papel
+    - delete_papel
+    pessoa:
+    - pode_editar_email_secundario_servidor
+    pessoafisica:
+    - pode_gerar_cracha
+    - pode_gerar_carteira
+    servidor:
+    - eh_rh_campus
+    - view_servidor
+    - change_servidor
+    - add_servidor
+    - pode_ver_dados_pessoais_servidor
+    - pode_ver_relatorios_rh
+    - pode_ver_cpf_servidor
+    - pode_ver_dados_pessoais_servidor
+    - pode_ver_endereco_servidor
+    - pode_ver_telefones_pessoais_servidor
+    - pode_ver_dados_bancarios_servidor
+    - pode_ver_dados_professor_servidor
+    - pode_ver_historico_funcional_servidor
+    - pode_ver_ferias_servidor
+    - pode_ver_ocorrencias_afastamentos_servidor
+    - pode_ver_historico_setores_servidor
+    - pode_ver_historico_funcao_servidor
+    - pode_ver_arquivos_servidor
+    - pode_ver_contracheques_servidor
+    - pode_ver_viagens_servidor
+    - pode_ver_historico_funcional_servidor
+    - pode_ver_identificacao_unica_siape
+    - pode_importar_servidor_ws
+    servidorfuncaohistorico:
+    - add_servidorfuncaohistorico
+    - view_servidorfuncaohistorico
+    - change_servidorfuncaohistorico
+    - delete_servidorfuncaohistorico
+    servidorsetorhistorico:
+    - add_servidorsetorhistorico
+    - view_servidorsetorhistorico
+    - change_servidorsetorhistorico
+    - delete_servidorsetorhistorico
+    setor:
+    - pode_gerenciar_setor_telefone
+    - pode_gerenciar_setor_jornada_historico
+    setorjornadahistorico:
+    - add_setorjornadahistorico
+    - view_setorjornadahistorico
+    - change_setorjornadahistorico
+    - delete_setorjornadahistorico
+    unidadeorganizacional:
+    - change_unidadeorganizacional
+    - view_unidadeorganizacional
+    viagem:
+    - pode_ver_relatorios_viagens
+    - pode_ver_relatorios_viagens_detalhados

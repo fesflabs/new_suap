@@ -1,0 +1,73 @@
+{% extends "relatorio_pdf.html" %}
+{% block content %}
+            <header id="cabecalho{{ forloop.counter }}">
+            </header>
+            <h1> INSTRUMENTO* DE ACOMPANHAMENTO E MONITORAMENTO DOS(AS)  TRABALHADORES(AS)
+               {{ avaliacao.tipo_avaliacao }}
+             </h1>
+            <table class="dadospessoais definicoes">
+                <tr>
+                    <td colspan="2"><strong>Nome:</strong> {{ trabalhador_educando.pessoa_fisica.nome|normalizar }}</td>
+                    <td><strong>Data de Admissão:</strong> {{ trabalhador_educando.data_admissao|format }}</td>
+                    <td><strong>Data de Demissão:</strong> {{ trabalhador_educando.data_demissao|format }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Formação:</strong> {{ trabalhador_educando.formacao_tecnica|format }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Setor:</strong> {{ trabalhador_educando.get_setor_atual|format }}</td>
+                    <td><strong>Unidade:</strong> {{ trabalhador_educando.get_unidade_atual.nome|format}}</td>
+                    <td><strong>Municipio:</strong> {{ trabalhador_educando.get_unidade_atual.municipio|format}}</td>
+                </tr>
+            </table>
+        </header>
+        <br/>
+        <table class="borda" repeat="2">
+            <tbody>
+                {% for resposta in respostas %}
+                    <tr>
+                        <td>{{ resposta.pergunta }}</td>
+                        <td>{{ resposta.respostaauto.get_resposta }}</td>
+                        <td>{{ resposta.get_resposta }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+                    <br>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <p style="">
+                                    Preenchido por <strong>{{ trabalhador_educando.pessoa_fisica.nome }}</strong> em: {{autoavaliacao.data_atualizacao}}
+                                <br /><br />
+                                    TRABALHADOR(A)
+                                </p>
+                            </td>
+                            <td>
+                                 <p style="">
+                                Preenchido por <strong>{{ avaliacao.atualizado_por.nome }}</strong> em: {{avaliacao.data_atualizacao}}
+                                <br /><br />
+                                    CHEFIA IMEDIATA
+                                </p>
+                                </td>
+                            <td>
+                                {% if avaliacao.aprovada  %}
+                                <p style="">
+                                Validado por <strong>{{ avaliacao.supervisor.get_vinculo.pessoa.nome }}</strong> em: {{avaliacao.data_validacao}}
+                                <br /><br />
+                                    SUPERVISOR(A) RESPONSÁVEL
+                                </p>
+                                {% endif %}
+                                </td>
+                        </tr>
+                    </table>
+
+
+
+ <main>
+
+
+
+ </main>
+{% endblock %}

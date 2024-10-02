@@ -1,0 +1,121 @@
+{% extends super_template %}
+
+{% block content %}
+    <ul class="action-bar exibe-outros-dias">
+        <li>
+            <a href="/ponto/detalhar_compensacao/{{ matricula }}/{{ dia_anterior|date:'dmY' }}" class="btn popup">
+                <i class="fa fa-arrow-left"></i>&nbsp;{{ dia_anterior|date:'l' }}, {{ dia_anterior }}
+            </a>
+        </li>
+        <li>
+            <a href="/ponto/detalhar_compensacao/{{ matricula }}/{{ dia_seguinte|date:'dmY' }}" class="btn popup">
+                {{ dia_seguinte|date:'l' }}, {{ dia_seguinte }}&nbsp;<i class="fa fa-arrow-right"></i>
+            </a>
+        </li>
+    </ul>
+    <table class="info">
+        <tbody>
+            <tr>
+                <td>Servidor</td>
+                <td>{{ servidor }}</td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td>
+                    {{ data|date:'l' }}, {{ data }}
+                    {% if not is_debito and not is_saldo %}
+                        <span class='status status-alert'>Nenhuma informação sobre débito ou saldo no dia</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% if is_debito %}
+                <tr>
+                    <td>Débito</td>
+                    <td class="false">
+                        {{ debito_view }}
+                        {% for acompanhamento in debito_acompanhamentos_especificos %}
+                            <span class="status status-alert text-nowrap-normal">{{ acompanhamento }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Carga Horária Paga</td>
+                    <td class="true">{{ total_paga_view }}&nbsp;{% if not debito_restante %}(<strong>100%</strong>){% endif %}</td>
+                </tr>
+                {% if debito_restante %}
+                    <tr>
+                        <td>Carga Horária Pendente</td>
+                        <td class="false">{{ debito_restante_view }}</td>
+                    </tr>
+                {% endif %}
+            {% elif is_saldo %}
+                <tr>
+                    <td>Saldo</td>
+                    <td class="true">{{ saldo_view }}</td>
+                </tr>
+                <tr>
+                    <td>Carga Horária Utilizada</td>
+                    <td class="true">{{ total_utilizada_view }}&nbsp;{% if not saldo_restante %}(<strong>100%</strong>){% endif %}</td>
+                </tr>
+                {% if saldo_restante %}
+                    <tr>
+                        <td>Carga Horária Restante</td>
+                        <td class="true">{{ saldo_restante_view }}</td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    {% if compensacoes_paga %}
+        {% box 'Detalhes da Carga Horária Paga' %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Duração</th>
+                        <th>Produzida no Dia</th>
+                        <th class="no-print">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for compensacao in compensacoes_paga %}
+                        <tr>
+                            <td>{{ compensacao.ch_compensada|date:"H:i:s" }}</td>
+                            <td>
+                                {{ compensacao.data_compensacao }}
+                            </td>
+                            <td class="no-print">
+                                <a class="btn popup" href="/ponto/abrir_compensacao_horario/{{ compensacao.id }}/">Mais Detalhes</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    {% endif %}
+
+    {% if compensacoes_utilizada %}
+        {% box 'Detalhes da Carga Horária Utilizada' %}
+            <table>
+                <thead>
+                    <th>Duração</th>
+                    <th>Aplicada no Dia</th>
+                    <th class="no-print">Ações</th>
+                </thead>
+                <tbody>
+                    {% for compensacao in compensacoes_utilizada %}
+                        <tr>
+                            <td>{{ compensacao.ch_compensada|date:"H:i:s" }}</td>
+                            <td>
+                                {{ compensacao.data_aplicacao }}
+                            </td>
+                            <td class="no-print">
+                                <a class="btn popup" href="/ponto/abrir_compensacao_horario/{{ compensacao.id }}/">Mais Detalhes</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    {% endif %}
+{% endblock %}

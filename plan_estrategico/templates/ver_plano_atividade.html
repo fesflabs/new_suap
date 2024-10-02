@@ -1,0 +1,29 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% box 'Dados' %}
+        <table class="info">
+            <tr>
+                <td>Ano</td>
+                <td>{{ plano_atividade.ano_base }}</td>
+            </tr>
+            <tr>
+                <td>Vigência</td>
+                <td>{{ plano_atividade.data_geral_inicial }} a {{ plano_atividade.data_geral_final }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Cadastro Plano de Atividade" data-tab="projeto_estrategico">
+        {% include "pa_projeto_estrategico.html" %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Origens de Recurso" data-tab="origem_recurso">
+        {% include "pa_origemrecurso.html" %}
+    </div>
+    <div class="tab-container ajax-rendered" data-title="Naturezas de Despesas" data-tab="natureza_despesa">
+        {% include "pa_natureza_despesa.html" %}
+    </div>
+
+{% endblock %}

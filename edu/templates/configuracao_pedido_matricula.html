@@ -1,0 +1,314 @@
+{% extends super_template %}
+
+{% block content %}
+    <ul class="action-bar">
+        {% if perms.edu.change_atividadecomplementar %}
+            <li><a class="btn success" href="/edu/replicar_configuracao_pedido_matricula/{{ obj.pk }}/">Replicar</a></li>
+
+            {% if obj.is_cancelado %}
+                <li><a class="btn danger" href="/edu/configuracao_pedido_matricula/{{ obj.pk }}/?cancelar=0">Desfazer
+                    Cancelamento</a></li>
+            {% else %}
+                {% if not obj.is_processado %}
+                    <li><a class="btn danger" href="/edu/configuracao_pedido_matricula/{{ obj.pk }}/?cancelar=1">Cancelar</a>
+                    </li>
+                    {% if obj.pode_processar %}
+                        <li><a class="btn" href="/edu/processar_pedidos_matricula/{{ obj.pk }}/">Processar Pedidos de Matrícula</a></li>
+                    {% else %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        {% if obj.possui_pedido_diario %}
+            <li class="has-child">
+                <a class="btn default" href="#">Impressões</a>
+                <ul>
+                    <li><a class="default" href="/edu/imprimir_pedidos_diarios_pdf/{{ obj.id }}/">Por Diário</a></li>
+                    <li><a class="default" href="/edu/imprimir_pedidos_alunos_pdf/{{ obj.id }}/">Por Aluno</a></li>
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+
+    {% box 'Dados Gerais' %}
+        <table class="info">
+            <tr>
+                <td>Descrição:</td>
+                <td colspan="3">{{ obj.descricao }}</td>
+            </tr>
+
+            <tr>
+                <td>Ano/Período Letivo:</td>
+                <td>{{ obj.ano_letivo }}/{{ obj.periodo_letivo }}</td>
+                <td>Situação:</td>
+                <td><span class="status {{ obj.get_status.1|format }}">{{ obj.get_status.0|format }}</span></td>
+            </tr>
+
+            <tr>
+                <td>Data de Início:</td>
+                <td>{{ obj.data_inicio }}</td>
+
+                <td>Data de Fim:</td>
+                <td>{{ obj.data_fim }}</td>
+            </tr>
+
+            <tr>
+                <td>Diretorias:</td>
+                <td colspan="3">
+                    <ul>
+                        {% for diretoria in obj.diretorias.all %}
+                            <li>{{ diretoria }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    {% box 'Configuração' %}
+        <table class="info">
+
+            <tr>
+                <td>Impedir troca de turma</td>
+                <td>{{ obj.impedir_troca_turma|format }}</td>
+                <td>Restringir por curso</td>
+                <td>{{ obj.restringir_por_curso|format }}</td>
+                <td>Requer atualização do cadastro</td>
+                <td>{{ obj.requer_atualizacao_dados|format }}</td>
+                <td>Requer atualização da caracterização social</td>
+                <td>{{ obj.requer_atualizacao_caracterizacao|format }}</td>
+                <td>Permite o cancelamento de matrículas em diário já deferidas</td>
+                <td>{{ obj.permite_cancelamento_matricula_diario|format }}</td>
+            </tr>
+
+
+        </table>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Cursos <span>{{ obj.cursos.count }}</span>" data-tab="cursos">
+        {% if not request.GET.tab or request.GET.tab == "cursos" %}
+            {% if perms.edu.add_configuracaopedidomatricula and obj.pode_ser_alterado %}
+                <ul class="action-bar">
+                    <li><a class="btn success popup" href="/edu/add_curso_configuracao_pedido_matricula/{{ obj.pk }}/">Adicionar Cursos</a></li>
+                </ul>
+            {% endif %}
+            {% box 'Relação de Cursos' %}
+                {% if obj.cursos.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            {% if perms.edu.add_configuracaopedidomatricula and obj.pode_ser_alterado %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Diretoria</th>
+                            <th>Alunos Aptos</th>
+                            <th>Alunos Participantes</th>
+                            <th>Alunos não Participantes</th>
+                            <th>Progresso de Participação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for curso in obj.get_cursos %}
+                            <tr>
+                                {% if perms.edu.add_configuracaopedidomatricula and obj.pode_ser_alterado %}
+                                    <td class="no-print">
+                                        {% if not curso.qtd_pedido_matricula_turma and not curso.qtd_pedido_matricula_diario %}
+                                            {% icon "delete" "?del_curso_id={{ curso.pk }}" %}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td>{{ curso.codigo }}</td>
+                                <td>{{ curso.descricao }}</td>
+                                <td>{{ curso.diretoria }}</td>
+                                {% if curso.qtd_alunos_aptos > 0 %}
+                                    <td class="text-center">
+                                        <a class="popup" href="/edu/visualizar_alunos_configuracao_pedido_matricula/{{ obj.pk }}/{{ curso.pk }}/?situacao=aptos">{{ curso.qtd_alunos_aptos }}</a>
+                                    </td>
+                                {% else %}
+                                    <td class="text-center">{{ curso.qtd_alunos_aptos }}</td>
+                                {% endif %}
+                                {% if curso.qtd_alunos_participantes > 0 %}
+                                    <td class="text-center"><a class="popup"
+                                                                href="/edu/visualizar_alunos_configuracao_pedido_matricula/{{ obj.pk }}/{{ curso.pk }}/?situacao=participantes">{{ curso.qtd_alunos_participantes }}</a>
+                                    </td>
+                                {% else %}
+                                    <td class="text-center">{{ curso.qtd_alunos_participantes }}</td>
+                                {% endif %}
+                                {% if curso.qtd_alunos_nao_participantes > 0 %}
+                                    <td class="text-center"><a class="popup"
+                                                                href="/edu/visualizar_alunos_configuracao_pedido_matricula/{{ obj.pk }}/{{ curso.pk }}/?situacao=nao_participantes">{{ curso.qtd_alunos_nao_participantes }}</a>
+                                    </td>
+                                {% else %}
+                                    <td class="text-center">{{ curso.qtd_alunos_nao_participantes }}</td>
+                                {% endif %}
+                                <td>
+                                    <div class="progress">
+                                        <p>{{ curso.percentual_alunos_participantes }}%</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum curso informado.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Pendências <span>{{ diarios_sem_horarios.count }}</span>"
+         data-tab="pendencias">
+        {% if request.GET.tab == "pendencias" %}
+            {% box 'Diários sem Horários' %}
+                <div class="search-and-filters">
+                    <form method="get" id="filtro-pendencias">
+                        <div class="filter">
+                            <input type="hidden" name="tab" value="pendencias">
+                            <label>Escolha um curso:</label>
+                            <select name="curso">
+                                <option value=""> ------</option>
+                                {% for curso in obj.cursos.all %}
+                                    <option value="{{ curso.pk }}"
+                                            {% if curso_escolhido == curso %}selected="selected"{% endif %}>{{ curso }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                        {% if curso_escolhido %}
+                            <div class="filter">
+                                <label>Escolha uma turma:</label>
+                                <select name="turma">
+                                    <option value=""> ------</option>
+                                    {% for turma in turmas %}
+                                        <option value="{{ turma.pk }}"
+                                                {% if turma_escolhida == turma %}selected="selected"{% endif %}>{{ turma }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+                    </form>
+                    <script>
+                        jQuery('#filtro-pendencias select').change(function () {
+                            jQuery('#filtro-pendencias').submit();
+                        })
+                    </script>
+                </div>
+                {% if diarios_sem_horarios.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Curso</th>
+                            <th>Diário</th>
+                            <th>Sigla</th>
+                            <th>Descrição do Componente</th>
+                            <th>Período</th>
+                            <th>Optativo</th>
+                            <th class="no-print">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for diario in diarios_sem_horarios %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="/edu/cursocampus/{{ diario.turma.curso_campus.pk }}">{{ diario.turma.curso_campus.codigo }}</a>
+                                </td>
+                                <td><a href="/edu/diario/{{ diario.pk }}">{{ diario.pk }}</a></td>
+                                <td>{{ diario.componente_curricular.componente.sigla }}</td>
+                                <td>{{ diario.componente_curricular.componente }}</td>
+                                <td>{% if diario.componente_curricular.periodo_letivo %}
+                                    {{ diario.componente_curricular.periodo_letivo }}º{% else %}-{% endif %}</td>
+                                <td>{{ diario.componente_curricular.optativo|format }}</td>
+                                <td class="no-print">
+                                    <a class="btn popup" href="/edu/definir_horario_aula_diario/{{ diario.pk }}/">Definir
+                                        Horário</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não existem pendências nesta configuração.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Monitoramento" data-tab="monitoramento">
+        {% if request.GET.tab == "monitoramento" %}
+            {% box 'Diários Disponíveis na Matrícula Online' %}
+                <div class="search-and-filters">
+                    <form method="get" id="filtro-monitoramento">
+                        <div class="filter">
+                            <input type="hidden" name="tab" value="monitoramento">
+                            <label>Escolha um curso:</label>
+                            <select name="curso">
+                                <option value=""> ------</option>
+                                {% for curso in obj.cursos.all %}
+                                    <option value="{{ curso.pk }}"
+                                            {% if curso_escolhido == curso %}selected="selected"{% endif %}>{{ curso }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                        {% if curso_escolhido %}
+                            <div class="filter">
+                                <label>Escolha uma turma:</label>
+                                <select name="turma">
+                                    <option value=""> ------</option>
+                                    {% for turma in turmas %}
+                                        <option value="{{ turma.pk }}"
+                                                {% if turma_escolhida == turma %}selected="selected"{% endif %}>{{ turma }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+                    </form>
+                    <script>
+                        jQuery('#filtro-monitoramento select').change(function () {
+                            jQuery('#filtro-monitoramento').submit();
+                        })
+                    </script>
+                </div>
+                {% if diarios_quantitativos %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ações</th>
+                            <th>Curso</th>
+                            <th>Diário</th>
+                            <th>Componente</th>
+                            <th>Vagas</th>
+                            <th>Matriculados</th>
+                            <th>Pedidos</th>
+                            <th>Deferidos</th>
+                            <th>Indeferidos</th>
+                            <th>Restantes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for diario in diarios_quantitativos %}
+                            <tr>
+                                {% for dado in diario %}
+                                    {% if not forloop.last %}
+                                        <td {% if forloop.counter > 4 %}class="text-center" {% endif %}>{{ dado|safe }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Não existem pedidos de matrícula para esta configuração.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+{% endblock %}

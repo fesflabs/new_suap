@@ -1,0 +1,74 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% if eh_coordenador_eleicao %}
+        <ul class="action-bar">
+            <li><a class="btn primary" href="/eleicao/atualizar_publico/{{ eleicao.id }}/">Atualizar Público</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% box "Dados Gerais" %}
+        <dl class="definition-list flex">
+            <div class="list-item flex-basis-100">
+                <dt>Edital</dt>
+                <dd>{{ eleicao.edital.descricao|format }}</dd>
+            </div>
+            <div class="list-item flex-basis-100">
+                <dt>{% verbose_field_name eleicao 'descricao' %}</dt>
+                <dd>{{ eleicao.descricao|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{% verbose_field_name eleicao.edital 'data_inscricao_inicio' %}</dt>
+                <dd>{{ eleicao.edital.data_inscricao_inicio|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>{% verbose_field_name eleicao.edital 'data_inscricao_fim' %}</dt>
+                <dd>{{ eleicao.edital.data_inscricao_fim|format }}</dd>
+            </div>
+            {% if eleicao.publico %}
+                <div class="list-item flex-basis-100">
+                    <dt>Público</dt>
+                    <dd>{{ eleicao.publico|format }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    {% box "Público" %}
+        <div class="search-and-filters">
+            {% render_form form %}
+        </div>
+
+        {% if vinculos.exists %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        {% if pode_ver_resultados %}
+                            <th>Votou</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% autopaginate vinculos 50 %}
+                {% paginate %}
+                <tbody>
+                    {% for vinculo in publico %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ vinculo.vinculo.relacionamento|format }}</td>
+                            {% if pode_ver_resultados %}
+                                <th>{{ vinculo.votou|format }}</th>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhuma Pessoa Física foi encontrada.</p>
+        {% endif %}
+    {% endbox %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends super_template %}
+
+
+{% block content %}
+    {% if acesso_total %}
+        <ul class="action-bar">
+            <li><a href="/edu/adicionar_aluno_avulso_enade/{{ obj.pk }}/{{ curso_campus.pk }}/" class="btn success popup">Adicionar
+                Aluno Avulso</a></li>
+            {% if not obj.data_prova %}
+                <li><a href="/edu/atualizar_lista_convocados_enade/{{ obj.pk }}/?curso_campus={{ curso_campus.pk }}" class="btn primary">Reprocessar
+                    Lista</a></li>
+            {% endif %}
+            <li><a class="btn" href="/edu/imprimir_lista_convocados_enade_pdf/{{ obj.pk }}/?curso={{ curso_campus.pk }}">Exportar PDF</a></li>
+            <li><a class="btn" href="#" onClick="document.getElementById('xls').click();">Exportar XLS</a></li>
+        </ul>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% regroup lista_convocados|dictsort:"aluno.curso_campus.descricao_historico" by aluno.curso_campus.descricao_historico as convocados_por_curso %}
+
+        {% for lista_convocados in convocados_por_curso %}
+            {% regroup lista_convocados.list|dictsort:"tipo_convocacao" by tipo_convocacao as lista_convocados_por_tipo %}
+
+            {% box '{{ lista_convocados.grouper }}' %}
+                {% for convocados_por_tipo in lista_convocados_por_tipo %}
+                    {% if convocados_por_tipo.grouper == 1 %}
+                        {% box 'Ingressantes ({{ convocados_por_tipo.list|length }})' 'collapsed' %}
+                            {% include 'tabela_convocados_enade.html' %}
+                        {% endbox %}
+                    {% else %}
+                        {% box 'Concluintes ({{ convocados_por_tipo.list|length }})' 'collapsed' %}
+                            {% include 'tabela_convocados_enade.html' %}
+                        {% endbox %}
+                    {% endif %}
+                {% endfor %}
+            {% endbox %}
+        {% endfor %}
+
+        {% if acesso_total %}
+            <div class="submit-row">
+                <input class="danger" type="submit" name="excluir" value="Excluir Registros" />
+                <input class="default" type="submit" name="xls" id="xls" value="Exportar XLS" />
+            </div>
+        {% endif %}
+    </form>
+
+{% endblock %}

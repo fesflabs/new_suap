@@ -1,0 +1,215 @@
+{% extends super_template %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if requisicao.pode_avaliar %}
+            {% if requisicao.pode_deferir %}
+                <li><a class="btn success popup" href="/patrimonio/deferir_requisicao/{{ requisicao.id }}/">
+                    Deferir
+                </a></li>
+            {% endif %}
+            <li><a class="btn danger popup no-confirm" href="/patrimonio/indeferir_requisicao/{{ requisicao.id }}/">
+                Indeferir
+            </a></li>
+        {% endif %}
+        {% if requisicao.status == requisicao.STATUS_DEFERIDA_AGUARDANDO_INFORMACAO_PA_ORIGEM and requisicao.pode_informar_pa_origem %}
+            <li><a class="btn success popup" href="/patrimonio/informar_pa_origem_requisicao/{{ requisicao.id }}/">
+                Informar Número PA Origem
+            </a></li>
+        {% endif %}
+        {% if requisicao.status == requisicao.STATUS_DEFERIDA_AGUARDANDO_INFORMACAO_PA_DESTINO and requisicao.pode_informar_pa_destino %}
+            <li><a class="btn success popup" href="/patrimonio/informar_pa_destino_requisicao/{{ requisicao.id }}/">
+                Informar Número PA Destino
+            </a></li>
+        {% endif %}
+        {% if requisicao.pode_editar_pa_origem %}
+            <li><a class="btn primary popup" href="/patrimonio/editar_pa_origem_requisicao/{{ requisicao.id }}/">
+                Editar Número PA Origem
+            </a></li>
+        {% endif %}
+        {% if requisicao.status == requisicao.STATUS_DEFERIDA and requisicao.pode_editar_pa_destino %}
+            <li><a class="btn primary popup" href="/patrimonio/editar_pa_destino_requisicao/{{ requisicao.id }}/">
+                Editar Número PA Destino
+            </a></li>
+        {% endif %}
+        {% if requisicao.pode_gerar_termo and historicorequisicao and requisicao.status == requisicao.STATUS_DEFERIDA or requisicao.status == requisicao.STATUS_DEFERIDA_AGUARDANDO_INFORMACAO_PA_ORIGEM %}
+            <li><a class="btn" href="/patrimonio/relatorio/transferencia/{{ requisicao.id }}/">
+                Termo de Transferência
+            </a></li>
+        {% endif %}
+        {% if requisicao.pode_cancelar %}
+            <li><a class="btn danger" href="/patrimonio/cancelar_requisicao/{{ requisicao.id }}/">
+                Cancelar
+            </a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block object-status %}
+    {{ requisicao.get_status|safe }}
+{% endblock %}
+
+{% block content %}
+
+    {% if requisicao.pode_avaliar_inventario %}
+        {% if not requisicao.ver_periodo_deferimento %}
+            <div class="msg alert">
+                <p>Do dia {{ dia_inicio_bloqueio }} até o final do mês, o deferimento de requisições está bloqueado, para que os contadores façam as conciliações.</p>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% box 'Inventários' %}
+        {% if requisicao.pode_avaliar_inventario %}
+            <div class="msg info">
+                <p>Para aprovar, você deve selecionar os itens desejados e clicar no botão "Aprovar apenas selecionados".</p>
+                <p>Caso deseje rejeitar todos os itens, você deve clicar no botão "Aprovar apenas selecionados" sem nenhum item selecionado.</p>
+                <p>Para prosseguir, você ainda deve Deferir/Indeferir esta requisição.</p>
+            </div>
+            {% render_form form %}
+        {% else %}
+            <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Descrição</th>
+                        <th>Elemento de Despesa</th>
+                        <th>Código do Elemento de Despesa</th>
+                        <th>Sala</th>
+                        <th>Situação</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ri in itens %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{{ ri.inventario.get_absolute_url }}">{{ ri.inventario.numero }}</a> - {{ ri.inventario.get_descricao }}</td>
+                        <td>{{ ri.inventario.entrada_permanente.categoria.nome }}</td>
+                        <td>{{ ri.inventario.entrada_permanente.categoria.codigo }}</td>
+                        <td>{{ ri.inventario.sala|format }}</td>
+                        <td>{{ ri.get_status|safe }}</td>
+                        <td class="text-end">{{ ri.inventario.valor|format }}</td>
+                    </tr>
+                    {% endfor%}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" class="text-end">Total: </td>
+                        <td>{{ soma_itens|format }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            </div>
+        {% endif %}
+    {% endbox %}
+
+    {% box 'Resumo por Elemento de Despesa' %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Conta Contábil</th>
+                    <th>Elemento de Despesa</th>
+
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for despesa in despesas %}
+                <tr>
+                    <td>{{ despesa.inventario__entrada_permanente__categoria__codigo}}</td>
+                    <td>{{ despesa.inventario__entrada_permanente__categoria__plano_contas__codigo }}</td>
+                    <td>{{ despesa.inventario__entrada_permanente__categoria__nome}}</td>
+                    <td class="text-end">{{ despesa.total|format }}</td>
+                </tr>
+                {% endfor%}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" align="right">Total:</td>
+                    <td>{{ total_despesas.total_despesas|format }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    {% endbox %}
+
+    {% box 'Histórico de Situações' %}
+        {% if requisicao.requisicaohistorico_set.exists %}
+            <ul class="timeline compact">
+                {% for historico in requisicao.requisicaohistorico_set.all %}
+                    <li class="{{ historico.get_status_class }}">
+                        <div class="timeline-date">{{ historico.alterado_em }}</div>
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-content">
+                            <h4>{{ historico.get_status_display }}</h4>
+                            <dl>
+                                <dt>Alterado por:</dt>
+                                <dd>{{ historico.alterado_por }}</dd>
+                            </dl>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="msg alert"> Não há informações sobre o histórico.</p>
+        {% endif %}
+    {% endbox %}
+
+{% endblock %}
+
+{% block asideright %}
+
+<aside class="right">
+
+    <details open="open">
+        <summary>Dados Gerais</summary>
+        <dl class="details-container">
+            <dt>Pessoa de Origem:</dt>
+            <dd>{{ requisicao.vinculo_origem.relacionamento|format }}</dd>
+            <dt>Campus de Origem:</dt>
+            <dd>{{ requisicao.campus_origem|format }}</dd>
+            <dt>Pessoa de Destino:</dt>
+            <dd>{{ requisicao.vinculo_destino.relacionamento|format }}</dd>
+            <dt>Campus de Destino:</dt>
+            <dd>{{ requisicao.campus_destino|format }}</dd>
+            {% if requisicao.requisitante %}
+                <dt>Requisitante:</dt>
+                <dd>{{ requisicao.requisitante.relacionamento|format }}</dd>
+            {% endif %}
+            <dt>Tipo de Requisição:</dt>
+            <dd>{{ requisicao.get_tipo_display|format }}</dd>
+            {% if requisicao.descricao %}
+                <dt>Descrição:</dt>
+                <dd>{{ requisicao.descricao }}</dd>
+            {% endif %}
+            {% if requisicao.numero_pa_origem %}
+                <dt>Número PA Origem:</dt>
+                <dd>{{ requisicao.numero_pa_origem|safe }}</dd>
+            {% endif %}
+            {% if requisicao.numero_pa_destino %}
+                <dt>Número PA Destino:</dt>
+                <dd>{{ requisicao.numero_pa_destino|safe }}</dd>
+            {% endif %}
+            {% if requisicao.inv_inconsistentes %}
+                <dt>Requisição de Inventários Inconsistentes:</dt>
+                <dd>{{ requisicao.inv_inconsistentes|format}}</dd>
+            {% endif %}
+            {% if requisicao.vinculo_coordenador %}
+                <dt>Operador:</dt>
+                <dd>{{ requisicao.vinculo_coordenador.relacionamento|format }}</dd>
+            {% endif %}
+            {% if requisicao.observacao %}
+                <dt>Observações:</dt>
+                <dd>{{ requisicao.observacao|format }}</dd>
+            {% endif %}
+
+        </dl>
+    </details>
+
+</aside>
+
+{% endblock %}

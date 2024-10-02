@@ -1,0 +1,75 @@
+{% load gerenciador_projetos_templatetags %}
+
+{# Está sendo populado em gerenciador_projetos_templatetags #}
+{% if tarefas %}
+    {% for tarefa in tarefas %}
+        <div class="beautiful-board-item" data-tarefa-id="{{ tarefa.id }}">
+            <div class="general-box">
+
+                <div class="primary-info">
+                    {% if projeto %}
+                    {{ tarefa.get_situacao|status }}
+                    {% else %}
+                    {{ tarefa.projeto.titulo|status }}
+                    {% endif %}
+                    <h4>
+                        <small>{{ tarefa.id }}</small>
+                        <a href="{% url 'tarefa' tarefa.id %}">{{ tarefa.titulo }}</a>
+                    </h4>
+
+                    {% if projeto %}
+                        {% if user|in_group:"Gerente de Projeto,Membro de Projeto" %}
+                            <ul class="action-bar">   
+                                <li><a class="btn success popup" href="{% url 'adicionar_tarefa' tarefa.projeto.id %}?tarefa_pai={{tarefa.id}}" title="Adicionar Subtarefa">{% icone "plus" %} <span class="sr-only">Adicionar Subtarefa</span></a></li>
+                                <li><a class="btn primary popup" href="{% url 'alterar_tarefa' tarefa.projeto.id tarefa.id %}" title="Editar">{% icone "edit" %} <span class="sr-only">Editar</span></a></li>
+                                {% if not tarefa.concluida  %}
+                                    <li><a class="btn popup" href="{% url 'gerenciar_historicoevolucao' tarefa.id %}" title="Registrar Evolução">{% icone "pen" %} <span class="sr-only">Registrar Evolução</span></a></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if tarefa.possui_movimentacao %}
+                        <div class="extra-info">
+                            <ul class="infos">
+                                {% if tarefa.tarefa_pai %}
+                                    <li data-hint="Tarefa-Pai">{% icone "tasks" %} Tarefa-Pai #{{ tarefa.tarefa_pai.id }}</li>
+                                {% endif %}
+                                {% if tarefa.get_subtarefas_nao_concluidas.exists %}
+                                    <li data-hint="Subtarefas não concluídas">{% icone "check-square" %} {{ tarefa.get_subtarefas_nao_concluidas.count|format }}</li>
+                                {% endif %}
+                                {% if tarefa.get_comentarios.exists %}
+                                    <li data-hint="Comentários">{% icone "comment-alt" %} {{ tarefa.get_comentarios.count }} <span class="sr-only">comentários</span></li>
+                                {% endif %}
+                                {% if tarefa.get_anexos.exists %}
+                                    <li data-hint="Quantidade de anexos na tarefa">{% icone "paperclip" %} {{ tarefa.get_anexos.count }} <span class="sr-only">anexos</span></li>
+                                {% endif %}
+                                {% if user in tarefa.observadores.all %}
+                                    <li data-hint="Você é observador dessa tarefa">{% icone "eye" %}<span class="sr-only">Observadores</span></li>
+                                {% endif %}
+                                {% if tarefa.data_conclusao %}
+                                    <li data-hint="Término da tarefa">{% icone "stopwatch" %} {{  tarefa.data_conclusao }}</li>
+                                {% elif tarefa.data_conclusao_estimada %}
+                                    <li data-hint="Previsão de término da tarefa">{% icone "clock" %} {{  tarefa.data_conclusao_estimada }}</li>
+                                {% endif %}
+                                <li data-hint="Prioridade">{% icone "fire" %} {{ tarefa.prioridade }}</li>
+                                {% if tarefa.atribuido_a.exists %}
+                                    <li data-hint="Atribuído a">
+                                        {% icone "user" %} 
+                                        {% for atribuido in tarefa.atribuido_a.all %}
+                                            <div class="photo-circle smallest">
+                                                <img alt="{{ atribuido.get_profile.nome_usual }}" src="{{ atribuido.get_profile.get_foto_75x100_url }}" />
+                                            </div>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+
+                
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

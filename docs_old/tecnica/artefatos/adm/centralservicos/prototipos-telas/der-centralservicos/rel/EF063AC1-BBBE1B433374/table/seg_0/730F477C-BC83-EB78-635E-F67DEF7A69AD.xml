@@ -1,0 +1,88 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="730F477C-BC83-EB78-635E-F67DEF7A69AD" name="centralservicos_baseconhecimento_grupoatendimento">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:42:33 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>baseconhecimento_grupoatendimento</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="4E299394-CF13-1D4D-FA21-09DCC602AC81">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:43:25 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="centralservicos_grupoatendimento_id" id="C43D2ED7-3AFC-B840-C693-1414F43FB275">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:43:46 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>407C8E33-C71E-0C8B-D495-21C0552A6B98</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="57C21767-0CA0-2FA5-4D09-D1EA6EA5D828" referredColumn="407C8E33-C71E-0C8B-D495-21C0552A6B98"/>
+</associations>
+</Column>
+<Column name="centralservicos_baseconhecimentoanexo_id" id="7BDF932D-831C-3559-6715-47B81BF2A28E">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:44:29 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>12350CE7-6809-67A9-9EE6-CE1060A6988C</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7E854B87-7B79-D8B4-4DB1-401696B5A7FF" referredColumn="12350CE7-6809-67A9-9EE6-CE1060A6988C"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="02D0A147-DDBD-F752-6662-F22070B0F3E3" name="centralservicos_baseconhecimento_grupoatendimento_PK">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:43:25 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4E299394-CF13-1D4D-FA21-09DCC602AC81"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AEB66507-9920-3413-8EDE-7402C837B2B2" name="centralservicos_baseconhecimento_grupoatendimento_centralservicos_grupoatendimento_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:43:46 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C43D2ED7-3AFC-B840-C693-1414F43FB275"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CB7DED97-D034-9550-4F6B-48F62B3F8634" name="centralservicos_baseconhecimento_grupoatendimento_centralservicos_baseconhecimentoanexo_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-10-28 13:44:29 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7BDF932D-831C-3559-6715-47B81BF2A28E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

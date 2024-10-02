@@ -1,0 +1,337 @@
+{% if pode_ver_dados_sociais %}
+    {% if obj.inscricao_set.exists or participacoes or participacoes_bolsas or atendimentos %}
+        {% if obj.inscricao_set.all %}
+            {% box 'Inscrições em Programas de Assistência Estudantil' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Programa</th>
+                        <th>Data de Inscrição</th>
+                        <th>Ativa?</th>
+                        {% if perms.ae.pode_ver_motivo_solicitacao %}
+                            <th>Motivo da Solicitação</th>
+                        {% endif %}
+                        {% if perms.ae.pode_ver_comprovante_inscricao %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for inscricao in obj.inscricao_set.all %}
+                        <tr>
+                            <td>{{ inscricao.programa }}</td>
+                            <td>{{ inscricao.data_cadastro|format }}</td>
+                            <td>{{ inscricao.ativa|format }}</td>
+                            {% if perms.ae.pode_ver_motivo_solicitacao %}
+                                <td>{{ inscricao.motivo }}</td>
+                            {% endif %}
+                            {% if perms.ae.pode_ver_comprovante_inscricao %}
+                                <td class="no-print"><a href="/ae/comprovante_inscricao/{{ inscricao.id }}/" class="btn default"><span class="far fa-file-alt" aria-hidden="true"></span> Comprovante de Inscrição</a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+
+        {% box 'Documentação do Aluno' %}
+            <dl>
+                <dt>Situação:</dt>
+                <dd>{{ obj.get_situacao_documentacao }}</dd>
+            </dl>
+            <ul class="action-bar">
+                {% if is_assistente_social or aluno_pode_adicionar_documento %}
+                     <li><a class="btn success" href="/ae/adicionar_documentacao_aluno/{{ obj.matricula }}/">Adicionar Documento</a></li>
+                {% endif %}
+            </ul>
+            {% if documentos.exists %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo do Documento</th>
+                            <th>Última Atualização</th>
+                            <th>Situação</th>
+                            {% if is_assistente_social or aluno_pode_adicionar_documento %}
+                                <th class="no-print">Opções</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for documento in documentos %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <strong>{{ documento.tipo_arquivo }}</strong>:
+                                {% if documento.integrante_familiar.nome %}
+                                    {{ documento.integrante_familiar.nome }}
+                                {% else %}
+                                    {{ documento.aluno }}
+                                {% endif %}
+                            </td>
+                            <td>{{ documento.cadastrado_por|format }} em {{ documento.data_cadastro }}</td>
+                            <td>{{ documento.get_situacao|safe }}</td>
+                            {% if is_assistente_social or aluno_pode_adicionar_documento %}
+                                <td class="no-print">
+                                    <ul class="action-bar">
+                                        {% if documento.eh_ativa %}
+                                            <li><a class="btn primary" href="/ae/atualizar_documentacao_aluno/{{ documento.id }}/"><span class="fas fa-edit" aria-hidden="true"></span> Atualizar</a></li>
+                                        {% endif %}
+                                        {% if documento.arquivo %}
+                                            <li><a class="btn" href="{% media_private documento.arquivo %}"><span class="fas fa-download" aria-hidden="true"></span> Baixar Arquivo</a></li>
+                                        {% endif %}
+                                        {% if is_assistente_social %}
+                                            <li><a class="btn danger" href="/ae/remover_documentacao_aluno/{{ documento.id }}/"><span class="fas fa-trash" aria-hidden="true"></span> Remover</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum documento cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% if participacoes %}
+            {% box 'Histórico de Participações em Programas de Atividades Estudantis' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Programa</th>
+                        <th>Informações</th>
+                        <th>Data de Entrada</th>
+                        {% if perms.ae.pode_ver_motivo_termino %}
+                            <th>Motivo de Entrada</th>
+                        {% endif %}
+                        <th>Data de Saída</th>
+                        {% if perms.ae.pode_ver_motivo_termino %}
+                            <th>Motivo de Saída</th>
+                        {% endif %}
+                        <th class="no-print">Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participacao in participacoes %}
+                        <tr>
+                            <td>{{ participacao.programa }} {% if not participacao.data_termino or participacao.data_termino >= hoje %}<span class="status status-success inline">Ativa</span>{% endif %}</td>
+                            <td>
+                                <dl>
+                                    {% if participacao.programa.tipo_programa.sigla == 'ALM' %}
+                                        {% if participacao.sub_instance.solicitacao_atendida_almoco.valida %}
+                                            <dt>Almoço:</dt>
+                                            <dd>{{ participacao.sub_instance.solicitacao_atendida_almoco }}</dd>
+                                        {% endif %}
+                                        {% if participacao.sub_instance.solicitacao_atendida_janta.valida %}
+                                            <dt>Jantar:</dt>
+                                            <dd>{{ participacao.sub_instance.solicitacao_atendida_janta }}</dd>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if participacao.programa.tipo_programa.sigla == 'IDM' %}
+                                        {% if participacao.sub_instance.turma_selecionada %}
+                                            <dt>Turma:</dt>
+                                            <dd>{{ participacao.sub_instance.turma_selecionada }}</dd>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if participacao.programa.tipo_programa.sigla == 'TRB' %}
+                                        {% if participacao.sub_instance.bolsa_concedida %}
+                                            <dt>Bolsa:</dt>
+                                            <dd>{{ participacao.sub_instance.bolsa_concedida }}</dd>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if participacao.programa.tipo_programa.sigla == 'PAS' %}
+                                        {% if participacao.sub_instance.get_tipo_passe_concedido_display %}
+                                            <dt>Tipo de Passe:</dt>
+                                            <dd>{{ participacao.sub_instance.get_tipo_passe_concedido_display|format }}</dd>
+                                            <dt>Valor:</dt>
+                                            <dd>R$ {{ participacao.sub_instance.valor_concedido }}</dd>
+                                        {% endif %}
+                                    {% endif %}
+                                </dl>
+                            </td>
+                            <td>{{ participacao.data_inicio|format }}</td>
+                            {% if perms.ae.pode_ver_motivo_termino %}
+                                <td>{{ participacao.motivo_entrada|format }}</td>
+                            {% endif %}
+                            <td>{{ participacao.data_termino|format }}</td>
+                            {% if perms.ae.pode_ver_motivo_termino %}
+                                <td>{{ participacao.motivo_termino|format }}</td>
+                            {% endif %}
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    {% if perms.ae.pode_editar_participacao %}
+                                        <li><a href="/ae/corrigir_participacao/{{ participacao.id }}/"
+                                           class="btn primary popup">Corrigir</a></li>
+                                    {% endif %}
+                                    {% if perms.ae.pode_revogar_participacao and not participacao.data_termino %}
+                                        <li><a class="btn danger popup" href="/ae/revogar_participacao/{{ participacao.id }}/">Finalizar</a></li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+
+        {% if participacoes_bolsas %}
+            {% box 'Histórico de Participações em Bolsas' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Setor</th>
+                        <th>Data de Entrada</th>
+                        <th>Data de Saída</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participacao in participacoes_bolsas %}
+                        <tr>
+                            <td>{{ participacao.categoria }}</td>
+                            <td>{{ participacao.setor|format }}</td>
+                            <td>{{ participacao.data_inicio|format }}</td>
+                            <td>{{ participacao.data_termino|format }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+
+        {% if agendamentos.exists %}
+            {% box 'Refeições Agendadas' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for agendamento in agendamentos %}
+                        <tr>
+                            <td>{{ agendamento.get_tipo_refeicao_display }}</td>
+                            <td>{{ agendamento.data|date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+
+        {% if atendimentos_do_mes %}
+            {% box 'Atendimentos no Mês' %}
+                <script>{{ grafico|safe }}</script>
+                <div class="grafico100" id="{{ grafico.id }}"></div>
+            {% endbox %}
+        {% endif %}
+
+        {% if atendimentos %}
+            {% box 'Últimos 10 Atendimentos' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Demanda</th>
+                        <th>Data</th>
+                        <th>Quantidade</th>
+                        <th>Arquivo</th>
+                        {% if is_assistente_social %}
+                            <th>Observação</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for atendimento in atendimentos %}
+                        <tr>
+                            <td>{{ atendimento.demanda }}</td>
+                            <td>{{ atendimento.data|format }}</td>
+                            <td class="aling-right">{{ atendimento.quantidade }}</td>
+                            <td>
+                                {% if atendimento.arquivo %}
+                                    <a href="{% media_private atendimento.arquivo %}" class="btn">Visualizar Arquivo</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            {% if is_assistente_social %}
+                                <td>{{ atendimento.observacao }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+
+        {% if historico_faltas %}
+            {% box 'Últimas 10 Faltas' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Tipo de Refeição</th>
+                        <th>Data da Refeição</th>
+                        <th>Justificativa</th>
+                        <th>Data da Justificativa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for falta in historico_faltas %}
+                        <tr>
+                            <td>{{ falta.get_tipo_refeicao_display }}</td>
+                            <td>{{ falta.data|format }}</td>
+                            <td>{{ falta.justificativa|format }}</td>
+                            <td>{{ falta.justificativa_em|format }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+
+        {% if historico_suspensoes %}
+            {% box 'Últimas Suspensões Finalizadas' %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Data da Início</th>
+                        <th>Data de Término</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for suspensao in historico_suspensoes %}
+                        <tr>
+                            <td>{{ suspensao.data_inicio|format }}</td>
+                            <td>{{ suspensao.data_termino|format }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endbox %}
+        {% endif %}
+    {% else %}
+        <p class="msg alert">O aluno ainda não possui registro de atividades estudantis.</p>
+    {% endif %}
+{% else %}
+    <p class="msg alert">Estas informações não estão disponíveis para o seu perfil.</p>
+{% endif %}

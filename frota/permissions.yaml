@@ -1,0 +1,212 @@
+Agendador de Frota:
+  frota:
+    viagemagendamento:
+    - add_viagemagendamento
+    - view_viagemagendamento
+    - change_viagemagendamento
+    - delete_viagemagendamento
+    - tem_acesso_agendamento_agendador
+Coordenador de Frota:
+  estacionamento:
+    veiculomodelo:
+    - add_veiculomodelo
+    - view_veiculomodelo
+    - change_veiculomodelo
+  frota:
+    manutencaoviatura:
+    - add_manutencaoviatura
+    - view_manutencaoviatura
+    - change_manutencaoviatura
+    - delete_manutencaoviatura
+    maquina:
+    - add_maquina
+    - view_maquina
+    - change_maquina
+    - delete_maquina
+    - tem_acesso_maquina_campus
+    maquinaordemabastecimento:
+    - add_maquinaordemabastecimento
+    - view_maquinaordemabastecimento
+    - change_maquinaordemabastecimento
+    - delete_maquinaordemabastecimento
+    motoristatemporario:
+    - add_motoristatemporario
+    - view_motoristatemporario
+    - change_motoristatemporario
+    - delete_motoristatemporario
+    viagem:
+    - add_viagem
+    - view_viagem
+    - change_viagem
+    - delete_viagem
+    - change_viagem
+    - tem_acesso_viagem_campus
+    viagemagendamento:
+    - add_viagemagendamento
+    - view_viagemagendamento
+    - change_viagemagendamento
+    - delete_viagemagendamento
+    - tem_acesso_agendamento_campus
+    viagemagendamentoresposta:
+    - add_viagemagendamentoresposta
+    - view_viagemagendamentoresposta
+    - change_viagemagendamentoresposta
+    - delete_viagemagendamentoresposta
+    viatura:
+    - add_viatura
+    - view_viatura
+    - change_viatura
+    - delete_viatura
+    - tem_acesso_viatura_campus
+    viaturagrupo:
+    - add_viaturagrupo
+    - view_viaturagrupo
+    - change_viaturagrupo
+    - delete_viaturagrupo
+    viaturaordemabastecimento:
+    - add_viaturaordemabastecimento
+    - view_viaturaordemabastecimento
+    - change_viaturaordemabastecimento
+    - delete_viaturaordemabastecimento
+    viaturastatus:
+    - add_viaturastatus
+    - view_viaturastatus
+    - change_viaturastatus
+    - delete_viaturastatus
+Coordenador de Frota Sistêmico:
+  estacionamento:
+    veiculomodelo:
+    - add_veiculomodelo
+    - view_veiculomodelo
+    - change_veiculomodelo
+  frota:
+    manutencaoviatura:
+    - add_manutencaoviatura
+    - view_manutencaoviatura
+    - change_manutencaoviatura
+    - delete_manutencaoviatura
+    maquina:
+    - add_maquina
+    - view_maquina
+    - change_maquina
+    - delete_maquina
+    - tem_acesso_maquina_sistemico
+    maquinaordemabastecimento:
+    - add_maquinaordemabastecimento
+    - view_maquinaordemabastecimento
+    - change_maquinaordemabastecimento
+    - delete_maquinaordemabastecimento
+    motoristatemporario:
+    - add_motoristatemporario
+    - view_motoristatemporario
+    - change_motoristatemporario
+    - delete_motoristatemporario
+    viagem:
+    - add_viagem
+    - view_viagem
+    - delete_viagem
+    - change_viagem
+    - tem_acesso_viagem_sistemico
+    - pode_cadastrar_viagem_retroativa
+    - pode_gerenciar_viagem
+    viagemagendamento:
+    - add_viagemagendamento
+    - view_viagemagendamento
+    - change_viagemagendamento
+    - delete_viagemagendamento
+    - tem_acesso_agendamento_sistemico
+    - pode_editar_mesmo_deferida
+    viagemagendamentoresposta:
+    - add_viagemagendamentoresposta
+    - view_viagemagendamentoresposta
+    - change_viagemagendamentoresposta
+    - delete_viagemagendamentoresposta
+    viatura:
+    - add_viatura
+    - view_viatura
+    - change_viatura
+    - delete_viatura
+    - tem_acesso_viatura_sistemico
+    viaturagrupo:
+    - add_viaturagrupo
+    - view_viaturagrupo
+    - change_viaturagrupo
+    - delete_viaturagrupo
+    viaturaordemabastecimento:
+    - add_viaturaordemabastecimento
+    - view_viaturaordemabastecimento
+    - change_viaturaordemabastecimento
+    - delete_viaturaordemabastecimento
+    viaturastatus:
+    - add_viaturastatus
+    - view_viaturastatus
+    - change_viaturastatus
+    - delete_viaturastatus
+Operador de Frota:
+  estacionamento:
+    veiculomodelo:
+    - add_veiculomodelo
+    - view_veiculomodelo
+    - change_veiculomodelo
+  frota:
+    manutencaoviatura:
+    - add_manutencaoviatura
+    - view_manutencaoviatura
+    - change_manutencaoviatura
+    - delete_manutencaoviatura
+    maquina:
+    - add_maquina
+    - view_maquina
+    - change_maquina
+    - delete_maquina
+    - tem_acesso_maquina_operador
+    maquinaordemabastecimento:
+    - add_maquinaordemabastecimento
+    - view_maquinaordemabastecimento
+    - change_maquinaordemabastecimento
+    - delete_maquinaordemabastecimento
+    viagem:
+    - add_viagem
+    - view_viagem
+    - change_viagem
+    - delete_viagem
+    - tem_acesso_viagem_operador
+    viagemagendamento:
+    - add_viagemagendamento
+    - view_viagemagendamento
+    - change_viagemagendamento
+    - delete_viagemagendamento
+    - tem_acesso_agendamento_operador
+    viatura:
+    - add_viatura
+    - view_viatura
+    - change_viatura
+    - delete_viatura
+    - tem_acesso_viatura_operador
+    viaturaordemabastecimento:
+    - add_viaturaordemabastecimento
+    - view_viaturaordemabastecimento
+    - change_viaturaordemabastecimento
+    - delete_viaturaordemabastecimento
+Servidor:
+  app_manager: rh
+  frota:
+    viagemagendamento:
+    - view_viagemagendamento
+
+Auditor:
+  app_manager: rh
+  description: O Auditor consegue acompanhar todas as movimentações.
+  estacionamento:
+    veiculomodelo:
+    - view_veiculomodelo
+  frota:
+    manutencaoviatura:
+    - view_manutencaoviatura
+    maquina:
+    - view_maquina
+    - tem_acesso_maquina_sistemico
+    maquinaordemabastecimento:
+    - view_maquinaordemabastecimento
+    motoristatemporario:
+    - view_motoristatemporario

@@ -1,0 +1,331 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <div id="formbox">
+        {% render_form form %}
+    </div>
+
+    {% if form.is_valid %}
+        {% box 'Resultado' %}
+
+            <ul class="action-bar">
+                <li><a class="btn primary"
+                       href="/rh/importar_servidor/{{ cpf_limpo }}/{{ apenas_servidores_em_exercicio }}/">
+                    Atualizar/Cadastrar Servidor</a></li>
+            </ul>
+
+            <p class="msg alert">
+                <strong>Atenção:</strong> Todas as informações abaixo foram obtidas através de uma consulta ao SIAPE.
+                Antes de atualizar ou cadastrar um servidor, verifique se as informações estão corretas.
+            </p>
+            <div class="tab-container" data-title="Dados Funcionais" data-tab="dados_funcionais">
+                {% for dados in dados_atualizar %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colspan="8">{{ dados.nome_apresentacao }} - {{ dados.matricula }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Nome</td>
+                            <td>{{ dados.nome|safe }}</td>
+                            <td>Matrícula</td>
+                            <td>{{ dados.matricula }}</td>
+                            <td>Situação</td>
+                            <td colspan="3">{{ dados.situacao|safe }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email SIAPE</td>
+                            <td>{{ dados.email_siape }}</td>
+                            <td>Email Secundário</td>
+                            <td>{{ dados.email_secundario|format }}</td>
+                            <td>Identificação Única SIAPE</td>
+                            <td>{{ dados.identificacao_unica_siape }}</td>
+                            <td>Data de Início do Exercício na Instituição</td>
+                            <td>{{ dados.data_inicio_exercicio_na_instituicao }}</td>
+                        </tr>
+                        <tr>
+                            <td>Regime Jurídico</td>
+                            <td>{{ dados.regime_juridico }}</td>
+                            <td>Nível</td>
+                            <td>{{ dados.nivel_padrao }}</td>
+                            <td>Cargo Emprego</td>
+                            <td>{{ dados.cargo_emprego }}</td>
+                            <td>Cargo Classe</td>
+                            <td>{{ dados.cargo_classe }}</td>
+                        </tr>
+                        <tr>
+                            <td>Atividade Função</td>
+                            <td>{{ dados.funcao_atividade }}</td>
+                            <td>Função</td>
+                            <td>{{ dados.funcao }}</td>
+                            <td>Jornada de Trabalho</td>
+                            <td colspan="3">{{ dados.jornada_trabalho }}</td>
+                        </tr>
+                        <tr>
+                            <td>Setor de Lotação</td>
+                            <td>{{ dados.setor_lotacao }}</td>
+                            <td>Setor de Exercício</td>
+                            <td>{{ dados.setor_exercicio }}</td>
+                            <td>Setor SUAP</td>
+                            <td colspan="3">{{ dados.setor|format }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+                </div>
+                <div class="tab-container" data-title="Dados Pessoais" data-tab="dados_pessoais">
+                    {% for dados in dados_atualizar %}
+                        <table class="info">
+                            <thead>
+                            <tr>
+                                <th colspan="8">{{ dados.nome_apresentacao }} - {{ dados.matricula }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Nome</td>
+                                <td>{{ dados.nome|safe }}</td>
+                                <td>Nome Registro</td>
+                                <td>{{ dados.nome_registro|safe }}</td>
+                                <td>Nome da Mãe</td>
+                                <td>{{ dados.nome_mae|safe }}</td>
+                                <td>Nome do Pai</td>
+                                <td>{{ dados.nome_pai|safe }}</td>
+                            </tr>
+                            <tr>
+                                <td>Estado Civil</td>
+                                <td>{{ dados.estado_civil|safe }}</td>
+                                <td>Nacionalidade</td>
+                                <td>{{ dados.nacionalidade|safe }}</td>
+                                <td>Raça</td>
+                                <td>{{ dados.raca|safe }}</td>
+                                <td>Sexo</td>
+                                <td>{{ dados.sexo|safe }}</td>
+                            </tr>
+                            <tr>
+                                <td>Data de Nascimento</td>
+                                <td>{{ dados.nascimento_data|safe }}</td>
+                                <td>Município de Nascimento</td>
+                                <td>{{ dados.nascimento_municipio|safe }}</td>
+                                <td>Deficiência</td>
+                                <td>{{ dados.deficiencia|format }}</td>
+                                <td>País de Origem</td>
+                                <td>{{ dados.pais_origem|format }}</td>
+                            </tr>
+                            <tr>
+                                <td>Grupo Sanguíneo</td>
+                                <td>{{ dados.grupo_sanguineo }}</td>
+                                <td>Fator RH</td>
+                                <td>{{ dados.fator_rh }}</td>
+                                <td>Escolaridade</td>
+                                <td>{{ dados.nivel_escolaridade }}</td>
+                                <td>Titulação</td>
+                                <td>
+                                    {{ dados.titulacao }}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+                <div class="tab-container" data-title="Documentos" data-tab="dados_documentos">
+                    {% for dados in dados_atualizar %}
+                        <table class="info">
+                            <thead>
+                            <tr>
+                                <th colspan="12">{{ dados.nome_apresentacao }} - {{ dados.matricula }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>CPF</td>
+                                <td>{{ dados.cpf }}</td>
+                                <td>PIS PASEP</td>
+                                <td colspan="9">{{ dados.pis_pasep }}</td>
+                            </tr>
+                            <tr>
+                                <td>Número do Título Eleitoral</td>
+                                <td>{{ dados.titulo_numero }}</td>
+                                <td>Zona</td>
+                                <td>{{ dados.titulo_zona }}</td>
+                                <td>Seção</td>
+                                <td>{{ dados.titulo_secao }}</td>
+                                <td>UF</td>
+                                <td>{{ dados.titulo_uf }}</td>
+                                <td>Data de Emissão</td>
+                                <td colspan="3">{{ dados.titulo_data_emissao }}</td>
+                            </tr>
+                            <tr>
+                                <td>RG</td>
+                                <td>{{ dados.rg }}</td>
+                                <td>Orgão</td>
+                                <td>{{ dados.rg_orgao }}</td>
+                                <td>Data</td>
+                                <td>{{ dados.rg_data }}</td>
+                                <td>UF</td>
+                                <td colspan="5">{{ dados.rg_uf }}</td>
+                            </tr>
+                            <tr>
+                                <td>Carteira de Motorista</td>
+                                <td>{{ dados.cnh_carteira }}</td>
+                                <td>Registro</td>
+                                <td>{{ dados.cnh_registro }}</td>
+                                <td>Categoria</td>
+                                <td>{{ dados.cnh_categoria }}</td>
+                                <td>Data Expedição</td>
+                                <td>{{ dados.cnh_emissao }}</td>
+                                <td>UF</td>
+                                <td>{{ dados.cnh_uf }}</td>
+                                <td>Validade</td>
+                                <td>{{ dados.cnh_validade }}</td>
+                            </tr>
+                            <tr>
+                                <td>Carteira de Trabalho</td>
+                                <td>{{ dados.ctps_numero }}</td>
+                                <td>UF</td>
+                                <td>{{ dados.ctps_uf }}</td>
+                                <td>Série</td>
+                                <td colspan="7">{{ dados.ctps_serie }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+                <div class="tab-container" data-title="Dados Bancários" data-tab="dados_bancarios">
+                    {% for dados in dados_atualizar %}
+                        <table class="info">
+                            <thead>
+                            <tr>
+                                <th colspan="6">{{ dados.nome_apresentacao }} - {{ dados.matricula }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Banco</td>
+                                <td>{{ dados.pagto_banco }}</td>
+                                <td>Agência</td>
+                                <td>{{ dados.pagto_agencia }}</td>
+                                <td>Conta Corrente</td>
+                                <td>{{ dados.pagto_ccor }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+                <div class="tab-container" data-title="Férias" data-tab="dados_ferias">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ano</th>
+                            <th>Parcela</th>
+                            <th>Data Início</th>
+                            <th>Data Fim</th>
+                            <th>Adiantamento 13º</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for parcela in dados_ferias %}
+                            <tr>
+                                <td>{{ parcela.ferias.ano}}</td>
+                                <td>{{ parcela.numero_parcela }}</td>
+                                <td>{{ parcela.data_inicio|date:"d/m/Y"}}</td>
+                                <td>{{ parcela.data_fim|date:"d/m/Y" }}</td>
+                                <td>{{ parcela.adiantamento_gratificacao_natalina|format }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5"> <p class="msg alert">Não foram encontradas férias cadastradas.</p></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-container" data-title="Afastamentos" data-tab="dados_afastamentos">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Tipo de Afastamento</th>
+                            <th>Descrição</th>
+                            <th>Período</th>
+                            <th>Total de Dias</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for servidorafastamento in dados_afastamentos %}
+                            <tr>
+                                <td> {{ servidorafastamento.afastamento.get_tipo_display }}</td>
+                                <td><strong>{{ servidorafastamento.afastamento.nome }} </strong></td>
+                                <td>
+                                    {% if servidorafastamento.data_termino and servidorafastamento.data_termino != servidorafastamento.data_inicio %}
+                                        {{ servidorafastamento.data_inicio }} até {{ servidorafastamento.data_termino }}
+                                    {% else %}
+                                        {{ servidorafastamento.data_inicio }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if servidorafastamento.data_termino %}
+                                        {{ servidorafastamento.data_inicio|subtract:1|timesince:servidorafastamento.data_termino|format }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">
+                                    <p class="msg alert">Nenhum afastamento encontrado.</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-container" data-title="Último Contracheque" data-tab="contracheques">
+                    {% for dados in dados_atualizar %}
+                        {% if dados.dados_contracheques %}
+                            {% for k, v in dados.dados_contracheques.items %}
+                                <h3>Matrícula: {{ k }}</h3>
+                                {% for k, v in v.items %}
+                                    {% box '{{ k }}' %}
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Descrição</th>
+                                                    <th>Sequência</th>
+                                                    <th>Prazo</th>
+                                                    <th>Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for valor in v %}
+                                                <tr>
+                                                    <td{% if valor.numeroSeq is None %} colspan="3"{% endif %}>{{ valor.nomeRubrica }}</td>
+                                                    {% if valor.numeroSeq is not None %}
+                                                    <td>{{ valor.numeroSeq }}</td>
+                                                    <td>{{ valor.pzRubrica|format }}</td>
+                                                    {% endif %}
+                                                    <td>
+                                                        <span style="color:{% if valor.indicadorRD == 'R' %}green{% elif valor.indicadorRD == 'D' %}red{% endif %}">
+                                                        {{ valor.valorRubrica }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% endbox %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="msg alert">Não foi encontrado nenhuma informações de contracheques para a matrícula <strong>{{ dados.matricula }}</strong>.</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+        {% endbox %}
+    {% endif %}
+
+{% endblock %}

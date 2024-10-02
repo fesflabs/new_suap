@@ -1,0 +1,31 @@
+<div class="tab-container" data-tab="etapas" data-title="Histórico de Etapas" data-counter="{{ demanda.historicosituacao_set.count }}">
+    {% box "Histórico de Etapas" %}
+        <ul class="timeline">
+            {% for historicosituacao in demanda.historicosituacao_set.all %}
+                <li class="{{ historicosituacao.get_class_situacao }}">
+                    <div class="timeline-date">{{ historicosituacao.data_hora|format }}</div>
+                    <div class="timeline-icon"></div>
+                    <div class="timeline-content">
+                        <h4>{{ historicosituacao.situacao }} <small>por {{ historicosituacao.usuario.get_profile.nome_usual }}</small></h4>
+                        <dl>
+                            {% if historicosituacao.data_previsao %}
+                                <dt>
+                                    {% if not historicosituacao.eh_primeiro_historico_da_etapa %}
+                                        Previsão Atualizada:
+                                    {% else %}
+                                        Previsão:
+                                    {% endif %}
+                                </dt>
+                                <dd>{{ historicosituacao.data_previsao|format }}</dd>
+                            {% endif %}
+                            {% if historicosituacao.conclusao != "-" %}
+                                <dt>Conclusão:</dt>
+                                <dd>{{ historicosituacao.conclusao|safe }}</dd>
+                            {% endif %}
+                        </dl>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endbox %}
+</div>

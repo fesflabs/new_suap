@@ -1,0 +1,88 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="771" measuredH="506" mockupW="733" mockupH="490">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="16" w="733" h="453" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="53" y="102" w="-1" h="-1" measuredW="496" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Acompanhamentos%20de%20Requisi%E7%F5es%20de%20Reserva%20de%20Sala%2C%20Cancelar%20agenda</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::DataGrid" x="61" y="222" w="-1" h="-1" measuredW="669" measuredH="141" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5B%5D%2C%20Data%20%5Ev%2C%20Requisitante%2C%20Avaliador%0A%5B%5D%2C%2026/05/2014%2007%3A00%20-%2026/05/2014%2008%3A00%2CJos%E9%20Augusto%20Nascimento%20de%20Medeiros%2C%20Jailton%20Carlos%20de%20Paiva%0A%5B%5D%2C%2027/05/2014%2007%3A00%20-%2027/05/2014%2008%3A00%2CJos%E9%20Augusto%20Nascimento%20de%20Medeiros%2C%20Jailton%20Carlos%20de%20Paiva%20%0A%5B%5D%2C%2028/05/2014%2007%3A00%20-%2027/05/2014%2008%3A00%2CJos%E9%20Augusto%20Nascimento%20de%20Medeiros%2C%20Jailton%20Carlos%20de%20Paiva%0A%5B%5D%2C%2029/05/2014%2007%3A00%20-%2027/05/2014%2008%3A00%2CJos%E9%20Augusto%20Nascimento%20de%20Medeiros%2C%20Jailton%20Carlos%20de%20Paiva</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="78" y="145" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrar%20por%20Sala%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::ComboBox" x="172" y="143" w="417" h="-1" measuredW="417" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sala%20de%20ATOS%20do%202%BA%20andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="61" y="176" w="-1" h="-1" measuredW="108" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrar%20por%20per%EDodo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::DateChooser" x="172" y="174" w="90" h="-1" measuredW="90" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::DateChooser" x="311" y="174" w="90" h="-1" measuredW="90" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="__group__" x="311" y="368" w="254" h="138" measuredW="254" measuredH="138" zOrder="8" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="254" h="138" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="27"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="25" y="32" w="-1" h="-1" measuredW="212" measuredH="21" zOrder="1" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Tem%20certeza%20que%20deseja%20continuar%3F</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="40" y="99" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="2" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Cancelar</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="121" y="99" w="77" h="27" measuredW="41" measuredH="27" zOrder="3" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>OK</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="83" w="254" h="-1" measuredW="100" measuredH="10" zOrder="4" locked="false" isInGroup="27"/>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Arrow" x="190" y="383" w="170" h="10" measuredW="150" measuredH="100" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>-1</curvature>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::Button" x="61" y="378" w="-1" h="-1" measuredW="146" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Excluir%20Selecionadas</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="282" y="176" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>a</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Button" x="416" y="176" w="-1" h="-1" measuredW="56" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrar</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

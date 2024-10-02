@@ -1,0 +1,54 @@
+Reunião 08/08/2014, presentes Alessandro, Breno, Rafael e Jailton
+
+Período de matrícula (Matrícula on-line)
+
+Quem entra no pedido de matrícula? Todos os alunos que estão com o próximo período em aberto.
+
+Trancar aluno FIC irá gerar uma matrícula para o próximo período em aberto, isso não faz sentido.
+
+
+* Aluno do regime seriado
+	passou sem dependência -> disponibilizar as turmas do período e do turno do aluno.
+		o pedido de matrícula é feito de forma automática, o aluno irá para a turma no próximo período
+		referente aquela que ele já estava, exemplo 1º período 1v, 2º 1V.
+	passou com dependência,  -> disponibilizar as turmas do périodo e do turno do aluno, mas as turmas 
+								com as disciplinas em dependência.
+	Sempre aparecer as disciplinas em dempendência
+	
+	Aparecer os diários que estão com vagas.
+	
+    Alunos irão ter a opção de selecionar a turma, depois irá ocorrer um processamento, o qual irá priorizar os
+    alunos da mesma turma de correspondente, os alunos que não conseguiram vaga, voltaram para a sua turma de correspondente.
+    
+    Emitir o aviso ao aluno que não está se matriculando na turma correspondente no próximo período, mensagem: "Seu pedido de 
+    matrícula .
+    
+    Nas dependências, os alunos podem pagar disciplinas de outro curso.
+    
+    
+    
+* Aluno do regime de crédito
+  lista as disciplinas do período até onde ele pode pagar
+    
+
+
+* para fazer
+	- matricula em  lote em diário
+	- refazer pré-requisitos
+	- implementar co-requisitos.
+    
+    Seu pedido de matrícula foi indefirido, informar o motivo.
+	
+
+* Questões em aberto?
+	- o que fazer na ocorrência de um diário sem turma e/ou horário e/ou professor?
+	- Os componentes com pré-requisitos não cumpridos serão listados, mas não poderam ser selecionados?!
+	- Ao selecionar um componente com correquisitos, o componente relacionado será automáticamente selecionada.
+	- Exibir os horários das turmas selecionadas par ao aluno no ato da matrícula on-line.
+	
+	
+
+
+
+
+

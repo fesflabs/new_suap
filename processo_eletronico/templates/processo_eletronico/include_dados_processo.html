@@ -1,0 +1,112 @@
+
+{% box "Dados Gerais" %}
+    <dl class="definition-list flex">
+        <div class="list-item flex-basis-50">
+            <dt>Tipo</dt>
+            <dd>{{ processo.tipo_processo }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Nível de Acesso</dt>
+            <dd>
+                {{ processo.get_nivel_acesso_display|status }}
+                {% if processo.hipotese_legal %}
+                    | {{ processo.hipotese_legal }}
+                {% endif %}
+            </dd>
+        </div>
+            <div class="list-item flex-basis-50">
+            <dt>Setor de Origem</dt>
+            <dd>
+                {% if perms.comum.view_setor %}
+                    <a href="/rh/setor/{{ processo.setor_criacao.pk }}/">
+                        {{ processo.setor_criacao.uo }} - {{ processo.setor_criacao|format }}
+                    </a>
+                {% else %}
+                    {{ processo.setor_criacao.uo }} - {{ processo.setor_criacao|format }}
+                {% endif %}
+            </dd>
+        </div>
+        <div class="list-item">
+            <dt>Setor Atual</dt>
+            <dd>
+                {% if perms.comum.view_setor %}
+                    <a href="/rh/setor/{{ processo.setor_atual.pk }}/">
+                        {{ processo.setor_atual.uo }} - {{ processo.setor_atual|format }}
+                    </a>
+                {% else %}
+                    {{ processo.setor_atual.uo }} - {{ processo.setor_atual|format }}
+                {% endif %}
+            </dd>
+        </div>
+        {% if processo.tags.exists %}
+            <div class="list-item">
+                <dt>Palavras-chave</dt>
+                <dd>{{ processo.tags.all|join:", " }}</dd>
+            </div>
+        {% endif %}
+        {% if processo.get_tipo_processo_no_orgao_origem %}
+            <div class="list-item flex-basis-100">
+                <dt>Tipo no órgão de Origem</dt>
+                <dd>{{ processo.get_tipo_processo_no_orgao_origem }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item flex-basis-100">
+            <dt>Assunto</dt>
+            <dd>{{ processo.assunto }}</dd>
+        </div>
+        <div class="list-item flex-basis-100">
+            <dt>Interessados</dt>
+            <dd>
+                <ol>
+                    {% for interessado in processo.interessados.all %}
+                        {% if interessado.pessoafisica %}
+                            <li>{{ interessado.pessoafisica.sub_instance|format }}
+                                {% if not interessado.pessoafisica.user and not interessado.pessoafisica.tem_cadastro_usuario_externo %}
+                                    <a class="btn light popup" href="/comum/novo_usuario_externo/{{ interessado.pessoafisica.pk }}/">
+                                          Criar um Usuário Externo
+                                    </a>
+                                {% endif %}
+                            </li>
+                        {% else %}
+                            <li>{{ interessado.pessoajuridica|format }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+            </dd>
+        </div>
+        {% if processo.get_interessados_externos and not processo.interessados.all %}
+            <div class="list-item flex-basis-100">
+                <dt>Interessados Externos</dt>
+                <dd>
+                    <ol>
+                        {% for interessado in processo.get_interessados_externos %}
+                            <li>{{ interessado|format }}</li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Data do Cadastro</dt>
+            <dd>{{ processo.data_hora_criacao|format }} por {{ processo.usuario_gerador|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Última Modificação</dt>
+            <dd>{{ processo.ultima_modificacao|format }} por {{ processo.modificado_por|format }}</dd>
+        </div>
+        {% if processo.classificacoes.exists %}
+            <div class="list-item flex-basis-100">
+                <dt>Classificações</dt>
+                <dd>{{ processo.classificacoes.all|join:', ' }}</dd>
+            </div>
+        {% endif %}
+        <div class="list-item">
+            <dt>Número Protocolo Novo (NUP 21)</dt>
+            <dd>{{ processo.numero_protocolo|default:"-" }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Número Protocolo Antigo (NUP 17)</dt>
+            <dd>{{ processo.numero_protocolo_fisico|default:"-" }}</dd>
+        </div>
+    </dl>
+{% endbox %}

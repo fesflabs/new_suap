@@ -1,0 +1,152 @@
+
+// Extends
+%ancora {
+    border-bottom-color: $grey-800;
+}
+%article-container {
+    background-color: $black;
+    border-color: $grey-800;
+}
+%badge {
+    background-color: $grey-800;
+    color: $grey-300;
+}
+%box {
+    background-color: $grey-900;
+    border: 0 none;
+    box-shadow: $box-shadow;
+}
+%box-hover {
+    background-color: $grey-800;
+}
+%box-collapse-icon {
+    float: right;
+    width: auto;
+}
+%box-title {
+    color: $white;
+}
+%btn {
+    background-color: $brand-color;
+    border-radius: $border-radius;
+    color: $black;
+}
+%btn-active {
+    background-color: $primary-400;
+    color: $black;
+}
+%btn-disabled {
+    color: $primary-50;
+}
+%btn-default-active {
+    background-color: $grey-400;
+}
+%btn-danger {
+    color: $white;
+}
+%btn-danger-active {
+    color: $white;
+}
+%btn-primary {
+    color: $white;
+}
+%btn-primary-active {
+    color: $white;
+}
+%btn-success {
+    color: $white;
+}
+%btn-success-active {
+    color: $white;
+}
+%btn-warning {
+    color: $white;
+}
+%btn-warning-active {
+    color: $white;
+}
+%inputs {
+    border: 0 none;
+    color: $white;
+}
+%module-alert {
+    border: 0 none !important;
+    border-radius: $border-radius;
+    color: $grey-50;
+    padding: 1.5rem;
+}
+%module-alert-hover {
+    padding-left: 2.5rem;
+}
+%module-info-title {
+    background-color: transparent;
+    color: $grey-200;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+%nav-first-level {
+    font-size: 1.4rem;
+    text-transform: none;
+}
+%nav-first-level-icon {
+    margin-right: 1.2rem;
+    opacity: 0.25;
+}
+%pagination-active {
+    background-color: $grey-800;
+    color: $white;
+}
+%scrollbar {
+    width: 10px;
+}
+%scrollbar-track {
+    background-color: $grey-900;
+    border: 0 none;
+}
+%scrollbar-thumb {
+    background-color: $grey-500;
+}
+%scrollbar-thumb-hover {
+    background-color: $grey-600;
+}
+%status {
+    background-color: transparent;
+    border: 1px solid;
+    border-radius: $border-radius;
+    color: $grey-100;
+    padding: 4px 6px;
+}
+%status-default {
+    background-color: transparent;
+    border-color: $grey-200;
+    color: $grey-200;
+}
+%subtitle {
+    border-bottom: 1px solid $grey-800;
+    color: $grey-200;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+%table-thead {
+    background-color: $grey-800;
+}
+%table-tbody {
+    background-color: $grey-900;
+}
+%table-tfoot {
+    background-color: $grey-800;
+}
+%tabs {
+    border-bottom: 1px solid $black !important;
+}
+%tabs-active {
+    border-bottom: 1px solid $brand-color !important;
+    font-weight: 400;
+}
+%tabs-link {
+    color: $grey-200;
+}
+%timeline-content {
+    background-color: $grey-700;
+}

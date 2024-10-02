@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="894D34FE-9630-3EEA-72A9-30DB18D35C91" name="centralservicos_baseconhecimentoanexo">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:05:34 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>baseconhecimentoanexo</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="12350CE7-6809-67A9-9EE6-CE1060A6988C">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:06:36 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="anexo" id="B1F8F798-EF17-0DCE-C75A-E5FED54BA59C">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:06:36 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="baseconhecimento_id" id="BA6037C1-D772-A04B-31AC-CF84BD4EF7EE">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:12:03 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>AEDB9E3B-E672-374B-4FFD-DCFA5AC31AAC</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D000BFE9-D800-5785-5C77-61C40874FCDE" referredColumn="AEDB9E3B-E672-374B-4FFD-DCFA5AC31AAC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="421EC032-E0FF-8B92-2002-D7FFFBF566C6" name="centralservicos_baseconhecimento_anexos_PK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:06:36 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="12350CE7-6809-67A9-9EE6-CE1060A6988C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BABBF9E8-A4CF-58BE-D5C0-9DD2AA8F320E" name="centralservicos_baseconhecimento_anexos_centralservicos_baseconhecimento_anexos_FK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-09 19:12:03 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BA6037C1-D772-A04B-31AC-CF84BD4EF7EE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

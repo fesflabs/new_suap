@@ -1,0 +1,49 @@
+<div class="search-and-filters">
+    <div class="filter">
+        <label>Selecione o período: </label>
+        <select id='ano_periodo'
+                onchange="location.href='?tab=boletim&ano_periodo='+this.value+'&etapa={{ request.GET.etapa }}'">
+            {% for ano_periodo in anos_periodos %}
+                {% if ano == ano_periodo.0 and periodo == ano_periodo.1 %}
+                    <option selected="selected"
+                            value="{{ ano_periodo.0 }}_{{ ano_periodo.1 }}">{{ ano_periodo.0 }}/{{ ano_periodo.1 }}</option>
+                {% else %}
+                    <option value="{{ ano_periodo.0 }}_{{ ano_periodo.1 }}">{{ ano_periodo.0 }}/{{ ano_periodo.1 }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+{% if diarios_especiais %}
+    {% box 'Atividades Específicas' %}
+        {% for diario in diarios_especiais %}
+        <h4>{{ diario.pk }} - {{ diario.get_descricao }}</h4>
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center">Data</th>
+                <th class="text-center">Atividade</th>
+                <th class="text-center">Professor(es)</th>
+                <th class="text-center" style="max-width:50px">Centro de Aprendiagem</th>
+                <th class="text-center">Local</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for encontro in diario.encontro_set.all %}
+                <tr>
+                    <td class="text-center">{{ encontro.data|format }}</td>
+                    <td>{{ encontro.conteudo|format }}</td>
+                    <td class="text-center">{{ encontro.diario_especial.get_nomes_professores|format }}</td>
+                    <td class="text-center">{{ encontro.diario_especial.is_centro_aprendizagem|format }}</td>
+                    <td class="text-center">{{ encontro.diario_especial.sala|format }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+    {% endbox %}
+
+{% else %}
+    <p class="msg alert">O aluno não possui atividades no período selecionado.</p>
+{% endif %} 

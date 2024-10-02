@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/HistoricoEscolarFinal.schema.json",
+  "title": "Esquema JSON de Histórico Acadêmico Integral (Final)",
+  "description": "Esquema JSON para Validação de Históricos Acadêmicos Integrais, Versão 1.04.1",
+  "type": "object",
+  "required": [
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "meta": {
+      "description": "Metadados do histórico acadêmico integral",
+      "type": "object",
+      "required": [
+        "clientId",
+        "clientSignature",
+        "docType",
+        "groupId",
+        "mimeType",
+        "yourNumber"
+      ],
+      "properties": {
+        "clientId": {
+          "description": "Identificador único universal do cliente do RAP",
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"
+        },
+        "clientSignature": {
+          "$comment": "Atributo ainda não tem funcionalidade, será usado em versões futuras",
+          "description": "Assinatura do cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "docType": {
+          "description": "Identificador do tipo Histórico Acadêmico Integral no RAP",
+          "type": "string",
+          "const": "final_academic_transcript"
+        },
+        "groupId": {
+          "description": "Identificador único do grupo de documentos ao qual o documento faz parte",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "mimeType": {
+          "description": "Tipo da mídia do histórico acadêmico integral",
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "text/xml"
+          ]
+        },
+        "yourNumber": {
+          "description": "Identificador único gerado pelo cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "dltId": {
+          "description": "Nome da DLT em que o documento assinado será registrado",
+          "type": "string",
+          "const": "ethereum"
+        },
+        "isDocSigned": {
+          "description": "Flag para indicar se o documento a ser registrado conterá assinaturas",
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      }
+    },
+    "data": {
+      "description": "Dados do histórico acadêmico integral",
+      "type": "object",
+      "required": [
+        "Versao",
+        "infHistoricoEscolar"
+      ],
+      "properties": {
+        "Versao": {
+          "description": "Versão do leiaute do histórico acadêmico integral",
+          "type": "string",
+          "const": "1.04.1"
+        },
+        "ambiente": {
+          "description": "Tipo do ambiente em que o histórico acadêmico integral foi emitido",
+          "type": "string",
+          "enum": [
+            "Produção",
+            "Homologação"
+          ]
+        },
+        "infHistoricoEscolar": {
+          "description": "Informações do histórico escolar",
+          "type": "object",
+          "required": [
+            "Aluno",
+            "DadosCurso",
+            "IesEmissora"
+          ],
+          "properties": {
+            "Aluno": {
+              "$ref": "#/definitions/TDadosDiplomado"
+            },
+            "DadosCurso": {
+              "$ref": "#/definitions/TDadosCurso"
+            },
+            "IesEmissora": {
+              "$ref": "#/definitions/TDadosIesEmissora"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TDadosDiplomado": {
+      "description": "Dados pessoais do aluno",
+      "type": "object",
+      "required": [
+        "ID",
+        "Nome"
+      ],
+      "properties": {
+        "ID": {
+          "description": "Identificador único do aluno",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Nome": {
+          "description": "Nome completo do aluno",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TDadosCurso": {
+      "description": "Dados do curso",
+      "type": "object",
+      "required": [
+        "NomeCurso"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "CodigoCursoEMEC"
+          ],
+          "properties": {
+            "CodigoCursoEMEC": {
+              "description": "Código e-MEC do curso",
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        {
+          "required": [
+            "SemCodigoCursoEMEC"
+          ],
+          "properties": {
+            "SemCodigoCursoEMEC": {
+              "description": "Informações sobre a tramitação do processo e-MEC",
+              "type": "object",
+              "required": [
+                "NumeroProcesso"
+              ],
+              "properties": {
+                "NumeroProcesso": {
+                  "description": "Número do processo e-MEC",
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "NomeCurso": {
+          "description": "Nome completo do curso",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TDadosIesEmissora": {
+      "description": "Dados da instituição de ensino superior emissora",
+      "type": "object",
+      "required": [
+        "Nome",
+        "CodigoMEC",
+        "CNPJ"
+      ],
+      "properties": {
+        "Nome": {
+          "description": "Nome completo da instituição",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "CodigoMEC": {
+          "description": "Código de identificação da instituição no MEC",
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "CNPJ": {
+          "description": "Número do CNPJ sem separadores",
+          "type": "string",
+          "pattern": "^[0-9]{14}$"
+        }
+      }
+    }
+  }
+}

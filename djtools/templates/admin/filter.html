@@ -1,0 +1,65 @@
+<div class="filter">
+    {% if spec.parameter_name %}
+        {% with parametro_filtro=spec.parameter_name %}
+            <label for="{{ parametro_filtro }}_select">{{ title }}:</label>
+            <select {% if spec.allow_multiple_choices %}multiple{% endif %}
+               id="{{ parametro_filtro }}_select"
+               name="{{ parametro_filtro }}__djt_filter_ac">
+                {% for choice in choices %}
+                    <option
+                        {% if choice.selected %}
+                            selected="selected"
+                            {% if choice.display != "Todos" %}
+                                class="filled"
+                            {% endif %}
+                        {% endif %}
+                        value="{{ choice.query_string|iriencode|tratar_parametros_filter:parametro_filtro }}">
+                            {{ choice.display }}
+                    </option>
+                {% endfor %}
+            </select>
+            <script>
+                $("#{{ parametro_filtro }}_select").select2({
+                    placeholder: 'Todos',
+                    {% if spec.allow_multiple_choices %}
+                        tags: true
+                    {% else %}
+                        allowClear: true
+                    {% endif %}
+                });
+            </script>
+
+        {% endwith %}
+    {% endif %}
+    {% if spec.field_path %}
+        {% with parametro_filtro=spec.lookup_kwarg %}
+            <label for="{{ parametro_filtro }}_select">{{ title }}:</label>
+            <select {% if spec.allow_multiple_choices %}multiple{% endif %}
+               id="{{ parametro_filtro }}_select"
+               name="{{ parametro_filtro }}__djt_filter_ac">
+                {% for choice in choices %}
+                    <option
+                        {% if choice.selected %}
+                            selected="selected"
+                            {% if choice.display != "Todos" %}
+                                class="filled"
+                            {% endif %}
+                        {% endif %}
+                        value="{{ choice.query_string|iriencode|tratar_parametros_filter:parametro_filtro }}">
+                            {{ choice.display }}
+                    </option>
+                {% endfor %}
+            </select>
+            <script>
+                $("#{{ parametro_filtro }}_select").select2({
+                    placeholder: 'Todos',
+                    {% if spec.allow_multiple_choices %}
+                        tags: true
+                    {% else %}
+                        allowClear: true
+                    {% endif %}
+                });
+            </script>
+        {% endwith %}
+    {% endif %}
+</div>

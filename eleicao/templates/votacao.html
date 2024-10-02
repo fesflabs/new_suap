@@ -1,0 +1,41 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% block content %}
+
+    {% if eleicao.obs_voto %}
+        <p class="msg alert">
+            <strong>Atenção:</strong> {{ eleicao.obs_voto }}
+        </p>
+    {% endif %}
+
+    {% box "Candidatos" %}
+        {% if candidatos %}
+            {% for candidato in candidatos %}
+                <div class="general-box">
+                    <div class="primary-info">
+                        <h4>{{ candidato }}</h4>
+                        <ul class="action-bar">
+                            <li><a href="/eleicao/votar/{{ candidato.pk }}/" class="btn success confirm" data-confirm="{{ eleicao.obs_voto }}">Votar</a></li>
+                        </ul>
+                        <div class="extra-info">
+                            <div class="photo-circle"><img title="Foto de {{ candidato.candidato_vinculo.pessoa.nome_usual }}" src="{% if candidato.candidato_vinculo.relacionamento.foto %}{{ candidato.candidato_vinculo.relacionamento.foto.url_150x200 }}{% else %}/static/comum/img/default.jpg{% endif %}" /></div>
+                            {{ candidato.descricao|linebreaksbr }}
+                        </div>
+                    </div>
+                    <dl class="secondary-info">
+                        <div class="list-item">
+                            <dt>{% icone "id-badge" %} CPF:</dt>
+                            <dd>{{ candidato.candidato_vinculo.relacionamento.pessoa_fisica.cpf | anonimizar_cpf }}</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>{% icone "envelope" %} E-mail:</dt>
+                            <dd class="text-break-word">{{ candidato.candidato_vinculo.relacionamento.pessoa_fisica.email }}</dd>
+                        </div>
+                    </dl>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="msg alert">Nenhum candidato válido.</p>
+        {% endif %}
+    {% endbox %}
+{% endblock %}

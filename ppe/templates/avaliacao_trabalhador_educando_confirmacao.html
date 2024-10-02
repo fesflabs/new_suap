@@ -1,0 +1,44 @@
+{% extends super_template %}
+{% block extrahead %}
+    <style>
+    table.info td:nth-child(odd) {
+    color: #666;
+    font-weight: 900;
+    text-align: left;
+    width: 70%;
+}
+
+    </style>
+
+{#    <script>#}
+{#        jQuery(document).ready(function (e) {#}
+{#            var html = '<a class="btn default" href="/ae/inscricao_documentacao/{{ aluno_id }}/{{ periodo_id }}/{{ programa_id }}/{{ data_cadastro }}/">Voltar</a>';#}
+{#            jQuery(html).insertAfter('input[type=submit]');#}
+{#            $('input[type=submit]').val('Continuar');#}
+{#        });#}
+{#    </script>#}
+{% endblock %}
+{% block action-bar %}
+<ul class="action-bar">
+    <li><a class="btn" href="/">Voltar para Página Inicial</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+
+    {% include "includes/avaliacao_trabalhadoreducando_dados.html" %}
+
+    {% box "MONITORAMENTO DAS ATRIBUIÇÕES " %}
+        <table class="info">
+            <tbody>
+                {% for resposta in respostas %}
+                    <tr>
+                        <td>{{ resposta.pergunta }}</td>
+                        <td>{{ resposta.get_resposta }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+{% endblock %}
+

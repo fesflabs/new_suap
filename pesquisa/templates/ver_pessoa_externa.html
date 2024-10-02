@@ -1,0 +1,38 @@
+{% extends super_template %}
+
+{% block content %}
+        <table class="info">
+            <tr>
+                <td>Nome:</td><td>{{ pessoa.nome }}</td>
+                <td>CPF:</td><td>{{ pessoa.cpf }}</td>
+                <td>RG:</td><td>{{ pessoa.rg }} - {{ pessoa.rg_orgao_emissor }}</td>
+            </tr>
+            <tr>
+                <td>Email:</td><td>{{ pessoa.email }}</td>
+                <td>Telefone:</td><td>{{ pessoa.telefone }}</td>
+                <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+
+            <tr>
+                <td>Endereço:</td><td>{{ pessoa.endereco }}</td>
+                <td>Complemento</td><td>{{ pessoa.complemento|format }}</td>
+                <td>Bairro:</td><td>{{ pessoa.bairro|format }}</td>
+            </tr>
+            <tr>
+
+                <td>Cidade:</td><td>{{ pessoa.cidade }}</td>
+                <td>CEP:</td><td>{{ pessoa.cep|format }}</td>
+                <td>Sexo:</td><td>{{ pessoa.sexo }}</td>
+            </tr>
+            <tr>
+                <td>Estado Civil:</td><td>{{ pessoa.estado_civil }}</td>
+                <td>Profissão:</td><td>{{ pessoa.profissao|format }}</td>
+                <td>Instituição</td><td>{{ pessoa.instituicao_origem|format }}</td>
+            </tr>
+            <tr>
+                <td>Áreas de Conhecimento:</td><td colspan="5">{{ pessoa.get_areas_conhecimento|format }}</td>
+            </tr>
+        </table>
+
+
+{% endblock %}

@@ -1,0 +1,77 @@
+Reunição 15/07/2014
+
+Edição matriz curricular - carga horária - atividades complementares
+
+A pontuação máxima para atividade será definido por curso
+
+
+
+
+* UC - Configurar (AACC) Atividades Acadêmico-Científico-Culturais 
+Menu Cadastros gerais
+Cadastrar AACC - cadastrar as tabelas com as pontuações máximas
+
+
+Dados Gerais (nome da AACC) - refere-se a tabela presente na organização didática.
+AACCs da pós-graduação 
+
+
+* UC - Cadastrar Tipos de atividades extra curriculares
+apenas nome da atividade
+
+
+
+
+* UC Lançar atividade complementares
+Incluir ABA "Atividades Complementares" na visualização do aluno
+
+Tipo de atividade:
+	AACC -> é apresentado a lista de configuração de AACCs
+	Atividade Extra-currícular -> é apresentado a lista de tipos de atividades extra curriculares
+
+informar carga horária
+
+validar pontuação por semestre e curso, o sistema não deve permitir registrar uma carga-horária superior
+ao máximo definido no AACC do curso/matriz
+
+
+Ao lançar uma atividade, verificar na matriz a carga horária de atividades complementares para
+saber se o aluno concluiu a carga horária exigida pelo curso. Executar o de fluxo de situação de matrícula.
+
+
+
+---------------------------------------------
+Qualquer funcionalidade que fizer referência a matriz, deve criticar se a matriz está incompleta.
+Exemplo: gerar turma.
+
+
+--------------------------------------------
+Incluir no cadastro de matriz o flag "Exige TCC" ao lado do campo carga horária "Prática Profissional"
+
+
+
+
+-----------------------------------
+UC 213 - Requisitos para conclusão
+- Utilizar cores para identificar carga horária cumprida (VERDE) e não cumpridas (Vermelho). 
+  Não utilizar ícontes.
+  
+- Listar atividades complementares (Tabela AACC e tabela atividades extras)
+- As informações da colaçao de grau e do ENADE são definidas no curso.
+
+
+--------------------------------------------
+UC 215 - Visualizar Boletim
+- No gráfico informa apenas o código do componente
+
+Imprimir o gráfico no relatório boletim do aluno incluindo uma quebra de página de tal forma
+que o gráfico fique em um página separada
+
+
+---------------------------------------------
+Ajuste no relatório bolentim
+Separar as disciplinas por etapa, duas abordagens:
+	1. lista de disciplinas em tabelas separadas por etapa
+	2. lista de disciplinas ordenada por etapa/disiciplinas e mesclar as as colunas das etapas não informadas.
+
+ 

@@ -1,0 +1,38 @@
+{% extends super_template %}
+
+{% block content %}
+    {% box 'Detalhes da Escolha' %}
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Servidor</td>
+                    <td>{{ recesso_opcao_escolhida.funcionario }}</td>
+                </tr>
+                <tr>
+                    <td>Descrição da Opção</td>
+                    <td>
+                        {{ recesso_opcao_escolhida.recesso_opcao }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Opções de Dias a Compensar</td>
+                    <td>
+                        {{ recesso_opcao_escolhida.recesso_opcao.dias_do_recesso.all|join:', ' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dias Escolhidos pelo Servidor</td>
+                    <td>
+                        {% if recesso_opcao_escolhida.dias_escolhidos.count %}
+                            {{ recesso_opcao_escolhida.dias_escolhidos.all|join:', ' }}
+                        {% else %}
+                            <span class='status status-rejeitado text-nowrap-normal'>Nenhum dia escolhido</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% render_form form %}
+{% endblock %}

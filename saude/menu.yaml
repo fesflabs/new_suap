@@ -1,0 +1,268 @@
+Saúde::Agenda de Atendimentos:
+  permissions_required:
+  - saude.pode_ver_agenda_atendimento
+  url: /saude/agenda_atendimentos/
+Saúde::Atividades em Grupo:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /admin/saude/atividadegrupo/
+Saúde::Cadastros::CID:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/cid/
+Saúde::Cadastros::Categorias de Exame Laboratorial:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/categoriaexamelaboratorial/
+Saúde::Cadastros::Dificuldades Orais:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/dificuldadeoral/
+Saúde::Cadastros::Doenças:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/doenca/
+Saúde::Cadastros::Drogas:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/droga/
+Saúde::Cadastros::Métodos Contraceptivos:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/metodocontraceptivo/
+Saúde::Cadastros::Nutrição::Alimento/Bebida para Frequência de Prática Alimentar:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/frequenciapraticaalimentar/
+Saúde::Cadastros::Nutrição::Avaliação Gastrointestinal:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/avaliacaogastrointestinal/
+Saúde::Cadastros::Nutrição::Diagnóstico Nutricional:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/diagnosticonutricional/
+Saúde::Cadastros::Nutrição::Motivo do Atendimento:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/motivoatendimentonutricao/
+Saúde::Cadastros::Nutrição::Orientação Nutricional:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/orientacaonutricional/
+Saúde::Cadastros::Nutrição::Perguntas de Marcador Alimentar:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/perguntamarcadornutricao/
+Saúde::Cadastros::Nutrição::Receitas:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/receitanutricional/
+Saúde::Cadastros::Nutrição::Respostas de Perguntas de Marcador Alimentar:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/opcaorespostamarcadornutricao/
+Saúde::Cadastros::Nutrição::Restrições Alimentares:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/restricaoalimentar/
+Saúde::Cadastros::Planejamento de Ações Educativas::Ano de Referência:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/anoreferenciaacaoeducativa/
+Saúde::Cadastros::Planejamento de Ações Educativas::Metas:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/metaacaoeducativa/
+Saúde::Cadastros::Planejamento de Ações Educativas::Objetivos:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/objetivoacaoeducativa/
+Saúde::Cadastros::Procedimentos Multidisciplinares:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/procedimentomultidisciplinar/
+Saúde::Cadastros::Procedimentos Odontológicos:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/procedimentoodontologia/
+Saúde::Cadastros::Procedimentos de Enfermagem:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/procedimentoenfermagem/
+Saúde::Cadastros::Psicologia::Motivo da Chegada:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/motivochegadapsicologia/
+Saúde::Cadastros::Psicologia::Queixa:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/queixapsicologica/
+Saúde::Cadastros::Tipo de Atividade em Grupo:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/tipoatividadegrupo/
+Saúde::Cadastros::Tipo de Exame Laboratorial:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/tipoexamelaboratorial/
+Saúde::Cadastros::Vacinas:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/vacina/
+Saúde::Cartão Vacinal:
+  groups_required:
+    - Aluno
+    - Servidor
+    - Prestador de Serviço
+  url: /saude/cartao_vacinal/
+Saúde::COVID-19::Passaporte Vacinal::Meu Passaporte Vacinal:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  groups_required:
+    - Aluno
+    - Servidor
+    - Prestador de Serviço
+  url: /saude/passaporte_vacinacao_covid/
+Saúde::COVID-19::Passaporte Vacinal::Validação de Passaportes:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  permissions_required:
+    -  saude.view_passaportevacinalcovid
+  url: /admin/saude/passaportevacinalcovid/
+Saúde::COVID-19::Passaporte Vacinal::Relatório do Passaporte Vacinal:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  permissions_required:
+    - saude.pode_ver_todos_passaportes
+    - saude.pode_ver_passaportes_do_campus
+  url: /saude/relatorio_passaporte_vacinal/
+Saúde::COVID-19::Passaporte Vacinal::Relatório - Servidores do Setor:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  groups_required:
+    - Chefe de Setor
+  url: /saude/relatorio_passaporte_vacinal_chefia/
+Saúde::COVID-19::Passaporte Vacinal::Validação Intercampi:
+  permissions_required:
+    - saude.add_validadorintercampi
+  url: /admin/saude/validadorintercampi/
+Saúde::COVID-19::Passaporte Vacinal::Verificação de Passaporte Vacinal:
+  permissions_required:
+    - saude.pode_verificar_passaportes
+  url: /saude/verificacao_passaporte_vacinal/
+Saúde::COVID-19::Relatório de Vacinação:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  permissions_required:
+    - saude.pode_ver_todos_passaportes
+    - saude.pode_ver_passaportes_do_campus
+  url: /saude/relatorio_vacinacao_covid/
+Saúde::COVID-19::Notificações:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  permissions_required:
+    - saude.view_notificacaocovid
+  url: /admin/saude/notificacaocovid/
+Saúde::COVID-19::Monitoramento:
+  config_required:
+    - saude.utiliza_passaporte_vacinal
+  groups_required:
+    - Aluno
+    - Servidor
+    - Prestador de Serviço
+  url: /saude/relatorio_notificacao_covid/
+Saúde::Planejamento de Ações Educativas:
+  order: 5
+Saúde::Planejamento de Ações Educativas::Metas:
+  permissions_required:
+  - saude.view_metaacaoeducativa
+  url: /admin/saude/metaacaoeducativa/
+Saúde::Prontuários:
+  permissions_required:
+  - saude.view_prontuario
+  url: /saude/prontuarios/
+Saúde::Registros Administrativos:
+  permissions_required:
+  - saude.view_registroadministrativo
+  url: /admin/saude/registroadministrativo/
+Saúde::Relatórios:
+  order: 6
+Saúde::Relatórios::Alergias:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/lista_alunos/
+Saúde::Relatórios::Avaliação Biomédica::Acuidade Visual:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_acuidade_visual/
+Saúde::Relatórios::Avaliação Biomédica::Antropometria:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_antropometria/
+Saúde::Relatórios::Avaliação Biomédica::Desenvolvimento Pessoal:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_desenvolvimento_pessoal/
+Saúde::Relatórios::Avaliação Biomédica::Exame Físico:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_exame_fisico/
+Saúde::Relatórios::Avaliação Biomédica::Hábitos de Vida:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_habitos_vida/
+Saúde::Relatórios::Avaliação Biomédica::Percepção de Saúde Bucal:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_percepcao_saude_bucal/
+Saúde::Relatórios::Avaliação Biomédica::Processo Saúde-Doença:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_saude_doenca/
+Saúde::Relatórios::Estatísticas de Atendimentos por Curso:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/estatistica_geral_atendimento/
+Saúde::Relatórios::Indicadores de Saúde:
+  permissions_required:
+  - saude.view_prontuario
+  url: /saude/indicadores/
+Saúde::Relatórios::Listagem de Atendimentos:
+  permissions_required:
+  - saude.view_atendimento
+  url: /admin/saude/atendimento/
+Saúde::Relatórios::Listagem de Atendimentos Odontológicos:
+  groups_required:
+  - Odontólogo
+  - Técnico em Saúde Bucal
+  - Auditor
+  - Coordenador de Saúde Sistêmico
+  - Coordenador de Atividades Estudantis
+  - Coordenador de Atividades Estudantis Sistêmico
+  - Coordenador de Saúde
+  url: /saude/relatorios_atendimentos_odontologicos/
+Saúde::Relatórios::Listagem de Pacientes Bloqueados:
+  permissions_required:
+  - saude.view_bloqueioatendimentosaude
+  url: /admin/saude/bloqueioatendimentosaude/
+Saúde::Relatórios::Relatório de Atendimentos::Médico/Enfermagem:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/relatorio_atendimento_medico_enfermagem/
+Saúde::Relatórios::Relatório de Atendimentos::Odontologia:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/relatorio_atendimento_odontologia/
+Saúde::Relatórios::Relatório de Atendimentos::Psicologia:
+  groups_required:
+  - Psicólogo
+  url: /saude/relatorio_atendimento_psicologia/
+Saúde::Relatórios::Vacinas:
+  permissions_required:
+  - saude.view_atividadegrupo
+  url: /saude/graficos_vacinas/
+Saúde::Cadastros::Sintoma:
+  groups_required:
+  - Coordenador de Saúde Sistêmico
+  url: /admin/saude/sintoma/

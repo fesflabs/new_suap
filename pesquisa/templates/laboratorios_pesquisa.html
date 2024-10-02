@@ -1,0 +1,61 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/comum/js/jquery.masonry.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery(".masonry").masonry({
+                itemSelector: ".masonry > div"
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block action-bar %}
+<ul class="action-bar">
+    <li><a class="btn success" href="/admin/pesquisa/laboratoriopesquisa/add/">Adicionar Laboratório</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% if laboratorios.exists %}
+
+        <ul class="masonry boxes services">
+            {% for laboratorio in laboratorios %}
+                <li class="box-item">
+                    <h4>{{ laboratorio.nome }}</h4>
+                    <p>{{ laboratorio.descricao }}</p>
+                    <dl>
+                        <dt>Coordenador:</dt>
+                        <dd>{{ laboratorio.coordenador }}</dd>
+                        <dt>Contato:</dt>
+                        <dd>{{ laboratorio.contato }}</dd>
+                    </dl>
+                    {% if laboratorio.servicolaboratoriopesquisa_set.exists %}
+                        <h5>Serviços:</h5>
+                        <ul>
+                            {% for servico in laboratorio.servicolaboratoriopesquisa_set.all %}
+                                <li>{{ servico }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <ul class="action-bar">
+                        {% if eh_coordenador_projeto %}
+                            <li><a class="btn success" href="/pesquisa/solicitar_servico_laboratorio/{{ laboratorio.id }}/">{% icone "share" %} Solicitar Serviço</a></li>
+                        {% endif %}
+                        <li><a href="/pesquisa/laboratorio_pesquisa/{{ laboratorio.id }}/" class="btn default">{% icone "search" %} Visualizar</a></li>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p class="msg alert">Nenhum laboratório encontrado.</p>
+    {% endif %}
+
+{% endblock %}

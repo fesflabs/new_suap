@@ -1,0 +1,95 @@
+
+// Brand Colors
+$brand-dark-color:     #09162c;
+$brand-hover-color:    #d9e3f3;
+$index-false-color:    #ffd700;
+$brand-color:          #1351b4; // --color-primary-default
+$secondary-color:      #2670e8; // --color-primary-lighten-01
+$terciary-color:       #071d41; // --color-primary-darken-02
+$bg-hover-color:       #dbe8fb;
+
+// Color Scale
+$grey-50:              #f8f8f8;
+$grey-100:             #ededed;
+$grey-200:             #ccc;
+$grey-300:             #9e9d9d;
+$grey-400:             #888;
+$grey-500:             #707070;
+$grey-600:             #555;
+$black:                #333;
+
+// Extra Colors
+$flat-blue:            #155bcb; // --color-info
+$flat-yellow:          #ffcd07; // --color-warning
+$flat-dark-yellow:     #f2e317; // Support 02
+$flat-green:           #168821; // --color-success
+$flat-orange:          #db4800; // --color-support-03
+$flat-red:             #e60000; // --color-danger
+
+// Status Colors
+$warning-color:        $flat-yellow;
+$warning-active-color: $flat-dark-yellow;
+
+// Layout Colors
+$body-bg-color:        $white;
+$alertas-bg-color:     $body-bg-color;
+$aside-bg-color:       $body-bg-color;
+$aside-right-bg-color: $body-bg-color;
+$breadcrumbs-color:    $brand-color;
+$button-active-color:  $brand-color;
+$hover-color:          $secondary-color;
+$link-color:           $brand-color;
+$main-index-bg-color:  $body-bg-color;
+$usertools-bg-color:   transparent;
+
+// Components Colors
+$ancoras-bg-color:               $aside-right-bg-color;
+$timeline-text-color:            $black;
+$timeline-alert-text-color:      $black;
+$timeline-alert-title-color:     $black;
+$timeline-default-text-color:    $white;
+$timeline-default-title-color:   $white;
+$timeline-error-text-color:      $white;
+$timeline-error-title-color:     $white;
+$timeline-extra-text-color:      $white;
+$timeline-extra-title-color:     $white;
+$timeline-info-text-color:       $white;
+$timeline-info-title-color:      $white;
+$timeline-success-text-color:    $white;
+$timeline-success-title-color:   $white;
+
+// Layout
+$basis-nav-collapsed:       120px;
+$basis-nav:                 310px;
+$grid-area-end-row-2:       "footer footer";
+$grid-area-end-row-3:       "footer footer footer";
+
+// Margins and gaps
+$main-p:                    5rem;
+$main-pt:                   11rem;
+$main-pr:                   $main-p;
+$main-pl:                   $main-p;
+$main-p-sm:                 2.5rem;
+$main-pl-sm:                $main-p-sm;
+$menu-margin:               $main-p;
+$regular-gap:               5rem;
+
+// Forms
+$max-width-inputs:          100%;
+
+// Opacity
+$opacity-bg-alertas:        0.95;
+$opacity-bg-legenda:        1;
+$timeline-bg-opacity:       1;
+$timeline-bg-inner-opacity: 1;
+$timeline-details-opacity:  1;
+
+// Styling
+$title-container-color:     $grey-600;
+$title-container-size:      3rem;
+$title-container-weight:    500;
+
+// Functional
+$border-radius:             0;
+$box-shadow:                0 1px 6px rgba(0, 0, 0,.16);
+$letter-spacing:            .03em;

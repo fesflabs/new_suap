@@ -1,0 +1,100 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="/static/documento_eletronico/js/hwcrypto-legacy.js"></script>
+    <script src="/static/documento_eletronico/js/hwcrypto.js"></script>
+    <script src="/static/documento_eletronico/js/hex2base.js"></script>
+    <script src="/static/documento_eletronico/js/jquery.js"></script>
+    <script src="/static/documento_eletronico/js/token.js" ></script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block content_title %}
+    <div class="title-container">
+        <h2>Assinatura de documento via Token: {{ documento_id }}</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <p class="pb-4">Passo {{ wizard.steps.step1 }} de {{ wizard.steps.count }}</p>
+    <form id="wizard_form" action name="wizard_form" enctype="multipart/form-data"  method="post">{% csrf_token %}
+        <table>
+            {{ wizard.management_form }}
+            {{ wizard.form.media }}
+            {% if wizard.form.forms %}
+                {{ wizard.form.management_form }}
+                {% for form in wizard.form.forms %}
+                     {% render_form form %}
+                {% endfor %}
+            {% else %}
+                 {% with form=wizard.form %}
+                    {% render_form form %}
+                {% endwith %}
+            {% endif %}
+        </table>
+        {% if wizard.steps.prev %}
+            <button class="default" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Anterior</button>
+        {% endif %}
+    </form>
+    <script>
+        jQuery(document).ready(function() {
+            var btn_txt = jQuery('#wizard_form > div.submit-row > input.default').val();
+            jQuery("#wizard_form").submit(function (event, options) {
+                options = options || {};
+
+                if (typeof jQuery('#id_papel').val() == "undefined") {
+                    return true;
+                }
+                if(jQuery('#id_papel').val() == "") {
+                    jQuery('#papel_form > div.submit-row > input.default').prop('disabled', false)
+                    jQuery('#papel_form > div.submit-row > input.default').val(btn_txt);
+                    jQuery('#papel_form > div:nth-child(2) > fieldset > div').find('.errorlist').remove();
+                    jQuery('#papel_form > div:nth-child(2) > fieldset > div').find('div').prepend('' +
+                        '<ul class="errorlist"><li>Este campo é obrigatório.</li></ul>');
+                    return false;
+                }
+                if (!options.lots_of_stuff_done )
+                {
+                    event.preventDefault();
+                    callback_sign("{{ hash }}").then(function (result) {
+                        // retrigger the submit event with lots_of_stuff_done set to true
+                        $(event.currentTarget).trigger('submit', {
+                            'lots_of_stuff_done': true,
+                            'cert': result.cert,
+                            'sig': result.sig,
+                            'data': result.data,
+                        });
+                    });
+                }
+                else{
+                    var cert = $("<input>").attr("type", "hidden").attr("name", "cert").val(options.cert);
+                    var sig = $("<input>").attr("type", "hidden").attr("name", "sig").val(options.sig);
+                    var data = $("<input>").attr("type", "hidden").attr("name", "data").val(options.data);
+                    var date = $("<input>").attr("type", "hidden").attr("name", "date").val(options.date);
+                    $(this).append($(cert));
+                    $(this).append($(sig));
+                    $(this).append($(data));
+                    $(this).append($(date));
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block asideright %}
+
+    <aside class="right">
+
+        <details open="open">
+            <summary>Dados Gerais</summary>
+            <div class="details-container">
+                {% include "includes/documento_details.html" %}
+            </div>
+        </details>
+
+    </aside>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+    <style>
+        .lista-botoes {
+            font-size: 300%;
+        }
+
+        .lista-botoes li {
+            list-style-type: none !important;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .big-input {
+            width: 50% !important;
+            height: 100px !important;
+            font-size: 400% !important;
+            padding: 3px;
+        }
+
+        .big-label {
+            margin-top: 30px;
+            height: 100px !important;
+            font-size: 400% !important;
+            padding: 3px;
+            margin-left: 50px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if aluno %}
+
+        <div class="lista-botoes">
+            <ul>
+                {% if aluno.possui_historico %}
+
+                    {% if aluno.is_matriculado %}
+                        <li><a class="btn default" href="/edu/emitir_historico_parcial_pdf/{{ aluno.pk }}/">Histórico
+                            Parcial</a></li>
+                        <li><a class="btn default" href="/edu/comprovante_matricula_pdf/{{ aluno.pk }}/">Comprovante de
+                            Matrícula</a></li>
+                        <li><a class="btn default" href="/edu/atestadofrequencia_pdf/{{ aluno.pk }}/">Atestado de
+                            Frequência</a></li>
+                        {% if not aluno.is_ultima_matricula_em_aberto %}
+                            <li><a class="btn default" href="/edu/declaracaomatricula_pdf/{{ aluno.pk }}/">Declaração de
+                                Matrícula</a></li>
+                        {% endif %}
+                        {% if aluno.possui_vinculo %}
+                            <li><a class="btn default" href="/edu/declaracaovinculo_pdf/{{ aluno.pk }}/">Declaração de
+                                Vínculo</a></li>
+                        {% endif %}
+                        <li><a class="btn default" href="/edu/comprovante_dados_academicos_pdf/{{ aluno.pk }}">Comprovante
+                            de Dados Acadêmicos</a></li>
+                        <li><a class="btn danger no-confirm" href="?logout=1">Encerrar Sessão</a></li>
+                    {% endif %}
+
+                {% endif %}
+
+            </ul>
+        </div>
+
+    {% else %}
+        <br/><br/><br/><br/><br/><br/>
+        {% if request.POST and not aluno %}
+            <p class="errornote">Matrícula e senha não conferem.</p>
+        {% endif %}
+        <form method="post" id="form">
+            {% csrf_token %}
+
+            <div align="center">
+                <label class="big-label">Matrícula</label>
+                <input type="text" class="big-input" name="matricula" value="{{ request.POST.matricula }}">
+            </div>
+
+            <div align="center">
+                <label class="big-label">Senha</label>
+                <input type="password" id="senha" name="senha" class="big-input">
+            </div>
+
+        </form>
+    {% endif %}
+
+    <script>
+        $('#senha').keypress(function (e) {
+            if (e.which == 13) {
+                $('#form').submit();
+                return false;
+            }
+        });
+    </script>
+
+{% endblock %}

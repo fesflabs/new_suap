@@ -1,0 +1,178 @@
+{% extends super_template %}
+{% load static %}
+
+{% block extrahead %}
+<script src="{% static 'comum/js/main.js' %}"></script>  
+<script>
+var elemento = ".list-articles > ul";
+var total = {{ todas_notificacoes.count }};
+var pk = {{ notificacao.pk }};
+
+function adicionaAncora(counter) {
+    if (counter < total) {
+        $(elemento).removeClass("complete");
+        $.ajax({
+            type: "GET",
+            url: "/comum/busca_notificacao/" + counter + "/",
+            dataType: "json",
+            success: function (result) {
+                $(result.itens).appendTo(elemento);
+
+                $(elemento).find(".article-anchor").off('click').on("click", function(e) {
+                    clicaAncora($(this));
+                    e.preventDefault();
+                });
+
+                init_action_bar(elemento);
+                ativaNotificacao();
+                ordenaNotificacoes();
+            }
+        });
+    } else {
+        $(elemento).addClass("complete");
+    }
+}
+
+function ordenaNotificacoes(){
+    $(".list-articles > ul > li").sort((a,b) => $(b).data("article") - $(a).data("article")).appendTo(elemento);
+}
+
+function ativaNotificacao() {
+    let notificacao = $("[data-article='" + pk + "']");
+    if (notificacao.hasClass("can-read")) {
+        notificacao.removeClass("non-read");
+    }
+    notificacao.addClass("active");
+}
+
+function getArticleNotificacaoAjax(el) {
+    $.ajax({
+        type: "GET",
+        url: "/comum/notificacao/" + $(el).data('notificacao') + "?ajax=true",
+        dataType: "html",
+        success: function (result) {
+            $('article').html(result).removeClass("loader");
+        }
+    });
+}
+
+function atualizaActionBar(ancora) {
+    $(ancora).next(".action-bar").find("li > ul > [data-lida]").removeClass("d-none");
+    $(ancora).next(".action-bar").find("li > ul > [data-nao-lida]").addClass("d-none");
+}
+
+function clicaAncora(ancora, exibir_notificacao=true, mark=false) {
+
+    let li = jQuery(ancora).parent();
+
+    if (exibir_notificacao) { // Clique orgânico
+        // Limpa a área de notificações
+        $('article').html("").addClass("loader");
+
+        // Exibe a Notificação
+        getArticleNotificacaoAjax(ancora);
+
+         // Atualiza a âncora ativa
+        jQuery(".list-articles .article-container").removeClass("active");
+        li.addClass("active");
+    }
+
+    // Salva a leitura da notificação
+    if (mark) {  // Clique nas funcoes de marcar todas do agrupamento
+        if (mark=="lida") {
+            if ($(ancora).parent().hasClass("non-read")) {
+                $.ajax("/comum/marcar_como_lida/" + $(ancora).data("notificacao") + "/").done(function(result) {
+                    li.removeClass("non-read");
+                    AtualizarContadorNotificacoesNaoLidas("-");
+                });
+
+                // Atualiza botões do action-bar
+                atualizaActionBar(ancora);
+            }
+        } else {
+            if (!$(ancora).parent().hasClass("non-read")) {
+                $.ajax("/comum/marcar_como_nao_lida/" + $(ancora).data("notificacao") + "/").done(function(result) {
+                    li.addClass("non-read");
+                    AtualizarContadorNotificacoesNaoLidas("+");
+                });
+
+                // Atualiza botões do action-bar
+                $(ancora).next(".action-bar").find("li > ul > [data-lida]").addClass("d-none");
+                $(ancora).next(".action-bar").find("li > ul > [data-nao-lida]").removeClass("d-none");
+            }
+        }
+    } else { // Clique orgânico
+        if (li.hasClass("can-read") && li.hasClass("non-read")){
+            $.ajax("/comum/marcar_como_lida/" + $(ancora).data("notificacao") + "/").done(function(result) {
+                li.removeClass("non-read");
+                AtualizarContadorNotificacoesNaoLidas("-");
+            });
+        }
+
+        // Atualiza botões do action-bar
+        atualizaActionBar(ancora);
+    }
+}
+
+jQuery(document).ready(function() {
+
+    // Marca a primeira notificação como lida e active
+    ativaNotificacao();
+
+    // Navega entre as notificações
+    $(".article-anchor").on("click", function(e){
+        clicaAncora($(this));
+        e.preventDefault();
+    });
+
+    // Infinite Scroll
+    var counter = 10;
+    adicionaAncora(counter);
+    $(elemento).on("scroll", function() {
+        counter++;
+        adicionaAncora(counter);
+    });
+
+    // Marcar todas as notificações agrupadas
+    $("[data-notificacao-mark-all]").on("click", function(e){
+        let ancoras = $(this).parent().parent().parent().parent().next(".article-grouped-items").find(".article-anchor");
+        for (var i = 0; i < ancoras.length; i++) {
+            clicaAncora(ancoras[i], false, $(this).data("notificacao-mark-all"));
+        }
+        e.preventDefault();
+    });
+});
+</script>
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if notificacoes %}
+            <li><a href="{% url 'marcar_todas_notificacoes_como_lidas' %}" class="btn confirm" data-confirm="Você tem certeza que deseja marcar todas as suas notificações como lidas?">{% icone "eye" %} Marcar Todas como Lidas</a></li>
+        {% endif %}
+        <li><a href="/admin/comum/registronotificacao/" class="btn default">{% icone "search" %} Visualizar Todas</a></li>
+        <li><a href="/admin/comum/preferencianotificacao/" class="btn default">{% icone "cog" %} Preferências de Recebimento</a></li>
+        {% if qtd_notificacoes_antigas %}
+            <li><a href="/comum/excluir_notificacoes_antigas/" class="btn danger" data-confirm="Você tem certeza que deseja remover todas as suas notificações lidas ({{ qtd_notificacoes_antigas }}) há mais de um mês?">{% icone "trash" %} Remover {{ qtd_notificacoes_antigas }} Notificações Antigas</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if notificacoes %}
+        <div class="list-articles">
+            <ul>
+                {% for notificacao in notificacoes %}
+                    {% include "notificacao_ancora.html" %}
+                {% endfor %}
+            </ul>
+            <article>
+                {% include "notificacao_artigo.html" %}
+            </article>
+        </div>
+    {% else %}
+        <p class="msg alert">Não há notificações não lidas.</p>
+    {% endif %}
+
+{% endblock %}

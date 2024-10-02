@@ -1,0 +1,152 @@
+[
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 1,
+    "fields": {
+        "valorporfuncao": 43,
+        "valor_venc": "131.35",
+        "valor_gadf": "218.04",
+        "valor_age": "584.11"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 2,
+    "fields": {
+        "valorporfuncao": 44,
+        "valor_venc": "112.20",
+        "valor_gadf": "186.24",
+        "valor_age": "329.59"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 3,
+    "fields": {
+        "valorporfuncao": 45,
+        "valor_venc": "92.95",
+        "valor_gadf": "154.29",
+        "valor_age": "261.92"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 4,
+    "fields": {
+        "valorporfuncao": 46,
+        "valor_venc": "63.53",
+        "valor_gadf": "105.45",
+        "valor_age": "90.18"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 5,
+    "fields": {
+        "valorporfuncao": 47,
+        "valor_venc": "52.30",
+        "valor_gadf": "86.81",
+        "valor_age": "71.19"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 6,
+    "fields": {
+        "valorporfuncao": 48,
+        "valor_venc": "38.73",
+        "valor_gadf": "64.30",
+        "valor_age": "51.17"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 7,
+    "fields": {
+        "valorporfuncao": 57,
+        "valor_venc": "137.26",
+        "valor_gadf": "227.86",
+        "valor_age": "610.39"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 8,
+    "fields": {
+        "valorporfuncao": 58,
+        "valor_venc": "117.24",
+        "valor_gadf": "194.62",
+        "valor_age": "344.42"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 9,
+    "fields": {
+        "valorporfuncao": 59,
+        "valor_venc": "97.13",
+        "valor_gadf": "161.24",
+        "valor_age": "273.70"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 10,
+    "fields": {
+        "valorporfuncao": 60,
+        "valor_venc": "66.39",
+        "valor_gadf": "110.20",
+        "valor_age": "94.24"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 11,
+    "fields": {
+        "valorporfuncao": 61,
+        "valor_venc": "54.65",
+        "valor_gadf": "90.71",
+        "valor_age": "74.39"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 12,
+    "fields": {
+        "valorporfuncao": 62,
+        "valor_venc": "40.48",
+        "valor_gadf": "67.19",
+        "valor_age": "53.47"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 13,
+    "fields": {
+        "valorporfuncao": 63,
+        "valor_venc": "38.63",
+        "valor_gadf": "64.13",
+        "valor_age": "0.00"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 14,
+    "fields": {
+        "valorporfuncao": 64,
+        "valor_venc": "28.58",
+        "valor_gadf": "47.44",
+        "valor_age": "0.00"
+    }
+},
+{
+    "model": "calculos_pagamentos.valoresfuncaodetalhados",
+    "pk": 15,
+    "fields": {
+        "valorporfuncao": 65,
+        "valor_venc": "23.18",
+        "valor_gadf": "38.49",
+        "valor_age": "0.00"
+    }
+}
+]

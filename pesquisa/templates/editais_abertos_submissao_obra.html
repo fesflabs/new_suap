@@ -1,0 +1,32 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% if editais.exists %}
+		<table>
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th>Linha Editorial</th>
+					<th>Data de Início da Submissão</th>
+					<th>Data de Término da Submissão</th>
+                    <th class="no-print">Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for edital in editais %}
+					<tr>
+						<td>{{ edital.titulo }}</td>
+						<td>{{ edital.linha_editorial.all|format }}</td>
+						<td>{{ edital.data_inicio_submissao }}</td>
+                        <td>{{ edital.data_termino_submissao }}</td>
+						<td class="no-print"><a href="/pesquisa/submeter_obra/{{ edital.id }}/" class="btn success">Submeter Obra</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else  %}
+		<p class="msg alert">Nenhum edital disponível para submissão de obra.</p>
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,322 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="884" measuredH="541" mockupW="770" mockupH="501">
+  <controls>
+    <control controlID="1709" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="114" y="40" w="770" h="501" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suape.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1710" controlTypeID="com.balsamiq.mockups::SubTitle" x="136" y="150" w="-1" h="-1" measuredW="388" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cadastro%20de%20Grupo%20de%20Atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="1711" controlTypeID="com.balsamiq.mockups::TextInput" x="491" y="260" w="275" h="-1" measuredW="106" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Suporte%20N%EDvel%203</text>
+      </controlProperties>
+    </control>
+    <control controlID="1712" controlTypeID="com.balsamiq.mockups::Label" x="491" y="239" w="-1" h="-1" measuredW="34" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Nome</text>
+      </controlProperties>
+    </control>
+    <control controlID="1713" controlTypeID="com.balsamiq.mockups::Button" x="136" y="424" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+    <control controlID="1714" controlTypeID="com.balsamiq.mockups::ComboBox" x="136" y="205" w="120" h="-1" measuredW="116" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Natal%20-%20Central</text>
+      </controlProperties>
+    </control>
+    <control controlID="1715" controlTypeID="com.balsamiq.mockups::Label" x="137" y="184" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Campus</text>
+      </controlProperties>
+    </control>
+    <control controlID="1716" controlTypeID="com.balsamiq.mockups::ComboBox" x="491" y="318" w="131" h="-1" measuredW="108" measuredH="24" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fulano%20de%20Tal</text>
+      </controlProperties>
+    </control>
+    <control controlID="1717" controlTypeID="com.balsamiq.mockups::ComboBox" x="282" y="203" w="163" h="-1" measuredW="88" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sistemico</text>
+      </controlProperties>
+    </control>
+    <control controlID="1718" controlTypeID="com.balsamiq.mockups::Label" x="282" y="184" w="-1" h="-1" measuredW="26" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Tipo</text>
+      </controlProperties>
+    </control>
+    <control controlID="1719" controlTypeID="com.balsamiq.mockups::Label" x="491" y="299" w="-1" h="-1" measuredW="77" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Respons%E1vel</text>
+      </controlProperties>
+    </control>
+    <control controlID="1720" controlTypeID="com.balsamiq.mockups::TextInput" x="491" y="205" w="272" h="-1" measuredW="72" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <markup>true</markup>
+        <text>Sistemico</text>
+      </controlProperties>
+    </control>
+    <control controlID="1721" controlTypeID="com.balsamiq.mockups::Label" x="491" y="184" w="-1" h="-1" measuredW="153" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Grupo%20de%20Atendimento%20Pai</text>
+      </controlProperties>
+    </control>
+    <control controlID="1722" controlTypeID="com.balsamiq.mockups::Tree" x="136" y="260" w="300" h="82" measuredW="300" measuredH="225" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5B-%5D%20Sistemico%0A.%5B-%5D%20Suporte%20N%EDvel%202%0A..%5B-%5D%20Suporte%20N%EDvel%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="1723" controlTypeID="com.balsamiq.mockups::Label" x="137" y="239" w="-1" h="-1" measuredW="112" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%C1rvore%20Hier%E1rquica</text>
+      </controlProperties>
+    </control>
+    <control controlID="1724" controlTypeID="com.balsamiq.mockups::VRule" x="466" y="189" w="-1" h="220" measuredW="10" measuredH="100" zOrder="15" locked="false" isInGroup="-1"/>
+    <control controlID="1725" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="114" y="40" w="770" h="501" measuredW="450" measuredH="400" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suape.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1726" controlTypeID="com.balsamiq.mockups::SubTitle" x="136" y="129" w="-1" h="-1" measuredW="213" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lista%20de%20Chamados</text>
+      </controlProperties>
+    </control>
+    <control controlID="1727" controlTypeID="com.balsamiq.mockups::DataGrid" x="136" y="223" w="723" h="173" measuredW="715" measuredH="111" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Selecionar%2C%20Servi%E7o%2C%20Em%20nome%20de%2C%20Solicitante%2C%20Aberto%20em%2C%20Tempo%20SLA%2C%20Autorizado%0A%5B%20%5D%2C%20Cria%E7%E3o%20de%20Conta%20de%20Email%2C%20Sicrano%20de%20Tal%2C%20Fulano%20de%20Tal%2C%2026/06/2014%2009%3A00%2C%201%20hora%2C%20%5Bx%5D%0A%5B%20%5D%2C%20Troca%20de%20m%E1quina%2C%20Sicrano%20de%20Tal%2C%20Fulano%20de%20Tal%2C%2025/06/2014%2009%3A00%2C%2025%20horas%2C%20%5Bx%5D%0A%5Bx%5D%2C%20Instala%E7%E3o%20de%20software%2C%20Sicrano%20de%20Tal%2C%20Fulano%20de%20Tal%2C%2025/06/2014%2009%3A00%2C%2025%20horas%2C%20%5B%20%5D%0A%7B0C%2C%2065L%2C%200L%2C%200L%2C%200C%2C%200C%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="1728" controlTypeID="com.balsamiq.mockups::ComboBox" x="359" y="181" w="224" h="-1" measuredW="119" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Suporte%20N%EDvel%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="1729" controlTypeID="com.balsamiq.mockups::ComboBox" x="136" y="181" w="214" h="-1" measuredW="116" measuredH="24" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Natal%20-%20Central</text>
+      </controlProperties>
+    </control>
+    <control controlID="1730" controlTypeID="com.balsamiq.mockups::Label" x="136" y="162" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Campus</text>
+      </controlProperties>
+    </control>
+    <control controlID="1731" controlTypeID="com.balsamiq.mockups::Label" x="359" y="162" w="-1" h="-1" measuredW="132" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Grupo%20de%20Atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="1732" controlTypeID="com.balsamiq.mockups::ComboBox" x="593" y="181" w="123" h="-1" measuredW="70" measuredH="24" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Aberto</text>
+      </controlProperties>
+    </control>
+    <control controlID="1733" controlTypeID="com.balsamiq.mockups::Label" x="593" y="162" w="-1" h="-1" measuredW="39" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status</text>
+      </controlProperties>
+    </control>
+    <control controlID="1734" controlTypeID="com.balsamiq.mockups::Button" x="147" y="426" w="-1" h="-1" measuredW="205" measuredH="27" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Rebaixar%20N%EDvel%20de%20Atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="1735" controlTypeID="com.balsamiq.mockups::Button" x="148" y="460" w="202" h="27" measuredW="197" measuredH="27" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Escalar%20N%EDvel%20de%20Atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="1736" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="114" y="40" w="770" h="501" measuredW="450" measuredH="400" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suape.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1737" controlTypeID="com.balsamiq.mockups::SubTitle" x="136" y="150" w="-1" h="-1" measuredW="388" measuredH="27" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cadastro%20de%20Grupo%20de%20Atendimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="1738" controlTypeID="com.balsamiq.mockups::TextInput" x="491" y="260" w="275" h="-1" measuredW="106" measuredH="27" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Suporte%20N%EDvel%203</text>
+      </controlProperties>
+    </control>
+    <control controlID="1739" controlTypeID="com.balsamiq.mockups::Label" x="491" y="239" w="-1" h="-1" measuredW="34" measuredH="21" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Nome</text>
+      </controlProperties>
+    </control>
+    <control controlID="1740" controlTypeID="com.balsamiq.mockups::Button" x="136" y="424" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+    <control controlID="1741" controlTypeID="com.balsamiq.mockups::ComboBox" x="136" y="205" w="120" h="-1" measuredW="116" measuredH="24" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Natal%20-%20Central</text>
+      </controlProperties>
+    </control>
+    <control controlID="1742" controlTypeID="com.balsamiq.mockups::Label" x="137" y="184" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Campus</text>
+      </controlProperties>
+    </control>
+    <control controlID="1743" controlTypeID="com.balsamiq.mockups::ComboBox" x="491" y="318" w="131" h="-1" measuredW="108" measuredH="24" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fulano%20de%20Tal</text>
+      </controlProperties>
+    </control>
+    <control controlID="1744" controlTypeID="com.balsamiq.mockups::ComboBox" x="282" y="203" w="163" h="-1" measuredW="88" measuredH="24" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sistemico</text>
+      </controlProperties>
+    </control>
+    <control controlID="1745" controlTypeID="com.balsamiq.mockups::Label" x="282" y="184" w="-1" h="-1" measuredW="26" measuredH="21" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Tipo</text>
+      </controlProperties>
+    </control>
+    <control controlID="1746" controlTypeID="com.balsamiq.mockups::Label" x="491" y="299" w="-1" h="-1" measuredW="77" measuredH="21" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Respons%E1vel</text>
+      </controlProperties>
+    </control>
+    <control controlID="1747" controlTypeID="com.balsamiq.mockups::TextInput" x="491" y="205" w="272" h="-1" measuredW="72" measuredH="27" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <markup>true</markup>
+        <text>Sistemico</text>
+      </controlProperties>
+    </control>
+    <control controlID="1748" controlTypeID="com.balsamiq.mockups::Label" x="491" y="184" w="-1" h="-1" measuredW="153" measuredH="21" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Grupo%20de%20Atendimento%20Pai</text>
+      </controlProperties>
+    </control>
+    <control controlID="1749" controlTypeID="com.balsamiq.mockups::Tree" x="136" y="260" w="300" h="82" measuredW="300" measuredH="225" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5B-%5D%20Sistemico%0A.%5B-%5D%20Suporte%20N%EDvel%202%0A..%5B-%5D%20Suporte%20N%EDvel%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="1750" controlTypeID="com.balsamiq.mockups::Label" x="137" y="239" w="-1" h="-1" measuredW="112" measuredH="21" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%C1rvore%20Hier%E1rquica</text>
+      </controlProperties>
+    </control>
+    <control controlID="1751" controlTypeID="com.balsamiq.mockups::VRule" x="466" y="189" w="-1" h="220" measuredW="10" measuredH="100" zOrder="42" locked="false" isInGroup="-1"/>
+    <control controlID="1752" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="114" y="40" w="770" h="501" measuredW="450" measuredH="400" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="1753" controlTypeID="com.balsamiq.mockups::SubTitle" x="136" y="129" w="-1" h="-1" measuredW="252" measuredH="27" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Base%20de%20Conhecimento</text>
+      </controlProperties>
+    </control>
+    <control controlID="1754" controlTypeID="com.balsamiq.mockups::Label" x="136" y="223" w="-1" h="-1" measuredW="48" measuredH="21" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Resumo</text>
+      </controlProperties>
+    </control>
+    <control controlID="1755" controlTypeID="com.balsamiq.mockups::Button" x="136" y="468" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+    <control controlID="1756" controlTypeID="com.balsamiq.mockups::ComboBox" x="136" y="184" w="275" h="-1" measuredW="189" measuredH="24" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cria%E7%E3o%20de%20Conta%20de%20Email</text>
+      </controlProperties>
+    </control>
+    <control controlID="1757" controlTypeID="com.balsamiq.mockups::Label" x="137" y="163" w="-1" h="-1" measuredW="46" measuredH="21" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Servi%E7o</text>
+      </controlProperties>
+    </control>
+    <control controlID="1758" controlTypeID="com.balsamiq.mockups::ComboBox" x="430" y="182" w="82" h="-1" measuredW="79" measuredH="24" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>T%E9cnico</text>
+      </controlProperties>
+    </control>
+    <control controlID="1759" controlTypeID="com.balsamiq.mockups::Label" x="430" y="163" w="-1" h="-1" measuredW="26" measuredH="21" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Tipo</text>
+      </controlProperties>
+    </control>
+    <control controlID="1760" controlTypeID="com.balsamiq.mockups::TextArea" x="136" y="245" w="376" h="55" measuredW="200" measuredH="140" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Verifica-se%20se%20o%20usu%E1rio%20est%E1%20dispon%EDvel.%20Estando%20dispon%EDvel%2C%20cria-se%20o%20usu%E1rio%20e%20email.</text>
+      </controlProperties>
+    </control>
+    <control controlID="1761" controlTypeID="com.balsamiq.mockups::Label" x="524" y="163" w="-1" h="-1" measuredW="33" measuredH="21" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>T%EDtulo</text>
+      </controlProperties>
+    </control>
+    <control controlID="1762" controlTypeID="com.balsamiq.mockups::TextInput" x="524" y="183" w="345" h="-1" measuredW="173" measuredH="27" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cria%E7%E3o%20de%20Conta%20de%20Email</text>
+      </controlProperties>
+    </control>
+    <control controlID="1763" controlTypeID="com.balsamiq.mockups::Label" x="136" y="309" w="-1" h="-1" measuredW="47" measuredH="21" zOrder="54" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Solu%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="1764" controlTypeID="com.balsamiq.mockups::TextArea" x="136" y="357" w="376" h="111" measuredW="200" measuredH="140" zOrder="55" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Verifica-se%20se%20o%20usu%E1rio%20%28nome.ultimonome%29%20est%E1%20dispon%EDvel%20atrav%E9s%20do%20LDAP.%20Estando%20dispon%EDvel%2C%20cria-se%20o%20usu%E1rio%20e%20email.</text>
+      </controlProperties>
+    </control>
+    <control controlID="1765" controlTypeID="com.balsamiq.mockups::FormattingToolbar" x="136" y="331" w="265" h="-1" measuredW="261" measuredH="29" zOrder="56" locked="false" isInGroup="-1"/>
+    <control controlID="1766" controlTypeID="com.balsamiq.mockups::Label" x="524" y="223" w="-1" h="-1" measuredW="29" measuredH="21" zOrder="57" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tags</text>
+      </controlProperties>
+    </control>
+    <control controlID="1767" controlTypeID="com.balsamiq.mockups::TextInput" x="524" y="245" w="345" h="-1" measuredW="179" measuredH="27" zOrder="58" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Email%2C%20Conta%2C%20Usu%E1rio%2C%20Login</text>
+      </controlProperties>
+    </control>
+    <control controlID="1769" controlTypeID="com.balsamiq.mockups::List" x="532" y="357" w="337" h="111" measuredW="100" measuredH="126" zOrder="59" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Instalador1.exe%0AInstalador2.exe%0AInstalador3.exe</text>
+      </controlProperties>
+    </control>
+    <control controlID="1770" controlTypeID="com.balsamiq.mockups::Label" x="532" y="335" w="-1" h="-1" measuredW="114" measuredH="21" zOrder="60" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Arquivos%20Anexados</text>
+      </controlProperties>
+    </control>
+    <control controlID="1771" controlTypeID="com.balsamiq.mockups::Button" x="748" y="470" w="-1" h="-1" measuredW="120" measuredH="27" zOrder="61" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Anexar%20Arquivos</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

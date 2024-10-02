@@ -1,0 +1,602 @@
+[
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 1,
+    "fields": {
+        "codigo": "P01",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 2,
+    "fields": {
+        "codigo": "P02",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 3,
+    "fields": {
+        "codigo": "P03",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 4,
+    "fields": {
+        "codigo": "P04",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 5,
+    "fields": {
+        "codigo": "P05",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 6,
+    "fields": {
+        "codigo": "P06",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 7,
+    "fields": {
+        "codigo": "P07",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 8,
+    "fields": {
+        "codigo": "P08",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 9,
+    "fields": {
+        "codigo": "P09",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 10,
+    "fields": {
+        "codigo": "P10",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 11,
+    "fields": {
+        "codigo": "P11",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 12,
+    "fields": {
+        "codigo": "P12",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 13,
+    "fields": {
+        "codigo": "P13",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 14,
+    "fields": {
+        "codigo": "P14",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 15,
+    "fields": {
+        "codigo": "P15",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 16,
+    "fields": {
+        "codigo": "P16",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 17,
+    "fields": {
+        "codigo": "P17",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 18,
+    "fields": {
+        "codigo": "P18",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 19,
+    "fields": {
+        "codigo": "P19",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 20,
+    "fields": {
+        "codigo": "P20",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 21,
+    "fields": {
+        "codigo": "P21",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 22,
+    "fields": {
+        "codigo": "P22",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 23,
+    "fields": {
+        "codigo": "P23",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 24,
+    "fields": {
+        "codigo": "P24",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 25,
+    "fields": {
+        "codigo": "P25",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 26,
+    "fields": {
+        "codigo": "P26",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 27,
+    "fields": {
+        "codigo": "P27",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 28,
+    "fields": {
+        "codigo": "P28",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 29,
+    "fields": {
+        "codigo": "P29",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 30,
+    "fields": {
+        "codigo": "P30",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 31,
+    "fields": {
+        "codigo": "P31",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 32,
+    "fields": {
+        "codigo": "P32",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 33,
+    "fields": {
+        "codigo": "P33",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 34,
+    "fields": {
+        "codigo": "P34",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 35,
+    "fields": {
+        "codigo": "P35",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 36,
+    "fields": {
+        "codigo": "P36",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 37,
+    "fields": {
+        "codigo": "P37",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 38,
+    "fields": {
+        "codigo": "P38",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 39,
+    "fields": {
+        "codigo": "P39",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 40,
+    "fields": {
+        "codigo": "P40",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 41,
+    "fields": {
+        "codigo": "P41",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 42,
+    "fields": {
+        "codigo": "P42",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 43,
+    "fields": {
+        "codigo": "P43",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 44,
+    "fields": {
+        "codigo": "P44",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 45,
+    "fields": {
+        "codigo": "P45",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 46,
+    "fields": {
+        "codigo": "P46",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 47,
+    "fields": {
+        "codigo": "P47",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 48,
+    "fields": {
+        "codigo": "P48",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 49,
+    "fields": {
+        "codigo": "P49",
+        "categoria": "tecnico_administrativo"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 50,
+    "fields": {
+        "codigo": "D101",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 51,
+    "fields": {
+        "codigo": "D102",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 52,
+    "fields": {
+        "codigo": "D201",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 53,
+    "fields": {
+        "codigo": "D202",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 54,
+    "fields": {
+        "codigo": "D301",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 55,
+    "fields": {
+        "codigo": "D302",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 56,
+    "fields": {
+        "codigo": "D303",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 57,
+    "fields": {
+        "codigo": "D304",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 58,
+    "fields": {
+        "codigo": "D401",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 59,
+    "fields": {
+        "codigo": "D402",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 60,
+    "fields": {
+        "codigo": "D403",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 61,
+    "fields": {
+        "codigo": "D404",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 62,
+    "fields": {
+        "codigo": "D501",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 63,
+    "fields": {
+        "codigo": "4-401",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 64,
+    "fields": {
+        "codigo": "4-402",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 65,
+    "fields": {
+        "codigo": "5-501",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 66,
+    "fields": {
+        "codigo": "5-502",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 67,
+    "fields": {
+        "codigo": "6-601",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 68,
+    "fields": {
+        "codigo": "6-602",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 69,
+    "fields": {
+        "codigo": "6-603",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 70,
+    "fields": {
+        "codigo": "6-604",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 71,
+    "fields": {
+        "codigo": "7-701",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 72,
+    "fields": {
+        "codigo": "7-702",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 73,
+    "fields": {
+        "codigo": "7-703",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 74,
+    "fields": {
+        "codigo": "7-704",
+        "categoria": "docente"
+    }
+},
+{
+    "model": "calculos_pagamentos.nivelvencimento",
+    "pk": 75,
+    "fields": {
+        "codigo": "8-801",
+        "categoria": "docente"
+    }
+}
+]

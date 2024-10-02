@@ -1,0 +1,72 @@
+{% extends "admin/base_anonima.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}<meta name="test_suap_login" content="1">{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block content %}
+    {% if form.non_field_errors or form.this_is_the_login_form.errors %}
+        {% for error in form.non_field_errors %}
+            <p class="errornote">
+                {{ error }}
+            </p>
+        {% endfor %}
+    {% endif %}
+    <div id="login">
+        <h2>SUAP: Sistema Unificado de Administração Pública</h2>
+        <h3><span class="fas fa-lock" aria-hidden="true"></span> Login {% get_valor_por_chave 'comum' 'instituicao_sigla' %}</h3>
+        {% if form.errors and not form.non_field_errors and not form.this_is_the_login_form.errors %}
+            <p class="errornote">
+                {% blocktrans count form.errors.items|length as counter %}Por favor, corrija o erro abaixo. {% plural %}Por favor, corrija os erros abaixo. {% endblocktrans %}
+            </p>
+        {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+            <p class="msg {{ message.tags }}" id="feedback_message">
+                {{ message|safe }}
+            </p>
+            {% endfor %}
+        {% endif %}
+        <form action="{{ app_path }}" method="post" autocomplete="off">{% csrf_token %}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="form-row">
+                {% if not form.this_is_the_login_form.errors %}{{ form.username.errors }}{% endif %}
+                <label for="id_username" class="required">Usuário:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-row">
+                {% if not form.this_is_the_login_form.errors %}{{ form.password.errors }}{% endif %}
+                <label for="id_password" class="required">Senha:</label>
+                {{ form.password }}
+                <input type="hidden" name="this_is_the_login_form" value="1"/>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </div>
+            {% if settings.RECAPTCHA_PUBLIC_KEY %}
+                <div class="form-row" id="captcha-row">
+                    {% if not form.this_is_the_login_form.errors %}{{ form.recaptcha.errors }}{% endif %}
+                    <label for="id_recaptcha" class="required">Captcha:</label>
+                    {{ form.recaptcha }}
+                </div>
+            {% endif %}
+            <div class="submit-row">
+                <input type="submit" class="btn success" value="Acessar" />
+            </div>
+            <div class="form-row">
+                <a href="/comum/solicitar_trocar_senha/" class="remember-password">Esqueceu ou deseja alterar sua senha?</a>
+            </div>
+             {% if  autenticacao_govbr_habilitada %}
+            <h3 class="mt-3"><span class="fas fa-lock" aria-hidden="true"></span> Usuários Externos</h3>
+            <div class="form-row mt-3 text-center">
+                <a href="{% url 'social:begin' 'govbr' %}" class="btn default login-govbr">
+                    Entrar com <span>Gov.BR</span>
+                </a>
+            </div>
+             {% endif %}
+        </form>
+    </div>
+
+{% endblock %}

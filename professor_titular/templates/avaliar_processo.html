@@ -1,0 +1,239 @@
+{% extends super_template %}
+
+{% load rsc_tags %}
+
+{% block extrahead %}
+    <style>
+        ol.lower-alpha > li { list-style-type: lower-alpha; list-style: lower-alpha; }
+        ol.decimal > li { list-style-type: decimal; list-style: decimal; }
+        div.instrucoes-gerais { line-height: 20px; }
+        .boxsizingBorder {
+            -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                         width: 100%
+        }
+        .tbox .tcontent h2, .tbox .tcontent h3 {
+            margin: 0 !important;
+        }
+    </style>
+            
+    <script>
+	    function finalizar_avaliacao(avaliacao_id){
+	    	if(confirm('Deseja mesmo finalizar esta avaliação? Depois de finalizada não será mais possível editá-la.')){
+		        $.ajax({
+		                type: "POST",
+		                url: '/professor_titular/finalizar_avaliacao_titular/'+avaliacao_id+'/',
+		                data: $('#form_avaliacao').serialize(),
+		                success: function (retorno) {
+		                    if (retorno.ok) {
+		                    	alert(retorno.msg)
+		                    	window.location.href = "/professor_titular/processo_avaliacao/";
+		                    }else {
+		                        alert(retorno.msg)
+		                    }
+		                }
+		        });
+	    	}
+	    }
+	    
+	    function onInitTabs(){
+	        preencher_relatorio_descritivo();
+	        preencher_documentos_preliminares();
+	        
+	        preencher_quadro_resumo_avaliacao();
+	        $("a[data-tab='quadro_resumo_avaliacao']").on('click', function(){
+	        	preencher_quadro_resumo_avaliacao();
+	        });
+
+            $("a[data-tab='relatorio_descritivo']").on('click', function(){
+            preencher_relatorio_descritivo();
+            });
+	    }
+
+	    function preencher_relatorio_descritivo(){
+	        $.get("/professor_titular/relatorio_descritivo/{{ processo.id }}/", function(data) {
+	            $("div[data-tab='relatorio_descritivo']").html(data);
+	        })
+	    }
+	    
+	    function preencher_documentos_preliminares(){
+            $.get("/professor_titular/documentos_preliminares/{{ processo.id }}/", function(data) {
+                $("div[data-tab='documentos_preliminares']").html(data);
+            });
+        }
+	    
+	    function preencher_quadro_resumo_avaliacao(){
+            $.get("/professor_titular/quadro_resumo_avaliacao/{{ avaliacao.id }}/", function(data) {
+                $("div[data-tab='quadro_resumo_avaliacao']").html(data);
+            });
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<form id="form_avaliacao">
+    {% csrf_token %}
+    <ul class="action-bar">
+        {% if avaliacao.pode_avaliar %}
+            <li><a href="javascript:void(0);" onclick="finalizar_avaliacao({{ avaliacao.id }})" class="btn success">Finalizar Avaliação</a></li>
+            <li><a href="/professor_titular/desistir_avaliacao/{{ avaliacao.id }}" class="btn popup danger no-confirm">Desistir da Avaliação</a></li>
+        {% else %}
+            <li><a class="btn" href="/professor_titular/processo_avaliacao/?tab=avaliacoes_concluidas">Voltar</a></li>
+        {% endif %}
+    </ul>
+</form>
+
+{% box 'Dados do Requerente' %}
+    <table class="info">
+        <tbody>
+            <tr>
+                <td>Nome:</td>
+                <td>{{ processo.servidor.nome }}</td>
+                <td>Matrícula SIAPE:</td>
+                <td>{{ processo.servidor.matricula }}</td>
+            </tr>
+            <tr>
+                <td>Pontuação Requerida:</td>
+                <td><span id="pontuacao_requerida">{{ processo.pontuacao_pretendida|format }}</span></td>
+                <td>Pontuação Validada:</td>
+                <td colspan="3"><span id="pontuacao_validada_com_corte">{{ pontuacao_validada_com_corte|format }}</span></td>
+            </tr>
+        </tbody>
+    </table>
+{% endbox %}
+		
+<div class="tab-container" data-title="Instruções gerais" data-tab="instrucoes_gerais">
+    
+    <ol class="instrucoes_gerais lista-numerada">
+                <li>O módulo Titular do SUAP é composto por três partes para preenchimento:
+	                <ol>
+	                    <li>Documentos preliminares: inserção de documentos que habilitam para o processo de avaliação e fornecem referências para os efeitos da data de retroatividade correspondente. São validados pela CPPD após envio do processo pelo docente. São eles:
+		                    <ul>
+		                        <li>cópia do termo de avaliação de desempenho para fins de progressão para a Classe Titular, com resultado positivo, expedido pelo órgão de gestão de pessoas da unidade de lotação do docente;</li>
+		                        <li>data de conclusão e cópia do diploma de doutorado; e</li>
+		                        <li>data da progressão para a Classe D-IV-4 e cópia do documento comprobatório para a carreira de Professor de Ensino Básico, Técnico e Tecnológico (ou Professor de 1º e 2º Graus, para os mais antigos) , expedido pelo órgão de gestão de pessoas da unidade de lotação do docente.</li>
+		                    </ul>
+						</li>
+	                    <li>Pontuação e descrição dos indicadores: inserção de documentos comprobatórios, com respectivas descrição analítica, pontuação e data de referência requeridas. A pontuação e a data de referência requeridas serão validadas pelos avaliadores no momento da análise do processo. A descrição analítica inserida comporá o memorial descritivo.</li>
+	                    <li>Memorial descritivo: composição cronológica dos indicadores descritos no item anterior, correlacionados de acordo com o art. 6º da Resolução, com possibilidade de inserção de introdução, considerações finais e acréscimo de informações complementares para cada item.</li>
+	                </ol>
+                </li>
+                <li>TODOS os documentos comprobatórios a serem inseridos no módulo Titular do SUAP (em qualquer uma das partes) devem:
+	                <ol>
+	                    <li>ser digitalizados e armazenados individualmente em um único arquivo por documento comprobatório (mesmo que tenha várias folhas ou seja composto por mais de um documento; por exemplo, para demonstrar um período em meses, o documento comprobatório pode ser composto por um documento que inicia o período e outro que finalizar e deverão estar no mesmo arquivo. Situação similar acontece para a comprovação de um artigo publicado em periódico com indexação em que se queira registrar o aceite do artigo e demonstrar a indexação do periódico, colocando os dois documentos num único arquivo como documento comprobatório);</li>
+	                    <li>ter integridade dos arquivos garantida pelo docente (os arquivos deverão ser conferidos e não conter erros ou folhas faltando, pois não poderão ser substituídos posteriormente); e</li>
+	                    <li>ter nomes de arquivos condizentes com o conteúdo (pois serão listados na geração do processo).</li>
+
+	                </ol>
+                </li>
+                <li>Para cada documento inserido no módulo Titular do SUAP, será necessário que o docente estipule a respectiva data de referência. É importante atentar que a data não é necessariamente aquela de assinatura do documento, mas aquela a que se refere ao indicador para o qual está sendo solicitada a pontuação.</li>
+                <li>Cabe ressaltar as seguintes dificuldades enfrentadas pelos avaliadores de outros processos conduzidos pela CPPD em relação à data de referência dos documentos:
+	                <ol>
+	                    <li>Devem ser consideradas como data de referência de certificados e diplomas:
+		                    <ul>
+		                        <li>a data de conclusão de cursos de graduação, capacitação, especialização ou aperfeiçoamento; e</li>
+		                        <li>a data de homologação da defesa, de cursos de mestrado ou doutorado.</li>
+		                    </ul>
+	                    </li>
+	                    <li>Nos documentos em que não é possível identificar a data completa (dia/mês/ano): </li>
+	                    <ul>
+	                        <li>se estiver disponível apenas o ano, deve ser considerada como data de referência o último dia do ano (31/12 do respectivo ano); e</li>
+	                        <li>se estiver disponível mês e ano, deve ser considerada como data de referência o último dia do respectivo mês.</li>
+	                    </ul>
+	                    <li>Para os indicadores medidos em meses, deve-se considerar como data de referência o último mês a ser pontuado (atentar que, em alguns casos, o documento apresenta uma data posterior à necessária para atingimento da pontuação).</li>
+	                    <li>Para os indicadores medidos como participação/realização de atividades, deve-se considerar como data de referência o início da atividade.</li>
+	                </ol>
+                </li>
+                <li>Ao final do cadastro do processo pelo docente no SUAP, deverão ser impressos e organizados, nessa sequência (gerados pelo próprio SUAP):
+	                <ol>
+	                    <li>a capa do processo</li>
+	                    <li>o requerimento de solicitação de promoção à Classe Titular (Anexo I da Resolução) – deve ser assinado;</li>
+	                    <li>o formulário de pontuação e data de retroatividade requeridas (Anexo II da Resolução) – deve ser assinado;</li>
+	                    <li>o memorial descritivo (alíneas “a” a “o” do art. 6º da Resolução); e</li>
+	                    <li>a listagem com os documentos comprobatórios inseridos pelo docente em cada indicador.</li>
+	                </ol>
+                </li>
+                <li>A data de retroatividade requerida será calculada automaticamente pelo SUAP, tendo por base as datas de referência inseridas pelo docente para cada documento anexado e considerando a data mais recente em que são contabilizados pontos para atingimento da pontuação mínima para o exercício (conforme Anexo III da Resolução), a data de obtenção do título de doutorado e a data da progressão para D-IV-4.</li>
+                <li>Legislação aplicada:
+                    <ol>
+                        <li><a target="_blank" href="http://portal.ifrn.edu.br/conselhos/consup/resolucoes/2015/resolucao-no-07-2015/view">RESOLUÇÃO Nº 07/2015</a></li>
+                        <li><a target="_blank" href="http://portal.ifrn.edu.br/servidores/rotinas-administrativas/notas-tecnicas/nota-tecnica_03_2015_estabelece-orientacoes-especificas_professor-titular_aprovacao-e-comprovacao-documental/view">Nota Técnica 03/2015</a></li>
+                        <li><a target="_blank" href="http://portal.ifrn.edu.br/servidores/rotinas-administrativas/notas-tecnicas/nota-tecnica_04_2015_estabelece-orientacoes-especificas_professor-titular_fluxo-processual-eletronico/view">Nota Técnica 04/2015</a></li>
+                        <li><a target="_blank" href="http://portal.ifrn.edu.br/servidores/rotinas-administrativas/notas-tecnicas/nota-tecnica_05_2015_estabelece-orientacoes-especificas_professor-titular_banco-de-avaliadores-titular_2/view">Nota Técnica 05/2015</a></li>
+                        <li><a target="_blank" href="http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12772.htm">LEI Nº 12.772, DE 28 DE DEZEMBRO DE 2012</a></li>
+                        <li><a target="_blank" href="http://pesquisa.in.gov.br/imprensa/jsp/visualiza/index.jsp?data=07/10/2013&jornal=1&pagina=12&totalArquivos=144">PORTARIA Nº 982, DE 3 DE OUTUBRO DE 2013</a></li>
+                    </ol>
+                </li>
+            </ol>
+</div>
+
+<div class="tab-container" data-title="Documentos preliminares" data-tab="documentos_preliminares"></div>
+
+<div class="tab-container" data-title="Memorial descritivo" data-tab="relatorio_descritivo"></div>
+
+<div class="tab-container" data-title="Avaliação" data-tab="avaliacao">
+    
+    {% regroup arquivos by arquivo.criterio.indicador.grupo as grupos %}
+    {% for grupo in grupos %}
+	    <h3>Grupo {{ grupo.grouper }}</h3>
+	        <table>
+	            <thead>
+	                <tr>
+	                    <th>Artigo</th>
+	                    <th>Descrição</th>
+	                    <th>Ver arquivo</th>
+	                    <th>Data de Referência Requerida</th>
+	                    <th>Pontos por item</th>
+                        <th>Quantidade de Itens</th>
+	                    <th>Pontuação Requerida</th>
+                        <th>Situação</th>
+                        {% if avaliacao.pode_avaliar %}
+                            <th>Opções</th>
+                        {% endif %}
+	                </tr>
+	            </thead>
+	            <tbody>
+	                {% regroup grupo.list by arquivo.criterio.indicador as arquivos_indicador %}
+	                {% for arquivo_indicador in arquivos_indicador %}
+	                    <tr>
+	                        <td colspan="10"><p class="negrito">{{ arquivo_indicador.grouper }}</p> </td>
+	                    </tr>
+    	                {% for arquivo in arquivo_indicador.list %}
+    	                    <tr>
+    	                        <td align="right" {% if arquivo.justificativa %}rowspan="2"{% endif %}>{{ arquivo.arquivo.criterio.artigo }}</td>
+    	                        <td>{{ arquivo.arquivo.criterio.nome }}</td>
+    	                        <td><a href="/professor_titular/visualizar_arquivo_pdf/{{arquivo.arquivo.encrypted_pk}}" target="_blank">Visualizar o arquivo</a></td>
+    	                        <td align="center">{{ arquivo.arquivo.data_referencia }}</td>
+                                <td align="center">{{ arquivo.arquivo.criterio.pontos }}</td>
+    	                        <td align="center">{{ arquivo.arquivo.qtd_itens }}</td>
+    	                        <td align="center">{{ arquivo.arquivo.nota_pretendida }}</td>
+    	                        <td>
+    	                            {% if arquivo.item_validado %}
+                                        <span class="status status-success" id="status">Avaliado</span>
+                                    {% else %}
+                                        <span class="status status-alert" id="status">Não avaliado</span>
+                                    {% endif %}
+                                </td>
+                                {% if avaliacao.pode_avaliar %}
+                                    <td><a name="{{ arquivo.arquivo.id }}" class="btn {% if arquivo.item_validado %}primary {% else %}success {% endif %}" href="/professor_titular/avaliar_item/{{ arquivo.id }}">{% if arquivo.item_validado %} Editar {% else %} Avaliar {% endif %}</a></td>
+                                {% endif %}
+    	                    </tr>
+                            {% if arquivo.justificativa %}
+                                <tr>
+                                    <td colspan="8"><strong>Justificativa:</strong> {{ arquivo.justificativa }}</td>
+                                </tr>
+                            {% endif %}
+    	                {% endfor %}
+	                {% endfor %}
+	            </tbody>
+	        </table>
+	{% endfor %}
+
+</div>
+
+<div class="tab-container" data-title="Quadro de Resumo da Avaliação" data-tab="quadro_resumo_avaliacao">
+</div>
+        
+{% endblock %}

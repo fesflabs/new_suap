@@ -1,0 +1,106 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% for funcionario in funcionarios %}
+        {% box '{{ funcionario.funcionario.nome }}' %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Prestador de Serviço</dt>
+                    <dd>{{ funcionario.funcionario|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Setor/Campus</dt>
+                    <dd>{{ funcionario.funcionario.setor }} - {{ funcionario.funcionario.setor.uo }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data</dt>
+                    <dd>{{ form.cleaned_data.faixa_0 }} a {{ form.cleaned_data.faixa_1 }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Tempo total</dt>
+                    <dd>{{ funcionario.total_periodo }}</dd>
+                </div>
+            </dl>
+
+            <h4>Frequências</h4>
+            {% if funcionario.frequencias %}
+                <table id="frequencias_pessoa">
+                    <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Registros</th>
+                        <th>Registros Como Servidor</th>
+                        <th>Duração</th>
+                        <th>Observações do Sistema</th>
+                        <th>Observações Pessoais</th>
+                        <th class="no-print">Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for f in funcionario.frequencias %}
+                        <tr>
+                            <td>{{ f.dia|date:"d/m/Y" }} ({{ f.dia|date:"l" }})</td>
+                            <td>
+                                {% for h in f.horarios %}
+                                    {% if h.acao == "E" %}
+                                        <p class="text-nowrap"><strong>{{ h.acao }}</strong>: <span
+                                                class="true">{{ h.horario|date:"H:i:s" }}</span> ({{ h.maquina }})</p>
+                                    {% else %}
+                                        <p class="text-nowrap"><strong>{{ h.acao }}</strong>: <span
+                                                class="false">{{ h.horario|date:"H:i:s" }}</span> ({{ h.maquina }})</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for key, value in f.horarios_servidor.items %}
+                                    {% for frequencia in value|getkey:'frequencias' %}
+                                        {% if frequencia.acao == "E" %}
+                                            <p class="text-nowrap"><strong>{{ frequencia.acao }}</strong>: <span
+                                                    class="true">{{ frequencia.horario|date:"H:i:s" }}</span>
+                                                ({{ frequencia.maquina }})</p>
+                                        {% else %}
+                                            <p class="text-nowrap"><strong>{{ frequencia.acao }}</strong>: <span
+                                                    class="false">{{ frequencia.horario|date:"H:i:s" }}</span>
+                                                ({{ frequencia.maquina }})</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ f.duracao }}</td>
+                            <td>
+                                {% for l in f.liberacoes %}
+                                    <p>{{ l.descricao }}</p>
+                                {% endfor %}
+                                {% if f.existe_conflitos %}
+                                    <span class="status status-error">{{ f.existe_conflitos }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% for o in f.observacoes %}
+                                    <p>{{ o }}
+                                        {% if funcionario.funcionario.pk == request.user.get_profile.funcionario.pk %}
+                                            {% icon "edit" "/ponto/observacao_editar/{{ o.id }}/" "Editar Observação" "popup" %}
+                                            {% icon "delete" "/ponto/observacao_remover/{{ o.id }}/" %}
+                                        {% endif %}
+                                    </p>
+                                {% endfor %}
+                            </td>
+                            <td class="no-print">
+                                {% if funcionario.funcionario.pk == request.user.get_profile.funcionario.pk %}
+                                    <a class="btn success popup" href='/ponto/observacao_adicionar/{{ f.dia|date:"dmY" }}/'>Adicionar Observação</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma frequência encontrada.</p>
+            {% endif %}
+        {% endbox %}
+        {% empty %}
+        <p class="msg alert">Nenhum funcionário encontrado.</p>
+    {% endfor %}
+
+{% endblock %}

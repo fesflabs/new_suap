@@ -1,0 +1,76 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        <li><a class="btn success" href="/demandas/adicionar_sugestao_melhoria/{{ area_atuacao.pk }}/?tags_ids={{ modulo.pk }}">{% icone "plus" %} Adicionar Sugestão</a></li>
+        <li><a class="btn default" href="/admin/demandas/sugestaomelhoria/?area_atuacao__id__exact={{ area_atuacao.pk }}&tags__id__exact={{ modulo.pk }}">{% icone "search" %} Visualizar Todas</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if sugestoes %}
+        <div class="grid-container grid-columns-80-20">
+            <div class="grid-item">
+                {% if sugestoes_ativas %}
+                    {% for sugestao in sugestoes_ativas %}
+                        <div class="general-box">
+                            <div class="primary-info">
+                                <span class="status status-{{ sugestao.get_situacao_display|slugify }}">{{ sugestao.get_situacao_display }}</span>
+                                {% if sugestao.qtd_votos != 0 %}<span class="status status-default">{{ sugestao.qtd_votos }} voto{{ sugestao.qtd_votos|pluralize }}</span>{% endif %}
+                                {% if sugestao.pode_votar %}
+                                    <ul class="action-bar">
+                                        <li>
+                                            <a href="/demandas/concordar_sugestao/{{ sugestao.pk }}"
+                                                class="btn {% if sugestao.ja_concordou %}disabled{% else %}success{% endif %}"
+                                                title="{% if sugestao.ja_concordou %}Você já concordou com esta sugestão{% else %}Concordar com a sugestão{% endif %}">
+                                                {% icone "thumbs-up" %}<span class="sr-only">Concordar</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/demandas/discordar_sugestao/{{ sugestao.pk }}"
+                                                class="btn no-confirm {% if sugestao.ja_discordou %}disabled{% else %}danger{% endif %}"
+                                                title="{% if sugestao.ja_discordou %}Você já discordou desta sugestão{% else %}Discordar da sugestão{% endif %}">
+                                                {% icone "thumbs-down" %}<span class="sr-only">Discordar</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                                <h3>
+                                    <small>{{ sugestao.pk }}</small>
+                                    <a href="/demandas/sugestao_melhoria/{{ sugestao.pk }}/">{{ sugestao.titulo }}</a>
+                                </h3>
+                                <p>{{ sugestao.descricao|linebreaksbr|truncatechars:1000 }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="msg alert">Nenhuma sugestão ativa.</p>
+                {% endif %}
+            </div>
+
+            <div class="grid-item">
+                <div class="total-container flex-container">
+                    <a href="/admin/demandas/sugestaomelhoria/?area_atuacao__id__exact={{ area_atuacao.pk }}&tags__id__exact={{ modulo.pk }}&situacao__exact=4&tab=tab_todas" class="total-item info">
+                        <span class="fas fa-thumbs-up" aria-hidden="true"></span>
+                        <p class="total">{{ sugestoes_deferidas }}</p>
+                        <p class="description">Deferidas</p>
+                    </a>
+                    <a href="/admin/demandas/sugestaomelhoria/?area_atuacao__id__exact={{ area_atuacao.pk }}&tags__id__exact={{ modulo.pk }}&situacao__exact=4&tab=tab_todas" class="total-item success">
+                        <span class="fas fa-thumbs-up" aria-hidden="true"></span>
+                        <p class="total">{{ sugestoes_implementadas }}</p>
+                        <p class="description">Implementadas</p>
+                    </a>
+                    <a href="/admin/demandas/sugestaomelhoria/?area_atuacao__id__exact={{ area_atuacao.pk }}&tags__id__exact={{ modulo.pk }}&situacao__exact=5&tab=tab_todas" class="total-item error">
+                        <span class="fas fa-thumbs-down" aria-hidden="true"></span>
+                        <p class="total">{{ sugestoes_indeferidas }}</p>
+                        <p class="description">Indeferidas</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="msg alert">Nenhuma sugestão cadastrada. Seja o primeiro.</p>
+    {% endif %}
+
+{% endblock %}

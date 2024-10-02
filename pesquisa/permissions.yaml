@@ -1,0 +1,335 @@
+Aluno:
+  app_manager: edu
+  pesquisa:
+    laboratoriopesquisa:
+    - view_laboratoriopesquisa
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    projeto:
+    - pode_visualizar_projeto
+Aposentado:
+  app_manager: rh
+  pesquisa:
+    historicoequipe:
+    - delete_historicoequipe
+    laboratoriopesquisa:
+    - view_laboratoriopesquisa
+    - change_laboratoriopesquisa
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    projeto:
+    - pode_visualizar_projeto
+    - pode_interagir_com_projeto
+    - delete_projeto
+Assessor de Pesquisa:
+  description: Servidor da Pró-reitoria de Pesquisa que auxilia o Diretor de Pesquisa. Cadastra os editais de seleção de projetos, as comissões de avaliação e os laboratórios de pesquisa, além de consultar os projetos e gerenciar os históricos de participação dos membros das equipes dos projetos.
+  pesquisa:
+    avaliadorexterno:
+    - view_avaliadorexterno
+    - change_avaliadorexterno
+    - add_avaliadorexterno
+    - delete_avaliadorexterno
+    comissaoeditalpesquisa:
+    - add_comissaoeditalpesquisa
+    - view_comissaoeditalpesquisa
+    - change_comissaoeditalpesquisa
+    - delete_comissaoeditalpesquisa
+    edital:
+    - view_edital
+    - add_edital
+    - pode_ver_config_edital
+    historicoequipe:
+    - change_historicoequipe
+    laboratoriopesquisa:
+    - add_laboratoriopesquisa
+    - view_laboratoriopesquisa
+    - change_laboratoriopesquisa
+    - delete_laboratoriopesquisa
+    origemrecursoedital:
+    - add_origemrecursoedital
+    - view_origemrecursoedital
+    - change_origemrecursoedital
+    - delete_origemrecursoedital
+    projeto:
+    - view_projeto
+    - add_projeto
+    - pode_gerenciar_edital
+    - pode_pre_avaliar_projeto
+    - pode_avaliar_projeto
+    - pode_visualizar_projeto
+    - pode_visualizar_projetos_em_monitoramento
+    - pode_ver_equipe_projeto
+Auditor:
+  app_manager: rh
+  pesquisa:
+    avaliadorexterno:
+    - view_avaliadorexterno
+    comissaoeditalpesquisa:
+    - view_comissaoeditalpesquisa
+    edital:
+    - view_edital
+    - pode_ver_config_edital
+    projeto:
+    - pode_acessar_lista_projetos
+    - view_projeto
+    - pode_visualizar_projetos_em_monitoramento
+    - pode_ver_equipe_projeto
+Avaliador Sistêmico de Projetos de Pesquisa:
+  description: Servidor que tinha autorização para avaliar projetos de qualquer campus. Está em desuso desde o início da utilização da funcionalidade 'Indicar avaliador'.
+  pesquisa:
+    projeto:
+    - pode_avaliar_projeto
+    - pode_visualizar_projeto
+    - pode_ver_equipe_projeto
+    - pode_interagir_com_projeto
+Bibliotecário da Pesquisa:
+  description: Servidor que gera a ficha catalográfica das obras aceitas para publicação pela Editora.
+  pesquisa:
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    - pode_gerar_ficha_catalografica
+Conselheiro Editorial:
+  description: Servidor que faz parte do Conselho Editorial. É responsável por validar cada obra submetida e verificar se ela está pronta para publicação.
+  pesquisa:
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    - pode_validar_obra
+    pessoaexternaobra:
+    - add_pessoaexternaobra
+    - change_pessoaexternaobra
+    - delete_pessoaexternaobra
+Coordenador de Curso:
+  app_manager: edu
+  pesquisa:
+    projeto:
+    - pode_acessar_lista_projetos
+    - view_projeto
+    - add_projeto
+    - delete_projeto
+    - change_projeto
+Coordenador de Pesquisa:
+  description: Servidor do campus responsável pela pré-seleção de projetos do próprio campus e pela supervisão das atividades e dos gastos dos projetos durante a sua execução.
+  pesquisa:
+    avaliadorexterno:
+    - view_avaliadorexterno
+    - add_avaliadorexterno
+    - change_avaliadorexterno
+    - delete_avaliadorexterno
+    colaboradorexterno:
+    - view_colaboradorexterno
+    - change_colaboradorexterno
+    - add_colaboradorexterno
+    - delete_colaboradorexterno
+    comissaoeditalpesquisa:
+    - view_comissaoeditalpesquisa
+    - add_comissaoeditalpesquisa
+    - change_comissaoeditalpesquisa
+    - delete_comissaoeditalpesquisa
+    edital:
+    - view_edital
+    - change_edital
+    - add_edital
+    - delete_edital
+    laboratoriopesquisa:
+    - view_laboratoriopesquisa
+    - change_laboratoriopesquisa
+    projeto:
+    - view_projeto
+    - change_projeto
+    - pode_pre_avaliar_projeto
+    - pode_visualizar_projeto
+    - pode_visualizar_projetos_em_monitoramento
+    - pode_gerenciar_equipe_projeto
+    - pode_avaliar_cancelamento_projeto
+    - pode_ver_equipe_projeto
+    - pode_interagir_com_projeto
+    - pode_realizar_monitoramento_projeto
+    - pode_gerenciar_edital
+Diagramador de Obra:
+  description: Servidor responsável pela diagramação das obras aceitas para publicação.
+  pesquisa:
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    - pode_diagramar_obra
+Diretor Acadêmico:
+  app_manager: edu
+  pesquisa:
+    projeto:
+    - pode_acessar_lista_projetos
+    - view_projeto
+    - add_projeto
+    - delete_projeto
+    - change_projeto
+Diretor Geral:
+  app_manager: edu
+  pesquisa:
+    projeto:
+    - pode_acessar_lista_projetos
+    - view_projeto
+    - add_projeto
+    - delete_projeto
+    - change_projeto
+Diretor de Pesquisa:
+  description: Servidor da Pró-reitoria de Pesquisa que administra o módulo de projetos de pesquisa. Cadastra os editais de seleção de projetos, as comissões de avaliação, indica os avaliadores por projeto, gerencia os coordenadores de pesquisa, além de fazer os cadastros básicos do módulo.
+  pesquisa:
+    avaliadorexterno:
+    - view_avaliadorexterno
+    - change_avaliadorexterno
+    - add_avaliadorexterno
+    - delete_avaliadorexterno
+    colaboradorexterno:
+    - view_colaboradorexterno
+    - change_colaboradorexterno
+    - add_colaboradorexterno
+    - delete_colaboradorexterno
+    comissaoeditalpesquisa:
+    - add_comissaoeditalpesquisa
+    - view_comissaoeditalpesquisa
+    - change_comissaoeditalpesquisa
+    - delete_comissaoeditalpesquisa
+    edital:
+    - view_edital
+    - change_edital
+    - add_edital
+    - delete_edital
+    finalidadeservicolaboratorio:
+    - view_finalidadeservicolaboratorio
+    - change_finalidadeservicolaboratorio
+    - add_finalidadeservicolaboratorio
+    - delete_finalidadeservicolaboratorio
+    historicoequipe:
+    - change_historicoequipe
+    laboratoriopesquisa:
+    - add_laboratoriopesquisa
+    - view_laboratoriopesquisa
+    - change_laboratoriopesquisa
+    - delete_laboratoriopesquisa
+    materialconsumopesquisa:
+    - add_materialconsumopesquisa
+    - view_materialconsumopesquisa
+    - change_materialconsumopesquisa
+    origemrecursoedital:
+    - add_origemrecursoedital
+    - view_origemrecursoedital
+    - change_origemrecursoedital
+    - delete_origemrecursoedital
+    programaposgraduacao:
+      - add_programaposgraduacao
+      - view_programaposgraduacao
+      - change_programaposgraduacao
+    projeto:
+    - view_projeto
+    - add_projeto
+    - delete_projeto
+    - change_projeto
+    - pode_gerenciar_edital
+    - pode_pre_avaliar_projeto
+    - pode_avaliar_projeto
+    - pode_visualizar_projeto
+    - pode_visualizar_projetos_em_monitoramento
+    - pode_gerenciar_equipe_projeto
+    - pode_ver_equipe_projeto
+    - pode_interagir_com_projeto
+    - pode_realizar_monitoramento_projeto
+    - tem_acesso_sistemico
+  comum:
+    prestadorservico:
+    - add_prestadorservico
+    - change_prestadorservico
+    - view_prestadorservico
+Integrante da Editora:
+  description: Servidor responsável pelo cadastro das linhas editorais, dos editais de seleção de obras para publicação, pela verificação de autenticidade e análise preliminar, pela validação dos termos de autorização, além do cadastro das informações sobre a publicação e sobre a conclusão da publicação.
+  pesquisa:
+    editalsubmissaoobra:
+    - add_editalsubmissaoobra
+    - change_editalsubmissaoobra
+    - delete_editalsubmissaoobra
+    linhaeditorial:
+    - add_linhaeditorial
+    - change_linhaeditorial
+    - delete_linhaeditorial
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    pessoaexternaobra:
+    - add_pessoaexternaobra
+    - change_pessoaexternaobra
+    - delete_pessoaexternaobra
+Parecerista de Obra:
+  description: Servidor responsável pela avaliação das obras submetidas.
+  pesquisa:
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    - pode_avaliar_obra
+Prestador de Serviço:
+  app_manager: comum
+  pesquisa:
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    projeto:
+    - pode_visualizar_projeto
+Pré-Avaliador Sistêmico de Projetos de Pesquisa:
+  description: Servidor que pode pré-avaliar projetos de qualquer campus.
+  pesquisa:
+    avaliadorexterno:
+    - view_avaliadorexterno
+    comissaoeditalpesquisa:
+    - view_comissaoeditalpesquisa
+    - add_comissaoeditalpesquisa
+    - change_comissaoeditalpesquisa
+    - delete_comissaoeditalpesquisa
+    projeto:
+    - pode_pre_avaliar_projeto
+    - pode_visualizar_projeto
+    - pode_visualizar_projetos_em_monitoramento
+    - pode_ver_equipe_projeto
+    - pode_interagir_com_projeto
+    - pode_realizar_monitoramento_projeto
+Revisor de Obra:
+  description: Servidor responsável pela revisão linguística, textual e a normalização das obras.
+  pesquisa:
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    - pode_revisar_obra
+Servidor:
+  app_manager: rh
+  pesquisa:
+    historicoequipe:
+    - delete_historicoequipe
+    laboratoriopesquisa:
+    - view_laboratoriopesquisa
+    - change_laboratoriopesquisa
+    obra:
+    - add_obra
+    - change_obra
+    - delete_obra
+    projeto:
+    - pode_visualizar_projeto
+    - pode_interagir_com_projeto
+    - delete_projeto
+Supervisor de Projetos de Pesquisa:
+  description: Servidor responsável por supervisionar a execução das atividades e os registros dos gastos do projeto.
+  pesquisa:
+    projeto:
+    - pode_visualizar_projeto
+    - pode_visualizar_projetos_em_monitoramento
+    - pode_realizar_monitoramento_projeto
+    - pode_ver_equipe_projeto
+    - pode_interagir_com_projeto

@@ -1,0 +1,88 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CFFFB1F6-52FF-0833-295F-4C41D473B557" name="centralservicos_grupoatendimento_atendentes">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:50:47 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>atendente_grupoatendimento_atendentes</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="DCA0B145-F3AE-E226-F869-3C896677D520">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:51:55 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="atendente_id" id="3B753012-6653-A170-6E6B-2487C7348A0D">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:51:59 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8CD268AB-5CAC-7FE0-519E-07555E6FB749" referredColumn="AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06"/>
+</associations>
+</Column>
+<Column name="grupoatendimento_id" id="B0D61680-D6B2-62CF-DAE2-6513EB6A2CEA">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:52:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>407C8E33-C71E-0C8B-D495-21C0552A6B98</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="392F936C-7B37-FDD6-1C7E-4A1F89433228" referredColumn="407C8E33-C71E-0C8B-D495-21C0552A6B98"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A4B4E8C8-7E17-851C-C089-5FA7F92A41E7" name="centralservicos_atendente_grupoatendimento_PK">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:51:55 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DCA0B145-F3AE-E226-F869-3C896677D520"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A48DB48A-3986-36DC-4AEF-E24D09CC84BE" name="centralservicos_atendente_grupoatendimento_funcionario_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:51:59 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3B753012-6653-A170-6E6B-2487C7348A0D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A62CE19F-65EA-A751-BD81-D2A25E6BB5A1" name="centralservicos_atendente_grupoatendimento_centralservicos_grupoatendimento_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:52:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B0D61680-D6B2-62CF-DAE2-6513EB6A2CEA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

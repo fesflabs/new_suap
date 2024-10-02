@@ -1,0 +1,114 @@
+{% if obj.curso_campus.modalidade.grupoarquivoobrigatorio_set.exists %}
+    {% if not obj.possui_todos_documentos_obrigatorios %}
+        <p class="msg alert">
+            <strong>Atenção:</strong> Existem documentos obrigatórios não adicionados à pasta documental.
+        </p>
+    {% endif %}
+{% box 'Documentos Obrigatórios' %}
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>Grupo de Documento</th>
+                <th>Documentos Aceitos</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for grupo_documento in obj.curso_campus.modalidade.grupoarquivoobrigatorio_set.all %}
+                    <tr>
+                        <td>{{ grupo_documento }}</td>
+                        <td>
+                            <ul>
+                                {% for tipo_documento in grupo_documento.tipos.all %}
+                                    <li>{{ tipo_documento }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endbox %}
+{% endif %}
+
+{% box 'Pasta Documental' %}
+
+        {% if perms.edu.add_alunoarquivo %}
+        <ul class="action-bar">
+            <li>
+                <a class="btn popup success" href="/edu/upload_arquivo_unico/{{ obj.pk }}/">Adicionar Arquivo</a>
+                <a class="btn default popup" href="/edu/log_pasta_documental/{{ obj.pk }}/">Registro de Alterações</a>
+            </li>
+        </ul>
+        {% endif %}
+
+        {% if aluno_arquivos.exists %}
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">Ações</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Origem do Documento</th>
+                        <th>Data/Hora do Upload</th>
+                        <th>Validado</th>
+                        <th>No diploma</th>
+                        <th>Observação</th>
+                        {% if perms.edu.change_alunoarquivo %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for aluno_arquivo in aluno_arquivos %}
+                        {% if aluno_arquivo.descricao != 'Cópia de Laudo Médico nos Últimos 12 Meses' %}
+                        <tr>
+                            <td class="no-print">
+                                {% icon "view" "/rh/arquivo_unico/{{ aluno_arquivo.arquivo_unico.hash_sha512_link_id }}/?filename={{ aluno_arquivo.nome_exibicao }}" %}
+                                {% if aluno_arquivo.pode_ser_deletado  %}
+                                    {% icon "delete" "?tab=pasta_documental&aluno_arquivo={{ aluno_arquivo.pk }}" %}
+                                {% endif %}
+                            </td>
+                            <td>{{ aluno_arquivo.tipo|format }}</td>
+                            <td>{{ aluno_arquivo.descricao }}</td>
+                            <td>{{ aluno_arquivo.get_tipo_origem_cadastro_display }}</td>
+                            <td>{{ aluno_arquivo.data_hora_upload }}</td>
+                            <td>{{ aluno_arquivo.validado|format }}</td>
+                            <td>{{ aluno_arquivo.em_diploma|format }}</td>
+                            <td>
+                                {% if aluno_arquivo.responsavel_validacao %}
+                                    Avaliado por {{ aluno_arquivo.responsavel_validacao|format }}
+                                    <br> em {{ aluno_arquivo.data_validacao|format }}.
+                                    <br>
+                                {% endif %}
+                                {% if aluno_arquivo.observacao %}
+                                    {{ aluno_arquivo.observacao|format }}
+                                {% endif %}
+                            </td>
+                            {% if perms.edu.change_alunoarquivo %}
+                                <td class="no-print">
+                                    {% if aluno_arquivo|method:"can_validate"|call:request.user %}
+                                        <a class="btn popup default" href="/edu/avaliar_arquivo_unico/{{ aluno_arquivo.pk }}/">
+                                            Avaliar Documento
+                                        </a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        {% else %}
+            <p class="msg alert">Nenhum documento encontrado.</p>
+        {% endif %}
+
+{% endbox %}
+

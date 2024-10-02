@@ -1,0 +1,16 @@
+<h1>Novo Anexo</h1>
+<h2>Erro #{{ anexo_erro.erro.pk }}</h2>
+<dl>
+    <dt>Descrição do Anexo:</dt>
+    <dd>{{ anexo_erro.descricao }}</dd>
+    <dt>Enviado por:</dt>
+    <dd>{{ anexo_erro.anexado_por }} em {{ anexo_erro.anexado_em }}</dd>
+    <dt>Erro reportado por:</dt>
+    <dd>{{ anexo_erro.erro.informante }}</dd>
+    {% if anexo_erro.erro.atendente_atual %}
+        <dt>Atendente Principal:</dt>
+        <dd>{{ anexo_erro.erro.atendente_atual|format }}</dd>
+    {% endif %}
+</dl>
+<p>--</p>
+<p>Para mais informações, acesse: <a href="{{ anexo_erro.erro.get_visualizar_erro_url }}">{{ anexo_erro.erro.get_visualizar_erro_url }}</a></p>

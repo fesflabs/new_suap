@@ -1,0 +1,65 @@
+{% extends super_template %}
+
+{% block content %}
+
+<div data-title="Saída para Servidores" data-counter="{{ requisicoes_user|length }}" class="tab-container">
+    {% if requisicoes_user %}
+        <table>
+			<thead>
+            	<tr>
+	                <th class="no-print">Ações</th>
+					<th>Código</th>
+	                <th>Data</th>
+	                <th>Solicitante</th>
+					<th>Observações</th>
+            	</tr>
+			</thead>
+			<tbody>
+				{% for requisicao in requisicoes_user %}
+					<tr>
+						<td class="no-print">{% icon "view" "/almoxarifado/requisicao_detalhe/user/{{ requisicao.id }}/" %}</td>
+						<td>{{ requisicao.id }}</td>
+						<td>{{ requisicao.data|date:"d/m/Y H:i:s" }}</td>
+						<td>{{ requisicao.vinculo_solicitante.pessoa.nome }}</td>
+						<td>{{ requisicao.observacoes|format }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhuma requisição pendente.</p>
+    {% endif %}
+</div>
+
+<div data-title="Saída para Outros Campi" data-counter="{{ requisicoes_uo|length }}" class="tab-container">
+    {% if requisicoes_uo %}
+        <table>
+			<thead>
+	            <tr>
+	                <th>-</th>
+					<th>Código da Requisição</th>
+	                <th>Data</th>
+	                <th>Solicitante</th>
+	                <th>Unidade Fornecedora</th>
+	                <th>Unidade Solicitante</th>
+	            </tr>
+			</thead>
+			<tbody>
+	            {% for requisicao in requisicoes_uo %}
+	                <tr>
+	                    <td>{% icon "view" "/almoxarifado/requisicao_detalhe/uo/{{ requisicao.id }}/" %}</td>
+						<td>{{ requisicao.id }}</td>
+	                    <td>{{ requisicao.data|date:"d/m/Y H:i:s" }}</td>
+	                    <td>{{ requisicao.vinculo_solicitante.pessoa.nome }}</td>
+	                    <td>{{ requisicao.uo_fornecedora.setor.sigla }}</td>
+	                    <td>{{ requisicao.uo_solicitante.setor.sigla }}</td>
+	                </tr>
+	            {% endfor %}
+			</tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhuma requisição pendente.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends super_template %}
+
+{% block content %}
+    {% if projeto.data_conclusao_planejamento and is_pre_avaliador and projeto.pode_devolver_projeto %}
+      {% box 'Devolver Projeto' %}
+            {% render_form form %}        
+        {% endbox %} 
+    {% endif %}
+    {% if historico %}
+        <ul class="action-bar">
+            <li><a class="btn" href="/projetos/projeto/{{ projeto.id }}/">Retornar ao Projeto</a></li>
+        </ul>
+        <table>
+            <thead>
+            	<tr>
+                    <th colspan="4">Histórico de Movimentação </th>
+                </tr>
+                <tr>
+                    <th>Data</th>
+                    <th>Operador</th>
+                    <th>Observações</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            <body>
+                {% for evento in historico %}
+                    <tr>
+                        <td>{{ evento.data_operacao|format }}</td>
+                        <td>{{ evento.operador }}</td>
+                        <td>{{ evento.parecer_devolucao|format }}</td>
+                        <td>{{ evento.get_situacao_display|format }}</td>
+                    </tr>
+                {% endfor %}
+            </body>
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhum histórico para este projeto.</p>
+    {% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../../index.html"/>
+        <link rel="up" title="UC Cadastros Gerais" href="../index.html"/>
+        <link rel="next" title="UC 502 - Fechar Período Letivo &lt;v0.1&gt;" href="proc_apoio_uc502.html"/>
+        <link rel="prev" title="UC 500 - Configurar Horário do Campus &lt;v0.1&gt;" href="proc_apoio_uc500.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../adm/index.html">Administração</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Ensino</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../doc_visao.html">Documento de Visão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html">UC Cadastros Gerais</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#uc-procedimentos-de-apoio">UC Procedimentos de Apoio</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc500.html">UC 500 - Configurar Horário do Campus &lt;v0.1&gt;</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc502.html">UC 502 - Fechar Período Letivo &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc503.html">UC 503 - Manter Calendários Acadêmicos &lt;v0.1&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proc_apoio_uc504.html">UC 504 - Manter e Configurar Períodos de Matrícula &lt;v0.1&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-alunos-e-professores">UC Alunos e Professores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-cursos-matrizes-e-componentes">UC Cursos, Matrizes e Componentes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-turmas-e-diarios">UC Turmas e Diários</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-relatorios-e-estatisticas">UC Relatórios e Estatísticas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-diplomas-e-certificados">UC Diplomas e Certificados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#uc-logs">UC Logs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Especificação de Caso de Uso (ECU)</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Ensino</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="uc-501-abonar-faltas-de-alunos-v0-2">
+<span id="suap-artefatos-edu-ensino-proc-apoio-uc501"></span><h1>UC 501 - Abonar Faltas de Alunos &lt;v0.2&gt;<a class="headerlink" href="#uc-501-abonar-faltas-de-alunos-v0-2" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id6">Histórico da Revisão</a></p></li>
+<li><p><a class="reference internal" href="#objetivo" id="id7">Objetivo</a></p></li>
+<li><p><a class="reference internal" href="#atores" id="id8">Atores</a></p>
+<ul>
+<li><p><a class="reference internal" href="#principais" id="id9">Principais</a></p></li>
+<li><p><a class="reference internal" href="#interessado" id="id10">Interessado</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pre-condicoes" id="id11">Pré-condições</a></p></li>
+<li><p><a class="reference internal" href="#pos-condicoes" id="id12">Pós-condições</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso-impactados" id="id13">Casos de Uso Impactados</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-eventos" id="id14">Fluxo de Eventos</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fluxo-normal" id="id15">Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-alternativo" id="id16">Fluxo Alternativo</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fa1-editar-fn-2" id="id17">FA1 – Editar (FN.2 )</a></p></li>
+<li><p><a class="reference internal" href="#fa2-salvar-e-adicionar-outro-a-fn-5" id="id18">FA2 - Salvar e adicionar outro(a) (FN.5)</a></p></li>
+<li><p><a class="reference internal" href="#fa3-salvar-e-continuar-editando-fa1-4" id="id19">FA3 - Salvar e continuar editando (FA1.4)</a></p></li>
+<li><p><a class="reference internal" href="#fa4-listar-fn-2" id="id20">FA4 – Listar (FN.2)</a></p></li>
+<li><p><a class="reference internal" href="#fa5-visualizar-um-abono-de-aluno-fa4-2" id="id21">FA5 - Visualizar um abono de aluno (FA4.2)</a></p></li>
+<li><p><a class="reference internal" href="#fa6-excluir-um-abono-de-um-aluno-fa5-2" id="id22">FA6 - Excluir um abono de um aluno (FA5.2)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao" id="id23">Fluxo de Exceção</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fe1-cadastro-fere-regra-rn2-fn-1" id="id24">FE1 – Cadastro fere Regra RN2 (FN-1)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#especificacao-suplementares" id="id25">Especificação suplementares</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requisitos-nao-funcionais" id="id26">Requisitos Não-Funcionais</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-interface" id="id27">Requisitos de Interface</a></p></li>
+<li><p><a class="reference internal" href="#requisitos-de-informacao" id="id28">Requisitos de Informação</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rin1-campos-para-listagem" id="id29">RIN1 – Campos para Listagem</a></p></li>
+<li><p><a class="reference internal" href="#rin2-campos-para-cadastros" id="id30">RIN2 – Campos para Cadastros</a></p></li>
+<li><p><a class="reference internal" href="#rin3-campos-para-exibicao" id="id31">RIN3 – Campos para Exibição</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#regras-de-negocio" id="id32">Regras de Negócio</a></p></li>
+<li><p><a class="reference internal" href="#mensagens" id="id33">Mensagens</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ponto-de-extensao" id="id34">Ponto de Extensão</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id35">Questões em Aberto</a></p></li>
+<li><p><a class="reference internal" href="#esboco-de-prototipo" id="id36">Esboço de Protótipo</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-dominio-do-caso-de-uso" id="id37">Diagrama de domínio do caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-fluxo-de-operacao" id="id38">Diagrama de Fluxo de Operação</a></p></li>
+<li><p><a class="reference internal" href="#cenario-de-testes" id="id39">Cenário de Testes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tc01" id="id40">Fluxo Normal</a></p></li>
+<li><p><a class="reference internal" href="#fluxo-de-excecao-01" id="id41">Fluxo de Exceção 01</a></p></li>
+<li><p><a class="reference internal" href="#regra-de-negocio-01" id="id42">Regra de Negócio 01</a></p></li>
+<li><p><a class="reference internal" href="#regra-de-negocio-08" id="id43">Regra de Negócio 08</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id6">Histórico da Revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id2" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>30/04/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p>Hugo Tácito</p></td>
+</tr>
+<tr class="row-odd"><td><p>13/04/2014</p></td>
+<td><p>0.2</p></td>
+<td><p>Mudanças do Cliente</p></td>
+<td><p>Hugo Tácito</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objetivo">
+<h2><a class="toc-backref" href="#id7">Objetivo</a><a class="headerlink" href="#objetivo" title="Link permanente para este título">¶</a></h2>
+<p>Cadastrar ou remover o abono de faltas de alunos dentro de um período pré-definido.</p>
+</section>
+<section id="atores">
+<h2><a class="toc-backref" href="#id8">Atores</a><a class="headerlink" href="#atores" title="Link permanente para este título">¶</a></h2>
+<section id="principais">
+<h3><a class="toc-backref" href="#id9">Principais</a><a class="headerlink" href="#principais" title="Link permanente para este título">¶</a></h3>
+<p>Administrador, Secretário, Diretor Acadêmico: permite gerir os abonos de faltas de alunos.</p>
+</section>
+<section id="interessado">
+<h3><a class="toc-backref" href="#id10">Interessado</a><a class="headerlink" href="#interessado" title="Link permanente para este título">¶</a></h3>
+<p>Aluno.</p>
+</section>
+</section>
+<section id="pre-condicoes">
+<h2><a class="toc-backref" href="#id11">Pré-condições</a><a class="headerlink" href="#pre-condicoes" title="Link permanente para este título">¶</a></h2>
+<p>Devem existir alunos cadastrados.</p>
+</section>
+<section id="pos-condicoes">
+<h2><a class="toc-backref" href="#id12">Pós-condições</a><a class="headerlink" href="#pos-condicoes" title="Link permanente para este título">¶</a></h2>
+<p>As faltas do aluno no período de tempo cadastrado serão marcadas como abonadas.</p>
+</section>
+<section id="casos-de-uso-impactados">
+<h2><a class="toc-backref" href="#id13">Casos de Uso Impactados</a><a class="headerlink" href="#casos-de-uso-impactados" title="Link permanente para este título">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><a class="reference internal" href="proc_apoio_uc503.html#suap-artefatos-edu-ensino-proc-apoio-uc503"><span class="std std-ref">UC 503 - Manter Calendários Acadêmicos &lt;v0.1&gt;</span></a> - O fechamento de período ignora as faltas de alunos marcadas como abonadas</p></li>
+<li><p><span class="xref std std-ref">suap-artefatos-edu-ensino-meus-diarios-uc402</span> - Exibe os abonos cadastrados</p></li>
+<li><p><a class="reference internal" href="../diarios/diarios_uc403.html#suap-artefatos-edu-ensino-diarios-uc403"><span class="std std-ref">UC 403 - Lançar Faltas &lt;v0.1&gt;</span></a> - Altera a marcação de falta abonada</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fluxo-de-eventos">
+<h2><a class="toc-backref" href="#id14">Fluxo de Eventos</a><a class="headerlink" href="#fluxo-de-eventos" title="Link permanente para este título">¶</a></h2>
+<section id="fluxo-normal">
+<h3><a class="toc-backref" href="#id15">Fluxo Normal</a><a class="headerlink" href="#fluxo-normal" title="Link permanente para este título">¶</a></h3>
+<blockquote id="fn">
+<div><ol class="arabic simple">
+<li><p>O caso de uso é iniciado acionando a opção  <code class="docutils literal notranslate"><span class="pre">ENSINO</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Procedimentos</span> <span class="pre">de</span> <span class="pre">Apoio</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Abonar</span> <span class="pre">Faltas</span></code></p></li>
+<li><p>O sistema exibe a lista de Abonos de Alunos (<a class="reference internal" href="#rin1">RIN1</a>)</p></li>
+<li><p>O secretário seleciona a opção <code class="docutils literal notranslate"><span class="pre">Adicionar</span> <span class="pre">``Abonos</span> <span class="pre">de</span> <span class="pre">Faltas``</span></code></p></li>
+<li><p>O secretário informa os dados (<a class="reference internal" href="#rin2">RIN2</a>) para identificar o Cadastro de Abono de Alunos</p></li>
+<li><p>Para cada Abono de Aluno que se deseja adicionar, o secretário deve informar os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O secretário finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M1</a></p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fluxo-alternativo">
+<h3><a class="toc-backref" href="#id16">Fluxo Alternativo</a><a class="headerlink" href="#fluxo-alternativo" title="Link permanente para este título">¶</a></h3>
+<section id="fa1-editar-fn-2">
+<span id="fa1"></span><h4>FA1 – Editar (<a class="reference internal" href="#fn">FN</a>.2 )<a class="headerlink" href="#fa1-editar-fn-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O secretário aciona a opção <code class="docutils literal notranslate"><span class="pre">Editar</span></code> dentre um dos abonos disponíveis na listagem</p></li>
+<li><p>O sistema exibe o Abono do Aluno com os dados (<a class="reference internal" href="#rin3">RIN3</a>) preenchidos</p></li>
+<li><p>O secretário informa novos valores para os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>Para cada Abono de Aluno que se deseja alterar, o secretário deve informar novos valores para os dados (<a class="reference internal" href="#rin2">RIN2</a>)</p></li>
+<li><p>O secretário finaliza o caso de uso selecionando a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M2</a>.</p></li>
+<li><p>O sistema apresenta a listagem do passo <a class="reference internal" href="#fn">FN</a>.2</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa2-salvar-e-adicionar-outro-a-fn-5">
+<h4>FA2 - Salvar e adicionar outro(a) (<a class="reference internal" href="#fn">FN</a>.5)<a class="headerlink" href="#fa2-salvar-e-adicionar-outro-a-fn-5" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O secretário aciona a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span> <span class="pre">e</span> <span class="pre">adicionar</span> <span class="pre">outro(a)</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M4</a>.</p></li>
+<li><p>O caso de uso volta para o passo <a class="reference internal" href="#fn">FN</a>.5</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa3-salvar-e-continuar-editando-fa1-4">
+<span id="fa3"></span><h4>FA3 - Salvar e continuar editando (<a class="reference internal" href="#fa1">FA1</a>.4)<a class="headerlink" href="#fa3-salvar-e-continuar-editando-fa1-4" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O secretário aciona a opção <code class="docutils literal notranslate"><span class="pre">Salvar</span> <span class="pre">e</span> <span class="pre">continuar</span> <span class="pre">editando</span></code></p></li>
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M5</a>.</p></li>
+<li><p>O caso de uso volta para o passo <a class="reference internal" href="#fa1">FA1</a>.4</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa4-listar-fn-2">
+<span id="fa4"></span><h4>FA4 – Listar (<a class="reference internal" href="#fn">FN</a>.2)<a class="headerlink" href="#fa4-listar-fn-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O secretário restringe a lista usando o filtro e/ou busca (<a class="reference internal" href="#rin1">RIN1</a>)</p></li>
+<li><p>O sistema exibe uma lista que satisfaça aos critérios informados no passo anterior</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa5-visualizar-um-abono-de-aluno-fa4-2">
+<span id="fa5"></span><h4>FA5 - Visualizar um abono de aluno (<a class="reference internal" href="#fa4">FA4</a>.2)<a class="headerlink" href="#fa5-visualizar-um-abono-de-aluno-fa4-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O secretário aciona a opção <code class="docutils literal notranslate"><span class="pre">Visualizar</span></code> dentre um dos abonos disponíveis na listagem</p></li>
+<li><p>O sistema exibe as informações referentes ao abono de um aluno (<a class="reference internal" href="#rin3">RIN3</a>)</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fa6-excluir-um-abono-de-um-aluno-fa5-2">
+<span id="fa6"></span><h4>FA6 - Excluir um abono de um aluno (<a class="reference internal" href="#fa5">FA5</a>.2)<a class="headerlink" href="#fa6-excluir-um-abono-de-um-aluno-fa5-2" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O secretário aciona a opção <code class="docutils literal notranslate"><span class="pre">Excluir</span></code> disponível no início da exibição do <code class="docutils literal notranslate"><span class="pre">Abonos</span> <span class="pre">de</span> <span class="pre">Faltas</span></code>
+para excluir um determinado abono de um aluno.</p></li>
+<li><p>O sistema exibe uma tela de confirmação exibindo a mensagem <a class="reference internal" href="#mensagens">M6</a>.</p></li>
+<li><p>O secretário confirma.</p></li>
+<li><p>O sistema exclui o abono e exibe a mensagem <a class="reference internal" href="#mensagens">M7</a>.</p></li>
+</ol>
+</div></blockquote>
+</section>
+</section>
+<section id="fluxo-de-excecao">
+<h3><a class="toc-backref" href="#id23">Fluxo de Exceção</a><a class="headerlink" href="#fluxo-de-excecao" title="Link permanente para este título">¶</a></h3>
+<section id="fe1-cadastro-fere-regra-rn2-fn-1">
+<h4>FE1 – Cadastro fere Regra <a class="reference internal" href="#regras-de-negocio">RN2</a> (<a class="reference internal" href="#fn">FN</a>-1)<a class="headerlink" href="#fe1-cadastro-fere-regra-rn2-fn-1" title="Link permanente para este título">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>O sistema exibe a mensagem <a class="reference internal" href="#mensagens">M3</a>.</p></li>
+</ol>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="especificacao-suplementares">
+<h2><a class="toc-backref" href="#id25">Especificação suplementares</a><a class="headerlink" href="#especificacao-suplementares" title="Link permanente para este título">¶</a></h2>
+<section id="requisitos-nao-funcionais">
+<h3><a class="toc-backref" href="#id26">Requisitos Não-Funcionais</a><a class="headerlink" href="#requisitos-nao-funcionais" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="requisitos-de-interface">
+<h3><a class="toc-backref" href="#id27">Requisitos de Interface</a><a class="headerlink" href="#requisitos-de-interface" title="Link permanente para este título">¶</a></h3>
+<p>Não há.</p>
+</section>
+<section id="requisitos-de-informacao">
+<h3><a class="toc-backref" href="#id28">Requisitos de Informação</a><a class="headerlink" href="#requisitos-de-informacao" title="Link permanente para este título">¶</a></h3>
+<section id="rin1-campos-para-listagem">
+<span id="rin1"></span><h4><a class="toc-backref" href="#id29">RIN1 – Campos para Listagem</a><a class="headerlink" href="#rin1-campos-para-listagem" title="Link permanente para este título">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>Ações</p></th>
+<th class="head"><p>Aluno</p></th>
+<th class="head"><p>Data de início</p></th>
+<th class="head"><p>Data de Fim</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>Ordenação</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Filtro</p></th>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Sim</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Busca</p></th>
+<td><p>Não</p></td>
+<td><p>Sim</p></td>
+<td><p>Não</p></td>
+<td><p>Não</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Observações</p></th>
+<td><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Rótulo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ver</p></td>
+</tr>
+<tr class="row-odd"><td><p>Editar</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rin2-campos-para-cadastros">
+<span id="rin2"></span><h4><a class="toc-backref" href="#id30">RIN2 – Campos para Cadastros</a><a class="headerlink" href="#rin2-campos-para-cadastros" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamanho</p></th>
+<th class="head"><p>Valor Inicial</p></th>
+<th class="head"><p>Domínio/Máscara</p></th>
+<th class="head"><p>Observação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Aluno*</p></td>
+<td><p>Texto</p></td>
+<td></td>
+<td></td>
+<td><p><a class="reference internal" href="#regras-de-negocio">RN8</a></p></td>
+<td><p>Autocompletar</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data de Início*</p></td>
+<td><p>Data</p></td>
+<td></td>
+<td><p>Dia atual</p></td>
+<td><p>DD/MM/AAAA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Data de Fim*</p></td>
+<td><p>Data</p></td>
+<td></td>
+<td><p>Dia atual</p></td>
+<td><p>DD/MM/AAAA</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Justificativa*</p></td>
+<td><p>Texto</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Anexo</p></td>
+<td><p>Arquivo</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rin3-campos-para-exibicao">
+<span id="rin3"></span><h4><a class="toc-backref" href="#id31">RIN3 – Campos para Exibição</a><a class="headerlink" href="#rin3-campos-para-exibicao" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Informação</p></th>
+<th class="head"><p>Tipo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Aluno</p></td>
+<td><p>Texto (rótulo)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data de Início</p></td>
+<td><p>Texto (rótulo)</p></td>
+</tr>
+<tr class="row-even"><td><p>Data de Fim</p></td>
+<td><p>Texto (rótulo)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Justificativa</p></td>
+<td><p>Texto (rótulo)</p></td>
+</tr>
+<tr class="row-even"><td><p>Anexo</p></td>
+<td><p>Arquivo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ações</p></td>
+<td><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Rótulo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Excluir</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="regras-de-negocio">
+<h3><a class="toc-backref" href="#id32">Regras de Negócio</a><a class="headerlink" href="#regras-de-negocio" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Regra</p></th>
+<th class="head"><p>Descrição / Mensagem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RN1</p></td>
+<td><p>O secretário e o diretor só podem criar, editar, excluir e visualizar abonos de alunos de seu próprio campus.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RN2</p></td>
+<td><p>A Data de Fim deve ser maior que a Data de Início.</p></td>
+</tr>
+<tr class="row-even"><td><p>RN3</p></td>
+<td><p>Ao cadastrar um abono, todas as faltas cadastradas do aluno entre a Data de Início e a
+Data de Fim tem seu estado alterado para abonada.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RN4</p></td>
+<td><p>Ao excluir um abono, todas as faltas cadastradas do aluno entre a Data de Início e a
+Data de Fim tem seu estado alterado para não abonada.</p></td>
+</tr>
+<tr class="row-even"><td><p>RN5</p></td>
+<td><p>Durante o caso de uso de fechamento de período só serão computadas as faltas que não
+tiverem o estado de abonada.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RN6</p></td>
+<td><p>Apenas alunos cujo período letivo encontra-se aberto (matriculado) podem ter faltas abonadas ou rejeitadas.</p></td>
+</tr>
+<tr class="row-even"><td><p>RN7</p></td>
+<td><p>Durante o caso de uso de Lançar Falta (<a class="reference internal" href="../diarios/diarios_uc403.html#suap-artefatos-edu-ensino-diarios-uc403"><span class="std std-ref">UC 403 - Lançar Faltas &lt;v0.1&gt;</span></a>), as faltas para o aluno e período especificados, serão automaticamente abonadas.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RN8</p></td>
+<td><p>Somente alunos com período aberto podem ser acessados e com o mesmo campus do secretário ou diretor devem ser manipulados.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mensagens">
+<h3><a class="toc-backref" href="#id33">Mensagens</a><a class="headerlink" href="#mensagens" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="m">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M1</p></td>
+<td><p>Cadastro de abono de faltas realizado com sucesso.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M2</p></td>
+<td><p>Atualização de abono de faltas realizada com sucesso.</p></td>
+</tr>
+<tr class="row-even"><td><p>M3</p></td>
+<td><p>A data de início deve ser menor que a data de fim do abono.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M4</p></td>
+<td><p>Abono do Aluno &lt;campo Nome do Aluno&gt; adicionado com sucesso. Você pode adicionar um outro Abono de Faltas abaixo.</p></td>
+</tr>
+<tr class="row-even"><td><p>M5</p></td>
+<td><p>Abono do Aluno &lt;campo Nome do Aluno&gt; modificado com sucesso. Você pode editá-lo novamente abaixo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M6</p></td>
+<td><p>Tem certeza que deseja excluir?</p></td>
+</tr>
+<tr class="row-even"><td><p>M7</p></td>
+<td><p>Abono de falta de aluno excluído com sucesso.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M8</p></td>
+<td><p>Você não tem permissão para realizar isso.</p></td>
+</tr>
+<tr class="row-even"><td><p>M9</p></td>
+<td><p>O período de cadastro dos abonos do aluno &lt;campo Nome do Aluno&gt; deve estar aberto.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ponto-de-extensao">
+<h2><a class="toc-backref" href="#id34">Ponto de Extensão</a><a class="headerlink" href="#ponto-de-extensao" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id35">Questões em Aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<p>Não há.</p>
+</section>
+<section id="esboco-de-prototipo">
+<h2><a class="toc-backref" href="#id36">Esboço de Protótipo</a><a class="headerlink" href="#esboco-de-prototipo" title="Link permanente para este título">¶</a></h2>
+<figure class="align-center" id="id3">
+<span id="figura-1"></span><a class="reference internal image-reference" href="../../../../_images/tela_uc28.png"><img alt="protótipo de tela." src="../../../../_images/tela_uc28.png" style="width: 629.3px; height: 573.3px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 1: Protótipo de tela.</span><a class="headerlink" href="#id3" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagrama-de-dominio-do-caso-de-uso">
+<h2><a class="toc-backref" href="#id37">Diagrama de domínio do caso de uso</a><a class="headerlink" href="#diagrama-de-dominio-do-caso-de-uso" title="Link permanente para este título">¶</a></h2>
+<figure class="align-center" id="id4">
+<span id="figura-2"></span><a class="reference internal image-reference" href="../../../../_images/cd_28.png"><img alt="diagrama de classe." src="../../../../_images/cd_28.png" style="width: 356.29999999999995px; height: 266.7px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 2: Diagrama de classe.</span><a class="headerlink" href="#id4" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagrama-de-fluxo-de-operacao">
+<h2><a class="toc-backref" href="#id38">Diagrama de Fluxo de Operação</a><a class="headerlink" href="#diagrama-de-fluxo-de-operacao" title="Link permanente para este título">¶</a></h2>
+<figure class="align-center" id="id5">
+<span id="figura-3"></span><a class="reference internal image-reference" href="../../../../_images/fl_uc28.png"><img alt="diagrama de fluxo." src="../../../../_images/fl_uc28.png" style="width: 765.8px; height: 541.8px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figura 3: Diagrama de fluxo.</span><a class="headerlink" href="#id5" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="cenario-de-testes">
+<h2><a class="toc-backref" href="#id39">Cenário de Testes</a><a class="headerlink" href="#cenario-de-testes" title="Link permanente para este título">¶</a></h2>
+<section id="tc01">
+<span id="id1"></span><h3><a class="toc-backref" href="#id40">Fluxo Normal</a><a class="headerlink" href="#tc01" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Objetivo</p></th>
+<td><p>Testar se está cadastrando um abono de aluno com período aberto</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Dados de Entrada</p></th>
+<td><p>Aluno com o período aberto, Data de Início menor igual a Data de Fim e Justificativa</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Resultado Esperado</p></th>
+<td><ol class="arabic simple">
+<li><p>Uma abono de falta é cadastrado com os dados informados.</p></li>
+<li><p>Mensagem <a class="reference internal" href="#mensagens">M1</a>.</p></li>
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fluxo-de-excecao-01">
+<h3><a class="toc-backref" href="#id41">Fluxo de Exceção 01</a><a class="headerlink" href="#fluxo-de-excecao-01" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Objetivo</p></th>
+<td><p>Testar se a data de início é maior que a data de fim (<a class="reference internal" href="#regras-de-negocio">RN2</a>)</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Dados de Entrada</p></th>
+<td><p>Aluno, Data de Início maior que a Data de Fim e Justificativa</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Resultado Esperado</p></th>
+<td><ol class="arabic simple">
+<li><p>Nenhum abono de falta é cadastrado.</p></li>
+<li><p>Mensagem <a class="reference internal" href="#mensagens">M3</a>.</p></li>
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regra-de-negocio-01">
+<h3><a class="toc-backref" href="#id42">Regra de Negócio 01</a><a class="headerlink" href="#regra-de-negocio-01" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Objetivo</p></th>
+<td><p>Testar se o secretário e o diretor estão no mesmo campus do aluno (<a class="reference internal" href="#regras-de-negocio">RN1</a>)</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Dados de Entrada</p></th>
+<td><p>Aluno com período ativo de campus diferente do campus do secretário, Data de Início maior que a Data de Fim e Justificativa</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Resultado Esperado</p></th>
+<td><ol class="arabic simple">
+<li><p>Nenhum abono de falta é cadastrado.</p></li>
+<li><p>Mensagem <a class="reference internal" href="#mensagens">M8</a>.</p></li>
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regra-de-negocio-08">
+<h3><a class="toc-backref" href="#id43">Regra de Negócio 08</a><a class="headerlink" href="#regra-de-negocio-08" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Objetivo</p></th>
+<td><p>Testar se está localizando apenas alunos no período em aberto (<a class="reference internal" href="#regras-de-negocio">RN8</a>)</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Dados de Entrada</p></th>
+<td><div class="line-block">
+<div class="line">Matricule os alunos João Paulo e João Marcos no período 2014.1
+| Matricule João da Silva no periodo 2014.2
+| Feche o período 2014.1
+| Busca aluno João</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Resultado Esperado</p></th>
+<td><p>Trazer a lista com apenas João da Silva</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="proc_apoio_uc502.html" class="btn btn-neutral float-right" title="UC 502 - Fechar Período Letivo &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="proc_apoio_uc500.html" class="btn btn-neutral" title="UC 500 - Configurar Horário do Campus &lt;v0.1&gt;"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

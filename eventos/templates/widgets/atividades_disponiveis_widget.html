@@ -1,0 +1,60 @@
+<div style="margin-left: 170px;">
+{% with programacao=objects.0.evento.get_programacao %}
+    {% for dia, atividades in programacao %}
+        <div class="general-box">
+            <div class="primary-info">
+                <h4>{{ dia|format }}</h4>
+                <div class="extra-info">
+                    <div class="flex-container boxes texts">
+                        {% for atividade in atividades %}
+                            <div class="box-item">
+                                <h5>
+                                    {% for obj in objects %}
+                                        {% if atividade.pk == obj.pk and obj.get_qtd_vagas_disponiveis != 0 %}
+                                            {{ obj.widget }}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <strong>{{ atividade.tipo }}</strong>
+                                    {% if atividade.hora %} às {{ atividade.hora|time:"H:i" }}{% endif %}
+                                </h5>
+                                <p>{{ atividade }}</p>
+                                {% with responsaveis=atividade.get_responsaveis %}
+                                    {% if responsaveis %}
+                                    <dl class="definition-list flex">
+                                        {% for responsavel in responsaveis %}
+                                            <div class="list-item">
+                                                <dt>{{ responsavel.tipo }}</dt>
+                                                <dd>{{ responsavel.nome }}</dd>
+                                            </div>
+                                        {% endfor %}
+                                    </dl>
+                                    {% endif %}
+                                {% endwith %}
+
+                                {% if atividade.limite_inscricoes is None %}
+                                    <p class="true mt-4">Vagas ilimitadas</p>
+                                {% else %}
+                                    {% if atividade.get_qtd_vagas_disponiveis  %}
+                                        <p class="true mt-4">{{ atividade.get_qtd_vagas_disponiveis }} vaga(s) remanescente(s)</p>
+                                    {% else %}
+                                        <p class="false mt-4">Vagas ocupadas</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endwith %}
+
+</div>
+
+<script>
+$(document).ready(function() {
+    $('input[type="checkbox"]').on('change', function(){
+        $(this).parent().parent().toggleClass("success");
+    });
+});
+</script>

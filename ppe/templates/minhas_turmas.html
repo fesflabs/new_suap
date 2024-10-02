@@ -1,0 +1,86 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% help_button %}
+    </ul>
+    {% if tutor_turmas %}
+        {% for tutor_turma in tutor_turmas %}
+            {% box '{{ tutor_turma.turma.codigo }}' %}
+                {% for curso_turma in tutor_turma.turma.cursoturma_set.all %}
+                        <table class="mb-2">
+                            <caption>{{ curso_turma }}</caption>
+                            <thead>
+                            <tr>
+                                <th>Dados do Diário</th>
+                                <th>Situação da Etapas</th>
+                                <th class="no-print">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="width:60%">
+                                    <dl>
+                                        <dt>Tutores:</dt>
+                                        <dd>{% for p in curso_turma.turma.tutorturma_set.all %}
+                                            {{ p.tutor }}
+                                            {% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+                                        <dt>Quantidade de Etapas:</dt>
+                                        <dd>{{ curso_turma.curso_formacao.qtd_avaliacoes }}</dd>
+                                        <dt>Quantidade de Alunos:</dt>
+                                        <dd>{{ curso_turma.get_quantidade_trabalhadores_educando_ativos }}</dd>
+                                    </dl>
+                                </td>
+                                <td>
+                                    <dl>
+                                        <dt style="width: 30%">
+                                            Etapa {{ curso_turma.get_numero_primeira_etapa }}:
+                                        </dt>
+                                        <dd>
+                                            {% if curso_turma.etapa_1_em_posse_do_registro %}
+                                                <span class="status status-success">Entregue</span>
+                                            {% elif curso_turma.etapa_1_em_atraso %}
+                                                	<span class="status status-error">Entrega em Atraso</span>
+                                            {% else %}
+                                                <span class="status status-alert">Não Entregue</span>
+                                            {% endif %}
+                                        </dd>
+                                        <dt style="width: 30%">Etapa Final:</dt>
+                                        <dd>
+                                            {% if curso_turma.etapa_5_em_posse_do_registro %}
+                                                <span class="status status-success">Entregue</span>
+                                            {% elif curso_turma.etapa_5_em_atraso %}
+                                                <span class="status status-error">Entrega em Atraso</span>
+                                            {% else %}
+                                                <span class="status status-alert">Não Entregue</span>
+                                            {% endif %}
+                                        </dd>
+                                        {% if request.user.is_superuser %}
+                                            <dt>Carga Horária Mínima:</dt>
+                                            <dd>{{ curso_turma.percentual_minimo_ch }}%
+                                                ({{ curso_turma.get_carga_horaria_minima }} Aulas)
+                                            </dd>
+                                        {% endif %}
+                                    </dl>
+                                </td>
+                                <td class="no-print" style="width:10%">
+                                    <ul class="action-bar">
+                                        <li><a href="/ppe/meu_curso_turma/{{ curso_turma.pk }}/0/" class="btn default">{% icone "search" %} Acessar
+                                            Diário do curso</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                {% endfor %}
+            {% endbox %}
+        {% endfor %}
+
+    {% else %}
+        <p class="msg alert">Você não possui nenhum diário para o ano
+            de {{ periodo_letivo_atual.ano }}.{{ periodo_letivo_atual.periodo }}.</p>
+    {% endif %}
+
+{% endblock %}

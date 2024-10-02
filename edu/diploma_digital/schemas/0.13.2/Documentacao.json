@@ -1,0 +1,1913 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/DocumentacaoAcademica.schema.json",
+  "title": "Esquema JSON de Documentação Acadêmica",
+  "description": "Esquema JSON para Validação de Documentos Acadêmicos, Versão 1.03",
+  "type": "object",
+  "required": [
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "meta": {
+      "description": "Metadados do documento acadêmico",
+      "type": "object",
+      "required": [
+        "clientId",
+        "clientSignature",
+        "docType",
+        "groupId",
+        "mimeType",
+        "yourNumber"
+      ],
+      "properties": {
+        "clientId": {
+          "description": "Identificador único universal do cliente do RAP",
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"
+        },
+        "clientSignature": {
+          "$comment": "Atributo ainda não tem funcionalidade, será usado em versões futuras",
+          "description": "Assinatura do cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "docType": {
+          "description": "Identificador do tipo Documentação Acadêmica no RAP",
+          "type": "string",
+          "const": "academic_doc_mec_degree"
+        },
+        "groupId": {
+          "description": "Identificador único do grupo de documentos ao qual o documento faz parte",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "mimeType": {
+          "description": "Tipo da mídia do documento acadêmico",
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "text/xml"
+          ]
+        },
+        "yourNumber": {
+          "description": "Identificador único gerado pelo cliente do RAP",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "dltId": {
+          "description": "Nome da DLT em que o documento assinado será registrado",
+          "type": "string",
+          "const": "ethereum"
+        },
+        "isDocSigned": {
+          "description": "Flag para indicar se o documento a ser registrado conterá assinaturas",
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      }
+    },
+    "data": {
+      "description": "Dados do documento acadêmico",
+      "type": "object",
+      "required": [
+        "Versao"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "RegistroReq"
+          ],
+          "properties": {
+            "RegistroReq": {
+              "$ref": "#/definitions/TRegistroReq"
+            }
+          }
+        },
+        {
+          "required": [
+            "RegistroSegundaViaReq"
+          ],
+          "properties": {
+            "RegistroSegundaViaReq": {
+              "$ref": "#/definitions/TRegistroSegundaViaReq"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "Versao": {
+          "description": "Versão do leiaute da documentação acadêmica",
+          "type": "string",
+          "const": "1.03"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TRegistroReq": {
+      "description": "Dados de requisição de registro de diploma digital",
+      "type": "object",
+      "required": [
+        "DadosPrivadosDiplomado"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "DadosDiploma"
+          ],
+          "properties": {
+            "DadosDiploma": {
+              "$ref": "#/definitions/TDadosDiploma"
+            }
+          }
+        },
+        {
+          "required": [
+            "DadosDiplomaNSF"
+          ],
+          "properties": {
+            "DadosDiplomaNSF": {
+              "$ref": "#/definitions/TDadosDiplomaNSF"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "DadosPrivadosDiplomado": {
+          "description": "Dados privados do diplomado",
+          "type": "object",
+          "required": [
+            "Filiacao",
+            "HistoricoEscolar",
+            "CargaHorariaCurso",
+            "IngressoCurso"
+          ],
+          "properties": {
+            "Filiacao": {
+              "$ref": "#/definitions/TFiliacao"
+            },
+            "HistoricoEscolar": {
+              "$ref": "#/definitions/THistoricoEscolar"
+            },
+            "CargaHorariaCurso": {
+              "$ref": "#/definitions/TCargaHoraria"
+            },
+            "IngressoCurso": {
+              "$ref": "#/definitions/TIngressoCurso"
+            }
+          }
+        },
+        "TermoResponsabilidade": {
+          "$ref": "#/definitions/TTermoResponsabilidade"
+        },
+        "DocumentacaoComprobatoria": {
+          "$ref": "#/definitions/TDocumentacaoComprobatoria"
+        }
+      }
+    },
+    "TRegistroSegundaViaReq": {
+      "description": "Dados de requisição de registro de segunda via de diploma digital",
+      "type": "object",
+      "required": [
+        "DadosPrivadosDiplomado"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "DadosDiploma"
+          ],
+          "properties": {
+            "DadosDiploma": {
+              "$ref": "#/definitions/TDadosDiploma"
+            }
+          }
+        },
+        {
+          "required": [
+            "DadosDiplomaNSF"
+          ],
+          "properties": {
+            "DadosDiplomaNSF": {
+              "$ref": "#/definitions/TDadosDiplomaNSF"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "DadosPrivadosDiplomado": {
+          "description": "Dados privados do diplomado",
+          "type": "object",
+          "required": [
+            "Filiacao",
+            "CargaHorariaCurso",
+            "IngressoCurso"
+          ],
+          "properties": {
+            "Filiacao": {
+              "$ref": "#/definitions/TFiliacao"
+            },
+            "HistoricoEscolar": {
+              "$ref": "#/definitions/THistoricoEscolarSegundaVia"
+            },
+            "CargaHorariaCurso": {
+              "$ref": "#/definitions/TCargaHoraria"
+            },
+            "IngressoCurso": {
+              "$ref": "#/definitions/TIngressoCurso"
+            }
+          }
+        },
+        "TermoResponsabilidade": {
+          "$ref": "#/definitions/TTermoResponsabilidade"
+        },
+        "DocumentacaoComprobatoria": {
+          "$ref": "#/definitions/TDocumentacaoComprobatoria"
+        }
+      }
+    },
+    "TDadosDiploma": {
+      "description": "Dados do diploma",
+      "type": "object",
+      "required": [
+        "Diplomado",
+        "DadosCurso",
+        "IesEmissora"
+      ],
+      "properties": {
+        "Diplomado": {
+          "$ref": "#/definitions/TDadosDiplomado"
+        },
+        "DataConclusao": {
+          "description": "Data de conclusão do curso",
+          "format": "date"
+        },
+        "DadosCurso": {
+          "$ref": "#/definitions/TDadosCurso"
+        },
+        "IesEmissora": {
+          "$ref": "#/definitions/TDadosIesEmissora"
+        }
+      }
+    },
+    "TDadosDiplomaNSF": {
+      "description": "Dados do diploma de instituições fora do sistema federal",
+      "type": "object",
+      "required": [
+        "Diplomado",
+        "DadosCurso",
+        "IesEmissora"
+      ],
+      "properties": {
+        "Diplomado": {
+          "$ref": "#/definitions/TDadosDiplomado"
+        },
+        "DataConclusao": {
+          "description": "Data de conclusão do curso",
+          "format": "date"
+        },
+        "DadosCurso": {
+          "$ref": "#/definitions/TDadosCursoNSF"
+        },
+        "IesEmissora": {
+          "$ref": "#/definitions/TDadosIesEmissora"
+        }
+      }
+    },
+    "TDadosDiplomado": {
+      "description": "Dados pessoais do diplomado",
+      "type": "object",
+      "required": [
+        "ID",
+        "Nome",
+        "Sexo",
+        "Nacionalidade",
+        "Naturalidade",
+        "CPF",
+        "DataNascimento"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "RG"
+          ],
+          "properties": {
+            "RG": {
+              "$ref": "#/definitions/TRG"
+            }
+          }
+        },
+        {
+          "required": [
+            "OutroDocumentoIdentificacao"
+          ],
+          "properties": {
+            "OutroDocumentoIdentificacao": {
+              "$ref": "#/definitions/TOutroDocumentoIdentificacao"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "ID": {
+          "description": "Identificador único do diplomado",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Nome": {
+          "description": "Nome completo do diplomado",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Sexo": {
+          "description": "Sexo biológico do diplomado",
+          "type": "string",
+          "enum": [
+            "F",
+            "M"
+          ]
+        },
+        "NomeSocial": {
+          "description": "Nome social do diplomado",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Nacionalidade": {
+          "description": "Nacionalidade de diplomado",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Naturalidade": {
+          "description": "Naturalidade do diplomado",
+          "type": "object",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/TMunicipio"
+            },
+            {
+              "$ref": "#/definitions/TMunicipioEstrangeiro"
+            }
+          ]
+        },
+        "CPF": {
+          "description": "Número do CPF do diplomado sem separadores",
+          "type": "string",
+          "pattern": "^[0-9]{11}$"
+        },
+        "DataNascimento": {
+          "description": "Data de nascimento do diplomado",
+          "format": "date"
+        }
+      }
+    },
+    "TDadosCurso": {
+      "description": "Dados do curso",
+      "type": "object",
+      "required": [
+        "NomeCurso",
+        "Modalidade",
+        "TituloConferido",
+        "GrauConferido",
+        "EnderecoCurso",
+        "Autorizacao",
+        "Reconhecimento"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "CodigoCursoEMEC"
+          ],
+          "properties": {
+            "CodigoCursoEMEC": {
+              "description": "Código e-MEC do curso",
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        {
+          "required": [
+            "SemCodigoCursoEMEC"
+          ],
+          "properties": {
+            "SemCodigoCursoEMEC": {
+              "description": "Informações sobre a tramitação do processo e-MEC",
+              "type": "object",
+              "required": [
+                "NumeroProcesso",
+                "TipoProcesso",
+                "DataCadastro",
+                "DataProtocolo"
+              ],
+              "properties": {
+                "NumeroProcesso": {
+                  "description": "Número do processo e-MEC",
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                },
+                "TipoProcesso": {
+                  "description": "Tipo do processo e-MEC",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                },
+                "DataCadastro": {
+                  "description": "Data de abertura do processo e-MEC",
+                  "format": "date"
+                },
+                "DataProtocolo": {
+                  "description": "Data de emissão do protocolo e-MEC",
+                  "format": "date"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "NomeCurso": {
+          "description": "Nome completo do curso",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "NomeHabilitacao": {
+          "description": "Habilitação do curso",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+          }
+        },
+        "Enfase": {
+          "description": "Enfase do curso",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+          }
+        },
+        "Modalidade": {
+          "description": "Modo de oferta do curso",
+          "type": "string",
+          "enum": [
+            "Presencial",
+            "EAD"
+          ]
+        },
+        "TituloConferido": {
+          "description": "Título conferido pelo curso",
+          "type": "object",
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "Titulo"
+              ],
+              "properties": {
+                "Titulo": {
+                  "type": "string",
+                  "enum": [
+                    "Licenciado",
+                    "Técnico",
+                    "Bacharel",
+                    "Médico",
+                    "Psicólogo"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "OutroTitulo"
+              ],
+              "properties": {
+                "OutroTitulo": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                }
+              }
+            }
+          ]
+        },
+        "GrauConferido": {
+          "description": "Grau conferido pelo curso",
+          "type": "string",
+          "enum": [
+            "Tecnólogo",
+            "Bacharelado",
+            "Licenciatura",
+            "Curso sequencial"
+          ]
+        },
+        "EnderecoCurso": {
+          "$ref": "#/definitions/TEndereco"
+        },
+        "Polo": {
+          "$ref": "#/definitions/TPolo"
+        },
+        "Autorizacao": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "Reconhecimento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "RenovacaoReconhecimento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        }
+      }
+    },
+    "TDadosCursoNSF": {
+      "description": "Dados do curso de instituições fora do sistema federal",
+      "type": "object",
+      "required": [
+        "NomeCurso",
+        "NomeHabilitacao",
+        "Modalidade",
+        "TituloConferido",
+        "GrauConferido",
+        "EnderecoCurso"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "CodigoCursoEMEC"
+          ],
+          "properties": {
+            "CodigoCursoEMEC": {
+              "description": "Código e-MEC do curso",
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        {
+          "required": [
+            "SemCodigoCursoEMEC"
+          ],
+          "properties": {
+            "SemCodigoCursoEMEC": {
+              "description": "Informações sobre a tramitação do processo e-MEC",
+              "type": "object",
+              "required": [
+                "NumeroProcesso",
+                "TipoProcesso",
+                "DataCadastro",
+                "DataProtocolo"
+              ],
+              "properties": {
+                "NumeroProcesso": {
+                  "description": "Número do processo e-MEC",
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                },
+                "TipoProcesso": {
+                  "description": "Tipo do processo e-MEC",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                },
+                "DataCadastro": {
+                  "description": "Data de abertura do processo e-MEC",
+                  "format": "date"
+                },
+                "DataProtocolo": {
+                  "description": "Data de emissão do protocolo e-MEC",
+                  "format": "date"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "NomeCurso": {
+          "description": "Nome completo do curso",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "NomeHabilitacao": {
+          "description": "Habilitação do curso",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+          }
+        },
+        "Modalidade": {
+          "description": "Modo de oferta do curso",
+          "type": "string",
+          "enum": [
+            "Presencial",
+            "EAD",
+            "Semipresencial"
+          ]
+        },
+        "TituloConferido": {
+          "description": "Título conferido pelo curso",
+          "type": "object",
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "Titulo"
+              ],
+              "properties": {
+                "Titulo": {
+                  "type": "string",
+                  "enum": [
+                    "Licenciado",
+                    "Técnico",
+                    "Bacharel",
+                    "Médico",
+                    "Psicólogo"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "OutroTitulo"
+              ],
+              "properties": {
+                "OutroTitulo": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                }
+              }
+            }
+          ]
+        },
+        "GrauConferido": {
+          "description": "Grau conferido pelo curso",
+          "type": "string",
+          "enum": [
+            "Tecnólogo",
+            "Bacharelado",
+            "Licenciatura",
+            "Curso sequencial"
+          ]
+        },
+        "EnderecoCurso": {
+          "$ref": "#/definitions/TEndereco"
+        },
+        "Polo": {
+          "$ref": "#/definitions/TPolo"
+        },
+        "Autorizacao": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "Reconhecimento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "RenovacaoReconhecimento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        }
+      }
+    },
+    "TDadosIesEmissora": {
+      "description": "Dados da instituição de ensino superior emissora",
+      "type": "object",
+      "required": [
+        "Nome",
+        "CodigoMEC",
+        "CNPJ",
+        "Endereco",
+        "Credenciamento"
+      ],
+      "properties": {
+        "Nome": {
+          "description": "Nome completo da instituição",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "CodigoMEC": {
+          "description": "Código de identificação da instituição no MEC",
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "CNPJ": {
+          "$ref": "#/definitions/TCNPJ"
+        },
+        "Endereco": {
+          "$ref": "#/definitions/TEndereco"
+        },
+        "Credenciamento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "Recredenciamento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "RenovacaoDeRecredenciamento": {
+          "$ref": "#/definitions/TAtoRegulatorioComOuSemEMEC"
+        },
+        "Mantenedora": {
+          "description": "Dados da mantenedora da instituição",
+          "type": "object",
+          "required": [
+            "RazaoSocial",
+            "CNPJ",
+            "Endereco"
+          ],
+          "properties": {
+            "RazaoSocial": {
+              "description": "Nome registrado da pessoa jurídica",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "CNPJ": {
+              "$ref": "#/definitions/TCNPJ"
+            },
+            "Endereco": {
+              "$ref": "#/definitions/TEndereco"
+            }
+          }
+        }
+      }
+    },
+    "TTermoResponsabilidade": {
+      "description": "Dados do termo de responsabilidade",
+      "type": "object",
+      "required": [
+        "Nome",
+        "CPF",
+        "Cargo"
+      ],
+      "not": {
+        "required": [
+          "AtoDesignacao",
+          "AtoDesignacaoAssinado"
+        ]
+      },
+      "properties": {
+        "Nome": {
+          "description": "Nome completo do responsável",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "CPF": {
+          "description": "Número do CPF do responsável sem separadores",
+          "type": "string",
+          "pattern": "^[0-9]{11}$"
+        },
+        "Cargo": {
+          "description": "Cargo do responsável",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "AtoDesignacao": {
+          "description": "Arquivo PDF/A do ato de designação codificado em base64",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "application/pdf"
+        },
+        "AtoDesignacaoAssinado": {
+          "description": "Arquivo PDF/A do ato de designação assinado codificado em base64",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "application/pdf"
+        }
+      }
+    },
+    "TDocumentacaoComprobatoria": {
+      "description": "Documentação comprobatória do diplomado",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "Documento"
+        ],
+        "properties": {
+          "Documento": {
+            "description": "Documento comprobatório do diplomado",
+            "type": "object",
+            "required": [
+              "Tipo",
+              "Arquivo"
+            ],
+            "properties": {
+              "Tipo": {
+                "description": "Tipo do documento comprobatório",
+                "type": "string",
+                "enum": [
+                  "TermoResponsabilidade",
+                  "DocumentoIdentidadeDoAluno",
+                  "ProvaConclusaoEnsinoMedio",
+                  "HistoricoEscolar",
+                  "ProvaColacao",
+                  "ComprovacaoEstagioCurricular",
+                  "CertidaoNascimento",
+                  "CertidaoCasamento",
+                  "TituloEleitor",
+                  "AtoNaturalizacao",
+                  "Outros"
+                ]
+              },
+              "Arquivo": {
+                "description": "Arquivo PDF/A do documento comprobatório codificado em base64",
+                "type": "string",
+                "contentEncoding": "base64",
+                "contentMediaType": "application/pdf"
+              },
+              "Observacoes": {
+                "description": "Observações sobre o documento comprobatório",
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255,
+                "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "TRG": {
+      "description": "Documento de registro geral",
+      "type": "object",
+      "required": [
+        "Numero",
+        "UF"
+      ],
+      "properties": {
+        "Numero": {
+          "description": "Número do RG sem separadores",
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9]{6,15}$"
+        },
+        "OrgaoExpedidor": {
+          "description": "Órgão expedidor do RG",
+          "type": "string",
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "UF": {
+          "$ref": "#/definitions/TUF"
+        }
+      }
+    },
+    "TOutroDocumentoIdentificacao": {
+      "description": "Documento de identificação alternativo",
+      "type": "object",
+      "required": [
+        "TipoDocumento",
+        "Identificador"
+      ],
+      "properties": {
+        "TipoDocumento": {
+          "description": "Tipo do documento de identificação",
+          "type": "string",
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Identificador": {
+          "description": "Código do documento de identificação",
+          "type": "string",
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TFiliacao": {
+      "description": "Filiação do diplomado",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "Genitor"
+        ],
+        "properties": {
+          "Genitor": {
+            "description": "Dados do genitor",
+            "type": "object",
+            "required": [
+              "Nome",
+              "Sexo"
+            ],
+            "properties": {
+              "Nome": {
+                "description": "Nome completo do genitor",
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255,
+                "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+              },
+              "Sexo": {
+                "description": "Sexo biológico do genitor",
+                "type": "string",
+                "enum": [
+                  "F",
+                  "M"
+                ]
+              },
+              "NomeSocial": {
+                "description": "Nome social do genitor",
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255,
+                "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "THistoricoEscolar": {
+      "description": "Histórico acadêmico do diplomado",
+      "type": "object",
+      "required": [
+        "MatrizCurricular",
+        "DataEmissaoHistorico",
+        "SituacaoAluno",
+        "ENADE",
+        "CargaHorariaCursoIntegralizada"
+      ],
+      "properties": {
+        "MatrizCurricular": {
+          "description": "Matriz curricular do curso",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "DisciplinaCursada"
+            ],
+            "properties": {
+              "DisciplinaCursada": {
+                "description": "Disciplina cursada pelo aluno",
+                "type": "object",
+                "required": [
+                  "Disciplina",
+                  "Periodo",
+                  "CargaHoraria",
+                  "Situacao",
+                  "Docentes"
+                ],
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "Nota",
+                        "NotaAteCem"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Nota",
+                        "Conceito"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Nota",
+                        "ConceitoRM"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Nota",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "NotaAteCem",
+                        "Conceito"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "NotaAteCem",
+                        "ConceitoRM"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "NotaAteCem",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Conceito",
+                        "ConceitoRM"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Conceito",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "ConceitoRM",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    }
+                  ]
+                },
+                "properties": {
+                  "Disciplina": {
+                    "description": "Nome completo da disciplina",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                  },
+                  "Periodo": {
+                    "description": "Período em que a disciplina foi cursada",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                  },
+                  "CargaHoraria": {
+                    "$ref": "#/definitions/TCargaHoraria"
+                  },
+                  "Situacao": {
+                    "description": "Situação do aluno na disciplina",
+                    "type": "string",
+                    "enum": [
+                      "Aprovado",
+                      "Reprovado",
+                      "Trancado",
+                      "EstudoAproveitado"
+                    ]
+                  },
+                  "Docentes": {
+                    "description": "Professores da disciplina",
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "Docente"
+                      ],
+                      "properties": {
+                        "Docente": {
+                          "decription": "Professor da disciplina",
+                          "type": "object",
+                          "required": [
+                            "Nome",
+                            "Titulacao"
+                          ],
+                          "properties": {
+                            "Nome": {
+                              "description": "Nome completo do docente",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 255,
+                              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                            },
+                            "Titulacao": {
+                              "description": "Titulação do docente",
+                              "type": "string",
+                              "enum": [
+                                "Graduação",
+                                "Especialização",
+                                "Mestrado",
+                                "Doutorado",
+                                "Tecnólogo"
+                              ]
+                            },
+                            "CPF": {
+                              "description": "Número do CPF do docente sem separadores",
+                              "type": "string",
+                              "pattern": "^[0-9]{11}$"
+                            },
+                            "Lattes": {
+                              "description": "Link para o currículo Lattes do docente",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 255,
+                              "pattern": "^http://lattes\\.cnpq\\.br/[0-9]+$"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Nota": {
+                    "description": "Nota até dez do aluno na disciplina",
+                    "type": "string",
+                    "pattern": "^([0-9]\\.[0-9]{2}|10\\.00)$"
+                  },
+                  "NotaAteCem": {
+                    "description": "Nota até cem do aluno na disciplina",
+                    "type": "string",
+                    "pattern": "^([0-9]\\.[0-9]{2}|[1-9][0-9]\\.[0-9]{2}|100\\.00)$"
+                  },
+                  "Conceito": {
+                    "description": "Conceito do aluno na disciplina",
+                    "type": "string",
+                    "enum": [
+                      "A+",
+                      "A",
+                      "A-",
+                      "B+",
+                      "B",
+                      "B-",
+                      "C+",
+                      "C",
+                      "C-",
+                      "D+",
+                      "D",
+                      "D-",
+                      "E+",
+                      "E",
+                      "E-",
+                      "F+",
+                      "F",
+                      "F-"
+                    ]
+                  },
+                  "ConceitoRM": {
+                    "description": "Conceito RM do aluno na disciplina",
+                    "type": "string",
+                    "enum": [
+                      "A",
+                      "B",
+                      "C",
+                      "APD",
+                      "APP",
+                      "APR"
+                    ]
+                  },
+                  "ConceitoEspecificoDoCurso": {
+                    "description": "Conceito especifico usado pelo curso do aluno na disciplina",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DataEmissaoHistorico": {
+          "description": "Data de emissão do histórico",
+          "format": "date"
+        },
+        "SituacaoAluno": {
+          "description": "Situação do aluno no curso",
+          "type": "string",
+          "const": "Aprovado"
+        },
+        "ENADE": {
+          "description": "Situação do aluno no ENADE",
+          "type": "object",
+          "oneOf": [
+            {
+              "required": [
+                "Situacao"
+              ],
+              "properties": {
+                "Situacao": {
+                  "description": "Descrição da situação do aluno no ENADE",
+                  "type": "string",
+                  "enum": [
+                    "IRREGULAR",
+                    "Ingressante / Participante",
+                    "Dispensado, em razão do calendário trienal",
+                    "Concluinte / Participante",
+                    "Dispensado pelo MEC",
+                    "Dispensado, em razão da natureza do curso",
+                    "Dispensado, por razão de ordem pessoal",
+                    "Dispensado, por ato da instituição de ensino",
+                    "Dispensado, em razão de mobilidade acadêmica no exterior",
+                    "Estudante não habilitado ao ENADE em razão do calendário do ciclo avaliativo"
+                  ]
+                }
+              }
+            },
+            {
+              "required": [
+                "OutraSituacao"
+              ],
+              "properties": {
+                "OutraSituacao": {
+                  "description": "Descrição de outra situação do aluno no ENADE",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                }
+              }
+            }
+          ]
+        },
+        "DataProvaEnade": {
+          "description": "Data da prova do ENADE",
+          "format": "date"
+        },
+        "CargaHorariaCursoIntegralizada": {
+          "$ref": "#/definitions/TCargaHoraria"
+        }
+      }
+    },
+    "THistoricoEscolarSegundaVia": {
+      "description": "Histórico acadêmico do diplomado",
+      "type": "object",
+      "required": [
+        "DataEmissaoHistorico",
+        "SituacaoAluno",
+        "CargaHorariaCursoIntegralizada"
+      ],
+      "properties": {
+        "MatrizCurricular": {
+          "description": "Matriz curricular do curso",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "DisciplinaCursada"
+            ],
+            "properties": {
+              "DisciplinaCursada": {
+                "description": "Disciplina cursada pelo aluno",
+                "type": "object",
+                "required": [
+                  "Disciplina",
+                  "Periodo",
+                  "CargaHoraria",
+                  "Situacao",
+                  "Docentes"
+                ],
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "Nota",
+                        "NotaAteCem"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Nota",
+                        "Conceito"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Nota",
+                        "ConceitoRM"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Nota",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "NotaAteCem",
+                        "Conceito"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "NotaAteCem",
+                        "ConceitoRM"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "NotaAteCem",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Conceito",
+                        "ConceitoRM"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "Conceito",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "ConceitoRM",
+                        "ConceitoEspecificoDoCurso"
+                      ]
+                    }
+                  ]
+                },
+                "properties": {
+                  "Disciplina": {
+                    "description": "Nome completo da disciplina",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                  },
+                  "Periodo": {
+                    "description": "Período em que a disciplina foi cursada",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                  },
+                  "CargaHoraria": {
+                    "$ref": "#/definitions/TCargaHoraria"
+                  },
+                  "Situacao": {
+                    "description": "Situação do aluno na disciplina",
+                    "type": "string",
+                    "enum": [
+                      "Aprovado",
+                      "Reprovado",
+                      "Trancado",
+                      "EstudoAproveitado"
+                    ]
+                  },
+                  "Docentes": {
+                    "description": "Professores da disciplina",
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "Docente"
+                      ],
+                      "properties": {
+                        "Docente": {
+                          "decription": "Professor da disciplina",
+                          "type": "object",
+                          "required": [
+                            "Nome",
+                            "Titulacao"
+                          ],
+                          "properties": {
+                            "Nome": {
+                              "description": "Nome completo do docente",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 255,
+                              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                            },
+                            "Titulacao": {
+                              "description": "Titulação do docente",
+                              "type": "string",
+                              "enum": [
+                                "Graduação",
+                                "Especialização",
+                                "Mestrado",
+                                "Doutorado",
+                                "Tecnólogo"
+                              ]
+                            },
+                            "CPF": {
+                              "description": "Número do CPF do docente sem separadores",
+                              "type": "string",
+                              "pattern": "^[0-9]{11}$"
+                            },
+                            "Lattes": {
+                              "description": "Link para o currículo Lattes do docente",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 255,
+                              "pattern": "^http://lattes\\.cnpq\\.br/[0-9]+$"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Nota": {
+                    "description": "Nota até dez do aluno na disciplina",
+                    "type": "string",
+                    "pattern": "^([0-9]\\.[0-9]{2}|10\\.00)$"
+                  },
+                  "NotaAteCem": {
+                    "description": "Nota até cem do aluno na disciplina",
+                    "type": "string",
+                    "pattern": "^([0-9]\\.[0-9]{2}|[1-9][0-9]\\.[0-9]{2}|100\\.00)$"
+                  },
+                  "Conceito": {
+                    "description": "Conceito do aluno na disciplina",
+                    "type": "string",
+                    "enum": [
+                      "A+",
+                      "A",
+                      "A-",
+                      "B+",
+                      "B",
+                      "B-",
+                      "C+",
+                      "C",
+                      "C-",
+                      "D+",
+                      "D",
+                      "D-",
+                      "E+",
+                      "E",
+                      "E-",
+                      "F+",
+                      "F",
+                      "F-"
+                    ]
+                  },
+                  "ConceitoRM": {
+                    "description": "Conceito RM do aluno na disciplina",
+                    "type": "string",
+                    "enum": [
+                      "A",
+                      "B",
+                      "C",
+                      "APD",
+                      "APP",
+                      "APR"
+                    ]
+                  },
+                  "ConceitoEspecificoDoCurso": {
+                    "description": "Conceito especifico usado pelo curso do aluno na disciplina",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DataEmissaoHistorico": {
+          "description": "Data de emissão do histórico",
+          "format": "date"
+        },
+        "SituacaoAluno": {
+          "description": "Situação do aluno no curso",
+          "type": "string",
+          "const": "Aprovado"
+        },
+        "ENADE": {
+          "description": "Situação do aluno no ENADE",
+          "type": "object",
+          "oneOf": [
+            {
+              "required": [
+                "Situacao"
+              ],
+              "properties": {
+                "Situacao": {
+                  "description": "Descrição da situação do aluno no ENADE",
+                  "type": "string",
+                  "enum": [
+                    "IRREGULAR",
+                    "Ingressante / Participante",
+                    "Dispensado, em razão do calendário trienal",
+                    "Concluinte / Participante",
+                    "Dispensado pelo MEC",
+                    "Dispensado, em razão da natureza do curso",
+                    "Dispensado, por razão de ordem pessoal",
+                    "Dispensado, por ato da instituição de ensino",
+                    "Dispensado, em razão de mobilidade acadêmica no exterior",
+                    "Estudante não habilitado ao ENADE em razão do calendário do ciclo avaliativo"
+                  ]
+                }
+              }
+            },
+            {
+              "required": [
+                "OutraSituacao"
+              ],
+              "properties": {
+                "OutraSituacao": {
+                  "description": "Descrição de outra situação do aluno no ENADE",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                }
+              }
+            }
+          ]
+        },
+        "DataProvaEnade": {
+          "description": "Data da prova do ENADE",
+          "format": "date"
+        },
+        "CargaHorariaCursoIntegralizada": {
+          "$ref": "#/definitions/TCargaHoraria"
+        }
+      }
+    },
+    "TIngressoCurso": {
+      "description": "Dados de ingresso do diplomado no curso",
+      "type": "object",
+      "required": [
+        "Data",
+        "FormaAcesso",
+        "DataConclusao"
+      ],
+      "properties": {
+        "Data": {
+          "description": "Data de ingresso no curso",
+          "format": "date"
+        },
+        "FormaAcesso": {
+          "description": "Forma de acesso ao curso",
+          "type": "string",
+          "enum": [
+            "Programas de avaliação seriada ou continuada",
+            "Convenios",
+            "Histórico escolar",
+            "Sisu",
+            "Enem",
+            "Vestibular",
+            "Prova agendada",
+            "Entrevista",
+            "Transferência",
+            "Outros"
+          ]
+        },
+        "DataConclusao": {
+          "description": "Data de conclusão do curso",
+          "format": "date"
+        }
+      }
+    },
+    "TCargaHoraria": {
+      "oneOf": [
+        {
+          "required": [
+            "HoraAula"
+          ],
+          "properties": {
+            "HoraAula": {
+              "description": "Carga horária em numéros inteiros",
+              "type": "string",
+              "pattern": "^[1-9][0-9]*$"
+            }
+          }
+        },
+        {
+          "required": [
+            "HoraRelogio"
+          ],
+          "properties": {
+            "HoraRelogio": {
+              "description": "Carga horária em numéros decimais",
+              "type": "string",
+              "pattern": "^[0-9]+\\.[0-9]{2}$"
+            }
+          }
+        }
+      ]
+    },
+    "TCNPJ": {
+      "description": "Número do CNPJ sem separadores",
+      "type": "string",
+      "pattern": "^[0-9]{14}$"
+    },
+    "TPolo": {
+      "description": "Dados do polo de educação à distância",
+      "type": "object",
+      "required": [
+        "Nome"
+      ],
+      "allOf": [
+        {
+          "required": [
+            "Endereco"
+          ],
+          "properties": {
+            "Endereco": {
+              "$ref": "#/definitions/TEndereco"
+            }
+          }
+        }
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "CodigoEMEC"
+          ],
+          "properties": {
+            "CodigoEMEC": {
+              "description": "Código e-MEC do polo",
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        {
+          "required": [
+            "SemCodigoEMEC"
+          ],
+          "properties": {
+            "SemCodigoEMEC": {
+              "description": "Informações sobre a tramitação do processo e-MEC",
+              "type": "object",
+              "required": [
+                "NumeroProcesso",
+                "TipoProcesso",
+                "DataCadastro",
+                "DataProtocolo"
+              ],
+              "properties": {
+                "NumeroProcesso": {
+                  "description": "Número do processo e-MEC",
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                },
+                "TipoProcesso": {
+                  "description": "Tipo do processo e-MEC",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 255,
+                  "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+                },
+                "DataCadastro": {
+                  "description": "Data de abertura do processo e-MEC",
+                  "format": "date"
+                },
+                "DataProtocolo": {
+                  "description": "Data de emissão do protocolo e-MEC",
+                  "format": "date"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "Nome": {
+          "description": "Nome completo do polo",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TEndereco": {
+      "description": "Dados de localização",
+      "type": "object",
+      "required": [
+        "Logradouro",
+        "Bairro",
+        "CEP"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/TMunicipio"
+        }
+      ],
+      "properties": {
+        "Logradouro": {
+          "description": "Nome do local",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Numero": {
+          "description": "Número da casa ou edifício",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Complemento": {
+          "description": "Identificação da unidade",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "Bairro": {
+          "description": "Região do município",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "CEP": {
+          "description": "Código Postal",
+          "type": "string",
+          "pattern": "^[0-9]{8}$"
+        }
+      }
+    },
+    "TMunicipio": {
+      "description": "Dados do município",
+      "type": "object",
+      "required": [
+        "CodigoMunicipio",
+        "NomeMunicipio",
+        "UF"
+      ],
+      "properties": {
+        "CodigoMunicipio": {
+          "description": "Código do município da tabela do IBGE",
+          "type": "string",
+          "pattern": "^[0-9]{7}$"
+        },
+        "NomeMunicipio": {
+          "description": "Nome completo do município",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "UF": {
+          "$ref": "#/definitions/TUF"
+        }
+      }
+    },
+    "TMunicipioEstrangeiro": {
+      "description": "Dados do município estrangeiro",
+      "type": "object",
+      "required": [
+        "NomeMunicipioEstrangeiro"
+      ],
+      "properties": {
+        "NomeMunicipioEstrangeiro": {
+          "description": "Nome do município estrangeiro",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        }
+      }
+    },
+    "TUF": {
+      "description": "Sigla da unidade federativa",
+      "type": "string",
+      "enum": [
+        "AC",
+        "AL",
+        "AM",
+        "AP",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MG",
+        "MS",
+        "MT",
+        "PA",
+        "PB",
+        "PE",
+        "PI",
+        "PR",
+        "RJ",
+        "RN",
+        "RO",
+        "RR",
+        "RS",
+        "SC",
+        "SE",
+        "SP",
+        "TO"
+      ]
+    },
+    "TAtoRegulatorioComOuSemEMEC": {
+      "description": "Ato regulatório de reconhecimento",
+      "type": "object",
+      "required": [
+        "Tipo",
+        "Numero",
+        "Data"
+      ],
+      "properties": {
+        "Tipo": {
+          "description": "Tipo do ato regulatório",
+          "type": "string",
+          "enum": [
+            "Parecer",
+            "Resolução",
+            "Decreto",
+            "Portaria",
+            "Lei Federal",
+            "Lei Estadual",
+            "Lei Municipal",
+            "Ato Próprio"
+          ]
+        },
+        "Numero": {
+          "description": "Número da portaria/lei",
+          "type": "string",
+          "pattern": "^(S/N)|(([0-9])[-0-9a-zA-Z0-9_/]*)$"
+        },
+        "Data": {
+          "description": "Data do ato regulatório",
+          "format": "date"
+        },
+        "VeiculoPublicacao": {
+          "description": "Veículo de publicação do ato regulatório",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+        },
+        "DataPublicacao": {
+          "description": "Data de publicação do ato regulatório",
+          "format": "date"
+        },
+        "SecaoPublicacao": {
+          "description": "Seção de publicação do ato regulatório",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "PaginaPublicacao": {
+          "description": "Página de publicação do ato regulatório",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "NumeroDOU": {
+          "description": "Número do ato regulatório no diário oficial da união",
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        },
+        "InformacoesTramitacaoEMEC": {
+          "description": "Informações sobre a tramitação do processo e-MEC",
+          "type": "object",
+          "required": [
+            "NumeroProcesso",
+            "TipoProcesso",
+            "DataCadastro",
+            "DataProtocolo"
+          ],
+          "properties": {
+            "NumeroProcesso": {
+              "description": "Número do processo e-MEC",
+              "type": "string",
+              "pattern": "^[1-9][0-9]*$"
+            },
+            "TipoProcesso": {
+              "description": "Tipo do processo e-MEC",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "pattern": "^[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}$"
+            },
+            "DataCadastro": {
+              "description": "Data de abertura do processo e-MEC",
+              "format": "date"
+            },
+            "DataProtocolo": {
+              "description": "Data de emissão do protocolo e-MEC",
+              "format": "date"
+            }
+          }
+        }
+      }
+    }
+  }
+}

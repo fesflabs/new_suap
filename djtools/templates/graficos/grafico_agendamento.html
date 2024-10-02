@@ -1,0 +1,132 @@
+<style>
+.date-cell {
+	float:left;
+	background-color:white;
+	color:black;
+	width:118px;
+	font-weight:bold;
+	font-size:10px;
+	border-left: black 1px solid;
+	border-right: black 1px solid;
+	text-align: center;
+	height: 10px;
+}
+.hour-cell {
+	float:left;
+	color:black;
+	width:4px;
+	font-size:8px;
+	border-right: white 1px solid;
+	text-align: center;
+	height: 8px;
+}
+.free-cell {
+	float:left;
+	background-color:#DDDDDD;
+	width:5px;
+	font-size:8px;
+	border-top: white 3px solid;
+	text-align: center;
+	height: 15px;
+	cursor:pointer;
+}
+.barra-horizontal{
+	width: {{ grafico.get_tamanho_linha }}px;
+}
+.cinza{
+	color:#000;
+}
+</style>
+<script>
+	var LIMITE_INFERIOR = '{{ grafico.get_limite_inferior_str }}';
+	var LIMITE_SUPERIOR = '{{ grafico.get_limite_superior_str }}';
+	function paint_div(color, viatura_id, dsaida, hsaida, dvolta, hvolta, viagem, tooltip){
+		if (!maior_ou_igual(dsaida, LIMITE_INFERIOR)){
+			dsaida = LIMITE_INFERIOR;
+			hsaida = '00:00';
+		}
+		if (!menor_ou_igual(dvolta, LIMITE_SUPERIOR)){
+			dvolta = LIMITE_SUPERIOR;
+			hvolta = '23:00';
+		}
+		if (tooltip == null){
+			tooltip = dsaida+' '+hsaida+'-'+dvolta+' '+hvolta+': '+viagem;
+		}
+		_hsaida = hsaida.split(':')[0]*1;
+		_hvolta = hvolta.split(':')[0]*1;
+		if(dsaida==dvolta){
+			for(var i=_hsaida; i<_hvolta+1; i++){
+				div = document.getElementById(dsaida+'-'+i+'-'+viatura_id)
+				if (div.style.backgroundColor=='rgb(252, 248, 227)') color = '#A94442';
+				div.style.backgroundColor=color;
+				div.title = tooltip;
+				div.style.cursor = 'help';
+			}
+		} else{
+			do{
+				paint_div(color, viatura_id, dsaida, hsaida, dsaida, '23:00', viagem, tooltip);
+				hsaida = "00:00";
+			}while((dsaida = dia_seguinte(dsaida))!=dvolta);
+			paint_div(color, viatura_id, dsaida, '00:00', dvolta, hvolta, viagem, tooltip);
+		}
+	}
+	function menor_ou_igual(d1, d2){
+		d1 = d1.split('/');
+		d1 = d1[1]+"/"+d1[0]+"/"+d1[2];
+		var d1 = new Date(d1);
+		d2 = d2.split('/');
+		d2 = d2[1]+"/"+d2[0]+"/"+d2[2];
+		var d2 = new Date(d2);
+		return(d1.getTime()<d2.getTime()||d1.getTime()==d2.getTime());
+	}
+	function maior_ou_igual(d1, d2){
+		d1 = d1.split('/');
+		d1 = d1[1]+"/"+d1[0]+"/"+d1[2];
+		var d1 = new Date(d1);
+		d2 = d2.split('/');
+		d2 = d2[1]+"/"+d2[0]+"/"+d2[2];
+		var d2 = new Date(d2);
+		return(d1.getTime()>d2.getTime()||d1.getTime()==d2.getTime());
+	}
+	function dia_seguinte(data){
+		data = data.split('/');
+		data = data[1]+"/"+data[0]+"/"+data[2];
+		var d = new Date(data);
+		d.setDate(d.getDate()+1);
+		day = d.getDate() < 10 ? "0"+d.getDate() : d.getDate();
+		month = d.getMonth() < 9 ? "0"+(d.getMonth()+1) : (d.getMonth()+1);
+		return(day+"/"+month+"/"+(1900+d.getYear()));
+	}
+	function mostrar_hora(hora){
+		document.getElementById('hora').innerHTML= hora + 'h';
+	}
+</script>
+<div style="border: #EEE 1px solid;">
+  <div style="margin:5px;">
+  <strong><div align="right" id="hora">00 h</div></strong>
+  <div id="painel" style="width:95%;overflow-y:hidden;overflow:auto;margin:auto;">
+	
+	{% for item in grafico.items %}
+	<div>
+		<div style="float:left"><div style="width:200px">{{ item.1 }}</div></div>
+		<div class="barra-horizontal">
+			{% for dia in grafico.dias %}
+				{% for hora in grafico.horas %}
+				<div class="free-cell" id="{{ dia }}-{{ hora }}-{{ item.0 }}" title="{{ hora }} h" onmouseover="mostrar_hora('{{ hora }}')"></div>
+			{% endfor %}
+		{% endfor %}
+		</div>
+		<br style="clear:left">
+	</div>
+	
+	{% endfor %}
+		<div style="float:left"><div style="width:200px">.</div></div>
+		<div  class="barra-horizontal">
+			{% for dia in grafico.dias %}
+			<div class="date-cell">{{ dia }}</div>
+			{% endfor %}
+		</div>
+		<br style="clear:left">
+  </div>
+  </div>
+  </div>

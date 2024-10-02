@@ -1,0 +1,62 @@
+{% extends super_template %}
+
+
+
+{% block extracss %}
+    <style type="text/css">
+        tbody td{
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    {% render_form form %}
+
+    {% if request.method == 'POST' %}
+        {% if obj.grupopergunta_set.exists %}
+            {% for grupo_pergunta in obj.grupopergunta_set.all %}
+                <div class="tab-container" data-title="Grupo {{ forloop.counter }}">
+                    <h4>{{ grupo_pergunta.descricao }}</h4>
+                    {% if perms.avaliacao_cursos.view_avaliacao and grupo_pergunta.possui_pergunta_com_escala_padrao %}
+                    <ul class="action-bar">
+                        <li><a class="btn default popup" href="/avaliacao_cursos/estatistica_grupo_resposta/{{ grupo_pergunta.pk }}/{{ params }}">Estatísticas das Respostas</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if grupo_pergunta.pergunta_set.exists %}
+                        <table>
+                            <caption>Perguntas</caption>
+                            <thead>
+                                <tr>
+                                    <th>Enunciado</th>
+                                    <th class="no-print">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for pergunta in grupo_pergunta.pergunta_set.all|order:request %}
+                                <tr>
+                                    <td>{{ pergunta.enunciado|format }}</td>
+                                    <td class="no-print">
+                                        {% if not pergunta.tipo_resposta == 2 %}
+                                            <a class="btn default popup" href="/avaliacao_cursos/estatistica_resposta/{{ pergunta.pk }}/{{ params }}">Estatísticas das Respostas</a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="msg alert">Nenhuma pergunta cadastrada.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="msg alert">Nenhum grupo cadastrado.</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

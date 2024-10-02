@@ -1,0 +1,43 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+
+    <p class="msg alert">
+        Caso <strong>não esteja com a versão digital do documento</strong> no formato PDF,
+        <a href="/comum/autenticar_documento/">clique aqui para validar a emissão</a> através
+        do tipo de documento, data de emissão e código verificador impressos do rodapé.
+    </p>
+
+
+    {% if form.is_valid %}
+
+        {% box "Documento" "collapsed" %}
+            {% render_form form %}
+        {% endbox %}
+
+        {% box "Resultado da Verificação" %}
+            {% if assinantes %}
+                <p class="msg info">
+                    Assinatura verificada com sucesso.
+                    {% if assinantes %}
+                        <br> Este documento foi assinado digitalmente por:
+                            {% for assinante in assinantes %}
+                            <br> • <strong>{{ assinante }}</strong>
+                            {% endfor %}
+                    {% endif %}
+                </p>
+                <div align="center">
+                    <img width="150" src="/static/comum/img/check.png">
+                </div>
+            {% else %}
+                <p class="msg error">
+                    Assinatura digital não identificada.
+                </p>
+            {% endif %}
+        {% endbox %}
+    {% else %}
+        {% box "Documento" %}
+            {% render_form form %}
+        {% endbox %}
+    {% endif %}
+{% endblock %}

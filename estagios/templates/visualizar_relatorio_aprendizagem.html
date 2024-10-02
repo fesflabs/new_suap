@@ -1,0 +1,83 @@
+{% extends super_template %}
+
+{% block content %}
+    <table class="info">
+        <tbody>
+            <tr>
+                <td>Data do Relatório</td>
+                <td>{{ obj.data_relatorio|format }}</td>
+            </tr>
+            {% if perms.estagios.add_aprendizagem  %}
+                <tr>
+                    <td>Último Usuário a Editar</td>
+                    <td>{{ obj.ultimo_editor|format }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>Módulo</td>
+                <td>{{ obj.modulo_aprendizagem|format }}</td>
+            </tr>
+            <tr>
+                <td>Atividades: <br/>
+                    <pre>{{ obj.modulo_aprendizagem.atividades }}</pre>
+                </td>
+                <td>
+                    {{ obj.get_avaliacao_atividades_display }}
+                </td>
+            </tr>
+            <tr>
+                <td>Comentários sobre o Desenvolvimento das Atividades</td>
+                <td>{{ obj.comentarios_atividades|format }}</td>
+            </tr>
+            <tr>
+                <td>Descrição de Outras Atividades</td>
+                <td>{{ obj.outras_atividades|format }}</td>
+            </tr>
+            {% if not obj.eh_relatorio_do_empregado_monitor %}
+                <tr>
+                    <td>Aprendizagem na Área de Formação</td>
+                    <td>{{ obj.get_aprendizagem_na_area_formacao_display|format }}</td>
+                </tr>
+                <tr>
+                    <td>Aprendizagem Contribuiu na Formação Profissional</td>
+                    <td>{{ obj.get_aprendizagem_contribuiu_display|format }}</td>
+                </tr>
+                <tr>
+                    <td>O Conhecimento Adquirido foi Aplicado</td>
+                    <td>{{ obj.get_aplicou_conhecimento_display|format }}</td>
+                </tr>
+                <tr>
+                    <td>Conceito da Aprendizagem neste Módulo</td>
+                    <td>{{ obj.get_avaliacao_conceito_display|format }}</td>
+                </tr>
+            {% endif %}
+            {% if obj.eh_relatorio_do_empregado_monitor %}
+                <tr>
+                    <td>Nota do Aprendiz</td>
+                    <td>{{ obj.nota_aprendiz|format }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>Comentários e Sugestões</td>
+                <td>{{ obj.avaliacao_comentarios|format }}</td>
+            </tr>
+            <tr>
+                <td>Arquivo do Relatório</td>
+                <td>
+                    {% if obj.relatorio %}
+                        <a href="{{ obj.relatorio.url }}">Relatório</a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Observação</td>
+                <td>
+                    O desenvolvimento de uma atividade de estágio implica em um constante processo de aprendizagem
+                    e desenvolvimento de competências. O plano de atividades do estagiário, à medida que for avaliado,
+                    progressivamente, o desempenho do estudante deve ser atualizado e incorporado ao termo de compromisso
+                    de estágio por meio de aditivos. (Parágrafo único, art. 7º, Lei 11.788/08).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,34 @@
+<summary>{{ titulo }}</summary>
+<div class="details-container">
+    <div class="person small">
+        <div class="photo-circle small">
+            <img alt="{{ usuario.get_profile.nome_usual }}"
+                 src="{{ usuario.get_profile.get_foto_75x100_url }}" />
+        </div>
+        <dl>
+            <dt class="d-none">Nome:</dt>
+            <dd>{{ usuario|format }}</dd>
+            {% if usuario.get_profile.funcionario %}
+                {% if usuario.get_profile.funcionario.servidor.historico_funcao_ativa.exists %}
+                    <dt>Funções:</dt>
+                    {% for funcao in usuario.get_profile.funcionario.servidor.historico_funcao_ativa %}
+                        <dd>{{ funcao.atividade.nome }}</dd>
+                    {% endfor %}
+                {% endif %}
+                <dt>Setor:</dt>
+                <dd>
+                    <a href="/rh/setor/{{ usuario.get_profile.funcionario.setor.pk }}/">
+                    {{ usuario.get_profile.funcionario.servidor.setor_lotacao.uo.equivalente}} -
+                    {{ usuario.get_profile.funcionario.setor|format }}
+                    </a>
+                </dd>
+                <dt>Email:</dt>
+                <dd>{{ usuario.get_profile.funcionario.email|format }}</dd>
+                {% if usuario.get_profile.funcionario.servidor.setor_lotacao.uo.telefone %}
+                    <dt>Telefone:</dt>
+                    <dd>{{ usuario.get_profile.funcionario.servidor.setor_lotacao.uo.telefone|format }}</dd>
+                {% endif %}
+            {% endif %}
+        </dl>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{% extends super_template %}
+
+{% block content %}
+    {% box "Dados Gerais" %}
+        <dl class="definition-list">
+            <dt>Nome</dt>
+            <dd>{{ user.get_profile.nome }}</dd>
+            <dt>Matrícula</dt>
+            <dd>{{ user.username }}</dd>
+            {% if cargo %}
+                <dt>Cargo</dt>
+                <dd>{{ cargo }}</dd>
+            {% endif %}
+            <dt>Campus</dt>
+            <dd>{{ campus }}</dd>
+        </dl>
+    {% endbox %}
+
+    {% box "Inscrição" %}
+        {% render_form form %}
+    {% endbox %}
+{% endblock %}

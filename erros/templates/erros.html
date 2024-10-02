@@ -1,0 +1,91 @@
+{% extends super_template %}
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+
+    {% if erros.exists %}
+        {% for aba_titulo, qs in abas.items %}
+            {% if qs.exists %}
+                <div class="tab-container" data-title="{{ aba_titulo }}" data-counter="{{ qs.count }}">
+                    {% autopaginate qs 20 %}
+                    {% paginate %}
+                    {% for erro in qs %}
+                        <div class="general-box">
+                        <div class="primary-info">
+                            {% if eh_desenvolvedor and erro.qtd_vinculos_afetados > 1 %}
+                                <span class="status status-error">{{ erro.qtd_vinculos_afetados }} usuários afetados</span>
+                            {% endif %}
+                            <h4>
+                                <a href="{{ erro.get_absolute_url }}" class="word-break-all">{{ erro }}</a>
+                            </h4>
+                            {% if erro|method:"pode_assumir"|call:request.user.get_vinculo or erro|method:"pode_atribuir"|call:request.user.get_vinculo %}
+                                <ul class="action-bar">
+                                    {% if erro|method:"pode_assumir"|call:request.user.get_vinculo %}
+                                        <li><a href="/erros/erro/{{ erro.id }}/?assumir=1" class="btn success">Assumir</a></li>
+                                    {% endif %}
+                                    {% if erro|method:"pode_atribuir"|call:request.user.get_vinculo %}
+                                        <li><a href="/erros/atribuir_atendente/{{ erro.id }}/" class="btn primary popup">Atribuir</a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                            <div class="extra-info">
+                                <p>{{ erro.descricao|linebreaksbr }}</p>
+                            </div>
+                        </div>
+                        <dl class="secondary-info">
+                            <div class="list-item">
+                                <dt>{% icone "puzzle-piece" %} Módulo:</dt>
+                                <dd><a href="/erros/erros/?modulo={{ erro.modulo_afetado }}">{{ erro.modulo_afetado }}</a></dd>
+                            </div>
+                            {% if eh_desenvolvedor %}
+                                <div class="list-item">
+                                    <dt>{% icone "code" %} View:</dt>
+                                    <dd><a href="/erros/erros/?busca={{ erro.view }}" class="word-break-all">{{ erro.view }}</a></dd>
+                                </div>
+                                <div class="list-item">
+                                    <dt>{% icone "link" %} Issue do Sentry:</dt>
+                                    {% if erro.url_sentry %}
+                                        <dd><a href="{{ erro.url_sentry }}">{{ erro.sentry_issue_id|format }}</a></dd>
+                                    {% else %}
+                                        <dd><span class="status status-error">Não</span></dd>
+                                    {% endif %}
+                                </div>
+                                <div class="list-item">
+                                    <dt>{% icone "link" %} Issue no Gitlab:</dt>
+                                    {% if erro.gitlab_issue_url %}
+                                        <dd><a href="{{ erro.gitlab_issue_url }}" class="word-break-all">{{ erro.gitlab_issue_url }}</a></dd>
+                                    {% else %}
+                                        <dd><span class="status status-error">Não</span></dd>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            <div class="list-item">
+                                <dt>{% icone "user" %} Reportado por:</dt>
+                                <dd>
+                                    <div class="photo-circle smallest"><img alt="{{ erro.informante.pessoa.pessoafisica.nome_usual }}" src="{{ erro.informante.pessoa.pessoafisica.get_foto_75x100_url }}" /></div>
+                                    {{ erro.informante.user|format }}
+                                </dd>
+                            </div>
+                            <div class="list-item">
+                                <dt>{% icone "calendar" %} Reportado em:</dt>
+                                <dd>{{ erro.data_criacao }}</dd>
+                            </div>
+                            {% if erro.atendente_atual %}
+                                <div class="list-item">
+                                    <dt>{% icone "user-cog" %} Atendente Atual:</dt>
+                                    <dd>{{ erro.atendente_atual.user|format }}</dd>
+                                </div>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    {% endfor %}
+                    {% paginate %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">Nenhum erro encontrado.</p>
+    {% endif %}
+{% endblock %}

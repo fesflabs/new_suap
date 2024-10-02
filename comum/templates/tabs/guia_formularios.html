@@ -1,0 +1,267 @@
+<span id="formularios-1" aria-hidden="true"></span>
+{% box "Formulários" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <form action="">
+                <fieldset>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="inputText">Texto:</label>
+                            <input type="text" id="inputText" name="input" placeholder="Digite o texto" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="inputEmail">E-mail:</label>
+                            <input type="email" id="inputEmail" name="inputemail" placeholder="Digite o e-mail" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="inputData">Data:</label>
+                            <input type="date" id="inputData" name="inputdata" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="inputHora">Hora:</label>
+                            <input type="time" id="inputHora" name="inputhora" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="inputDataHora">Data/Hora:</label>
+                            <input type="datetime-local" id="inputDataHora" name="inputdatahora" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="fileInput">Arquivo:</label>
+                            <input type="file" id="fileInput" name="fileInput" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box field-box-first">
+                            <label for="normalSelect">Select:</label>
+                            <select name="normalSelect" id="normalSelect">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <div class="field-box field-box-later">
+                            <label for="multiSelect">Multiple select:</label>
+                            <select multiple="multiple" name="multiSelect" id="multiSelect">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <p class="labelForm">Checkboxes:</p>
+                            <ul class="form-options">
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes" value="option1" />
+                                        <span>Opção 1</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes" value="option2" />
+                                        <span>Opção 2</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes" value="option3" />
+                                        <span>Opção 3</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes" value="option4" />
+                                        <span>Option 4</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <label for="textarea">Textarea:</label>
+                            <textarea name="textarea" id="textarea" placeholder="Digite o texto"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field-box-first">
+                            <p class="labelForm">Radiobuttons:</p>
+                            <ul class="form-options">
+                                <li>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" value="option1" />
+                                        <span>Opção 1</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" value="option2" />
+                                        <span>Opção 2</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="submit-row">
+                    <input type="submit" value="Salvar" class="btn success" />
+                    <input name="_addanother" type="submit" value="Salvar e adicionar outro" class="btn default" />
+                </div>
+            </form>
+        </dd>
+
+        <dt>Código HTML</dt>
+        <dd>
+<pre>
+&lt;form action=""&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;label for="inputText"&gt;Text:&lt;/label&gt;
+    &lt;input type="text" id="inputText" name="input" /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;label for="normalSelect"&gt;Select:&lt;/label&gt;
+    &lt;select name="normalSelect" id="normalSelect"&gt;
+        &lt;option&gt;1&lt;/option&gt;
+        &lt;option&gt;2&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;label for="multiSelect"&gt;Multiple select:&lt;/label&gt;
+    &lt;select multiple="multiple" name="multiSelect" id="multiSelect"&gt;
+        &lt;option&gt;1&lt;/option&gt;
+        &lt;option&gt;2&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;p class="labelForm"&gt;Checkboxes:&lt;/p&gt;
+    &lt;ul class="form-options"&gt;
+        &lt;li&gt;
+            &lt;label&gt;
+                &lt;input type="checkbox" name="optionsCheckboxes" value="option1" /&gt;
+                &lt;span&gt;Opção 1&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;label&gt;
+                &lt;input type="checkbox" name="optionsCheckboxes" value="option2" /&gt;
+                &lt;span&gt;Opção 2&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;label for="textarea"&gt;Textarea:&lt;/label&gt;
+    &lt;textarea name="textarea" id="textarea"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;label for="fileInput"&gt;File:&lt;/label&gt;
+    &lt;input type="file" id="fileInput" name="fileInput" /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="form-row"&gt;
+&lt;div class="field-box"&gt;
+    &lt;p class="labelForm"&gt;Radiobuttons:&lt;/p&gt;
+    &lt;ul class="form-options"&gt;
+        &lt;li&gt;
+            &lt;label&gt;
+                &lt;input type="radio" name="optionsRadios" value="option1" /&gt;
+                &lt;span&gt;Opção 1&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;label&gt;
+                &lt;input type="radio" name="optionsRadios" value="option2" /&gt;
+                &lt;span&gt;Opção 2&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="submit-row"&gt;
+&lt;input type="submit" value="Salvar" class="btn large" /&gt;
+&lt;input name="_addanother" type="submit" value="Salvar e adicionar outro" class="btn small" /&gt;
+&lt;/div&gt;
+&lt;/form&gt;
+</pre>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="formularios-2" aria-hidden="true"></span>
+{% box "Barra de Busca e Filtros" %}
+    {% include "includes/guia_barra_busca_filtros.html" %}
+{% endbox %}
+
+<span id="formularios-3" aria-hidden="true"></span>
+{% box "Botão: Switch" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </dd>
+
+        <dt>Código HTML</dt>
+        <dd>
+<pre>
+&lt;label class="switch"&gt;
+&lt;input type="checkbox"&gt;
+&lt;span class="slider"&gt;&lt;/span&gt;
+&lt;/label&gt;
+</pre>
+        </dd>
+    </dl>
+{% endbox %}
+
+<span id="formularios-4" aria-hidden="true"></span>
+{% box "Checkbox: Marcar Todos" %}
+    <dl class="definition-list">
+        <dt>Exibição</dt>
+        <dd>
+            <div class="markall-container">
+                <label for="markall">Marcar Todos</label>
+                <input type="checkbox" id="markall">
+            </div>
+        </dd>
+
+        <dt>Código HTML</dt>
+        <dd>
+<pre>
+&lt;div class="markall-container"&gt;
+&lt;label for="markall"&gt;Marcar Todos&lt;/label&gt;
+&lt;input type="checkbox" id="markall"&gt;
+&lt;/div&gt;
+</pre>
+        </dd>
+    </dl>
+{% endbox %}

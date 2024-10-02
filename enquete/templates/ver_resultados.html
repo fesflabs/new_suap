@@ -1,0 +1,178 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+    <script>
+        {% for grafico in graficos %}
+            {{ grafico|safe }}
+        {% endfor %}
+    </script>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block object-status %}
+    {{ enquete.get_status }}
+{% endblock %}
+
+{% block content %}
+    <div class="search-and-filters">
+        {% render_form form %}
+    </div>
+    {% if form.is_bound %}
+        {% box "Participantes" "collapsed" %}
+            {% if participantes.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Pessoa</th>
+                            <th>Data de Resposta</th>
+                            <th>Data da Última Resposta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participante in respostas_participantes %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ participante.vinculo__pessoa__nome|format }}</td>
+                                <td>{{ participante.data_cadastro|format }}</td>
+                                <td>{{ participante.data_ultima_resposta|format }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma pessoa participou desta enquete.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box "Respostas" %}
+            {% for categoria in enquete.categorias %}
+                <div class="tab-container" data-title="Categoria #{{ categoria.ordem }}" data-counter="{{ categoria.perguntas.count }}">
+                    <dl>
+                        <dt>Descrição</dt>
+                        <dd>{{ categoria.get_html|format }}</dd>
+                    </dl>
+                    {% for pergunta in categoria.perguntas %}
+                        {% box '{{ forloop.counter }}. {{ pergunta.get_html }}' 'collapsed' %}
+                            {% if pergunta.objetiva %}
+                                <h4>Respostas</h4>
+                                {% if pergunta.resultado_opcoes %}
+                                    <div class="div-grafico">
+                                        <div id="{{ pergunta.grafico_id }}" class="div-grafico"></div>
+                                        <div class="table-responsive">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2">Opção</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for opcao in pergunta.resultado_opcoes %}
+                                                        <tr>
+                                                            <td>{{ opcao.texto }}</td>
+                                                            <td>
+                                                                {% if opcao.imagem %}<a href="{{ opcao.imagem.url }}"><img class="foto-miniatura" src="{{ opcao.imagem.url }}"></a>{% endif %}
+                                                                {% if opcao.documento %}<a href="{{ opcao.documento.url }}" class="btn default">{% icone "file-pdf" %} Documento PDF</a>{% endif %}
+                                                            </td>
+                                                            <td>{{ opcao.qtd }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <p class="msg alert">Não existem resultados.</p>
+                                {% endif %}
+                                {% if enquete.resultado_publico %}
+                                    <h4>Respondentes</h4>
+                                    {% if pergunta.respostas.exists %}
+                                        <table class="marginBottom40">
+                                            <thead>
+                                                <tr>
+                                                    <th>Participante</th>
+                                                    <th>Data/Hora do Cadastro</th>
+                                                    <th>Data/Hora da Última Resposta</th>
+                                                    <th>Resposta {% if pergunta.multipla_escolha %}de Múltipla Escolha{% else %}Objetiva{% endif %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for resposta in pergunta.respostas.all %}
+                                                    {% ifchanged resposta.vinculo %}
+                                                        {% if not forloop.first %}
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        <tr>
+                                                            <td>{{ resposta.vinculo|format }}</td>
+                                                            <td>{{ resposta.data_cadastro }}</td>
+                                                            <td>{{ resposta.data_ultima_resposta|format }}</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>{{ resposta.opcao|format }}</li>
+                                                    {% else %}
+                                                        <li>{{ resposta.opcao|format }}</li>
+                                                    {% endifchanged %}
+                                                {% endfor %}
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p class="msg alert">Não existem respostas.</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if pergunta.respostas.exists %}
+                                    <table class="marginBottom40">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                {% if enquete.resultado_publico %}
+                                                    <th>Participante</th>
+                                                {% endif %}
+                                                <th>Data/Hora do Cadastro</th>
+                                                <th>Data/Hora da Última Resposta</th>
+                                                <th>Resposta Subjetiva</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for resposta in pergunta.respostas.all %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    {% if enquete.resultado_publico %}
+                                                        <td>{{ resposta.vinculo|format }}</td>
+                                                    {% endif %}
+                                                    <td>{{ resposta.data_cadastro }}</td>
+                                                    <td>{{ resposta.data_ultima_resposta|format }}</td>
+                                                    <td>{{ resposta.get_resposta|format }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p class="msg alert">Não existem respostas.</p>
+                                {% endif %}
+                            {% endif %}
+                        {% endbox %}
+                    {% empty %}
+                        <p class="msg alert">Não existem perguntas cadastradas.</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endbox %}
+    {% else %}
+        <p class="msg alert">Utilize os filtros para consultar o resultado.</p>
+    {% endif %}
+{% endblock %}
+
+{% block asideright %}
+    {% include "includes/aside.html" %}
+{% endblock %}

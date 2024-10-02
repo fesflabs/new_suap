@@ -1,0 +1,37 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+	{% if invalidos %}
+		<p class="errornote">Por favor, responda as perguntas destacadas.</p>
+	{% endif %}
+    <p class="msg info"><strong>Atenção:</strong>
+        Esse questionário tem como objetivo coletar dados para a Autoavaliação Institucional referente ao ano de {{ questionario.ano }}. 
+        As questões objetivas apresentam {{ questionario.questionarioopcao_set.count }} níveis de resposta:
+        {% for questionarioopcao in questionario.questionarioopcao_set.all %}
+            {{ forloop.counter }} ({{ questionarioopcao.opcao.nome }});
+        {% endfor %}
+        Ao final de cada dimensão avaliada, existe uma questão aberta, caso você tenha algo a comentar.     
+    </p>
+	{% box "Dados Gerais" True %}	
+		<dl>
+			<dt>Ano de Referência:</dt>
+			<dd>{{ questionario.ano }}</dd>
+		</dl>
+		<dl>
+			<dt>Período para Respostas:</dt>
+			<dd>{{ questionario.data_inicio|format }} - {{ questionario.data_fim|format }}</dd>
+		</dl>
+		<dl>
+			<dt>Percentual Respondido:</dt>
+			<dd>
+				<div class="progress">
+					<p>{{ questionario|method:"get_percentual_respondido"|call:request.user }}%</p>
+				</div>
+			</dd>
+		</dl>
+	{% endbox %}
+	
+    {% box "Formulário de Resposta" "formQuiz" %}
+        {% render_form form %}
+	{% endbox %}
+{% endblock %}

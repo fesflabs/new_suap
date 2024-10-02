@@ -1,0 +1,58 @@
+
+
+{% if chamados.exists %}
+    {% autopaginate chamados 15 %}
+    {% paginate %}
+    {% for chamado in chamados %}
+        <div class="general-box{% if chamado.estah_com_sla_estourado %} error{% endif %}">
+            <div class="primary-info">
+                {{ chamado.get_status_display|status }}
+                <h4>
+                    <a href="/centralservicos/chamado/{{ chamado.id }}/">{{ chamado.servico.tipo }} #{{ chamado.id }} <strong>{{ chamado.servico.nome }}</strong></a>
+                </h4>
+                {% if chamado.estah_resolvido %}
+                    {% if request.user == chamado.requisitante or request.user == chamado.interessado %}
+                        <ul class="action-bar">
+                            <li><a class="btn success" href="/centralservicos/reabrir_chamado/{{ chamado.id }}/">Reabrir Chamado</a></li>
+                            <li><a class="btn danger no-confirm" href="/centralservicos/fechar_chamado/{{ chamado.id }}/">Fechar Chamado</a></li>
+                        </ul>
+                    {% endif %}
+                {% endif %}
+                <div class="extra-info">
+                    <div class="photo-circle small"><img alt="{{ chamado.interessado.get_profile.nome_usual }}" src="{{ chamado.interessado.get_profile.get_foto_75x100_url }}" /></div>
+                    <p>{{ chamado.descricao|truncatewords:100 }}</p>
+                </div>
+            </div>
+            <dl class="secondary-info">
+                <div class="list-item">
+                    <dt>{% icone "user" %} Área do Serviço:</dt>
+                    <dd>{{ chamado.servico.area|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "folder-open" %} Aberto Em:</dt>
+                    <dd>{{ chamado.aberto_em }}</dd>
+                    <dd><strong>SLA</strong>: {{ chamado.get_sla_em_horas }} horas</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "users" %} Grupo de Atendimento:</dt>
+                    <dd>{{ chamado.get_atendimento_atribuicao_atual.grupo_atendimento.nome }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>{% icone "user" %} Atribuído Para:</dt>
+                    {% if chamado.get_atendimento_atribuicao_atual.atribuido_para %}
+                        <dd>{{ chamado.get_atendimento_atribuicao_atual.atribuido_para|format }}</dd>
+                    {% else %}
+                        <dd class="false">-</dd>
+                    {% endif %}
+                </div>
+            </dl>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="msg alert">
+        Nenhum chamado encontrado.
+        {% if request.GET.chamado_id %}
+            Certifique-se que digitou corretamente o ID do chamado. Apenas o requisitante ou interessado de chamado pode realizar a busca pelo ID.
+        {% endif %}
+    </p>
+{% endif %}

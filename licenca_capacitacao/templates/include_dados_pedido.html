@@ -1,0 +1,84 @@
+
+
+<dl class="definition-list flex">
+    <div class="list-item">
+        <dt>Situação</dt>
+        <dd>{{ pedido.situacao_atual_str|status }}</dd>
+    </div>
+    <div class="list-item">
+        <dt>Data de Cadastro</dt>
+        <dd>{{ pedido.data_cadastro|format }}</dd>
+    </div>
+    <div class="list-item flex-basis-100">
+        <dt>Motivo</dt>
+        <dd>{{ pedido.motivo|format }}</dd>
+    </div>
+    <div class="list-item">
+        <dt>Modalidade</dt>
+        <dd>{{ pedido.get_modalidade_display|format }}</dd>
+    </div>
+    <div class="list-item">
+        <dt>Carga Horária Total</dt>
+        <dd>{{ pedido.carga_horaria|format }} horas</dd>
+    </div>
+    <div class="list-item">
+        <dt>Instituição</dt>
+        <dd>{{ pedido.instituicao|format }}</dd>
+    </div>
+    <div class="list-item flex-basis-100">
+        <dt>Curso/Ação</dt>
+        <dd>{{ pedido.acao|format }}</dd>
+    </div>
+    <div class="list-item">
+        <dt>Outros Detalhes</dt>
+        <dd>{{ pedido.outros_detalhes|format }}</dd>
+    </div>
+</dl>
+
+<h4>Parcela Solicitada</h4>
+{% if periodos_solicitados %}
+    <table>
+        <thead>
+            <tr>
+                <th>Início</th>
+                <th>Final</th>
+                <th>Qtd de dias</th>
+            </tr>
+        </thead>
+        <body>
+            {% for cal in periodos_solicitados %}
+                <tr>
+                    <td>{{ cal.data_inicio|format }}</td>
+                    <td>{{ cal.data_termino|format }}</td>
+                    <td>{{ cal.qtd_dias_total|format }}</td>
+                </tr>
+            {% endfor %}
+        </body>
+    </table>
+{% else %}
+    <p class="msg alert">Nenhuma parcela foi cadastrada.</p>
+{% endif %}
+
+<h4>Anexos</h4>
+{% if anexos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Arquivo</th>
+            </tr>
+        </thead>
+        <body>
+            {% for cal in anexos %}
+                <tr>
+                    <td>{{ cal.descricao|format }}</td>
+                    <td>
+                        <a href="{{ cal.arquivo.url }}" class="btn default">Abrir Anexo</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </body>
+    </table>
+{% else %}
+    <p class="msg alert">Nenhum arquivo foi cadastrado.</p>
+{% endif %}

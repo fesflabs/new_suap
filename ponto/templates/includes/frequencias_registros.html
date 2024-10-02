@@ -1,0 +1,9 @@
+{% for h in f.horarios %}
+    {% if h.acao == "E" %}
+        <p class="text-nowrap"><strong>{{ h.acao }}</strong>: <span
+                class="true">{{ h.horario|date:"H:i:s" }}</span> ({{ h.maquina }}{% if h.ip %}: {{ h.ip }}{% endif %})</p>
+    {% else %}
+        <p class="text-nowrap"><strong>{{ h.acao }}</strong>: <span
+                class="false">{{ h.horario|date:"H:i:s" }}</span> ({{ h.maquina }}{% if h.ip %}: {{ h.ip }}{% endif %})</p>
+    {% endif %}
+{% endfor %}

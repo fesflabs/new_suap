@@ -1,0 +1,160 @@
+# Core Django
+Django==3.2.5
+django-ckeditor==6.2.0
+django-extensions==3.1.3
+# Reversion
+django-reversion==4.0.0
+django-reversion-compare==0.14.1
+
+# Storages
+boto3==1.21.8
+django-storages==1.12.2
+
+Cython==0.29.23
+feedparser==6.0.8
+gunicorn==20.1.0
+MechanicalSoup==1.1.0
+Pillow==8.3.1
+plotly==5.1.0
+psycopg2-binary==2.9.1
+suds-py3==1.4.4.1
+simplejson==3.13.2
+qrcode==7.1
+requests==2.25.1
+
+# Pacotes para documentacao
+pycryptodome==3.10.1
+black==21.6b0
+autopep8==1.5.7
+
+# Tables
+django-tables2==2.4.0
+
+# RestFramework
+djangorestframework==3.12.4
+drf-yasg==1.20.0
+djangorestframework-simplejwt==5.2.0  # substitui drf-jwt==1.19.2
+django-cors-headers==3.7.0
+django-url-filter==0.3.15
+django-rest-swagger==2.2.0
+
+# Sentry
+sentry-sdk==1.2.0
+
+# Mimetypes
+python-magic==0.4.24
+
+# Qualidade de Codigo
+pylint==2.9.3
+flake8==3.9.2
+
+# Middleware Processos
+setproctitle==1.2.2
+tqdm==4.61.2
+
+# Manipulador de XML
+pyquery==1.4.3 # TODO: Retirar esse pacote... substituir por BeautifulSoup
+xmltodict==0.12.0
+beautifulsoup4==4.9.3
+html5lib==1.1
+lxml==4.6.2
+
+
+# Manipulador de XLS
+xlsxwriter==1.4.4
+xlwt==1.3.0
+suap-xlrd==1.1.1
+suap-xlutils==2.0.2
+
+# Geradores de PDF e Relatorios - TODO: REVER isso aqui
+xhtml2pdf==0.2.5
+django-wkhtmltopdf==3.3.0
+WeasyPrint==52.5
+reportlab==3.5.68
+PyPDF2==1.26.0 # Verificar pois tem o PyPDF3 e o PyPDF4
+pdfkit==0.6.1
+
+# Numpy
+numpy==1.21.0
+pandas==1.3.5
+
+python-gitlab==2.10.1
+
+django_fsm==2.7.1
+py-gfm==1.0.2
+django-crispy-forms==1.12.0
+django-formtools==2.3
+cryptography==3.4.7
+six==1.16.0
+arrow==0.12.1
+django-braces==1.14.0
+
+django-filter==2.4.0
+django-model-utils==4.1.1
+django-mptt==0.12.0
+pyOpenSSL==20.0.1
+django-querysetsequence==0.14
+pycpfcnpj==1.5.1
+django-redis==5.0.0
+redis==3.5.3
+
+python-dateutil==2.8.1
+freezegun==1.1.0
+splinter==0.15.0
+behave==1.2.6
+PyHamcrest==2.0.2
+
+mock==4.0.3
+model-mommy==2.0.0
+
+# Compressors
+libsass==0.21.0
+django-sass-processor==1.0.1
+django-pipeline==2.0.6
+libsasscompiler==0.1.8
+jsmin==3.0.0
+
+# OAuth2
+django-oauth-toolkit==1.5.0
+
+#celery
+celery==5.2.1
+django-celery-beat==2.2.1
+
+#Recaptcha
+django-recaptcha==2.0.6
+
+#Twilio - Notifications (Voice, Whatsapp, etc)
+#twilio==6.61.0
+
+tblib==1.7.0
+
+#Notifica Gov.BR
+suap-notifica-govbr==5.7.1
+
+jsonschema==3.2.0
+
+fuzzywuzzy==0.18.0
+nltk==3.6.2
+graphviz==0.17
+
+oscrypto==1.2.1
+
+#Pyyaml
+PyYAML==5.4.1
+
+django-ldapdb2==1.5.3.dev0
+
+#User Agent Parser
+ua-parser
+user-agents
+
+#Ldap
+python-ldap==3.3.1
+
+#Social OAuth (Autenticação Gov.BR)
+social-auth-app-django==5.0.0
+social-auth-core==4.2.0
+
+#moodle
+sc4net==0.1.3

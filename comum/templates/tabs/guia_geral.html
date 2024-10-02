@@ -1,0 +1,348 @@
+<span id="geral-1" aria-hidden="true"></span>
+{% box "Padrões de Escrita" %}
+    <ul>
+        <li>Utilizar <strong>4 espaços</strong> ao invés de <strong>tabs</strong>;</li>
+        <li>Manter títulos e labels sempre com as <strong>iniciais maiúsculas</strong>;</li>
+        <li>Pontuar corretamente todas as mensagens direcionadas ao usuário;</li>
+        <li>O verbose_name de um campo no models deve possuir como primeiro atributo a string com o título do campo, exceto quando o tipo for ForeignKey. Ex.: nome = models.CharField('Nome')</li>
+    </ul>
+{% endbox %}
+
+<span id="geral-2" aria-hidden="true"></span>
+{% box "Títulos" %}
+    <p>Toda página deve possuir apenas uma tag <code>h2</code>, que corresponde ao título da página. Visto que a tag <code>h1</code> corresponde ao título do sistema, e deve ser encontrada via template, no topo.</p>
+    <p>Para montar uma hierarquia de títulos deve-se trabalhar hierarquicamente com <code>h3</code>, <code>h4</code>, em diante.</p>
+{% endbox %}
+
+<span id="geral-3" aria-hidden="true"></span>
+{% box "Recomendações de Nomenclaturas" %}
+    <table>
+        <thead>
+            <tr>
+                <th>Recomendado</th>
+                <th>Não Recomendado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Adicionar</td>
+                <td><strike>Cadastrar</strike></td>
+            </tr>
+            <tr>
+                <td>Editar</td>
+                <td><strike>Atualizar</strike>, <strike>Alterar</strike></td>
+            </tr>
+            <tr>
+                <td>Remover</td>
+                <td><strike>Excluir</strike>, <strike>Apagar</strike>, <strike>Deletar</strike></td>
+            </tr>
+            <tr>
+                <td>Visualizar</td>
+                <td><strike>Ver</strike>, <strike>Abrir</strike></td>
+            </tr>
+        </tbody>
+    </table>
+{% endbox %}
+
+<span id="geral-4" aria-hidden="true"></span>
+{% box "Instruções de CSS e HTML" %}
+    <ul>
+        <li><strong>Não</strong> utilizar o atributo <code>style</code> em tags HTML;</li>
+        <li>Utilizar CSS ou Javascript diretamente no código HTML <strong>somente</strong> quando necessário;</li>
+        <li><strong>Evitar</strong> utilizar as seguintes tags <code>br</code> e <code>hr</code>;</li>
+        <li><strong>Não</strong> utilizar as seguintes tags <code>center</code>, <code>font</code> e <code>u</code>, pois todas encontram-se depreciadas no HTML5;</li>
+    </ul>
+{% endbox %}
+
+<span id="geral-5" aria-hidden="true"></span>
+{% box "Tags HTML" %}
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tag</th>
+                    <th>Descrição</th>
+                    <th>Utilizar em</th>
+                    <th>Exemplo</th>
+                    <th>Código</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>a</code></td>
+                    <td>Para links.</td>
+                    <td>Qualquer palavra ou conjunto de palavras.</td>
+                    <td><a href="#">Consulte as informações solicitadas pelo servidor</a>.</td>
+                    <td>
+<pre>
+&lt;a href="#"&gt;Consulte as informações solicitadas pelo servidor&lt;/a&gt;.
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>abbr</code></td>
+                    <td>Para abreviações ou acrônimos.</td>
+                    <td>Qualquer palavra ou conjunto de palavras.</td>
+                    <td>O servidor do setor <abbr title="Coordenação de Sistema de Informação">COSINF</abbr> não forneceu as informações solicitadas.</td>
+                    <td>
+<pre>
+O servidor do setor &lt;abbr title="Coordenação de Sistema de Informação"&gt;COSINF&lt;/abbr&gt; não forneceu as informações solicitadas.
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>b</code></td>
+                    <td>Para texto estilisticamente deslocado, ou seja, cuja atenção deva ser direcionada para fins utilitários sem convencionar uma importância, voz alternativa ou humor, como palavras-chave do resumo de um documento, nomes dos produtos em uma review, palavras acionáveis ​​em software orientado a texto interativo etc.</td>
+                    <td>Qualquer palavra ou conjunto de palavras em um elemento de texto.</td>
+                    <td><b>O servidor</b> não forneceu as informações solicitadas.</td>
+                    <td>
+<pre>
+&lt;b&gt;O servidor&lt;/b&gt; não forneceu as informações solicitadas.
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>dl</code>, <code>dt</code> e <code>dd</code></td>
+                    <td>Para lista definida de informações.</td>
+                    <td>Quaisquer informações em formato "Termo": "Descrição".</td>
+                    <td>
+                        <dl>
+                            <dt>Nome:</dt>
+                            <dd>Lorem Ipsum</dd>
+                            <dt>E-mail:</dt>
+                            <dd>loremipsum@loremipsum.com.br</dd>
+                            <dt>Telefone:</dt>
+                            <dd>(99) 9999-9999</dd>
+                        </dl>
+                    </td>
+                    <td>
+<pre>
+&lt;dl&gt;
+&lt;dt&gt;Nome:&lt;/dt&gt;
+&lt;dd&gt;Lorem Ipsum&lt;/dd&gt;
+&lt;dt&gt;E-mail:&lt;/dt&gt;
+&lt;dd&gt;loremipsum@loremipsum.com.br&lt;/dd&gt;
+&lt;/dl&gt;
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>em</code></td>
+                    <td>Expressa ênfase no texto, ou seja, alguma coisa que você pronunciaria de forma diferente.</td>
+                    <td>Qualquer palavra ou conjunto de palavras em um elemento de texto.</td>
+                    <td>O servidor <em>não</em> forneceu as informações solicitadas!</td>
+                    <td>
+<pre>
+O servidor &lt;em&gt;não&lt;/em&gt; forneceu as informações solicitadas!
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>i</code></td>
+                    <td>Para texto em voz alternativa ou humor alternativo ou de outra forma deslocada da prosa normal, de uma forma que indique uma qualidade diferente de texto, como palavras estrangeiras ou traduzidas, denominação taxonómica, pensamentos, termos técnicos e texto tipograficamente itálico.</td>
+                    <td>Qualquer palavra ou conjunto de palavras em um elemento de texto.</td>
+                    <td>O servidor não forneceu as informações solicitadas pelo <i>software</i>.</td>
+                    <td>
+<pre>
+O servidor não forneceu as informações solicitadas pelo &lt;i&gt;software&lt;/i&gt;.
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>ol</code>, <code>ul</code> e <code>li</code></td>
+                    <td>Para listas.</td>
+                    <td>Quaisquer informações em formato de lista numerada ou não.</td>
+                    <td>
+                        <ol>
+                            <li>Um</li>
+                            <li>Dois</li>
+                            <li>Três</li>
+                            <li>Quatro</li>
+                            <li>Cinco</li>
+                        </ol>
+                    </td>
+                    <td>
+<pre>
+&lt;ol&gt;
+&lt;li&gt;Um&lt;/li&gt;
+&lt;li&gt;Dois&lt;/li&gt;
+&lt;li&gt;Três&lt;/li&gt;
+&lt;li&gt;Quatro&lt;/li&gt;
+&lt;li&gt;Cinco&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>p</code></td>
+                    <td>Elemento de parágrafo.</td>
+                    <td>Qualquer pedaço de texto ou parágrafo.</td>
+                    <td><p>O servidor não forneceu as informações solicitadas.</p></td>
+                    <td>
+<pre>
+&lt;p&gt;O servidor não forneceu as informações solicitadas.&lt;/p&gt;
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>s</code></td>
+                    <td>Representa conteúdo que não é mais relevante ou preciso.</td>
+                    <td>Qualquer palavra ou conjunto de palavras em um elemento de texto.</td>
+                    <td>
+                        <p><s>O servidor não forneceu as informações solicitadas.</s></p>
+                        <p>O servidor forneceu as informações solicitadas.</p>
+                    <td>
+<pre>
+&lt;s&gt;O servidor não forneceu as informações solicitadas.&lt;/s&gt;
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>small</code></td>
+                    <td>Usado para comentários laterais ou letras pequenas.</td>
+                    <td>Qualquer palavra ou conjunto de palavras em um elemento de texto.</td>
+                    <td>O servidor forneceu as informações solicitadas - <small>em 15/07/2014</small>.<td>
+<pre>
+O servidor não forneceu as informações solicitadas - &lt;small&gt;em 15/07/2014&lt;/small&gt;.
+</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>strong</code></td>
+                    <td>Para definir forte importância.</td>
+                    <td>Qualquer palavra ou conjunto de palavras em um elemento de texto.</td>
+                    <td>O servidor <strong>não</strong> forneceu as informações solicitadas.</td>
+                    <td>
+<pre>
+O servidor &lt;strong&gt;não&lt;/strong&gt; forneceu as informações solicitadas.
+</pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endbox %}
+
+<span id="geral-6" aria-hidden="true"></span>
+{% box "Classes Funcionais" %}
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Classe</th>
+                    <th>Descrição</th>
+                    <th>Utilizar em</th>
+                    <th>Exemplos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>.text-center</code></td>
+                    <td>Para centralizar texto ou conteúdo</td>
+                    <td>Restrito a elementos vinculados a conteúdos, como texto, formulários, tabelas etc.</td>
+                    <td class="text-center">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.text-end</code></td>
+                    <td>Para alinhar texto ou conteúdo à direita</td>
+                    <td>Restrito a elementos vinculados a conteúdos, como texto, formulários, tabelas etc.</td>
+                    <td class="text-end">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.capitalize</code></td>
+                    <td>Para deixar somente as iniciais em maiúsculo.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="capitalize">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.disabled</code></td>
+                    <td>Para texto em cinza.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="disabled">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.false</code></td>
+                    <td>Para texto em vermelho.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="false">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.img-inside-container</code></td>
+                    <td>Para limitar a altura e largura de imagens a, no máximo, 60 pixels.</td>
+                    <td>Somente imagens.</td>
+                    <td><img src="/static/comum/img/default.jpg" class="img-inside-container" /></td>
+                </tr>
+                <tr>
+                    <td><code>.italico</code></td>
+                    <td>Para estilizar texto com itálico.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="italico">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.lista-inline</code></td>
+                    <td>Para gerar uma lista em linha.</td>
+                    <td><code>&lt;ul&gt;</code></td>
+                    <td><span class="status status-error">Não se aplica.</span></td>
+                </tr>
+                <tr>
+                    <td><code>.lista-simples</code></td>
+                    <td>Para estilizar lista definida simples à direita da página, com destaque para a segunda informação.</td>
+                    <td><code>&lt;dl&gt;</code></td>
+                    <td><span class="status status-error">Não se aplica.</span></td>
+                </tr>
+                <tr>
+                    <td><code>.negrito</code></td>
+                    <td>Para estilizar texto com negrito.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="negrito">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.obs</code></td>
+                    <td>Para texto com observações.</td>
+                    <td>Qualquer elemento de texto, geralmente abaixo de conteúdo de destaque.</td>
+                    <td><span class="status status-error">Não se aplica.</span></td>
+                </tr>
+                <tr>
+                    <td><code>.text-nowrap</code></td>
+                    <td>Para não permitir que texto dê quebra de linha.</td>
+                    <td>Qualquer elemento de texto (prefencialmente com poucas palavras) ou célula de tabela.</td>
+                    <td class="text-nowrap">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.text-nowrap-normal</code></td>
+                    <td>Para permitir que texto dê quebra de linha.</td>
+                    <td>Qualquer elemento de texto (prefencialmente com poucas palavras) ou célula de tabela.</td>
+                    <td class="text-nowrap-normal">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.true</code></td>
+                    <td>Para texto em verde.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="true">Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td><code>.with-title</code></td>
+                    <td>Para exibir o texto do atributo <code>title</code> de forma estilizada, e indicando que o texto principal tem informações extra.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td><span class="with-title" title="Lorem ipsum dolor sit amet.">Lorem ipsum dolor sit amet.</span></td>
+                </tr>
+                <tr>
+                    <td><code>.word-break-all</code></td>
+                    <td>Para quebrar linhas de palavras com muitos caracteres.</td>
+                    <td>Qualquer elemento de texto.</td>
+                    <td class="word-break-all">Loremipsumdolorsitametloremipsumdolorsitametloremipsumdolorsitamet</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endbox %}
+
+<span id="geral-7" aria-hidden="true"></span>
+{% box "Template Filters" %}
+    {% include "includes/guia_templatefilters.html" %}
+{% endbox %}
+
+<span id="geral-8" aria-hidden="true"></span>
+{% box "Template Tags" %}
+    {% include "includes/guia_templatetags.html" %}
+{% endbox %}

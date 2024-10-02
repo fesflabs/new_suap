@@ -1,0 +1,46 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        var interval = null;
+        function atualizar(){
+            $.get("/djtools/process_progress2/0/{{ i.uuid }}/", function( data ) {
+                var tokens = data.split('::');
+                var percentual = tokens[0];
+                var message = tokens[1];
+                var file = tokens[2];
+                var url = tokens[3];
+                var alert = $("#alert");
+                if (message.length > 0){
+                    alert.removeClass('alert').addClass('info');
+                    alert.html(message);
+                    if (interval!=null) {
+                        clearTimeout(interval);
+                    }
+                    $(".process").html('100 %');
+                    var button = $("#button");
+                    if(url && url!='..') button.prop('href', url);
+                    button.removeClass('hidden');
+                    $("#sendmail").hide();
+                    if(file){
+                        document.location.href = "/djtools/process_progress2/1/{{ i.uuid }}/"
+                    }
+                } else {
+                    $(".process").html(percentual + '%');
+                }
+            });
+        }
+        interval = setInterval(atualizar, {{ interval }});
+    </script>
+{% endblock %}
+
+{% block content %}
+    <p class="msg alert" id="alert">Sua solicitação está sendo processada. Por favor, aguarde!</p>
+    <div id="percentual" class="process">{{ i.get_progress }}%</div>
+    <div class="text-center">
+        {% if not i.send_email and i.partial < 100 and not i.notify and i.user %}
+            <a href="?send_email=1" class='btn success' id='sendmail'>Enviar Notificação</a>
+        {% endif %}
+        <a href="javascript:window.history.back();" class="btn success hidden" id="button">Continuar</a>
+    </div>
+{% endblock %}

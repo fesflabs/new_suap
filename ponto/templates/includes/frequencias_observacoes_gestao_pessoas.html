@@ -1,0 +1,42 @@
+{% if f.liberacoes or f.afastamentos_siape or f.afastamentos_rh or f.ferias or f.viagens_scdp %}
+    {% for l in f.liberacoes %} <!-- liberação evento -->
+        {% if l.tipo == 1 %}
+            <span class="status status-info text-nowrap-normal"><strong>Liberação</strong>: {{ l.descricao }}</span>
+        {% elif l.tipo == 5 %}  <!-- liberação parcial -->
+            <span class="status status-info text-nowrap-normal"><strong>Liberação Parcial</strong>: {{ l.descricao }} - Carga horária <strong>máxima</strong> definida pela instituição: <strong>{{ l.ch_maxima_exigida }}h</strong></span>
+        {% else %}
+            <span class="status status-info text-nowrap-normal"><strong>Liberação</strong>: {{ l.descricao }}</span>
+        {% endif %}
+    {% endfor %}
+    {% if f.afastamentos_siape %}
+        {% for a_rh in f.afastamentos_siape %}
+            <span class="status status-info text-nowrap-normal"><strong>Afastamento:</strong> {{ a_rh }}</span>
+        {% endfor %}
+    {% endif %}
+    {% if f.afastamentos_rh %}
+        {% for a_rh in f.afastamentos_rh %}
+            <span class="status status-info text-nowrap-normal"><strong>Afastamento</strong>: {{ a_rh }}</span>
+        {% endfor %}
+    {% endif %}
+    {% if f.ferias %}
+        <span class="status status-info text-nowrap-normal"><strong>Férias</strong></span>
+    {% endif %}
+    {% if f.viagens_scdp %}
+        {% for viagem_scdp in f.viagens_scdp %}
+            <span class="status status-info text-nowrap-normal">{{ viagem_scdp }}</span>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% if f.dia < now.date and f.informacoes_registro %}
+        <span class="status status-error text-nowrap-normal">{{ f.informacoes_registro|format }}</span>
+    {% endif %}
+    {% if f.dia < now.date and f.informacoes_registro_info %}
+        <span class="status status-alert text-nowrap-normal">{{ f.informacoes_registro_info|format }}</span>
+    {% endif %}
+{% endif %}
+{% for acompanhamento in f.compensacao.acompanhamentos_compensacoes_especificas %}
+    <span class="status status-info text-nowrap-normal"><strong>Acompanhamento</strong>: {{ acompanhamento }}</span>
+{% endfor %}
+{% if f.excluido %}
+    <span class="status status-error text-nowrap-normal">{{ f.excluido }}</span>
+{% endif %}

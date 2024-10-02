@@ -1,0 +1,72 @@
+{% extends super_template %}
+
+{% block content %}
+
+<ul class="action-bar">
+    <li><a class="btn" href="javascript:;" onclick="javascript:history.back()">Voltar</a></li>
+</ul>
+
+<table class="info">
+    <tbody>
+        <tr>
+            <td>Matrícula:</td> 
+            <td>{{ avaliador.matricula_siape|format }}</td>
+            <td>Data Nascimento:</td> 
+            <td colspan="4">{{ avaliador.vinculo.user.get_profile.nascimento_data|format }}</td>
+        </tr>
+        <tr>
+            <td>CPF:</td> 
+            <td>{{ avaliador.vinculo.user.get_profile.cpf|format }}</td>
+            <td>Telefone:</td> 
+            <td colspan="4">{{ avaliador.vinculo.user.get_profile.telefones }}</td>
+        </tr>
+        <tr>
+            <td>E-mail para contato:</td> 
+            <td>{{ avaliador.email_contato|format }}</td>
+            <td>Instituição de Origem:</td> 
+            <td colspan="4">{{ avaliador.instituicao_origem|format }}</td>
+        </tr>
+        <tr>
+            <td>Número do Documento de Identificação:</td> 
+            <td>{{ avaliador.numero_documento_identificacao|format }}</td>
+            <td>Emissor do Documento de Identificação:</td> 
+            <td colspan="4">{{ avaliador.emissor_documento_identificacao|format }}</td>
+        </tr>
+        <tr>
+            <td>PIS/PASEP:</td> 
+            <td colspan="5">{{ avaliador.pis_pasep|format }}</td>
+        </tr>
+        <tr>
+            <td>Logradouro:</td> 
+            <td>{{ avaliador.endereco_logradouro|format }}</td>
+            <td>Número:</td> 
+            <td>{{ avaliador.endereco_numero|format }}</td>
+            <td>Município:</td> 
+            <td>{{ avaliador.endereco_municipio|format }}</td>
+        </tr>
+        <tr>
+            <td>Complemento:</td> 
+            <td>{{ avaliador.endereco_complemento|format }}</td>
+            <td>Bairro:</td> 
+            <td>{{ avaliador.endereco_bairro|format }}</td>
+            <td>CEP:</td> 
+            <td>{{ avaliador.endereco_cep|format }}</td>
+        </tr>
+        <tr>
+            <td>Banco:</td> 
+            <td>{{ avaliador.banco|format }}</td>
+            <td>Número da Agência:</td> 
+            <td>{{ avaliador.numero_agencia|format }}</td>
+            <td>Tipo da Conta:</td> 
+            <td>{{ avaliador.tipo_conta|format }}</td>
+        </tr>
+        <tr>
+            <td>Número da Conta:</td> 
+            <td>{{ avaliador.numero_conta|format }}</td>
+            <td>Operação:</td> 
+            <td colspan="3">{{ avaliador.operacao|format }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

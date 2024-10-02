@@ -1,0 +1,12 @@
+{% extends super_template %}
+
+{% block content %}
+
+        <div id="formbox">
+            <p class="msg info">A planilha deverá ser <strong>sem cabeçalho</strong> e conter a seguinte sequência de colunas: Período, Descrição, Observação, Carga Horária - Relógio, Carga Horária - Aula, Qtd. de Créditos, Optativo(0/1), Núcleo, Qtd. de Avaliações, Tipo do Componente Curricular, Avaliação por Conceito(0/1), Carga Horária Prática - Relógio e Abreviatura.</p>
+            <p class="msg info">Caso os componentes importados sejam do Q-Acadêmico, adicionar a coluna: Sigla do Componente no Q-Acadêmico.</p>
+
+            {% render_form form %}
+        </div>
+
+{% endblock %}

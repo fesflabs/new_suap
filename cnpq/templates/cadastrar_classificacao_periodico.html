@@ -1,0 +1,51 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% if perms.cnpq.pode_cadastrar_periodicos %}
+        {% box 'Adicionar Classificação do Periódico' %}
+            {% render_form form %}
+        {% endbox %}
+    {% endif %}
+    
+    {% if classificacao %}
+        {% box 'Classificação dos Periódicos Cadastrados' %}
+            <div class="search-and-filters">
+                <form method="get">
+                    <div class="filter">
+                        <label>Nome:</label>
+                        <input type="text" name="query" value="{{ query }}" />
+                    </div>
+                    <div class="submit-row">
+                        <input type="submit" class="btn default" value="Buscar" />
+                    </div>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ações</th>
+                        <th>Nome</th>
+                        <th>ISSN</th>
+                        <th>Classificação</th>
+                        <th>Área de Avaliação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% autopaginate classificacao 50 %}
+                    {% paginate %}
+                    {% for periodico in classificacao %}
+                        <tr>
+                            <td>{% icon "edit" "/cnpq/editar_classificacao_periodico/{{ periodico.pk }}/" "Editar" "popup" %}</td>
+                            <td>{{ periodico.periodico.nome }}</td>
+                            <td>{{ periodico.periodico.issn }}</td>
+                            <td>{{ periodico.estrato }}</td>
+                            <td>{{ periodico.area_avaliacao }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% paginate %}
+        {% endbox %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends super_template %}
+
+{% block content %}
+	{% box 'Homologação de frequência do Servidor {{ servidor_faltoso }}' %}
+    <div class="table-responsive">
+	<table>
+        <thead>
+            <tr>
+				<th>Dias a serem homologados</th>
+				<th>Jornada de Trabalho do Servidor</th>
+				<th>Observações</th>
+				<th>Anexos</th>
+			</tr>
+        </thead>
+		<tbody>
+        {% if dias %}
+            {% for dia in dias %}
+                <tr>
+                    <td>{{ dia.data }}</td>
+                    <td>{{ dia.jornada_trabalho_obj }}</td>
+                    <td><ul>{% for observacao in dia.observacoes_servidor %}<li>{{ observacao }}</li>{% endfor %}</ul></td>
+                    <td>
+                        <ul>
+                            {% for anexo in dia.anexos %}
+                            <li>
+                                {% media_private anexo.anexo as url_anexo %}
+                                <a href="{{ url_anexo }}">{{ anexo }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+		</tbody>
+	</table>
+    </div>
+{% endbox %}
+    {% box 'Detalhes do Abono'%}
+        {% render_form form %}
+    {% endbox %}
+<script>
+$(document).ready(function(){
+    $(".form-row.frequencias_dias").hide();
+})
+</script>
+
+{% endblock %}

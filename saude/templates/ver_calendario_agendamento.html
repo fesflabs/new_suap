@@ -1,0 +1,22 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% if cal_meses %}
+		<div class="legenda">
+			<p>Legenda:</p>
+			<ul>
+				<li class="hoje">Hoje</li>
+				<li class="alert">Horário Agendado</li>
+				<li class="success">Horário Disponível</li>
+				<li class="error">Horário Cancelado</li>
+			</ul>
+		</div>
+		{% for mes in cal_meses %}
+			{{ mes|safe }}
+		{% endfor %}
+	{% else %}
+		<p class="msg alert">Nenhum agendamento encontrado.</p>
+	{% endif %}
+
+{% endblock %}

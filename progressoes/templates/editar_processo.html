@@ -1,0 +1,249 @@
+{% extends super_template %}
+
+{% block object-status %}
+    {% if processo.is_a_iniciar %}
+        <span class="status status-error text-nowrap-normal">{{ processo.get_status_display }}</span>
+    {% elif processo.is_em_tramite %}
+        <span class="status status-em-tramite text-nowrap-normal">{{ processo.get_status_display }}</span>
+    {% elif processo.is_finalizado %}
+        <span class="status status-aceito text-nowrap-normal">{{ processo.get_status_display }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if processo.status == processo.STATUS_A_INICIAR %}
+            {% if processo.obter_avaliacoes %}
+                <li><a href="/progressoes/liberar_avaliacoes/{{ processo.id }}/" class="btn success">Liberar Avaliações e Iniciar Trâmite do Processo</a></li>
+            {% endif %}
+        {% endif %}
+        {% if processo.status != processo.STATUS_FINALIZADO %}
+            <li><a class='btn primary' href='/admin/progressoes/processoprogressao/{{ processo.id }}/'>Editar</a></li>
+        {% endif %}
+        {% if processo.status == processo.STATUS_EM_TRAMITE %}
+            <li><a class="btn" href="/progressoes/recalcular_medias/{{ processo.id }}/">Recalcular Médias</a></li>
+            {% if processo.pode_finalizar %}
+                <li><a href="/progressoes/finalizar_processo/{{ processo.id }}/" class="btn success">Finalizar Processo</a></li>
+            {% endif %}
+            <li><a href="/progressoes/cancelar_tramite/{{ processo.id }}/" class="btn danger">Cancelar Trâmite do Processo</a></li>
+        {% endif %}
+        {% if processo.status == processo.STATUS_FINALIZADO %}
+            {% if app_processo_eletronico_instalada and not processo.processo_eletronico %}
+                <li class="has-child">
+                    <a class="btn" href="#">Processo Eletrônico</a>
+                    <ul>
+                        <li>
+                            <a href="/progressoes/selecionar_protocolo_processo_eletronico/{{ processo.id }}/" class="popup">
+                                Selecionar um Processo Eletrônico existente
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/progressoes/gerar_protocolo_processo_eletronico/{{ processo.id }}/" class="confirm">
+                                Gerar novo Processo Eletrônico
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            {% elif not app_processo_eletronico_instalada and not processo.protocolo %}
+                <li class="has-child">
+                    <a class="btn" href="#">Protocolo</a>
+                    <ul>
+                        <li>
+                            <a href="/progressoes/selecionar_protocolo_processo_eletronico/{{ processo.id }}/" class="popup">
+                                Selecionar um Protocolo existente
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/progressoes/gerar_protocolo_processo_eletronico/{{ processo.id }}/" class="confirm">
+                                Gerar novo Protocolo
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            <li><a class="btn" href="/progressoes/imprimir_processo/{{ processo.id }}/">Imprimir Processo</a></li>
+            <li><a href="/progressoes/reabrir_processo/{{ processo.id }}/" class="btn danger">Reabrir Processo</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+    {% box 'Dados Gerais' %}
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Servidor Avaliado</td>
+                    <td colspan="3">{{ processo.avaliado }}</td>
+                </tr>
+                <tr>
+                    <td>Data de Início da Contagem</td>
+                    <td>{{ processo.data_inicio_contagem_progressao }}</td>
+                    <td>Data de Fim da Contagem</td>
+                    <td>{{ processo.data_fim_contagem_progressao }}</td>
+                </tr>
+                {% if processo.is_tipo_progressao_merito %}
+                    <tr>
+                        <td>Padrão de Vencimento Atual</td>
+                        <td>{{ processo.padrao_anterior }}</td>
+                        <td>Padrão de Vencimento Novo</td>
+                        <td>{{ processo.padrao_novo }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>Situação do Processo</td>
+                    <td colspan="3">
+                        {% if processo.is_a_iniciar %}
+                            <span class="status status-error text-nowrap-normal">{{ processo.get_status_display }}</span>
+                        {% elif processo.is_em_tramite %}
+                            <span class="status status-alert text-nowrap-normal">{{ processo.get_status_display }}</span>
+                        {% elif processo.is_finalizado %}
+                            <span class="status status-success text-nowrap-normal">{{ processo.get_status_display }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Média do Processo</td>
+                    <td>{{ processo.media_processo }}</td>
+                    {% if not app_processo_eletronico_instalada and processo.protocolo %}
+                        <td>Protocolo</td>
+                        <td><a href="{{ processo.protocolo.get_absolute_url }}">{{ processo.protocolo }}</a></td>
+                    {% elif app_processo_eletronico_instalada and processo.processo_eletronico %}
+                        <td>Processo Eletrônico</td>
+                        <td><a href="{{ processo.processo_eletronico.get_absolute_url }}">{{ processo.processo_eletronico }}</a></td>
+                    {% else %}
+                        <td colspan="2">&nbsp;</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Resultado Final</td>
+                    <td colspan="3">
+                        {% if processo.is_aprovado %}
+                            <span class="status status-success">{{ processo.obter_situacao_final_processo_as_text }}</span>
+                        {% elif processo.is_reprovado %}
+                            <span class="status status-error">{{ processo.obter_situacao_final_processo_as_text }}</span>
+                        {% else %}
+                            <span class="status status-alert">{{ processo.obter_situacao_final_processo_as_text }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% box 'Períodos de Avaliação' %}
+        {% if processo.status == processo.STATUS_A_INICIAR %}
+            <ul class="action-bar">
+                <li><a href="/progressoes/adicionar_periodo/{{ processo.id }}/" class="btn success popup">Adicionar Período</a></li>
+            </ul>
+        {% endif %}
+        {% if processo.processoprogressaoperiodo_set.all %}
+            {% for periodo in processo.processoprogressaoperiodo_set.all %}
+                <div class="general-box">
+                    <div class="primary-info">
+                        <h4><small>{{ forloop.counter }}</small><strong>{{ periodo.setor }}</strong> ({{ periodo.data_inicio }} a {{ periodo.data_fim }})</h4>
+                        {% if processo.status == processo.STATUS_A_INICIAR %}
+                            <ul class="action-bar">
+                                <li><a href="/progressoes/adicionar_avaliadores/{{ periodo.id }}/" class="btn success popup">Adicionar/Editar Avaliadores</a></li>
+                                <li><a href="/progressoes/editar_periodo/{{ periodo.id }}/" class="btn primary popup">Editar Período</a></li>
+                                <li><a href="/progressoes/remover_periodo/{{ periodo.id }}/" class="btn danger">Remover</a></li>
+                            </ul>
+                        {% endif %}
+                        <div class="extra-info">
+                            {% if periodo.processoprogressaoavaliacao_set.exists %}
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Avaliador</th>
+                                            <th>Situação</th>
+                                            <th class="no-print">Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for avaliacao in periodo.processoprogressaoavaliacao_set.all %}
+                                            <tr>
+                                                <td>{{ avaliacao.avaliador }} ({{ avaliacao.get_tipo_avaliador_display }})</td>
+                                                <td>
+                                                    {% if avaliacao.is_avaliada %}
+                                                        <span class="status status-success text-nowrap-normal">Avaliação realizada</span>
+                                                    {% else %}
+                                                        <span class="status status-alert text-nowrap-normal">Avaliação pendente</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="no-print">
+                                                    <ul class="action-bar">
+                                                        <li><a href="/progressoes/abrir_avaliacao/{{ avaliacao.id_encoded }}/" class="btn">Abrir Avaliação</a></li>
+                                                        <li>
+                                                            <a class="btn" href="/progressoes/assinar_avaliacao/{{ avaliacao.id_encoded }}/">
+                                                                Assinaturas ({{ avaliacao.assinaturas_realizadas_requeridas.0 }}/{{ avaliacao.assinaturas_realizadas_requeridas.1 }})
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <span class="status status-error">Nenhum avaliador cadastrado.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <dl class="secondary-info">
+                        <div class="list-item">
+                            <dt>Modelo/Ficha de Avaliação:</dt>
+                            <dd>{{ periodo.avaliacao_modelo }}</dd>
+                        </div>
+                        {% if processo.status != processo.STATUS_A_INICIAR %}
+                            <div class="list-item">
+                                <dt>Média do Período:</dt>
+                                <dd>{{ periodo.media_periodo }}</dd>
+                            </div>
+                        {% endif %}
+                    </dl>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="msg alert">Não há períodos cadastrados.</p>
+        {% endif %}
+    {% endbox %}
+
+    {% if afastamentos_no_periodo %}
+        {% box 'Afastamentos que interrompem o Tempo de Serviço e/ou suspendem Estágio Probatório' %}
+            <table>
+                <thead>
+                    <th>Início</th>
+                    <th>Término</th>
+                    <th>Tipo de Afastamento</th>
+                    <th>Descrição</th>
+                    <th>Interrompe Tempo de Serviço</th>
+                    <th>Suspende Estágio Probatório</th>
+                </thead>
+                <tbody>
+                    {% for afastamento in afastamentos_no_periodo %}
+                        <tr>
+                            <td>{{ afastamento.data_inicio }}</td>
+                            <td>{{ afastamento.data_termino }}</td>
+                            <td>{{ afastamento.afastamento.get_tipo_display }}</td>
+                            <td>{{ afastamento.afastamento.nome }}</td>
+                            <td>{{ afastamento.afastamento.interrompe_tempo_servico|format }}</td>
+                            <td>{{ afastamento.afastamento.suspende_estagio_probatorio|format }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    {% endif %}
+
+    {% box 'Histórico de Setores e Funções' %}
+        {% if historico_setor %}
+            {{ timeline_historico_setor|safe}}
+        {% endif %}
+        {% if historico_setor_siape %}
+            {{ timeline_historico_setor_siape|safe}}
+        {% endif %}
+        {% if historico_funcao %}
+            {{ timeline_historico_funcao|safe}}
+        {% endif %}
+    {% endbox %}
+{% endblock %}

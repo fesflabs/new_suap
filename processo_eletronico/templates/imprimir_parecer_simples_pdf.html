@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/static/ckeditor/ckeditor/contents.css?t=FB9E">
+        <link rel="stylesheet" type="text/css" href="/static/djtools/css/pdf_assinaturas.css" />
+        <style>
+            main {
+                display: inline-block;
+                width: 100%;
+            }
+            #watermark {
+              color: #d0d0d0;
+              font-size: 200pt;
+              -webkit-transform: rotate(-45deg);
+              -moz-transform: rotate(-45deg);
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              margin: 0;
+              z-index: -1;
+              left:-100px;
+              top:-200px;
+            }
+            .observacoes {
+                border-radius: 10px;
+                margin: 0 0 50px 0;
+                font-size: 80%;
+                overflow: hidden;
+                padding: 17px;
+                page-break-inside: avoid !important;
+            }
+            .observacoes p {
+            	font-size: 16px;
+            	text-align: justify;
+            }
+            .violado {
+                font-size: 200%;
+                color: red;
+                background: #fafafa;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                font-size: 200%;
+                margin: 0 0 50px 0;
+                overflow: hidden;
+                padding: 17px;
+                page-break-inside: avoid !important;
+            }
+        </style>
+    </head>
+    <body class="cke_editable cke_editable_themed cke_contents_ltr cke_show_borders">
+        <header>
+            {{ parecer_simples.cabecalho|safe }}
+        </header>
+        <main>
+            <h1>Parecer sobre {{ parecer_simples.processo_minuta.minuta }}:</h1>
+            <div class="observacoes">
+            	<p>{{ parecer_simples.corpo|safe }}</p>
+            </div>
+            {% if parecer_simples.valido %}
+                <div class="assinaturas">
+                    <div>
+                        <h3>Parecer assinado eletronicamente por:</h3>
+                        <ul>
+                            {% for assinatura_digital in parecer_simples.assinaturas %}
+                                <li>
+                                    {{ assinatura_digital.assinatura.pessoa.nome|format }},
+                                    {{ assinatura_digital.assinatura.nome_papel|format }},
+                                    em {{ assinatura_digital.assinatura.data_assinatura|format }}.
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="violado">Este parecer foi violado.</div>
+            {% endif %}
+        </main>
+    </body>
+</html>

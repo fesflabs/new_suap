@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="392F936C-7B37-FDD6-1C7E-4A1F89433228" name="centralservicos_atendente_grupoatendimento_centralservicos_grupoatendimento_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-07-16 11:52:07 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<containerWithKeyObject>CFFFB1F6-52FF-0833-295F-4C41D473B557</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>A62CE19F-65EA-A751-BD81-D2A25E6BB5A1</localFKIndex>
+<keyObject>9A2B5C17-5EBA-AC00-F2EE-05B4A8E854B0</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

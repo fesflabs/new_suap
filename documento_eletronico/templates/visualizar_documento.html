@@ -1,0 +1,577 @@
+{% extends super_template %}
+
+{% block bodyclass %}hasAsideRight large-action-bar{% endblock %}
+
+{% block action-bar %}
+
+    <ul class="action-bar">
+        {% if documento.pode_solicitar_revisao or documento.pode_solicitar_assinatura %}
+            <li class="has-child">
+                <a class="btn success" href="#">Solicitar</a>
+                <ul>
+                    {% if documento.pode_solicitar_revisao %}
+                        <li><a class="popup" href="{% url 'solicitar_revisao' documento.id %}">Revisão</a></li>
+                    {% endif %}
+                    {% if documento.pode_solicitar_assinatura %}
+                        <li><a href="{% url 'solicitar_assinatura' documento.id  %}">Assinatura</a></li>
+                        {% if documento.eh_documento_de_setor and app_processo_eletronico_disponivel and not documento.tem_solicitacao_balizadora_pendente and not documento.tem_identificador_definitivo %}
+                            <li><a href="{% url 'solicitar_assinatura_com_anexacao' documento.id  %}">Assinatura com Anexação a Processo</a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if documento.pode_assinar %}
+            <li class="has-child">
+                <a class="btn success" href="#">Assinar</a>
+                <ul>
+                    {% if user.is_authenticated and request.session.autenticou_com_govbr %}
+                        <li><a href="{% url 'assinar_documento_com_gov_br' documento.id %}">Com Gov.BR</a></li>
+                    {% endif %}
+                    {% if not documento.eh_documento_pessoal %}
+                        <li><a href="{% url 'assinar_documento_com_senha' documento.id %}">Com Senha</a></li>
+                    {% else %}
+                        <li><a href="{% url 'assinar_via_senha_documento_pessoal' documento.id %}">Com Senha</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if documento.pode_finalizar_documento %}
+            <li><a class="btn success confirm" href="{% url 'finalizar_documento' documento.id  %}">
+                Finalizar Documento
+            </a></li>
+        {% endif %}
+        {% if documento.pode_concluir_documento %}
+            <li>
+                <a class="btn success confirm" href="{% url 'concluir_documento' documento.id %}">
+                    {% if not documento.eh_documento_pessoal and documento.pode_rejeitar_revisao  %}
+                        Deferir Revisão e Concluir
+                    {% else %}
+                        Concluir
+                    {% endif %}
+                </a>
+            </li>
+        {% endif %}
+
+        {% if documento.sou_revisor and documento.estah_em_revisao %}
+            <li><a class="btn success" href="{% url 'revisar_documento' documento.id  %}">Marcar como Revisado</a></li>
+        {% endif %}
+
+        {% if documento.pode_editar %}
+            <li class="has-child">
+                <a href="#" class="btn primary">Editar</a>
+                <ul>
+                    <li><a href="{% url 'editar_documento' documento.id %}">Texto</a></li>
+                    {% if not documento.eh_documento_pessoal %}
+                        <li><a href="{% url 'admin:documento_eletronico_documentotexto_change' documento.id %}">Dados Básicos</a></li>
+                    {% else %}
+                        <li><a href="{% url 'admin:documento_eletronico_documentotextopessoal_change' documento.id %}">Dados Básicos</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li><a class="btn default" href="/admin/documento_eletronico/documentotexto/{{ documento.id }}/history/">
+                Histórico de Alterações</a></li>
+        {% endif %}
+        {% if documento.pode_compartilhar %}
+            <li>
+                <a class="btn popup primary"
+                   href="/documento_eletronico/gerenciar_compartilhamento_documento/{{ documento.id }}/">
+                    Compartilhar Documento
+                </a>
+            </li>
+        {% endif %}
+        {% if documento.pode_retornar_para_rascunho %}
+            <li><a class="btn primary confirm" href="{% url 'retornar_para_rascunho' documento.id %}">
+                Retornar para Rascunho
+            </a></li>
+        {% endif %}
+        {% if documento.pode_alterar_nivel_acesso or documento.pode_solicitar_alteracao_nivel_acesso %}
+            <li class="has-child">
+                <a class="btn" href="#">Nível de Acesso</a>
+                <ul>
+                    {% if documento.pode_alterar_nivel_acesso %}
+                        <li><a href="{% url 'alterar_nivel_acesso_documento_texto' documento.id  %}">Editar Nível de Acesso</a></li>
+                        {% if not documento.eh_documento_pessoal %}
+                            <li><a href="{% url 'solicitacoes_alteracao_nivel_acesso_documento' documento.id %}">
+                                Analisar/Visualizar Solicitações de Alteração de Nível de Acesso
+                            </a></li>
+                        {% endif %}
+                    {% endif %}
+                    {% if documento.pode_solicitar_alteracao_nivel_acesso %}
+                        <li><a href="{% url 'solicita_alteracao_nivel_acesso_documento_texto' documento.id %}">
+                            Solicitar Alteração de Nível de Acesso
+                        </a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if documento.estah_assinado and visualizar_botao_verificar_integridade %}
+            <li><a class="btn" href="/documento_eletronico/verificar_integridade/{{ documento.id }}/">
+                Verificar Integridade
+            </a></li>
+        {% endif %}
+        <li class="has-child">
+            <a class="btn" href="#">Ações</a>
+            <ul>
+                {% if documento.pode_clonar_documento %}
+                    <li><a href="/documento_eletronico/clonar_documento/{{ documento.id }}/">Clonar</a></li>
+                {% endif %}
+                {% if documento.pode_vincular_interessado %}
+                    <li><a href="{% url 'documento_texto_editar_interessados' documento.id %}">Vincular Interessados</a></li>
+                {% endif %}
+                {% if documento.estah_finalizado and pode_criar_processo %}
+                    <li><a href="{% url 'criar_processo_documento' documento.id  %}">Criar Processo</a></li>
+                    <li><a href="{% url 'incluir_documento_processo' documento.id  %}">Adicionar a Processo</a></li>
+                {% endif %}
+                {% if not documento.eh_documento_pessoal %}
+                    {% if documento.estah_concluido or documento.estah_finalizado and pode_criar_processo %}
+                        <li><a href="{% url 'vincular_documentos' documento.id %}">Vincular Documento</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if documento.pode_imprimir %}
+                    <li><a href="/documento_eletronico/imprimir_documento_pdf/{{ documento.id }}/carta/">
+                        Imprimir (Retrato)
+                    </a></li>
+                    <li><a href="/documento_eletronico/imprimir_documento_pdf/{{ documento.id }}/paisagem/">
+                        Imprimir (Paisagem)
+                    </a></li>
+                    <li><a href="/documento_eletronico/exportar_pdfa/{{ documento.id }}/carta/">
+                        Exportar PDF/A (Retrato)
+                    </a></li>
+                    <li><a href="/documento_eletronico/exportar_pdfa/{{ documento.id }}/paisagem/">
+                        Exportar PDF/A (Paisagem)
+                    </a></li>
+                {% endif %}
+            </ul>
+        </li>
+        {% if documento.pode_rejeitar_revisao %}
+            <li><a class="btn warning" href="{% url 'rejeitar_revisao' documento.id %}">Rejeitar Revisão</a></li>
+        {% endif %}
+        {% if documento.pode_cancelar_revisao %}
+            <li><a class="btn danger confirm" href="/documento_eletronico/cancelar_revisao/{{ documento.id }}/">
+                Cancelar Revisão
+            </a></li>
+        {% endif %}
+        {% if documento.pode_ser_excluido %}
+            <li><a class="btn danger confirm" href="{% url 'excluir_documento_texto' documento.id %}">Remover</a></li>
+        {% else %}
+            {% if documento.pode_ser_cancelado %}
+                <li><a class="btn danger confirm" href="{% url 'cancelar_documento' documento.id %}">Cancelar</a></li>
+            {% endif %}
+        {% endif %}
+        {% if documento.tem_solicitacao_assinatura_pendente %}
+            <li>
+                <a class="btn danger" href="/documento_eletronico/rejeitar_assinatura/{{ documento.id }}/">
+                    Rejeitar Assinatura
+                </a>
+            </li>
+        {% endif %}
+        {% if documento.pode_receber_anexos %}
+            <li>
+                <button data-href="/documento_eletronico/listar_documentos_anexar/{{ documento.id }}/" class="btn disable_on_click success">
+                    Anexar Documentos
+                </button>
+            </li>
+            <li>
+                <button data-href="/admin/documento_eletronico/documentodigitalizadoanexosimples/add/?documento_id={{ documento.id }}" class="btn disable_on_click success">
+                    Anexar Documento Simples
+                </button>
+            </li>
+            </ul>
+        {% endif %}
+
+    </ul>
+{% endblock %}
+
+{% block object-status %}
+    {{ documento.get_status|status }}
+    {{ documento.get_nivel_acesso_display|status }}
+{% endblock %}
+
+{% block content %}
+
+    {% if documento.tem_solicitacao_assinatura_pendente and not documento.pode_assinar %}
+    <p class="msg alert">
+        <strong>Atenção: </strong>Você não possui Perfil ativo para poder assinar o documento.
+
+        {% with vinculo=user.get_relacionamento %}
+            {% if vinculo.eh_prestador %}
+                Entre em contato com o gestor do seu contrato para definir uma Ocupação ativa para o seu cadastro de Prestador de Serviço.
+            {% elif vinculo.eh_servidor %}
+                Entre em contato com o setor de Gestão de Pessoas do seu campus para definir um Cargo ou Função ativa no seu Histórico de Funções.
+            {% elif vinculo.eh_aluno %}
+                Entre em contato com a Pró-Reitoria de Ensino para resolver essa questão.
+            {% endif %}
+        {% endwith %}
+    </p>
+    {% endif %}
+
+    {% if existe_solicitacoes_aberto %}
+        <p class="msg alert"><strong>Atenção:</strong> Existem solicitações de alteração de nível de acesso em aberto para este documento. Para analisar as solicitações, você deve acessar a opção "Analisar/Visualizar Solicitações de Alteração de Nível de Acesso".</p>
+    {% endif %}
+
+    {% with solicitacoes_assinatura=documento.get_solicitacoes_assinatura %}
+        {% if solicitacoes_assinatura.exists %}
+            {% box "Solicitação das Assinaturas" "collapsed" %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitado a</th>
+                            <th>Ao Assinar Será Anexado ao Processo</th>
+                            <th>Data Resposta</th>
+                            <th>Situação</th>
+                            <th>Solicitante</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitacao_assinatura in solicitacoes_assinatura %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <p>{{ solicitacao_assinatura.solicitado|format }}</p>
+                                    {% if solicitacao_assinatura.condicionantes.exists %}
+                                        <dl>
+                                            <dt>Condicionado:</dt>
+                                            <dd>{{ solicitacao_assinatura.condicionantes.all|join:", "}}</dd>
+                                        </dl>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% with solicitacao_assinatura.solicitacaoassinaturacomanexacaoprocesso.processo_para_anexar as processo_para_anexar %}
+                                        {% if processo_para_anexar %}
+                                            <a href="/processo_eletronico/processo/{{ processo_para_anexar.id }}/">
+                                                {{ processo_para_anexar }}
+                                            </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+                                <td>{{ solicitacao_assinatura.data_resposta|format }}</td>
+                                <td>
+                                    <p>{{ solicitacao_assinatura.get_status_display|status }}</p>
+                                    {% if solicitacao_assinatura.justificativa_rejeicao %}
+                                        <dl>
+                                            <dt>Justificativa da Rejeição:</dt>
+                                            <dd>{{ solicitacao_assinatura.justificativa_rejeicao|format }}</dd>
+                                        </dl>
+                                    {% endif %}
+                                </td>
+                                <td>{{ solicitacao_assinatura.solicitante|format }}</td>
+                                <td class="no-print">
+                                    {% if solicitacao_assinatura.pode_ser_removida %}
+                                        <a href="{% url 'remover_solicitacao_assinatura' solicitacao_assinatura.id %}"
+                                           class="btn danger" title="Remover">
+                                           {% icone "trash" %}<span class="sr-only">Remover</span>
+                                        </a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% endif %}
+    {% endwith %}
+    {% with solicitacoes_juntada_pendentes=documento.get_solicitacoes_juntada_pendentes %}
+        {% if solicitacoes_juntada_pendentes.exists %}
+            {% box "Solicitação de Juntada Pendentes" "collapsed" %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitado a</th>
+                            <th>Ao Assinar Será Anexado ao Processo</th>
+                            <th>Situação</th>
+                            <th>Solicitante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitacao in solicitacoes_juntada_pendentes %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <p>{{ solicitacao.solicitacao_juntada.solicitado|format }}</p>
+                                </td>
+                                <td>
+                                    {% with solicitacao.solicitacao_juntada.tramite.processo as processo_para_anexar %}
+                                        {% if processo_para_anexar %}
+                                            <a href="/processo_eletronico/processo/{{ processo_para_anexar.id }}/">
+                                                {{ processo_para_anexar }}
+                                            </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+                                <td>
+                                    <p>{{ solicitacao.get_status_display|status }}</p>
+                                </td>
+                                <td>{{ solicitacao.solicitacao_juntada.solicitante|format }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endbox %}
+        {% endif %}
+    {% endwith %}
+    {% box "Visualização do Documento ({{ documento.tamanho_em_mb }} MB)" "document" %}
+        <iframe src="/documento_eletronico/conteudo_documento/{{ documento.id }}/"></iframe>
+    {% endbox %}
+
+    {% if documento.modelo.tipo_documento_texto.permite_documentos_anexos or documentos_texto_anexados or documentos_digitalizado_anexados %}
+        {% box "Documentos de Texto Anexados" %}
+            {% if documentos_texto_anexados %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="no-print">Ações</th>
+                            <th>Documento</th>
+                            <th>Anexado em</th>
+                            <th>Nível de acesso</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in documentos_texto_anexados %}
+                            <tr>
+                                <td class="no-print">
+                                    {% icon "view" "/documento_eletronico/visualizar_documento/{{ d.documento_anexado.id }}/" "Ver {{ d }}" %}
+                                </td>
+                                <td>
+                                    {{ d.documento_anexado }}
+                                </td>
+                                <td>
+                                    {{ d.data_hora_inclusao|format }}
+                                </td>
+
+                                <td>{{ d.documento_anexado.get_nivel_acesso_display|status }}</td>
+
+                                <td class="no-print">
+                                    {% if pode_receber_anexos %}
+                                        <a href="{% url 'desanexar_documento' documento.id d.documento_anexado.id %}"
+                                           class="btn danger">
+                                            Remover
+                                        </a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum documento anexado foi encontrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box "Documentos Digitalizados Anexados" %}
+            {% if documentos_digitalizado_anexados %}
+            <table>
+                <thead>
+                    <tr>
+                        <th class="no-print">Ações</th>
+                        <th>Documento</th>
+                        <th>Anexado em</th>
+                        <th>Nível de acesso</th>
+                        <th class="no-print">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in documentos_digitalizado_anexados %}
+                        <tr>
+                            <td class="no-print">
+                                {% if d.documento_anexado.eh_documento_pessoal %}
+                                    {% icon "view" "/documento_eletronico/visualizar_documento_digitalizado_pessoal/{{ d.documento_anexado.id }}/" "Ver {{ d }}" %}
+                                {% else %}
+                                    {% icon "view" "/documento_eletronico/visualizar_documento_digitalizado_anexo_simples/{{ d.documento_anexado.id }}/" "Ver {{ d }}" %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ d.documento_anexado }}
+                            </td>
+                            <td>
+                                {{ d.data_hora_inclusao|format }}
+                            </td>
+
+                            <td>{{ d.documento_anexado.get_nivel_acesso_display|status }}</td>
+
+                            <td class="no-print">
+                                {% if pode_receber_anexos %}
+                                    <a href="{% url 'desanexar_documento' documento.id d.documento_anexado.id %}"
+                                       class="btn danger">
+                                        Remover
+                                    </a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p class="msg alert">Nenhum documento anexado foi encontrado.</p>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+
+{% endblock %}
+
+{% block asideright %}
+
+<aside class="right">
+
+    <details open="open">
+        <summary>Dados Gerais</summary>
+        <div class="details-container">
+            {% include "includes/documento_details.html" %}
+        </div>
+    </details>
+
+    <details {% if processos_incluido.exists or documento.get_solicitacao_assinatura_com_anexacao_processo %}open="open"{% endif %}>
+        <summary>Processos nos quais está incluído e ativo</summary>
+        {% with documento.get_solicitacao_assinatura_com_anexacao_processo as solicitacao_assinatura_com_anexacao_processo %}
+            {% if processos_incluido.exists or solicitacao_assinatura_com_anexacao_processo %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Processo</th>
+                            <th>Nível de Acesso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for processo in processos_incluido %}
+                            <tr>
+                                <td><a href="/processo_eletronico/processo/{{ processo.id }}/">{{ processo }}</a></td>
+                                <td>{{ processo.get_nivel_acesso_display }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        {% if solicitacao_assinatura_com_anexacao_processo %}
+                             <tr>
+                                <td><a href="/processo_eletronico/processo/{{ solicitacao_assinatura_com_anexacao_processo.processo_para_anexar.id }}/">{{ solicitacao_assinatura_com_anexacao_processo.processo_para_anexar }} (Aguardando assinatura para ser anexado)</a></td>
+                                <td>{{ solicitacao_assinatura_com_anexacao_processo.processo_para_anexar.get_nivel_acesso_display }}</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Não está em nenhum processo.</p>
+            {% endif %}
+        {% endwith %}
+    </details>
+
+    {% if not documento.eh_documento_pessoal %}
+        <details {% if documento.get_vinculos_documento_texto.exists %}open="open"{% endif %}>
+            <summary>Documentos Vinculados</summary>
+            <div class="details-container">
+                {% if documento.get_vinculos_documento_texto.exists %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Documentos</th>
+                                <th>-</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vinculodocumentotexto in documento.get_vinculos_documento_texto_to_display %}
+                                <tr>
+                                    <td>
+                                        {{ vinculodocumentotexto.descricao }}
+                                        <a href="{% url 'visualizar_documento' vinculodocumentotexto.documento_vinculado.id %}"
+                                           title="Visualizar">{{ vinculodocumentotexto.documento_vinculado.identificador }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'remover_vinculo_documento_texto' vinculodocumentotexto.id documento.id %}"
+                                           class="icon icon-delete" title="Remover"><span class="sr-only">Remover
+                                        </span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    {% if documento.estah_finalizado and pode_criar_processo %}
+                        <p class="msg alert">Nenhum documento vinculado.</p>
+                    {% else %}
+                        <p class="msg alert">Só é possível vincular documentos quando este for finalizado.</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </details>
+    {% endif %}
+
+    <details {% if documento.get_interessados %}open="open"{% endif %}>
+        <summary>Interessados</summary>
+        {% if documento.get_interessados %}
+            {% for interessado in documento.get_interessados %}
+                <div class="photo-circle small">
+                    <img alt="{{ interessado.nome_usual }}" src="{{ interessado.pessoafisica.get_foto_75x100_url }}" />
+                </div>
+                <dl>
+                    <dt class="d-none">Nome:</dt>
+                    <dd>{{ interessado|format }}</dd>
+                    <dt>E-mail:</dt>
+                    <dd>{{ interessado.email|format }}</dd>
+                </dl>
+                {% if not forloop.last %}<div class="clear"></div>{% endif %}
+            {% endfor %}
+        {% else %}
+            <p class="msg alert">Nenhum interessado associado ao documento.</p>
+        {% endif %}
+    </details>
+
+    {% if not documento.eh_documento_pessoal %}
+        <details {% if documento.revisoes.exists %}open="open"{% endif %}>
+            <summary>Revisores</summary>
+            {% if documento.revisoes.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Revisores</th>
+                            <th>Data da Revisão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for revisao in documento.revisoes %}
+                            <tr>
+                                <td>{{ revisao.revisor|format }}</td>
+                                <td>{{ revisao.data_resposta|format }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum revisor associado ao documento.</p>
+            {% endif %}
+        </details>
+    {% endif %}
+
+    <details {% if documento.get_registros_acoes %}open="open"{% endif %}>
+        <summary>Registro de Ações</summary>
+        {% autopaginate registros_acoes %}
+        {% paginate %}
+            <ul class="timeline compact">
+                {% for registro_acao in registros_acoes %}
+                    <li class="{% if registro_acao.eh_compartilhamento %}success{% elif registro_acao.eh_descompartilhamento %}error{% endif %}">
+                        <div class="timeline-date">{{ registro_acao.data|format }}</div>
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-content">
+                            <h4>{{ registro_acao.get_tipo_display}} por {{ registro_acao.user|format }}</h4>
+                            <p>{{ registro_acao.observacao }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% paginate %}
+    </details>
+</aside>
+
+{% endblock %}

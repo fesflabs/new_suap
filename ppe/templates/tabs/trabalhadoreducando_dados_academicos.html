@@ -1,0 +1,105 @@
+{% box 'Observações Gerais' %}
+	{% if perms.ppe.add_observacao %}
+	<ul class="action-bar">
+    	<li>
+        	<a href="/ppe/adicionar_observacao/{{ trabalhadoreducando.pk }}/" class="btn popup success">Adicionar Observação</a>
+       	</li>
+   	</ul>
+   	{% endif %}
+   	{% if trabalhadoreducando.observacao_set.exists %}
+	<table>
+        <thead>
+	        <tr>
+	        	{% if perms.ppe.change_observacao %}
+        		<th class="text-center no-print">Ações</th>
+        		{% endif %}
+        		<th class="text-center">Observação</th>
+        		<th class="text-center">Inserido por</th>
+        		<th class="text-center">Última alteração</th>
+			</tr>
+        </thead>
+        <tbody>
+        {% for observacao in trabalhadoreducando.observacao_set.all %}
+            <tr>
+            	{% if perms.ppe.change_observacao %}
+				<td class="text-center no-print">
+					{% if request.user == observacao.usuario %}
+                        {% icon "edit" "/ppe/editar_observacao/{{ observacao.pk }}/" "Editar" "popup" %}
+					{% endif %}
+					{% if perms.ppe.adm_delete_observacao or request.user == observacao.usuario and perms.ppe.delete_observacao %}
+                        {% icon "delete" "/comum/excluir/ppe/observacao/{{ observacao.pk }}/" "Remover" "no-confirm popup" %}
+                    {% endif %}
+				</td>
+				{% endif %}
+				<td class="text-center">{{observacao.observacao}}</td>
+				<td class="text-center">{{observacao.usuario}}</td>
+				<td class="text-center">{{observacao.data}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="msg alert">Nenhuma observação cadastrada.</p>
+    {% endif %}
+{% endbox %}
+
+{% box 'Dados Acadêmicos' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Usuário (Login)</dt>
+            <dd>{{ trabalhadoreducando.pessoa_fisica.user.username|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data da Matrícula</dt>
+            <dd>{{ trabalhadoreducando.data_matricula|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data da Matrícula</dt>
+            <dd>{{ trabalhadoreducando.data_matricula|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data de Admissão</dt>
+            <dd>{{ trabalhadoreducando.data_admissao|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Data de Demissão</dt>
+            <dd>{{ trabalhadoreducando.data_demissao|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Formação</dt>
+            <dd>{{ trabalhadoreducando.formacao_tecnica|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Setor</dt>
+            <dd>{{ trabalhadoreducando.get_setor_atual|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Unidade</dt>
+            <dd>{{ trabalhadoreducando.get_unidade_atual.nome|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Municipio</dt>
+            <dd>{{ trabalhadoreducando.get_unidade_atual.municipio|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Território de Identidade </dt>
+            <dd>{{ trabalhadoreducando.get_unidade_atual.municipio.territorio_identidade|format }}</dd>
+        </div>
+    </dl>
+{% endbox %}
+{% box 'Chefia imeditada' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nome</dt>
+            <dd>{{ trabalhadoreducando.get_chefe_atual.nome }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Função</dt>
+            <dd>{{ trabalhadoreducando.get_chefe_atual.funcao }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Formação</dt>
+            <dd>{{ trabalhadoreducando.get_setor_atual.get_chefe_atual.formacao }}</dd>
+        </div>
+    </dl>
+{% endbox %}

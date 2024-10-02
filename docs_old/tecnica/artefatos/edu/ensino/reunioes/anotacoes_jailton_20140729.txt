@@ -1,0 +1,39 @@
+* Reunião 29/07/2014
+
+
+
+. Mudar posse do diário para registro
+	Desfazer o "Considerar notas e faltas em branco como zero",
+	Mudar a situação do diário do aluno para "Pendente".
+
+
+Situação de Frequência (Frequência baixa) -> verificar se cada aluno dentro do conjunto de diários do período está dentro
+dos 75% de frequência - Ver campo "Percentual de Frequência ( Percentual (%) de frequência mínimo para não reprovar no período)"
+no cadastro de Estrutura do Curso.
+
+
+
+Reprovado acima do máx. permitido -> Ver campo "Limite de Reprovações" () Limite de reprovações que permite ficar em dependência""
+no cadastro de Estrutura do Curso. Exemplo: se reprovei em 3 não fico em depêndencia, sou reprovado.
+
+Reprovado até max. permitido -> Ver campo "Limite de Reprovações" () Limite de reprovações que permite ficar em dependência""
+no cadastro de Estrutura do Curso. Exemplo: se reprovei em 2, fico em depêndencia.
+
+
+Não incluir "percentual de freq. mínima p não reprovar na disciplina. hoje é " na Estrutura de Curso - lembra Ibanez de fazer isso no UC 300.
+
+
+Ver com Breno o impacto que a mudança do "fluxo de situação de matrícula" irá afetar no sistema de Gestão.
+Verificar com Breno o impacto na importação dos alunos do Q-Acadêmico;
+Ver com Breno para aparecer a situação do diário/aluno aprovado/reprovado antes de fechar o período.
+
+
+
+* Alterações no UC 307 - Gerir Configurações de AACCs
+  1. trocar campo descrição do tipo texto para caixa seleção apontando para tipo atividade complementar
+  2. Incluir uma mensagem de aviso ao excluir uma atividade de uma configuração de AACC caso ela esteja sendo 
+     referenciada, neste caso, a atividade complementar do aluno passará para atividade extra.
+  3. Qualquer alteração na atividade da configuração de AACC deverá executar o fluxo de situação de matrícula. 
+
+* Alterações no UC 216 - Gerir atividades complementares
+  1. Altera para formulário passo-a-passo. No primeiro passo, incluir o campo tipo, ano e período letivo

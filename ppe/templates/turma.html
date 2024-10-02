@@ -1,0 +1,297 @@
+{% extends super_template %}
+
+{% block content %}
+{#    <ul class="action-bar">#}
+{#        <li>#}
+{#            <a class="btn primary popup" href="/ppe/calendario_turma/{{ obj.pk }}/">#}
+{#                Calendário dos cursos <i class="fa fa-calendar-alt"></i>#}
+{#            </a>#}
+{#        </li>#}
+{#        <li><a class="btn default" href="/ppe/turma_estatistica/{{ obj.pk }}/">Estatística da Turma</a></li>#}
+{#        <li><a class="btn default wait" href="/ppe/mapa_turma/{{ obj.pk }}/">Mapa da Turma</a>#}
+{#       </li>#}
+{#        {% help_button %}#}
+{#    </ul>#}
+
+    <ul class="action-bar">
+        {% comment %} <li>
+            <a class="btn primary popup" href="/ppe/calendario_turma/{{ obj.pk }}/">
+                Calendário dos cursos <i class="fa fa-calendar-alt"></i>
+            </a>
+        </li> {% endcomment %}
+        {% comment %} <li><a class="btn default" href="/ppe/turma_estatistica/{{ obj.pk }}/">Estatística da Turma</a></li> {% endcomment %}
+        <li><a class="btn default wait" href="/ppe/mapa_notas_ppe/{{ obj.pk }}/">Mapa de Notas da Turma</a>
+       </li>
+        {% help_button %}
+    </ul>
+
+    {% if turmas_pendentes %}
+        <div class="msg alert">
+            Esta turma possui os seguintes diários pendentes:
+            <ul>
+                {% for turma in turmas_pendentes %}
+                    <li><a href="{{ turma.get_absolute_url }}">{{ turma }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>Formação</td>
+                <td>
+                    <a href="{{ obj.formacao.get_absolute_url }}">{{ obj.formacao }}</a>
+                </td>
+                <td>Grupo</td>
+                <td>{{ obj.grupo }}</td>
+            </tr>
+            {% if obj.turma_set.exists %}
+                <tr>
+                    <td>Calendário Acadêmico</td>
+                    <td colspan="3">
+                        <a class="popup"
+                           href="{{ obj.calendario_academico.get_absolute_url }}">{{ obj.calendario_academico|format }}</a>
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+    {% endbox %}
+
+
+    <div class="tab-container" data-title="Dados gerais <span>{{ cursos_turma.count }}</span>" data-tab="dados_turmas">
+    <ul class="action-bar">
+        <li>
+            <a class="btn primary popup" href="/ppe/calendario_turma/{{ obj.pk }}/">
+                Calendário dos cursos <i class="fa fa-calendar-alt"></i>
+            </a>
+       </li>
+    </ul>
+        {% box "Cursos da Turma" %}
+
+            {% if obj.cursoturma_set.exists %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no-print">-</th>
+                        <th>Código</th>
+                        <th>Curso</th>
+                        <th>Data Inicial</th>
+                        <th>Data Final</th>
+                        <th>Quantidade de Vagas</th>
+                        <th>Quantidade de Trabalhadores Educandos</th>
+                        <th>Carga Horária Ministrada (%)</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for curso_turma in cursos_turma %}
+                        <tr>
+                            <td class="no-print">
+                                {% icon "view" "/ppe/curso_turma/{{ curso_turma.pk }}/" %}
+                                {% if perms.ppe.delete_turma and turma.pode_ser_excluido %}
+                                    {% icon "delete" "/comum/excluir/ppe/cursoturma/{{ turma.pk }}/" "Remover" "no-confirm popup" %}
+                                {% endif %}
+                            </td>
+                            <td>{{ curso_turma.pk }}</td>
+                            <td>{{ curso_turma.curso_formacao.curso }}</td>
+                            <td>{{ curso_turma.data_inicio_etapa_1|format }}</td>
+                            <td>{{ curso_turma.data_fim_etapa_1|format }}</td>
+                            <td align="center">{{ turma.quantidade_vagas }}</td>
+                            <td align="center">{{ curso_turma.matriculacursoturma_set.count }}</td>
+                            <td>
+                                <div class="progress">
+                                    <p>{{ turma.get_percentual_carga_horaria_cumprida }}%</p>
+                                </div>
+                            </td>
+                            <td>
+                                {% if pode_realizar_procedimentos %}
+                                  <ul class="action-bar">
+                                        <li><a class="btn popup" href="/ppe/alterar_data_curso_turma/{{ curso_turma.pk }}/">Definir datas</a></li>
+                                    </ul>
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum diário cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    {% box "Tutores" %}
+                {% if perms.ppe.add_tutorturma %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/ppe/adicionar_tutor_turma/{{ obj.pk }}/">Adicionar Tutor</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if obj.tutorturma_set.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            {% if perms.ppe.add_tutorturma  %}
+                                <th>Ações</th>
+                            {% endif %}
+                            <th>CPF</th>
+                            <th>Nome</th>
+                            <th>Ativo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tutorturma in obj.tutorturma_set.all %}
+                            <tr>
+                                {% if perms.ppe.add_tutorturma  %}
+                                    <td>
+                                    {% icon "edit" "/ppe/adicionar_tutor_turma/{{ obj.pk }}/{{ tutorturma.pk }}/" "Editar" "popup" %}
+                                    {% if request.user.is_superuser or tutorturma.can_delete %}
+                                        {% icon "delete" "/comum/excluir/ppe/tutorturma/{{ tutorturma.pk }}/" "Remover" "no-confirm popup" %}
+                                    {% endif %}
+
+                                    </td>
+                                {% endif %}
+                                <td>{{ tutorturma.tutor.cpf }}</td>
+                                <td>{{ tutorturma.tutor.nome }}</td>
+                                <td>{{ tutorturma.ativo|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum tutor cadastrado.</p>
+                {% endif %}
+            {% endbox %}
+
+    {% box "Apoiadores Pedagógicos" %}
+                {% if perms.ppe.add_apoiadorturma %}
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="/ppe/adicionar_apoiador_turma/{{ obj.pk }}/">Adicionar Apoiador</a></li>
+                    </ul>
+                {% endif %}
+
+                {% if obj.apoiadorturma_set.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            {% if perms.ppe.add_apoiadorturma  %}
+                                <th>Ações</th>
+                            {% endif %}
+                            <th>CPF</th>
+                            <th>Nome</th>
+                            <th>Ativo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for apoiadorturma in obj.apoiadorturma_set.all %}
+                            <tr>
+                                {% if perms.ppe.add_apoiadorturma  %}
+                                    <td>
+                                    {% icon "edit" "/ppe/adicionar_apoiador_turma/{{ obj.pk }}/{{ apoiadorturma.pk }}/" "Editar" "popup" %}
+                                    {% if request.user.is_superuser or apoiadorturma.can_delete %}
+                                        {% icon "delete" "/comum/excluir/ppe/apoiadorturma/{{ apoiadorturma.pk }}/" "Remover" "no-confirm popup" %}
+                                    {% endif %}
+
+                                    </td>
+                                {% endif %}
+                                <td>{{ apoiadorturma.apoiador.cpf }}</td>
+                                <td>{{ apoiadorturma.apoiador.nome }}</td>
+                                <td>{{ apoiadorturma.ativo|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum apoiador cadastrado.</p>
+                {% endif %}
+            {% endbox %}
+    </div>
+
+
+
+    <div class="tab-container" data-title="Trabalhadores Educandos" data-counter="{{ qtd_trabalhadores_educando_ativos  }}"
+         data-tab="dados_trabalhadores_educando">
+
+{#        <ul class="action-bar">#}
+{#            <li class="has-child">#}
+{#                <a class="btn" href="#">Exportar XLS</a>#}
+{#                <ul>#}
+{#                    <li><a href="/ppe/exportar_xls_aluno/?escopo=turma&turma={{ obj.pk }}&xls=alunos_na_turma">Alunos na Turma</a></li>#}
+{#                    <li><a href="/ppe/exportar_xls_aluno/?escopo=turma&turma={{ obj.pk }}&xls=alunos_apenas_em_turmas">Alunos apenas em Cursos</a></li>#}
+{#                    <li><a href="/ppe/exportar_xls_aluno/?escopo=turma&turma={{ obj.pk }}&xls=alunos_todos">Ambos</a></li>#}
+{#                </ul>#}
+{#            </li>#}
+{#        </ul>#}
+
+{#        <p class="msg info">Os alunos sem destaque estão com o período letivo fechado.</p>#}
+
+        {% box "Trabalhadores Educandos na Turma" %}
+            {% if pode_realizar_procedimentos %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/ppe/adicionar_trabalhadores_educando_turma/{{ obj.pk }}/">Adicionar Trabalhadores Educando</a></li>
+                </ul>
+            {% endif %}
+            {% if trabalhadores_educando.exists %}
+                <form method="post" action="">
+                    {% csrf_token %}
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            {% if pode_realizar_procedimentos %}
+                                <th class="text-center">
+                                    <input type="checkbox"
+                                           onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++){ is[i].checked = this.checked;}"/>
+                                </th>
+                            {% endif %}
+                            <th>Trabalhador educando</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for te in trabalhadores_educando %}
+                            <tr {% if not matricula_periodo.situacao.pk == matricula_periodo.situacao.MATRICULADO %} class="disabled" {% endif %}>
+                                <td>{{ forloop.counter }}</td>
+                                {% if pode_realizar_procedimentos %}
+                                    <td class="text-center">
+                                        {% if te|method:"pode_remover_da_turma"|call:request.user %}
+                                            <input value="{{ te.pk }}" name="id_te" type="checkbox"/>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                <td> {{ te.get_nome }} (<a
+                                        href="{{ te.get_absolute_url }}">{{ te.matricula }}</a>)
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if pode_realizar_procedimentos %}
+                        <div class="submit-row">
+                            <input type="button" class="danger no-confirm" id="btn_remover"
+                                   value="Remover Trabalhadores Educando Selecionados"/>
+                        </div>
+                    {% endif %}
+                </form>
+            {% else %}
+                <p class="msg alert">Nenhum Trabalhador Educando matriculado na turma.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    <script>
+        jQuery(function () {
+            if (!$("input[name='id_te']").length) {
+                $("#btn_remover").hide();
+            }
+        });
+        $("#btn_remover").click(function (ev) {
+            ids = $("input[name='id_te']:checked").map(function () {
+                return this.value;
+            }).get().join("_");
+            if (ids && confirm("Você tem certeza que deseja remover o(s) trabalhador(es) selecionado(s)? Isso implicará na exlcusão de suas matrículas nos cursos vinculados à turma. O registro de notas nesses cursos para estes trabalhadores também serão removidos.")) {
+                document.location.href = '?tab=dados_alunos&id_te=' + ids;
+            }
+        });
+    </script>
+{% endblock %}

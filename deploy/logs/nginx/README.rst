@@ -1,0 +1,1 @@
+Este diretório armazena os logs do nginx.

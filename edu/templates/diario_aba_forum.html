@@ -1,0 +1,41 @@
+
+{% box 'Tópicos' %}
+    <ul class="action-bar">
+        <li><a class="btn success popup" href="/edu/adicionar_topico_discussao/{{ obj.pk }}/{{ etapa|default:"0" }}/">Adicionar Tópico</a></li>
+    </ul>
+    <ul class="lista-comentarios">
+    {% autopaginate topicos 10 %}
+    {% for topico in topicos %}
+        <li>
+            <div><div class="foto-circle small"><img title="{{ topico.user }}" src="{{ topico.user.get_profile.get_foto_75x100_url }}" alt="Foto {{ topico.user }}"></div>
+                <div class="comentario">
+                    <h3>{{ topico.titulo }} - {{ topico.etapa }}</h3>
+                    <div style="float: right; margin: 5px 0 0; ">
+                    {% icon "plus" "/edu/responder_topico_discussao/{{ topico.pk }}/" "Adicionar Comentário" "popup" %}
+                    {% if perms.edu.delete_topicodiscussao and request.user == topico.user %}
+                    	{% icon "delete" "/comum/excluir/edu/topicodiscussao/{{ topico.pk }}/" "Remover Tópico" "no-confirm popup" %}
+                    {% endif %}
+                    </div>
+                    <p>{{ topico.descricao }}</p> <span>{{ topico.data|format }}</span>
+                </div>
+            </div>
+            {% for resposta in topico.respostadiscussao_set.all %}
+            <ul>
+                <li><div><div class="foto-circle small"><img title="{{ resposta.user }}" src="{{ resposta.user.get_profile.get_foto_75x100_url }}" alt="Foto {{ resposta.user }}"></div>
+                <div class="comentario"><p>{{ resposta.comentario }}</p> <span>{{ resposta.data|format }}</span>
+                <div style="float: right; margin: 5px 0 0; ">
+                    {% if perms.edu.delete_respostadiscussao and request.user == resposta.user %}
+                    	{% icon "delete" "/comum/excluir/edu/respostadiscussao/{{ resposta.pk }}/" "Remover Resposta" "no-confirm popup" %}
+                    {% endif %}
+                    </div>
+                </div></div>
+                </li>
+            </ul>
+            {% endfor %}
+        </li>
+    {% empty %}
+        <p class="msg alert">Nenhum tópico cadastrado até o momento</p>
+    {% endfor %}
+    {% paginate %}
+    </ul>
+{% endbox %}

@@ -1,0 +1,232 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if usuario_logado_pode_validar %}
+            <li><a href="/ponto/validar_recesso_escolhido/{{ recesso_opcao_escolhida.id }}/" class="btn success popup">Validação</a></li>
+        {% endif %}
+        {% if usuario_logado_pode_editar_dias_escolhidos %}
+            <li><a class="btn primary" href="/ponto/editar_dias_de_recesso_escolhidos/{{ recesso_opcao_escolhida.id }}/">Editar Dias Escolhidos</a></li>
+        {% endif %}
+        {% if usuario_logado_is_solicitante or usuario_logado_is_chefe %}
+            {% if recesso_opcao_escolhida.is_aguardando and chefes.count >= 1 %}
+                <li><a class="btn primary" href="/ponto/editar_chefe_recesso_escolhido/{{ recesso_opcao_escolhida.id }}/">Editar Chefe Imediato</a></li>
+            {% endif %}
+        {% endif %}
+        {% if usuario_logado_pode_excluir %}
+            <li><a class="btn danger" href="/ponto/excluir_recesso_escolhido/{{ recesso_opcao_escolhida.id }}/">Remover</a></li>
+        {% endif %}
+        {% if usuario_logado_pode_cancelar_validacao %}
+            <li><a class="btn danger" href="/ponto/cancelar_validacao_recesso_escolhido/{{ recesso_opcao_escolhida.id }}/">Cancelar Validação</a></li>
+        {% endif %}
+        {% if usuario_logado_is_solicitante and recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_AUTORIZADO %}
+            {% if dias_definidos %}
+                <li><a href="/ponto/ver_frequencia/{{ recesso_opcao_escolhida.funcionario.matricula }}/?datas={{ dias_definidos_format_dmy|join:',' }}" class="btn default popup">Frequências dos Dias Definidos</a></li>
+            {% endif %}
+            {% if dias_efetivos_a_compensar %}
+                <li><a href="/ponto/ver_frequencia/{{ recesso_opcao_escolhida.funcionario.matricula }}/?datas={{ dias_efetivos_a_compensar_format_dmy|join:',' }}" class="btn default popup">Frequências dos Dias Efetivos a Compensar</a></li>
+            {% endif %}
+            <li><a href="/ponto/atualizar_lista_dias_efetivos_a_compensar/{{ recesso_opcao_escolhida.id }}/" class="btn primary">Atualizar Lista dos Dias Efetivos a Compensar</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% box 'Dados da Opção de Compensação' %}
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Descrição da Compensação:</td>
+                    <td>{{ recesso_opcao_escolhida.recesso_opcao }}</td>
+                </tr>
+                <tr>
+                    <td>Dias Definidos ({{ recesso_opcao_escolhida.recesso_opcao.dias_do_recesso.count }}):</td>
+                    <td>
+                        {% if dias_definidos %}
+                            {{ dias_definidos_format|join:', ' }}
+                        {% else %}
+                            <span class='status status-alert text-nowrap-normal'>Nenhum dia definido</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Período de Compensação:</td>
+                    <td>{{ periodos_compensacao|join:', ' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% box '{{ meu_acompanhamento_descricao }}' %}
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Servidor:</td>
+                    <td>{{ recesso_opcao_escolhida.funcionario }}</td>
+                </tr>
+                <tr>
+                    {% if recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_AUTORIZADO %}
+                        <td>Dias Efetivos a Compensar ({{ dias_efetivos_a_compensar|length }}):</td>
+                        <td>
+                            {% if dias_efetivos_a_compensar_format|length %}
+                                {{ dias_efetivos_a_compensar_format|join:', ' }}
+                            {% else %}
+                                <span class='status status-alert text-nowrap-normal'>Nenhum dia a compensar</span>
+                            {% endif %}
+                        </td>
+                    {% elif recesso_opcao_escolhida.is_aguardando %}
+                        <td>Dias Selecionados ({{ recesso_opcao_escolhida.dias_escolhidos.count }}):</td>
+                        <td>
+                            {% if recesso_opcao_escolhida.dias_escolhidos.count %}
+                                {{ recesso_opcao_escolhida.dias_escolhidos.all|join:', ' }}
+                            {% else %}
+                                <span class='status status-alert text-nowrap-normal'>Nenhum dia selecionado</span>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+                {% if usuario_logado_is_solicitante and recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_AUTORIZADO %}
+                    <tr>
+                        <td>Carga Horária Total a Compensar:</td>
+                        <td><span>{{ ch_debito_considerado }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Carga Horária Compensada:</td>
+                        <td>
+                            {% if ch_compensada_is_zero %}
+                                <span class='false'>{{ ch_compensada }}</span>
+                            {% else %}
+                                <span class='true'>{{ ch_compensada }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Carga Horária Pendente:</td>
+                        <td>
+                            {% if ch_pendente_is_maior_zero %}
+                                <span class='false'>{{ ch_pendente }}</span>
+                            {% else %}
+                                <span class='true'>{{ ch_pendente }}</span>
+                                {% if ch_pendente_is_negativa %}
+                                    <span class='status status-error text-nowrap-normal'>
+                                        É possível que haja informes de compensação em duplicidade que precisam ser removidos.
+                                        <a class="popup" href="/ponto/remover_compensacoes/{{ recesso_opcao_escolhida.funcionario.matricula }}/?apenas_compensacoes_em_duplicidade=1">
+                                            Verificar agora.
+                                        </a>
+                                    </span>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if recesso_opcao_escolhida.recesso_opcao.is_permite_escolha_dos_dias_pelos_servidores %}
+                    <tr>
+                        <td>Validação:</td>
+                        <td>
+                            <span class='status
+                                {% if recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_AGUARDANDO %}
+                                    status-alert
+                                {% elif recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_AUTORIZADO %}
+                                    status-success
+                                {% elif recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_NAO_AUTORIZADO or recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_NAO_AUTORIZADO_REMARCAR %}
+                                    status-error
+                                {% endif %}
+                                text-nowrap-normal'>
+                                {{ recesso_opcao_escolhida.get_validacao_display }}
+                                {% if recesso_opcao_escolhida.validador %}
+                                    (por {{ recesso_opcao_escolhida.validador }})
+                                {% endif %}
+                            </span>
+                            {% if usuario_logado_is_solicitante or usuario_logado_is_chefe %}
+                                {% if recesso_opcao_escolhida.is_aguardando and chefes.count >= 1 %}
+                                    {% if not recesso_opcao_escolhida.validador %}
+                                        <span class='status status-error text-nowrap-normal'>Chefe Imediato/Validador não definido</span>
+                                    {% endif %}
+                                    <span class='status status-alert text-nowrap-normal'>
+                                        Se o Chefe Imediato/Validador não estiver correto, não foi definido ou precisa ser alterado, acesse a opção 'Editar Chefe Imediato'
+                                    </span>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_NAO_AUTORIZADO or recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_NAO_AUTORIZADO_REMARCAR %}
+                    <tr>
+                        <td>Motivo da Não Autorização:</td>
+                        <td>{{ recesso_opcao_escolhida.motivo_nao_autorizacao }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    {% endbox %}
+
+    {% if usuario_logado_is_solicitante and recesso_opcao_escolhida.validacao == recesso_opcao_escolhida.VALIDACAO_AUTORIZADO and dias_efetivos_a_compensar_situacoes %}
+        {% box 'Situação da Compensação' %}
+            {% if ch_pendente_is_maior_zero %}
+                <ul class="action-bar">
+                    <li><a class="btn primary" href="/ponto/informar_compensacao_recesso/{{ periodo_compensacao_inicio|date:'dmY' }}/{{ periodo_compensacao_fim|date:'dmY' }}/?recesso_escolhido={{ recesso_opcao_escolhida.id }}">
+                        Informar Compensação (Saldos de {{ periodo_compensacao_inicio }} a {{ periodo_compensacao_fim }})</a>
+                    </li>
+                </ul>
+            {% endif %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Compensação</th>
+                        <th class="no-print">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dia_efetivo_a_compensar_situacao in dias_efetivos_a_compensar_situacoes %}
+                        <tr>
+                            <td>
+                                <p>
+                                    <strong class="letter-spaced">{{ dia_efetivo_a_compensar_situacao.dia }}</strong>
+                                </p>
+                                <p class="text-nowrap">{{ dia_efetivo_a_compensar_situacao.dia|date:'l' }}</p>
+                            </td>
+                            <td>
+                                <div class="progress debito {% if dia_efetivo_a_compensar_situacao.debito_qtd_percentual_reposicao < 100 %}debito-a-pagar{% endif %}">
+                                    <p>{{ dia_efetivo_a_compensar_situacao.debito_qtd_percentual_reposicao }}%</p>
+                                </div>
+                                {% if dia_efetivo_a_compensar_situacao.debito_qtd_restante > 0 %}
+                                    <span class="status status-{% if dia_efetivo_a_compensar_situacao.relatorio_ponto_do_dia_as_relatorio_frequencias.dias.0.compensacao.ch_restante_a_pagar_is_menor_que_15min %}alert{% else %}error{% endif %} text-nowrap-normal" title="Carga horária pendente{% if dia_efetivo_a_compensar_situacao.relatorio_ponto_do_dia_as_relatorio_frequencias.dias.0.compensacao.ch_restante_a_pagar_is_menor_que_15min %} (menor ou igual a 15min){% endif %}">
+                                        {{ dia_efetivo_a_compensar_situacao.relatorio_ponto_do_dia_as_relatorio_frequencias.dias.0.compensacao.ch_restante_a_pagar }}
+                                    </span>&nbsp;
+                                {% endif %}
+                                {% if not dia_efetivo_a_compensar_situacao.is_debito_especifico %}
+                                    <span class='status status-alert text-nowrap-normal'>
+                                        Há frequências no dia em questão. O período de compensação do dia <strong>não
+                                        mais obedece</strong> ao que foi definido para este acompanhamento
+                                        específico.
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="no-print">
+                                <ul class="action-bar">
+                                    <li><a class="btn default popup" href="/ponto/detalhar_compensacao/{{ recesso_opcao_escolhida.funcionario.matricula }}/{{ dia_efetivo_a_compensar_situacao.dia|date:'dmY' }}/"><span class="fa fa-search" aria-hidden="true"></span>Detalhes da Compensação</a></li>
+                                    {% if not dia_efetivo_a_compensar_situacao.is_debito_especifico %}
+                                        <li><a class="btn default popup" href="/ponto/ver_frequencia/{{ recesso_opcao_escolhida.funcionario.matricula }}/?datas={{ dia_efetivo_a_compensar_situacao.dia|date:'dmY' }}"><span class="fa fa-search" aria-hidden="true"></span>Detalhes da Frequência</a></li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endbox %}
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <script>
+        $(document).ready(function () {
+            $("div.progress.debito").each(function () {
+                var progress = $(this).attr("data-progress");
+                $(this).attr("title", progress + " do Débito foi reposto");
+            });
+        })
+    </script>
+{% endblock %}

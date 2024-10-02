@@ -1,0 +1,65 @@
+Tec. da Informação::Cadastros:
+  order: 101
+Tec. da Informação::Desenvolvimento::Demandas:
+  order: 2
+  permissions_required:
+  - demandas.view_demanda
+  url: /demandas/demandas/
+Tec. da Informação::Desenvolvimento::Painel de Força-Trabalho:
+  permissions_required:
+  - demandas.pode_relatorio
+  url: /demandas/painel_forca_trabalho/
+Tec. da Informação::Desenvolvimento::Atualizações:
+  permissions_required:
+  - demandas.view_atualizacao
+  url: /admin/demandas/atualizacao/
+Tec. da Informação::Desenvolvimento::Ambientes de Homologação:
+  order: 99
+  permissions_required:
+  - demandas.view_ambientehomologacao
+  url: /admin/demandas/ambientehomologacao/
+Tec. da Informação::Desenvolvimento::Sugestões de Melhorias:
+  permissions_required:
+  - demandas.add_sugestaomelhoria
+  url: /demandas/listar_areas_atuacao_sugestao_melhoria/
+Tec. da Informação::Desenvolvimento::Documentação:
+  permissions_required:
+  - rh.view_servidor
+  url: /comum/documentacao/
+Tec. da Informação::Desenvolvimento::Relatórios::Acompanhamento de Demandas:
+  permissions_required:
+  - demandas.pode_relatorio
+  url: /demandas/acompanhamento_demandas/
+Tec. da Informação::Desenvolvimento::Relatórios::Demandas por Tags:
+  order: 11
+  permissions_required:
+  - demandas.pode_relatorio
+  url: /demandas/relatorio/geral/
+Tec. da Informação::Desenvolvimento::Relatórios::Indicadores:
+  permissions_required:
+  - demandas.pode_relatorio
+  url: /demandas/indicadores/
+Tec. da Informação::Desenvolvimento::Cadastros::Analistas/Desenvolvedores:
+  order: 99
+  permissions_required:
+  - demandas.view_analistadesenvolvedor
+  url: /admin/demandas/analistadesenvolvedor/
+Tec. da Informação::Desenvolvimento::Cadastros::Demandantes:
+  permissions_required:
+  - demandas.aprovar_dod
+  url: /admin/demandas/areaatuacaodemanda/
+Tec. da Informação::Desenvolvimento::Cadastros::Projetos do Gitlab:
+  order: 99
+  permissions_required:
+  - demandas.view_projetogitlab
+  url: /admin/demandas/projetogitlab/
+Tec. da Informação::Desenvolvimento::Cadastros::Tags:
+  order: 10
+  permissions_required:
+  - demandas.view_tag
+  url: /admin/demandas/tag/
+Tec. da Informação::Desenvolvimento::Cadastros::Áreas de Atuação:
+  order: 9
+  permissions_required:
+  - demandas.add_areaatuacaodemanda
+  url: /admin/demandas/areaatuacaodemanda/

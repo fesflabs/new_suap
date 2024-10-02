@@ -1,0 +1,329 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>jQuery.getScript('/static/ppe/js/TransferirCursoTurma.js');</script>
+{% endblock %}
+
+{% block action-bar %}
+    {% if perms.ppe.emitir_boletins %}
+        <ul class="action-bar">
+            {% if perms.ppe.view_log %}
+                <li><a class="btn" href="/ppe/log_curso_turma/{{ obj.pk }}/">Visualizar Log</a></li>
+            {% endif %}
+{#            {% if obj.matriculacursoturma_set.exists %}#}
+{#                <li><a class="btn" href="/ppe/enviar_mensagem/?diario={{ obj.pk }}">Enviar Mensagem</a></li>#}
+{#            {% endif %}#}
+            {% if acesso_total %}
+                <li class="has-child">
+                    <a class="btn" href="#">Moodle</a>
+                    <ul>
+                         {% if obj.nome_breve_curso_moodle and not obj.integracao_com_moodle %}
+                            <li><a  href="?verificar_moodle=1">Verificar curso Moodle</a></li>
+                        {% endif %}
+                        {% if obj.integracao_com_moodle %}
+                            <li><a href="?sincronizar_moodle=1">Sincronizar com Moodle</a></li>
+                        {% endif %}
+                        {% if obj.integracao_com_moodle %}
+                            <li><a  href="?sincronizar_notas_moodle=1">Sincronizar notas Moodle</a></li>
+                        {% endif %}
+                        <li><a href="/ppe/alterar_nome_breve_curso_moodle/{{ obj.pk }}/">Alterar nome breve curso moodle</a></li>
+                    </ul>
+                </li>
+                <li class="has-child">
+                    <a class="btn" href="#">Ações</a>
+                    <ul>
+                        <li><a class="popup" href="/ppe/matricular_trabalhador_educando_avulso_curso_turma/{{ obj.pk }}/">Adicionar Trabalhador Avulso</a></li>
+                    </ul>
+                </li>
+{#                {% if obj.matriculacursoturma_set.exists %}#}
+{#                    <li class="has-child">#}
+{#                        <a class="btn" href="#">Dividir</a>#}
+{#                        <ul>#}
+{#                            {% if obj.pode_ser_dividido_ao_meio %}#}
+{#                            <li><a class="confirm"#}
+{#                                   data-confirm="Esta operação moverá a metade dos alunos deste diário para um novo. Deseja continuar?"#}
+{#                                   href="/ppe/dividir_diario/{{ obj.pk }}/">Ao Meio</a></li>#}
+{#                            {% endif %}#}
+{#                            <li><a class="popup" href="/ppe/dividir_diario_individualizado/{{ obj.pk }}/">Individualizado</a>#}
+{#                            </li>#}
+{#                            <li><a class="confirm"#}
+{#                                   data-confirm="Esta operação moverá os alunos reprovados/dependentes deste diário para um novo. Deseja continuar?"#}
+{#                                   href="/ppe/dividir_diario_reprovados_dependentes/{{ obj.pk }}/">Reprovados /#}
+{#                                Dependentes</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+{#                {% endif %}#}
+            {% endif %}
+{#            {% if obj.matriculacursoturma_set.exists %}#}
+{#                <li class="has-child">#}
+{#                    <a class="btn default" href="#">Impressões</a>#}
+{#                    <ul>#}
+{#                        {% if qtd_avaliacoes > 0 %}#}
+{#                            <li><a href="/ppe/emitir_boletins_pdf/{{ obj.pk }}/">Boletim de Notas</a></li>#}
+{#                        {% endif %}#}
+{#                        <li><a href="/ppe/relacao_alunos_pdf/{{ obj.pk }}/">Relação de Alunos </a></li>#}
+{#                        <li><a href="/ppe/diario_pdf/{{ obj.pk }}/1/">Diário (Etapa 1) </a></li>#}
+{#                        {% if qtd_avaliacoes > 1 %}#}
+{#                            <li><a href="/ppe/diario_pdf/{{ obj.pk }}/2/">Diário (Etapa 2) </a></li>#}
+{#                        {% endif %}#}
+{#                        {% if qtd_avaliacoes > 2 %}#}
+{#                            <li><a href="/ppe/diario_pdf/{{ obj.pk }}/3/">Diário (Etapa 3) </a></li>#}
+{#                            <li><a href="/ppe/diario_pdf/{{ obj.pk }}/4/">Diário (Etapa 4) </a></li>#}
+{#                        {% endif %}#}
+{#                        {% if qtd_avaliacoes > 0 %}#}
+{#                            <li><a href="/ppe/diario_pdf/{{ obj.pk }}/5/">Diário (Etapa Final) </a></li>#}
+{#                        {% endif %}#}
+{##}
+{#                        <li><a href="/ppe/diario_pdf/{{ obj.pk }}/0/">Diário (Todas Etapas) </a></li>#}
+{##}
+{#                    </ul>#}
+{#                </li>#}
+{#            {% endif %}#}
+            {% help_button %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if not obj.cumpriu_carga_horaria_minina or quantidade_vagas_estourada or not obj.get_carga_horaria_presencial %}
+        <div class="msg alert">
+            <p><strong>Atenção:</strong></p>
+            <ul>
+                {% if not obj.cumpriu_carga_horaria_minina %}
+                    <li>O percentual mínimo de {{ obj.percentual_minimo_ch }}% da carga horária necessária para o
+                        fechamento do período letivo dos alunos matriculados nesse diário ainda não foi registrado pelo
+                        professor.
+                    </li>
+                {% endif %}
+                {% if quantidade_vagas_estourada %}
+                    <li>A quantidade de vagas é inferior a quantidade de alunos matriculados neste diário.</li>
+                {% endif %}
+                {% if not obj.get_carga_horaria_presencial %}
+                    <li>Este diário não tem carga horária teórica.</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="progress">
+        <p data-prefix=" de C.H. cumprida">{{ obj.get_percentual_carga_horaria_cumprida }}%</p>
+    </div>
+
+    {% box "Dados do Diário" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Código</dt>
+                <dd>{{ obj.pk }}</dd>
+            </div>
+            <div class="list-item flex-basis-50">
+                <dt>Curso</dt>
+                <dd><a
+                        href="{{ obj.curso_formacao.curso.get_absolute_url }}">{{ obj.curso_formacao.curso.descricao }}</a>
+                </dd>
+            </div>
+            {% if obj.get_carga_horaria %}
+                <div class="list-item">
+                    <dt>Aulas Ministradas</dt>
+                    <dd>{{ obj.get_carga_horaria_cumprida }} de {{ obj.get_carga_horaria }} aulas</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Nome breve do curso</dt>
+                    <dd>{{ obj.nome_breve_curso_moodle|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Integrado com o moodle</dt>
+                    <dd>{{ obj.integracao_com_moodle|format }}</dd>
+                </div>
+                {% if obj.integracao_com_moodle %}
+                    <div class="list-item">
+                        <dt>URL do Moodle</dt>
+                        <dd><a href="{{ obj.url_moodle|format }}">{{ obj.url_moodle|format }}</a></dd>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    {% box "Etapas" %}
+        <table>
+            <thead>
+            <tr>
+                <th>Etapa</th>
+                <th>Qtd. de Aulas</th>
+                <th>Período de Lançamento</th>
+                <th>Entregue</th>
+                <th>Configuração de Avaliação</th>
+                {% if acesso_total %}
+                    {% if obj.is_aberto and perms.ppe.mudar_posse_curso_turma %}
+                        <th class="no-print">Opções</th>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ obj.get_numero_primeira_etapa }}</td>
+                <td><a href="/ppe/registrar_chamada/{{ obj.pk }}/1/">{{ obj.get_horas_aulas_etapa_1 }} Aula(s)</a></td>
+                <td>De {{ obj.get_inicio_etapa_1|format }} a {{ obj.get_fim_etapa_1|format }}</td>
+                <td>{{ obj.etapa_1_em_posse_do_registro|format }}</td>
+                <td>
+                    {% if obj.curso_formacao.qtd_avaliacoes > 0 %}
+                        {% if obj.etapa_1_em_posse_do_registro and acesso_total %}
+                            <a href="/admin/ppe/configuracaoavaliacao/{{ obj.configuracao_avaliacao_1.pk }}/">{{ obj.configuracao_avaliacao_1 }}</a>
+                        {% else %}
+                            <a class="popup"
+                               href="/ppe/configuracao_avaliacao/{{ obj.configuracao_avaliacao_1.pk }}/">{{ obj.configuracao_avaliacao_1 }}</a>
+                        {% endif %}
+                    {% else %}
+                        Sem avaliações.
+                    {% endif %}
+                </td>
+                {% if acesso_total %}
+                    {% if obj.is_aberto and perms.ppe.mudar_posse_curso_turma %}
+                        <td class="no-print">
+                            <ul class="action-bar">
+                                {% if obj.posse_etapa_1 %}
+                                    <li><a class="btn" href="/ppe/transferir_posse_curso_turma/{{ obj.pk }}/1/0/">Transferir para o Registro</a></li>
+                                {% else %}
+                                    <li><a class="btn" href="/ppe/transferir_posse_curso_turma/{{ obj.pk }}/1/1/">Transferir para o Tutor</a></li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Final</td>
+                <td><a href="/ppe/registrar_chamada/{{ obj.pk }}/5/">{{ obj.get_horas_aulas_etapa_5 }} Aula(s)</a></td>
+                <td>De {{ obj.get_inicio_etapa_final|format }} a {{ obj.get_fim_etapa_final|format }}</td>
+                <td>{{ obj.etapa_5_em_posse_do_registro|format }}</td>
+                <td>
+                    {% if obj.curso_formacao.qtd_avaliacoes > 0 %}
+                        {% if obj.etapa_5_em_posse_do_registro and acesso_total %}
+                            <a href="/admin/ppe/configuracaoavaliacao/{{ obj.configuracao_avaliacao_5.pk }}/">{{ obj.configuracao_avaliacao_5 }}</a>
+                        {% else %}
+                            <a class="popup"
+                               href="/ppe/configuracao_avaliacao/{{ obj.configuracao_avaliacao_5.pk }}/">{{ obj.configuracao_avaliacao_5 }}</a>
+                        {% endif %}
+                    {% else %}
+                        Sem avaliações.
+                    {% endif %}
+                </td>
+                {% if acesso_total %}
+                    {% if obj.is_aberto and perms.ppe.mudar_posse_curso_turma%}
+                        <td>
+                            <ul class="action-bar">
+                                {% if obj.posse_etapa_5 %}
+                                    <li><a class="btn" href="/ppe/transferir_posse_curso_turma/{{ obj.pk }}/5/0/">Transferir para o Registro</a>
+                                    <li>
+                                        {% else %}
+                                    <li><a class="btn" href="/ppe/transferir_posse_curso_turma/{{ obj.pk }}/5/1/">Transferir para o Tutor</a>
+                                {% endif %}
+                            </ul>
+                        </td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            </tbody>
+        </table>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Dados Gerais" data-tab="dados_gerais">
+        {% if request.GET.tab == "dados_gerais" or not request.GET.tab %}
+            {% box "Dados Complementares" %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Turma</dt>
+                        <dd><a href="{{ obj.turma.get_absolute_url }}">{{ obj.turma }}</a></dd>
+                    </div>
+                    <div class="list-item flex-basis-100">
+                        <dt>Curso</dt>
+                        <dd><a
+                                href="{{ obj.curso_formacao.get_absolute_url }}">{{ obj.curso_formacao }}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Formação</dt>
+                        <dd><a
+                                href="{{ obj.curso_formacao.formacao_ppe.get_absolute_url }}">{{ obj.curso_formacao.formacao_ppe}}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Estrutura</dt>
+                        <dd><a
+                                href="/ppe/estruturacurso/{{ obj.estrutura_curso.pk }}/">{{ obj.estrutura_curso }}</a>
+                        </dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Quantidade de Vagas</dt>
+                        <dd>{{ obj.quantidade_vagas }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Quantidade de Matriculados</dt>
+                        <dd>{{ obj.matriculacursoturma_set.count }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Percentual Mínimo (CH)</dt>
+                        <dd>{{ obj.percentual_minimo_ch }}%</dd>
+                    </div>
+
+                </dl>
+            {% endbox %}
+
+            {% box "Tutores" %}
+
+                {% if obj.turma.tutorturma_set.exists %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Nome</th>
+                            <th>Ativo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tutorturma in obj.turma.tutorturma_set.all %}
+                            <tr>
+                                <td>{{ tutorturma.tutor.matricula }}</td>
+                                <td>{{ tutorturma.tutor.pessoa_fisica.nome }}</td>
+                                <td>{{ tutorturma.ativo|format }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg alert">Nenhum tutor cadastrado.</p>
+                {% endif %}
+            {% endbox %}
+        {% endif %}
+    </div>
+
+    <div class="tab-container ajax-rendered"
+         data-title="Registro de Notas/Conceitos"
+         data-tab="notas_faltas"
+         data-counter="{{ obj.get_quantidade_alunos_ativos }}">
+        {% if request.GET.tab == "notas_faltas" %}
+
+            {% if obj.componente_curricular.avaliacao_por_conceito %}
+                {% if obj.estrutura_curso.get_representacoesconceituais %}
+                    <div class="msg info">
+                        <p>Esta disciplina é avaliada por conceito. Para lançamento das notas se baseie nas faixas a
+                            seguir:</p>
+                        <ul>
+                            {% for conceito in obj.estrutura_curso.get_representacoesconceituais %}
+                                <li><strong>{{ conceito.descricao }}</strong>: {{ conceito.valor_minimo }}
+                                    à {{ conceito.valor_maximo }} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <p class="msg alert">Solicite o cadastro das representações conceituais para estrutura deste curso.</p>
+                {% endif %}
+            {% endif %}
+
+            {% include "includes/notas_curso_turma_form.html" %}
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% if perms.edu.change_calendarioacademico and not is_popup %}
+        <ul class="action-bar">
+            <li><a class="btn success popup" href="/edu/replicar_calendario/{{ obj.pk }}/">Replicar Calendário</a></li>
+            <li><a href="/admin/edu/calendarioacademico/{{ obj.pk }}/" class="btn primary">Editar</a></li>
+            {% help_button %}
+        </ul>
+    {% endif %}
+
+    <p class="msg alert">Feriados e recessos não são apresentados no calendário a seguir.</p>
+
+    <div class="legenda">
+        <p>Legenda:</p>
+        <ul>
+            <li class="hoje">Hoje</li>
+            <li class="success">1ª Etapa</li>
+            <li class="info">2ª Etapa</li>
+            <li class="alert">3ª Etapa</li>
+            <li class="error">4ª Etapa</li>
+            <li class="extra">Espaço Pedagógico</li>
+            <li class="">Período para Trancamento</li>
+            <li class="">Período para Cert. e Aproveitamento</li>
+            <li class="conflito_leve">Prova Final</li>
+            <li class="conflito">Fechamento do Período</li>
+        </ul>
+    </div>
+
+    <div class="calendarios-container">
+        {{ calendario|safe }}
+    </div>
+
+{% endblock %}

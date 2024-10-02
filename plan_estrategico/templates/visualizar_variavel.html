@@ -1,0 +1,51 @@
+{% extends super_template %}
+
+
+
+{% block extrahead %}
+<script src="/static/djtools/graficos/highcharts.js"></script>
+<script src="/static/djtools/graficos/exporting.js"></script>
+
+
+{% endblock %}
+
+{% block content %}
+
+    <table class="info">
+        <tr>
+            <td>Variável</td>
+            <td>{{ variavel.sigla }} - {{ variavel.nome }} </td>
+        </tr>
+        <tr>
+            <td>Descrição</td>
+            <td>{{ variavel.descricao }} </td>
+        </tr>
+        <tr>
+            <td>Fonte</td>
+            <td>{{ variavel.fonte }}</td>
+        </tr>
+        <tr>
+            <td>Temática</td>
+            <td>{{ variavel.tematica }}</td>
+        </tr>
+    </table>
+    {% if indicadores %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicadores que contêm a variável</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                        {% for i in indicadores %}
+                            <tr>
+                                <td>{{ i.sigla }} - {{ i.descricao }}</td>
+                            </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Esta variável não está associada a nenhum indicador</p>
+        {% endif %}
+{% endblock %}

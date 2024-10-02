@@ -1,0 +1,53 @@
+<dl class="definition-list flex">
+    <div class="list-item flex-basis-50">
+        <dt>Servidor</dt>
+        <dd>{{ relatorio.funcionario.nome }}
+            ({{ relatorio.funcionario.servidor.matricula|format }})
+        </dd>
+    </div>
+    <div class="list-item">
+        <dt>Setor</dt>
+        <dd>{{ relatorio.funcionario.setor.get_caminho_as_html }}</dd>
+    </div>
+    <div class="list-item">
+        <dt>Jornada Atual</dt>
+        <dd>{{ relatorio.funcionario.servidor.jornada_trabalho_servidor|format }}</dd>
+    </div>
+
+    <div class="list-item">
+        <dt>Cargo</dt>
+        <dd>{{ relatorio.funcionario.servidor.cargo_emprego|format }}</dd>
+    </div>
+
+    <div class="list-item">
+        <dt>Funções</dt>
+        <dd>
+            {% for funcao in relatorio.funcionario.servidor.historico_funcao_ativa %}
+                {{ funcao.get_nome_amigavel }} {% if not forloop.last %}<br/>{% endif %}
+            {% endfor %}
+        </dd>
+    </div>
+
+    {% if relatorio.funcionario.servidor.funcao %}
+        <div class="list-item">
+            <dt>Função Atual</dt>
+            <dd>{{ relatorio.funcionario.servidor.funcao|format }}</dd>
+        </div>
+    {% endif %}
+
+    {% if relatorio.funcionario.servidor.funcao_atividade %}
+        <div class="list-item">
+            <dt>Atividade Atual</dt>
+            <dd>{{ relatorio.funcionario.servidor.funcao_atividade|format }}</dd>
+        </div>
+    {% endif %}
+
+    <div class="list-item">
+        <dt>Período do Relatório</dt>
+        {% if data_inicio and data_fim %}
+            <dd>{{ data_inicio }} a {{ data_fim }}</dd>
+        {% else %}
+            <dd>{{ faixa_0 }} a {{ faixa_1 }}</dd>
+        {% endif %}
+    </div>
+</dl>

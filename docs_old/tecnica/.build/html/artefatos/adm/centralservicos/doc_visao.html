@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documento de Visão do Subsistema Central de Serviços &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../suap.html">SUAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Documento de Visão do Subsistema Central de Serviços &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Documento de Visão de Produto</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Central de Serviços</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="documento-de-visao-do-subsistema-central-de-servicos-v0-1">
+<span id="suap-artefatos-adm-centralservicos-visao"></span><h1>Documento de Visão do Subsistema Central de Serviços &lt;v0.1&gt;<a class="headerlink" href="#documento-de-visao-do-subsistema-central-de-servicos-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id4">Histórico da revisão</a></p></li>
+<li><p><a class="reference internal" href="#introducao" id="id5">Introdução</a></p>
+<ul>
+<li><p><a class="reference internal" href="#finalidade-do-documento" id="id6">Finalidade do documento</a></p></li>
+<li><p><a class="reference internal" href="#finalidade-do-sistema" id="id7">Finalidade do sistema</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#motivacoes-necessidades-e-problemas" id="id8">Motivações, necessidades e problemas</a></p></li>
+<li><p><a class="reference internal" href="#projeto-da-solucao" id="id9">Projeto da solução</a></p></li>
+<li><p><a class="reference internal" href="#descricao-dos-papeis" id="id10">Descrição dos papeis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#papel-das-partes-interessadas" id="id11">Papel das partes interessadas</a></p></li>
+<li><p><a class="reference internal" href="#papel-dos-atores" id="id12">Papel dos atores</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#visao-geral-do-produto" id="id13">Visão geral do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modelagem-de-processos-de-negocio" id="id14">Modelagem de processos de negócio</a></p></li>
+<li><p><a class="reference internal" href="#requisitos" id="id15">Requisitos</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso" id="id16">Casos de uso</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lista-de-casos-de-uso" id="id17">Lista de casos de uso</a></p></li>
+<li><p><a class="reference internal" href="#lista-de-casos-de-uso-do-tipo-simples" id="id18">Lista de casos de uso do tipo simples</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#modelagem-de-dominio" id="id19">Modelagem de domínio</a></p>
+<ul>
+<li><p><a class="reference internal" href="#diagrama-de-modelagem-de-dominio" id="id20">Diagrama de modelagem de domínio</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#prototipos-de-telas" id="id21">Protótipos de telas</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tela-de-cadastro-de-grupo-de-servicos" id="id22">Tela de cadastro de grupo de serviços</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id23">Tela de cadastro de grupo de serviços</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-cadastro-de-servicos" id="id24">Tela de cadastro de serviços</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-cadastro-de-grupo-de-atendimento" id="id25">Tela de cadastro de grupo de atendimento</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-vinculacao-de-atendente-ao-grupo-de-atendimento" id="id26">Tela de vinculação de Atendente ao Grupo de Atendimento</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-cadastro-de-base-de-conhecimento" id="id27">Tela de cadastro de base de conhecimento</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-abertura-de-chamados-pelo-usuario" id="id28">Tela de abertura de chamados pelo Usuário</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-abertura-de-chamados-pelo-suporte" id="id29">Tela de abertura de chamados pelo Suporte</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-listagem-de-chamados-visualizado-pelo-usuario" id="id30">Tela de listagem de chamados (visualizado pelo usuário)</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-visualizacao-de-chamados-visualizado-pelo-usuario" id="id31">Tela de visualização de chamados (visualizado pelo usuário)</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-listagem-e-autorizacao-de-chamado-de-usuario" id="id32">Tela de listagem e autorização de chamado de usuário</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-autorizacao-de-chamado-de-usuario" id="id33">Tela de autorização de chamado de usuário</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-listagem-de-chamados-visualizado-pelo-suporte" id="id34">Tela de listagem de chamados (visualizado pelo suporte)</a></p></li>
+<li><p><a class="reference internal" href="#tela-de-atendimento-de-chamados" id="id35">Tela de atendimento de chamados</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id36">Questões em aberto</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id4">Histórico da revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id2" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>25/06/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p>Rafael Pinto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="introducao">
+<h2><a class="toc-backref" href="#id5">Introdução</a><a class="headerlink" href="#introducao" title="Link permanente para este título">¶</a></h2>
+<section id="finalidade-do-documento">
+<h3><a class="toc-backref" href="#id6">Finalidade do documento</a><a class="headerlink" href="#finalidade-do-documento" title="Link permanente para este título">¶</a></h3>
+<p>A finalidade deste documento é especificar os requisitos relevantes do usuários, assim como os limites e restrições evidentes que dão uma
+visão geral. Essa visão viabiliza a identificação e a produção de documentos e requisitos mais técnicos, assim como do próprio sistema.
+A visão serve como forma de permitir a compreensão, pelos participantes do projeto, do “o quê e por quê” o projeto existe e provê uma
+estratégia a partir da qual todas as futuras decisões podem ser validadas.</p>
+</section>
+<section id="finalidade-do-sistema">
+<h3><a class="toc-backref" href="#id7">Finalidade do sistema</a><a class="headerlink" href="#finalidade-do-sistema" title="Link permanente para este título">¶</a></h3>
+<p>A finalidade do sistema é prover um meio centralizado para que o usuário final possa realizar requisições ou reportar incidentes relacionados aos
+serviços de TI. Desta forma, será possível mapear as principais requisições/incidentes, melhorar a ‘base de conhecimento’ das soluções e dar
+transparência na resolução do problema ao usuário solicitante.</p>
+</section>
+</section>
+<section id="motivacoes-necessidades-e-problemas">
+<h2><a class="toc-backref" href="#id8">Motivações, necessidades e problemas</a><a class="headerlink" href="#motivacoes-necessidades-e-problemas" title="Link permanente para este título">¶</a></h2>
+<p>A motivação para o desenvolvimento deste módulo foi a dificuldade para controlar manualmente, em planilhas eletrônicas,
+a demanda de serviços de atendimento realizados pela DIGTI, bem como a documentação da base de conhecimento das soluções.</p>
+</section>
+<section id="projeto-da-solucao">
+<h2><a class="toc-backref" href="#id9">Projeto da solução</a><a class="headerlink" href="#projeto-da-solucao" title="Link permanente para este título">¶</a></h2>
+<p>Desenvolvimento de uma aplicação Web integrada ao Suap.</p>
+</section>
+<section id="descricao-dos-papeis">
+<h2><a class="toc-backref" href="#id10">Descrição dos papeis</a><a class="headerlink" href="#descricao-dos-papeis" title="Link permanente para este título">¶</a></h2>
+<section id="papel-das-partes-interessadas">
+<h3><a class="toc-backref" href="#id11">Papel das partes interessadas</a><a class="headerlink" href="#papel-das-partes-interessadas" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Representante</p></th>
+<th class="head"><p>Responsabilidades</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Alex Furtunato</p></td>
+<td><p>Fornecer requisitos e validar o sistema</p></td>
+</tr>
+<tr class="row-odd"><td><p>Calos Eduardo Egito</p></td>
+<td><p>Fornecer requisitos e validar o sistema</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="papel-dos-atores">
+<h3><a class="toc-backref" href="#id12">Papel dos atores</a><a class="headerlink" href="#papel-dos-atores" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ator</p></th>
+<th class="head"><p>Sinônimos</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Requisitante</p></td>
+<td><p>Usuário Requisitante</p></td>
+<td><p>Responsável por abrir os chamados reportando requisições ou incidentes relacionados aos serviços de TI.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interessado</p></td>
+<td><p>Usuário Interessado</p></td>
+<td><p>Usuário afetado diretamente pelo chamado. A quem o chamado se refere.</p></td>
+</tr>
+<tr class="row-even"><td><p>Autorizador</p></td>
+<td><p>Usuário Autorizador</p></td>
+<td><p>Responsável autorizar chamados abertos para realização de determinados serviços que requerem autorização.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Atendente do Suporte</p></td>
+<td><p>Suporte/Atendimento/Atendente do Suporte/Técnico de Atendimento</p></td>
+<td><p>Responsável realizar os chamados abertos pelos requisitantes, após autorizados.</p></td>
+</tr>
+<tr class="row-even"><td><p>Chefe da Equipe de Suporte</p></td>
+<td><p>Chefe da Equipe de Suporte/Responsável Técnico da Equipe de Suporte</p></td>
+<td><p>Responsável analisar determinadas solicitações de serviços e encaminhar um ‘pedido de autorização’ a determinado usuário (autorizador) do sistema. Também é responsável por atribuir um chamado a determinado Atendente do Suporte.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="visao-geral-do-produto">
+<h2><a class="toc-backref" href="#id13">Visão geral do produto</a><a class="headerlink" href="#visao-geral-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="modelagem-de-processos-de-negocio">
+<h3><a class="toc-backref" href="#id14">Modelagem de processos de negócio</a><a class="headerlink" href="#modelagem-de-processos-de-negocio" title="Link permanente para este título">¶</a></h3>
+<a class="reference internal image-reference" href="../../../_images/diagrama-de-atividades.png"><img alt="../../../_images/diagrama-de-atividades.png" src="../../../_images/diagrama-de-atividades.png" style="width: 1304.0px; height: 950.4000000000001px;" /></a>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Detalhamento das atividades do processo da central de serviços</span><a class="headerlink" href="#id3" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Atividade</p></th>
+<th class="head"><p>Ator responsável</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Cadastrar chamado</p></td>
+<td><p>Requisitante</p></td>
+<td><p>O requisitante preenche o formulário, reportando uma nova requisição ou incidente.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Designar autorizador</p></td>
+<td><p>Suporte</p></td>
+<td><p>Caso o chamado necessite de uma autorização e esta autorização seja do tipo ‘designada pelo suporte’, o chefe da equipe de suporte deverá encaminhar a autorização especificamente para um usuário (autorizador).</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Autorizar chamado</p></td>
+<td><p>Autorizador</p></td>
+<td><p>O autorizador, consulta os chamados pendentes de sua autorização, deferindo ou não o pedido de autorização</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Analisar chamado</p></td>
+<td><p>Suporte</p></td>
+<td><p>O atendente do suporte consulta os chamados abertos e autorizados (ou que não necessitam de autorização), verificando se estes chamados estão com todas as informações completas. Caso esteja faltando alguma informação, envia uma notificação ao requisitante, pedindo complementação.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Acrescentar informações</p></td>
+<td><p>Requisitante</p></td>
+<td><p>O requisitante, após receber notificação ou consultar seus chamados, acrescenta informações referente ao chamado aberto.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Atender chamado</p></td>
+<td><p>Suporte</p></td>
+<td><p>O atendente do suporte, após constatar que todas as informações do chamado estão completas, realiza o atendimento do mesmo.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="requisitos">
+<h3><a class="toc-backref" href="#id15">Requisitos</a><a class="headerlink" href="#requisitos" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Descreva os requisitos funcionais e não funcionais do produto.
+Foi decidido que não haverá divisão entre requisitos funcionais e não funcionais.</p>
+<p><a class="reference internal" href="../../models/requisitos_naofuncionais_categoria.html#suap-models-recnaofuncionais-categoria"><span class="std std-ref">Classificação dos Requisitos Não Funcionais</span></a></p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Categoria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R01</p></td>
+<td><p>O sistema deverá permitir que a equipe de Suporte cadastre os serviços prestados pela TI, na forma de Requisição ou Incidente,
+agrupando-os em dois níveis (Categorias e Grupos), sendo que um Grupo de Serviço pode pertencer a mais de uma
+Categoria de Serviço.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R02</p></td>
+<td><p>Alguns serviços necessitam de Autorização. Estas autorizações devem ser realizadas de acordo com os seguintes “perfis”:
+Chefe imediato do interessado, Diretor Admin. do Campus do interessado, Diretor Geral do Campus do interessado,
+Coordenador de TI do Campus, DIGTI, EAD ou por algum usuário específico Designado pelo Suporte. Nestes casos,
+somente após autorizados os serviços serão realizados.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R03</p></td>
+<td><p>O sistema deverá permitir que o Chefe da Equipe de Suporte vincule seus Funcionários aos Níveis de Suporte correspondentes,
+de forma que um chamado que esteja atribuído a determinado nível possa ser filtrado ou limitado a determinados Atendentes.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R04</p></td>
+<td><p>Os chamados poderão ser abertos pelo próprio usuário interessado, por terceiros (quando o serviço permitir) ou diretamente
+pelo Atendente do Suporte.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R05</p></td>
+<td><p>Sempre que um chamado for aberto, deverá ser Atribuído à Equipe de Primeiro Nível do Campus do Interessado. Deverá haver uma e
+apenas uma Equipe de Primeiro Nível por Campus do Interessado. Caso não haja nenhuma equipe cadastrada no
+Primeiro Nível do Campus, o sistema deverá informar o ocorrido ao usuário e o chamado não poderá ser Aberto.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R06</p></td>
+<td><p>Os chamados abertos podem ser atribuídos pelo Responsável Técnico da Equipe de Suporte a algum Atendente do Suporte,
+que ficará encarregado de atender ou entrar em contato com usuário (quando necessário) para requisitar maiores informações.
+O Responsável Técnico da Equipe de Suporte também poderá cancelar determinada atribuição para em seguida atribuir a outro
+Atendente do Suporte. Além disso, os atendentes podem consultar os chamados abertos e fazer uma ‘auto-atribuição’
+de determinado chamado, estando o mesmo já atribuido ou não. No entanto um Atendente não pode se desvincular de um chamado.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R07</p></td>
+<td><p>O Atendente poderá Escalonar um chamado a um nível superior ou Retornar um chamado a um nível inferior,
+quando entender que determinado chamado não faz parte do contexto de seu nível. Neste caso, o chamado fica atribuido
+ao grupo escalonado ou retornado, mas sem um atendente específico. Ao Escalonar ou Retornar um chamado, o Atendente
+deverá escrever uma Nota Interna dando detalhes de sua decisão.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R08</p></td>
+<td><p>Os Atendentes do Suporte devem ser capazes de entrar em contato com o usuário requisitante através de mensagens do sistema,
+afim de que possam solicitar maiores informações sobre algum chamado. Estas mensagems serão registradas nos chamados
+sob a denominação de “Comentários” do Chamado.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R09</p></td>
+<td><p>Os Atendentes do Suporte devem ser capazes de enviar “Notas Internas” entre si, afim de trocar informações técnicas sobre
+o chamado. Estas informações não devem ser visíveis aos usuários externos (Requisitante ou Interessado).</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R10</p></td>
+<td><p>Os Atendentes do Suporte devem ser capazes de Atualizar os Status dos seus chamados com as seguintes opções:
+Aberto, Em Atendimento, Resolvido. Ao atualizar para “Em Atendimento”, o atendente deverá informar qual solução foi
+aplicada (registrada na Base de Conhecimento). Chefes da Equipe de Suporte e o Usuário Interessado podem atualizar o
+Status de um Chamado para Fechado ou Reaberto.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R11</p></td>
+<td><p>O sistema deverá permitir que a equipe de Suporte cadastre uma Base de Conhecimento, afim de que essas soluções
+sejam aplicadas nos Chamados resolvidos bem como sirvam de FAQ para o Portal da instituição.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R12</p></td>
+<td><p>A tela de Abertura de Chamado deverá exibir uma interface amigável ao usuário Requisitante, agrupando inicialmente as
+Categorias e Grupos de Serviço e posteriormente os Serviços do grupo selecionado.</p></td>
+<td><p>Interface</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="casos-de-uso">
+<h3><a class="toc-backref" href="#id16">Casos de uso</a><a class="headerlink" href="#casos-de-uso" title="Link permanente para este título">¶</a></h3>
+<section id="lista-de-casos-de-uso">
+<h4><a class="toc-backref" href="#id17">Lista de casos de uso</a><a class="headerlink" href="#lista-de-casos-de-uso" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód - Nome - Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Complexidade</p></th>
+<th class="head"><p>Requisitos relacionados</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="centralservicos_uc100.html#suap-artefatos-adm-centralservicos-uc100"><span class="std std-ref">UC100 - Manter serviço &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc100-objetivo">Cadastrar e manter atualizados os serviços prestados pela TI.</p>
+</td>
+<td><p>Normal</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="centralservicos_uc101.html#suap-artefatos-adm-centralservicos-uc101"><span class="std std-ref">UC101 - Manter Grupo de Atendimento &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc101-objetivo">Cadastrar e manter atualizados os grupos de atendimento da central de serviços.</p>
+</td>
+<td><p>Normal</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="centralservicos_uc102.html#suap-artefatos-adm-centralservicos-uc102"><span class="std std-ref">UC102 - Manter Base de Conhecimento &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc102-objetivo">Cadastrar e manter atualizadas a base de conhecimento da central de serviços.</p>
+</td>
+<td><p>Normal</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="centralservicos_uc200.html#suap-artefatos-adm-centralservicos-uc200"><span class="std std-ref">UC200 - Abrir Chamado &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc200-objetivo">Possibilitar abertura dos chamados pelo usuário da central de serviços.</p>
+</td>
+<td><p>Normal</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="centralservicos_uc201.html#suap-artefatos-adm-centralservicos-uc201"><span class="std std-ref">UC201 - Listar e Visualizar Meus Chamados &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc201-objetivo">Listar e possibilitar a visualização dos chamados abertos pelo usuário da central de serviços.</p>
+</td>
+<td><p>Normal</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="centralservicos_uc202.html#suap-artefatos-adm-centralservicos-uc202"><span class="std std-ref">UC202 - Listar e Autorizar Chamados &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc202-objetivo">Listar chamados e possibilitar autorização dos mesmos, para chamados de sua competência.</p>
+</td>
+<td><p>Normal</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="centralservicos_uc300.html#suap-artefatos-adm-centralservicos-uc300"><span class="std std-ref">UC300 - Atendimento de Chamados &lt;v0.1&gt;</span></a></p></td>
+<td><p id="suap-artefatos-adm-centralservicos-uc300-objetivo">Realizar o atendimento dos chamados dos usuários.</p>
+</td>
+<td><p>Alta</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lista-de-casos-de-uso-do-tipo-simples">
+<h4><a class="toc-backref" href="#id18">Lista de casos de uso do tipo simples</a><a class="headerlink" href="#lista-de-casos-de-uso-do-tipo-simples" title="Link permanente para este título">¶</a></h4>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód</p></th>
+<th class="head"><p>Nome</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Complexidade</p></th>
+<th class="head"><p>Requisitos relacionados</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UC001</p></td>
+<td><p>Categoria de serviço</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UC002</p></td>
+<td><p>Grupo de serviço</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="modelagem-de-dominio">
+<h3><a class="toc-backref" href="#id19">Modelagem de domínio</a><a class="headerlink" href="#modelagem-de-dominio" title="Link permanente para este título">¶</a></h3>
+<section id="diagrama-de-modelagem-de-dominio">
+<h4><a class="toc-backref" href="#id20">Diagrama de modelagem de domínio</a><a class="headerlink" href="#diagrama-de-modelagem-de-dominio" title="Link permanente para este título">¶</a></h4>
+<img alt="../../../_images/diagrama-entidade-relacionamento.png" src="../../../_images/diagrama-entidade-relacionamento.png" />
+</section>
+</section>
+</section>
+<section id="prototipos-de-telas">
+<h2><a class="toc-backref" href="#id21">Protótipos de telas</a><a class="headerlink" href="#prototipos-de-telas" title="Link permanente para este título">¶</a></h2>
+<section id="tela-de-cadastro-de-grupo-de-servicos">
+<h3><a class="toc-backref" href="#id22">Tela de cadastro de grupo de serviços</a><a class="headerlink" href="#tela-de-cadastro-de-grupo-de-servicos" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-cadastro-categoria-servico.png" src="../../../_images/tela-cadastro-categoria-servico.png" />
+</section>
+<section id="id1">
+<h3><a class="toc-backref" href="#id23">Tela de cadastro de grupo de serviços</a><a class="headerlink" href="#id1" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-cadastro-grupo-servico.png" src="../../../_images/tela-cadastro-grupo-servico.png" />
+</section>
+<section id="tela-de-cadastro-de-servicos">
+<h3><a class="toc-backref" href="#id24">Tela de cadastro de serviços</a><a class="headerlink" href="#tela-de-cadastro-de-servicos" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-cadastro-servicos.png" src="../../../_images/tela-cadastro-servicos.png" />
+</section>
+<section id="tela-de-cadastro-de-grupo-de-atendimento">
+<h3><a class="toc-backref" href="#id25">Tela de cadastro de grupo de atendimento</a><a class="headerlink" href="#tela-de-cadastro-de-grupo-de-atendimento" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-cadastro-grupo-atendimento.png" src="../../../_images/tela-cadastro-grupo-atendimento.png" />
+</section>
+<section id="tela-de-vinculacao-de-atendente-ao-grupo-de-atendimento">
+<h3><a class="toc-backref" href="#id26">Tela de vinculação de Atendente ao Grupo de Atendimento</a><a class="headerlink" href="#tela-de-vinculacao-de-atendente-ao-grupo-de-atendimento" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-vincular-atendente-grupo-atendimento.png" src="../../../_images/tela-vincular-atendente-grupo-atendimento.png" />
+</section>
+<section id="tela-de-cadastro-de-base-de-conhecimento">
+<h3><a class="toc-backref" href="#id27">Tela de cadastro de base de conhecimento</a><a class="headerlink" href="#tela-de-cadastro-de-base-de-conhecimento" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-cadastro-base-conhecimento.png" src="../../../_images/tela-cadastro-base-conhecimento.png" />
+</section>
+<section id="tela-de-abertura-de-chamados-pelo-usuario">
+<h3><a class="toc-backref" href="#id28">Tela de abertura de chamados pelo Usuário</a><a class="headerlink" href="#tela-de-abertura-de-chamados-pelo-usuario" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-abertura-de-chamados-usuario.png" src="../../../_images/tela-abertura-de-chamados-usuario.png" />
+</section>
+<section id="tela-de-abertura-de-chamados-pelo-suporte">
+<h3><a class="toc-backref" href="#id29">Tela de abertura de chamados pelo Suporte</a><a class="headerlink" href="#tela-de-abertura-de-chamados-pelo-suporte" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-abertura-de-chamados-suporte.png" src="../../../_images/tela-abertura-de-chamados-suporte.png" />
+</section>
+<section id="tela-de-listagem-de-chamados-visualizado-pelo-usuario">
+<h3><a class="toc-backref" href="#id30">Tela de listagem de chamados (visualizado pelo usuário)</a><a class="headerlink" href="#tela-de-listagem-de-chamados-visualizado-pelo-usuario" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-listagem-chamados-usuario.png" src="../../../_images/tela-listagem-chamados-usuario.png" />
+</section>
+<section id="tela-de-visualizacao-de-chamados-visualizado-pelo-usuario">
+<h3><a class="toc-backref" href="#id31">Tela de visualização de chamados (visualizado pelo usuário)</a><a class="headerlink" href="#tela-de-visualizacao-de-chamados-visualizado-pelo-usuario" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-visualizacao-chamado-usuario.png" src="../../../_images/tela-visualizacao-chamado-usuario.png" />
+</section>
+<section id="tela-de-listagem-e-autorizacao-de-chamado-de-usuario">
+<h3><a class="toc-backref" href="#id32">Tela de listagem e autorização de chamado de usuário</a><a class="headerlink" href="#tela-de-listagem-e-autorizacao-de-chamado-de-usuario" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-listagem-e-autorizacao-chamado-usuario.png" src="../../../_images/tela-listagem-e-autorizacao-chamado-usuario.png" />
+</section>
+<section id="tela-de-autorizacao-de-chamado-de-usuario">
+<h3><a class="toc-backref" href="#id33">Tela de autorização de chamado de usuário</a><a class="headerlink" href="#tela-de-autorizacao-de-chamado-de-usuario" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-autorizacao-chamado-usuario.png" src="../../../_images/tela-autorizacao-chamado-usuario.png" />
+</section>
+<section id="tela-de-listagem-de-chamados-visualizado-pelo-suporte">
+<h3><a class="toc-backref" href="#id34">Tela de listagem de chamados (visualizado pelo suporte)</a><a class="headerlink" href="#tela-de-listagem-de-chamados-visualizado-pelo-suporte" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-listagem-chamados-suporte.png" src="../../../_images/tela-listagem-chamados-suporte.png" />
+</section>
+<section id="tela-de-atendimento-de-chamados">
+<h3><a class="toc-backref" href="#id35">Tela de atendimento de chamados</a><a class="headerlink" href="#tela-de-atendimento-de-chamados" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/tela-atendimento-de-chamados.png" src="../../../_images/tela-atendimento-de-chamados.png" />
+</section>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id36">Questões em aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<ul class="simple">
+<li><p>Não há.</p></li>
+</ul>
+</section>
+</section>
+
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

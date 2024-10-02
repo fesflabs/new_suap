@@ -1,0 +1,76 @@
+<div id="popup-user-container-{{ profile.id }}" class="popup-user-container">
+    {% if eh_pessoafisica %}
+        <h4>{{ nome|normalizar }}</h4>
+        <div class="photo-circle">
+            <img alt="{{ nome|normalizar }}" src="{{ foto }}" />
+        </div>
+        <dl>
+        {% if not requisitante_eh_aluno %}
+            {% if profile.username %}
+                {% if profile.eh_prestador %}
+                    <dt>Usuário:</dt>
+                {% else %}
+                    <dt>Matrícula: </dt>
+                {% endif %}
+                <dd>
+                    {% if profile.sub_instance.get_absolute_url and not requisitante_eh_aluno %}
+                        <a href="{{ profile.sub_instance.get_absolute_url }}">{{ profile.username }}</a>
+                    {% else %}
+                        {{ profile.username }}
+                    {% endif %}
+                </dd>
+            {% endif %}
+            {% if setor %}
+                <dt>Setor:</dt>
+                {% if not requisitante_eh_aluno %}
+                    <dd><a href="/rh/setor/{{ setor.id }}/">{{ setor }}</a></dd>
+                {% else %}
+                    <dd>{{ setor }}</dd>
+                {% endif %}
+            {% endif %}
+            {% if not requisitante_eh_aluno  %}
+                {% if cargo and not eh_aluno %}
+                    <dt>Cargo:</dt>
+                    <dd>{{ cargo }}</dd>
+                {% else %}
+                    <dt>Categoria:</dt>
+                    <dd>{{ cargo }}</dd>
+                {% endif %}
+                {% if email %}
+                    <dt>E-mail:</dt>
+                    <dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {% if profile.username %}
+                {% if profile.eh_prestador %}
+                    <dt>Usuário:</dt>
+                {% else %}
+                    <dt>Matrícula:</dt>
+                {% endif %}
+                <dd>
+                    {{ profile.username }}
+                </dd>
+            {% endif %}
+            {% if setor %}
+                <dt>Setor:</dt>
+                <dd>{{ setor }}</dd>
+            {% endif %}
+        {% endif %}
+        </dl>
+    {% else %}
+        <h4>{{ nome }}</h4>
+        <dl>
+            <dt>Categoria:</dt>
+            <dd>Pessoa Jurídica</dd>
+            <dt>CNPJ:</dt>
+            <dd>
+                {% if not requisitante_eh_aluno %}
+                    <a href="{{ profile.get_absolute_url }}">{{ cnpj }}</a>
+                {% else %}
+                    {{ cnpj }}
+                {% endif %}
+            </dd>
+        </dl>
+    {% endif %}
+</div>

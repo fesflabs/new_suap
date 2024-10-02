@@ -1,0 +1,59 @@
+{% extends super_template %}
+
+{% block content %}
+
+    <form method="post" action="" method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table>
+            {% for form in formset.forms %}
+                <h3> Documento #{{ forloop.counter }} </h3>
+                {% render_form form False %}
+            {% endfor %}
+        </table>
+        <p class="msg alert">
+            <strong>Atenção:</strong> Caso seja informada alguma pendência, será enviada uma notificação para o Fiscal com o detalhamento das pendências.
+        </p>
+        <div class="submit-row">
+            <input class="default" value="Salvar" type="submit">
+        </div>
+    </form>
+
+    {#    {% box 'Adicionar Tipo de Documento Comprobatório' %}#}
+    {#        <form method="post" action="" method="POST">#}
+    {#            {{ formset.management_form }}#}
+    {#            {{ formset.non_form_errors.as_ul }}#}
+    {#            <table id="formset" class="form">#}
+    {#                {% for form in formset.forms %}#}
+    {#                    {% if forloop.first %}#}
+    {#                        <thead>#}
+    {#                            <tr>#}
+    {#                                {% for field in form.visible_fields %}#}
+    {#                                    <th>{{ field.label|capfirst }}</th>#}
+    {#                                {% endfor %}#}
+    {#                            </tr>#}
+    {#                        </thead>#}
+    {#                    {% endif %}#}
+    {#                    <tr>#}
+    {#                        {% for field in form.visible_fields %}#}
+    {#                            <td>#}
+    {# Include the hidden fields in the form #}
+    {#                                {% if forloop.first %}#}
+    {#                                    {% for hidden in form.hidden_fields %}#}
+    {#                                        {{ hidden }}#}
+    {#                                    {% endfor %}#}
+    {#                                {% endif %}#}
+    {#                                {{ field.errors.as_ul }}#}
+    {#                                {{ field }}#}
+    {#                            </td>#}
+    {#                         {% endfor %}#}
+    {#                    </tr>#}
+    {#                {% endfor %}#}
+    {#            </table>#}
+    {#            <div class="submit-row">#}
+    {#                <input class="default" value="Salvar" type="submit">#}
+    {#            </div>#}
+    {#        </form>#}
+    {#    {% endbox %}#}
+
+{% endblock %}

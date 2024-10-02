@@ -1,0 +1,77 @@
+{% extends super_template %}
+
+{% block content %}
+{% box 'Informações Gerais {{ competicao_desportiva }}' %}
+<table class="info">
+    <tbody>
+        <tr>
+            <td>Nome</td>
+            <td>{{ competicao_desportiva.nome }}</td>
+        </tr>
+        <tr>
+            <td>Descrição</td>
+            <td>{{ competicao_desportiva.descricao }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="#calendario_competicao">Ver Calendário da Competição</a></td>
+        </tr>
+    </tbody>
+</table>
+{% endbox %}
+
+{% if servidor.endereco_municipio.pk in municipios_pks%}
+<div class="msg info">
+    <strong>Atenção:</strong> Considerando que seu endereço cadastrado no SIAPE é {{servidor.endereco_municipio}} que está localizado na grande Natal, sede do evento, <strong>VOCÊ NÃO TERÁ DIREITO A HOSPEDAGEM</strong>. Em caso de divergências, entre em contato com a Gestão de Pessoas da sua
+    unidade para efetivar a atualização do seu endereço.
+</div>
+{% endif %}
+{% box 'Formulário de inscrição - {{ inscricao_desportiva.competicao_desportiva }}'%}
+<dl>
+    <dt>
+        Servidor:
+    </dt>
+    <dd>
+        {{ inscricao_desportiva.servidor }}
+    </dd>
+    <dt>
+        Competição:
+    </dt>
+    <dd>
+        {{ inscricao_desportiva.competicao_desportiva }}
+    </dd>
+    {% if inscrito %}
+    <dt>
+        Situação:
+    </dt>
+    <dd>
+        <span class="status status-success">{{inscricao_desportiva.get_situacao_display}}</span>
+    </dd>
+    <dt>
+        Campus em que foi feita a inscrição:
+    </dt>
+    <dd>
+        <span class="status status-info">{{inscricao_desportiva.uo}}</span>
+    </dd>
+    {% endif%}
+    <dt>
+        Campus Lotação Servidor:
+    </dt>
+    <dd>
+        <span class="status status-info">{{servidor.setor.uo}}</span>
+    </dd>
+
+</dl>
+<div class="mt-2">
+    {% render_form form %}
+</div>
+{% endbox %}
+<div id="calendario_competicao">
+    {% box 'Calendário {{ competicao_desportiva }}' %}
+
+    {% for calendario in calendarios %}
+    {{ calendario|safe }}
+    {% endfor %}
+
+    {% endbox %}
+</div>
+{% endblock %}

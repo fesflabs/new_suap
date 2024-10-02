@@ -1,0 +1,110 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+
+
+    {% if form.is_valid %}
+
+        {% box "Formulário de Autenticação" "collapsed" %}
+            {% render_form form %}
+        {% endbox %}
+
+        {% box "Resultado da Verificação" %}
+            {% if registro %}
+                {% if is_cancelado %}
+                    <div class="msg error">
+                        <p>Atenção: O Documento foi cancelado por {{ responsavel_cancelamento }}
+                            em {{ data_cancelamento|format }}.</p>
+
+                        <p>Motivo do Cancelamento: {{ razao_cancelamento|format }}.</p>
+                    </div>
+                {% elif is_carteira_funcional %}
+                    <p class="msg info">
+                        Carteira Funcional Digital autenticada com sucesso. Confira abaixo os dados do documento:
+                    </p>
+
+                    <table class="info">
+                        <tbody>
+                        <tr>
+                            <td>Foto:</td>
+                            <td colspan="3">
+                                <img src="{{ servidor.get_foto_150x200_url }}" alt="Foto do Servidor {{ servidor.matricula }}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nome:</td>
+                            <td colspan="3">{{ servidor.nome|upper|format }}</td>
+                        </tr>
+                        <tr>
+                            <td>Matrícula SIAPE:</td>
+                            <td>{{ servidor.matricula }}</td>
+
+                            <td>CPF:</td>
+                            <td>{{ servidor.cpf }}</td>
+                        </tr>
+                        <tr>
+                            <td>RG / Órgão Expedidor:</td>
+                            <td>{{ servidor.rg_display }}</td>
+
+                            <td>Naturalidade:</td>
+                            <td>{{ servidor.nascimento_municipio.nome }}/{{ servidor.nascimento_municipio.uf }}</td>
+                        </tr>
+                        <tr>
+                            <td>Data de Nascimento:</td>
+                            <td>{{ servidor.nascimento_data }}</td>
+
+                            <td>Tipo Sanguíneo:</td>
+                            <td>{{ servidor.tipo_sanguineo }}</td>
+                        </tr>
+                        <tr>
+                            <td>Cargo:</td>
+                            <td>{{ servidor.cargo_emprego.nome|format }}</td>
+
+                            <td>Filiação:</td>
+                            <td>
+                                {{ servidor.nome_mae|upper|format }}
+                                <br/>
+                                {{ servidor.nome_pai|upper|format }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Data de Emissão:</td>
+                            <td>{{ registro.data_emissao|format }}</td>
+                            <td>Data de Validade:</td>
+                            <td>{{ registro.data_validade|format }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="msg info">
+                        Documento autenticado com sucesso.
+                        {% if assinaturas %}
+                            <br> Este documento foi assinado digitalmente por:
+
+                                {% for assinatura in assinaturas %}
+                                    <br> • {{ assinatura }}
+                                {% endfor %}
+
+                        {% endif %}
+                        <br>Para visualizar o conteúdo da versão original, clique
+                        <a href="/comum/baixar_documento/{{ registro.pk }}/{{ registro.codigo_verificador }}/">aqui</a>
+                        ou na imagem a seguir.
+                    </p>
+                    <div align="center">
+                        <a href="/comum/baixar_documento/{{ registro.pk }}/{{ registro.codigo_verificador }}/">
+                            <img width="150" src="/static/comum/img/pdf.png">
+                        </a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <p class="msg error">
+                    Documento não autenticado.
+                </p>
+            {% endif %}
+        {% endbox %}
+    {% else %}
+        {% box "Formulário de Autenticação" %}
+            {% render_form form %}
+        {% endbox %}
+    {% endif %}
+{% endblock %}

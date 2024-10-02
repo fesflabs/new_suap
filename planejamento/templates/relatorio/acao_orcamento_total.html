@@ -1,0 +1,53 @@
+{% extends super_template %}
+
+{% block extracss %}
+<link rel="stylesheet" href="/static/planejamento/css/planejamento.css" />
+<link rel="stylesheet" href="/static/planejamento/css/relatorio.css" />
+<link rel="stylesheet" href="/static/planejamento/css/acoes_recurso_dimensao_unidade_acao.css" />
+{% endblock %}
+
+{% block content %}
+
+<h2>Ações do Planejamento da Ação do Orçamento</h2>
+
+<fieldset id="dados_gerais">
+    <legend>Dados Gerais</legend>
+    <ul class="cx_dados">
+        <li class="bck_linha_padrao"><span>Fonte do Recurso:</span>{{ fonte.nome }}</li>
+        <li><span>Ação do Orçamento:</span>{{ acao.codigo_acao }} - {{ acao.nome }}</li>
+    </ul>
+</fieldset>
+
+<div class="cx_meta">
+	{% if acoes_planejamento %}
+	<div class="cx_tabela">
+		<table>
+			<thead>
+				<tr>
+					<th>Ação</th>
+					<th style="text-align:center;" width="120px">Valor</th>
+				</tr>
+			</thead>
+			<tbody>
+    			{% for acao_planejamento in acoes_planejamento %}
+				<tr>
+					<td>{{ acao_planejamento.titulo }}</td>
+					<td style="text-align:right;">{{ acao_planejamento.valor_total|mascara_dinheiro }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>				
+				<tr>
+					<td style="text-align:right;font-weight:bold;">Total</td>
+					<td style="text-align:right;font-weight:bold;">{{ valor_total|mascara_dinheiro }}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	{% else %}
+	<p class="msg">Não existem ações cadastradas nestas condições.</p>
+	{% endif %}
+
+</div>
+	
+{% endblock %}

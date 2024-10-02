@@ -1,0 +1,64 @@
+{% extends super_template %}
+
+{% block content %}
+
+	{% box 'Dados Gerais' %}
+	<table>
+		<tr>
+			<td>Unidade Gestora</td>
+			<td>{{ ug }}</td>
+		</tr>
+		<tr>
+			<td>Unidade Gestora Resp.</td>
+			<td>{% if ug == ugr %}-{% else %}{{ ugr }}{% endif %}</td>
+		</tr>
+	</table>
+	{% endbox %}
+
+	{% regroup despesas by natureza_despesa_id as lista_despesas %}
+
+	<table>
+		<thead>
+			<tr>
+				<th width="50px" style="text-align:center;">Código</th>
+				<th>Natureza de Depesa/Fonte de Recurso</th>
+				<th width="130px" style="text-align:center;">Descentralizado</th>
+				<th width="130px" style="text-align:center;">Utilizado</th>
+				<th width="130px" style="text-align:center;">Disponível</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for despesas in lista_despesas %}
+			<tr>
+				<td style="font-weight:bold;text-align:center;">{{ despesas.list.0.natureza_despesa_id }}</td>
+				<td style="font-weight:bold;">{{ despesas.list.0.natureza_despesa_nome }}</td>
+				<td style="font-weight:bold;text-align:right;">{{ despesas.list|sum_values_by_key:"descentralizado"|mascara_dinheiro }}</td>
+				<td style="font-weight:bold;text-align:right;">{{ despesas.list|sum_values_by_key:"gasto"|mascara_dinheiro }}</td>
+				<td style="font-weight:bold;text-align:right;">{{ despesas.list|sum_values_by_key:"saldo"|mascara_dinheiro }}</td>
+			</tr>
+			{% for despesa in despesas.list %}
+			<tr>
+				<td style="text-align:center;">{{ despesa.fonte_recurso_id }}</td>
+				<td>{{ despesa.fonte_recurso_nome }}</td>
+				<td style="text-align:right;">{{ despesa.descentralizado|mascara_dinheiro }}</td>
+				<td style="text-align:right;">{{ despesa.gasto|mascara_dinheiro }}</td>
+				<td style="text-align:right;">{{ despesa.saldo|mascara_dinheiro }}</td>
+			</tr>
+			{% endfor %}
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">Total:</td>
+				<td>{{ despesas|sum_values_by_key:"descentralizado"|mascara_dinheiro }}</td>
+				<td>{{ despesas|sum_values_by_key:"gasto"|mascara_dinheiro }}</td>
+				<td>{{ despesas|sum_values_by_key:"saldo"|mascara_dinheiro }}</td>
+			</tr>
+		</tfoot>
+	</table>
+	
+	<div id="botoes" class="botoes" >
+		<a class="lnk_botao voltar">Voltar</a>
+   	</div>
+
+{% endblock %}

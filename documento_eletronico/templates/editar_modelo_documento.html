@@ -1,0 +1,55 @@
+{% extends super_template %}
+
+{% block extrahead %}
+{{ block.super }}
+    <script src="/static/ckeditor/ckeditor-init.js"></script>
+    <script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script src="/static/documento_eletronico/js/ckeditor_toolbar.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            CKEDITOR.replace('corpo_padrao', {
+                toolbar: 'default',
+            });
+            CKEDITOR.config.extraPlugins = 'textindent';
+            CKEDITOR.config.indentation = '94.5';
+            $('#editarmodelodocumento_form').on('submit', function(){
+                if (!validarTags()) {
+                    $('#editarmodelodocumento_form_submit').removeAttr('disabled');
+                    $('#editarmodelodocumento_form_submit').val('Salvar');
+                    return false;
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" id="editarmodelodocumento_form" name="editarmodelodocumento_form" action="">
+    {% csrf_token %}
+    {{ form.media }}
+    <ul class="action-bar">
+        <li><a class="btn popup default" href="/documento_eletronico/visualizar_variaveis/">Visualizar Variáveis</a></li>
+    </ul>
+
+    {% box 'Dados Gerais' %}
+        {% render_form form render_full=False  submit_label=False %}
+    {% endbox %}
+
+    {% box 'Corpo' %}
+        <textarea rows="10" name="corpo_padrao" id="corpo_padrao" cols="40">
+            {{ modelo_documento.corpo_padrao }}
+        </textarea>
+    {% endbox %}
+
+    <div class="submit-row">
+        <input type="submit" value="Salvar" class="default" id="editarmodelodocumento_form_submit">
+        <a class="btn default" href="/admin/documento_eletronico/modelodocumento/">Voltar</a>
+        {% if perms.documento_eletronico.delete_modelodocumento %}
+            <a class="btn danger" href="/admin/documento_eletronico/modelodocumento/{{ modelo_documento.pk }}/delete/">Apagar</a>
+        {% endif %}
+    </div>
+</form>
+
+{% endblock %}
+

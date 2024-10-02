@@ -1,0 +1,58 @@
+'Des. Institucional::PDI:: Contribuições da Comunidade':
+  groups_required:
+  - Administrador do PDI
+  - Comissão Central do PDI
+  - Comissão Temática do PDI
+  - Comissão Local do PDI
+  url: /pdi/contribuicoes_campi/
+Des. Institucional::PDI::Cadastros::Comissão:
+  groups_required:
+  - Administrador do PDI
+  url: /pdi/listar_comissoes/
+Des. Institucional::PDI::Cadastros::Eixo:
+  groups_required:
+  - Administrador do PDI
+  url: /pdi/listar_eixos/
+Des. Institucional::PDI::Cadastros::PDI:
+  groups_required:
+  - Administrador do PDI
+  url: /admin/pdi/pdi/
+Des. Institucional::PDI::Gerenciar Contribuições:
+  groups_required:
+  - Administrador do PDI
+  - Comissão Central do PDI
+  - Comissão Temática do PDI
+  - Comissão Local do PDI
+  url: /pdi/listar_contribuicoes/
+Des. Institucional::PDI::Membros das Comissões:
+  groups_required:
+  - Administrador do PDI
+  - Comissão Central do PDI
+  - Comissão Temática do PDI
+  - Comissão Local do PDI
+  url: /pdi/membros/
+Des. Institucional::PDI::Produção das Comissões Locais:
+  groups_required:
+  - Administrador do PDI
+  - Comissão Central do PDI
+  - Comissão Temática do PDI
+  url: /admin/pdi/secaopdicampus/
+Des. Institucional::PDI::Produção das Comissões Temáticas:
+  groups_required:
+  - Administrador do PDI
+  - Comissão Central do PDI
+  - Comissão Temática do PDI
+  url: /admin/pdi/secaopdiinstitucional/
+Des. Institucional::PDI::Redação Local:
+  groups_required:
+  - Comissão Local do PDI
+  url: /pdi/redigir_local/
+Des. Institucional::PDI::Redação Temática:
+  groups_required:
+  - Comissão Temática do PDI
+  url: /pdi/redigir_tematica/
+Des. Institucional::PDI::Relatórios:
+  groups_required:
+  - Administrador do PDI
+  - Comissão Central do PDI
+  url: /pdi/relatorios/

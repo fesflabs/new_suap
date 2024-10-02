@@ -1,0 +1,25 @@
+Gestão de Pessoas::Desenvolvimento de Pessoal::Avaliação de Desempenho::Cadastros::Critérios de Avaliação:
+  permissions_required:
+  - progressoes.view_avaliacaomodelo
+  - progressoes.view_avaliacaomodelocriterio
+  url: /admin/progressoes/avaliacaomodelocriterio/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Avaliação de Desempenho::Cadastros::Modelos/Fichas de Avaliação:
+  permissions_required:
+  - progressoes.view_avaliacaomodelo
+  - progressoes.view_avaliacaomodelocriterio
+  url: /admin/progressoes/avaliacaomodelo/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Avaliação de Desempenho::Meus Processos:
+  permissions_required:
+  - progressoes.view_processoprogressao
+  - progressoes.view_processoprogressaoperiodo
+  url: /progressoes/meus_processos/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Avaliação de Desempenho::Minhas Avaliações:
+  permissions_required:
+  - progressoes.view_processoprogressaoavaliacao
+  - progressoes.view_avaliacaocriterionota
+  url: /progressoes/minhas_avaliacoes/
+Gestão de Pessoas::Desenvolvimento de Pessoal::Avaliação de Desempenho::Processos:
+  permissions_required:
+  - progressoes.change_processoprogressao
+  - progressoes.change_processoprogressaoperiodo
+  url: /admin/progressoes/processoprogressao/

@@ -1,0 +1,52 @@
+{% extends super_template %}
+
+{% block bodyclass %}hasAsideRight{% endblock %}
+
+{% block object-status %}
+    {{ enquete.get_status }}
+{% endblock %}
+
+{% block action-bar %}
+{% if eh_responsavel_enquete %}
+    <ul class="action-bar">
+        <li><a class="btn primary" href="/enquete/atualizar_publico/{{ enquete.id }}/">Atualizar Público</a></li>
+    </ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="search-and-filters">
+    {% render_form form %}
+</div>
+
+{% if vinculos.exists %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        {% autopaginate vinculos 50 %}
+        {% paginate %}
+        <tbody>
+            {% for vinculo in vinculos %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ vinculo|format }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="msg alert">Nenhuma Pessoa Física foi encontrada.</p>
+{% endif %}
+    
+{% endblock %}
+
+{% block asideright %}
+
+{% include "includes/aside.html" %}
+
+{% endblock %}

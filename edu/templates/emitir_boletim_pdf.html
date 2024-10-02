@@ -1,0 +1,87 @@
+{% extends "relatorio_pdf.html" %}
+{% block page_orientation %}{% if tem_nota_atitudinal %}landscape{%endif%}{% endblock %}
+{% block style %}
+	table td, table th {
+		font-size: 8pt;
+	}
+{% endblock %}
+
+{% block content %}
+    {% for matricula_periodo in matriculas_periodo %}
+        <main>
+            <div class="page-break"></div>
+            <h1>BOLETIM DE NOTAS INDIVIDUAL</h1>
+            <table class="descritorfiltros definicoes" border="0">
+                <tbody>
+                <tr>
+                    <td rowspan="4"><img style="height:100px" src="{{ matricula_periodo.aluno.get_foto_150x200_url }}"></td>
+                    <td colspan="2"><strong>Aluno(a):</strong> {{ matricula_periodo.aluno.get_nome|normalizar }}</td>
+                    <td><strong>Matrícula:</strong> {{ matricula_periodo.aluno.matricula }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Curso:</strong> {{ matricula_periodo.aluno.curso_campus.descricao }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Coef. Rendimento:</strong>{{ matricula_periodo.aluno.get_ira|format }}</td>
+                    <td><strong>Frequência:</strong>{{ matricula_periodo.get_percentual_carga_horaria_frequentada|format }}%</td>
+                    <td><strong>Chave de acesso:</strong> {{ matricula_periodo.aluno.get_chave_responsavel }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Período Letivo:</strong> {{ matricula_periodo.ano_letivo }}/{{ matricula_periodo.periodo_letivo }}</td>
+                    <td><strong>Turma:</strong> {{ matricula_periodo.turma|format }}</td>
+                    <td><strong>Sit. Período:</strong> {{ matricula_periodo.situacao }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <br />
+            {% include "tabela_boletim_pdf.html" %}
+            <table>
+                <tr>
+                    <td>
+                        <p>
+                            <br />
+                            <strong>N1, N2, N3 e N4</strong>:Notas das etapas 1, 2, 3 e 4
+                            <br />
+                            {% if tem_nota_atitudinal %}
+                                <strong>P</strong>:Provas
+                                <strong>A</strong>:Atitudinal
+                            {% endif %}
+                            <strong>N</strong>:Nota
+                            <strong>F</strong>:Falta
+                            <br />
+                            <strong>MD</strong>:Média da Disciplina
+                            <br />
+                            <strong>NAF</strong>:Nota da Avaliação Final
+                            <br />
+                            <strong>MFD</strong>:Média Final da Disciplina
+                            <br />
+                        </p>
+                    </td>
+                    <td>
+                        <br />
+                        <span>{{ matricula_periodo.aluno.curso_campus.diretoria.setor.uo.municipio.nome|normalizar }} ({{ matricula_periodo.aluno.curso_campus.diretoria.setor.uo.municipio.uf }}), {{ hoje|format }}</span>
+                        <br />
+                        <br />
+                        <p class="assinatura">
+                            Assinatura do Diretor Acadêmico
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </main>
+
+        <footer>
+            <div class="text-center">
+                Este documento foi emitido pelo SUAP. Para comprovar sua autenticidade, acesse
+                <strong>{{ site_url }}/edu/acesso_responsavel/</strong><br> Em seguida digite a
+                <strong>matrícula</strong> do aluno e a
+                <strong>chave de acesso</strong> localizada no cabeçalho do boletim. <strong>Data da
+                    Emissão:</strong> {{ hoje|format }}
+            </div>
+        </footer>
+
+    {% endfor %}
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

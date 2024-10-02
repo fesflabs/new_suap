@@ -1,0 +1,19 @@
+
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% block extrahead %}
+	{{ form.media }}
+{% endblock %}
+
+{% block content %}
+	
+    {% if h1 or form.TITLE %}
+        <h2>{{ h1 }}{{ form.TITLE }}</h2>
+    {% endif %}
+
+    
+    {% if form %}
+        {% render_form form %}
+    {% endif %}
+
+{% endblock %}

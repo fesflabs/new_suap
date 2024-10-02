@@ -1,0 +1,112 @@
+Reunião
+
+** Cancelar Procedimento
+   - feito dentro do mesmo período letivo
+
+
+** Reintegrar Matricula 
+ - Aluno consegue um mandato de segurança, não será usado a reintegração e sim o procedimento
+   de cancelamento de matricula.
+ - aluno concluiu o período 2013 (anual), chegou em meiados de 2014 com um mandato de segurança,
+   ele será reintegrado no período atual.
+      
+   Ano: lista o ano atual em diante.
+   A reintegração só possível no período posterior ao procedimento de cancelamento.
+   
+   
+ - A reintegração de matricula sempre post
+   
+ - pré-condição: deve existir ao menos um procedimento de cancelamento de matricula.
+
+
+** Trancar matricua
+-  trancar matricula no período
+-  Incluir "Trancar Matricula" no menu Ações do Consultar Aluno
+   Exibir o menu desativado caso o aluno não esteja apto para tracamento de matricula
+   - incluir na estrutura do curso os parâmetros de trancamento: 
+     - quantidade máxima de trancamento voluntário;
+     - quantidade máxima de trancamento por intercâmbio;
+
+- incluir na lista de proceimentos realizados
+
+Ano/período de retorno -> a ideia é gerar o periodo para o aluno com a situação "Em Aberto" com 
+a situação de matricula "Trancado"
+
+O que fazer com a situação do aluno "Trancado"?
+ - Quando matricular o aluno, o sistema comunica ao usuário que o aluno está trancado e que 
+   a matricula mudou a situação de "matriculado" para a situação anterior.
+ - casos de uso impactados:
+   UC 29
+
+ - Casos:
+   - aluno curso integrado, conseguiu uma bolsa, trancou um período, aluno voltou antes do tempo, 
+     defazer o trancar matricula (excluir),o aluno volta a assistir aula normal.
+
+A possibilidade de renovar um um intercâmbio? SIM!
+
+
+
+
+
+* Consulta Alunos
+- Inclusão da aba "Procedimentos Realizados".
+  há possibilidade cancelar procedimento.
+
+
+
+** Cancelar Matricula
+- evasão
+- cancelamento voluntário:
+- cancelamento compulsório (por meio de processo):
+- jubilamento 
+- Menu Ações do aluno -> "Cancelar Matricula"
+
+
+Indisponibilizar situação de matricula, nos períodos e nos diários
+
+O que fazer quando um período é reaberto ?
+ - lembrando que ao reabrir um período a sistuação de matricula do período do aluno volta para MATRICULADO. 
+ - regra checar o status do período matricula e situação de matricula do aluno (concludente, matriculado)
+
+Na tela exibir um rótulo com ano, período e aluno.
+ 
+
+- desfazer o procedimento (canclemaneto de matricula) somente no periodo em que ocorre o procedimento.
+
+
+* Caso de uso pedido de matricula 
+ - período pedido de matricula 
+ - 1º pré-matricula (renovar matricula)
+ 
+* Caso de uso fechar pedido de matricula
+- colocar automáticamento o aluno para evadido.
+
+* Caso de Uso Matricula em componente Currícular
+
+* Caso de uso fechar período
+  verifica se o aluno foi aprovado ou reprovado
+  verifica se joga para o 2º ou 3º período
+  
+  - Sempre haverá uma matricula período para o aluno, caso ele ainda não tenha realizado a matricula,
+    a situação da matricula período será "Em Aberto".  
+    
+  - situação do aluno no diário: cancelado, dispensado, jubilado    
+
+* Caso de Uso reabrir período
+ - Se o aluno já possuir um diploma, este não poderá ser reaberto, não mudar a situação dele.
+
+* Caso de Uso Renovar Matricula
+ -fechou um período de renovação, o sistema muda a situação do aluno para evadido.
+ 
+ 
+
+* Matricula vínculo
+ - Aluno reprovou em um período, mas no próximo período não foi ofericido uma turma para o aluno cursar, 
+   nesse caso o será realizado uma matricula vínculo par aque o aluno continue matriculado.
+   
+* Matricular aluno em componente
+  - Disciplina não optativa é oferecida, a priori qualquer aluno poderá pagar.
+
+* Trocar turma de aluno
+  Exemplo: aluno matriculado em uma turma pela manhã é transferido no meio do semestre para uma turma da noite. 
+  

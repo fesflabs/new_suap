@@ -1,0 +1,170 @@
+{% if not relatorio.funcionario.servidor.eh_docente %}
+    {% if relatorio.grafico_frequencias %}
+        <script>
+            {{ relatorio.grafico_frequencias|safe }}
+        </script>
+        <div class="grafico100 no-print" id="grafico_{{ relatorio.funcionario.pk }}"></div>
+    {% endif %}
+{% endif %}
+
+{% box "Resumo" %}
+
+    {% if not relatorio.funcionario.servidor.eh_docente %}
+        <h4>Carga Horária Exigida</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Total de carga horária exigida para o período</dt>
+                <dd>{{ relatorio.total_periodo_carga_horaria }}</dd>
+            </div>
+        </dl>
+    {% endif %}
+
+    <h4>Total de Horas Trabalhadas</h4>
+    <dl class="definition-list flex large">
+        <div class="list-item">
+            <dt>Efetivamente trabalhadas</dt>
+            <dd>{{ relatorio.total_periodo }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Válidas para composição da jornada de trabalho do servidor</dt>
+            <dd>{{ relatorio.total_tempo_valido }} <small>(Exclui horas extras e trabalhos no fim de semana não justificados/autorizados)</small></dd>
+        </div>
+    </dl>
+
+    {% if relatorio.total_abonado_sem_compensacao or relatorio.total_trabalho_remoto or relatorio.total_abonado_para_compensacao or relatorio.total_nao_abonado %}
+        <h4>Avaliações da Chefia</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Abonadas sem necessidade de compensação</dt>
+                <dd>{{ relatorio.total_abonado_sem_compensacao }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Trabalho remoto</dt>
+                <dd>{{ relatorio.total_trabalho_remoto }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Abonadas com necessidade de compensação</dt>
+                <dd>{{ relatorio.total_abonado_para_compensacao }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Não abonadas</dt>
+                <dd>{{ relatorio.total_nao_abonado }}</dd>
+            </div>
+        </dl>
+    {% endif %}
+
+    {% if relatorio.total_hora_extra_para_compensacao_carga_horaria or relatorio.total_hora_extra_justificada or relatorio.total_hora_extra_nao_justificada %}
+        <h4>Horas Extras</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Para compensação de carga horária</dt>
+                <dd>{{ relatorio.total_hora_extra_para_compensacao_carga_horaria }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Justificadas/autorizadas</dt>
+                <dd>{{ relatorio.total_hora_extra_justificada }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Não justificadas/Autorizadas</dt>
+                <dd>{{ relatorio.total_hora_extra_nao_justificada }}</dd>
+            </div>
+        </dl>
+    {% endif %}
+
+    {% if relatorio.total_trabalho_fds_permitido_para_compensacao_carga_horaria or relatorio.total_trabalho_fds_permitido_como_hora_extra or relatorio.total_trabalho_fds_nao_permitido %}
+        <h4>Trabalho no Fim de Semana</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Para compensação de carga horária</dt>
+                <dd>{{ relatorio.total_trabalho_fds_permitido_para_compensacao_carga_horaria }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Como hora extra</dt>
+                <dd>{{ relatorio.total_trabalho_fds_permitido_como_hora_extra }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Não justificado/autorizado</dt>
+                <dd>{{ relatorio.total_trabalho_fds_nao_permitido }}</dd>
+            </div>
+        </dl>
+    {% endif %}
+
+    {% if relatorio.total_hora_extra_noturna %}
+        <h4>Horário Noturno</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Horas trabalhadas após as 22h</dt>
+                <dd>{{ relatorio.total_hora_extra_noturna }}</dd>
+            </div>
+        </dl>
+    {% endif %}
+
+    {% if not relatorio.funcionario.servidor.eh_docente and relatorio.trata_compensacoes and not relatorio.funcionario.eh_liberado_controle_frequencia %}
+        <h4>Total de Débitos</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Considerado do período</dt>
+                <dd>{{ relatorio.totais_compensacao.total_debito }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Com reposição informada do período</dt>
+                <dd>{{ relatorio.totais_compensacao.total_debito_reposto }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Pendente sem compensação informada</dt>
+                <dd {% if not relatorio.totais_compensacao.total_debito_pendente_is_zero %}class="false"{% endif %}>
+                    {{ relatorio.totais_compensacao.total_debito_pendente }}
+                </dd>
+            </div>
+            {% if not relatorio.totais_compensacao.total_debito_desconsiderado_is_zero %}
+                <div class="list-item">
+                    <dt>Desconsiderado no período</dt>
+                    <dd>
+                        {{ relatorio.totais_compensacao }}
+                        <strong>{{ relatorio.totais_compensacao.total_debito_desconsiderado }}</strong>
+                        {% for motivo in relatorio.totais_compensacao.total_debito_desconsiderado_motivos %}
+                            <p class="obs">{{ motivo|safe }}</p>
+                        {% endfor %}
+                        <a class="btn default popup"
+                        href="/ponto/ver_frequencia/{{ relatorio.funcionario.matricula }}/?datas={{ relatorio.totais_compensacao.total_debito_desconsiderado_dias|join:',' }}">
+                            Visualizar as frequências dos dias
+                        </a>
+                    </dd>
+                </div>
+            {% endif %}
+        </dl>
+        
+        <h4>Total de Saldos</h4>
+        <dl class="definition-list flex large">
+            <div class="list-item">
+                <dt>Considerado do período</dt>
+                <dd>{{ relatorio.totais_compensacao.total_saldo }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Utilizado em compensações (no mesmo período e/ou fora dele)</dt>
+                <dd>{{ relatorio.totais_compensacao.total_saldo_utilizado }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Restante (pode ou não ser utilizado para informar compensação)</dt>
+                <dd {% if not relatorio.totais_compensacao.total_saldo_restante_is_zero %}class="true"{% endif %}>
+                    {{ relatorio.totais_compensacao.total_saldo_restante }}
+                </dd>
+            </div>
+            {% if not relatorio.totais_compensacao.total_saldo_desconsiderado_is_zero %}
+                <div class="list-item">
+                    <dt>Desconsiderado no período</dt>
+                    <dd>
+                        <strong>{{ relatorio.totais_compensacao.total_saldo_desconsiderado }}</strong>
+                        {% for motivo in relatorio.totais_compensacao.total_saldo_desconsiderado_motivos %}
+                            <p class="obs">{{ motivo|safe }}</p>
+                        {% endfor %}
+                        <a class="btn default popup"
+                        href="/ponto/ver_frequencia/{{ relatorio.funcionario.matricula }}/?datas={{ relatorio.totais_compensacao.total_saldo_desconsiderado_dias|join:',' }}">
+                            Visualizar as frequências dos dias
+                        </a>
+                    </dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endif %}
+{% endbox %}

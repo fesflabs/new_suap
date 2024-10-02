@@ -1,0 +1,36 @@
+Reunião 15.05.2014
+
+** Histórico do Aluno
+   Agrupar por período e por disciplina
+
+** Aproveitamento de Estudo
+   Camimho seleciona componente a patir do histórico do aluno
+   
+   obrigatório: ano/período, data*, nota*
+   
+   clicar sobre o componente aproveitado para cancelar o aproveitamento
+   
+   O sistema não deve permitir aproveitar uma disciplina na qual possui pré-requisitos e o aluno não
+   cumpriu todos os pré-requisitos.
+   
+   O sistema só deve permitir o aproveitamento de disciplina na qual o aluno está cursando ou não (não há situação) e 
+   que não tenha sido reprovado no componente no período anterior.
+   
+   
+   Se o aluno já foi reprovado no componente no período anterior, ele não poderá mais aproveitar o componente.
+   
+** Certificação de conhecimento
+   - Incluir na estrutura do curso a 
+     - média para certificação de conhecimento;
+     - quant. máxima de certificação por período
+   - regra 1 e 2 igual as regras do uc Aproveitamento de Estudo
+   - O sistema não deve permitir mais de uma certificação para o mesmo componente
+     - Exemplo: aluno fez uma certificação de conhecimento e não obteve a nota para passar,
+                 isso deve ser registrado no sistema e não deverá ocorrer influência na situação
+                 do diário.
+                 
+   Ao salvar o certificado de conhecimento para um determinado componente, este irá mudar a situação
+   para "Certificado". Caso esse componete esteje em um diário,  o professor não mais poderá lançar notas e/ou faltas para esse componente desse
+   aluno.
+
+

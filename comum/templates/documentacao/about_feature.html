@@ -1,0 +1,62 @@
+{% load pipeline %}
+{% load static %}
+{% load tags %}
+{% javascript 'jquery' %}
+
+<script>
+    $(".sobre").each(function (index) {
+        $(this).on("click", function () {
+            m_aplicacao = $(this).data("aplicacao");
+            document.getElementById("buscarDoc").value = $(this)[0].textContent;
+            buscar();
+            $.ajax("/comum/documentacao/about/" + m_aplicacao + "/")
+                .done(function (data) {
+                    $("main").html(data);
+                });
+        });
+    });
+</script>
+<div class="breadcrumbs">
+    <div>
+        <span class="key">Módulo</span>
+        <p><a href="#" class="sobre" data-aplicacao="{{ aplicacao.sigla }}">{{ aplicacao.nome }}</a></p>
+    </div>
+</div>
+
+<span class="key">Funcionalidade</span>
+<h2 class="title">{{ funcionalidade.nome }}</h2>
+
+{% if funcionalidade.descricao %}
+    <div class="msg info">
+        <h3>Descrição da Funcionalidade</h3>
+        {% for descricao in funcionalidade.descricao %}
+            <p>{{ descricao }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if has_feature_bpmn %}
+    <h3 class="mt-2">Fluxograma:</h3>
+    <script src="/static/djtools/bpmn-js/bpmn-viewer.production.min.js"></script>
+    <div id="canvas" class="canvas mt-1"></div>
+    <script>
+        jQuery(document).ready(function () {
+            var diagramUrl = '/comum/documentacao/bpmn/{{ aplicacao.sigla }}/{{ funcionalidade.nome |slugify }}.bpmn/';
+            var bpmnViewer = new BpmnJS({
+                container: '#canvas',
+                height: 300
+            });
+
+            async function openDiagram(bpmnXML) {
+                try {
+                    await bpmnViewer.importXML(bpmnXML);
+                    bpmnViewer.get('canvas').zoom('fit-viewport');
+                } catch (err) {
+                    console.error('could not import BPMN 2.0 diagram', err);
+                }
+            }
+
+            $.get(diagramUrl, openDiagram, 'text');
+        })
+    </script>
+{% endif %}

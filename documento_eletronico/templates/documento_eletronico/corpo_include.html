@@ -1,0 +1,30 @@
+<main>
+    {{ documento.corpo_para_visualizacao|sanitize:'processo_eletronico' }}
+    {% if documento.possui_assinatura %}
+        <div class="assinaturas">
+            <div>
+                <h3>Documento assinado eletronicamente por:</h3>
+                <ul>
+                {% for assinatura_digital in documento.assinaturas %}
+                    <li>
+                        <strong>{{ assinatura_digital.assinatura.pessoa.nome|format }}</strong>,
+                        <strong>{{ assinatura_digital.assinatura.nome_papel|format }}</strong>,
+                        em {{ assinatura_digital.assinatura.data_assinatura|format }}.
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% if documento.qrcode %}
+                <div class="qrcode">
+                    <img src="{{ documento.qrcode_base64image }}" alt="QR code do documento" />
+                    {{ codigo_verificador }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <script>
+        document.querySelectorAll('a:not([target])').forEach(function(element){
+            element.setAttribute('target', '_blank');
+        });
+    </script>
+</main>

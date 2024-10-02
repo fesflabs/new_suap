@@ -1,0 +1,30 @@
+{# Está sendo populado em templatetags #}
+{% if avaliacoes %}
+     {% for avaliacao in avaliacoes %}
+         <div class="list-item">
+             <dt>{% if extra_class == "inner" %}<span class="fas fa-star" aria-hidden="true"></span> {% endif %}{{ avaliacao.pergunta.titulo }}</dt>
+             <dd>
+                 <div class="stars">
+                     <a name="avaliar" href="{% url 'centralservicos_avaliar_baseconhecimento' avaliacao.base_conhecimento.id avaliacao.pergunta.id 1 %}" data-id="{{ avaliacao.base_conhecimento.id }}">
+                         <span class="fas fa-star {% if not avaliacao.nota %}disabled{% endif %}" aria-hidden="true"></span>
+                     </a>
+                     <a name="avaliar" href="{% url 'centralservicos_avaliar_baseconhecimento' avaliacao.base_conhecimento.id avaliacao.pergunta.id 2 %}" data-id="{{ avaliacao.base_conhecimento.id }}">
+                         <span class="fas fa-star {% if not avaliacao.nota or avaliacao.nota < 2 %}disabled{% endif %}" aria-hidden="true"></span>
+                     </a>
+                     <a name="avaliar" href="{% url 'centralservicos_avaliar_baseconhecimento' avaliacao.base_conhecimento.id avaliacao.pergunta.id 3 %}" data-id="{{ avaliacao.base_conhecimento.id }}">
+                         <span class="fas fa-star {% if not avaliacao.nota or avaliacao.nota < 3 %}disabled{% endif %}" aria-hidden="true"></span>
+                     </a>
+                     <a name="avaliar" href="{% url 'centralservicos_avaliar_baseconhecimento' avaliacao.base_conhecimento.id avaliacao.pergunta.id 4 %}" data-id="{{ avaliacao.base_conhecimento.id }}">
+                         <span class="fas fa-star {% if not avaliacao.nota or avaliacao.nota < 4 %}disabled{% endif %}" aria-hidden="true"></span>
+                     </a>
+                     <a name="avaliar" href="{% url 'centralservicos_avaliar_baseconhecimento' avaliacao.base_conhecimento.id avaliacao.pergunta.id 5 %}" data-id="{{ avaliacao.base_conhecimento.id }}">
+                         <span class="fas fa-star {% if not avaliacao.nota or avaliacao.nota < 5 %}disabled{% endif %}" aria-hidden="true"></span>
+                     </a>
+                </div>
+             </dd>
+         </div>
+        {% if extra_class == "aside" and not forloop.last %}<div class="clear"></div>{% endif %}
+     {% endfor %}
+{% elif extra_class == "aside" %}
+    <p class="msg alert">Sem avaliações.</p>
+{% endif %}

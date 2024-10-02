@@ -1,0 +1,193 @@
+{% extends "relatorio_pdf.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block style %}
+    .top-padding{
+        padding-top: 3cm;
+    }
+    td, th {
+        font-size: 8pt;
+        line-height: 1em;
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    }
+    td.lei {
+        padding-top: 16px;
+        text-align: center;
+    }
+    div.lei {
+        padding-top: 8px;
+        border: 1px solid black;
+        line-height: 16px;
+    }
+    h2 {
+        text-align: center;
+        padding-top: 6px;
+        margin-bottom: 0px;
+        border: 1px solid black;
+        border-bottom: none;
+    }
+    tr.assinatura{
+        border: 0;
+    }
+    div.assinatura-valor{
+        padding-left: 20px;
+        font-size: 80%;
+    }
+
+    {% block page_settings %}
+        @page {
+            size: a4 {% block page_orientation %}portrait{% endblock %};
+            background-image: url(/static/comum/img/logo_if_portrait.png);
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            margin-top: 2cm; /* HeaderHeight */
+            margin-bottom: 1cm; /* FooterHeight */
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+        @bottom-right {
+            content: "Página " counter(page) " de " counter(pages);
+        }
+        }
+        header{
+            top: -2cm; /* -HeaderHeight */
+            height: 2cm; /* HeaderHeight */
+            position: fixed;
+            width:98%;
+            padding-top: 0.5cm;
+        }
+        footer{
+            bottom: 0cm; /* -FooterHeight */
+            height: 1cm; /* FooterHeight */
+            position: fixed;
+            width: 100%;
+            text-align: center;
+        }
+    {% endblock %}
+{% endblock %}
+
+{% block cabecalho %}
+    <header>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <table id="cabecalho">
+            <tr>
+                <td align="left" class="linhasdocabecalho" rowspan="4">
+                    <img src="/static/comum/img/brazao_colorido.jpg" alt="Brasão do Brasil"/>
+                </td>
+                <td colspan="2" class="linhasdocabecalho">SERVIÇO PÚBLICO FEDERAL</td>
+                <td align="right" rowspan="4">
+                    <img src="{{ logo_instituicao_media_url }}" alt="Logotipo do IFRN"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="linhasdocabecalho">INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA DO RIO GRANDE DO
+                    NORTE
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="linhasdocabecalho">DIRETORIA DE GESTÃO DE PESSOAS</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="linhasdocabecalho">COORDENAÇÃO DE DESENVOLVIMENTO DE PESSOAL</td>
+            </tr>
+        </table>
+    </header>
+{% endblock %}
+{% block content %}
+
+    <p class="top-padding"></p>
+
+    <table class="borda">
+        <tbody>
+            <tr>
+                <td colspan="4" class="text-center negrito">DADOS DO SERVIDOR</td>
+            </tr>
+
+            <tr>
+                <td>Servidor</td>
+                <td>{{ servidor.nome }}</td>
+
+                <td>Matrícula</td>
+                <td>{{ servidor.matricula }}</td>
+            </tr>
+
+            <tr>
+                <td>Cargo</td>
+                <td colspan="3">{{ servidor.cargo_emprego }}</td>
+            </tr>
+
+            <tr>
+                <td>Categoria</td>
+                {% if servidor.eh_tecnico_administrativo %}
+                    <td colspan="3">Técnico Administrativo</td>
+                {% endif %}
+                {% if servidor.eh_docente %}
+                    <td colspan="3">Docente</td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+
+    <table class="borda">
+        <tbody>
+            <tr>
+                <td colspan="4" class="text-center negrito">DADOS DO PEDIDO</td>
+            </tr>
+            <tr>
+                <td>Data de cadastro </td>
+                <td colspan="3">{{ pedido.data_cadastro|format }}</td>
+            </tr>
+            <tr>
+                <td>Motivo </td>
+                <td colspan="3">{{ pedido.motivo|format }}</td>
+            </tr>
+            <tr>
+                <td>Modalidade </td>
+                <td colspan="3">{{ pedido.get_modalidade_display|format }}</td>
+            </tr>
+            <tr>
+                <td>CH </td>
+                <td colspan="3">{{ pedido.carga_horaria|format }}</td>
+            </tr>
+            <tr>
+                <td>Instituição </td>
+                <td colspan="3">{{ pedido.instituicao|format }}</td>
+            </tr>
+            <tr>
+                <td>Ação </td>
+                <td colspan="3">{{ pedido.acao|format }}</td>
+            </tr>
+            <tr>
+                <td>Outros detalhes </td>
+                <td colspan="3">{{ pedido.outros_detalhes|format }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+
+    <table class="borda">
+        <tbody>
+            <tr>
+                <td colspan="4" class="text-center negrito">RESULTADO</td>
+            </tr>
+            <tr>
+                <td>Aprovado em definitivo </td>
+                <td colspan="3">{{ pedido.aprovado_em_definitivo|format }}</td>
+            </tr>
+            <tr>
+                <td>Ordem de classificação no Resultado Final </td>
+                <td colspan="3">{{ pedido.ordem_classificacao_resultado_final|format }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

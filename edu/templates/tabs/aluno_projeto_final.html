@@ -1,0 +1,103 @@
+{% box "Trabalhos de Conclusão de Curso / Relatórios" %}
+
+    {% if pode_realizar_procedimentos and not projetos.exists and not obj.is_cancelado %}
+        <ul class="action-bar">
+            <li>
+                <a href="/edu/adicionar_projeto_final/{{ obj.pk }}/" class="btn success">Adicionar</a>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if projetos.exists %}
+        <table>
+            <thead>
+            <tr>
+                <th>Ações</th>
+                <th>Ano Período Letivo</th>
+                <th>Tipo</th>
+                <th>Título</th>
+                <th>Orientador</th>
+                <th>Data da Defesa</th>
+                <th>Data do Resultado</th>
+                <th>Nota</th>
+                <th>Situação</th>
+                <th>Versão Final</th>
+                {% if tem_permissao_realizar_procedimentos or is_orientador or is_proprio_aluno %}
+                    <th>Opções</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for projeto in projetos %}
+                <tr>
+                    <td>
+                        {% icon "view" "/edu/visualizar_projeto_final/{{ projeto.pk }}/" "Visualizar Trabalho de Conclusão de Curso" "popup" %}
+                        {% if pode_realizar_procedimentos and not obj.is_cancelado %}
+                            {% if projeto.pode_ser_editado %}
+                            {% icon "edit" "/edu/adicionar_projeto_final/{{ obj.pk }}/{{ projeto.pk }}/" "Editar Trabalho de Conclusão de Curso" %}
+                            {% endif %}
+                            {% if perms.edu.delete_projetofinal %}
+                            	{% icon "delete" "/comum/excluir/edu/projetofinal/{{ projeto.pk }}/" "Remover Trabalho de Conclusão de Curso" "no-confirm popup" %}
+                        	{% endif %}    
+                        {% endif %}
+                    </td>
+                    <td>{{ projeto.get_ano_periodo_letivo|format }}</td>
+                    <td>{{ projeto.tipo|format }}</td>
+                    <td>{{ projeto.titulo|format }}</td>
+                    <td>{{ projeto.orientador|format }}</td>
+                    <td>{{ projeto.data_defesa|format }}</td>
+                    <td>{{ projeto.resultado_data|format }}</td>
+                    <td>{{ projeto.nota|formatar_nota }}</td>
+                    <td>{{ projeto.get_situacao_display|format }}</td>
+                    <td align="center">
+                        {% if projeto.documento_final or projeto.documento_final_url %}
+                            {% if projeto.documento_final_url %}
+                                <a class="btn" target="_blank" href="{{ projeto.documento_final_url }}">Baixar</a>
+                            {% else %}
+                                <a class="btn" target="_blank" href="{{ projeto.documento_final.url }}">Baixar</a>
+                            {% endif %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    {% if tem_permissao_realizar_procedimentos or is_orientador or is_proprio_aluno %}
+                        <td>
+                            <ul class="action-bar inner-action-bar">
+                                <li class='has-child'>
+                                    <a class="btn" href="#">Ações</a>
+                                    <ul>
+                                        {% if pode_realizar_procedimentos and not obj.is_cancelado %}
+                                            {% if projeto.pode_ser_editado %}
+                                            <li><a class="btn"
+                                                   href="/edu/lancar_resultado_projeto_final/{{ projeto.pk }}/"
+                                                   title="Registrar Resultado">Lançar Resultado</a></li>
+                                            {% endif %}
+                                            {% if not projeto.documento_final and not projeto.documento_final_url %}
+                                                <li><a class="btn"
+                                                   href="/edu/upload_documento_projeto_final/{{ projeto.pk }}/"
+                                                   title="Upload da Versão Final">Upload da Versão Final</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if tem_permissao_realizar_procedimentos or is_orientador or is_proprio_aluno %}
+                                            <li><a target="_blank" href="{{ projeto.get_url_ata }}"
+                                                   title="Ata de Defesa">Ata de Defesa</a></li>
+                                            {% if tem_permissao_realizar_procedimentos or is_orientador %}
+                                            <li><a target="_blank" href="/edu/declaracao_participacao_projeto_final/{{ projeto.pk }}/"
+                                                   title="Declaração de Participação">Declaração de Participação</a>
+                                            </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="msg alert">Não há trabalho de conclusão de curso / relatórios para esse aluno.</p>
+    {% endif %}
+{% endbox %}

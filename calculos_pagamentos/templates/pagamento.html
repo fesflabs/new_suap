@@ -1,0 +1,61 @@
+{% extends super_template %}
+
+{% block content %}
+
+<ul class="action-bar">
+    {% if pag.pode_pagar %}
+        <li><a class="btn primary confirm" href="/calculos_pagamentos/alterar_para_lancado_manualmente/?pagamento_id={{ pag.id }}">Alterar para Lançado Manualmente No SIAPE</a></li>
+    {% endif %}
+    {% if pag.pode_desfazer_pagamento %}
+        <li><a class="btn danger confirm" href="/calculos_pagamentos/desfazer_pagamento/?pagamento_id={{ pag.id }}">Desfazer Pagamento</a></li>
+    {% endif %}
+    {% if pag.pode_excluir %}
+        <li><a class="btn danger confirm" href="/calculos_pagamentos/excluir_pagamento/?pagamento_id={{ pag.id }}">Remover Pagamento</a></li>
+    {% endif %}
+</ul>
+
+{% box "Dados do {{ pag|getattr:"_meta"|getattr:"verbose_name" }}" %}
+	<table class="info">
+        <tr>
+            <td>Cálculo</td>
+            <td><a href="{{ pag.calculo.get_absolute_url }}">{{ pag.calculo|format }}</a></td>
+        </tr>
+        <tr>
+            <td>Mês Inicial do Cálculo</td>
+            <td>{{ pag.mes_inicio|date:"m/Y"}}</td>
+        </tr>
+        <tr>
+            <td>Mês Final Cálculo</td>
+            <td>{{ pag.mes_fim|date:"m/Y"}}</td>
+        </tr>
+        <tr>
+            <td>Situação</td>
+            <td>{{ pag.get_situacao_display|format }}</td>
+        </tr>
+    </table>
+{% endbox %}
+
+{% box "Histórico" %}
+    {% if pag.historicos.exists %}
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Data</th>
+                <th>Situação</th>
+                <th>Usuário</th>
+            </tr>
+            {% for historico in pag.historicos.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ historico.data|format }}</td>
+                    <td>{{ historico.get_situacao_display|format }}</td>
+                    <td>{{ historico.usuario|format }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="msg alert">Nenhum histórico encontrado.</p>
+    {% endif %}
+{% endbox %}
+
+{% endblock %}

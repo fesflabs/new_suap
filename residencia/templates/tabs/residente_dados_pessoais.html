@@ -1,0 +1,271 @@
+{% box 'Dados Gerais' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nascimento</dt>
+            <dd>{{ residente.pessoa_fisica.nascimento_data|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Estado Civil</dt>
+            <dd>{{ residente.get_estado_civil_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Naturalidade</dt>
+            <dd>{{ residente.naturalidade|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Nacionalidade</dt>
+            <dd>{{ residente.get_nacionalidade_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Portador(a) de Necessidades Especiais</dt>
+            <dd>{{ residente.eh_pne|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo de Necessidade Especial</dt>
+            <dd>{{ residente.get_tipo_necessidade_especial_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Sexo</dt>
+            <dd>{{ residente.pessoa_fisica.get_sexo_display|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Etnia</dt>
+            <dd>{{ residente.pessoa_fisica.raca|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo Sanguíneo</dt>
+            <dd>{{ residente.get_tipo_sanguineo_display|format }}</dd>
+        </div>
+        <div class="list-item flex-basis-50">
+            <dt>Nome do Pai</dt>
+            <dd>{{ residente.nome_pai|format }}</dd>
+        </div>
+        <div class="list-item flex-basis-50">
+            <dt>Nome da Mãe</dt>
+            <dd>{{ residente.nome_mae|format }}</dd>
+        </div>
+        {% comment %} <div class="list-item">
+            <dt>Nome do(a) Responsável</dt>
+            <dd>{{ residente.responsavel|format }}</dd> {% endcomment %}
+        </div>
+        <div class="list-item">
+            <dt>Email do(a) Responsável</dt>
+            <dd>{{ residente.email_responsavel|format }}</dd>
+        </div>
+        {% if perms.residencia.pode_ver_chave_acesso_pais or is_proprio_residente %}
+            <div class="list-item">
+                <dt>Chave de Acesso</dt>
+                <dd>{{ residente.get_chave_responsavel|format }}</dd>
+            </div>
+        {% endif %}
+    </dl>
+{% endbox %}
+
+{% box 'Dados de Saúde' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>{{ residente|verbose:'possui_problema_saude' }}</dt>
+            <dd>{{ residente.possui_problema_saude|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'possui_alergia' }}</dt>
+            <dd>{{ residente.possui_alergia|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'possui_alergia_qual' }}</dt>
+            <dd>{{ residente.possui_alergia_qual|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'em_tratamento_medico' }}</dt>
+            <dd>{{ residente.em_tratamento_medico|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'em_tratamento_medico_qual' }}</dt>
+            <dd>{{ residente.em_tratamento_medico_qual|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'usa_medicacao' }}</dt>
+            <dd>{{ residente.usa_medicacao|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'usa_medicacao_qual' }}</dt>
+            <dd>{{ residente.usa_medicacao_qual|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'contato_emergencia' }}</dt>
+            <dd>{{ residente.contato_emergencia|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>{{ residente|verbose:'outra_info_saude' }}</dt>
+            <dd>{{ residente.outra_info_saude|format }}</dd>
+        </div>
+    </dl>
+{% endbox %}
+
+{% box 'Dados Escolares' %}
+    <dl class="definition-list flex">
+        <div class="list-item">
+            <dt>Nível de Ensino Anterior</dt>
+            <dd>{{ residente.nivel_ensino_anterior|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Tipo de Instituição</dt>
+            <dd>{{ residente.tipo_instituicao_origem|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Ano de Conclusão</dt>
+            <dd>{{ residente.ano_conclusao_estudo_anterior|format }}</dd>
+        </div>
+        {% if residente.nome_instituicao_anterior %}
+            <div class="list-item">
+                <dt>Nome da Instituição</dt>
+                <dd>{{ residente.nome_instituicao_anterior|format }}</dd>
+            </div>
+        {% endif %}
+    </dl>
+{% endbox %}
+
+{% if pode_ver_dados_academicos %}
+    {% box 'Documentos' %}
+        <h4>Conselho de Fiscalização Profissional</h4>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Número de Registro</dt>
+                <dd>{{ residente.numero_registro|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Conselho</dt>
+                <dd>{{ residente.conselho|format }}</dd>
+            </div>
+        </dl>
+        <h4>RG</h4>
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Identidade</dt>
+                <dd>{{ residente.numero_rg|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Órgão Expedidor</dt>
+                <dd>{{ residente.orgao_emissao_rg|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>UF</dt>
+                <dd>{{ residente.uf_emissao_rg|format|normalizar }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Data Expedição</dt>
+                <dd>{{ residente.data_emissao_rg|format }}</dd>
+            </div>
+        </dl>
+        {% if pode_ver_dados_academicos %}
+            <h4>Título de Eleitor</h4>
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Título de Eleitor</dt>
+                    <dd>{{ residente.numero_titulo_eleitor|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Zona</dt>
+                    <dd>{{ residente.zona_titulo_eleitor|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Seção</dt>
+                    <dd>{{ residente.secao|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>UF</dt>
+                    <dd>{{ residente.uf_emissao_titulo_eleitor|format|normalizar }}</dd>
+                </div>
+            </dl>
+
+            {% if residente.pessoa_fisica.sexo == 'M' and residente.numero_carteira_reservista %}
+                <h4>Carteira de Reservista</h4>
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'numero_carteira_reservista' }}</dt>
+                        <dd>{{ residente.numero_carteira_reservista|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'regiao_carteira_reservista' }}</dt>
+                        <dd>{{ residente.regiao_carteira_reservista|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'serie_carteira_reservista' }}</dt>
+                        <dd>{{ residente.serie_carteira_reservista|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'estado_emissao_carteira_reservista' }}</dt>
+                        <dd>{{ residente.estado_emissao_carteira_reservista|format|normalizar }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'ano_carteira_reservista' }}</dt>
+                        <dd>{{ residente.ano_carteira_reservista|format }}</dd>
+                    </div>
+                </dl>
+            {% endif %}
+
+            {% if residente.tipo_certidao %}
+                <h4>Certidão</h4>
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'tipo_certidao' }}</dt>
+                        <dd>{{ residente.get_tipo_certidao_display|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'cartorio' }}</dt>
+                        <dd>{{ residente.cartorio|format|normalizar }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'numero_certidao' }}</dt>
+                        <dd>{{ residente.numero_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'folha_certidao' }}</dt>
+                        <dd>{{ residente.folha_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'livro_certidao' }}</dt>
+                        <dd>{{ residente.livro_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'data_emissao_certidao' }}</dt>
+                        <dd>{{ residente.data_emissao_certidao|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>{{ residente|verbose:'matricula_certidao' }}</dt>
+                        <dd>{{ residente.matricula_certidao|format }}</dd>
+                    </div>
+                </dl>
+            {% endif %}
+        {% endif %}
+    {% endbox %}
+{% endif %}
+
+{% box 'Informações para Contato' %}
+    <dl class="definition-list flex">
+        <div class="list-item flex-basis-50">
+            <dt>Endereço Residencial</dt>
+            <dd>{{ residente.get_endereco|format|normalizar }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>E-mail Pessoal</dt>
+            <dd>{{ residente.pessoa_fisica.email_secundario|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Telefone Principal</dt>
+            <dd>{{ residente.telefone_principal|format|format_phone }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Celular</dt>
+            <dd>{{ residente.telefone_secundario|format|format_phone }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Telefone do Responsável</dt>
+            <dd>{{ residente.telefone_adicional_1|format|format_phone }}</dd>
+        </div>
+        <div class="list-item">
+            <dt>Telefone Adicional do Responsável</dt>
+            <dd>{{ residente.telefone_adicional_2|format|format_phone }}</dd>
+        </div>
+    </dl>
+{% endbox %}

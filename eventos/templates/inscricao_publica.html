@@ -1,0 +1,147 @@
+{% extends "admin/base_anonima.html" %}
+
+{% block content %}
+    {% if evento_id %}
+
+        {% box "Dados do Evento" %}
+            {% if evento.imagem %}
+                <a href="{{ evento.imagem.url }}" class="img-large"><img src="{{ evento.imagem.url }}" alt="Foto de {{ evento.nome }}" /></a>
+            {% endif %}
+
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Nome</dt>
+                    <dd>{{ evento.nome }}</dd>
+                </div>
+                <div class="list-item flex-basis-100">
+                    <dt>Apresentação</dt>
+                    <dd>{{ evento.apresentacao }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Carga Horária</dt>
+                    <dd>{{ evento.carga_horaria|format }}h</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Local</dt>
+                    <dd>{{ evento.local|format }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Início das Inscrições</dt>
+                    <dd>{{ evento.data_inicio_inscricoes|format }} {{ evento.hora_inicio_inscricoes|time:"H:i"|default:"" }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Fim das Inscrições</dt>
+                    <dd>{{ evento.data_fim_inscricoes|format }} {{ evento.hora_fim_inscricoes|time:"H:i"|default:"" }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Início do Evento</dt>
+                    <dd>{{ evento.data_inicio }} {{ evento.hora_inicio|time:"H:i" }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Fim do Evento</dt>
+                    <dd>{{ evento.data_fim|default:"-" }} {{ evento.hora_fim|time:"H:i"|default:"" }}</dd>
+                </div>
+                {% if evento.site %}
+                <div class="list-item">
+                    <dt>Site</dt>
+                    <dd><a href="{{ evento.site|format }}">{{ evento.site|format }}</a></dd>
+                </div>
+                {% endif %}
+            </dl>
+        {% endbox %}
+
+        {% box "Formulário de Inscrição" %}
+            {% render_form form %}
+        {% endbox %}
+
+    {% else %}
+        <div class="legenda">
+            <p>Legenda:</p>
+            <ul>
+                <li class="success">Inscrição aberta</li>
+                <li class="error">Inscrição encerrada</li>
+                <li class="info">Todas as vagas preenchidas</li>
+            </ul>
+        </div>
+        <div class="calendario calendario-mensal">
+            <table>
+                <caption>Eventos</caption>
+                <thead>
+                    <tr>
+                        {% for dia, eventos in calendario %}
+                            <th class="semana">{{ dia|format }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for dia, eventos in calendario %}
+                        <td>
+                            <ul>
+                                {% for evento in eventos %}
+                                    {% if not evento.tem_vagas_disponiveis %}
+                                        <li class="info">
+                                            {{ evento }}
+                                        </li>
+                                    {% elif evento.is_incricao_encerrada %}
+                                        <li class="error">
+                                            {{ evento }}
+                                        </li>
+                                    {% else %}
+                                        <li class="success">
+                                            <a href="/eventos/inscricao_publica/{{ evento.pk }}/">{{ evento }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        {% endfor %}
+                   </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {% box "Eventos com Inscrições Abertas" %}
+            {% if eventos.exists %}
+                <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Período de Inscrição</th>
+                            <th class="no-print">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for evento in eventos %}
+                        <tr>
+                            <td>{{ evento.nome }}</td>
+                            <td>{{ evento.apresentacao|format }}</td>
+                            <td>
+                                {% if evento.data_inicio_inscricoes == evento.data_fim_inscricoes %}
+                                    {% if evento.hora_inicio_inscricoes and evento.hora_fim_inscricoes %}
+                                        {{ evento.data_inicio_inscricoes|format }} de {{ evento.hora_inicio_inscricoes|time:"H:i"|default:"" }} até {{ evento.hora_fim_inscricoes|time:"H:i"|default:"" }}
+                                    {% else %}
+                                        {{ evento.data_inicio_inscricoes }}
+                                    {% endif %}
+                                {% else %}
+                                    De {{ evento.data_inicio_inscricoes|format }} {{ evento.hora_inicio_inscricoes|time:"H:i"|default:"" }} até {{ evento.data_fim_inscricoes|format }} {{ evento.hora_fim_inscricoes|time:"H:i"|default:"" }}
+                                {% endif %}
+                            </td>
+                            <td class="no-print">
+                                {% if evento.is_periodo_inscricao and evento.tem_vagas_disponiveis %}
+                                    <a class="btn" href="/eventos/inscricao_publica/{{ evento.pk }}/">{% icone "pen" %} Realizar Inscrição</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <div class="msg alert">Nenhum evento encontrado.</div>
+            {% endif %}
+        {% endbox %}
+    {% endif %}
+{% endblock %}

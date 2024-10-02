@@ -1,0 +1,590 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documento de Visão do Subsistema Mapa de Tempo de Serviço &lt;v0.1&gt; &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Buscar" href="../../../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../../../index.html"/>
+        <link rel="up" title="Mapa de Tempo de Serviço" href="index.html"/>
+        <link rel="next" title="UC 01 - Cadastrar averbação &lt;v0.1&gt;" href="mapa_tempo_servico_uc01.html"/>
+        <link rel="prev" title="Mapa de Tempo de Serviço" href="index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../suap.html">SUAP</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../edu/index.html">Ensino</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Rercursos Humanos</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Mapa de Tempo de Serviço</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Documento de Visão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#casos-de-uso">Casos de Uso</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cursos/index.html">Cursos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../progressoes/index.html">Progressão Funcional</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Documento de Visão do Subsistema <strong>Mapa de Tempo de Serviço</strong> &lt;v0.1&gt;</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><img alt="logo" src="../../../_images/logo_ifrn.png" /></p></th>
+<th class="head" colspan="4"><div class="line-block">
+<div class="line">IFRN</div>
+<div class="line">COORDENAÇÃO DE SISTEMAS DE INFORMAÇÃO (COSINF)/DIGTI/RE</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="5"><p><strong>PROCESSO DE SOFTWARE PARA A COSINF (COSINF-SUAP)</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p><strong>Documento de Visão de Produto</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Nome do Projeto:</strong></p></td>
+<td colspan="2"><p><strong>Mapa de Tempo de Serviço</strong></p></td>
+</tr>
+</tbody>
+</table>
+<section id="documento-de-visao-do-subsistema-titulo-v0-1">
+<span id="suap-artefatos-rh-mapa-tempo-servico-visao"></span><h1>Documento de Visão do Subsistema <strong>Mapa de Tempo de Serviço</strong> &lt;v0.1&gt;<a class="headerlink" href="#documento-de-visao-do-subsistema-titulo-v0-1" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#historico-da-revisao" id="id2">Histórico da revisão</a></p></li>
+<li><p><a class="reference internal" href="#introducao" id="id3">Introdução</a></p>
+<ul>
+<li><p><a class="reference internal" href="#finalidade-do-documento" id="id4">Finalidade do documento</a></p></li>
+<li><p><a class="reference internal" href="#finalidade-do-sistema" id="id5">Finalidade do sistema</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#analise-de-contexto" id="id6">Análise de contexto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cenario" id="id7">Cenário</a></p></li>
+<li><p><a class="reference internal" href="#motivacoes-necessidades-e-problemas" id="id8">Motivações, necessidades e problemas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#escopo-do-produto" id="id9">Escopo do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#declaracao-do-escopo-do-produto" id="id10">Declaração do escopo do produto</a></p></li>
+<li><p><a class="reference internal" href="#nao-faz-parte-do-escopo" id="id11">Não faz parte do escopo</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#descricao-dos-papeis" id="id12">Descrição dos papéis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#papel-das-partes-interessadas" id="id13">Papel das partes interessadas</a></p></li>
+<li><p><a class="reference internal" href="#papel-dos-atores" id="id14">Papel dos atores</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#visao-geral-do-produto" id="id15">Visão geral do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modelagem-de-processos-de-negocio" id="id16">Modelagem de processos de negócio</a></p></li>
+<li><p><a class="reference internal" href="#projeto-da-solucao" id="id17">Projeto da solução</a></p></li>
+<li><p><a class="reference internal" href="#perspectiva-do-produto" id="id18">Perspectiva do produto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#integracao-com-outros-sistemas" id="id19">Integração com outros sistemas</a></p></li>
+<li><p><a class="reference internal" href="#relacionamentos-com-outros-subsistemas" id="id20">Relacionamentos com outros subsistemas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#requisitos" id="id21">Requisitos</a></p></li>
+<li><p><a class="reference internal" href="#casos-de-uso" id="id22">Casos de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-caso-de-uso" id="id23">Diagrama de caso de uso</a></p></li>
+<li><p><a class="reference internal" href="#diagrama-de-modelagem-de-dominio" id="id24">Diagrama de modelagem de domínio</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#metas-gerenciais" id="id25">Metas gerenciais</a></p></li>
+<li><p><a class="reference internal" href="#questoes-em-aberto" id="id26">Questões em aberto</a></p></li>
+<li><p><a class="reference internal" href="#encerramento-de-projetos" id="id27">Encerramento de Projetos</a></p></li>
+</ul>
+</div>
+<section id="historico-da-revisao">
+<h2><a class="toc-backref" href="#id2">Histórico da revisão</a><a class="headerlink" href="#historico-da-revisao" title="Link permanente para este título">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Histórico da Revisão</strong></span><a class="headerlink" href="#id1" title="Link Permanente para essa tabela">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 50%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Autor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>23/04/2014</p></td>
+<td><p>0.1</p></td>
+<td><p>Início do Documento</p></td>
+<td><p>Todos</p></td>
+</tr>
+<tr class="row-odd"><td><p>05/05/2014</p></td>
+<td><p>0.2</p></td>
+<td><p>Inclusão do diagrama de domínio;
+Adequação às mudanças ocorridas nos templates da documentação técnica (documento de visão e especificação de caso de uso);
+Inclusão de novos artefatos referentes aos casos de uso <a class="reference internal" href="../progressoes/doc_visao.html#uc"><span class="std std-ref">03, 04 e 05</span></a>;</p></td>
+<td><p>Esdras Valentim e George Carvalho</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="introducao">
+<h2><a class="toc-backref" href="#id3">Introdução</a><a class="headerlink" href="#introducao" title="Link permanente para este título">¶</a></h2>
+<section id="finalidade-do-documento">
+<h3><a class="toc-backref" href="#id4">Finalidade do documento</a><a class="headerlink" href="#finalidade-do-documento" title="Link permanente para este título">¶</a></h3>
+<p>A finalidade deste documento é especificar os requisitos relevantes do usuários, assim como os limites e restrições evidentes que
+dão uma visão geral. Essa visão viabiliza a identificação e a produção de documentos e requisitos mais técnicos, assim como do
+próprio sistema. A visão serve como forma de permitir a compreensão, pelos participantes do projeto, do “o quê e por quê” o projeto
+existe e provê uma estratégia a partir da qual todas as futuras decisões podem ser validadas.</p>
+</section>
+<section id="finalidade-do-sistema">
+<h3><a class="toc-backref" href="#id5">Finalidade do sistema</a><a class="headerlink" href="#finalidade-do-sistema" title="Link permanente para este título">¶</a></h3>
+<p>Este modulo/aplicação tem como finalidade descrever o histórico funcional dos servidores durante toda sua vida pública e privada. Essa funcionalidade
+irá exibir o tempo de serviço do servidor que servirá de base para novos processos e revisões de aposentadoria e para progressões funcionais por
+tempo de serviço. Também tem como finalidade substituir o sistema GDRH, simular tempo de serviço do servidor para fins de aposentadoria
+e progressões funcionais por tempo de serviço.</p>
+</section>
+</section>
+<section id="analise-de-contexto">
+<h2><a class="toc-backref" href="#id6">Análise de contexto</a><a class="headerlink" href="#analise-de-contexto" title="Link permanente para este título">¶</a></h2>
+<section id="cenario">
+<h3><a class="toc-backref" href="#id7">Cenário</a><a class="headerlink" href="#cenario" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Seção utilizada para documentar novos produtos.</p>
+<p>Forneça uma descrição do cenário atual, apresentando o contexto e os macroprocessos como são hoje, que possam motivar o
+desenvolvimento de uma solução.</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+<section id="motivacoes-necessidades-e-problemas">
+<h3><a class="toc-backref" href="#id8">Motivações, necessidades e problemas</a><a class="headerlink" href="#motivacoes-necessidades-e-problemas" title="Link permanente para este título">¶</a></h3>
+<p>A motivação para o desenvolvimento do módulo é melhorar o processo de análise e elaboraração do mapa de tempo de serviço e do histórico funcional,
+uma vez que o sistema existente (GDRH) se mostrou, em algumas situações, insuficiente para atender as necessidades e com informações incompletas e ou
+incorretas. Além disso a construção do novo modulo se dará de forma integrada ao SIAPE que poderá disponibilizar todas ou a maioria das informações
+necessárias para a elaboração do mapa de tempo de serviço.</p>
+</section>
+</section>
+<section id="escopo-do-produto">
+<h2><a class="toc-backref" href="#id9">Escopo do produto</a><a class="headerlink" href="#escopo-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="declaracao-do-escopo-do-produto">
+<h3><a class="toc-backref" href="#id10">Declaração do escopo do produto</a><a class="headerlink" href="#declaracao-do-escopo-do-produto" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Seção utilizada para documentar novos produtos.</p>
+<p>Forneça a declaração do escopo do produto, descrevendo as características do produto, serviço ou resultado que se
+deseja obter com a execução do projeto.</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+<section id="nao-faz-parte-do-escopo">
+<h3><a class="toc-backref" href="#id11">Não faz parte do escopo</a><a class="headerlink" href="#nao-faz-parte-do-escopo" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Seção utilizada para documentar novos produtos.</p>
+<p>Descreva de forma explícita as características que não fazem parte do produto. Em muitos casos, é mais fácil declarar que
+certos comportamentos nunca poderão ocorrer. Exemplo:</p>
+<ul class="simple">
+<li><p>O sistema não fará controle financeiro;</p></li>
+<li><p>O sistema não fará estatísticas mensais.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+</section>
+<section id="descricao-dos-papeis">
+<h2><a class="toc-backref" href="#id12">Descrição dos papéis</a><a class="headerlink" href="#descricao-dos-papeis" title="Link permanente para este título">¶</a></h2>
+<section id="papel-das-partes-interessadas">
+<h3><a class="toc-backref" href="#id13">Papel das partes interessadas</a><a class="headerlink" href="#papel-das-partes-interessadas" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Representante</p></th>
+<th class="head"><p>Responsabilidades</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Raul Alexandre (DIGPE)</p></td>
+<td><p>Fornecer requisitos; Validar documentação; Testar/Homologar o software.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fernando Henrique da Silva (CTI/CM)</p></td>
+<td><p>Fornecer requisitos; Validar documentação; Testar/Homologar o software.</p></td>
+</tr>
+<tr class="row-even"><td><p>Maria das Gracas de Araujo Varela (COAPEQ)</p></td>
+<td><p>Fornecer requisitos; Validar documentação; Testar/Homologar o software.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ediberto Barreto da Silva (COAPEQ)</p></td>
+<td><p>Fornecer requisitos; Validar documentação; Testar/Homologar o software.</p></td>
+</tr>
+<tr class="row-even"><td><p>Equipe de Desenvolvimento (COSINF/COAGP)</p></td>
+<td><p>Detalhar, Analisar e Implementar requisitos; Criar Testes Automatizados, Criar Manual do Usuário.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="papel-dos-atores">
+<h3><a class="toc-backref" href="#id14">Papel dos atores</a><a class="headerlink" href="#papel-dos-atores" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 20%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ator</p></th>
+<th class="head"><p>Sinônimo</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RH</p></td>
+<td><p><cite>-</cite></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SIAPE</p></td>
+<td><p><cite>-</cite></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="visao-geral-do-produto">
+<h2><a class="toc-backref" href="#id15">Visão geral do produto</a><a class="headerlink" href="#visao-geral-do-produto" title="Link permanente para este título">¶</a></h2>
+<section id="modelagem-de-processos-de-negocio">
+<h3><a class="toc-backref" href="#id16">Modelagem de processos de negócio</a><a class="headerlink" href="#modelagem-de-processos-de-negocio" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Cole aqui um diagrama de atividade para representar os processos de negócio (conjunto de atividades que ocorrem em algum negócio
+com o objetivo de gerar um produto ou serviço, alcançando determinado objetivo). Esse diagrama fornece o entendimento de como são
+realizadas as diversas atividades contidas em cada processo.</p>
+</div>
+</section>
+<section id="projeto-da-solucao">
+<h3><a class="toc-backref" href="#id17">Projeto da solução</a><a class="headerlink" href="#projeto-da-solucao" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Descreva aqui os elementos do modelo de projeto, que são importantes para a arquitetura, a estrutura de camadas e componentes do
+projeto.</p>
+</div>
+</section>
+<section id="perspectiva-do-produto">
+<h3><a class="toc-backref" href="#id18">Perspectiva do produto</a><a class="headerlink" href="#perspectiva-do-produto" title="Link permanente para este título">¶</a></h3>
+<section id="integracao-com-outros-sistemas">
+<h4><a class="toc-backref" href="#id19">Integração com outros sistemas</a><a class="headerlink" href="#integracao-com-outros-sistemas" title="Link permanente para este título">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Descreva aqui as interfaces de software com outros componentes do sistema de software. Poderão se componentes comparados,
+componentes reutilizados de outro aplicativo ou componentes que estão sendo desenvolvidos para subsistemas fora do escopo desta,
+mas com os quais esse aplicativo de software deve interagir
+Identificam-se aqui as interfaces com outros produtos de software, tais como aplicativos que recebem dados do produto ou
+enviam dados para ele, seja on-line, através de arquivos ou através de banco de dados. Não incluir componentes normais
+do ambiente operacional, como bibliotecas e plataformas.
+Ao descrever as interfaces de software, informe o nome do componente/sistema, a descrição, a forma de entrada de dados
+e/ou a forma de saída de dados.</p>
+</div>
+</section>
+<section id="relacionamentos-com-outros-subsistemas">
+<h4><a class="toc-backref" href="#id20">Relacionamentos com outros subsistemas</a><a class="headerlink" href="#relacionamentos-com-outros-subsistemas" title="Link permanente para este título">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Nesta subseção apresente a relação que o produto tem com outros produtos e o ambiente do usuário. Informe se o
+produto é independente e autossuficiente. Se o produto for um componente de um sistema maior, descreva como
+esses sistemas interagem e quais as interfaces relevantes entre os sistemas. Se o produto possuir vários módulos,
+estes deverão ser listados nesta subseção.</p>
+</div>
+</section>
+</section>
+<section id="requisitos">
+<h3><a class="toc-backref" href="#id21">Requisitos</a><a class="headerlink" href="#requisitos" title="Link permanente para este título">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Categoria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R01</p></td>
+<td><p>O sistema disponibilizará a opção para cadastrar averbações.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R02</p></td>
+<td><p>O sistema deverá calcular o tempo de serviço atual do servidor.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R03</p></td>
+<td><p>O sistema disponibilizará a opção para adicionar os encargos relevantes ou servicos especiais.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-odd"><td><p>R04</p></td>
+<td><p>O sistema disponibilizará a opção para exibir o histórico do servidor (averbações e serviços especiais serão mostrados em formato resumido).</p></td>
+<td><p>Especificação</p></td>
+</tr>
+<tr class="row-even"><td><p>R05</p></td>
+<td><p>Com base no histórico do servidor, será disponibilizada a simulação do tempo de serviço para estimar a data provável da aposentadoria.</p></td>
+<td><p>Especificação</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="casos-de-uso">
+<span id="uc"></span><h3><a class="toc-backref" href="#id22">Casos de uso</a><a class="headerlink" href="#casos-de-uso" title="Link permanente para este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Listar e descrever resumidamente as funcionalidades que se espera encontrar no produto. Funcionalidades são capacidades que o
+produto deve ter para atender a uma necessidade de usuário (ator). Cada funcionalidades descreve um serviço percebido pelo usuário
+e que tipicamente requer entradas para alcançar o resultado desejado. À medida que o modelo de casos de uso for desenvolvido,
+atualize a descrição para fazer referência aos casos de uso. Cada funcionalidade será descrita mais detalhadamente no modelo de
+casos de uso. É recomendado ordernar os casos de uso por ordem de decrescente de prioridade.</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 44%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Cód, Nome, Versão</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Complexidade</p></th>
+<th class="head"><p>Requisitos relacionados</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="mapa_tempo_servico_uc01.html#suap-artefatos-rh-mapa-tempo-servico-uc01"><span class="std std-ref">UC 01 - Cadastrar averbação  &lt;v0.1&gt;</span></a></p></td>
+<td><p>Cadastra as averbações dos serviços anteriores do servidor.</p></td>
+<td><p>Baixa</p></td>
+<td><p>R01</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mapa_tempo_servico_uc02.html#suap-artefatos-rh-mapa-tempo-servico-uc02"><span class="std std-ref">UC 02 - Obter tempo de serviço  &lt;v0.1&gt;</span></a></p></td>
+<td><p>Obtém o tempo de serviço atual do servidor no órgão que estar lotado no momento. Este caso de uso é uma inclusão do caso de uso base
+chamado Exibir histórico do servidor.</p></td>
+<td><p>Média</p></td>
+<td><p>R02</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mapa_tempo_servico_uc03.html#suap-artefatos-rh-mapa-tempo-servico-uc03"><span class="std std-ref">UC 03 - Adicionar encargos relevantes/serviços especiais &lt;v0.1&gt;</span></a></p></td>
+<td><p>Adiciona o tempo de serviço adicional para os casos especiais.</p></td>
+<td><p>Baixa</p></td>
+<td><p>R03</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mapa_tempo_servico_uc04.html#suap-artefatos-rh-mapa-tempo-servico-uc04"><span class="std std-ref">UC 04 - Exibir histórico do servidor &lt;v0.1&gt;</span></a></p></td>
+<td><p>Exibe o histórico funcional do servidor (averbações e serviços especiais serão mostrados em formato resumido).</p></td>
+<td><p>Baixa</p></td>
+<td><p>R04</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mapa_tempo_servico_uc05.html#suap-artefatos-rh-mapa-tempo-servico-uc05"><span class="std std-ref">UC 05 - Simular tempo de serviço &lt;v0.1&gt;</span></a></p></td>
+<td><p>Simula o tempo de serviço do servidor para fins de aposentadoria.</p></td>
+<td><p>Média</p></td>
+<td><p>R05</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="diagrama-de-caso-de-uso">
+<h3><a class="toc-backref" href="#id23">Diagrama de caso de uso</a><a class="headerlink" href="#diagrama-de-caso-de-uso" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/mapa_tempo_servico.png" id="diagramauc" src="../../../_images/mapa_tempo_servico.png" />
+</section>
+<section id="diagrama-de-modelagem-de-dominio">
+<h3><a class="toc-backref" href="#id24">Diagrama de modelagem de domínio</a><a class="headerlink" href="#diagrama-de-modelagem-de-dominio" title="Link permanente para este título">¶</a></h3>
+<img alt="../../../_images/Dominio_Mapa_Tempo_Servico.png" id="diagramadominio" src="../../../_images/Dominio_Mapa_Tempo_Servico.png" />
+</section>
+</section>
+<section id="metas-gerenciais">
+<h2><a class="toc-backref" href="#id25">Metas gerenciais</a><a class="headerlink" href="#metas-gerenciais" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Exemplo: O projeto deverá ser executado até o mês de Agosto de 2014.</p>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+<section id="questoes-em-aberto">
+<h2><a class="toc-backref" href="#id26">Questões em aberto</a><a class="headerlink" href="#questoes-em-aberto" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Descrever as anotações técnicas para informações adicionais a serem trabalhadas no futuro ou lembretes, e questões pendentes
+que devam ser esclarecidas durante a especificação de requisitos.</p>
+</div>
+</section>
+<section id="encerramento-de-projetos">
+<h2><a class="toc-backref" href="#id27">Encerramento de Projetos</a><a class="headerlink" href="#encerramento-de-projetos" title="Link permanente para este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Esta seção visa além de formalizar o término do projeto discutir como foi o mesmo e coletar lições aprendidas. No processo de
+gerenciamento de projetos ele é o documento final. Durante o encerramento é interessante tratar assuntos como:</p>
+<ul class="simple">
+<li><p>Os produtos previstos no projeto foram concluídos</p></li>
+<li><p>O objetivo final do projeto foi alcançado</p></li>
+<li><p>O resultado alcançado está coerente com a justificativa apresentada</p></li>
+<li><p>Quais os principais problemas do projeto</p></li>
+<li><p>Discutir sobre as lições aprendidas</p></li>
+<li><p>Registrar na base de conhecimento da organização</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+<p>Caso esteja documentando um produto já existente incluir o texto “Não se aplica.”</p>
+</div>
+</div>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="mapa_tempo_servico_uc01.html" class="btn btn-neutral float-right" title="UC 01 - Cadastrar averbação &lt;v0.1&gt;"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Mapa de Tempo de Serviço"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

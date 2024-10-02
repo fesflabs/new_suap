@@ -1,0 +1,22 @@
+{% extends super_template %}
+
+{% block content %}
+
+    {% box 'Origem de Recurso' "bordered" %}
+        <table class="info">
+                <tr>
+                    <td>Descrição</td><td>{{ origemrecurso }}</td>
+                </tr>
+                <tr>
+                    <td>Valor Total</td><td> R$ {{ origemrecurso.get_valor|format_money }}</td>
+                </tr>
+        </table>
+    {% endbox %}
+    {% box 'Etapas' %}
+        {% if tem_rateio_unidades %}
+             <p class="msg alert">Já foram realizados rateios entre as unidades gestoras. Caso deseje fazer alterações nos valores distribuídos nas etapas, é preciso antes cancelar o rateio na tela de Rateio por unidades.</p>
+        {% else %}
+            {% render_form form %}
+        {% endif %}
+    {% endbox %}
+{% endblock %}

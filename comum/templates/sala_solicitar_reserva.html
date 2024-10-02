@@ -1,0 +1,50 @@
+{% extends super_template %}
+
+{% block content %}
+
+<p>{{ sala.informacoes_complementares|linebreaksbr }}</p>
+
+{% if calendario %}
+    {% box 'Agenda Atual da Sala' %}
+        <div class="legenda">
+            <p>Legenda:</p>
+            <ul>
+                <li class="hoje">Hoje</li>
+                <li class="alert">Solicitação de reserva</li>
+                <li class="success">Reservas deferidas</li>
+                <li class="error">Reservas indisponíveis</li>
+                <li class="conflito">Conflito</li>
+            </ul>
+        </div>
+        {% for mes in calendario %}
+            {{ mes|safe }}
+        {% endfor %}
+    {% endbox %}
+{% endif %}
+
+{% box "Formulário de Solicitação" %}
+	{% render_form form %}
+{% endbox %}
+
+{% if sala.inventario_set.exists %}
+	{% box 'Inventários da Sala' 'collapsed' %}
+		<table>
+			<thead>
+				<tr>
+					<th>Número</th>
+					<th>Descrição</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for inventario in sala.inventario_set.all %}
+					<tr>
+						<td>{{ inventario.numero }}</td>
+						<td>{{ inventario.get_descricao }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endbox %}
+{% endif %}
+	
+{% endblock %}

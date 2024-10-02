@@ -1,0 +1,49 @@
+{% extends super_template %}
+
+{% block content %}
+    <div class="search-and-filters">
+        <div class="filter ">
+            <label>Intervalo de tempo:</label>
+            <select onchange="document.location.href='/comum/usuarios_ativos/?q='+$('#q').val();" name="q" id="q">
+                <option value="30" {% if intervalo == 30 %}selected{% endif %}>30 segundos</option>
+                <option value="60" {% if intervalo == 60 %}selected{% endif %}>1 minuto</option>
+                <option value="300" {% if intervalo == 300 %}selected{% endif %}>5 minutos</option>
+                <option value="600" {% if intervalo == 600 %}selected{% endif %}>10 minutos</option>
+            </select>
+            <div class="help-text">O maior intervalo de exibição é de 10 minutos</div>
+        </div>
+    </div>
+    <div class="box">
+        <h3>{{ usuarios_list|length }} Usuário(s) conectados no intervalo de {{ intervalo_formatado }}</h3>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th class="no-print">Usuário</th>
+                    <th>Horário</th>
+                    <th>Última URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in usuarios_list %}
+                    <tr>
+                        <td width="25%">{{ user }}</td>
+                        <td width="15%">{{ user.hora_acesso|format }}</td>
+                        <td>{{ user.url }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% box 'Estatísticas' %}
+        <ul>
+        <li>{{ qtd_um_minuto }} Usuário(s) conectados no intervalo de 1 minuto</li>
+        <li>{{ qtd_cinco_minutos }} Usuário(s) conectados no intervalo de 5 minutos</li>
+        <li>{{ qtd_dez_minutos }} Usuário(s) conectados no intervalo de 10 minutos</li>
+        <li>{{ qtd_uma_hora }} Usuário(s) conectados no intervalo de 1 hora</li>
+        <li>{{ qtd_um_dia }} Usuário(s) conectados no intervalo de 1 dia</li>
+        </ul>
+    {% endbox %}
+{% endblock %}
+	

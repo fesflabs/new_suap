@@ -1,0 +1,40 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="955" measuredH="428" mockupW="904" mockupH="420">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="94" y="245" w="-1" h="-1" measuredW="818" measuredH="113" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%23%2C%20Sala%20solicitada%20%5Ev%2C%20Per%EDodo%20solicitado%20%5Ev%2C%20%20Deferido%0AVisualizar%5CrExcluir%2C%20Sala%20de%20ATOS%20do%202%BA%20andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29%2C%2026/05/2014%2007%3A00%20a%2029/05/2014%2008%3A00%2C%20%3F%0AVisualizar%2C%20Estudo%20em%20Grupo%20-%20Biblioteca%20-%20Pr%E9dio%20Principal%20%28CM%29%2C%2023/05/2014%2010%3A00%20a%2023/05/2014%2011%3A30%2C%20Sim%0AVisualizar%2C%20AUDIT%D3RIO%20GERAL%20-%202%BA%20Andar%20do%20anexo%20-%20ANEXO%20DA%20REITORIA%20%28RE%29%2C%2022/05/2014%2008%3A00%20a%2022/05/2014%2009%3A00%2C%20N%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="51" y="8" w="904" h="420" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SUAP%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="75" y="93" w="-1" h="-1" measuredW="206" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>In%EDcio%2C%20Minhas%20Reservas%20de%20Salas</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TabBar" x="75" y="156" w="851" h="217" measuredW="473" measuredH="100" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Qualquer%2C%20Minhas%20reservas%20pendentes%2C%20Minhas%20reservas%20atendidas</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::ComboBox" x="208" y="206" w="-1" h="-1" measuredW="66" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Todos</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="94" y="208" w="-1" h="-1" measuredW="114" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrar%20por%20Deferido%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="802" y="105" w="-1" h="-1" measuredW="124" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Solicitar%20Reserva</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -1,0 +1,14 @@
+<div class="modulo modulo-alertas">
+    <h3><span class="fas fa-{{ icone }}" aria-hidden="true"></span> {{ titulo }}</h3>
+    <ul class="{{ classe }}">
+        {% for objeto in objetos %}
+            <li class="{{ objeto.classe }}">
+                <a href="{{ objeto.url }}">
+                    {% if objeto.prazo %}<span class="extra-info">Até {{ objeto.prazo }}</span>{% endif %}
+                    {% if objeto.extra %}<span class="extra-info">{{ objeto.extra }}</span>{% endif %}
+                    {{ objeto.titulo|safe }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

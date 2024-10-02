@@ -1,0 +1,52 @@
+{% extends super_template|default:"admin/base_site.html" %}
+
+{% block content %}
+    {% if dicionario %}
+        {% for k, v in dicionario %}
+            <div class="tab-container" data-title="{{ k }}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Curso/Concurso</th>
+                            <th>Situação</th>
+                            <th>Mês de Pagamento</th>
+                            <th>Atividade</th>
+                            <th class="text-end">Valor da Hora Trabalhada</th>
+                            <th class="text-end">Qtd. de Horas Previstas</th>
+                            <th class="text-end">Qtd. de Horas Trabalhadas</th>
+                            <th class="text-end">Valor total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in v.dados %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.curso }}</td>
+                                <td>{{ item.curso.get_situacao_html }}</td>
+                                <td>{{ item.mes }}</td>
+                                <td>{{ item.atividade }}</td>
+                                <td class="text-end">{{ item.valor_hora|format }}</td>
+                                <td class="text-end">{{ item.qtd_horas_previstas|format }}</td>
+                                <td class="text-end">{{ item.qtd_horas|format }}</td>
+                                <td class="text-end">{{ item.valor_total|format }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">Total:</td>
+                            <td>{{ v.totais.horas_prevista|format }}</td>
+                            <td>{{ v.totais.hora|format }}</td>
+                            <td>{{ v.totais.valor|format }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="msg alert">
+            Nenhum registro encontrado.
+        </p>
+    {% endif %}
+{% endblock %}

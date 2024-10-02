@@ -1,0 +1,113 @@
+{% extends "relatorio_pdf.html" %}
+
+{% block page_orientation %}{{ orientation }}{% endblock %}
+
+{% block content %}
+
+    {% for diario in diarios %}
+        <table class="definicoes">
+            <tr>
+                <td colspan="4"><strong>Curso: </strong> ({{ diario.turma.curso_campus.codigo }}) {{ diario.turma.curso_campus.descricao_historico|truncatechars:75 }}</td>
+
+            </tr>
+            <tr>
+                <td colspan="3"><strong>Diário:</strong> {{ diario }}</td>
+                <td><strong>Etapa: </strong> {{  diario.etapa }}</td>
+            </tr>
+            <tr>
+                <td><strong>Turma: </strong> {{ diario.turma }}</td>
+                <td><strong>Ano/Período: </strong> {{ diario.ano_letivo.ano }}/{{ diario.get_periodo_letivo }}</td>
+                <td><strong>Aulas Previstas: </strong> {{ diario.get_carga_horaria }} aulas</td>
+                <td><strong>Aulas Ministradas: </strong> {{ diario.get_carga_horaria_cumprida }} aulas</td>
+            </tr>
+            <tr>
+                <td colspan="4"><strong>Professores: </strong> {% for professor_diario in diario.get_professores %}{{ professor_diario.professor }}&nbsp;&nbsp;{% endfor %}</td>
+            </tr>
+        </table>
+
+        <div class="clear small"></div>
+
+        <table class="borda">
+            <thead>
+            <tr>
+                <th rowspan="3">#</th>
+                <th rowspan="3">Matrícula</th>
+                <th rowspan="3">Aluno</th>
+                <th>Dia</th>
+                {% for data in diario.datas_aulas.keys %}
+                    <th>{{ data.day|stringformat:"02d" }}</th>
+                {% endfor %}
+                <th rowspan="3">Nota</th>
+                <th rowspan="3">Faltas</th>
+            </tr>
+            <tr>
+                <th>Mês</th>
+                {% for data in diario.datas_aulas.keys %}
+                    <th>{{ data.month|stringformat:"02d" }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>N.A.</th>
+                {% for quantidade in diario.datas_aulas.values %}
+                    <th>{{ quantidade }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for matricula_diario in diario.matriculas_diario %}
+                <tr>
+                    <td class="text-center" style='font-size:8px;'>{{ forloop.counter }}</td>
+                    <td class="text-center" style='font-size:10px;'>{{ matricula_diario.matricula_periodo.aluno.matricula }}</td>
+                    <td colspan="2" style="font-size:9pt">{{ matricula_diario.matricula_periodo.aluno.get_nome|normalizar }}
+                        {% if matricula_diario.situacao == 6 or matricula_diario.situacao == 7 %}({{ matricula_diario.get_situacao_display }}){% endif %}
+                    </td>
+                    {% for falta in matricula_diario.faltas %}
+                        <td class="text-center" style='font-size:9pt'>{{ falta }}</td>
+                    {% endfor %}
+                    <td class="text-center" style='font-size:9pt'>{{ matricula_diario.nota|formatar_nota }}</td>
+                    <td class="text-center" style='font-size:9pt'>{{ matricula_diario.total }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="page-break">
+
+        <h2>REGISTRO DE ATIVIDADES - Diário: {{ diario.pk }}</h2>
+        <table class="borda">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Nº Aulas</th>
+                <th>Conteúdo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for aula in diario.aulas %}
+                <tr>
+                    <td class="text-center">{{ aula.data|format }}</td>
+                    <td class="text-center">{{ aula.quantidade|format }}</td>
+                    <td>{{ aula.conteudo|format|linebreaksbr }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma aula cadastrada neste diário.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="right">{{ diario.uo.municipio.nome|normalizar }}/{{ diario.uo.municipio.uf }}, {{ diario.hoje|format }}</p>
+        {% for professor_diario in diario.professordiario_set.all %}
+            <p class="assinatura">
+                <strong>{{ professor_diario.professor.vinculo.pessoa.nome|normalizar }}</strong>
+                <br/>
+                (Professor {{ professor_diario.tipo }})
+            </p>
+        {% endfor %}
+
+        {% if not forloop.last %}<div class="page-break"></div>{% endif %}
+
+    {% endfor %}
+
+{% endblock %}

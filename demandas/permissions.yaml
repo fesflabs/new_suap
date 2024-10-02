@@ -1,0 +1,134 @@
+Analista:
+  demandas:
+    atualizacao:
+    - add_atualizacao
+    - view_atualizacao
+    - change_atualizacao
+    demanda:
+    - add_demanda
+    - change_demanda
+    - view_demanda
+    - atende_demanda
+    - pode_relatorio
+    dod:
+    - view_dod
+    - change_dod
+    - fechar_dod
+    especificacao:
+    - add_especificacao
+    - change_especificacao
+    - view_especificacao
+    - delete_especificacao
+    notainterna:
+    - add_notainterna
+    - view_notainterna
+    - change_notainterna
+    - delete_notainterna
+    tag:
+    - add_tag
+    - view_tag
+    - change_tag
+    ambientehomologacao:
+    - add_ambientehomologacao
+    - change_ambientehomologacao
+    - view_ambientehomologacao
+    - delete_ambientehomologacao
+Coordenador de TI sistêmico:
+  app_manager: comum
+  demandas:
+    analistadesenvolvedor:
+    - add_analistadesenvolvedor
+    - view_analistadesenvolvedor
+    - change_analistadesenvolvedor
+    areaatuacaodemanda:
+    - add_areaatuacaodemanda
+    - view_areaatuacaodemanda
+    - change_areaatuacaodemanda
+    atualizacao:
+    - add_atualizacao
+    - view_atualizacao
+    - change_atualizacao
+    demanda:
+    - pode_relatorio
+    projetogitlab:
+    - add_projetogitlab
+    - view_projetogitlab
+    - change_projetogitlab
+    tag:
+    - add_tag
+    - view_tag
+    - change_tag
+Demandante:
+  demandas:
+    areaatuacaodemanda:
+    - view_areaatuacaodemanda
+    - change_areaatuacaodemanda
+    demanda:
+    - add_demanda
+    - change_demanda
+    - view_demanda
+    dod:
+    - aprovar_dod
+    sugestaomelhoria:
+    - add_sugestaomelhoria
+    - view_sugestaomelhoria
+Desenvolvedor:
+  demandas:
+    demanda:
+    - add_demanda
+    - change_demanda
+    - view_demanda
+    - atende_demanda
+    notainterna:
+    - add_notainterna
+    - view_notainterna
+    - change_notainterna
+    - delete_notainterna
+    tag:
+    - add_tag
+    - view_tag
+    - change_tag
+Prestador de Serviço:
+  app_manager: comum
+  demandas:
+    atualizacao:
+    - view_atualizacao
+    sugestaomelhoria:
+    - add_sugestaomelhoria
+    - view_sugestaomelhoria
+Recebedor de Demandas:
+  demandas:
+    demanda:
+    - add_demanda
+    - change_demanda
+    - view_demanda
+    - atende_demanda
+    - pode_relatorio
+    tag:
+    - add_tag
+    - view_tag
+    - change_tag
+Servidor:
+  app_manager: rh
+  demandas:
+    atualizacao:
+    - view_atualizacao
+    demanda:
+    - view_demanda
+    sugestaomelhoria:
+    - add_sugestaomelhoria
+    - view_sugestaomelhoria
+Visualizador de Demandas:
+  demandas:
+    demanda:
+    - view_demanda
+Coordenador de Sistemas:
+  demandas:
+    sugestaomelhoria:
+    - change_sugestaomelhoria
+Auditor:
+  app_manager: rh
+  description: O Auditor consegue acompanhar todas as movimentações.
+  demandas:
+    demanda:
+    - view_demanda

@@ -1,0 +1,20 @@
+{% extends super_template %}
+
+{% block content %}
+    <table class="info">
+        <tr>
+            <td>Servidor</td>
+            <td>{{ acompanhamento.funcionario }}</td>
+        </tr>
+        <tr>
+            <td>Acompanhamento</td>
+            <td>{{ acompanhamento.recesso_opcao }}</td>
+        </tr>
+        <tr>
+            <td>Dias</td>
+            <td>{{ dias_efetivos_a_compensar_format|join:', ' }}</td>
+        </tr>
+    </table>
+
+    {% render_form form %}
+{% endblock %}

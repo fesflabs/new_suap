@@ -1,0 +1,34 @@
+<table>
+    <thead>
+    <tr>
+        <th>-</th>
+        <th>Código</th>
+        <th>Descrição</th>
+        <th>Ano/Período Letivo</th>
+        <th>Diários</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if objects %}
+        {% for obj in objects %}
+            <tr>
+                <td>{{ obj.widget }}</td>
+                <td>{{ obj.codigo }}</td>
+                <td>{{ obj.descricao }}</td>
+                <td>{{ obj.ano_letivo }}/{{ obj.periodo_letivo }}</td>
+                <td>
+                    <ul>
+                        {% for diario in obj.diario_set.all %}
+                            <li>{{ diario }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="5"><p class="msg alert">Nenhuma turma encontrada.</p></td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>

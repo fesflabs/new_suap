@@ -1,0 +1,30 @@
+{% if periodo_escolhido.edital %}
+    {% box 'Dados do Edital' 'collapsed' %}
+        <table class="info">
+            <tr>
+                <td>Descrição</td>
+                <td>{{ periodo_escolhido.edital.descricao }}</td>
+            </tr>
+            <tr>
+                <td>Período de Inscrição</td>
+                <td>{{ periodo_escolhido.data_inicio|format }} à {{ periodo_escolhido.data_termino|format }}</td>
+            </tr>
+            <tr>
+                <td>Link do Edital</td>
+                <td>{{ periodo_escolhido.edital.link_edital|format }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+{% endif %}
+
+{% box 'Informações Importantes' %}
+    <div class="msg alert">
+        <p><strong>É essencial</strong>:</p>
+        <ol>
+            <li>Manter sempre seu endereço e contatos (telefone/email) atualizados no setor Serviço Social do seu campus.</li>
+            <li>Lembrar-se de ler com atenção todo o edital (no portal do {% get_valor_por_chave "comum" "instituicao_sigla" %}) e esse formulário de inscrição preenchendo corretamente todos os campos.</li>
+            <li>Entregar, no período estipulado no edital, toda a documentação que comprove as informações prestadas nesse formulário de inscrição.</li>
+            <li>Estar ciente de que o preenchimento desta inscrição não significa deferimento de qualquer benefício.</li>
+        </ol>
+    </div>
+{% endbox %}

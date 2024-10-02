@@ -1,0 +1,97 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="809" measuredH="428" mockupW="770" mockupH="405">
+  <controls>
+    <control controlID="2924" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="39" y="23" w="770" h="405" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Central%20de%20Servi%E7os%0Ahttp%3A//suap.ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="2925" controlTypeID="com.balsamiq.mockups::SubTitle" x="61" y="112" w="383" h="-1" measuredW="365" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Abertura%20de%20Chamados%20%28Suporte%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="2926" controlTypeID="com.balsamiq.mockups::Label" x="61" y="212" w="135" h="-1" measuredW="135" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Descri%E7%E3o%20do%20chamado</text>
+      </controlProperties>
+    </control>
+    <control controlID="2927" controlTypeID="com.balsamiq.mockups::ComboBox" x="61" y="167" w="275" h="-1" measuredW="189" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <state>up</state>
+        <text>Cria%E7%E3o%20de%20Conta%20de%20Email</text>
+      </controlProperties>
+    </control>
+    <control controlID="2928" controlTypeID="com.balsamiq.mockups::Label" x="62" y="146" w="46" h="-1" measuredW="46" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Servi%E7o</text>
+      </controlProperties>
+    </control>
+    <control controlID="2929" controlTypeID="com.balsamiq.mockups::Label" x="355" y="212" w="63" h="-1" measuredW="63" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Solicitante</text>
+      </controlProperties>
+    </control>
+    <control controlID="2930" controlTypeID="com.balsamiq.mockups::Label" x="355" y="146" w="74" h="-1" measuredW="64" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Aberto%20Por</text>
+      </controlProperties>
+    </control>
+    <control controlID="2931" controlTypeID="com.balsamiq.mockups::TextArea" x="61" y="230" w="274" h="74" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15658734</color>
+        <state>up</state>
+        <text>Gostaria%20que%20o%20email%20fosse%3A%20sicrano.de.tal@ifrn.edu.br</text>
+      </controlProperties>
+    </control>
+    <control controlID="2934" controlTypeID="com.balsamiq.mockups::Label" x="595" y="146" w="119" h="-1" measuredW="102" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Meio%20de%20Abertura</text>
+      </controlProperties>
+    </control>
+    <control controlID="2935" controlTypeID="com.balsamiq.mockups::ComboBox" x="595" y="167" w="189" h="-1" measuredW="81" measuredH="62" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Telefone%0AEmail%0APessoalmente</text>
+      </controlProperties>
+    </control>
+    <control controlID="2936" controlTypeID="com.balsamiq.mockups::Button" x="61" y="310" w="77" h="27" measuredW="60" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+    <control controlID="2937" controlTypeID="com.balsamiq.mockups::TextInput" x="355" y="232" w="429" h="-1" measuredW="167" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Fulano%20de%20Tal%20%2821060626%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="2938" controlTypeID="com.balsamiq.mockups::TextInput" x="355" y="167" w="211" h="-1" measuredW="203" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Usu%E1rio%20do%20Suporte%20%2821064545%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="2939" controlTypeID="com.balsamiq.mockups::Label" x="355" y="257" w="74" h="-1" measuredW="72" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Interessado</text>
+      </controlProperties>
+    </control>
+    <control controlID="2940" controlTypeID="com.balsamiq.mockups::TextInput" x="355" y="274" w="429" h="-1" measuredW="167" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Fulano%20de%20Tal%20%2821060626%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="2942" controlTypeID="com.balsamiq.mockups::Button" x="153" y="310" w="-1" h="-1" measuredW="120" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Anexar%20Arquivos</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

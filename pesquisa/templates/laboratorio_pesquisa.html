@@ -1,0 +1,284 @@
+{% extends super_template %}
+
+
+{% block content %}
+    {% if eh_coordenador_projeto or pode_gerenciar %}
+        <ul class="action-bar">
+            {% if eh_coordenador_projeto %}
+                <li><a class="btn success" href="/pesquisa/solicitar_servico_laboratorio/{{ laboratorio.id }}/">Solicitar Serviço</a></li>
+            {% endif %}
+            {% if pode_gerenciar %}
+                <li><a  href="/admin/pesquisa/laboratoriopesquisa/{{ laboratorio.id }}/change/" class="btn primary">Editar</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>Nome:</td>
+                <td colspan="3">{{ laboratorio.nome|format }}</td>
+            </tr>
+            <tr>
+                <td>Coordenador:</td>
+                <td colspan="3">{{ laboratorio.coordenador|format }}</td>
+            </tr>
+            <tr>
+                <td>Descrição:</td>
+                <td colspan="3">{{ laboratorio.descricao|format }}</td>
+            </tr>
+            <tr>
+                <td>Campus:</td>
+                <td>{{ laboratorio.uo|format }}</td>
+                <td>Área de Pesquisa:</td>
+                <td>{{ laboratorio.area_pesquisa|format }}</td>
+            </tr>
+            <tr>
+                <td>Contato:</td>
+                <td>{{ laboratorio.contato|format }}</td>
+                <td>Horário de Funcionamento:</td>
+                <td>{{ laboratorio.horario_funcionamento|default_if_none:"" }}{% if laboratorio.sala %} (<b>Sala:</b> {{ laboratorio.sala }}){% endif %}</td>
+            </tr>
+            <tr>
+                <td>Serviços Realizados:</td>
+                <td colspan="3">{{ laboratorio.servicos_realizados|format }}</td>
+            </tr>
+        </table>
+    {% endbox %}
+
+
+	<div class="tab-container" data-title="Pesquisadores" data-tab="pesquisadores" data-counter="{{ laboratorio.membros.count }}">
+        {% if laboratorio.membros.exists %}
+            <table>
+                <thead>
+                    <th>Pesquisador</th>
+                </thead>
+                <tbody>
+                    {% for membro in laboratorio.membros.all %}
+                        <tr>
+                            <td>{{ membro.relacionamento|safe }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum pesquisador cadastrado.</p>
+        {% endif %}
+    </div>
+
+
+
+	<div class="tab-container" data-title="Serviços" data-tab="servicos" data-counter="{{ servicos.count }}">
+         {% if pode_gerenciar %}
+            <ul class="action-bar">
+                <li><a class="btn success" href="/pesquisa/cadastrar_servico_laboratorio/{{ laboratorio.id }}/">Adicionar Serviço</a></li>
+            </ul>
+        {% endif %}
+        {% if servicos.exists %}
+            <table>
+                <thead>
+                    <tr>
+                        {% if pode_gerenciar %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                        <th>Descrição</th>
+                        <th>Materiais</th>
+                        <th>Equipamentos</th>
+                        <th>Ativo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for servico in servicos.all %}
+                        <tr>
+                            {% if pode_gerenciar %}
+                                <td>
+                                    {% icon "edit" "/pesquisa/editar_servico/{{ servico.id }}/" %}
+                                    {% icon "delete" "/pesquisa/excluir_servico/{{ servico.id }}/" %}
+                                </td>
+                            {% endif %}
+                            <td>{{ servico|safe }}</td>
+                            <td>{{ servico.materiais_utilizados|safe }}</td>
+                            <td>{{ servico.equipamentos.all|format }}</td>
+                            <td>{{ servico.ativo|format }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum serviço cadastrado.</p>
+        {% endif %}
+	</div>
+
+	<div class="tab-container" data-title="Equipamentos" data-tab="equipamentos" data-counter="{{ equipamentos.count }}">
+        {% if pode_gerenciar %}
+            <ul class="action-bar">
+                <li><a class="btn success" href="/pesquisa/cadastrar_equipamento_laboratorio/{{ laboratorio.id }}/">Adicionar Equipamento</a></li>
+            </ul>
+        {% endif %}
+        {% if equipamentos.exists %}
+            <table>
+                <thead>
+                    <tr>
+                        {% if pode_gerenciar %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Patrimônio</th>
+                        <th>Imagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% autopaginate equipamentos 50 %}
+                    {% paginate %}
+                    {% for equipamento in equipamentos.all %}
+                        <tr>
+                            {% if pode_gerenciar %}
+                                <td>
+                                    {% icon "edit" "/pesquisa/editar_equipamento/{{ equipamento.id }}/" %}
+                                    {% icon "delete" "/pesquisa/excluir_equipamento/{{ equipamento.id }}/" %}
+                                </td>
+                            {% endif %}
+                            <td>{{ equipamento.nome|format }}</td>
+                            <td>{{ equipamento|safe }}</td>
+                            <td>{{ equipamento.patrimonio|format }}</td>
+                            <td>{% if equipamento.imagem %}<a href="{{ equipamento.imagem.url }}" class="btn default">Ver foto</a>{% else %}-{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum equipamento cadastrado.</p>
+        {% endif %}
+	</div>
+    <div class="tab-container" data-title="Materiais" data-tab="materiais" data-counter="{{ materiais.count }}">
+        {% if pode_gerenciar %}
+            <ul class="action-bar">
+                <li><a class="btn success" href="/pesquisa/cadastrar_material_laboratorio/{{ laboratorio.id }}/">Adicionar Material</a></li>
+            </ul>
+        {% endif %}
+        {% if materiais.exists %}
+            <table>
+                <thead>
+                    <tr>
+                        {% if pode_gerenciar %}
+                            <th class="no-print">Opções</th>
+                        {% endif %}
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unitário (R$)</th>
+                        <th>Imagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% autopaginate materiais 50 %}
+                    {% paginate %}
+                    {% for material in materiais.all %}
+                        <tr>
+                            {% if pode_gerenciar %}
+                                <td>
+                                    {% icon "edit" "/pesquisa/editar_material/{{ material.id }}/" %}
+                                    {% icon "delete" "/pesquisa/excluir_material/{{ material.id }}/" %}
+                                </td>
+                            {% endif %}
+                            <td>{{ material|safe }}</td>
+                            <td>{{ material.quantidade|format }}</td>
+                            <td>{{ material.valor_unitario|format }}</td>
+                            <td>{% if material.imagem %}<a href="{{ material.imagem.url }}" class="btn default">Ver foto</a>{% else %}-{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Nenhum material cadastrado.</p>
+        {% endif %}
+	</div>
+
+	<div class="tab-container" data-title="Fotos" data-tab="fotos" data-counter="{{ fotos.count }}">
+        {% if pode_gerenciar %}
+            <ul class="action-bar">
+                <li><a class="btn success" href="/pesquisa/cadastrar_foto_laboratorio/{{ laboratorio.id }}/">Adicionar Foto</a></li>
+            </ul>
+        {% endif %}
+        {% if fotos.exists %}
+            {% box 'Fotos' %}
+                <ul class="flex-container gallery">
+                    {% for foto in fotos.all %}
+                        <li class="gallery-item">
+                            <h4 class="title">{{ foto.descricao }}</h4>
+                            {% if pode_gerenciar %}
+                                <a href="/pesquisa/excluir_foto_laboratorio/{{ foto.id }}/" class="btn danger float-end">Remover</a>
+                            {% endif %}
+                            <a class="image" href="{{ foto.imagem.url }}"><img src="{{ foto.imagem.url }}" alt="{{ foto.descricao }}"></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endbox %}
+         {% else %}
+            <p class="msg alert">Nenhuma foto cadastrada.</p>
+        {% endif %}
+	</div>
+    {% if pode_gerenciar %}
+        <div class="tab-container" data-title="Solicitações de Serviço" data-tab="solicitacoes" data-counter="{{ solicitacoes.count }}">
+
+            {% if solicitacoes.exists %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Finalidade</th>
+                            <th>Descrição</th>
+                            <th>Solicitado Por</th>
+                            <th>Arquivo</th>
+                            <th>Situação</th>
+                            {% if pode_gerenciar %}
+                                <th class="no-print">Ações</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% autopaginate solicitacoes 50 %}
+                        {% paginate %}
+                        {% for solicitacao in solicitacoes.all %}
+                            <tr>
+                                <td>{{ solicitacao.servico }}</td>
+                                <td>{{ solicitacao.finalidade }}</td>
+                                <td>{{ solicitacao.descricao }}</td>
+                                <td>{{ solicitacao.cadastrada_por|format }}</td>
+                                <td>{% if solicitacao.arquivo %}<a href="{{ solicitacao.arquivo.url }}" class="btn default">Ver arquivo</a>{% else %}-{% endif %}</td>
+                                <td>
+                                    {% if solicitacao.situacao == solicitacao.EM_ESPERA %}
+                                        <span class="status status-alert">{{ solicitacao.situacao }}</span>
+                                    {% elif solicitacao.situacao == solicitacao.INDEFERIDA %}
+                                        <span class="status status-error">{{ solicitacao.situacao }}</span>
+                                    {% else %}
+                                        <span class="status status-success">{{ solicitacao.situacao }}</span>
+                                    {% endif %}
+                                </td>
+                                {% if pode_gerenciar %}
+                                    <td class="no-print">
+                                        <ul class="action-bar">
+                                            {% if solicitacao.situacao == solicitacao.EM_ESPERA %}
+                                                <li><a class="btn success popup" href="/pesquisa/avaliar_solicitacao/{{ solicitacao.pk }}/?aprovar=True">Aprovar</a></li>
+                                                <li><a class="btn popup danger" href="/pesquisa/avaliar_solicitacao/{{ solicitacao.pk }}/">Não Aprovar</a></li>
+                                            {% elif solicitacao.situacao == solicitacao.DEFERIDA %}
+                                                <li><a class="btn confirm success" href="/pesquisa/concluir_solicitacao/{{ solicitacao.pk }}/">Registrar Conclusão</a></li>
+                                            {% endif %}
+                                            <li><a class="btn" href="/pesquisa/acompanhar_solicitacao_servico/{{ solicitacao.id }}/">Acompanhar Solicitação</a></li>
+                                        </ul>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhuma solicitação cadastrada.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock %}

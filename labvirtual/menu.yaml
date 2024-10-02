@@ -1,0 +1,12 @@
+Ensino::Laboratório Virtuais::Laboratórios Virtuais:
+  permissions_required:
+    - labvirtual.view_desktoppool
+  url: /admin/labvirtual/desktoppool
+Ensino::Laboratório Virtuais::Solicitações:
+  permissions_required:
+    - labvirtual.view_solicitacaolabvirtual
+  url: /admin/labvirtual/solicitacaolabvirtual
+Ensino::Laboratório Virtuais::Agendamentos:
+  permissions_required:
+    - labvirtual.view_agendamentolabvirtual
+  url: /admin/labvirtual/agendamentolabvirtual

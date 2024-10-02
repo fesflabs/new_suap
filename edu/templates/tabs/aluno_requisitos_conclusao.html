@@ -1,0 +1,423 @@
+{% if obj.matriz %}
+    {% box 'Percentual de Progresso no Curso' %}
+        <div class="progress">
+            <p data-prefix="de Carga Horária Cumprida">{{ percentual_ch_cumprida }}%</p>
+        </div>
+
+        <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">Requisitos de Conclusão de Curso</th>
+                <th>Situação</th>
+                <th>CH Prevista</th>
+                <th>CH Cumprido</th>
+                <th>CH Pendente</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if ch_componentes_regulares_obrigatorios_esperada %}
+                <tr>
+                    <td colspan="2">Disciplinas Obrigatórias</td>
+                    <td>
+                        {% if ch_componentes_regulares_obrigatorios_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_componentes_regulares_obrigatorios_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/disciplinas_regulares_obrigatorias/Cumprido/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_regulares_obrigatorios_cumprida }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/disciplinas_regulares_obrigatorias/pendente/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_regulares_obrigatorios_pendente }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if ch_componentes_regulares_optativos_esperada %}
+                <tr>
+                    <td colspan="2">Disciplinas Optativas</td>
+                    <td>
+                        {% if ch_componentes_regulares_optativos_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_componentes_regulares_optativos_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/disciplinas_regulares_optativas/Cumprido/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_regulares_optativos_cumprida }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/disciplinas_regulares_optativas/pendente/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_regulares_optativos_pendente }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if ch_componentes_eletivos_esperada %}
+                <tr>
+                    <td colspan="2">Disciplinas Eletivas</td>
+                    <td>
+                        {% if ch_componentes_eletivos_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_componentes_eletivos_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/disciplinas_eletivas/Cumprido/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_eletivos_cumprida }}
+                        </a>
+                    </td>
+                    <td>{{ ch_componentes_eletivos_pendente }}</td>
+                </tr>
+            {% endif %}
+            {% if ch_componentes_seminario_esperada %}
+                <tr>
+                    <td colspan="2">Seminários</td>
+                    <td>
+                        {% if ch_componentes_seminario_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_componentes_seminario_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/seminario/Cumprido/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_componentes_seminario_cumprida }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/seminario/pendente/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_componentes_seminario_pendente }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if ch_componentes_pratica_profissional_esperada or obj.matriz.exige_estagio or obj.possui_pratica_profissional_pendente %}
+                <tr>
+                    <td {% if requer_pp_atp %}rowspan="2"{% else %}colspan="2"{% endif %}>Prática Profissional</td>
+                    {% if requer_pp_atp %}
+                        <td>Práticas Profissionais Diversas</td>
+                    {% endif %}
+                    <td>
+                        {% if ch_componentes_pratica_profissional_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            {% if obj.possui_pratica_profissional_pendente %}
+                                <span class="status status-error">Aguardando o Registro{% if obj.matriz.exige_estagio %} de {{ obj.matriz.ch_minima_estagio }}h{% endif %} da Prática Profissional (Estágios e Afins)</span>
+                            {% else %}
+                                <span class="status status-success">Cumprido</span>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    {% if ch_componentes_pratica_profissional_esperada %}
+                        <td>{{ ch_componentes_pratica_profissional_esperada }}</td>
+                        <td>
+                            <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/pratica/Cumprido/" class="popup"
+                            data-reload-on-close="false">
+                                {{ ch_componentes_pratica_profissional_cumprida }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/pratica/pendente/" class="popup"
+                            data-reload-on-close="false">
+                                {{ ch_componentes_pratica_profissional_pendente }}
+                            </a>
+                        </td>
+                    {% else %}
+                        <td colspan="3" class="text-center">{% if obj.matriz.exige_estagio %}{{ obj.get_ch_pratica_profissional_concluida }}h registradas{% endif %}</td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+            {% if ch_atividade_aprofundamento_esperada %}
+                <tr>
+                    {% if not requer_pp_atp %}
+                        <td colspan="2">Atividades Teórico-Práticas de Aprofundamento</td>
+                    {% else %}
+                        <td>Atividades Teórico-Práticas de Aprofundamento</td>
+                    {% endif %}
+                    <td>
+                        {% if ch_atividades_aprofundamento_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_atividade_aprofundamento_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_atividades_aprofundamento_cumpridas/{{ obj.pk }}/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_atividades_aprofundamento_cumprida }}
+                        </a>
+                    </td>
+                    <td>{{ ch_atividades_aprofundamento_pendente }}</td>
+                </tr>
+            {% endif %}
+
+            {% if ch_pratica_como_componente_esperada %}
+                <tr>
+                    <td colspan="2">Prática como Componente Curricular</td>
+                    <td>
+                        {% if ch_componentes_pratica_como_componente_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_pratica_como_componente_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/pratica_como_componente/Cumprido/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_pratica_como_componente_cumprida }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/pratica_como_componente/pendente/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_componentes_pratica_como_componente_pendente }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if ch_visita_tecnica_esperada %}
+                <tr>
+                    <td colspan="2">Visita Técnica / Aula de Campo</td>
+                    <td>
+                        {% if ch_componentes_visita_tecnica_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_visita_tecnica_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/visita_tecnica/Cumprido/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_visita_tecnica_cumprida }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/visita_tecnica/pendente/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_componentes_visita_tecnica_pendente }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if ch_atividade_extensao_esperada %}
+                <tr>
+                    <td colspan="2">Atividades Curriculares de Extensão</td>
+
+                    <td>
+                        {% if ch_atividades_extensao_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_atividade_extensao_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/atividades_extensao/cumprida/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_atividades_extensao_cumprida }}
+                        </a>
+                    </td>
+                    <td>{{ ch_atividades_extensao_pendente }}</td>
+                </tr>
+            {% endif %}
+
+
+            {% if ch_componentes_tcc_esperada %}
+                <tr>
+                    <td colspan="2">Disciplinas de TCC</td>
+
+                    <td>
+                        {% if ch_componentes_tcc_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_componentes_tcc_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/projeto_final/Cumprido/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_tcc_cumprida }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edu/visualizar_requisitos_conclusao/{{ obj.pk }}/projeto_final/pendente/"
+                           class="popup" data-reload-on-close="false">
+                            {{ ch_componentes_tcc_pendente }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if ch_atividades_complementares_esperada %}
+                <tr>
+                    <td colspan="2">Atividades Complementares</td>
+                    <td>
+                        {% if ch_atividades_complementares_pendente > 0 %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ ch_atividades_complementares_esperada }}</td>
+                    <td>
+                        <a href="/edu/visualizar_atividades_complementares_cumpridas/{{ obj.pk }}/" class="popup"
+                           data-reload-on-close="false">
+                            {{ ch_atividades_complementares_cumprida }}
+                        </a>
+                    </td>
+                    <td><a href="/edu/visualizar_atividades_complementares_pendentes/{{ obj.pk }}/" class="popup"
+                           data-reload-on-close="false">
+                        {{ ch_atividades_complementares_pendente }}
+                    </a>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if obj.matriz.exige_tcc %}
+                <tr>
+                    <td colspan="2">Apresentação do TCC</td>
+                    <td>
+                        {% if not obj.apresentou_tcc %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td colspan="3" class="text-center">
+                        {% with projeto_final=obj.get_projeto_final_aprovado %}
+                            {% if projeto_final.resultado_data %}
+                                Apresentado em {{ projeto_final.resultado_data|format }}
+                                {% for assinatura in projeto_final.get_assinaturas_eletronicas_pendentes %}
+                                    <center>
+                                        Aguardando assinatura de
+                                        <strong style="color:red">
+                                            {{ assinatura.pessoa_fisica }}
+                                        </strong>.
+                                    </center>
+                                {% endfor %}
+                            {% else %}
+                                Aguardando lançamento.
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if obj.curso_campus.exige_enade %}
+                <tr>
+                    <td colspan="2">ENADE (Ingressante / Concluinte)</td>
+                    <td>
+                        {% if not obj.cumpriu_enade %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td colspan="3" class="text-center">
+                        {% with convocacao_enade=obj.get_enade_ingressante %}
+                            {% if convocacao_enade %}
+                                {% if convocacao_enade.situacao %}
+                                    {{ convocacao_enade.get_situacao_display|format }}
+                                {% else %}
+                                    Situação não informada
+                                {% endif %}
+                            {% else %}
+                                Sem registro
+                            {% endif %}
+                        {% endwith %}/
+                        {% with convocacao_enade=obj.get_enade_concluinte %}
+                            {% if convocacao_enade %}
+                                {% if convocacao_enade.situacao %}
+                                    {{ convocacao_enade.get_situacao_display|format }}
+                                {% else %}
+                                    Situação não informada
+                                {% endif %}
+                            {% else %}
+                                Sem registro
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if obj.curso_campus.exige_colacao_grau %}
+                <tr>
+                    <td colspan="2">Colação de Grau</td>
+                    <td>
+                        {% if not obj.colou_grau %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td colspan="3" class="text-center">
+                        {% with participacao_colacao_grau=obj.get_participacao_colacao_grau %}
+                            {% if participacao_colacao_grau %}
+                                {% if pode_ver_dados_academicos %}
+                                    <a href="{{ participacao_colacao_grau.colacao_grau.get_absolute_url }}">Colação de
+                                        grau em {{ participacao_colacao_grau.colacao_grau.data_colacao|format }}</a>
+                                {% else %}
+                                    Colação de grau em {{ participacao_colacao_grau.colacao_grau.data_colacao|format }}
+                                {% endif %}
+                            {% else %}
+                                Aguardando realização.
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if not is_proprio_aluno %}
+                <tr>
+                    <td colspan="2">Todos os Períodos Fechados</td>
+                    <td>
+                        {% if not obj.periodos_fechados %}
+                            <span class="status status-error">Não-cumprido</span>
+                        {% else %}
+                            <span class="status status-success">Cumprido</span>
+                        {% endif %}
+                    </td>
+                    <td colspan="3" class="text-center">
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">TOTAL:</td>
+                <td>{{ total_ch_esperada }}</td>
+                <td>{{ total_ch_cumprida }}</td>
+                <td>{{ total_ch_pendente }}</td>
+            </tr>
+            </tfoot>
+        </table>
+        </div>
+    {% endbox %}
+{% else %}
+    <p class="msg alert">Este aluno ainda não foi migrado para o sistema.</p>
+{% endif %}

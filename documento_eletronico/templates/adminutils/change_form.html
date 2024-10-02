@@ -1,0 +1,29 @@
+{# Template criado para apagar estilos do Django (bloco extrastyle) e limpar bloco object-tools #}
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+
+    <script src="/static/ckeditor/ckeditor-init.js"></script>
+    <script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script src="/static/documento_eletronico/js/ckeditor_toolbar.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $('#tipodocumentotexto_form').on('submit', function(){
+                if (!validarTags()) {
+                    $('#submit').removeAttr('disabled');
+                    $('#submit').val('Salvar');
+                    return false;
+                }
+                salvar_tags();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block object-tools %}
+<ul class="action-bar">
+    {% help_button %}
+    <li><a class="btn popup default" href="/documento_eletronico/visualizar_variaveis/">Visualizar Variáveis</a></li>
+</ul>
+
+{% endblock %}

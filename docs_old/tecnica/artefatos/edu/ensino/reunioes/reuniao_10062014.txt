@@ -1,0 +1,60 @@
+****** Casos de uso aprensentados ******
+
+* UC 204 - Visualizar Procedimentos de Matricula
+  - OK
+* UC 501 - Abonar Faltas de Alunos
+  - OK
+* UC 201 - Trancar Matrícula <v0.1>
+  - incluir na estrutua do curso o parâmetro "Número máximo de trancamento voluntário 
+    e "Número máximo de trancamento intercâmbio"
+* UC 205 - Cancelar Matrícula <v0.1>
+ - OK
+* UC 206 - Reintegrar Matrícula <v0.1>
+ - falta implementar RN4
+ - incluir os help text no campo ano/período letivo 
+
+
+* UC 200 - Visualizar Histórico <v0.1>
+
+ - incluir coluna identificação do diário com link
+ - remove a coluna turma
+ - incluir o número de faltas de faltas em vez da frequência.
+
+* UC 203 - Manter Aproveitamento de Estudos <v0.1>
+
+ - Retirar a regra de negócio RN2.
+ - Incluir a mensagem: "Está ação irá excluir o diário e seus respectivos registros de notas e faltas. Deseja continuar?
+   Comfirmar Aproveitamento de estudos?
+ - rótulo "Aproveit. Disciplina"
+ 
+* UC 207 - Manter certificação de conhecimento <v0.1>
+
+ - Retirar a regra de negócio RN2.
+ - rótulo "Cert. Conhecimento"
+ - rótulo "Reprovado Cert. Conhecimento"
+ - incluir help text: informe o período na qual a disciplina foi certificada.
+ - Após acionar a opção "Registrar certificação de conhecimento" verificar se o aluno cumpriu
+   todos os pré-requisitos, se não, emitir a mensagem "..."
+ - incluir parâmetro "Média para aprovação de certificação de conhecimento" na estrutura do curso
+ - incluir RN: Art. 277. Para os cursos técnicos na forma integrada, é vedada a certificação de conhecimentos
+de disciplinas referentes aos núcleos fundamental e estruturante.
+ - incluir RN: 266
+
+ 
+* UC 400 - Gerir alunos em turmas <v0.3>
+* 
+
+****** Casos de uso não apresentados ******
+* UC 208 - Gerir Professor <v0.1>
+* UC 209 - Editar Foto do Professor
+* UC 210 - Cadastrar Professor Convidado <v0.1>
+* UC 211 - Editar Dados Funcionais do Professor <v0.1>
+
+
+
+
+* Ajustes / Bugs
+- Na impressão PDF do histórico não exibir os componentes pendentes (em abertos).
+- Incluir a situação da matricula do diário na aba Chamada.
+- No relatório de faltas filtrar diário por código do diário.
+- Corrigir autonumeração do ID de diários para incrementar no ato de salvar. 

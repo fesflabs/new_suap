@@ -1,0 +1,50 @@
+<div class="primary-info">
+    <span class="status status-alert">Pendente</span>
+    <h4><a href="{{ documento.get_absolute_url }}/"><strong>{{ documento.tipo }}:</strong> {{ documento }}</a></h4>
+    {% if not documento.status %}
+        <ul class="action-bar">
+            <li>
+                <a href="{% url 'editar_informacoes_upload' documentoprocesso_id=documento_processo.id %}" class="btn primary" title="Editar">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="sr-only">Editar</span>
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+    <div class="extra-info">
+        <p>{{ documento.assunto }}</p>
+        {{ documento.documento.conteudo }}
+    </div>
+</div>
+<dl class="secondary-info">
+    {% if documento.numero %}
+        <div class="list-item">
+            <dt><span class="fas fa-circle" aria-hidden="true"></span> Número:</dt>
+            <dd>{{ documento.numero}}</dd>
+        </div>
+    {% endif %}
+    <div class="list-item">
+        <dt><span class="fas fa-circle" aria-hidden="true"></span> Tipo do Documento:</dt>
+        <dd>{{ documento.tipo }}</dd>
+    </div>
+    <div class="list-item">
+        <dt><span class="fas fa-circle" aria-hidden="true"></span> Nível de Acesso:</dt>
+        <dd>{{ documento.get_nivel_acesso_display }}</dd>
+    </div>
+    {% if documento.tipo_conferencia  %}
+        <div class="list-item">
+            <dt><span class="fas fa-circle" aria-hidden="true"></span> Tipo de Conferência:</dt>
+            <dd>{{ documento.tipo_conferencia }}</dd>
+        </div>
+    {% endif %}
+    {% if documento_processo.data_hora_remocao %}
+        <div class="list-item">
+            <dt><span class="fas fa-user" aria-hidden="true"></span> Removido por:</dt>
+            <dd>{{ documento_processo.usuario_remocao.get_profile.nome_usual }}
+                em {{ documento_processo.data_hora_remocao|format }}</dd>
+        </div>
+        <div class="list-item">
+            <dt><span class="fas fa-paragraph" aria-hidden="true"></span> Motivo da Remoção:</dt>
+            <dd>{{ documento_processo.get_motivo_vinculo_documento_processo_remocao_display }}</dd>
+        </div>
+    {% endif %}
+</dl>

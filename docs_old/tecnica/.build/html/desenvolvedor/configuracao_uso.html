@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Preparando o ambiente de produção &mdash; documentação SUAP Documentação Desevolvimento 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'1.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação SUAP Documentação Desevolvimento 1.0" href="../index.html"/>
+        <link rel="up" title="Desenvolvedor" href="index.html"/>
+        <link rel="next" title="Configurando o Ambiente de Desenvolvimento Mac OS (HomeBrew)" href="configucacao_mac_os_HOMEBREW.html"/>
+        <link rel="prev" title="Instalação no Debian 7 64 bits" href="instalacao_debian764bits.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> SUAP Documentação Desevolvimento</a>
+        <form class="wy-form" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Pesquisar Documentos" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../suap.html">SUAP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Desenvolvedor</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="padroes_codigo.html">Padrões de código</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fluxo_trabalho_gitlab.html">Fluxo de trabalho no Gitlab / git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="git_dicas.html">Git - Dicas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="material_estudo.html">Material de Estudo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instalacao_debian764bits.html">Instalação no Debian 7 64 bits</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Preparando o ambiente de produção</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configucacao_mac_os_HOMEBREW.html">Configurando o Ambiente de Desenvolvimento Mac OS (HomeBrew)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#links-externos">Links externos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/adm/index.html">Administração</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/edu/index.html">Ensino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/rh/index.html">Rercursos Humanos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../artefatos/models/index.html">Templates e Modelos de Artefatos</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">SUAP Documentação Desevolvimento</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  <li><a href="">Preparando o ambiente de produção</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <section id="preparando-o-ambiente-de-producao">
+<h1>Preparando o ambiente de produção<a class="headerlink" href="#preparando-o-ambiente-de-producao" title="Link permanente para este título">¶</a></h1>
+<div class="contents local topic" id="conteudo">
+<p class="topic-title">Conteúdo</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#configurando-para-o-uso" id="id2">Configurando para o uso</a></p></li>
+<li><p><a class="reference internal" href="#instalacao" id="id3">Instalação</a></p></li>
+<li><p><a class="reference internal" href="#configuracao-inicial-das-variaveis-do-sistema" id="id4">Configuração inicial das variáveis do sistema</a></p></li>
+<li><p><a class="reference internal" href="#carga-inicial" id="id5">Carga Inicial</a></p></li>
+</ul>
+</div>
+<section id="configurando-para-o-uso">
+<h2><a class="toc-backref" href="#id2">Configurando para o uso</a><a class="headerlink" href="#configurando-para-o-uso" title="Link permanente para este título">¶</a></h2>
+<p>Pode-se dizer que o SUAP possui o seguinte fluxograma para instalação, configuração e uso:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/fluxograma_uso_suap.png"><img alt="fluxograma para instalação/configuração/uso." src="../_images/fluxograma_uso_suap.png" style="width: 1624.0px; height: 187.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Fluxograma para instalação, configuração e uso.</span><a class="headerlink" href="#id1" title="Link Permanente para essa imagem">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="instalacao">
+<h2><a class="toc-backref" href="#id3">Instalação</a><a class="headerlink" href="#instalacao" title="Link permanente para este título">¶</a></h2>
+<p>A instalação deve ser feita de acordo com instruções em [Instalação](Instalação)</p>
+</section>
+<section id="configuracao-inicial-das-variaveis-do-sistema">
+<h2><a class="toc-backref" href="#id4">Configuração inicial das variáveis do sistema</a><a class="headerlink" href="#configuracao-inicial-das-variaveis-do-sistema" title="Link permanente para este título">¶</a></h2>
+<p>Inicialmente deve-se preparar o ambiente, informando, nas configurações gerais do sistema, os dados da instituição. Para isso, é necessário ter em mãos as seguintes informações:</p>
+<ul class="simple">
+<li><p>Identificador SIAPE da Instituição: Sequência numérica de 5 caracteres que é utilizada para filtrar os dados nas Macros do Extrator SIAPE e SIAFI.</p></li>
+<li><p>Código UG da Instituição: Sequência numérica de 6 caracteres que identifica a unidade gestora responsável ou principal.</p></li>
+</ul>
+<p>Também é necessário ter decidido qual será a árvore de setores que será utilizada:</p>
+<ul class="simple">
+<li><p><em>Setores SIAPE:</em> Durante a importação, será criada apenas uma árvore com a organização de setores existente no SIAPE. Esta árvore, caso seja alterada no SUAP, será sobrescrita pelas informações existentes no SIAPE toda vez que houver uma nova importação de dados servidores.</p></li>
+<li><p><em>Setores SUAP:</em> Durante a importação, serão criadas duas árvores de setores equivalentes SIAPE e SUAP, de acordo com a organização de setores existente no SIAPE. Entretanto, a árvores SUAP pode ser alterada no sistema e permanecerá inalterada caso haja uma nova importação de dados servidores. Essas duas árvores são paralelas e conectadas através de relacionamentos que referenciam os setores que são equivalentes nas duas árvores. Recomenda-se trabalhar com essa árvores por dois motivos principais: Primeiro, no SIAPE nem sempre temos todos os setores cadastrados, normalmente só os setores de níveis hierárquicos mais altos; Segundo, possíveis reformas nos setores do SIAPE causarão pouco ou nenhum impacto no funcionamento do sistema.</p></li>
+</ul>
+<p>Para configurar as informações gerais do sistema realize os seguintes passos:</p>
+<ul class="simple">
+<li><p>Faça login no SUAP com o administrador criado durante o processo de instalação.</p></li>
+<li><p>Acesse a opção Administração no menu lateral direito.</p></li>
+<li><p>Clique em Configurações.</p></li>
+<li><p>Preencha os dados solicitados e envie as alterações.</p></li>
+</ul>
+</section>
+<section id="carga-inicial">
+<h2><a class="toc-backref" href="#id5">Carga Inicial</a><a class="headerlink" href="#carga-inicial" title="Link permanente para este título">¶</a></h2>
+<p>O SUAP opera com dados pessoais e funcionais dos servidores oriundos do Sistema Integrado de Administração de Recuros Humanos do Governo Federal, o SIAPE. Dessa forma, é necessário fazer uma extração de dados desse sistema e inseri-los no SUAP.</p>
+<p>A importação consiste de duas fases:</p>
+<ul>
+<li><p><a class="reference internal" href="extracao_siape.html#suap-desenvolvedor-extracao-siape"><span class="std std-ref">Extração dos arquivos do SIAPE</span></a></p></li>
+<li><p>Importação dos arquivos extraídos para o SUAP</p>
+<blockquote>
+<div><ul>
+<li><p>Após ter feito a extração dos dados do SIAPE, incluindo baixar os arquivos, para fazer a importação para SUAP, execute o seguinte comando:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">importar_siape</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Somente depois de realizado esses dois procedimentos com sucesso é que o SUAP estará pronto para utilização pelos usuários finais.</p>
+</section>
+</section>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="configucacao_mac_os_HOMEBREW.html" class="btn btn-neutral float-right" title="Configurando o Ambiente de Desenvolvimento Mac OS (HomeBrew)"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="instalacao_debian764bits.html" class="btn btn-neutral" title="Instalação no Debian 7 64 bits"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2014, COSINF/DIGTI/RE.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

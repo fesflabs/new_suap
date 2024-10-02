@@ -1,0 +1,502 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/jquery/jquery.maskedinput.js"></script>
+    <script>
+        function checkRadio(event, numeroEtapa, value) {
+            var id = event.id;
+            radios = $('input[type=radio][id='+id+']')
+            console.debug('Total:' + radios.length)
+            radios.each(function () {
+                if (!$(this).attr("read_only")) {
+                    actualValue = $(this).attr("value")
+
+                    if (actualValue == value ) {
+                        $(this).attr("checked", "checked");
+                    } else {
+                        $(this).removeAttr("checked");
+                    }
+                }
+            });
+
+            atualizarStatusAvalicacao(numeroEtapa);
+        }
+
+
+        function getRadios(numero_etapa=null, value=null, checked=null) {
+            filter = 'input[type=radio]'
+
+            if (numero_etapa != null) {
+                radio_initial_name = 'etapa_'+numero_etapa+'___'
+                filter += '[name^=' + radio_initial_name + ']'
+            }
+
+            if (value != null) {
+                // O valor "" indica o status "Aguardando Avaliação".
+                if (value == '') {
+                    value = '""'
+                }
+                filter += '[value=' + value + ']'
+            }
+
+            if (checked != null) {
+                if (checked) {
+                    filter += '[checked="checked"]'
+                } else {
+                    filter += ':not([checked])'
+                }
+            }
+
+            radios = $(filter)
+            return radios;
+        }
+
+        function checkAllRadios(numeroEtapa, value) {
+            var radiosToUncheck = getRadios(numeroEtapa)
+            var radiosToCheck = getRadios(numeroEtapa, value)
+
+            radiosToUncheck.each(function () {
+                if (!$(this).attr("read_only")) {
+                    $(this).removeAttr("checked");
+                }
+            });
+
+            radiosToCheck.each(function () {
+                if (!$(this).attr("read_only")) {
+                    $(this).attr("checked", "checked");
+                    $(this).trigger('click');
+                }
+            });
+
+            // atualizarStatusAvalicacao(numeroEtapa);
+        }
+
+
+        function sumarioItensAvaliacao (numeroEtapa) {
+            var totalCheckedRadiosAA = getRadios(numeroEtapa, "", true).length
+            var totalCheckedRadiosOK = getRadios(numeroEtapa, "OK", true).length
+            var totalCheckedRadiosERROR = getRadios(numeroEtapa, "ERROR", true).length
+
+            var totalCheckedRadiosTotal = totalCheckedRadiosAA + totalCheckedRadiosOK + totalCheckedRadiosERROR
+            return {totalCheckedRadiosAA, totalCheckedRadiosOK, totalCheckedRadiosERROR, totalCheckedRadiosTotal}
+        }
+
+        function atualizarStatusAvalicacao(numeroEtapa=null) {
+            let sumario = sumarioItensAvaliacao(numeroEtapa);
+            totalItensAvaliacaoPendentes = sumario.totalCheckedRadiosAA + sumario.totalCheckedRadiosERROR
+            tabIndex = numeroEtapa - 1
+            etapa_label_and_counter = $('a[data-tab='+ tabIndex+ ']')
+
+            spanCounter = ''
+            if (totalItensAvaliacaoPendentes > 0) {
+                spanCounter = '<span>'+totalItensAvaliacaoPendentes+'</span>'
+            }
+            console.debug(spanCounter)
+            etapa_label_and_counter.html('Etapa ' + numeroEtapa + spanCounter)
+            console.debug(etapa_label_and_counter.html())
+
+            // TODO: AJUSTAR!
+            //tab_etapa = $('#X_'+numeroEtapa)
+            // tab_etapa.attr("data-counter", )
+            // tab_etapa.html("Etapa Xz")
+            // console.debug(tab_etapa.attr("data-title"))
+        }
+
+        {#$(window).on('load', function () {#}
+        {#  alert("Window Loaded");#}
+        {#  atualizarStatusAvalicacao(3)#}
+        {# });#}
+
+        //Este calculo agora é desnecessário pois a quantidade total é calculada server-side
+        {#$(document).ready(function() {#}
+        {#    // alert('page is loaded');#}
+        {##}
+        {#    // Precisei dar esse timeout para que o componente estivesse disponível para atualização. Sem isso, não#}
+        {#    // vai nem com reza braba!#}
+        {#    setTimeout(function () {#}
+        {#        {% for etapa in etapas %}#}
+        {#            atualizarStatusAvalicacao({{ etapa.numero_etapa }});#}
+        {#        {% endfor %}#}
+        {#    }, 0);#}
+        {##}
+        {# }); #}
+
+    </script>
+
+
+    <style>
+        {# TODO: Rever os ajustes de estilo com Fábio. Procurei seguir o máximo as recomendações do Guia do Desenvolvedor,
+        mas tiveram algumas situações que não encontrei como contornar com base no guia.#}
+        label.aslink {
+            cursor: pointer;
+            color: #347b3e;
+            text-decoration: none;
+        }
+
+        label.aslink:hover {
+            color: #292929;
+
+            text-decoration: underline;
+        }
+
+        label, form p.labelForm {
+            line-height: 1.2em;
+            text-align: unset;
+            width: 70px;
+        }
+    </style>
+{% endblock %}
+
+{% block bodyclass %}hasAsideRight large-action-bar{% endblock %}
+
+{% block object-status %}
+{% endblock %}
+
+{% block content %}
+    <ul class="action-bar">
+        {% if exibir_btn_indeferimento %}
+            <li><a href="/catalogo_provedor_servico/indeferir_solicitacao/{{ solicitacao.pk }}/" class="btn danger no-confirm">Indeferir Solicitação</a></li>
+        {% endif %}
+        {% if exibir_btn_retornar_para_analise %}
+            <li><a href="/catalogo_provedor_servico/retornar_para_analise_solicitacao/{{ solicitacao.pk }}/" class="btn warning no-confirm popup">Retornar Solicitação para Análise</a></li>
+        {% endif %}
+    </ul>
+
+    {% box "Solicitação" %}
+        <div class="table-responsive">
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td>Serviço</td>
+                    <td>{{ solicitacao.servico }}</td>
+                    <td>Nº Total de Etapas</td>
+                    <td>{{ solicitacao.numero_total_etapas }}</td>
+                </tr>
+                <tr>
+                    <td>CPF:</td>
+                    <td colspan="4">{{ solicitacao.cpf }}</td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td colspan="3">{{ solicitacao.get_status_display }}
+                        {% if exibir_btn_reenviar_notificacao_correcao_dados %}
+                            | <a href="/catalogo_provedor_servico/enviar_notificacao_correcao_dados_govbr/{{ solicitacao.pk }}/"
+                                           class="btn info no-confirm">Enviar Notificação</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Detalhamento do Status:</td>
+                    <td colspan="3">{{ solicitacao.status_detalhamento|safe }}</td>
+                </tr>
+                <tr>
+                    <td>Solicitante</td>
+                    <td colspan="3">{{ solicitacao.nome|format }}</td>
+                </tr>
+                <tr>
+                    <td>Avaliador</td>
+                    <td colspan="3">
+                        {% if solicitacao.vinculo_responsavel %}{{ solicitacao.vinculo_responsavel|format }}{% else %}Indefinido{% endif %}
+
+                        {% if exibir_btn_assumir_atendimento %}
+                            | <a href="{% url 'assumir_atendimento' solicitacao.pk %}" class="btn">Assumir atendimento</a>
+                        {% endif %}
+
+                        {% if exibir_btn_atribuir_atendimento %}
+                            | <a href="{% url 'atribuir_atendimento' solicitacao.pk %}" class="btn">Atribuir atendimento</a>
+                            {# <a class="btn success popup" href="{% url 'atribuir_atendimento' solicitacao.pk %}">{% icone "plus" %}<span class="sr-only">Adicionar</span> Atribuir atendimento</a>#}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Instrução para o Avaliador</td>
+                    <td colspan="3">{{ solicitacao.instrucao|format }}</td>
+                </tr>
+                <tr>
+                    <td>Campus</td>
+                    <td colspan="3">{{ solicitacao.uo|format }}</td>
+                </tr>
+                <tr>
+                    <td>Informações Extras</td>
+                    <td colspan="3">{{ solicitacao.get_extra_dados_html|safe }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        </div>
+    {% endbox %}
+
+    {% box "Avaliação dos Dados" %}
+        <form method="post" enctype="multipart/form-data" action="." novalidate>
+        {% csrf_token %}
+        {% for etapa in etapas %}
+            <div class="tab-container" id="tab_etapa_{{ etapa.numero_etapa }}" data-title="Etapa {{ etapa.numero_etapa }}" data-counter="{{ etapa.correcoes_necessarias }}">
+                <table>
+                    <thead>
+                    {% if exibir_btn_salvar %}
+                        <tr>
+                            <th rowspan="2">Campo</th>
+                            <th rowspan="2">Valor</th>
+                            <th colspan="6">Avaliação</th>
+                        </tr>
+                        <tr>
+                            <th><label class="aslink" onclick="checkAllRadios({{ etapa.numero_etapa }}, '')">Aguardando Avaliação</label></th>
+                            <th><label class="aslink" onclick="checkAllRadios({{ etapa.numero_etapa }}, 'OK')">OK</label></th>
+                            <th><label class="aslink" onclick="checkAllRadios({{ etapa.numero_etapa }}, 'ERROR')">Com Problema</label></th>
+                            <th style="width: 200px;">Descrição do Problema</th>
+                            <th style="width: 200px;">Corrigir para novo valor</th>
+                            <th style="width: 100px;">Limpar valor antigo</th>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th rowspan="2" style="width: 40%">Campo</th>
+                            <th rowspan="2" style="width: 40%">Valor</th>
+                            <th rowspan="2">Situação</th>
+                        </tr>
+                    {% endif %}
+                    </thead>
+
+                    <tbody>
+                        {% for campo in etapa.formulario %}
+                            <tr>
+                                <td>{{ campo.label }} {% if campo.help_text %} - {{ campo.help_text|safe }}{% endif %}</td>
+                                <td>{% if campo.type == 'file' %}{{ campo.value_as_link }}{% else %}<span style="word-break: break-word;white-space: pre-wrap;">{{ campo.value|format }}{% endif %}</span></td>
+                                {% if exibir_btn_salvar %}
+                                    <td>
+                                        <input type="radio" id="id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status"  name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status" value=""
+                                               {% if not campo.avaliacao_status %}checked="checked"{% endif %}
+                                               {% if campo.read_only %}read_only="read_only"{% endif %}
+                                               {% if campo.avaliacao_status and campo.read_only %}disabled{% endif %}
+                                                onclick="checkRadio(this, {{ etapa.numero_etapa }}, '')"
+                                        >
+                                        <label for="male">A.A.</label><br>
+                                    </td>
+                                    <td>
+                                        <input type="radio" id="id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status" name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status" value="OK"
+                                               {% if campo.avaliacao_status == 'OK' %}checked="checked"{% endif %}
+                                               {% if campo.read_only %}read_only="read_only"{% endif %}
+                                               {% if not campo.avaliacao_status == 'OK' and campo.read_only %}disabled{% endif %}
+                                                onclick="checkRadio(this, {{ etapa.numero_etapa }}, 'OK')"
+                                        >
+                                        <label for="male">OK</label><br>
+                                    </td>
+                                    <td>
+                                        <input type="radio" id="id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status" name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status" value="ERROR"
+                                               {% if campo.avaliacao_status == 'ERROR' %}checked="checked"{% endif %}
+                                               {% if campo.read_only %}read_only="read_only"{% endif %}
+                                               {% if not campo.avaliacao_status == 'ERROR' and campo.read_only %}disabled{% endif %}
+                                                onclick="checkRadio(this, {{ etapa.numero_etapa }}, 'ERROR')"
+                                        >
+                                        <label for="male">C.P</label><br>
+                                    </td>
+                                    <td>
+                                        {% if not campo.read_only %}
+                                            <textarea
+                                                   id="id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_status_msg"
+                                                   name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status_msg" placeholder="Informe qual é problema"
+                                                   style="max-width: 200px; width: 100%; height: 60px;"
+                                            >{% if campo.avaliacao_status_msg %}{{ campo.avaliacao_status_msg }}{% endif %}</textarea>
+                                        {% else %}
+                                            <input type="hidden" name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____status_msg" value=""/>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if not campo.read_only %}
+                                            {% if campo.type == 'string' %}
+                                                <input type="text"
+                                                       id="id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_novo_valor"
+                                                       name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____novo_valor" placeholder="Informe o novo valor"
+                                                       style="max-width: 100%; width: 100%; !important;"
+                                                />
+                                                {% if campo.mask %}
+                                                    {% if campo.mask == '00telefone00' %}
+                                                        <script>
+                                                            SPMaskBehavior = function (val) {
+                                                                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+                                                            };
+                                                            spOptions = {
+                                                                onKeyPress: function (val, e, field, options) {
+                                                                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                                                                }
+                                                            };
+                                                            $('#id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_novo_valor').mask(SPMaskBehavior, spOptions);
+                                                        </script>
+                                                    {% else %}
+                                                        <script>
+                                                            var mascara = '{{ campo.mask }}';
+                                                            $('#id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_novo_valor').mask(mascara);
+                                                        </script>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% elif campo.type == 'date' %}
+                                                <input type="text"
+                                                       id="id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_novo_valor"
+                                                       name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____novo_valor" placeholder="Informe uma nova data"
+                                                       style="max-width: 100%; width: 100%; !important;"
+                                                />
+                                                <script>
+                                                $(function() {
+                                                    $("#id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_novo_valor").datepicker();
+                                                    $("#id_etapa_{{ etapa.numero_etapa }}____{{ campo.name }}_novo_valor").datepicker( "option", "dateFormat", 'dd/mm/yy');
+                                                });
+                                                </script>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if campo.type == 'string' or campo.type == 'date' %}
+                                            {% if not campo.read_only and not campo.required %}
+                                                <input type="checkbox" name="etapa_{{ etapa.numero_etapa }}____{{ campo.name }}____limpar_valor" value="true" class="confirm">
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                {% else %}
+                                    <td>
+                                    {% if not campo.avaliacao_status %}
+                                        A.A.
+                                    {% elif campo.avaliacao_status == 'OK' %}
+                                        OK
+                                    {% elif campo.avaliacao_status == 'ERROR' %}
+                                        C.P - {{ campo.avaliacao_status_msg|format }}
+                                    {% endif %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+
+        {% if exibir_btn_salvar %}
+            <input class="default" type="submit" value="Salvar" name="bnt_salvar"/>
+        {% endif %}
+
+        {% if exibir_btn_solicitar_correcao %}
+            <input class="default" type="submit" value="Solicitar Correção de Dados" name="btn_salvar_e_solicitar_correcao"/>
+        {% endif %}
+
+        {% if exibir_btn_execucao %}
+            <a class="btn default" href="/catalogo_provedor_servico/executar_solicitacao/{{ solicitacao.id }}/">{{ solicitacao.servico.label_btn_executar_solicitacao }}</a>
+            <script>
+                $("a.btn.default").on("click", function (event) {
+                    var elem = $(this);
+                    if (elem.hasClass("disabled")) {
+                        event.preventDefault();
+                    }
+                    elem.text("Aguarde...");
+                    elem.addClass("disabled");
+                });
+            </script>
+        {% endif %}
+    </form>
+    {% endbox %}
+{% endblock %}
+
+{% block asideright %}
+<aside class="right">
+
+    <button id="collapseAsideRight"><span class="sr-only">Minimizar barra lateral</span></button>
+
+    {% if solicitacoes_responsaveis_historico %}
+        <details open="open">
+            <summary>Histórico de Atendimento</summary>
+            <div class="details-container">
+                {% autopaginate solicitacoes_responsaveis_historico 10 %}
+                {% paginate %}
+                <ul class="timeline compact">
+                    {% for srh in solicitacoes_responsaveis_historico %}
+                        {% if forloop.first %}
+                            <li>
+                                <div class="timeline-date">{{ srh.data_associacao_responsavel|format }}</div>
+                                <div class="timeline-icon"></div>
+                                <div class="timeline-content">
+                                    <h4>Avaliador Atual</h4>
+                                    <h4>{{ srh.vinculo_responsavel.relacionamento|format }}</h4>
+                                </div>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <div class="timeline-date">{{ srh.data_associacao_responsavel|format }}</div>
+                            <div class="timeline-icon"></div>
+                            <div class="timeline-content">
+                                <h4>{{ srh.vinculo_atribuinte.relacionamento|format }}</h4>
+                                <p>{{ srh.instrucao|format }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% paginate %}
+            </div>
+        </details>
+    {% endif %}
+    {% if solicitacoes_situacoes_historico %}
+        <details open="open">
+            <summary>Histórico de Situações</summary>
+            <div class="details-container">
+                {% autopaginate solicitacoes_situacoes_historico 10 %}
+                {% paginate %}
+                <ul class="timeline compact">
+                    {% for ssh in solicitacoes_situacoes_historico %}
+                        <li>
+                            <div class="timeline-date">{{ ssh.data_criacao|format }}</div>
+                            <div class="timeline-icon"></div>
+                            <div class="timeline-content">
+                                <h4>{{ ssh.get_status_display|format }}</h4>
+                                <p>{{ ssh.status_detalhamento|format }}</p>
+                                <h4>Responsável: {{ ssh.vinculo_responsavel.relacionamento|format }}</h4>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% paginate %}
+            </div>
+        </details>
+    {% endif %}
+
+    {% if notificacoes_govbr %}
+        <details>
+            <summary>Histórico de Notificações</summary>
+            <div class="details-container">
+                {% autopaginate notificacoes_govbr 10 %}
+                {% paginate %}
+                <div class="legenda">
+                    <p>Legenda:</p>
+                    <ul>
+                        <li class="success">Enviado</li>
+                        <li class="error">Erro</li>
+                    </ul>
+                </div>
+                <ul class="timeline compact">
+                    {% for registro_notificacao in notificacoes_govbr %}
+                        {% if registro_notificacao.enviada %}
+                            <li class="success">
+                                <div class="timeline-date">{{ registro_notificacao.data_criacao|format }}</div>
+                                <div class="timeline-icon"></div>
+                                <div class="timeline-content">
+                                    <p>Canal: {{ registro_notificacao.get_tipo_display|format }}</p>
+                                    <p></p>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="error">
+                                <div class="timeline-date">{{ registro_notificacao.data_criacao|format }}</div>
+                                <div class="timeline-icon"></div>
+                                <div class="timeline-content">
+                                    <p>Canal: {{ registro_notificacao.get_tipo_display|format }}</p></p>
+                                    {% if em_periodo_avaliacao %}
+                                        <a href="/catalogo_provedor_servico/reenviar_notificacao_govbr/{{ registro_notificacao.pk }}/"
+                                           class="btn info no-confirm">Enviar Notificação</a>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endif %}
+
+                    {% endfor %}
+                </ul>
+                {% paginate %}
+            </div>
+        </details>
+    {% endif %}
+</aside>
+{% endblock %}

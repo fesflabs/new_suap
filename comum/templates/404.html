@@ -1,0 +1,34 @@
+{% extends super_template|default:"admin/base_site.html" %}
+{% load static %}
+
+{% block favicon %}
+	<link rel="shortcut icon" href="{% static 'comum/img/favicon-maintenance.png' %}" />
+{% endblock %}
+
+{% block content_title %}
+    <div class="title-container">
+        <h2>Página não encontrada</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+	
+	<p>O endereço <i class="false">{{ request_path }}</i> é inválido ou a página que você procura não existe mais.</p>
+	
+	<p>Você pode ir para a <a href="/">página inicial</a> e tentar um outro endereço.</p>
+
+{% endblock %}
+
+{% block shortcuts %}
+    {% if not is_popup %}
+        <ul class="action-links">
+            {% if request_path in request.META.HTTP_REFERER %}
+                <li><a href="/">{% icone "arrow-left" %} Retornar a página inicial</a></li>
+            {% else %}
+                <li><a href="{{ request.META.HTTP_REFERER }}">{% icone "arrow-left" %} Retornar a página anterior</a></li>
+            {% endif %}
+            <li><button id="actionPrint">{% icone "print" %} Imprimir</button></li>
+            <li><button id="topodapagina">{% icone "caret-up" %} Topo da Página</button></li>
+        </ul>
+    {% endif %}
+{% endblock %}

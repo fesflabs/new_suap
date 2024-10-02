@@ -1,0 +1,106 @@
+{% load pipeline %}
+{% load static %}
+{% load tags %}
+{% javascript 'jquery' %}
+
+<div class="breadcrumbs">
+    <div>
+        <span class="key">Módulo</span>
+        <p><a href="#" class="sobre" data-aplicacao="{{ aplicacao_sigla }}">{{ aplicacao_nome }}</a></p>
+    </div>
+    <div>
+        <span class="key">Funcionalidade</span>
+        <p><a class="sobre_funcionalidade" href="#" data-aplicacao="{{ aplicacao_sigla }}"
+              data-funcionalidade="{{ funcionalidade.chave }}" data-cenario="sobre">{{ funcionalidade.nome }}</a></p>
+    </div>
+    {% if funcionalidade.descricao %}
+        <div>
+            <span class="key">Descrição da Funcionalidade</span>
+            {% for descricao in funcionalidade.descricao %}
+                <p>{{ descricao }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    $(".sobre").each(function (index) {
+        $(this).on("click", function () {
+            m_aplicacao = $(this).data("aplicacao");
+            document.getElementById("buscarDoc").value = $(this)[0].textContent;
+            buscar();
+            $.ajax("/comum/documentacao/about/" + m_aplicacao + "/")
+                .done(function (data) {
+                    $("main").html(data);
+                });
+        });
+    });
+    $(".sobre_funcionalidade").each(function (index) {
+        $(this).on("click", function () {
+            m_aplicacao = $(this).data("aplicacao");
+            m_funcionalidade = $(this).data("funcionalidade");
+            $.ajax("/comum/documentacao/about_feature/" + m_aplicacao + "/" + m_funcionalidade + "/")
+                .done(function (data) {
+                    $("main").html(data);
+                });
+        });
+    });
+</script>
+<span class="key">Cenário</span>
+<h2 class="title">{{ cenario.nome }}</h2>
+{% if cenario.descricao %}
+    <div class="msg info">
+        <h3>Descrição do Cenário</h3>
+        {% for descricao in cenario.descricao %}
+            <p>{{ descricao }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if has_bpmn_workflow %}
+    <script src="/static/djtools/bpmn-js/bpmn-viewer.production.min.js"></script>
+    <div id="canvas" class="flex-container boxes"></div>
+    <script>
+        $(document).ready(function () {
+            jQuery(document).ready(function () {
+                var diagramUrl = '/comum/documentacao/bpmn/{{ aplicacao_sigla }}/{{ cenario.nome |slugify }}.bpmn/';
+                var bpmnViewer = new BpmnJS({
+                    container: '#canvas',
+                    height: 300
+                });
+
+                async function openDiagram(bpmnXML) {
+                    try {
+                        await bpmnViewer.importXML(bpmnXML);
+                        bpmnViewer.get('canvas').zoom('fit-viewport');
+                    } catch (err) {
+                        console.error('could not import BPMN 2.0 diagram', err);
+                    }
+                }
+
+                $.get(diagramUrl, openDiagram, 'text');
+            })
+        })
+    </script>
+{% endif %}
+{% if workflow %}
+    <div class="msg info">
+        <img class="workflow" src="/comum/documentacao/imagem/?i={{ workflow|addslashes }}">
+    </div>
+{% endif %}
+
+<h3 class="mt-2">Passo a passo <small>({{ cenario.passos|length }} passos)</small></h3>
+<ul class="passo-a-passo">
+    {% for passo in cenario.passos %}
+        <li id="passo-{{ forloop.counter0 }}" class="passo">
+            <h4>{{ passo.nome }} {% if not forloop.last %}<a href="#passo-{{ forloop.counter }}">Próximo</a>{% endif %}</h4>
+            <small>{{ forloop.counter }}</small>
+            {% if passo.descricao %}
+                <p>{{ passo.descricao }}</p>
+            {% endif %}
+            <a href="/comum/documentacao/imagem/?i={{ passo.imagem|addslashes }}"  data-lightbox="passos" data-title="{{ passo.nome }}">
+                <img src="/comum/documentacao/imagem/?i={{ passo.imagem|addslashes }}"
+                     alt="Imagem da tela do passo: {{ passo.nome }}" /></a>
+        </li>
+    {% endfor %}
+</ul>

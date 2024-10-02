@@ -1,0 +1,79 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    <ul class="action-bar">
+        {% if obj.ativo %}
+            <li><a class="btn primary" href="?action=deploy">{% icone "sync" %} Atualizar Container</a></li>
+            <li><a class="btn primary popup" href="/demandas/executar_comando_ambiente_homologacao/{{ obj.pk }}/">{% icone "square" %} Executar Comando</a></li>
+            <li><a class="btn warning" href="?action=undeploy">{% icone "trash" %} Remover Provisoriamente</a></li>
+            <li><a class="btn danger" href="?action=destroy">{% icone "trash" %} Remover Definitivamente</a></li>
+        {% else %}
+            <li><a class="btn success" href="?action=deploy">{% icone "plus" %} Criar Container</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block object-status %}
+    {% if obj.ativo %}
+        <span class="status status-success">Ativo</span>
+    {% else %}
+        <span class="status status-error">Inativo</span>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-container boxes images">
+        <div class="box-item">
+            <img src="/static/demandas/images/analista.png" alt="Dado do Analista" aria-hidden="true" />
+            <h4>Analista</h4>
+            <p>{{ obj.criador }}</p>
+        </div>
+        <div class="box-item" data-clipboard="{{ obj.branch }}">
+            <img src="/static/demandas/images/branch.png" alt="Dado da Branch" aria-hidden="true" />
+            <h4>Branch</h4>
+            <p>{{ obj.branch }}</p>
+        </div>
+        <div class="box-item">
+            <img src="/static/demandas/images/database.png" alt="Dado do Banco" aria-hidden="true" />
+            <h4>Banco</h4>
+            <p>{{ obj.banco }}</p>
+        </div>
+        <div class="box-item">
+            <img src="/static/demandas/images/gitlab.png" alt="Dado do Pipeline" aria-hidden="true" />
+            <h4>Pipeline</h4>
+            <a href="{{ obj.url_gitlab }}">{{ obj.pipeline|format }}</a>
+        </div>
+        <div class="box-item" data-clipboard="{{ obj.senha|format }}">
+            <img src="/static/demandas/images/password.png" alt="Dado da Senha" aria-hidden="true">
+            <h4>Senha</h4>
+            <p>{{ obj.senha|format }}</p>
+        </div>
+    </div>
+
+    {% box 'Dados Gerais' %}
+        <dl class="definition-list flex">
+            {% if obj.ativo %}
+                <div class="list-item">
+                    <dt>URL do Ambiente</dt>
+                    <dd><a href="{{ obj.get_url_homologacao }}">{{ obj.get_url_homologacao }}</a></dd>
+                </div>
+            {% endif %}
+            <div class="list-item">
+                <dt>Data de Criação</dt>
+                <dd>{{ obj.data_criacao|format }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Data de Expiração</dt>
+                <dd>{{ obj.data_expiracao|format }}</dd>
+            </div>
+            {% if obj.demanda_set.exists %}
+                <div class="list-item flex-basis-100">
+                    <dt>Demanda</dt>
+                    <dd><a href="/demandas/visualizar/{{ obj.demanda_set.first.id }}/">{{ obj.demanda_set.first }}</a></dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+{% endblock %}

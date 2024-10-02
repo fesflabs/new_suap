@@ -1,0 +1,117 @@
+{% extends super_template %}
+
+{% block action-bar %}
+    {% include "includes/actionbar_atendimento.html" %}
+{% endblock %}
+
+{% block object-status %}
+    {% include "includes/status_atendimento.html" %}
+{% endblock %}
+
+{% block content %}
+
+    {% include "includes/cabecalho_atendimento.html" %}
+
+    <div class="tab-container" data-tab="aba_anamnese" data-title="Anamnese" data-checked="{% if atendimento_fisioterapia.anamnese %}True{% endif %}">
+        <ul class="action-bar">
+            {% if pode_editar and atendimento_fisioterapia.anamnese %}
+                <li><a class="btn primary" href="/saude/adicionar_anamnese_fisioterapia/{{ atendimento.id }}/">Editar</a></li>
+            {% elif pode_editar %}
+                <li><a class="btn success" href="/saude/adicionar_anamnese_fisioterapia/{{ atendimento.id }}/">Adicionar</a></li>
+            {% endif %}
+        </ul>
+
+        {% if atendimento_fisioterapia.anamnese %}
+            <table class="info">
+                <tr>
+                    <td>Descrição</td>
+                    <td>{{ atendimento_fisioterapia.anamnese|format|linebreaks }}</td>
+                </tr>
+            </table>
+            <p class="obs">{{ atendimento_fisioterapia_responsavel }}</p>
+        {% else %}
+            <p class="msg alert">Nenhum registro cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_antecedentes" data-title="Antecedentes" data-checked="{% if aba_antecedentes_preenchida %}True{% endif %}">
+        {% box 'Antecedentes' %}
+            {% include "includes/ficha_antecedentes_familiares.html" %}
+        {% endbox %}
+        {% box 'Processo Saúde-Doença' %}
+            {% include "includes/ficha_processo_saude_doenca.html" %}
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-tab="aba_hipotesediagnostica" data-title="Hipótese Diagnóstica" data-checked="{% if atendimento_fisioterapia.hipotese %}True{% endif %}">
+        {% box 'Hipótese Diagnóstica' %}
+            <ul class="action-bar">
+                {% if pode_editar and atendimento_fisioterapia.hipotese %}
+                    <li><a class="btn primary" href="/saude/adicionar_hipotese_fisioterapia/{{ atendimento.id }}/">Editar</a></li>
+                {% elif pode_editar %}
+                    <li><a class="btn success" href="/saude/adicionar_hipotese_fisioterapia/{{ atendimento.id }}/">Adicionar</a></li>
+                {% endif %}
+            </ul>
+
+            {% if atendimento_fisioterapia.hipotese %}
+                <table class="info">
+                    <tr>
+                        <td>Descrição</td>
+                        <td>{{ atendimento_fisioterapia.hipotese|format|linebreaks }}</td>
+                    </tr>
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+
+        {% box 'Conduta de Fisioterapia' %}
+            <ul class="action-bar">
+                {% if pode_editar and atendimento_fisioterapia.conduta %}
+                    <li><a class="btn primary" href="/saude/adicionar_conduta_fisioterapia/{{ atendimento.id }}/">Editar</a></li>
+                {% elif pode_editar %}
+                    <li><a class="btn success" href="/saude/adicionar_conduta_fisioterapia/{{ atendimento.id }}/">Adicionar</a></li>
+                {% endif %}
+            </ul>
+
+            {% if atendimento_fisioterapia.conduta %}
+                <table class="info">
+                    <tr>
+                        <td>Descrição</td>
+                        <td>{{ atendimento_fisioterapia.conduta|format|linebreaks }}</td>
+                    </tr>
+                    {% if atendimento_fisioterapia.data_retorno %}
+                        <tr>
+                            <td>Data do Retorno</td>
+                            <td>{{ atendimento_fisioterapia.data_retorno|format }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+            {% else %}
+                <p class="msg alert">Nenhum registro cadastrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+     <div class="tab-container" data-tab="aba_retorno" data-title="Retorno" data-checked="{% if atendimento_fisioterapia.descricao_evolucao %}True{% endif %}">
+        <ul class="action-bar">
+            {% if pode_editar and atendimento_fisioterapia.descricao_evolucao %}
+                <li><a class="btn primary" href="/saude/adicionar_retorno_fisioterapia/{{ atendimento.id }}/">Editar</a></li>
+            {% elif pode_editar %}
+                <li><a class="btn success" href="/saude/adicionar_retorno_fisioterapia/{{ atendimento.id }}/">Adicionar</a></li>
+            {% endif %}
+        </ul>
+
+        {% if atendimento_fisioterapia.descricao_evolucao %}
+            <table class="info">
+                <tr>
+                    <td>Descrição da Evolução</td>
+                    <td>{{ atendimento_fisioterapia.descricao_evolucao|format|linebreaks }}</td>
+                </tr>
+            </table>
+            <p class="obs">{{ atendimento_fisioterapia_responsavel }}</p>
+        {% else %}
+            <p class="msg alert">Nenhum registro cadastrado.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

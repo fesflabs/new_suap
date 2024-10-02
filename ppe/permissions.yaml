@@ -1,0 +1,224 @@
+Coordenador(a) PPE:
+  description: Usuários deste grupo possuem visão sistêmica dos módulos de PPE.
+  ppe:
+    trabalhadoreducando:
+      - efetuarmatriculatrabalhadoreducando
+      - pode_sincronizar_dados
+      - pode_anamnese
+      - emitir_diploma
+      - view_trabalhadoreducando
+      - view_dados_academicos
+      - view_dados_pessoais
+      - pode_ver_chave_acesso_pais
+      - emitir_boletim
+      - change_trabalhadoreducando
+      - delete_trabalhadoreducando
+      - emitir_historico
+      - change_foto
+      - gerar_relatorio
+      - efetuar_matricula
+    matriculacursoturma:
+      - change_matriculacursoturma
+      - add_matriculacursoturma
+      - view_matriculacursoturma
+      - delete_matriculacursoturma
+    chefiappe:
+      - change_chefiappe
+      - add_chefiappe
+      - view_chefiappe
+      - delete_chefiappe
+    tipoavaliacao:
+      - change_tipoavaliacao
+      - add_tipoavaliacao
+      - view_tipoavaliacao
+    configuracaomonitoramento:
+      - change_configuracaomonitoramento
+      - add_configuracaomonitoramento
+      - view_configuracaomonitoramento
+      - delete_configuracaomonitoramento
+    etapamonitoramento:
+      - add_etapamonitoramento
+      - view_etapamonitoramento
+      - change_etapamonitoramento
+      - delete_etapamonitoramento
+    perguntaavaliacao:
+      - change_perguntaavaliacao
+      - add_perguntaavaliacao
+      - view_perguntaavaliacao
+    opcaorespostaavaliacao:
+      - change_opcaorespostaavaliacao
+      - add_opcaorespostaavaliacao
+      - view_opcaorespostaavaliacao
+    formacaotecnica:
+      - change_formacaotecnica
+      - add_formacaotecnica
+      - view_formacaotecnica
+    setor:
+      - change_setor
+      - add_setor
+      - view_setor
+    unidade:
+      - change_unidade
+      - add_unidade
+      - view_unidade
+    chefiasetorhistorico:
+      - change_chefiasetorhistorico
+      - add_chefiasetorhistorico
+      - view_chefiasetorhistorico
+    avaliacao:
+      - change_avaliacao
+      - view_avaliacao
+    estruturacurso:
+      - change_estruturacurso
+      - add_estruturacurso
+      - view_estruturacurso
+    curso:
+      - change_curso
+      - add_curso
+      - view_curso
+    formacaoppe:
+      - change_formacaoppe
+      - add_formacaoppe
+      - view_formacaoppe
+    cursoformacaoppe:
+      - change_cursoformacaoppe
+      - add_cursoformacaoppe
+      - view_cursoformacaoppe
+      - delete_cursoformacaoppe
+    turma:
+      - change_turma
+      - add_turma
+      - view_turma
+      - delete_turma
+      - gerar_turmas
+    tutorturma:
+      - change_tutorturma
+      - add_tutorturma
+      - view_tutorturma
+      - delete_tutorturma
+    apoiadorturma:
+      - change_apoiadorturma
+      - add_apoiadorturma
+      - view_apoiadorturma
+      - delete_apoiadorturma
+    cursoturma:
+      - change_cursoturma
+      - add_cursoturma
+      - view_cursoturma
+      - delete_cursoturma
+      - reabrir_cursoturma
+      - emitir_boletins
+      - mudar_posse_curso_turma
+      - lancar_nota_curso_turma
+    configuracaoavaliacao:
+      - view_configuracaoavaliacao
+      - change_configuracaoavaliacao
+      - delete_configuracaoavaliacao
+      - add_configuracaoavaliacao
+    itemconfiguracaoavaliacao:
+      - view_itemconfiguracaoavaliacao
+      - change_itemconfiguracaoavaliacao
+      - delete_itemconfiguracaoavaliacao
+      - add_itemconfiguracaoavaliacao
+    solicitacaousuario:
+      - view_solicitacaousuario
+      - change_solicitacaousuario
+    log:
+      - view_log
+  comum:
+    bolsista:
+    - change_bolsista
+    - add_bolsista
+    - view_bolsista
+    vinculo:
+      - delete_vinculo
+    municipio:
+      - change_municipio
+      - view_municipio
+    ano:
+      - change_ano
+      - view_ano
+      - add_ano
+Supervisor(a) Pedagógico(a):
+  description: Usuários deste grupo possuem visão sistêmica dos módulos de PPE.
+  ppe:
+    estruturacurso:
+      - change_estruturacurso
+      - add_estruturacurso
+      - view_estruturacurso
+    curso:
+      - change_curso
+      - add_curso
+      - view_curso
+    formacaoppe:
+      - change_formacaoppe
+      - add_formacaoppe
+      - view_formacaoppe
+    cursoformacaoppe:
+      - change_cursoformacaoppe
+      - add_cursoformacaoppe
+      - view_cursoformacaoppe
+      - delete_cursoformacaoppe
+    trabalhadoreducando:
+      - efetuarmatriculatrabalhadoreducando
+      - pode_sincronizar_dados
+      - emitir_diploma
+      - view_trabalhadoreducando
+      - view_dados_academicos
+      - view_dados_pessoais
+      - pode_ver_chave_acesso_pais
+      - emitir_boletim
+      - change_trabalhadoreducando
+      - delete_trabalhadoreducando
+      - emitir_historico
+      - change_foto
+      - gerar_relatorio
+    observacao:
+      - adm_delete_observacao
+      - add_observacao
+      - view_observacao
+      - change_observacao
+      - delete_observacao
+    chefiappe:
+    - change_chefiappe
+    - add_chefiappe
+    - view_chefiappe
+    solicitacaousuario:
+      - view_solicitacaousuario
+      - change_solicitacaousuario
+  comum:
+    bolsista:
+    - change_bolsista
+    - add_bolsista
+    - view_bolsista
+Apoiador(a) Pedagógico PPE:
+  description: Usuários deste grupo possuem visão dos módulos de PPE.
+Apoiador(a) Administrativo PPE:
+  description: Usuários deste grupo possuem visão com Trabalhador(a) Educando(a) PPE.
+Chefia imediata PPE:
+  description: Usuários deste grupo possuem visão dos módulos de PPE.
+Gestor(a) PPE:
+  description: Usuários deste grupo possuem visão com Trabalhador(a) Educando(a) PPE.
+Tutor PPE:
+  description: Usuários deste grupo possuem visão como Tutor de PPE.
+  ppe:
+    cursoturma:
+      - view_cursoturma
+      - lancar_nota_curso_turma
+    configuracaoavaliacao:
+      - view_configuracaoavaliacao
+      - change_configuracaoavaliacao
+    itemconfiguracaoavaliacao:
+      - add_itemconfiguracaoavaliacao
+      - view_itemconfiguracaoavaliacao
+      - change_itemconfiguracaoavaliacao
+Trabalhador(a) Educando(a):
+  description: Usuários deste grupo possuem visão com Trabalhador(a) Educando(a) PPE.
+  ppe:
+    solicitacaousuario:
+      - view_solicitacaousuario
+      - add_solicitacaousuario
+Supervisor(a) Campo PPE:
+  description: Usuários deste grupo possuem visão com Trabalhador(a) Educando(a) PPE.
+Supervisor(a) Psicossocial PPE:
+  description: Usuários deste grupo possuem visão com Trabalhador(a) Educando(a) PPE.

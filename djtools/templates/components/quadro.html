@@ -1,0 +1,117 @@
+<div class="modulo modulo-info {{ quadro.classes }}">
+    <h3 class="portlet-header">
+        <span class="titulo" data-quadro="{{ quadro.titulo }}"><span class="fas fa-{{ quadro.icone }}" aria-hidden="true"></span> {{ quadro.titulo }}</span>
+        {% if quadro.pode_esconder or request.user.is_superuser %}
+            <a class="esconder-quadro" href="#" data-quadro="{{ quadro.titulo }}" title="Esconder quadro: {{ quadro.titulo }}">
+                <span class="fas fa-times" aria-hidden="true"></span>
+                <span class="sr-only">Esconder quadro</span>
+            </a>
+        {% endif %}
+    </h3>
+    <div class="wrapper">
+        {% if quadro.get_titulos %}
+            {% for item in quadro.get_titulos %}
+                <h4>{{ item.titulo }}</h4>
+            {% endfor %}
+        {% endif %}
+        {% if quadro.get_indicadores %}
+            <div class="flex-container total-container small">
+                {% for indicador in quadro.get_indicadores %}
+                    {% ifchanged indicador.grupo %}
+                        <h4 class="flex-basis-100">{{ indicador.grupo }}:</h4>
+                    {% endifchanged %}
+                    <a href="{{ indicador.url }}" class="total-item {{ indicador.classname }}">
+                        <span class="fas fa-{{ indicador.icone }}" aria-hidden="true"></span>
+                        <p class="total">{{ indicador.qtd }}</p>
+                        <p class="description">{{ indicador.titulo }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if quadro.get_contadores %}
+            <div class="flex-container gap-4">
+                {% for contador in quadro.get_contadores %}
+                    <div class="modulo modulo-indicador">
+                        <a href="{{ contador.url }}">
+                            <h4>{{ contador.qtd }}</h4>
+                            <h5>{{ contador.titulo }}</h5>
+                            {% if contador.subtitulo %}<p>{{ contador.subtitulo }}</p>{% endif %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if quadro.get_imagens %}
+            {% for imagem in quadro.get_imagens %}
+                {% if imagem.url %}<a href="{{ imagem.url }}">{% endif %}
+                    <img src="{{ imagem.path }}" alt="{{ imagem.titulo }}"/>
+                {% if imagem.url %}</a>{% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if quadro.get_calendarios %}
+            {% for calendario in quadro.get_calendarios %}
+                {{ calendario.calendario|safe }}
+                {% if calendario.legenda %}
+                    {{ calendario.legenda|safe }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if quadro.get_listas %}
+            {% for lista in quadro.get_listas %}
+                {% if lista.grupo %}
+                    {% ifchanged lista.grupo %}
+                        <h4>{{ lista.grupo }}</h4>
+                    {% endifchanged %}
+                {% endif %}
+                {% if forloop.first %}<dl>{% endif %}
+                <dt>
+                    {% if lista.titulo %}
+                        {{ lista.titulo|safe }}:
+                    {% endif %}
+                </dt>
+                <dd>
+                    {% if lista.url %}<a href="{{ lista.url }}">{% endif %}
+                    {{ lista.valor|safe }}
+                    {% if lista.url %}</a>{% endif %}
+                </dd>
+                {% if forloop.last %}</dl>{% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if quadro.get_noticias %}
+            <div class="modulo-noticias">
+                <ul>
+                    {% for noticia in quadro.get_noticias %}
+                        <li>
+                            <a href="{{ noticia.url }}"><span>{{ noticia.chapeu }}</span> {{ noticia.titulo|safe }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if quadro.get_grupos %}
+            {% for grupo in quadro.get_grupos %}
+                {% ifchanged grupo.grupo %}{% if not forloop.first %}</ul>{% endif %}<h4>{{ grupo.grupo }}</h4><ul class="modulo-alertas">{% endifchanged %}
+                <li><a href="{{ grupo.url }}">{{ grupo.titulo }}</a></li>
+                {% if forloop.last %}</ul>{% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if quadro.get_acessos_rapidos %}
+            <ul class="action-bar">
+                {% for acesso in quadro.get_acessos_rapidos %}
+                    <li><a href="{{ acesso.url }}" class="btn {{ acesso.classe }}">{% if acesso.icone %}<i class="fas fa-{{ acesso.icone }}" aria-hidden="true"></i> {% endif %}{{ acesso.titulo|safe }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if quadro.get_buscas_rapidas %}
+            {% for busca in quadro.get_buscas_rapidas %}
+                <form action="{{ busca.url }}" method="GET" class="form-busca-rapida">
+                    <h4>Busca Rápida:</h4>
+                    <input type="search" name="q" placeholder="{{ busca.titulo }}" />
+                    {% if busca.extra_valor and busca.extra_nome %}
+                        <input type="hidden" value="{{ busca.extra_valor }}" name="{{ busca.extra_nome }}" />
+                    {% endif %}
+                </form>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

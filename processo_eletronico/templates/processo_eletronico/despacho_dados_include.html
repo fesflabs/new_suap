@@ -1,0 +1,32 @@
+<div class="primary-info">
+    <h4><a href="{{ despacho.get_absolute_url }}" class="popup"><strong>Despacho:</strong> #{{ despacho.id }}</a></h4>
+    {% if despacho_visualizar_botao_verificar_integridade %}
+        <ul class="action-bar">
+            <li>
+                <a class="btn" href="/processo_eletronico/{{ despacho.get_cname }}/verificar_integridade/{{ despacho.id }}/">
+                    Verificar Integridade
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+    <div class="extra-info">
+        <p>{{ documento.assunto }}</p>
+        {{ documento.documento.conteudo }}
+    </div>
+</div>
+<dl class="secondary-info">
+    <div class="list-item">
+        <dt><span class="fas fa-share" aria-hidden="true"></span> Encaminhado por:</dt>
+        <dd>{{ despacho.remetente_pessoa|format }} às {{ despacho.data_hora_encaminhamento }}</dd>
+    </div>
+    <div class="list-item">
+        <dt><span class="fas fa-building" aria-hidden="true"></span> Destino:</dt>
+        <dd><a href="/rh/setor/{{ despacho.get_destino.pk }}/">{{ despacho.get_destino|format }}</a></dd>
+    </div>
+    {% if despacho.recebido %}
+        <div class="list-item">
+            <dt><span class="fas fa-reply" aria-hidden="true"></span> Recebido por:</dt>
+            <dd>{{ despacho.pessoa_recebimento|format }} às {{ despacho.data_hora_recebimento|format }}</dd>
+        </div>
+    {% endif %}
+</dl>

@@ -1,0 +1,370 @@
+{% extends super_template %}
+
+{% block object-status %}
+{% if obj.get_situacao_display %}<span class="status status-{{ obj.get_status_situacao }}">{{ obj.get_situacao_display }}</span>{% endif %}
+{% endblock %}
+
+{% block action-bar %}
+{% if perms.edu.view_registroemissaodiploma %}
+    <ul class="action-bar">
+        {% if not obj.data_registro %}
+            <li><a class="btn success" href="?registrar=1">Registrar Diploma</a></li>
+            <li><a href="/edu/editar_aluno/{{ obj.aluno.pk }}/" class="btn primary popup">Editar Aluno</a></li>
+        {% endif %}
+
+        {% if not obj.cancelado %}
+            {% if obj.aluno.curso_campus.assinatura_eletronica %}
+                {% if obj.is_assinado_eletronicamente and not obj.possui_assinatura_pendente %}
+                    <li><a class="btn success" href="?enviar=1">Enviar Diploma/Histórico</a></li>
+                {% endif %}
+            {% else %}
+                <li class='has-child'>
+                    <a class="btn" href="#">{% if obj.data_registro %}Imprimir{% else %}Visualizar{% endif %}</a>
+                    <ul>
+                        {% if obj.data_registro %}
+                            <li><a href="/edu/imprimir_diploma/{{ obj.pk }}/">Diploma</a></li>
+                        {% endif %}
+                        {% if obj.aluno.matriz %}
+                            {% if not obj.aluno.matriz.estrutura.proitec %}
+                                <li><a href="/edu/emitir_historico_final_pdf/{{ obj.aluno.pk }}">Histórico</a></li>
+                            {% endif %}
+                        {% else %}
+                            {% if obj.aluno.is_sica  %}
+                                <li><a class="btn" href="/sica/historico_sica_pdf/{{ obj.aluno.historico_set.all.0.id }}/">Histórico</a></li>
+                            {% else %}
+                                {% if obj.aluno.is_qacademico  %}
+                                    <li><a class="default" href="/edu/emitir_historico_legado_pdf/{{ obj.aluno.pk }}/">Histórico</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if obj.data_registro %}
+                            <li><a href="/edu/registroemissaodiploma_pdf/{{ obj.pk }}/">Registro</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endif %}
+
+        {% if obj.data_registro and not obj.cancelado and obj.eh_ultima_via %}
+            <li><a class="btn popup" href="/edu/informar_dados_publicao_dou/{{ obj.pk }}/">Informar Dados da Publicação no DOU</a></li>
+            <li><a href="/edu/cancelar_registroemissaodiploma/{{ obj.pk }}/" class="btn danger popup no-confirm">Cancelar
+                Registro</a></li>
+        {% endif %}
+        {% if not obj.data_registro %}
+            <li><a class="btn danger" href="?excluir=1">Remover Registro</a></li>
+        {% endif %}
+        {% help_button %}
+    </ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if obj.is_registro_em_livro_eletronico and not obj.cancelado %}
+        {% if not obj.possui_assinatura_eletronica_digital or obj.possui_assinatura_pendente %}
+            <p class="msg alert">A assinatura digital do diploma ainda não foi realizada.
+                {% if request.user.is_superuser and obj.assinaturadigital_set.exists %}
+                    <a href="?sincronizar_assinatura=">Sincronizar assinatura</a>.
+                {% endif %}
+            </p>
+        {% endif %}
+    {% endif %}
+
+    {% box "Dados Gerais" %}
+        <dl class="definition-list flex">
+            <div class="list-item">
+                <dt>Nome</dt>
+                <dd>{{ obj.aluno.get_nome_social_composto }}</dd>
+            </div>
+            <div class="list-item">
+                <dt>Matrícula</dt>
+                <dd><a href='{{ obj.aluno.get_absolute_url }}'>{{ obj.aluno.matricula }}</a></dd>
+            </div>
+            <div class="list-item">
+                <dt>Sistema</dt>
+                <dd>{{ obj.sistema|format }}</dd>
+            </div>
+            {% if obj.cancelado %}
+                <div class="list-item flex-basis-50">
+                    <dt>Data de Cancelamento</dt>
+                    <dd>{{ obj.data_cancelamento|format }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Motivo do Cancelamento</dt>
+                    <dd>{{ obj.motivo_cancelamento|format }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    {% endbox %}
+
+    <div class="tab-container" data-title="Dados do Aluno" data-tab="dados_aluno" data-tab-info="True">
+        {% box "Dados do Aluno" %}
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Data de Nascimento</dt>
+                    <dd>{{ obj.aluno.pessoa_fisica.nascimento_data|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Nacionalidade</dt>
+                    <dd>{{ obj.aluno.nacionalidade|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Naturalidade</dt>
+                    <dd>{{ obj.aluno.naturalidade|format }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Nome da Mãe</dt>
+                    <dd>{{ obj.aluno.nome_mae|format }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Nome do Pai</dt>
+                    <dd>{{ obj.aluno.nome_pai|format }}</dd>
+                </div>
+            </dl>
+
+            <h4>Documento de Identificação</h4>
+            <dl class="definition-list flex">
+                <div class="list-item">
+                    <dt>Identidade</dt>
+                    <dd>{{ obj.aluno.numero_rg|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Órgão Expedidor</dt>
+                    <dd>{{ obj.aluno.orgao_emissao_rg|format }} / {{ obj.aluno.uf_emissao_rg|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Data de Expedição</dt>
+                    <dd>{{ obj.aluno.data_emissao_rg|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Dados do Curso" data-tab="dados_curso" data-tab-info="True">
+        {% box "Dados do Curso" %}
+            <dl class="definition-list flex">
+                <div class="list-item flex-basis-100">
+                    <dt>Curso</dt>
+                    <dd><a href="/edu/cursocampus/{{ obj.aluno.curso_campus.pk }}/">{{ obj.aluno.curso_campus }}</a></dd>
+                </div>
+                {% if obj.aluno.polo %}
+                    <div class="list-item">
+                        <dt>Polo</dt>
+                        <dd>{{ obj.aluno.polo|format }}</dd>
+                    </div>
+                {% endif %}
+                <div class="list-item">
+                    <dt>Matriz</dt>
+                    <dd>{{ obj.matriz }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Carga Horária</dt>
+                    <dd>{{ obj.ch_total }}h</dd>
+                </div>
+                {% if obj.autorizacao %}
+                    <div class="list-item flex-basis-50">
+                        <dt>Autorização</dt>
+                        <dd>{{ obj.autorizacao|format }}</dd>
+                    </div>
+                {% endif %}
+                {% if obj.reconhecimento %}
+                    <div class="list-item flex-basis-50">
+                        <dt>Reconhecimento</dt>
+                        <dd>{{ obj.reconhecimento|format }}</dd>
+                    </div>
+                {% endif %}
+                {% with turma=obj.aluno.get_ultima_turma_cursada %}
+                    {% if turma %}
+                        <div class="list-item">
+                            <dt>Turma</dt>
+                            <dd><a href="/edu/turma/{{ turma.pk }}/">{{ turma }}</a></dd>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </dl>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Emissão" data-tab="dados_emissao" data-checked="{% if obj.data_expedicao %}True{% else %}False{% endif %}">
+        {% box "Emissão" %}
+            <dl class="definition-list flex">
+                <div class="list-item flex-basis-50">
+                    <dt>Data de Emissão</dt>
+                    <dd>{{ obj.data_expedicao|format }}</dd>
+                </div>
+                <div class="list-item flex-basis-50">
+                    <dt>Emissor</dt>
+                    <dd>{{ obj.emissor|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Número do Processo</dt>
+                    <dd>{{ obj.processo|default:obj.observacao|format }}</dd>
+                </div>
+                <div class="list-item">
+                    <dt>Pasta</dt>
+                    <dd>{{ obj.pasta|format }}</dd>
+                </div>
+                {% if obj.aluno.requer_autenticacao_sistec_para_emissao_diploma %}
+                    <div class="list-item">
+                        <dt>Autenticação SISTEC</dt>
+                        <dd>{{ obj.autenticacao_sistec|format }}</dd>
+                    </div>
+                {% endif %}
+                <div class="list-item">
+                    <dt>Número do Formulário</dt>
+                    <dd>{{ obj.numero_formulario|format }}</dd>
+                </div>
+            </dl>
+        {% endbox %}
+    </div>
+
+    <div class="tab-container" data-title="Registro" data-tab="dados_registro" data-checked="{% if obj.data_registro %}True{% else %}False{% endif %}">
+        {% box "Registro" %}
+            {% if obj.data_registro %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Data do Registro</dt>
+                        <dd>{{ obj.data_registro|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Número do Registro</dt>
+                        <dd>{{ obj.numero_registro }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Livro</dt>
+                        <dd>{{ obj.get_livro }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>Folha</dt>
+                        <dd>{{ obj.folha }}</dd>
+                    </div>
+                </dl>
+            {% else %}
+                <p class="msg alert">O diploma não foi registrado.</p>
+            {% endif %}
+        {% endbox %}
+    </div>
+
+    {% if obj.data_publicacao_dou %}
+        <div class="tab-container" data-title="Publicação no DOU" data-tab="dados_publicacao" data-checked="True">
+            {% box "Publicação no DOU" %}
+                <dl class="definition-list flex">
+                    <div class="list-item">
+                        <dt>Data da Publicação</dt>
+                        <dd>{{ obj.data_publicacao_dou|format }}</dd>
+                    </div>
+                    <div class="list-item">
+                        <dt>URL da Publicação</dt>
+                        <dd><a href="{{ obj.url_publicacao_dou }}">{{ obj.url_publicacao_dou }}<a></td>
+                    </tr>
+                </dl>
+            {% endbox %}
+        </div>
+    {% endif %}
+
+    {% if obj.is_registro_em_livro_eletronico %}
+        <div class="tab-container" data-title="Dados da Assinatura" data-tab="dados_assinatura_digital" data-tab-info="True">
+            {% box "Dados da Assinatura" %}
+                {% if obj.is_digital or obj.is_eletronico %}
+                    {% if obj.is_digital %}
+                        <ul class="action-bar">
+                            <li>
+                                <a href="/edu/consultar_status_assinaturas/{{ obj.pk }}/" class="btn popup">
+                                    Consultar Situação das Assinaturas
+                                </a>
+                            </li>
+                        </ul>
+                        {% with asssinatura_digital=obj.get_assinatura_digital %}
+                            {% if asssinatura_digital %}
+                                <dl class="definition-list">
+                                    <div class="list-item">
+                                        <dt>Situação</dt>
+                                        <dd>{{ obj.get_situacao_display|format }}</dd>
+                                    </div>
+                                </dl>
+                                <dl class="definition-list flex">
+                                    <div class="list-item">
+                                        <dt>Identificador da Documentação Acadêmica</dt>
+                                        <dd>{{ asssinatura_digital.id_documentacao_academica_digital|format }}</dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Identificador do Histórico Escolar</dt>
+                                        <dd>{{ asssinatura_digital.id_historico_escolar|format }}</dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Identificador dos Dados do Diploma</dt>
+                                        <dd>{{ asssinatura_digital.id_dados_diploma_digital|format }}</dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Identificador da Representação Visual</dt>
+                                        <dd>{{ asssinatura_digital.id_representacao_diploma_digital|format }}</dd>
+                                    </div>
+                                </dl>
+                                <dl class="definition-list flex">
+                                    <div class="list-item">
+                                        <dt>Situação da Documentação Acadêmica</dt>
+                                        <dd>{{ asssinatura_digital.get_status_documentacao_academica_digital_display|format }}</dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Situação do Histórico</dt>
+                                        <dd>{{ asssinatura_digital.get_status_historico_escolar_display|format }}</dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Situação dos Dados do Diploma</dt>
+                                        <dd>{{ asssinatura_digital.get_status_dados_diploma_digital_display|format }}</dd>
+                                    </div>
+                                    <div class="list-item">
+                                        <dt>Situação da Representação Visual</dt>
+                                        <dd>{{ asssinatura_digital.get_status_representacao_diploma_digital_display|format }}</dd>
+                                    </div>
+                                </dl>
+                                <h4>Sincronização</h4>
+                                {% if asssinatura_digital.sincronizacaoassinaturadigital_set.exists %}
+                                    <div class="table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Data/Hora</th>
+                                                    <th>Detalhe</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for registro in asssinatura_digital.sincronizacaoassinaturadigital_set.all %}
+                                                <tr>
+                                                    <td>{{ registro.data_hora|format }}</td>
+                                                    <td>{{ registro.detalhe|format }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <p class="msg alert">O registro ainda não foi atualizado.</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="msg alert">Aguardando solicitação da assinatura digital.</p>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    {% if obj.is_eletronico %}
+                        {% with asssinatura_eletronica=obj.get_assinatura_eletronica %}
+                            {% if asssinatura_eletronica %}
+                                <dl class="definition-list">
+                                    <dt>Assinantes</dt>
+                                    {% for solicitacao in asssinatura_eletronica.solicitacaoassinaturaeletronica_set.all %}
+                                        <dd>{{ solicitacao.vinculo }} em {{ solicitacao.data_assinatura|format }}</dd>
+                                    {% endfor %}
+                                </dl>
+                            {% else %}
+                                <p class="msg alert">Aguardando solicitação da assinatura eletrônica.</p>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% else %}
+                    <p class="msg info">Diploma assinado manualmente</p>
+                {% endif %}
+            {% endbox %}
+        </div>
+    {% endif %}
+
+{% endblock %}

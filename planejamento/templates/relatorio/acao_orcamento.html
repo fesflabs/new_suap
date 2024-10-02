@@ -1,0 +1,56 @@
+{% extends super_template %}
+
+{% block content %}
+
+<div class="search-and-filters">
+	<div class="filter filter-large-select">
+		<form class="pesquisa_campus" method="post">
+			{% csrf_token %}
+			{{ form.as_ul }}
+		</form>
+	</div>
+</div>
+{% for fonte in relatorio %}
+<div class="rel_titulo">
+	<h3>{{ fonte.codigo }} - {{ fonte.fonte_financiamento }}</h3>
+	{% for acao in fonte.acoes %}
+	<h5><a class="lnk_relatorio" href="/planejamento/relatorio/acao/orcamento/total/{{fonte.id }}/{{ acao.codigo }}/">{{ acao.codigo }} - {{ acao.acao }}</a></h5>
+	
+	<div class="cx_tabela">
+		<table>
+			<thead>
+				<tr>
+					<th style="text-align:center;" width="70px">Cód. UG</th>
+					<th>Unidade Administrativa</th>
+					<th style="text-align:center;" width="120px">Desp. de Capital</th>
+					<th style="text-align:center;" width="120px">Desp. de Custeio</th>
+					<th style="text-align:center;" width="120px">Desp. de Pessoal</th>
+					<th style="text-align:center;" width="120px">Desp. Outras</th>
+					<th style="text-align:center;" width="120px">Despesa Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for setor in acao.setores %}
+				<tr>
+					<td style="text-align:center;">{% if setor.codigo_simec %}{{ setor.codigo_simec }}.{{ setor.codigo_simec_digito }}{% else %}-{% endif %}</td>
+					<td><a class="lnk_relatorio" href="/planejamento/relatorio/acao/orcamento/campus/{{fonte.id }}/{{ acao.codigo }}/{{ setor.id }}/">{{ setor.setor }}</a></td>
+					<td style="text-align:right;">{{ setor.valor_capital|mascara_dinheiro }}</td>
+					<td style="text-align:right;">{{ setor.valor_custeio|mascara_dinheiro }}</td>
+					<td style="text-align:right;">{{ setor.valor_pessoal|mascara_dinheiro }}</td>
+					<td style="text-align:right;">{{ setor.valor_outros|mascara_dinheiro }}</td>
+					<td style="text-align:right;">{{ setor.valor_total|mascara_dinheiro }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>				
+				<tr>
+					<td style="text-align:right;font-weight:bold;" colspan="6">Total</td>
+					<td style="text-align:right;font-weight:bold;">{{ acao.valor_total|mascara_dinheiro }}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	{% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

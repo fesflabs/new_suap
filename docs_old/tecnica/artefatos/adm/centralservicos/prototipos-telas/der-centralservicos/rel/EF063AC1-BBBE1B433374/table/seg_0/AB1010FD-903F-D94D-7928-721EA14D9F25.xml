@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AB1010FD-903F-D94D-7928-721EA14D9F25" name="centralservicos_categoriaservico">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 14:15:30 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>categoriaservico</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="48ADA8F9-9824-A3BA-6902-02B5C36A125B">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 14:16:21 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nome" id="725D726F-6161-D460-E272-0A79D1BC7F24">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 14:16:21 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80</dataTypeSize>
+<ownDataTypeParameters>80,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="area_id" id="F0C995B5-7A2A-6648-D51D-ACCBCA03082D">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 14:08:17 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="061AC1EE-2A3A-580E-5F09-6EDB49BC3D46" referredColumn="5FCDF4E5-9B1C-CA15-A085-478BD0BC407A"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D7AE75E9-88F2-E146-558A-7B9FF8E16B1F" name="centralservicos_categoriaservico_PK">
+<createdBy>rafael</createdBy>
+<createdTime>2014-07-10 14:16:21 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="48ADA8F9-9824-A3BA-6902-02B5C36A125B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="294A6CFE-D831-3F8F-5AC5-5A0C62CACF81" name="area_id">
+<createdBy>rrafaelpinto</createdBy>
+<createdTime>2016-07-13 14:08:17 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F0C995B5-7A2A-6648-D51D-ACCBCA03082D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

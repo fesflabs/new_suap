@@ -1,0 +1,150 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9C54C22F-BD75-096B-0DE5-7D35B558A025" name="centralservicos_historicostatus">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:36:28 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<abbreviation>historicostatus</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="294F473A-52BC-D8D3-CBF3-9A736466C5B1">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:37:41 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="chamado_id" id="F8C97210-1C76-0B2C-F711-E09A227185B6">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:55:14 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>4C2AB5AD-9D75-C344-B0AD-3A943E816A8C</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BB8C5DD5-266B-0B5D-391C-BC848DEE6BB8" referredColumn="4C2AB5AD-9D75-C344-B0AD-3A943E816A8C"/>
+</associations>
+</Column>
+<Column name="data_hora" id="83A69402-DA57-666A-0562-19558889ED6E">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:37:41 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="status_id" id="AE538E5F-890F-8ACE-5DB4-818295039FA9">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:40:46 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>FB14DD87-AD87-1927-1B87-769B9A95F4E0</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9FCD9022-EC1B-DAE2-9733-328D8DA021AC" referredColumn="FB14DD87-AD87-1927-1B87-769B9A95F4E0"/>
+</associations>
+</Column>
+<Column name="usuario_id" id="85606771-7303-326B-FCFB-635B21BB18E8">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:42:04 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="81C5DA21-FA1E-A192-FCE4-CD4D693EB3B0" referredColumn="AAA6A6A1-33F0-1FAC-A1E1-265E926B1E06"/>
+</associations>
+</Column>
+<Column name="baseconhecimento_id" id="8AE844EC-74EC-6BDF-2DAF-639FA4B8581F">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 14:58:18 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>AEDB9E3B-E672-374B-4FFD-DCFA5AC31AAC</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="16490F0B-95DB-DF41-6A61-8B0AFC54468E" referredColumn="AEDB9E3B-E672-374B-4FFD-DCFA5AC31AAC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9680CED7-1431-0130-1340-A553BEA2D46C" name="centralservicos_historicostatus_PK">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:37:41 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="294F473A-52BC-D8D3-CBF3-9A736466C5B1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A36B2716-741C-753E-3541-C4489A79B8A7" name="centralservicos_historicostatus_centralservicos_statuschamado_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:40:46 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AE538E5F-890F-8ACE-5DB4-818295039FA9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="72CB115C-DFC8-0D12-F209-C1F99B97FE3C" name="centralservicos_historicostatus_funcionario_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:42:04 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="85606771-7303-326B-FCFB-635B21BB18E8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="26E97D20-6906-71DA-4826-0D7ACABCEA0F" name="centralservicos_historicostatus_centralservicos_chamado_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 13:55:14 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8C97210-1C76-0B2C-F711-E09A227185B6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0638F359-1ADA-A2D5-1AE6-2BD80E4452D9" name="centralservicos_historicostatus_centralservicos_baseconhecimento_FK">
+<createdBy>root</createdBy>
+<createdTime>2014-08-04 14:58:18 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>der-centralservicos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8AE844EC-74EC-6BDF-2DAF-639FA4B8581F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

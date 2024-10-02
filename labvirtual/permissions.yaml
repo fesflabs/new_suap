@@ -1,0 +1,79 @@
+Secretário Acadêmico:
+  app_manager: edu
+  labvirtual:
+    solicitacaolabvirtual:
+    - view_solicitacaolabvirtual
+    - change_solicitacaolabvirtual
+    - pode_avaliar_solicitacao_labvirtual
+    agendamentolabvirtual:
+    - view_agendamentolabvirtual
+    desktoppool:
+    - view_desktoppool
+Diretor Acadêmico:
+  app_manager: edu
+  labvirtual:
+    solicitacaolabvirtual:
+    - add_solicitacaolabvirtual
+    - view_solicitacaolabvirtual
+    - change_solicitacaolabvirtual
+    - pode_avaliar_solicitacao_labvirtual
+    agendamentolabvirtual:
+    - view_agendamentolabvirtual
+    desktoppool:
+    - view_desktoppool
+Administrador Acadêmico:
+  app_manager: edu
+  labvirtual:
+    solicitacaolabvirtual:
+    - add_solicitacaolabvirtual
+    - view_solicitacaolabvirtual
+    - change_solicitacaolabvirtual
+    - pode_avaliar_solicitacao_labvirtual
+    agendamentolabvirtual:
+    - view_agendamentolabvirtual
+    desktoppool:
+    - view_desktoppool
+Diretor Acadêmico Sistêmico:
+  app_manager: edu
+  labvirtual:
+    solicitacaolabvirtual:
+    - add_solicitacaolabvirtual
+    - view_solicitacaolabvirtual
+    - change_solicitacaolabvirtual
+    - pode_avaliar_solicitacao_labvirtual
+    agendamentolabvirtual:
+    - view_agendamentolabvirtual
+    desktoppool:
+    - view_desktoppool
+Coordenador Acadêmico Sistêmico:
+  app_manager: edu
+  labvirtual:
+    solicitacaolabvirtual:
+    - add_solicitacaolabvirtual
+    - view_solicitacaolabvirtual
+    - change_solicitacaolabvirtual
+    - pode_avaliar_solicitacao_labvirtual
+    agendamentolabvirtual:
+    - view_agendamentolabvirtual
+    desktoppool:
+    - view_desktoppool
+Professor:
+  app_manager: edu
+  labvirtual:
+    solicitacaolabvirtual:
+    - add_solicitacaolabvirtual
+    - view_solicitacaolabvirtual
+    - change_solicitacaolabvirtual
+    desktoppool:
+    - view_desktoppool
+    agendamentolabvirtual:
+    - view_agendamentolabvirtual
+    - change_agendamentolabvirtual
+Gerente de Laboratório Virtual:
+  description: Usuários deste grupo gerenciam a criação de laboratórios virtuais.
+  labvirtual:
+    desktoppool:
+    - view_desktoppool
+    - add_desktoppool
+    - change_desktoppool
+    - delete_desktoppool

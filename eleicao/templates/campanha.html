@@ -1,0 +1,35 @@
+{% extends super_template %}
+
+{% block content %}
+    {% for eleicao in eleicoes %}
+        {% box "Candidatos para {{ eleicao.descricao }}" %}
+            {% if eleicao.candidatos %}
+                {% for candidato in eleicao.candidatos %}
+                    <div class="general-box">
+                        <div class="primary-info">
+                            <h4>{{ candidato }}</h4>
+                            <div class="extra-info">
+                                <div class="photo-circle">
+                                    <img title="Foto de {{ candidato.candidato_vinculo.relacionamento.pessoa_fisica.nome_usual }}" src="{% if candidato.candidato_vinculo.relacionamento.foto %}{{ candidato.candidato_vinculo.relacionamento.foto.url_150x200 }}{% else %}/static/comum/img/default.jpg{% endif %}" />
+                                </div>
+                                {{ candidato.descricao|linebreaksbr }}
+                            </div>
+                        </div>
+                        <dl class="secondary-info">
+                            <div class="list-item">
+                                <dt>{% icone "id-badge" %} CPF:</dt>
+                                <dd>{{ candidato.candidato_vinculo.relacionamento.pessoa_fisica.cpf | anonimizar_cpf }}</dd>
+                            </div>
+                            <div class="list-item">
+                                <dt>{% icone "envelope" %} E-mail:</dt>
+                                <dd class="text-break-word">{{ candidato.candidato_vinculo.relacionamento.pessoa_fisica.email }}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="msg alert">Nenhum candidato válido.</p>
+            {% endif %}
+        {% endbox %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script>
+        function mudar_url(url, aba){
+            if(aba != ""){
+                window.location.href=url+"?tab="+aba;
+            } else {
+                window.location.href=url;
+            };
+        };
+
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <ul class="action-bar">
+        {% if pode_aceitar %}
+            {% if demanda.situacao == demanda.SUBMETIDA %}
+                <li><a class="btn success" href="/demandas_externas/aceitar_demanda/{{ demanda.pk }}/">Aceitar</a></li>
+                <li><a class="btn danger" data-confirm="Deseja mesmo não aceitar o recebimento desta demanda?" href="/demandas_externas/nao_aceitar_demanda/{{ demanda.pk }}/">Não Aceitar</a></li>
+            {% elif demanda.foi_aceita %}
+                <li><a class="btn" href="/demandas_externas/indicar_campus_atendimento/{{ demanda.pk }}/">Indicar Campus de Atendimento</a></li>
+                {% if demanda.campus_atendimento %}
+                    <li><a class="btn" href="/demandas_externas/atribuir_demanda/{{ demanda.pk }}/">Atribuir Responsável</a></li>
+                    <li><a class="btn danger" data-confirm="Deseja mesmo indicar que seu campus não irá atender esta demanda?" href="/demandas_externas/retornar_demanda/{{ demanda.pk }}/">Retornar Demanda</a></li>
+                {% endif %}
+            {% endif %}
+        {% elif not demanda.responsavel and demanda.foi_aceita and demanda.campus_atendimento == uo and pode_assumir_demanda %}
+            <li><a class="btn success" href="/demandas_externas/atribuir_demanda/{{ demanda.pk }}/">Assumir Demanda</a></li>
+        {% endif %}
+    </ul>
+
+    <!-- O status "Selecionado" não pode ser revelado antes da data de divulgação. -->
+
+    {{ demanda.situacao|format|status }}
+
+    {% box "Dados Gerais" %}
+        <table class="info">
+            <tr>
+                <td>Cadastrada em</td>
+                <td>{{ demanda.cadastrada_em|format }}</td>
+                <td>Avaliada em</td>
+                <td>{{ demanda.avaliada_em|format }}<small>por {{ demanda.avaliada_por.user|format }}</small> </td>
+            </tr>
+            <tr>
+                <td>Nome/Razão Social</td>
+                <td>{{ demanda.nome }}</td>
+                <td>Email</td>
+                <td>{{ demanda.email }}</td>
+            </tr>
+            <tr>
+                <td>CPF/CNPJ</td>
+                <td>{{ demanda.identificador }}</td>
+                <td>Telefones/Whatsapp</td>
+                <td>{{ demanda.telefones }} {% if demanda.whatsapp %} / {{ demanda.whatsapp }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Campus Indicado</td>
+                <td>{{ demanda.campus_indicado }}</td>
+                <td>Campus de Atendimento</td>
+                <td>{{ demanda.campus_atendimento|format }}</td>
+            </tr>
+            {% if demanda.responsavel %}
+                <tr>
+                    <td>Responsável</td>
+                    <td>{{ demanda.responsavel.user|format }} <small>Atribuída em {{ demanda.atribuida_em }} por {{ demanda.atribuida_por }}</small></td>
+                    <td>Previsão de Atendimento</td>
+                    <td>{{ demanda.data_prevista }}</td>
+                </tr>
+            {% endif %}
+            {% if demanda.situacao == demanda.NAO_ACEITA %}
+                <tr>
+                    <td>Justificativa da Não Aceitação</td>
+                    <td colspan="3">{{ demanda.observacoes|format }}</td>
+                </tr>
+            {% endif %}
+        </table>
+    {% endbox %}
+
+    <div class="tab-container" data-title="Informações da Demanda" data-tab="dados_demanda" data-checked="True">
+        <table class="info">
+            <tr>
+                <td>Nome da Comunidade/Grupo</td>
+                <td>{{ demanda.nome_comunidade|format }}</td>
+            </tr>
+            <tr>
+                <td>Descrição</td>
+                <td>{{ demanda.descricao|format }}</td>
+            </tr>
+            <tr>
+                <td>Público-Alvo</td>
+                <td>{{ demanda.publico_alvo.all|format }}</td>
+            </tr>
+            <tr>
+                <td>Quantidade Prevista de Beneficiados</td>
+                <td>{{ demanda.qtd_prevista_beneficiados|format }}</td>
+            </tr>
+        </table>
+    </div>
+    {% if demanda.eh_ativa %}
+        <div class="tab-container" data-title="Equipe" data-tab="dados_equipe_demanda" data-checked="{{ demanda.equipe_set.exists }}">
+            {% if demanda.responsavel == request.user.get_vinculo and not demanda.foi_concluida %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/demandas_externas/adicionar_membro/{{ demanda.pk }}/">Adicionar Membro</a></li>
+                </ul>
+            {% endif %}
+            {% if demanda.equipe_set.exists %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Membro</th>
+                                <th>Categoria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for participacao in demanda.equipe_set.all %}
+                                <tr>
+                                    <td>{{ participacao.participante.user|format }}</td>
+                                    <td>{{ participacao.participante.tipo_relacionamento }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            {% else %}
+                <p class="msg alert">Nenhum membro cadastrado.</p>
+            {% endif %}
+        </div>
+        <div class="tab-container" data-title="Execução da Demanda" data-tab="dados_execucao_demanda" {% if demanda.qtd_beneficiados_atendidos %}data-checked="True"{% else %}data-checked="False"{% endif %}>
+            {% if demanda.responsavel == request.user.get_vinculo and not demanda.qtd_beneficiados_atendidos %}
+                <ul class="action-bar">
+                    <li><a class="btn success" href="/demandas_externas/registrar_atendimento/{{ demanda.pk }}/">Registrar Conclusão</a></li>
+                </ul>
+            {% endif %}
+            <table class="info">
+                <tr>
+                    <td>Data Prevista</td>
+                    <td>{{ demanda.data_prevista|format }}</td>
+                </tr>
+                <tr>
+                    <td>Área Temática</td>
+                    <td>{{ demanda.area_tematica|format }}</td>
+                </tr>
+                <tr>
+                    <td>Tipo de Ação</td>
+                    <td>{{ demanda.tipo_acao|format }}</td>
+                </tr>
+                <tr>
+                    <td>Quantidade de Beneficiados Atendidos</td>
+                    <td>{{ demanda.qtd_beneficiados_atendidos|format }}</td>
+                </tr>
+                <tr>
+                    <td>Descrição sobre o Atendimento</td>
+                    <td>{{ demanda.descricao_atendimento|format }}</td>
+                </tr>
+                <tr>
+                    <td>Concluída em</td>
+                    <td>{{ demanda.concluida_em|format }}</td>
+                </tr>
+            </table>
+        </div>
+    {% endif %}
+
+
+
+{% endblock %}

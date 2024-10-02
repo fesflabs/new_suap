@@ -1,0 +1,24 @@
+<h1>Nova Situação</h1>
+<h2>Erro #{{ erro.pk }}</h2>
+<dl>
+    <dt>Nova Situação:</dt>
+    <dd>{{ erro.get_situacao_display }}</dd>
+    {% if motivo %}
+        <dt>Motivo da Alteração:</dt>
+        <dd>{{ motivo }}</dd>
+    {% endif %}
+    <dt>Responsável:</dt>
+    <dd>{{ responsavel }}</dd>
+    <dt>Horário da Alteração:</dt>
+    <dd>{{ data_hora }}</dd>
+    <dt>Reportado por:</dt>
+    <dd>{{ erro.informante }}</dd>
+    {% if erro.atendente_atual %}
+        <dt>Atendente Principal:</dt>
+        <dd>{{ erro.atendente_atual|format }}</dd>
+    {% endif %}
+</dl>
+<p>--</p>
+<p>
+    Para mais informações, acesse: <a href="{{ erro.get_visualizar_erro_url }}">{{ erro.get_visualizar_erro_url }}</a>
+</p>

@@ -1,0 +1,66 @@
+Reunião 10/07/2014
+Presentes Alessandro, Ibanez, Hugo, Jailton
+
+
+Carga horária do curso do aluno é defindo na funcionalidade Matriz Curricular.
+Incluir carga horária TCC (Trabalho de conclusão de curso)
+
+Como cadastrar os projetos finais (tcc, dissertação, tese) e as atividades complementares ?
+
+
+* UC Registrar Projeto Final
+
+Alunos e Professores > Alunos > Visualizar Aluno
+Incluir aba "Projetos Finais"
+	Incluir botão Inserir Projetos Finais detro da aba ou não dentro da opção ações.
+Ação Incluir Projeto Final, 
+	Campo: 
+		tipo de trabalho (caixa seleção): monografia, dissetação, tese, artigo, cap. livro
+		diário (caixa seleção): listar os diários cuja vinculação com a matriz é diário do projeto final.
+			Se fizer a relação do projeto final com o diário, incluir os dados do diário (prof. orientador, carga horária, crédito e nota) no campo do projeto final
+			e o usuário não mais vai poder editar estes campos.
+		banca (tabela inline), participantes:
+			Tipo (Presidente, Interno, Externo à Instituição), nome
+		prof. orientador (caixa de seleção)
+		prof. co-orientador 1, prof. co-orientador 2 (texto)
+		
+		
+
+Ao lançar um TCC, verificar se com o lançamento o aluno concluí a carga horária do curso.
+Pode haver mais de um TCC.
+
+Ao importar o aluno, trazer os dados do projeto final.
+
+
+Regras:
+
+Ao cadastrar projeto final e se existir um diário vinculado do tipo TCC, o sistema deverá verificar se a situação do
+diário é aprovado ou reprovado, caso contrário, o sistema não deverá deixar cadastrar o projeto final, emitir um alerta.
+
+
+Apresentação do fluxo de situação de matrícula.
+Concluiu componentes regulares (obr/opt)
+
+
+
+* Inclusão da aba Bolentim na visualização do Aluno
+filtro por período
+
+gráfico desempenho do aluno na etapa
+gráfico nota do aluno em relação a nota da turma (aprovados/reprovados)
+
+
+* Inclsuão da aba "Requisitos para conclusão" ->Requisitos para conslusão do curso
+CH Cumprida -> carga horária da disciplina cursada.
+
+incluir a coluna disciplinas pendentes ao lado da coluna ch. cumprida.
+
+
+----------------
+Matrizes curriculares > Visualizar 
+aba Componentes Curriculares
+Vincuncular componente, campo tipo: Regular, Seminário, Prática profissional, TCC
+
+
+O SUAP deixar o professor lançar notas de aula acima da carga horária prevista, mas computar apenas
+o a carga horária da disciplina.

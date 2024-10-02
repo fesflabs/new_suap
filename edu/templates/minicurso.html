@@ -1,0 +1,179 @@
+{% extends super_template %}
+
+{% block extrahead %}
+    <script src="/static/djtools/graficos/highcharts.js"></script>
+    <script src="/static/djtools/graficos/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% box "Dados do Curso FIC < 160h" %}
+        <table class="info">
+            <tr>
+                <td>Descrição</td>
+                <td colspan="5">{{ obj.descricao }}</td>
+            </tr>
+            <tr>
+                <td>Código</td>
+                <td>{{ obj.codigo }}</td>
+           
+                <td>Ano/Período Letivo</td>
+                <td>{{ obj.ano_letivo }}.{{ obj.periodo_letivo }}</td>
+          
+                <td>Modalidade</td>
+                <td>FIC</td>
+            </tr>
+            <tr>
+                <td>Diretoria</td>
+                <td><a href="{{ obj.diretoria.get_absolute_url }}">{{ obj.diretoria }}</a></td>
+                <td>Código SISTEC</td>
+                <td colspan="3">{{ obj.codigo_sistec|format }}</td>
+            </tr>
+            <tr>
+                <td>Ato Normativo</td>
+                <td colspan="5">{{ obj.resolucao_criacao }}</td>
+            </tr>
+            <tr>
+                <td>PPC</td>
+                <td colspan="5"><a href="{{ obj.ppc.url }}">{{ obj.ppc.name|format }}</a></td>
+            </tr>
+            <tr>
+                <td>CH Total hora/relógio</td>
+                <td>{{ obj.ch_total|format }} horas</td>
+           
+                <td>Tipo Hora Aula</td>
+                <td>{{ obj.tipo_hora_aula|format }} min</td>
+      
+                <td>CH Total hora/aula</td>
+                <td>{{ obj.ch_aula|format }} horas</td>
+            </tr>
+        </table>
+    {% endbox %}
+
+    <div class="tab-container ajax-rendered" data-title="Conteúdos" data-counter="{{ obj.conteudominicurso_set.count }}" data-tab="conteudos">
+    {% box "Conteúdos" %}
+        {% if obj.conteudominicurso_set.exists %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Conteúdo</th>
+                    <th>Carga Horária</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for conteudo in obj.conteudominicurso_set.all %}
+                    <tr>
+                        <td>{{ conteudo.descricao }}</td>
+                        <td>{{ conteudo.ch }} horas</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Não foram cadastrados conteúdos para este minicurso.</p>
+        {% endif %}
+    {% endbox %}
+    </div>
+
+    <div class="tab-container ajax-rendered" data-title="Turmas" data-counter="{{ obj.turmaminicurso_set.count}} " data-tab="turmas">
+    {% box "Turmas" %}
+    	{% if perms.edu.change_minicurso %}
+        <ul class="action-bar">
+            <li><a href="/admin/edu/turmaminicurso/add/?minicurso={{ obj.pk }}" class="btn success">Adicionar Turma</a></li>
+        </ul>
+		{% endif %}
+        {% if obj.turmaminicurso_set.exists %}
+            <table>
+                <thead>
+                <tr>
+                    <th class="no-print">Ações</th>
+                    <th>Detalhe</th>
+                    <th>Equipe</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for turma in obj.turmaminicurso_set.all %}
+                    <tr>
+                        <td class="no-print">
+                            {% icon "view" "/edu/turma_minicurso/{{ turma.pk }}/" %}
+                            {% if request.user.is_superuser or not turma.participantes.exists %}
+                                {% icon "edit" "/admin/edu/turmaminicurso/{{ turma.pk }}/change/?minicurso={{ obj.pk }}" %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <dl>
+                                <dt>Descrição</dt>
+                                <dd>{{ turma.descricao }}</dd>
+                                <dt>Período</dt>
+                                <dd>De {{ turma.data_inicio }} até {{ turma.data_fim }}</dd>
+                                <dt>Ano Letivo</dt>
+                                <dd>{{ turma.ano_letivo }}.{{ turma.periodo_letivo }}</dd>
+                                <dt>Gera Matrícula</dt>
+                                <dd>{{ turma.gerar_matricula|format }}</dd> 
+                            </dl>
+                        </td>
+                        <td>
+                        	{% if perms.edu.change_minicurso %}
+                                <ul class="action-bar">
+                                    <li>
+                                        <a href="/edu/editar_professor_minicurso/{{ turma.pk }}/" class="btn success popup">Adicionar Professor</a>
+                                        <a href="/edu/editar_monitor_minicurso/{{ turma.pk }}/" class="btn success popup">Adicionar Monitor</a>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                            <table>
+                                <thead>
+                                {% if perms.edu.change_minicurso %}
+                                <th class="no-print">Ações</th>
+                                {% endif %}
+                                <th>Nome</th>
+                                <th>Carga Horária</th>
+                                <th>Tipo</th>
+                                </thead>
+                                <tbody>
+                                {% for pm in turma.professorminicurso_set.all %}
+                                    <tr>
+                                    	{% if perms.edu.change_minicurso %}
+                                        <td class="no-print">
+                                            {% icon "edit" "/edu/editar_professor_minicurso/{{ turma.pk }}/{{ pm.pk }}/" "Editar Professor" "popup" %}
+                                            {% icon "delete" "/comum/excluir/edu/professorminicurso/{{ pm.pk }}/" "Remover Professor" "no-confirm popup" %}
+                                        </td>
+                                        {% endif %}
+                                        <td>
+                                            <a href="/edu/professor/{{ pm.professor.pk }}/">{{ pm.professor }}</a>
+                                        </td>
+                                        <td>
+                                            {{ pm.carga_horaria|format }} horas
+                                        </td>
+                                        <td>Professor</td>
+                                    </tr>
+                                {% endfor %}
+                                {% for pm in turma.monitorminicurso_set.all %}
+                                    <tr>
+                                    	{% if perms.edu.change_minicurso %}
+                                        <td class="no-print">
+                                            {% icon "edit" "/edu/editar_monitor_minicurso/{{ turma.pk }}/{{ pm.pk }}/" "Editar Monitor" "popup" %}
+                                            {% icon "delete" "/comum/excluir/edu/monitorminicurso/{{ pm.pk }}/" "Remover Monitor" "no-confirm popup" %}
+                                        </td>
+                                        {% endif %}
+                                        <td>
+                                            <a href="/edu/aluno/{{ pm.aluno.matricula }}/">{{ pm.aluno }}</a>
+                                        </td>
+                                        <td>
+                                            {{ pm.carga_horaria|format }} horas
+                                        </td>
+                                        <td>Monitor</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="msg alert">Não há turmas adicionadas a este minicurso.</p>
+        {% endif %}
+    {% endbox %}
+    </div>
+{% endblock %}

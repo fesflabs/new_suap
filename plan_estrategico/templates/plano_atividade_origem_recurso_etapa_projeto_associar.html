@@ -1,0 +1,9 @@
+{% extends super_template %}
+
+{% block content %}
+ {% if qs_origem_etapa.exists %}
+    {% render_form form %}
+ {% else %}
+     <p class="msg alert">Nenhuma origem de recurso disponível.</p>
+ {% endif %}
+{% endblock %}

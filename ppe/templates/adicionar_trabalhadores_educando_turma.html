@@ -1,0 +1,67 @@
+{% extends super_template %}
+
+{% block content %}
+    <form method="post" action="" id='form1'>
+        {% csrf_token %}
+{#        <div class="search-and-filters">#}
+{#            <div class="filter">#}
+{#                <label>Turno:</label>#}
+{#                <select name="turno" onchange="$('#form1').submit()">#}
+{#                    {% for turno in turnos %}#}
+{#                        <option value="{{ turno.pk }}" {% if turno.selecionado %}#}
+{#                                selected="selected"{% endif %}>{{ turno }}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{#            </div>#}
+
+{#            <div class="filter">#}
+{#                <label>Polo:</label>#}
+{#                <select name="polo" onchange="$('#form1').submit()">#}
+{#                    <option value='0'>Todos</option>#}
+{#                    {% for polo in polos %}#}
+{#                        <option value="{{ polo.pk }}" {% if polo.selecionado %}#}
+{#                                selected="selected"{% endif %}>{{ polo }}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{#            </div>#}
+{#            #}
+{#        </div>#}
+
+        {% box "Trabalhador Educando sem Turma" %}
+            {% if trabalhadores_educando %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox"
+                                   onchange="var is = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('input');for(var i=0; i<is.length; i++) is[i].checked = this.checked"/>
+                        </th>
+                        <th>Matícula</th>
+                        <th>CPF</th>
+                        <th>Nome</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for trabalhador_educando in trabalhadores_educando %}
+                        <tr>
+                            <td><input value="{{ trabalhador_educando.pk }}" name="trabalhadores_educando" type="checkbox"/>
+                            </td>
+                            <td>
+                                <a href="{{ trabalhador_educando.get_absolute_url }}">{{ trabalhador_educando.matricula }}</a>
+                            </td>
+                            <td>{{ trabalhador_educando.pessoa_fisica.cpf|format}}</td>
+                            <td>{{ trabalhador_educando.get_nome_social_composto }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination">{{ trabalhador_educando.count }} trabalhadore educando disponíveis.</div>
+                <div class="submit-row">
+                    <input type="submit" value="Matricular Trabalhadores Educando Selecionados"/>
+                </div>
+            {% else %}
+                <p class="msg alert">Nenhum Trabalhador Educando apto a ser matrículado na turma.</p>
+            {% endif %}
+        {% endbox %}
+    </form>
+
+{% endblock %}

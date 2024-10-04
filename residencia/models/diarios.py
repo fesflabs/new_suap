@@ -1103,8 +1103,8 @@ class TipoPreceptorDiario(LogResidenciaModel):
     def __str__(self):
         return self.descricao
 
-    def get_absolute_url(self):
-        return '/residencia/visualizar/residencia/tipopreceptordiario/{}/'.format(self.pk)
+    # def get_absolute_url(self):
+    #     return '/residencia/visualizar/residencia/tipopreceptordiario/{}/'.format(self.pk)
 
 
 class PreceptorDiario(LogResidenciaModel):

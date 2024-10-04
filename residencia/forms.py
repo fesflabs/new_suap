@@ -277,6 +277,7 @@ class ResidenteEditarForm(forms.ModelFormPlus):
     # conselho classe
     numero_registro = forms.CharField(max_length=255, required=False, label='Número de Registro')
     conselho = forms.ModelChoiceField(ConselhoProfissional.objects, required=False, label='Conselho')
+    lotacao = forms.CharField(max_length=255, required=False, label='Lotação')
 
     fieldsets = (
         ('Identificação', {'fields': ('nome', 'nome_social', ('cpf', 'passaporte'), ('data_nascimento', 'estado_civil', 'sexo'))}),
@@ -308,7 +309,7 @@ class ResidenteEditarForm(forms.ModelFormPlus):
             }
         ),
         ('Dados Escolares', {'fields': ('nivel_ensino_anterior', 'tipo_instituicao_origem', 'nome_instituicao_anterior', 'ano_conclusao_estudo_anterior', 'habilitacao_pedagogica')}),
-        ('Conselho de Fiscalização Profissional', {'fields': ('categoria','conselho', 'numero_registro')}),
+        ('Conselho de Fiscalização Profissional', {'fields': ('categoria','conselho', 'numero_registro', 'lotacao')}),
         ('RG', {'fields': ('numero_rg', 'uf_emissao_rg', 'orgao_emissao_rg', 'data_emissao_rg')}),
         ('Título de Eleitor', {'fields': ('numero_titulo_eleitor', 'zona_titulo_eleitor', 'secao', 'data_emissao_titulo_eleitor', 'uf_emissao_titulo_eleitor')}),
         (
@@ -1105,7 +1106,7 @@ class EfetuarMatriculaForm(FormWizardPlus):
     naturalidade = forms.ModelChoiceFieldPlus(
         Municipio.objects,
         label='Naturalidade',
-        required=False,
+        required=True,
         widget=AutocompleteWidget(search_fields=Municipio.SEARCH_FIELDS),
     )
 
@@ -1128,6 +1129,7 @@ class EfetuarMatriculaForm(FormWizardPlus):
     # conselho classe
     numero_registro = forms.CharField(max_length=255, required=False, label='Número de Registro')
     conselho = forms.ModelChoiceField(ConselhoProfissional.objects, required=False, label='Conselho')
+    lotacao = forms.CharField(max_length=255, required=False, label='Lotação')
 
     # rg
     numero_rg = forms.CharField(max_length=255, required=False, label='Número do RG')
@@ -1207,7 +1209,7 @@ class EfetuarMatriculaForm(FormWizardPlus):
             ('Dados Escolares Anteriores', {'fields': ('nivel_ensino_anterior', 'tipo_instituicao_origem', 'nome_instituicao_anterior', 'ano_conclusao_estudo_anterior')}),
         ],
         [
-            ('Conselho de Fiscalização Profissional', {'fields': ('categoria', 'conselho', 'numero_registro')}),
+            ('Conselho de Fiscalização Profissional', {'fields': ('categoria', 'conselho', 'numero_registro', 'lotacao')}),
             ('Dados Bancários', {'fields': ('db_banco', 'db_numero_agencia', 'db_tipo_conta', 'db_numero_conta', 'db_operacao')}),
             ('RG', {'fields': ('numero_rg', 'uf_emissao_rg', 'orgao_emissao_rg', 'data_emissao_rg')}),
             ('Título de Eleitor', {'fields': ('numero_titulo_eleitor', 'zona_titulo_eleitor', 'secao', 'data_emissao_titulo_eleitor', 'uf_emissao_titulo_eleitor')}),

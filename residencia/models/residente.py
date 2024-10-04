@@ -118,6 +118,7 @@ class Residente(LogResidenciaModel):
     ]
 
     BIOMEDICINA = 'Biomedicina'
+    EDUCACAO_FISICA = 'Educação Física'
     ENFERMAGEM = 'Enfermagem'
     FARMACIA = 'Farmácia'
     FISIOTERAPIA = 'Fisioterapia'
@@ -133,6 +134,7 @@ class Residente(LogResidenciaModel):
 
     CATEGORIAS_CHOICES = [
         [BIOMEDICINA, BIOMEDICINA],
+        [EDUCACAO_FISICA, EDUCACAO_FISICA],
         [ENFERMAGEM, ENFERMAGEM],
         [FARMACIA, FARMACIA],
         [FISIOTERAPIA, FISIOTERAPIA],
@@ -356,6 +358,7 @@ class Residente(LogResidenciaModel):
     # conselho classe
     numero_registro = models.CharFieldPlus('Número de Registro no Conselho de Fiscalização Profissional', null=True, blank=True)
     conselho = models.ForeignKeyPlus('comum.ConselhoProfissional', verbose_name='Conselho de Fiscalização Profissional', null=True, blank=True)
+    lotacao = models.CharFieldPlus('Nome da Lotação', null=True, blank=True)
 
     # rg
     numero_rg = models.CharFieldPlus(max_length=255, verbose_name='Número do RG', null=True, blank=True)

@@ -12,9 +12,11 @@ pipeline {
         }
     }
     stage('merge repo'){
+        steps{
         sh '''mv /home/jenkins/suap_fesf /var/opt/
         cd /var/opt && mv suap_fesf suap'''
     }
+  }
     stage('cria migration'){
         steps{
             sh 'cd /var/opt/suap && python3 manage.py makemigrations'

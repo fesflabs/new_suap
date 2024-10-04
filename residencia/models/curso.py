@@ -40,8 +40,8 @@ class Componente(LogResidenciaModel):
     # def get_fator_conversao_hora_aula(self):
     #     return self.ch_hora_relogio and (Decimal(self.ch_hora_aula) / Decimal(self.ch_hora_relogio)) or Decimal(0)
 
-    def get_absolute_url(self):
-        return '/residencia/componente/{:d}/'.format(self.pk)
+    # def get_absolute_url(self):
+    #     return '/residencia/componente/{:d}/'.format(self.pk)
 
     def save(self, *args, **kwargs):
         if (not self.id and not self.sigla):
@@ -69,14 +69,14 @@ class ComponenteCurricular(LogResidenciaModel):
         [TEORICO_PRATICA, 'Teórico Prática']
     ]
 
-    CH_8H_MENSAIS = 1
-    CH_4H_MENSAIS = 2
-    CH_2H_SEMANAIS = 3
-    CH_CUMPRIMENTO_CHOICES = [
-        [CH_8H_MENSAIS, '8 horas mensais'],
-        [CH_4H_MENSAIS, '4 horas mensais'],
-        [CH_2H_SEMANAIS, '2 horas semanais']
-    ]
+    # CH_8H_MENSAIS = 1
+    # CH_4H_MENSAIS = 2
+    # CH_2H_SEMANAIS = 3
+    # CH_CUMPRIMENTO_CHOICES = [
+    #     [CH_8H_MENSAIS, '8 horas mensais'],
+    #     [CH_4H_MENSAIS, '4 horas mensais'],
+    #     [CH_2H_SEMANAIS, '2 horas semanais']
+    # ]
 
     FREQ_RES_PRAT = 1
     FREQ_PRECEPTOR = 2
@@ -88,17 +88,16 @@ class ComponenteCurricular(LogResidenciaModel):
     ]
 
     # Dados gerais
+    nome_do_componente = models.CharFieldPlus('Nome do Componente', blank=False, null=True, default='')
     matriz = models.ForeignKeyPlus('residencia.Matriz')
-    componente = models.ForeignKeyPlus('residencia.Componente')
+    componente = models.ForeignKeyPlus('residencia.Componente', verbose_name='Atividades')
     periodo_letivo = models.PositiveIntegerField('Período', null=True, blank=True)
     # Unidade de apredezagem
     unidade_aprendizagem = models.ForeignKeyPlus('residencia.UnidadeAprendizagem', null=True, on_delete=models.CASCADE)
     tipo = models.PositiveIntegerField(choices=TIPO_CHOICES, default=PRATICA)
     # Carga horária
-    ch_total = models.PositiveIntegerField('Carga Horária Toral', help_text='Hora-Relógio', null=True, blank=True)
-    ch_cumprimento = models.PositiveIntegerField(
-        'Cumprimento da Carga Horária', choices=CH_CUMPRIMENTO_CHOICES, default=CH_8H_MENSAIS
-    )
+    ch_total = models.PositiveIntegerField('Carga Horária Total', help_text='Hora-Relógio', null=True, blank=True)
+    ch_cumprimento = models.PositiveIntegerField('Cumprimento da Carga Horária', null=True, blank=False)
     # Frequência
     registro_freq = models.PositiveIntegerField(
         'Tipo de Registro de Frequência', choices=FREQ_CHOICES, default=FREQ_RES_PRAT
@@ -111,10 +110,13 @@ class ComponenteCurricular(LogResidenciaModel):
     avaliacao_por_conceito = models.BooleanField(
         'Avaliação por Conceito', default=False, help_text='Marque essa opção caso a representação conceitual da nota deve ser apresentada ao invés do valor numérico.'
     )
+    is_dinamico = models.BooleanField(
+        'Descrição Dinâmica', default=False, help_text='Marque essa opção caso deseje que a descrição do componente possa ser complementada no diário.'
+    )
     ementa = models.TextField('Ementa', blank=True, null=True, default='')
 
     class Meta:
-        ordering = ('matriz', 'periodo_letivo', 'componente__descricao')
+        ordering = ('nome_do_componente', 'matriz', 'periodo_letivo', 'componente__descricao')
         unique_together = ('matriz', 'componente')
         verbose_name = 'Componente Curricular'
         verbose_name_plural = 'Componentes Curriculares'
@@ -130,7 +132,7 @@ class ComponenteCurricular(LogResidenciaModel):
             raise ValidationError('O período letivo excede a quantidade de períodos da matriz.')
 
     def __str__(self):
-        return '{} [Matriz {}]'.format(str(self.componente), self.matriz.pk)
+        return '{}'.format(str(self.nome_do_componente))
 
     def get_carga_horaria_total(self):
         return self.ch_total

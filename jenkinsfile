@@ -27,8 +27,8 @@ pipeline {
     }
     stage('reinicia serviços'){
         steps{
-            sh '''supervisorctl reload
-            supervisorctl status
+            sh ''' sudo supervisorctl reload
+            sudo supervisorctl status
              '''
         }
     }
